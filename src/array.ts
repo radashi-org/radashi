@@ -187,17 +187,15 @@ export const replace = <T>(
   newItem: T,
   match: (item: T, idx: number) => boolean
 ): T[] => {
-  for (let idx = 0; idx < list.length; idx++) {
-    const item = list[idx]
-    if (match(item, idx)) {
-      return [
-        ...list.slice(0, idx),
-        newItem,
-        ...list.slice(idx + 1, list.length)
-      ]
+  const out = array.slice()
+  for (let index = 0; index < array.length; index++) {
+    const item = array[index]
+    if (match(item, index)) {
+      out.splice(index, 1, newItem)
+      break
     }
   }
-  return [...list]
+  return out
 }
 
 /**
