@@ -439,21 +439,20 @@ export const merge = <T>(
  * the end of the list.
  */
 export const replaceOrAppend = <T>(
-  list: readonly T[],
+  array: readonly T[],
   newItem: T,
   match: (a: T, idx: number) => boolean
 ) => {
-  for (let idx = 0; idx < list.length; idx++) {
-    const item = list[idx]
-    if (match(item, idx)) {
-      return [
-        ...list.slice(0, idx),
-        newItem,
-        ...list.slice(idx + 1, list.length)
-      ]
+  const out = array.slice()
+  for (let index = 0; index < array.length; index++) {
+    const item = array[index]
+    if (match(item, index)) {
+      out.splice(index, 1, newItem)
+      return out
     }
   }
-  return [...list, newItem]
+  out.push(newItem)
+  return out
 }
 
 /**
