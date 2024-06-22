@@ -44,7 +44,7 @@ export function zip<T1, T2, T3>(
 ): [T1, T2, T3][]
 export function zip<T1, T2>(array1: T1[], array2: T2[]): [T1, T2][]
 export function zip<T>(...arrays: T[][]): T[][] {
-  if (!arrays || !arrays.length) return []
+  if (!arrays.length) return []
   return new Array(Math.max(...arrays.map(({ length }) => length)))
     .fill([])
     .map((_, idx) => arrays.map(array => array[idx]))
@@ -61,7 +61,7 @@ export function zipToObject<K extends string | number | symbol, V>(
   keys: K[],
   values: V | ((key: K, idx: number) => V) | V[]
 ): Record<K, V> {
-  if (!keys || !keys.length) {
+  if (!keys.length) {
     return {} as Record<K, V>
   }
 
@@ -115,7 +115,7 @@ export const first = <T>(
   array: readonly T[],
   defaultValue: T | null | undefined = undefined
 ) => {
-  return array?.length > 0 ? array[0] : defaultValue
+  return array.length > 0 ? array[0] : defaultValue
 }
 
 /**
@@ -125,7 +125,7 @@ export const last = <T>(
   array: readonly T[],
   defaultValue: T | null | undefined = undefined
 ) => {
-  return array?.length > 0 ? array[array.length - 1] : defaultValue
+  return array.length > 0 ? array[array.length - 1] : defaultValue
 }
 
 /**
@@ -137,7 +137,6 @@ export const sort = <T>(
   getter: (item: T) => number,
   desc = false
 ) => {
-  if (!array) return []
   const asc = (a: T, b: T) => getter(a) - getter(b)
   const dsc = (a: T, b: T) => getter(b) - getter(a)
   return array.slice().sort(desc === true ? dsc : asc)
@@ -153,17 +152,17 @@ export const alphabetical = <T>(
   getter: (item: T) => string,
   dir: 'asc' | 'desc' = 'asc'
 ) => {
-  if (!array) return []
-  const asc = (a: T, b: T) => `${getter(a)}`.localeCompare(getter(b))
-  const dsc = (a: T, b: T) => `${getter(b)}`.localeCompare(getter(a))
-  return array.slice().sort(dir === 'desc' ? dsc : asc)
+  return array.slice().sort(
+    dir === 'desc'
+      ? (a, b) => `${getter(b)}`.localeCompare(getter(a))
+      : (a, b) => `${getter(a)}`.localeCompare(getter(b))
+  )
 }
 
 export const counting = <T, TId extends string | number | symbol>(
   list: readonly T[],
   identity: (item: T) => TId
 ): Record<TId, number> => {
-  if (!list) return {} as Record<TId, number>
   return list.reduce((acc, item) => {
     const id = identity(item)
     acc[id] = (acc[id] ?? 0) + 1
@@ -177,12 +176,10 @@ export const counting = <T, TId extends string | number | symbol>(
  * the new value
  */
 export const replace = <T>(
-  list: readonly T[],
+  array: readonly T[],
   newItem: T,
   match: (item: T, idx: number) => boolean
 ): T[] => {
-  if (!list) return []
-  if (newItem === undefined) return [...list]
   for (let idx = 0; idx < list.length; idx++) {
     const item = list[idx]
     if (match(item, idx)) {
@@ -223,7 +220,6 @@ export const select = <T, K>(
   mapper: (item: T, index: number) => K,
   condition: (item: T, index: number) => boolean
 ) => {
-  if (!array) return []
   return array.reduce((acc, item, index) => {
     if (!condition(item, index)) return acc
     acc.push(mapper(item, index))
@@ -376,7 +372,6 @@ export const intersects = <T, K extends string | number | symbol>(
   listB: readonly T[],
   identity?: (t: T) => K
 ): boolean => {
-  if (!listA || !listB) return false
   const ident = identity ?? ((x: T) => x as unknown as K)
   const dictB = listB.reduce((acc, item) => {
     acc[ident(item)] = true
@@ -417,10 +412,6 @@ export const merge = <T>(
   others: readonly T[],
   matcher: (item: T) => any
 ) => {
-  if (!others && !root) return []
-  if (!others) return root
-  if (!root) return []
-  if (!matcher) return root
   return root.reduce((acc, r) => {
     const matched = others.find(o => matcher(r) === matcher(o))
     if (matched) acc.push(matched)
@@ -439,9 +430,6 @@ export const replaceOrAppend = <T>(
   newItem: T,
   match: (a: T, idx: number) => boolean
 ) => {
-  if (!list && !newItem) return []
-  if (!newItem) return [...list]
-  if (!list) return [newItem]
   for (let idx = 0; idx < list.length; idx++) {
     const item = list[idx]
     if (match(item, idx)) {
@@ -472,9 +460,6 @@ export const toggle = <T>(
     strategy?: 'prepend' | 'append'
   }
 ) => {
-  if (!list && !item) return []
-  if (!list) return [item]
-  if (!item) return [...list]
   const matcher = toKey
     ? (x: T, idx: number) => toKey(x, idx) === toKey(item, idx)
     : (x: T) => x === item
@@ -492,7 +477,7 @@ type Falsy = null | undefined | false | '' | 0 | 0n
  * only truthy values
  */
 export const sift = <T>(list: readonly (T | Falsy)[]): T[] => {
-  return (list?.filter(x => !!x) as T[]) ?? []
+  return list.filter(x => !!x) as T[]
 }
 
 /**
@@ -526,9 +511,8 @@ export const diff = <T>(
   identity: (item: T) => string | number | symbol = (t: T) =>
     t as unknown as string | number | symbol
 ): T[] => {
-  if (!root?.length && !other?.length) return []
-  if (root?.length === undefined) return [...other]
-  if (!other?.length) return [...root]
+  if (!root.length && !other.length) return []
+  if (!other.length) return [...root]
   const bKeys = other.reduce((acc, item) => {
     acc[identity(item)] = true
     return acc
