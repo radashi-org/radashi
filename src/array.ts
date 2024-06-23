@@ -424,15 +424,20 @@ export const fork = <T>(
  * first place.
  */
 export const merge = <T>(
-  root: readonly T[],
-  others: readonly T[],
+  prev: readonly T[],
+  array: readonly T[],
   matcher: (item: T) => any
 ) => {
-  return root.reduce((acc, r) => {
-    const matched = others.find(o => matcher(r) === matcher(o))
-    if (matched) acc.push(matched)
-    else acc.push(r)
-    return acc
+  if (!array.length || !prev.length) return [...prev]
+  return prev.reduce((next, prevItem) => {
+    for (const item of array) {
+      if (matcher(prevItem) === matcher(item)) {
+        next.push(item)
+        return next
+      }
+    }
+    next.push(prevItem)
+    return next
   }, [] as T[])
 }
 
