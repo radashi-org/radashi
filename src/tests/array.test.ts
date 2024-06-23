@@ -423,19 +423,11 @@ describe('array module', () => {
       expect(_.list(3)).toEqual([0, 1, 2, 3])
       expect(_.list(0, 3)).toEqual([0, 1, 2, 3])
       expect(_.list(0, 3, 'y')).toEqual(['y', 'y', 'y', 'y'])
-      expect(
-        _.list(0, 3, () => 'y')
-      ).toEqual(['y', 'y', 'y', 'y'])
-      expect(
-        _.list(0, 3, i => i)
-      ).toEqual([0, 1, 2, 3])
-      expect(
-        _.list(0, 3, i => `y${i}`)
-      ).toEqual(['y0', 'y1', 'y2', 'y3'])
+      expect(_.list(0, 3, () => 'y')).toEqual(['y', 'y', 'y', 'y'])
+      expect(_.list(0, 3, i => i)).toEqual([0, 1, 2, 3])
+      expect(_.list(0, 3, i => `y${i}`)).toEqual(['y0', 'y1', 'y2', 'y3'])
       expect(_.list(0, 3, obj)).toEqual([obj, obj, obj, obj])
-      expect(
-        _.list(0, 6, i => i, 2)
-      ).toEqual([0, 2, 4, 6])
+      expect(_.list(0, 6, i => i, 2)).toEqual([0, 2, 4, 6])
     })
     test('omits end if step does not land on it', () => {
       const result = _.list(0, 5, i => i, 2)
@@ -677,4 +669,102 @@ describe('array module', () => {
     })
   })
 
-  describe('count
+  describe('counting function', () => {
+    const people = [
+      { name: 'ray', group: 'X' },
+      { name: 'sara', group: 'X' },
+      { name: 'bo', group: 'Y' },
+      { name: 'mary', group: 'Y' }
+    ]
+    test('returns correctly counted items object', () => {
+      const result = _.counting(people, p => p.group)
+      expect(result).toEqual({
+        X: 2,
+        Y: 2
+      })
+    })
+    test('does not error on bad input', () => {
+      expect(() =>
+        _.counting(null as unknown as number[], x => x)
+      ).not.toThrow()
+      expect(() =>
+        _.counting(undefined as unknown as number[], x => x)
+      ).not.toThrow()
+    })
+  })
+
+  describe('shift function', () => {
+    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    test('should shift array right 3 positions', () => {
+      const result = _.shift(arr, 3)
+      expect(result).toEqual([7, 8, 9, 1, 2, 3, 4, 5, 6])
+    })
+    test('should shift array left 3 positions', () => {
+      const result = _.shift(arr, -3)
+      expect(result).toEqual([4, 5, 6, 7, 8, 9, 1, 2, 3])
+    })
+    test('should shift array right 6 positions', () => {
+      const result = _.shift(arr, 15)
+      expect(result).toEqual([4, 5, 6, 7, 8, 9, 1, 2, 3])
+    })
+    test('should shift array left 6 positions', () => {
+      const result = _.shift(arr, -15)
+      expect(result).toEqual([7, 8, 9, 1, 2, 3, 4, 5, 6])
+    })
+    test('should keep array as is', () => {
+      const result = _.shift(arr, 0)
+      expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    })
+    test('should keep array as is', () => {
+      const result = _.shift(arr, 9)
+      expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    })
+    test('should return empty array', () => {
+      const results = _.shift([], 0)
+      expect(results).toEqual([])
+    })
+    test('should return empty array', () => {
+      const results = _.shift([], 10)
+      expect(results).toEqual([])
+    })
+  })
+
+  describe('toggle function', () => {
+    test('should handle null input list', () => {
+      const result = _.toggle(null as unknown as any[], 'a')
+      expect(result).toEqual(['a'])
+    })
+    test('should handle null input list and null item', () => {
+      const result = _.toggle(null as unknown as any[], null)
+      expect(result).toEqual([])
+    })
+    test('should handle null item', () => {
+      const result = _.toggle(['a'], null)
+      expect(result).toEqual(['a'])
+    })
+    test('should add item when it does not exist using default matcher', () => {
+      const result = _.toggle(['a'], 'b')
+      expect(result).toEqual(['a', 'b'])
+    })
+    test('should remove item when it does exist using default matcher', () => {
+      const result = _.toggle(['a', 'b'], 'b')
+      expect(result).toEqual(['a'])
+    })
+    test('should remove item when it does exist using custom matcher', () => {
+      const result = _.toggle(
+        [{ value: 'a' }, { value: 'b' }],
+        { value: 'b' },
+        v => v.value
+      )
+      expect(result).toEqual([{ value: 'a' }])
+    })
+    test('should add item when it does not exist using custom matcher', () => {
+      const result = _.toggle([{ value: 'a' }], { value: 'b' }, v => v.value)
+      expect(result).toEqual([{ value: 'a' }, { value: 'b' }])
+    })
+    test('should prepend item when strategy is set', () => {
+      const result = _.toggle(['a'], 'b', null, { strategy: 'prepend' })
+      expect(result).toEqual(['b', 'a'])
+    })
+  })
+})
