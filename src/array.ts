@@ -142,11 +142,13 @@ export const last = <T>(
 export const sort = <T>(
   array: readonly T[],
   getter: (item: T) => number,
-  desc = false
+  dir: 'asc' | 'desc' = 'asc'
 ) => {
-  const asc = (a: T, b: T) => getter(a) - getter(b)
-  const dsc = (a: T, b: T) => getter(b) - getter(a)
-  return array.slice().sort(desc === true ? dsc : asc)
+  return array.slice().sort(
+    dir === 'desc'
+      ? (a, b) => getter(b) - getter(a)
+      : (a, b) => getter(a) - getter(b)
+  )
 }
 
 /**
