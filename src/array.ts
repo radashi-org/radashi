@@ -163,8 +163,8 @@ export const alphabetical = <T>(
 ) => {
   return array.slice().sort(
     direction === 'desc'
-      ? (a, b) => `${getter(b)}`.localeCompare(getter(a))
-      : (a, b) => `${getter(a)}`.localeCompare(getter(b))
+      ? (a, b) => getter(b).localeCompare(getter(a))
+      : (a, b) => getter(a).localeCompare(getter(b))
   )
 }
 
