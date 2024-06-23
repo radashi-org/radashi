@@ -23,4 +23,24 @@ describe('unique function', () => {
     expect(c.id).toBe('c')
     expect(c.word).toBe('yolo')
   })
+  test('correctly handles non string, number or symbol values', () => {
+    const list: any[] = [
+      null,
+      null,
+      true,
+      true,
+      'true',
+      false,
+      { id: 'a', word: 'hello' },
+      { id: 'a', word: 'hello' }
+    ]
+    const result = _.unique(list, val => (val && val.id) ?? val)
+    expect(result).toEqual([
+      null,
+      true,
+      'true',
+      false,
+      { id: 'a', word: 'hello' }
+    ])
+  })
 })
