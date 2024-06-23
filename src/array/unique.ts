@@ -3,15 +3,17 @@
  * Accepts an optional identity function to convert each item in the
  * list to a comparable identity value
  */
-export const unique = <T, K extends string | number | symbol>(
+export const unique = <T, K = T>(
   array: readonly T[],
   toKey?: (item: T) => K
 ): T[] => {
-  const valueMap = array.reduce((acc, item) => {
-    const key = toKey ? toKey(item) : (item as any as string | number | symbol)
-    if (acc[key]) return acc
-    acc[key] = item
+  const known = new Set<T | K>()
+  return array.reduce((acc, item) => {
+    const key = toKey ? toKey(item) : item
+    if (!known.has(key)) {
+      known.add(key)
+      acc.push(item)
+    }
     return acc
-  }, {} as Record<string | number | symbol, T>)
-  return Object.values(valueMap)
+  }, [] as T[])
 }
