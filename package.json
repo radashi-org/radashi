@@ -1,6 +1,6 @@
 {
-  "name": "radash",
-  "version": "12.1.0",
+  "name": "radashi",
+  "version": "13.0.0",
   "description": "Functional utility library - modern, simple, typed, powerful",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -15,9 +15,9 @@
     "dist"
   ],
   "repository": {
-    "url": "https://github.com/rayepps/radash"
+    "url": "https://github.com/aleclarson/radashi"
   },
-  "author": "rayepps",
+  "author": "Alec Larson",
   "private": false,
   "license": "MIT",
   "scripts": {
