@@ -2,6 +2,10 @@ import { objectify } from './array'
 import { toInt } from './number'
 import { isArray, isObject, isPrimitive } from './typed'
 
+const hasOwnProperty = /* @__PURE__ */ Function.prototype.call.bind(
+  Object.prototype.hasOwnProperty
+)
+
 type LowercasedKeys<T extends Record<string, any>> = {
   [P in keyof T & string as Lowercase<P>]: T[P]
 }
@@ -176,7 +180,7 @@ export const pick = <T extends object, TKeys extends keyof T>(
 ): Pick<T, TKeys> => {
   if (!obj) return {} as Pick<T, TKeys>
   return keys.reduce((acc, key) => {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) acc[key] = obj[key]
+    if (hasOwnProperty(obj, key)) acc[key] = obj[key]
     return acc
   }, {} as Pick<T, TKeys>)
 }
@@ -274,20 +278,15 @@ export const assign = <X extends Record<string | symbol | number, any>>(
   override: X
 ): X => {
   if (!initial || !override) return initial ?? override ?? {}
-
-  return Object.entries({ ...initial, ...override }).reduce(
-    (acc, [key, value]) => {
-      return {
-        ...acc,
-        [key]: (() => {
-          if (isObject(initial[key])) return assign(initial[key], value)
-          // if (isArray(value)) return value.map(x => assign)
-          return value
-        })()
-      }
-    },
-    {} as X
-  )
+  const merged = { ...initial }
+  for (const key in override) {
+    if (hasOwnProperty(override, key)) {
+      merged[key] = isObject(initial[key])
+        ? assign(initial[key], override[key])
+        : override[key]
+    }
+  }
+  return merged
 }
 
 /**
