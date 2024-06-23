@@ -7,13 +7,16 @@ export const unique = <T, K = T>(
   array: readonly T[],
   toKey?: (item: T) => K
 ): T[] => {
-  const known = new Set<T | K>()
-  return array.reduce((acc, item) => {
-    const key = toKey ? toKey(item) : item
-    if (!known.has(key)) {
-      known.add(key)
-      acc.push(item)
-    }
-    return acc
-  }, [] as T[])
+  if (toKey) {
+    const keys = new Set<K>()
+    return array.reduce((acc, item) => {
+      const key = toKey(item)
+      if (!keys.has(key)) {
+        keys.add(key)
+        acc.push(item)
+      }
+      return acc
+    }, [] as T[])
+  }
+  return [...new Set(array)]
 }
