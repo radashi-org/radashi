@@ -2,11 +2,9 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    globals: true
-  },
-  resolve: {
-    alias: {
-      tests: './src/tests'
+    globals: true,
+    coverage: {
+      thresholds: { 100: true }
     }
   }
 })

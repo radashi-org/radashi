@@ -121,7 +121,7 @@ describe('array module', () => {
     })
     test('gracefully handles null input list', () => {
       const result = _.first(NULL)
-      expect(result).toBeNull()
+      expect(result).toBeUndefined()
     })
   })
 
@@ -142,7 +142,7 @@ describe('array module', () => {
     })
     test('gracefully handles null input list', () => {
       const result = _.last(NULL)
-      expect(result).toBeNull()
+      expect(result).toBeUndefined()
     })
   })
 

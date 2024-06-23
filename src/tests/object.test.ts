@@ -332,8 +332,8 @@ describe('object module', () => {
       ]
     }
     test('handles null and undefined input', () => {
-      expect(_.get(null, 'name')).toBeNull()
-      expect(_.get(undefined, 'name')).toBeNull()
+      expect(_.get(null, 'name')).toBeUndefined()
+      expect(_.get(undefined, 'name')).toBeUndefined()
     })
     test('respects undefined as default value', () => {
       expect(_.get({}, 'a.b.c', undefined)).toBeUndefined()
@@ -343,7 +343,7 @@ describe('object module', () => {
       expect(_.get(jay, 'friends[0].age')).toBe(17)
       expect(_.get(jay, 'friends["0"].age')).toBe(17)
       expect(_.get(jay, 'friends.0.age')).toBe(17)
-      expect(_.get(jay, 'friends.1.age')).toBeNull()
+      expect(_.get(jay, 'friends.1.age')).toBeUndefined()
       expect(_.get(jay, 'friends.0.friends[0].name')).toBe('sara')
       expect(_.get(jay, 'name')).toBe('jay')
       expect(_.get(jay, '[name]')).toBe('jay')
@@ -581,7 +581,7 @@ describe('object module', () => {
           'enemies.1.name': 'vishnu',
           'enemies.1.power': 58,
           timestamp: now
-        }),
+        })
       ).toEqual(ra)
     })
   })

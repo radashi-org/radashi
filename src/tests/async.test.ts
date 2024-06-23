@@ -1,9 +1,11 @@
-import { expect } from 'vitest'
+import { expect, vi } from 'vitest'
 import * as _ from '..'
 import { AggregateError } from '../async'
 
 describe('async module', () => {
-  beforeEach(() => jest.useFakeTimers({ advanceTimers: true }))
+  beforeEach(() => {
+    vi.useFakeTimers({ shouldAdvanceTime: true })
+  })
 
   describe('asyncReduce function', () => {
     test('returns result of reducer', async () => {

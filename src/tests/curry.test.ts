@@ -80,9 +80,9 @@ describe('curry module', () => {
 
       expect(_.compose(useZero, objectize, returnArg('num'))()).toBe(0)
 
-      expect(
-        _.compose(useZero, objectize, increment, returnArg('num'))()
-      ).toBe(1)
+      expect(_.compose(useZero, objectize, increment, returnArg('num'))()).toBe(
+        1
+      )
 
       expect(
         _.compose(useZero, objectize, increment, increment, returnArg('num'))()
@@ -301,7 +301,7 @@ describe('curry module', () => {
 
   describe('debounce function', () => {
     let func: DebounceFunction<any>
-    const mockFunc = jest.fn()
+    const mockFunc = vi.fn()
     const runFunc3Times = () => {
       func()
       func()
@@ -313,7 +313,7 @@ describe('curry module', () => {
     })
 
     afterEach(() => {
-      jest.clearAllMocks()
+      vi.clearAllMocks()
     })
 
     test('only executes once when called rapidly', async () => {
