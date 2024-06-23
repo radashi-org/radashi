@@ -142,10 +142,10 @@ export const last = <T>(
 export const sort = <T>(
   array: readonly T[],
   getter: (item: T) => number,
-  dir: 'asc' | 'desc' = 'asc'
+  direction: 'asc' | 'desc' = 'asc'
 ) => {
   return array.slice().sort(
-    dir === 'desc'
+    direction === 'desc'
       ? (a, b) => getter(b) - getter(a)
       : (a, b) => getter(a) - getter(b)
   )
@@ -159,10 +159,10 @@ export const sort = <T>(
 export const alphabetical = <T>(
   array: readonly T[],
   getter: (item: T) => string,
-  dir: 'asc' | 'desc' = 'asc'
+  direction: 'asc' | 'desc' = 'asc'
 ) => {
   return array.slice().sort(
-    dir === 'desc'
+    direction === 'desc'
       ? (a, b) => `${getter(b)}`.localeCompare(getter(a))
       : (a, b) => `${getter(a)}`.localeCompare(getter(b))
   )
