@@ -426,17 +426,13 @@ export const fork = <T>(
 export const merge = <T>(
   prev: readonly T[],
   array: readonly T[],
-  matcher: (item: T) => any
+  toKey: (item: T) => any
 ) => {
   if (!array.length || !prev.length) return [...prev]
+  const keys = array.map(toKey)
   return prev.reduce((next, prevItem) => {
-    for (const item of array) {
-      if (matcher(prevItem) === matcher(item)) {
-        next.push(item)
-        return next
-      }
-    }
-    next.push(prevItem)
+    const index = keys.indexOf(toKey(prevItem))
+    next.push(index > -1 ? array[index] : prevItem)
     return next
   }, [] as T[])
 }
