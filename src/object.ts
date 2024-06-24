@@ -1,6 +1,6 @@
 import { objectify } from './array'
 import { toInt } from './number'
-import { isArray, isObject, isPrimitive } from './typed'
+import { isArray, isIntString, isObject, isPrimitive } from './typed'
 
 type LowercasedKeys<T extends Record<string, any>> = {
   [P in keyof T & string as Lowercase<P>]: T[P]
@@ -245,28 +245,22 @@ export const set = <T extends object, K>(
 ): T => {
   if (!initial) return {} as T
   if (!path || value === undefined) return initial
-  const segments = path.split(/[\.\[\]]/g).filter(x => !!x.trim())
-  const _set = (node: any) => {
-    if (segments.length > 1) {
-      const key = segments.shift() as string
-      node[key] =
-        node[key] === undefined
-          ? Number.isNaN(Number(segments[0]))
-            ? {}
-            : []
-          : node[key]
 
-      _set(node[key])
-    } else {
-      node[segments[0]] = value
-    }
-  }
   // NOTE: One day, when structuredClone has more
   // compatability use it to clone the value
   // https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
-  const cloned = clone(initial)
-  _set(cloned)
-  return cloned
+  const root: any = clone(initial)
+  const keys = path.match(/[^.[\]]+/g)
+  if (keys)
+    keys.reduce(
+      (object, key, i) =>
+        i < keys.length - 1
+          ? (object[key] ??= isIntString(keys[i + 1]) ? [] : {})
+          : (object[key] = value),
+      root
+    )
+
+  return root
 }
 
 /**
