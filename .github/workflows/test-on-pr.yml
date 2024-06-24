@@ -24,6 +24,7 @@ jobs:
       - run: pnpm test
   lint:
     name: Lint
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,6 +38,7 @@ jobs:
       - run: pnpm lint
   validate-pr-title:
     name: Validate PR Title
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
