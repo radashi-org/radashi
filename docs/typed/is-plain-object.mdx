@@ -1,0 +1,20 @@
+---
+title: isPlainObject
+description: 'Determine if a value is a plain object'
+group: Typed
+---
+
+## Basic usage
+
+Pass in a value and get a boolean telling you if the value is a plain object.
+
+```ts
+import { isPlainObject } from 'radash'
+
+isPlainObject({}) // => true
+isPlainObject(Object.create(null)) // => true
+
+isPlainObject([]) // => false
+isPlainObject(null) // => false
+isPlainObject(new Date()) // => false
+```
