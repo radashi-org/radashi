@@ -12,7 +12,12 @@
   A fork of the renowned [`radash`](https://github.com/sodiray/radash) library by Ray Epps [@sodiray](https://github.com/sodiray).
 
 - **Why does this exist?**  
-  This fork aims to be a more consistently maintained version of the library, with bug fixes and improvements. Pull requests are encouraged, but please keep them small and focused. Sweeping changes are discouraged and won't be merged.
+  This fork aims to be a more consistently maintained version of the library, with bug fixes and improvements.
+
+- **Are my contributions welcome?**  
+  Yes! Pull requests are encouraged, but please keep them small and focused. Sweeping changes are discouraged and won't be merged (unless the rationale's been thoroughly discussed).
+
+  Please review [The ethos of Radashi](https://github.com/orgs/radashi-org/discussions/20) before submitting a pull request.
 
 - **Can I help you maintain this?**  
   Yes! I'll add you as a contributor to the repository. You can review pull requests and even merge them. You can help with closing issues, too. Committing directly to the main branch is a privilege you can earn, as is publishing versions to NPM. [Apply here.](https://github.com/orgs/radashi-org/discussions/4)
