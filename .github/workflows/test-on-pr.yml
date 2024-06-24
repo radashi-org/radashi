@@ -52,4 +52,4 @@ jobs:
         with:
           node-version: '22.x'
           cache: pnpm
-      - uses: kevintyj/prlint@v1
+      - uses: kevintyj/prlint@v1.1.0
