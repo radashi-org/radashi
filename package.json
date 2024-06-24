@@ -51,69 +51,13 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./array": {
+    "./*": {
       "import": {
-        "types": "./dist/array.d.mts",
-        "default": "./dist/array.mjs"
+        "types": "./dist/*.d.mts",
+        "default": "./dist/*.mjs"
       },
-      "types": "./dist/array.d.ts",
-      "default": "./dist/array.js"
-    },
-    "./async": {
-      "import": {
-        "types": "./dist/async.d.mts",
-        "default": "./dist/async.mjs"
-      },
-      "types": "./dist/async.d.ts",
-      "default": "./dist/async.js"
-    },
-    "./curry": {
-      "import": {
-        "types": "./dist/curry.d.mts",
-        "default": "./dist/curry.mjs"
-      },
-      "types": "./dist/curry.d.ts",
-      "default": "./dist/curry.js"
-    },
-    "./object": {
-      "import": {
-        "types": "./dist/object.d.mts",
-        "default": "./dist/object.mjs"
-      },
-      "types": "./dist/object.d.ts",
-      "default": "./dist/object.js"
-    },
-    "./random": {
-      "import": {
-        "types": "./dist/random.d.mts",
-        "default": "./dist/random.mjs"
-      },
-      "types": "./dist/random.d.ts",
-      "default": "./dist/random.js"
-    },
-    "./series": {
-      "import": {
-        "types": "./dist/series.d.mts",
-        "default": "./dist/series.mjs"
-      },
-      "types": "./dist/series.d.ts",
-      "default": "./dist/series.js"
-    },
-    "./string": {
-      "import": {
-        "types": "./dist/string.d.mts",
-        "default": "./dist/string.mjs"
-      },
-      "types": "./dist/string.d.ts",
-      "default": "./dist/string.js"
-    },
-    "./typed": {
-      "import": {
-        "types": "./dist/typed.d.mts",
-        "default": "./dist/typed.mjs"
-      },
-      "types": "./dist/typed.d.ts",
-      "default": "./dist/typed.js"
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
     }
   }
 }
