@@ -1,10 +1,13 @@
 name: Test Main Branch
+
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
       - 'src/**/*'
       - 'package.json'
+
 jobs:
   test:
     runs-on: ubuntu-latest
