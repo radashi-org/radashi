@@ -16,7 +16,8 @@
     "format": "prettier --write -u src docs *.ts *.json",
     "test": "vitest run --coverage",
     "docs:install": "pnpm add next@12.3.4 chiller@1.0.0-rc.30 -D",
-    "docs:build": "chiller build --ci"
+    "docs:build": "chiller build --ci",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.2.2",
