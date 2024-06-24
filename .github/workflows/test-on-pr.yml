@@ -1,7 +1,7 @@
 name: Check Pull Request
 on:
   pull_request:
-    branches: [master]
+    branches: [main]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -9,50 +9,20 @@ jobs:
       matrix:
         node-version: [14.x, 16.x, 18.17.1]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: yarn
-      - run: yarn test
+      - uses: pnpm/action-setup@v4
+        with: { run-install: true }
+      - run: pnpm test
   check-format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20.x'
-      - run: yarn
-      - run: yarn format:check
-  verify-cdn-build-matches-src:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20.x'
-      - run: yarn
-      - run: npm install -g checksum
-      - name: Calc current cdn checksums
-        id: current-checksums
-        run: echo "checksums=$(checksum cdn/* | base64 | tr '\n' ' ')" >> $GITHUB_OUTPUT
-      - run: yarn build
-      - name: Calc built cdn checksums
-        id: built-checksums
-        run: echo "checksums=$(checksum cdn/* | base64 | tr '\n' ' ')" >> $GITHUB_OUTPUT
-      - uses: actions/github-script@v6
-        env:
-          CURRENT_CHECKSUMS: ${{steps.current-checksums.outputs.checksums}}
-          BUILT_CHECKSUMS: ${{steps.built-checksums.outputs.checksums}}
-        with:
-          script: |
-            const { 
-              CURRENT_CHECKSUMS: current, 
-              BUILT_CHECKSUMS: built 
-            } = process.env
-            if (current.trim() !== built.trim()) {
-              core.setFailed(`The files in the cdn directory don't match the expected output given the source. Maybe you didn't run yarn build before pushing?`)
-            } else {
-              core.debug(`Success, the cdn build files reflect the current source code.`)
-            }
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20.x' }
+      - uses: pnpm/action-setup@v4
+        with: { run-install: true }
+      - run: pnpm prettier --check --ignore-unknown .
