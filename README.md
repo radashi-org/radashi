@@ -73,7 +73,7 @@ npm install radashi
 
 Contributions are welcome and appreciated! Check out the contributing guide before you dive in:
 
-<a href="https://github.com/radashi-org/radashi/raw/main/.github/contributing.md">
+<a href="https://github.com/radashi-org/radashi/blob/main/.github/contributing.md">
   <img src="https://github.com/radashi-org/radashi/raw/main/img/contributing-button.png" alt="Contributing to Radashi" width="250px" />
 </a>
 
