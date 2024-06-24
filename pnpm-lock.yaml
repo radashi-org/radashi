@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@commitlint/config-conventional':
+        specifier: ^19.2.2
+        version: 19.2.2
       '@vitest/coverage-v8':
         specifier: ^1.6.0
         version: 1.6.0(vitest@1.6.0(@types/node@20.14.8))
@@ -55,6 +58,14 @@ packages:
 
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
+
+  '@commitlint/config-conventional@19.2.2':
+    resolution: {integrity: sha512-mLXjsxUVLYEGgzbxbxicGPggDuyWNkf25Ht23owXIH+zV2pv1eJuzLK3t1gDY5Gp6pxdE60jZnWUY5cvgL3ufw==}
+    engines: {node: '>=v18'}
+
+  '@commitlint/types@19.0.3':
+    resolution: {integrity: sha512-tpyc+7i6bPG9mvaBbtKUeghfyZSDgWquIDfMgqYtTbmZ9Y9VzEm2je9EYcQ0aoz5o7NvGS+rcDec93yO08MHYA==}
+    engines: {node: '>=v18'}
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -323,6 +334,9 @@ packages:
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
+  '@types/conventional-commits-parser@5.0.0':
+    resolution: {integrity: sha512-loB369iXNmAZglwWATL+WRe+CRMmmBPtpolYzIebFaX4YA3x+BEfLqhUAV9WanycKI3TG1IMr5bMJDajDKLlUQ==}
+
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
@@ -385,6 +399,9 @@ packages:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
     engines: {node: '>= 8'}
 
+  array-ify@1.0.0:
+    resolution: {integrity: sha512-c5AMf34bKdvPhQ7tBGhqkgKNUzMr4WUs+WDtC2ZUGOUncbxKMTvqxYctiseW3+L4bA8ec+GcZ6/A/FW4m8ukng==}
+
   array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
     engines: {node: '>=8'}
@@ -423,6 +440,10 @@ packages:
     resolution: {integrity: sha512-13sOfMv2+DWduEU+/xbun3LScLoqN17nBeTLUsmDfKdoiC1fr0n9PU4guu4AhRcOVFk/sW8LyZWHuhWtQZiF+g==}
     engines: {node: '>=4'}
 
+  chalk@5.3.0:
+    resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
   check-error@1.0.3:
     resolution: {integrity: sha512-iKEoDYaRmd1mxM90a2OEfWhjsjPpYPuQ+lMYsoxB126+t8fw7ySEO48nmDg5COTjxDI65/Y2OWpeEHk3ZOe8zg==}
 
@@ -441,11 +462,18 @@ packages:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
 
+  compare-func@2.0.0:
+    resolution: {integrity: sha512-zHig5N+tPWARooBnb0Zx1MFcdfpyJrfTJ3Y5L+IFvUm8rM74hHz66z0gw0x4tijh5CorKkKUCnW82R2vmpeCRA==}
+
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   confbox@0.1.7:
     resolution: {integrity: sha512-uJcB/FKZtBMCJpK8MQji6bJHgu1tixKPxRLeGkNzBoOZzpnZUJm0jm2/sBDWcuBx1dYgxV4JU+g5hmNxCyAmdA==}
+
+  conventional-changelog-conventionalcommits@7.0.2:
+    resolution: {integrity: sha512-NKXYmMR/Hr1DevQegFB4MwfM5Vv0m4UIxKZTTYuD98lpTknaZlSRrDOG4X7wIXpGkfsYxZTghUN+Qq+T0YQI7w==}
+    engines: {node: '>=16'}
 
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -470,6 +498,10 @@ packages:
 
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
+    engines: {node: '>=8'}
+
+  dot-prop@5.3.0:
+    resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
 
   eastasianwidth@0.2.0:
@@ -593,6 +625,10 @@ packages:
   is-number@7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
+
+  is-obj@2.0.0:
+    resolution: {integrity: sha512-drqDG3cbczxxEJRoOXcOjtdp1J/lyp1mNn0xaznRs8+muBhgQcrnbspox5X5fOw0HnMnbfDzvnEMEtqDEJEo8w==}
+    engines: {node: '>=8'}
 
   is-stream@2.0.1:
     resolution: {integrity: sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==}
@@ -1121,6 +1157,16 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
+  '@commitlint/config-conventional@19.2.2':
+    dependencies:
+      '@commitlint/types': 19.0.3
+      conventional-changelog-conventionalcommits: 7.0.2
+
+  '@commitlint/types@19.0.3':
+    dependencies:
+      '@types/conventional-commits-parser': 5.0.0
+      chalk: 5.3.0
+
   '@esbuild/aix-ppc64@0.21.5':
     optional: true
 
@@ -1287,12 +1333,15 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
+  '@types/conventional-commits-parser@5.0.0':
+    dependencies:
+      '@types/node': 20.14.8
+
   '@types/estree@1.0.5': {}
 
   '@types/node@20.14.8':
     dependencies:
       undici-types: 5.26.5
-    optional: true
 
   '@vitest/coverage-v8@1.6.0(vitest@1.6.0(@types/node@20.14.8))':
     dependencies:
@@ -1367,6 +1416,8 @@ snapshots:
       normalize-path: 3.0.0
       picomatch: 2.3.1
 
+  array-ify@1.0.0: {}
+
   array-union@2.1.0: {}
 
   assertion-error@1.1.0: {}
@@ -1405,6 +1456,8 @@ snapshots:
       pathval: 1.1.1
       type-detect: 4.0.8
 
+  chalk@5.3.0: {}
+
   check-error@1.0.3:
     dependencies:
       get-func-name: 2.0.2
@@ -1429,9 +1482,18 @@ snapshots:
 
   commander@4.1.1: {}
 
+  compare-func@2.0.0:
+    dependencies:
+      array-ify: 1.0.0
+      dot-prop: 5.3.0
+
   concat-map@0.0.1: {}
 
   confbox@0.1.7: {}
+
+  conventional-changelog-conventionalcommits@7.0.2:
+    dependencies:
+      compare-func: 2.0.0
 
   cross-spawn@7.0.3:
     dependencies:
@@ -1452,6 +1514,10 @@ snapshots:
   dir-glob@3.0.1:
     dependencies:
       path-type: 4.0.0
+
+  dot-prop@5.3.0:
+    dependencies:
+      is-obj: 2.0.0
 
   eastasianwidth@0.2.0: {}
 
@@ -1606,6 +1672,8 @@ snapshots:
       is-extglob: 2.1.1
 
   is-number@7.0.0: {}
+
+  is-obj@2.0.0: {}
 
   is-stream@2.0.1: {}
 
@@ -1973,8 +2041,7 @@ snapshots:
 
   ufo@1.5.3: {}
 
-  undici-types@5.26.5:
-    optional: true
+  undici-types@5.26.5: {}
 
   vite-node@1.6.0(@types/node@20.14.8):
     dependencies:
