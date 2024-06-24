@@ -2,14 +2,13 @@ import { expect } from 'vitest'
 import * as _ from '..'
 
 describe('series module', () => {
-  type Weekday = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday'
-  const sut = _.series<Weekday>([
+  const sut = _.series([
     'monday',
     'tuesday',
     'wednesday',
     'thursday',
     'friday'
-  ])
+  ] as const)
 
   describe('min function', () => {
     test('correctly returns min', () => {
