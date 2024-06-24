@@ -1,5 +1,3 @@
-const toString = /* @__PURE__ */ Object.prototype.toString
-
 export const isSymbol = (value: any): value is symbol => {
   return !!value && value.constructor === Symbol
 }
@@ -10,12 +8,20 @@ export const isObject = (value: any): value is object => {
   return !!value && value.constructor === Object
 }
 
+// Credit to https://github.com/sindresorhus/is-plain-obj/blob/97f38e8836f86a642cce98fc6ab3058bc36df181/index.js
 export const isPlainObject = (value: any): value is object => {
-  if (toString.call(value) !== '[object Object]') {
+  if (typeof value !== 'object' || value === null) {
     return false
   }
-  const proto = Object.getPrototypeOf(value)
-  return proto === null || proto === Object.getPrototypeOf({})
+
+  const prototype = Object.getPrototypeOf(value)
+  return (
+    (prototype === null ||
+      prototype === Object.prototype ||
+      Object.getPrototypeOf(prototype) === null) &&
+    !(Symbol.toStringTag in value) &&
+    !(Symbol.iterator in value)
+  )
 }
 
 /**
@@ -65,7 +71,7 @@ export const isNumber = (value: any): value is number => {
 }
 
 export const isDate = (value: any): value is Date => {
-  return toString.call(value) === '[object Date]'
+  return Object.prototype.toString.call(value) === '[object Date]'
 }
 
 /**
