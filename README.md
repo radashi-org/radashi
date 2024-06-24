@@ -1,4 +1,4 @@
-# radashi
+# Radashi
 
 :loud_sound: `/raw-dash-ee/`
 
