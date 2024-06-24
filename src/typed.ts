@@ -39,7 +39,7 @@ export const isInt = (value: any): value is number => {
 export const isIntString = (value: any): value is string => {
   if (!isString(value)) return false
   const num = +value
-  return num === Math.floor(num) && `${num}` === value
+  return Number.isInteger(num) && `${num}` === value
 }
 
 export const isFloat = (value: any): value is number => {
