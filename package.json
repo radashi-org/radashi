@@ -4,6 +4,9 @@
   "description": "Functional utility library - modern, simple, typed, powerful",
   "sideEffects": false,
   "author": "Alec Larson",
+  "contributors": [
+    "Ray Epps"
+  ],
   "license": "MIT",
   "scripts": {
     "dev": "tsup --clean --watch --sourcemap",
