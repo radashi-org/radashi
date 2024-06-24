@@ -7,6 +7,7 @@
   "contributors": [
     "Ray Epps"
   ],
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "dev": "tsup --clean --watch --sourcemap",
@@ -18,6 +19,7 @@
     "docs:build": "chiller build --ci"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^19.2.2",
     "@vitest/coverage-v8": "^1.6.0",
     "fast-glob": "^3.3.2",
     "prettier": "^2.7.1",
