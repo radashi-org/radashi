@@ -130,25 +130,27 @@ export const clone = <T>(obj: T): T => {
   if (isPrimitive(obj)) {
     return obj
   }
-
   // Binding a function to an empty object creates a
   // copy function.
   if (typeof obj === 'function') {
     return obj.bind({})
   }
+  return cloneObject(obj as object) as T
+}
 
-  // Access the constructor and create a new object.
-  // This method can create an array as well.
-  const newObj = new ((obj as object).constructor as { new (): T })()
+// Split out of `clone` for performance and brevity
+function cloneObject<T extends object>(object: T): T {
+  const proto = Object.getPrototypeOf(object)
+  const clone =
+    typeof proto?.constructor === 'function'
+      ? new proto.constructor()
+      : Object.create(proto)
 
-  // Assign the props.
-  Object.getOwnPropertyNames(obj).forEach(prop => {
-    // Bypass type checking since the primitive cases
-    // are already checked in the beginning
-    ;(newObj as any)[prop] = (obj as any)[prop]
+  Object.getOwnPropertyNames(object).forEach(key => {
+    clone[key] = object[key as keyof T]
   })
 
-  return newObj
+  return clone
 }
 
 /**
@@ -251,7 +253,7 @@ export const set = <T extends object, K>(
   // NOTE: One day, when structuredClone has more
   // compatability use it to clone the value
   // https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
-  const root: any = clone(initial)
+  const root: any = cloneObject(initial)
   const keys = path.match(/[^.[\]]+/g)
   if (keys)
     keys.reduce(
