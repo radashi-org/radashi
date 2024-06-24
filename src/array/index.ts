@@ -1,4 +1,4 @@
-import { isArray, isFunction } from './typed'
+import { isArray, isFunction } from '../typed'
 
 /**
  * Sorts an array of items into groups. The return value is a map where the keys are
