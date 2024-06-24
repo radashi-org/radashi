@@ -11,8 +11,23 @@ on:
       - '!vitest.config.ts'
 
 jobs:
-  test:
+  lint:
     if: startsWith(github.event.head_commit.message, 'chore') == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: pnpm
+      - name: Lint Commit Messages
+        run: pnpm dlx commitlint --from $(git describe --tags --abbrev=0)
+      - run: pnpm lint
+  test:
+    needs: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -27,10 +42,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
-      - name: Run Type Checker
-        run: pnpm tsc
-      - name: Run Tests
-        run: pnpm test
+      - run: pnpm test
   publish-beta:
     needs: test
     runs-on: ubuntu-latest
