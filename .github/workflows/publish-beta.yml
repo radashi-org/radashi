@@ -1,0 +1,54 @@
+name: Publish Beta
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'package.json'
+      - '**/*.ts'
+      - '!**/*.test.ts'
+      - '!vitest.config.ts'
+
+jobs:
+  test:
+    if: startsWith(github.event.head_commit.message, 'chore') == false
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.17.1]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+      - name: Run Type Checker
+        run: pnpm tsc
+      - name: Run Tests
+        run: pnpm test
+  publish-beta:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: pnpm
+      - run: pnpm install -g happy-conventional-commit@0.1.0
+      - name: Set Beta Version
+        run: |
+          VERSION=$(happy-next-version)-beta.$(git rev-parse --short HEAD)
+          npm version $VERSION --no-git-tag-version
+      - name: Publish Beta to NPM
+        run: npm publish --tag beta
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
