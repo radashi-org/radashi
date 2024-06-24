@@ -96,6 +96,7 @@ export {
   isIntString,
   isNumber,
   isObject,
+  isPlainObject,
   isPrimitive,
   isPromise,
   isString,
