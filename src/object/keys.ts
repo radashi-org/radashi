@@ -9,16 +9,24 @@ import { isArray, isPlainObject } from 'radashi'
  */
 export const keys = <TValue extends object>(value: TValue): string[] => {
   if (!value) return []
-  const getKeys = (nested: any, paths: string[]): string[] => {
-    if (isPlainObject(nested)) {
-      return Object.entries(nested).flatMap(([k, v]) =>
-        getKeys(v, [...paths, k])
-      )
+  const keys: string[] = []
+  const keyPath: (string | number)[] = []
+  const recurse = (value: any) => {
+    if (isPlainObject(value)) {
+      for (const [k, v] of Object.entries(value)) {
+        keyPath.push(k)
+        recurse(v)
+        keyPath.pop()
+      }
+    } else if (isArray(value)) {
+      value.forEach((v, i) => {
+        keyPath.push(i)
+        recurse(v)
+        keyPath.pop()
+      })
     }
-    if (isArray(nested)) {
-      return nested.flatMap((item, i) => getKeys(item, [...paths, `${i}`]))
-    }
-    return [paths.join('.')]
+    keys.push(keyPath.join('.'))
   }
-  return getKeys(value, [])
+  recurse(value)
+  return keys
 }
