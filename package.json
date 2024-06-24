@@ -3,14 +3,7 @@
   "version": "12.1.0",
   "description": "Functional utility library - modern, simple, typed, powerful",
   "sideEffects": false,
-  "files": [
-    "dist"
-  ],
-  "repository": {
-    "url": "https://github.com/aleclarson/radashi"
-  },
   "author": "Alec Larson",
-  "private": false,
   "license": "MIT",
   "scripts": {
     "dev": "tsup --clean --watch --sourcemap",
@@ -31,6 +24,12 @@
   },
   "engines": {
     "node": ">=14.18.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "url": "https://github.com/aleclarson/radashi"
   },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
