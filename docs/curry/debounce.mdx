@@ -14,7 +14,7 @@ in invoking the source reset the delay, pushing off the next invocation.
 ```ts
 import { debounce } from 'radash'
 
-const makeSearchRequest = (event) => {
+const makeSearchRequest = event => {
   api.movies.search(event.target.value)
 }
 
@@ -68,4 +68,3 @@ const debounced = debounce({ delay: 100 }, api.feed.refresh)
 
 debounced.isPending()
 ```
-

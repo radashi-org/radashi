@@ -170,7 +170,9 @@ describe('string module', () => {
       expect(_.title('va_va_boom')).toBe('Va Va Boom')
       expect(_.title('root-hook   -  ok!')).toBe('Root Hook Ok!')
       expect(_.title('queryItems')).toBe('Query Items')
-      expect(_.title('queryAllItems-in_Database')).toBe('Query All Items In Database')
+      expect(_.title('queryAllItems-in_Database')).toBe(
+        'Query All Items In Database'
+      )
     })
     test('returns empty string for bad input', () => {
       expect(_.title(null)).toBe('')

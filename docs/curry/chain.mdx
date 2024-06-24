@@ -7,6 +7,7 @@ description: Create a chain of function to run in order
 ## Basic usage
 
 Chaining functions will cause them to execute one after another, passing the output from each function as the input to the next, returning the final output at the end of the chain.
+
 ```ts
 import { chain } from 'radash'
 
@@ -22,12 +23,13 @@ chained(7) // => 24
 ```
 
 ### Example
+
 ```ts
 import { chain } from 'radash'
 
-type Deity = { 
+type Deity = {
   name: string
-  rank: number 
+  rank: number
 }
 
 const gods: Deity[] = [
@@ -39,11 +41,8 @@ const gods: Deity[] = [
 const getName = (god: Deity) => item.name
 const upperCase = (text: string) => text.toUpperCase() as Uppercase<string>
 
-const getUpperName = chain(
-  getName, 
-  upperCase
-)
+const getUpperName = chain(getName, upperCase)
 
-getUpperName(gods[0])       // => 'RA'
-gods.map(getUpperName)      // => ['RA', 'ZEUS', 'LOKI']
+getUpperName(gods[0]) // => 'RA'
+gods.map(getUpperName) // => ['RA', 'ZEUS', 'LOKI']
 ```

@@ -4,9 +4,6 @@ group: 'Curry'
 description: Memoize a function
 ---
 
-
-
-
 ## Basic usage
 
 Wrap a function with memo to get a function back that automagically returns values that have already been calculated.
@@ -49,12 +46,15 @@ now === muchLater // => false
 You can optionally customize how values are stored when memoized.
 
 ```ts
-const timestamp = memo(({ group }: { group: string }) => {
-  const ts = Date.now()
-  return `${ts}::${group}`
-}, {
-  key: ({ group }: { group: string }) => group
-})
+const timestamp = memo(
+  ({ group }: { group: string }) => {
+    const ts = Date.now()
+    return `${ts}::${group}`
+  },
+  {
+    key: ({ group }: { group: string }) => group
+  }
+)
 
 const now = timestamp({ group: 'alpha' })
 const later = timestamp({ group: 'alpha' })
@@ -63,10 +63,3 @@ const beta = timestamp({ group: 'beta' })
 now === later // => true
 beta === now // => false
 ```
-
-
-
-
-
-
-

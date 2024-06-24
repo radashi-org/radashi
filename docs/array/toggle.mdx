@@ -13,7 +13,7 @@ import { toggle } from 'radash'
 
 const gods = ['ra', 'zeus', 'loki']
 
-toggle(gods, 'ra')     // => [zeus, loki]
+toggle(gods, 'ra') // => [zeus, loki]
 toggle(gods, 'vishnu') // => [ra, zeus, loki, vishnu]
 ```
 
@@ -31,7 +31,7 @@ const vishnu = { name: 'Vishnu' }
 
 const gods = [ra, zeus, loki]
 
-toggle(gods, ra, g => g.name)     // => [zeus, loki]
+toggle(gods, ra, g => g.name) // => [zeus, loki]
 toggle(gods, vishnu, g => g.name) // => [ra, zeus, loki, vishnu]
 ```
 

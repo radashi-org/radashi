@@ -13,7 +13,18 @@ split as evenly as possible.
 ```ts
 import { cluster } from 'radash'
 
-const gods = ['Ra', 'Zeus', 'Loki', 'Vishnu', 'Icarus', 'Osiris', 'Thor', 'Apollo', 'Artemis', 'Athena']
+const gods = [
+  'Ra',
+  'Zeus',
+  'Loki',
+  'Vishnu',
+  'Icarus',
+  'Osiris',
+  'Thor',
+  'Apollo',
+  'Artemis',
+  'Athena'
+]
 
 cluster(gods, 3)
 // => [
