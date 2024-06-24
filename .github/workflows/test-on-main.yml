@@ -2,6 +2,9 @@ name: Test Main Branch
 on:
   push:
     branches: [main]
+    paths:
+      - 'src/**/*'
+      - 'package.json'
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -10,10 +13,12 @@ jobs:
         node-version: [14.x, 16.x, 18.17.1]
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: pnpm/action-setup@v4
-        with: { run-install: true }
+          cache: pnpm
       - run: pnpm test
