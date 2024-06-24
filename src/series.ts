@@ -1,8 +1,8 @@
-import { list } from '../array'
+import { list } from './array/list'
 
 /**
- * Creates a series object around a list of values
- * that should be treated with order.
+ * Creates a series object around a list of values that should be
+ * treated with order.
  */
 export const series = <T>(
   items: readonly T[],
@@ -25,15 +25,15 @@ export const series = <T>(
     }
   )
   /**
-   * Given two values in the series, returns the
-   * value that occurs earlier in the series
+   * Given two values in the series, returns the value that occurs
+   * earlier in the series
    */
   const min = (a: T, b: T): T => {
     return indexesByKey[toKey(a)] < indexesByKey[toKey(b)] ? a : b
   }
   /**
-   * Given two values in the series, returns the
-   * value that occurs later in the series
+   * Given two values in the series, returns the value that occurs
+   * later in the series
    */
   const max = (a: T, b: T): T => {
     return indexesByKey[toKey(a)] > indexesByKey[toKey(b)] ? a : b
@@ -51,9 +51,8 @@ export const series = <T>(
     return itemsByIndex[items.length - 1]
   }
   /**
-   * Given an item in the series returns the next item
-   * in the series or default if the given value is
-   * the last item in the series
+   * Given an item in the series returns the next item in the series
+   * or default if the given value is the last item in the series
    */
   const next = (current: T, defaultValue?: T): T => {
     return (
@@ -61,9 +60,9 @@ export const series = <T>(
     )
   }
   /**
-   * Given an item in the series returns the previous item
-   * in the series or default if the given value is
-   * the first item in the series
+   * Given an item in the series returns the previous item in the
+   * series or default if the given value is the first item in the
+   * series
    */
   const previous = (current: T, defaultValue?: T): T => {
     return (
@@ -71,8 +70,8 @@ export const series = <T>(
     )
   }
   /**
-   * A more dynamic method than next and previous that
-   * lets you move many times in either direction.
+   * A more dynamic method than next and previous that lets you move
+   * many times in either direction.
    * @example series(weekdays).spin('wednesday', 3) => 'monday'
    * @example series(weekdays).spin('wednesday', -3) => 'friday'
    */
