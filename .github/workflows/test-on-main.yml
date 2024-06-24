@@ -9,10 +9,11 @@ jobs:
       matrix:
         node-version: [14.x, 16.x, 18.17.1]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: yarn
-      - run: yarn test
+      - uses: pnpm/action-setup@v4
+        with: { run-install: true }
+      - run: pnpm test
