@@ -49,4 +49,13 @@ describe('assign function', () => {
     const result = _.assign({}, { b: 'y' })
     expect(result).toEqual({ b: 'y' })
   })
+  test('works with Object.create(null)', () => {
+    const object = { a: Object.create(null) }
+    object.a.b = 1
+
+    const result = _.assign(object, { a: { c: 2 } })
+
+    expect(result).toEqual({ a: { b: 1, c: 2 } })
+    expect(Object.getPrototypeOf(result.a)).toBe(null)
+  })
 })
