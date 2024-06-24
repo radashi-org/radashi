@@ -1,5 +1,4 @@
-import { isArray } from 'radashi'
-import { isObject } from 'radashi'
+import { isArray, isPlainObject } from 'radashi'
 
 /**
  * Get a string list of all key names that exist in an object (deep).
@@ -11,7 +10,7 @@ import { isObject } from 'radashi'
 export const keys = <TValue extends object>(value: TValue): string[] => {
   if (!value) return []
   const getKeys = (nested: any, paths: string[]): string[] => {
-    if (isObject(nested)) {
+    if (isPlainObject(nested)) {
       return Object.entries(nested).flatMap(([k, v]) =>
         getKeys(v, [...paths, k])
       )

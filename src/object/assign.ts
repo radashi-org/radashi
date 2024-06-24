@@ -1,4 +1,4 @@
-import { isObject } from 'radashi'
+import { isPlainObject } from 'radashi'
 
 /**
  * Merges two objects together recursivly into a new object applying
@@ -13,7 +13,7 @@ export const assign = <X extends Record<string | symbol | number, any>>(
   const merged = { ...initial }
   for (const key in override) {
     if (Object.prototype.hasOwnProperty.call(override, key)) {
-      merged[key] = isObject(initial[key])
+      merged[key] = isPlainObject(initial[key])
         ? assign(initial[key], override[key])
         : override[key]
     }
