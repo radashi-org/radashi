@@ -12,31 +12,31 @@
 - **Is this related to Radash?**  
   Yes! This is a fork of the renowned [`radash`](https://github.com/sodiray/radash) library by Ray Epps [@sodiray](https://github.com/sodiray). This fork aims to be a more consistently maintained version of the library, with bug fixes and improvements.
 
+- **Is there official documentation?**  
+  Currently, there is no documentation beyond this page. I will get to it eventually, but for now, you can refer to the original `radash` documentation.
+
+  <a href="https://radash-docs.vercel.app">
+    <img src="https://github.com/radashi-org/radashi/raw/main/img/docs-button.png" alt="Radash documentation" width="250px" />
+  </a>
+
 - **Are my contributions welcome?**  
   Yes! Pull requests are encouraged, but please keep them small and focused. Sweeping changes are discouraged and won't be merged (unless the rationale's been thoroughly discussed).
 
   Please review _“The ethos of Radashi”_ before submitting a pull request:
 
   <a href="https://github.com/orgs/radashi-org/discussions/20">
-    <img src="https://github.com/radashi-org/radashi/raw/main/img/ethos-button.png" alt="The ethos of Radashi" width="200px" />
+    <img src="https://github.com/radashi-org/radashi/raw/main/img/ethos-button.png" alt="The ethos of Radashi" width="250px" />
   </a>
 
 - **Can I help you maintain this?**  
   Yes! I'll add you as a contributor to the repository. You can review pull requests and even merge them. You can help with closing issues, too. Committing directly to the main branch is a privilege you can earn, as is publishing versions to NPM.
 
   <a href="https://github.com/orgs/radashi-org/discussions/4">
-    <img src="https://github.com/radashi-org/radashi/raw/main/img/apply-button.png" alt="Apply to join the Radashi team" width="200px" />
+    <img src="https://github.com/radashi-org/radashi/raw/main/img/apply-button.png" alt="Apply to join the Radashi team" width="250px" />
   </a>
 
 - **Is backwards compatibility a goal?**  
   Yes! We want the transition from `radash` to this library to be smooth. We'll make sure to avoid breaking changes. If any are made, they will be clearly documented at the bottom of this page.
-
-- **Is there official documentation?**  
-  Currently, there is no documentation beyond this page. I will get to it eventually, but for now, you can refer to the original `radash` documentation.
-
-  <a href="https://radash-docs.vercel.app">
-    <img src="https://github.com/radashi-org/radashi/raw/main/img/docs-button.png" alt="Radash documentation" width="200px" />
-  </a>
 
 - **Automatic releases**  
   To ensure contributions are quickly rolled out, we have the following automatic processes:
@@ -74,7 +74,7 @@ npm install radashi
 Contributions are welcome and appreciated! Check out the contributing guide before you dive in:
 
 <a href="https://github.com/radashi-org/radashi/raw/main/.github/contributing.md">
-  <img src="https://github.com/radashi-org/radashi/raw/main/img/contributing-button.png" alt="Contributing to Radashi" width="200px" />
+  <img src="https://github.com/radashi-org/radashi/raw/main/img/contributing-button.png" alt="Contributing to Radashi" width="250px" />
 </a>
 
 &nbsp;
