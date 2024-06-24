@@ -1,3 +1,5 @@
+const toString = /* @__PURE__ */ Object.prototype.toString
+
 export const isSymbol = (value: any): value is symbol => {
   return !!value && value.constructor === Symbol
 }
@@ -6,6 +8,14 @@ export const isArray = Array.isArray
 
 export const isObject = (value: any): value is object => {
   return !!value && value.constructor === Object
+}
+
+export const isPlainObject = (value: any): value is object => {
+  if (toString.call(value) !== '[object Object]') {
+    return false
+  }
+  const proto = Object.getPrototypeOf(value)
+  return proto === null || proto === Object.getPrototypeOf({})
 }
 
 /**
@@ -55,7 +65,7 @@ export const isNumber = (value: any): value is number => {
 }
 
 export const isDate = (value: any): value is Date => {
-  return Object.prototype.toString.call(value) === '[object Date]'
+  return toString.call(value) === '[object Date]'
 }
 
 /**
