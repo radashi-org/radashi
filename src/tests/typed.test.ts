@@ -88,8 +88,15 @@ describe('typed module', () => {
       expect(result).toBeTruthy()
     })
     test('returns false for non-plain object', () => {
-      const result = _.isPlainObject(new Date())
-      expect(result).toBeFalsy()
+      expect(_.isPlainObject(new Date())).toBeFalsy()
+      expect(_.isPlainObject(Math)).toBeFalsy()
+      expect(
+        _.isPlainObject(
+          (function () {
+            return arguments
+          })()
+        )
+      ).toBeFalsy()
     })
     test('returns false for array', () => {
       const result = _.isPlainObject([1, 2, 3])
