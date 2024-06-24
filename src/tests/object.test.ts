@@ -175,6 +175,13 @@ describe('object module', () => {
       // expect(result.add(2, 2)).toBe(4)
       expect(result.child.key).toBe('yolo')
     })
+    test('copies object created with Object.create(null)', () => {
+      const obj = Object.create(null)
+      obj.x = 22
+      const result = _.clone(obj)
+      expect(Object.getPrototypeOf(result)).toBe(null)
+      expect(result.x).toBe(22)
+    })
   })
 
   describe('listify function', () => {
