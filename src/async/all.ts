@@ -1,5 +1,5 @@
-import { AggregateError } from './AggregateError'
-import { isArray } from '../typed/isArray'
+import { AggregateError } from 'radashi'
+import { isArray } from 'radashi'
 
 type PromiseValues<T extends Promise<any>[]> = {
   [K in keyof T]: T[K] extends Promise<infer U> ? U : never

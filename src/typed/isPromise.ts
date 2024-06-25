@@ -1,4 +1,4 @@
-import { isFunction } from './isFunction'
+import { isFunction } from 'radashi'
 
 /**
  * This is really a _best guess_ promise checking. You should probably

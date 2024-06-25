@@ -1,5 +1,5 @@
-import { isArray } from '../typed/isArray'
-import { isObject } from '../typed/isObject'
+import { isArray } from 'radashi'
+import { isObject } from 'radashi'
 
 /**
  * Get a string list of all key names that exist in an object (deep).

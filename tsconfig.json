@@ -9,6 +9,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
-    "types": []
+    "types": [],
+    "paths": {
+      "radashi": ["./src/index"]
+    }
   }
 }

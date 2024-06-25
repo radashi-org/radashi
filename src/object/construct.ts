@@ -1,4 +1,4 @@
-import { set } from './set'
+import { set } from 'radashi'
 
 /**
  * The opposite of crush, given an object that was crushed into key

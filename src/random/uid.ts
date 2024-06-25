@@ -1,5 +1,5 @@
-import { iterate } from '../array/iterate'
-import { random } from './random'
+import { iterate } from 'radashi'
+import { random } from 'radashi'
 
 export const uid = (length: number, specials: string = '') => {
   const characters =
