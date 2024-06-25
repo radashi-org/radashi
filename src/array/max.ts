@@ -1,4 +1,4 @@
-import { boil } from './boil'
+import { boil } from 'radashi'
 
 /**
  * Max gets the greatest value from a list

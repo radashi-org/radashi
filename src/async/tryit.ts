@@ -1,4 +1,4 @@
-import { isPromise } from '../typed/isPromise'
+import { isPromise } from 'radashi'
 
 /**
  * A helper to try an async function without forking the control flow.

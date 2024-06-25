@@ -1,4 +1,4 @@
-import { isString } from './isString'
+import { isString } from 'radashi'
 
 export const isIntString = (value: any): value is string => {
   if (!isString(value)) return false

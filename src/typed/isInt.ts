@@ -1,4 +1,4 @@
-import { isNumber } from './isNumber'
+import { isNumber } from 'radashi'
 
 export const isInt = (value: any): value is number => {
   return isNumber(value) && value % 1 === 0

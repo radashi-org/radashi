@@ -1,4 +1,4 @@
-import { mapKeys } from './mapKeys'
+import { mapKeys } from 'radashi'
 
 type LowercasedKeys<T extends Record<string, any>> = {
   [P in keyof T & string as Lowercase<P>]: T[P]

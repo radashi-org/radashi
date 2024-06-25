@@ -1,4 +1,4 @@
-import { isObject } from '../typed/isObject'
+import { isObject } from 'radashi'
 
 /**
  * Merges two objects together recursivly into a new object applying

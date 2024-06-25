@@ -1,5 +1,5 @@
-import { sleep } from './sleep'
-import { tryit } from './tryit'
+import { sleep } from 'radashi'
+import { tryit } from 'radashi'
 
 export type RetryOptions = {
   times?: number

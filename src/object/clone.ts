@@ -1,4 +1,4 @@
-import { isPrimitive } from '../typed/isPrimitive'
+import { isPrimitive } from 'radashi'
 
 /**
  * Creates a shallow copy of the given obejct/value.

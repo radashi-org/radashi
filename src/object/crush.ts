@@ -1,6 +1,6 @@
-import { objectify } from '../array/objectify'
-import { get } from './get'
-import { keys } from './keys'
+import { objectify } from 'radashi'
+import { get } from 'radashi'
+import { keys } from 'radashi'
 
 /**
  * Flattens a deep object to a single demension, converting the keys

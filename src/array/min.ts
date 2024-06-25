@@ -1,4 +1,4 @@
-import { boil } from './boil'
+import { boil } from 'radashi'
 
 /**
  * Min gets the smallest value from a list

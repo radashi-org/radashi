@@ -1,4 +1,4 @@
-import { range } from './range'
+import { range } from 'radashi'
 
 /**
  * Creates a list of given start, end, value, and step parameters.
