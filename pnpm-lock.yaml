@@ -14,9 +14,6 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^1.6.0
         version: 1.6.0(vitest@1.6.0(@types/node@20.14.8))
-      fast-glob:
-        specifier: ^3.3.2
-        version: 3.3.2
       prettier:
         specifier: ^2.7.1
         version: 2.8.8

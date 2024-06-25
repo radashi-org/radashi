@@ -22,7 +22,6 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^19.2.2",
     "@vitest/coverage-v8": "^1.6.0",
-    "fast-glob": "^3.3.2",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.0.3",
     "tsup": "^8.1.0",
