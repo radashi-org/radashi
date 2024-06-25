@@ -99,9 +99,11 @@ jobs:
           node-version: '22.x'
           cache: pnpm
       - run: pnpm install
+      - run: pnpm build
+
       - run: |
           npm version ${{ needs.prepare-version.outputs.version }} --no-git-tag-version
-          npm publish --tag beta
+          npm publish --tag beta --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
