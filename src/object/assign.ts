@@ -10,7 +10,10 @@ export const assign = <X extends Record<string | symbol | number, any>>(
   override: X
 ): X => {
   if (!initial || !override) return initial ?? override ?? {}
-  const merged = { ...initial }
+  const proto = Object.getPrototypeOf(initial)
+  const merged = proto
+    ? { ...initial }
+    : Object.assign(Object.create(proto), initial)
   for (const key in override) {
     if (Object.prototype.hasOwnProperty.call(override, key)) {
       merged[key] = isPlainObject(initial[key])
