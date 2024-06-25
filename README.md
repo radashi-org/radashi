@@ -51,9 +51,7 @@
     - ⚠️ **Beware:** Preview releases are not audited by the Radashi team. Always look at their
       changes in the PR to ensure no malicious code was introduced.
 
-&nbsp;
-
-<img src="https://github.com/radashi-org/radashi/raw/main/img/rule.png" width="100%" />
+<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/img/rule.png" width="100%" />
 
 ## Install
 
@@ -69,9 +67,7 @@ yarn add radashi
 npm install radashi
 ```
 
-&nbsp;
-
-<img src="https://github.com/radashi-org/radashi/raw/main/img/rule.png" width="100%" />
+<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/img/rule.png" width="100%" />
 
 ## Contributing
 
@@ -81,9 +77,7 @@ Contributions are welcome and appreciated! Check out the contributing guide befo
   <img src="https://github.com/radashi-org/radashi/raw/main/img/contributing-button.png" alt="Contributing to Radashi" width="250px" />
 </a>
 
-&nbsp;
-
-<img src="https://github.com/radashi-org/radashi/raw/main/img/rule.png" width="100%" />
+<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/img/rule.png" width="100%" />
 
 ## Changelog
 
