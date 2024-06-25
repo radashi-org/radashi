@@ -1,4 +1,4 @@
-import { list } from './array/list'
+import { list } from '../array/list'
 
 /**
  * Creates a series object around a list of values that should be

@@ -76,7 +76,7 @@ export * from './random/random'
 export * from './random/shuffle'
 export * from './random/uid'
 
-export * from './series'
+export * from './series/series'
 
 export * from './string/camel'
 export * from './string/capitalize'
