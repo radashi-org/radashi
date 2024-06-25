@@ -16,8 +16,9 @@ jobs:
           comment-id: ${{ github.event.comment.id }}
           body: |
 
-            [Your preview release is being published.](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }}) When it's ready, a :rocket: emoji will appear.
+            [Your preview release is being published.](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }})
           token: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
@@ -25,22 +26,29 @@ jobs:
           node-version: '22.x'
           cache: pnpm
       - run: pnpm install
-      - name: Get package version
-        id: package-version
-        run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
-      - name: Get commit SHA
-        id: commit-sha
-        run: echo "::set-output name=sha::$(git rev-parse --short HEAD)"
+
+      - name: Calculate version
+        id: get-version
+        run: echo "::set-output name=version::$(node -p "require('./package.json').version")-pr${{ github.event.issue.number }}.$(git rev-parse --short HEAD)"
+
       - name: Update package version
-        run: npm version ${{ steps.package-version.outputs.version }}-pr${{ github.event.issue.number }}.${{ steps.commit-sha.outputs.sha }} --no-git-tag-version
+        run: npm version ${{ steps.get-version.outputs.version }} --no-git-tag-version
       - name: Publish to NPM
         run: npm publish --tag pr${{ github.event.issue.number }} --dry-run
         env:
           npm_config__authtoken: ${{ secrets.NPM_TOKEN }}
-      - name: React to issue comment
+
+      - name: Notify PR owner
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.issue.number }}
           comment-id: ${{ github.event.comment.id }}
-          reactions: rocket
+          body: |
+
+            Congrats! Your preview release is ready.
+            ```sh
+            pnpm add radashi@pr${{ github.event.issue.number }}
+            # or
+            pnpm add radashi@${{ steps.get-version.outputs.version }}
+            ```
           token: ${{ secrets.GITHUB_TOKEN }}
