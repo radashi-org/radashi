@@ -18,6 +18,7 @@ jobs:
     outputs:
       version: ${{ steps.set-version.outputs.version }}
       version-exists: ${{ steps.check-version.outputs.version-exists }}
+      stable-version: ${{ steps.get-stable-version.outputs.stable-version }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,8 +31,12 @@ jobs:
       - run: pnpm install
       - name: Prepare build
         run: pnpm build
+      - name: Retrieve stable version
+        id: get-stable-version
+        run: |
+          echo "::set-output name=stable-version::$(git describe --tags --abbrev=0)"
       - name: Lint commit messages
-        run: pnpm -s dlx commitlint --from $(git describe --tags --abbrev=0)
+        run: pnpm -s dlx commitlint --from ${{ steps.get-stable-version.outputs.stable-version }}
       - name: Calculate version
         id: set-version
         run: |
@@ -95,3 +100,32 @@ jobs:
           npm publish --tag beta --dry-run
         env:
           npm_config__authtoken: ${{ secrets.NPM_TOKEN }}
+      - name: Comment on Pull Request
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const commit = context.payload.head_commit
+            console.log('commit', commit)
+            const prNumber = commit.message.match(/\(#(\d+)\)/)?.[1]
+            if (prNumber) {
+              const version = '${{ needs.prepare-version.outputs.version }}'
+              const body = `
+                A new beta version \`${version}\` has been published to NPM.
+
+                To install:
+                \`\`\`sh
+                pnpm add radashi@${version}
+                \`\`\`
+
+                <a href="https://github.com/radashi-org/radashi/compare/${{ needs.prepare-version.outputs.stable-version }}...${commit.id}">
+                  <img src="https://github.com/radashi-org/radashi/raw/main/img/changes-button.png" alt="See the changes" width="250px" />
+                </a>
+              `
+              await github.rest.issues.createComment({
+                issue_number: prNumber,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              })
+            }
