@@ -7,7 +7,8 @@ export default defineConfig({
   test: {
     globals: true,
     coverage: {
-      thresholds: { 100: true }
+      thresholds: { 100: true },
+      exclude: ['*.js']
     }
   },
   resolve: {
