@@ -118,12 +118,14 @@ jobs:
             if (prNumber) {
               const version = '${{ needs.prepare-version.outputs.version }}'
               const body = `
-            A new beta version \`${version}\` has been published to NPM.
+            A new beta version \`${version}\` has been published to NPM. :rocket:
 
             To install:
             \`\`\`sh
             pnpm add radashi@${version}
             \`\`\`
+
+            The \`radashi@beta\` tag also includes this PR.
 
             <a href="https://github.com/radashi-org/radashi/compare/${{ needs.prepare-version.outputs.stable-version }}...${commit.id}">
               <img src="https://github.com/radashi-org/radashi/raw/main/img/changes-button.png" alt="See the changes" width="250px" />
