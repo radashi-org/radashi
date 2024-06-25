@@ -1,12 +1,8 @@
 import { defineConfig } from 'tsup'
-import glob from 'fast-glob'
 
 export default defineConfig({
-  entry: glob.sync(['src/**/*.ts', '!**/*.test.ts']),
+  entry: ['src/index.ts'],
   format: ['cjs', 'esm'],
   dts: true,
-  target: 'node16',
-  esbuildOptions(options) {
-    options.chunkNames = 'chunks/[name]-[hash]'
-  }
+  target: 'node16'
 })
