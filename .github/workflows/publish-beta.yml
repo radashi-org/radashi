@@ -49,7 +49,7 @@ jobs:
             echo "::set-output name=version-exists::false"
           fi
   lint:
-    if: ${{ needs.prepare-version.outputs.version-exists == false }}
+    if: ${{ needs.prepare-version.outputs.version-exists == 'false' }}
     name: Lint
     needs: prepare-version
     runs-on: ubuntu-latest
