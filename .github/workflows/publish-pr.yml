@@ -40,7 +40,7 @@ jobs:
       - name: Update package version
         run: npm version ${{ steps.get-version.outputs.version }} --no-git-tag-version
       - name: Publish to NPM
-        run: npm publish --tag pr${{ github.event.issue.number }} --dry-run
+        run: npm publish --tag pr${{ github.event.issue.number }}
         env:
           npm_config__authtoken: ${{ secrets.NPM_TOKEN }}
 
