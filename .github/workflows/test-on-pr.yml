@@ -23,9 +23,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
       - run: pnpm test
-  lint:
-    name: Lint
-    needs: test
+  validate:
+    name: Validate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,20 +35,7 @@ jobs:
         with:
           node-version: '22.x'
           cache: pnpm
-      - run: pnpm lint
-  validate-pr-title:
-    name: Validate PR Title
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-        with:
-          run_install: true
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22.x'
-          cache: pnpm
-      - uses: kevintyj/prlint@v1.1.0
+      - name: Lint
+        run: pnpm lint
+      - name: Check PR Title
+        run: echo "${{ github.event.pull_request.title }}" | pnpm dlx commitlint
