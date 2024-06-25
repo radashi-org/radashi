@@ -1,3 +1,6 @@
+> [!TIP]
+> The owner of this PR can publish a _preview release_ by commenting `/publish` in this PR. Afterwards, anyone can try it out by running `pnpm add radashi@pr<PR_NUMBER>`.
+
 ## Description
 
 <!-- Please provide a detailed description of the changes and the intent behind them :) -->
