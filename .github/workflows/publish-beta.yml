@@ -30,20 +30,22 @@ jobs:
           node-version: '22.x'
           cache: pnpm
       - name: Lint commit messages
-        run: pnpm dlx commitlint --from $(git describe --tags --abbrev=0)
+        run: pnpm -s dlx commitlint --from $(git describe --tags --abbrev=0)
       - name: Prepare build
         run: pnpm build
       - name: Calculate version
         id: set-version
         run: |
-          pnpm install -g happy-conventional-commit@0.1.0
+          pnpm -s install -g happy-conventional-commit@0.1.0
           echo "::set-output name=version::$(happy-next-version)-beta.$(find dist package.json -type f -exec shasum -a 256 {} + | shasum -a 256 | cut -c 1-7)"
       - name: Check version
         id: check-version
         run: |
-          if npm view radashi@${{ steps.set-version.outputs.version }}; then
+          if npm -s view radashi@${{ steps.set-version.outputs.version }}; then
+            echo "🚫 Version ${{ steps.set-version.outputs.version }} already exists"
             echo "::set-output name=version-exists::true"
           else
+            echo "🟢 Version ${{ steps.set-version.outputs.version }} is available"
             echo "::set-output name=version-exists::false"
           fi
   lint:
