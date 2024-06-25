@@ -47,6 +47,7 @@ jobs:
 
       - name: Notify PR owner
         uses: peter-evans/create-or-update-comment@v4
+        if: success()
         with:
           issue-number: ${{ github.event.issue.number }}
           comment-id: ${{ github.event.comment.id }}
@@ -58,4 +59,15 @@ jobs:
             # or
             pnpm add radashi@${{ steps.get-version.outputs.version }}
             ```
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Failure
+        uses: peter-evans/create-or-update-comment@v4
+        if: failure()
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          comment-id: ${{ github.event.comment.id }}
+          body: |
+            &nbsp;
+            Oops! Your preview release failed to publish. :x:
           token: ${{ secrets.GITHUB_TOKEN }}
