@@ -53,6 +53,8 @@
 
 &nbsp;
 
+<img src="https://github.com/radashi-org/radashi/raw/main/img/rule.png" width="100%" />
+
 ## Install
 
 ```sh
@@ -69,6 +71,8 @@ npm install radashi
 
 &nbsp;
 
+<img src="https://github.com/radashi-org/radashi/raw/main/img/rule.png" width="100%" />
+
 ## Contributing
 
 Contributions are welcome and appreciated! Check out the contributing guide before you dive in:
@@ -78,6 +82,8 @@ Contributions are welcome and appreciated! Check out the contributing guide befo
 </a>
 
 &nbsp;
+
+<img src="https://github.com/radashi-org/radashi/raw/main/img/rule.png" width="100%" />
 
 ## Changelog
 
