@@ -16,7 +16,7 @@ jobs:
           comment-id: ${{ github.event.comment.id }}
           body: |
             &nbsp;
-            [Your preview release is being published.](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }})
+            [Your preview release is being published.](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) :hourglass:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: xt0rted/pull-request-comment-branch@v2
@@ -51,7 +51,7 @@ jobs:
           comment-id: ${{ github.event.comment.id }}
           body: |
             &nbsp;
-            Congrats! Your preview release is ready.
+            Congrats! Your preview release is ready. :rocket:
             ```sh
             pnpm add radashi@pr${{ github.event.issue.number }}
             # or
