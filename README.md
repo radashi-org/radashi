@@ -97,6 +97,6 @@ This section documents the changes between the original `radash` library and thi
 
 <div align="center">
   <p align="center">
-    <img src="https://github.com/radashi-org/radashi/raw/main/img/footer.png" alt="Radashi" width="100%" />
+    <img src="https://github.com/radashi-org/radashi/raw/46c8897/img/footer.png" alt="Radashi" width="100%" />
   </p>
 </div>
