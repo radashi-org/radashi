@@ -1,5 +1,5 @@
-import { isIntString } from '../typed/isIntString'
-import { clone } from './clone'
+import { isIntString } from 'radashi'
+import { clone } from 'radashi'
 
 /**
  * Opposite of get, dynamically set a nested value into an object

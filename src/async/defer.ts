@@ -1,4 +1,4 @@
-import { tryit } from './tryit'
+import { tryit } from 'radashi'
 
 /**
  * Useful when for script like things where cleanup should be done on

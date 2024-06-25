@@ -1,4 +1,4 @@
-import { capitalize } from './capitalize'
+import { capitalize } from 'radashi'
 
 /**
  * Formats the given string in dash case fashion

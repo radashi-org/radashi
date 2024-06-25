@@ -1,4 +1,4 @@
-import { random } from './random'
+import { random } from 'radashi'
 
 /**
  * Draw a random item from a list. Returns null if the list is empty

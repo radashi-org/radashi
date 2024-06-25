@@ -1,4 +1,4 @@
-import { isFunction } from '../typed/isFunction'
+import { isFunction } from 'radashi'
 
 /**
  * Creates a generator that will produce an iteration through the

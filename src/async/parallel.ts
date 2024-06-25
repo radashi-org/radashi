@@ -1,8 +1,8 @@
-import { fork } from '../array/fork'
-import { list } from '../array/list'
-import { sort } from '../array/sort'
-import { AggregateError } from './AggregateError'
-import { tryit } from './tryit'
+import { fork } from 'radashi'
+import { list } from 'radashi'
+import { sort } from 'radashi'
+import { AggregateError } from 'radashi'
+import { tryit } from 'radashi'
 
 type WorkItemResult<K> = {
   index: number

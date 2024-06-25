@@ -1,4 +1,4 @@
-import { list } from '../array/list'
+import { list } from 'radashi'
 
 /**
  * Creates a series object around a list of values that should be

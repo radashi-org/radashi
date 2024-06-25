@@ -1,5 +1,5 @@
-import { isArray } from '../typed/isArray'
-import { isFunction } from '../typed/isFunction'
+import { isArray } from 'radashi'
+import { isFunction } from 'radashi'
 
 /**
  * Creates an object mapping the specified keys to their corresponding

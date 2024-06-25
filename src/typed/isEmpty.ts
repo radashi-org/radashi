@@ -1,7 +1,7 @@
-import { isDate } from './isDate'
-import { isFunction } from './isFunction'
-import { isNumber } from './isNumber'
-import { isSymbol } from './isSymbol'
+import { isDate } from 'radashi'
+import { isFunction } from 'radashi'
+import { isNumber } from 'radashi'
+import { isSymbol } from 'radashi'
 
 export const isEmpty = (value: any) => {
   if (value === true || value === false) return true
