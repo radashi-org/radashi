@@ -11,6 +11,9 @@ on:
       - '!**/*.test.ts'
       - '!vitest.config.ts'
 
+concurrency:
+  group: ${{ github.workflow }}
+
 jobs:
   prepare-version:
     name: Prepare Version
