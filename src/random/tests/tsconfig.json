@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "noEmit": true,
+    "target": "esnext",
+    "lib": ["es2020"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "types": ["vitest/globals"],
+    "paths": {
+      "radashi": ["../../"]
+    }
+  }
+}

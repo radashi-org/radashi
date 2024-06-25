@@ -1,15 +1,17 @@
 import { sleep } from './sleep'
 import { tryit } from './tryit'
 
+export type RetryOptions = {
+  times?: number
+  delay?: number | null
+  backoff?: (count: number) => number
+}
+
 /**
  * Retries the given function the specified number of times.
  */
 export const retry = async <TResponse>(
-  options: {
-    times?: number
-    delay?: number | null
-    backoff?: (count: number) => number
-  },
+  options: RetryOptions,
   func: (exit: (err: any) => void) => Promise<TResponse>
 ): Promise<TResponse> => {
   const times = options?.times ?? 3

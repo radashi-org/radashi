@@ -1,7 +1,6 @@
-import { expect } from 'vitest'
-import * as _ from '..'
+import * as _ from 'radashi'
 
-describe('series module', () => {
+describe('series function', () => {
   const sut = _.series([
     'monday',
     'tuesday',
@@ -10,7 +9,7 @@ describe('series module', () => {
     'friday'
   ] as const)
 
-  describe('min function', () => {
+  describe('min method', () => {
     test('correctly returns min', () => {
       const result = sut.min('monday', 'tuesday')
       expect(result).toBe('monday')
@@ -21,7 +20,7 @@ describe('series module', () => {
     })
   })
 
-  describe('max function', () => {
+  describe('max method', () => {
     test('correctly returns max', () => {
       const result = sut.max('thursday', 'tuesday')
       expect(result).toBe('thursday')
@@ -32,21 +31,21 @@ describe('series module', () => {
     })
   })
 
-  describe('first function', () => {
+  describe('first method', () => {
     test('returns first item', () => {
       const result = sut.first()
       expect(result).toBe('monday')
     })
   })
 
-  describe('last function', () => {
+  describe('last method', () => {
     test('returns last item', () => {
       const result = sut.last()
       expect(result).toBe('friday')
     })
   })
 
-  describe('next function', () => {
+  describe('next method', () => {
     test('returns next item', () => {
       const result = sut.next('wednesday')
       expect(result).toBe('thursday')
@@ -61,7 +60,7 @@ describe('series module', () => {
     })
   })
 
-  describe('previous function', () => {
+  describe('previous method', () => {
     test('returns previous item', () => {
       const result = sut.previous('wednesday')
       expect(result).toBe('tuesday')
@@ -76,7 +75,7 @@ describe('series module', () => {
     })
   })
 
-  describe('spin function', () => {
+  describe('spin method', () => {
     test('returns current given zero', () => {
       const result = sut.spin('wednesday', 0)
       expect(result).toBe('wednesday')
