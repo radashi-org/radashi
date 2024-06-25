@@ -118,16 +118,16 @@ jobs:
             if (prNumber) {
               const version = '${{ needs.prepare-version.outputs.version }}'
               const body = `
-                A new beta version \`${version}\` has been published to NPM.
+            A new beta version \`${version}\` has been published to NPM.
 
-                To install:
-                \`\`\`sh
-                pnpm add radashi@${version}
-                \`\`\`
+            To install:
+            \`\`\`sh
+            pnpm add radashi@${version}
+            \`\`\`
 
-                <a href="https://github.com/radashi-org/radashi/compare/${{ needs.prepare-version.outputs.stable-version }}...${commit.id}">
-                  <img src="https://github.com/radashi-org/radashi/raw/main/img/changes-button.png" alt="See the changes" width="250px" />
-                </a>
+            <a href="https://github.com/radashi-org/radashi/compare/${{ needs.prepare-version.outputs.stable-version }}...${commit.id}">
+              <img src="https://github.com/radashi-org/radashi/raw/main/img/changes-button.png" alt="See the changes" width="250px" />
+            </a>
               `
               await github.rest.issues.createComment({
                 issue_number: prNumber,
