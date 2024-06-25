@@ -9,6 +9,15 @@ jobs:
     if: ${{ github.event.issue.pull_request && github.event.comment.user.id == github.event.issue.user.id && startsWith(github.event.comment.body, '/publish') }}
     runs-on: ubuntu-latest
     steps:
+      - name: Notify PR owner
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          comment-id: ${{ github.event.comment.id }}
+          body: |
+
+            [Your preview release is being published.](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }}) When it's ready, a :rocket: emoji will appear.
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
