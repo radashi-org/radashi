@@ -23,16 +23,15 @@ jobs:
         with:
           fetch-depth: 0
       - uses: pnpm/action-setup@v4
-        with:
-          run_install: true
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
           cache: pnpm
-      - name: Lint commit messages
-        run: pnpm -s dlx commitlint --from $(git describe --tags --abbrev=0)
+      - run: pnpm install
       - name: Prepare build
         run: pnpm build
+      - name: Lint commit messages
+        run: pnpm -s dlx commitlint --from $(git describe --tags --abbrev=0)
       - name: Calculate version
         id: set-version
         run: |
@@ -56,12 +55,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          run_install: true
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
           cache: pnpm
+      - run: pnpm install
       - run: pnpm lint
   test:
     name: Run Tests
@@ -73,13 +71,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          run_install: true
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
+      - run: pnpm install
       - run: pnpm test
   publish-beta:
     name: Publish Beta to NPM
@@ -88,12 +85,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          run_install: true
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
           cache: pnpm
+      - run: pnpm install
       - run: |
           npm version ${{ needs.prepare-version.outputs.version }} --no-git-tag-version
           npm publish --tag beta --dry-run
