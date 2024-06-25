@@ -25,9 +25,9 @@ jobs:
       - name: Update package version
         run: npm version ${{ steps.package-version.outputs.version }}-pr${{ github.event.issue.number }}.${{ steps.commit-sha.outputs.sha }} --no-git-tag-version
       - name: Publish to NPM
-        run: npm publish --tag pr${{ github.event.issue.number }}
+        run: npm publish --tag pr${{ github.event.issue.number }} --dry-run
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          npm_config__authtoken: ${{ secrets.NPM_TOKEN }}
       - name: React to issue comment
         uses: peter-evans/create-or-update-comment@v4
         with:
