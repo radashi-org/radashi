@@ -15,11 +15,17 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           comment-id: ${{ github.event.comment.id }}
           body: |
-
+            &nbsp;
             [Your preview release is being published.](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }})
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: xt0rted/pull-request-comment-branch@v2
+        id: comment-branch
       - uses: actions/checkout@v4
+        if: success()
+        with:
+          ref: ${{ steps.comment-branch.outputs.head_ref }}
+
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -44,7 +50,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           comment-id: ${{ github.event.comment.id }}
           body: |
-
+            &nbsp;
             Congrats! Your preview release is ready.
             ```sh
             pnpm add radashi@pr${{ github.event.issue.number }}
