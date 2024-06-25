@@ -25,4 +25,15 @@ describe('intersects function', () => {
     expect(_.intersects(cast(null), [])).toBeFalsy()
     expect(_.intersects([], cast(null))).toBeFalsy()
   })
+  test('works with objects without an identity function', () => {
+    const obj1 = { id: 1 }
+    const obj2 = { id: 2 }
+    const obj3 = { id: 3 }
+
+    let result = _.intersects([obj1, obj2], [obj2, obj3])
+    expect(result).toBeTruthy()
+
+    result = _.intersects([obj1], [obj3])
+    expect(result).toBeFalsy()
+  })
 })

@@ -1,16 +1,15 @@
 /**
  * Given two arrays, returns true if any elements intersect
  */
-export const intersects = <T, K extends string | number | symbol>(
+export const intersects = <T, K>(
   listA: readonly T[],
   listB: readonly T[],
   identity?: (t: T) => K
 ): boolean => {
   if (!listA || !listB) return false
-  const ident = identity ?? ((x: T) => x as unknown as K)
-  const dictB = listB.reduce((acc, item) => {
-    acc[ident(item)] = true
-    return acc
-  }, {} as Record<string | number | symbol, boolean>)
-  return listA.some(value => dictB[ident(value)])
+  if (identity) {
+    const known = new Set(listA.map(identity))
+    return listB.some(item => known.has(identity(item)))
+  }
+  return listB.some(item => listA.includes(item))
 }
