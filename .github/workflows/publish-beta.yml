@@ -1,6 +1,7 @@
 name: Publish Beta
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -11,8 +12,44 @@ on:
       - '!vitest.config.ts'
 
 jobs:
+  prepare-version:
+    name: Prepare Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set-version.outputs.version }}
+      version-exists: ${{ steps.check-version.outputs.version-exists }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: pnpm
+      - name: Lint commit messages
+        run: pnpm dlx commitlint --from $(git describe --tags --abbrev=0)
+      - name: Prepare build
+        run: pnpm build
+      - name: Calculate version
+        id: set-version
+        run: |
+          pnpm install -g happy-conventional-commit@0.1.0
+          echo "::set-output name=version::$(happy-next-version)-beta.$(find dist package.json -type f -exec shasum -a 256 {} + | shasum -a 256 | cut -c 1-7)"
+      - name: Check version
+        id: check-version
+        run: |
+          if npm view radashi@${{ steps.set-version.outputs.version }}; then
+            echo "::set-output name=version-exists::true"
+          else
+            echo "::set-output name=version-exists::false"
+          fi
   lint:
-    if: startsWith(github.event.head_commit.message, 'chore') == false
+    if: ${{ needs.prepare-version.outputs.version-exists == false }}
+    name: Lint
+    needs: prepare-version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,10 +60,9 @@ jobs:
         with:
           node-version: '22.x'
           cache: pnpm
-      - name: Lint Commit Messages
-        run: pnpm dlx commitlint --from $(git describe --tags --abbrev=0)
       - run: pnpm lint
   test:
+    name: Run Tests
     needs: lint
     runs-on: ubuntu-latest
     strategy:
@@ -44,7 +80,8 @@ jobs:
           cache: pnpm
       - run: pnpm test
   publish-beta:
-    needs: test
+    name: Publish Beta to NPM
+    needs: [test, prepare-version]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -55,12 +92,8 @@ jobs:
         with:
           node-version: '22.x'
           cache: pnpm
-      - run: pnpm install -g happy-conventional-commit@0.1.0
-      - name: Set Beta Version
-        run: |
-          VERSION=$(happy-next-version)-beta.$(git rev-parse --short HEAD)
-          npm version $VERSION --no-git-tag-version
-      - name: Publish Beta to NPM
-        run: npm publish --tag beta
+      - run: |
+          npm version ${{ needs.prepare-version.outputs.version }} --no-git-tag-version
+          npm publish --tag beta --dry-run
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          npm_config__authtoken: ${{ secrets.NPM_TOKEN }}
