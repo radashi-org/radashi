@@ -16,3 +16,5 @@ isObject(['hello']) // => false
 isObject(null) // => false
 isObject({ say: 'hello' }) // => true
 ```
+
+**Beware:** This function returns `false` for objects created with `Object.create(null)`.

@@ -30,4 +30,12 @@ describe('keys function', () => {
       'enemies.0.power'
     ])
   })
+  test('works with Object.create(null)', () => {
+    const object = Object.create(null)
+    object.a = 1
+    object.b = [2]
+    object.c = { d: 3 }
+    const result = _.keys(object)
+    expect(result).toEqual(['a', 'b.0', 'c.d'])
+  })
 })
