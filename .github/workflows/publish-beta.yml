@@ -95,14 +95,16 @@ jobs:
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
+          registry-url: 'https://registry.npmjs.org'
           node-version: '22.x'
           cache: pnpm
       - run: pnpm install
       - run: |
           npm version ${{ needs.prepare-version.outputs.version }} --no-git-tag-version
-          npm publish --tag beta --dry-run
+          npm publish --tag beta
         env:
-          npm_config__authtoken: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Comment on Pull Request
         uses: actions/github-script@v6
         with:
