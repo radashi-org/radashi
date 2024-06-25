@@ -52,4 +52,9 @@ describe('select function', () => {
     )
     expect(result).toEqual(['c2', 'd3'])
   })
+  test('works without a condition callback', () => {
+    const list = [{ a: 1 }, { b: 2 }, { a: 3 }, { a: null }, { a: undefined }]
+    const result = _.select(list, obj => obj.a)
+    expect(result).toEqual([1, 3])
+  })
 })
