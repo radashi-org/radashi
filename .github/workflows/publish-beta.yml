@@ -37,7 +37,7 @@ jobs:
       - name: Retrieve stable version
         id: get-stable-version
         run: |
-          echo "::set-output name=stable-version::$(git describe --tags --abbrev=0)"
+          echo "::set-output name=stable-version::v$(npm view radashi version)"
       - name: Lint commit messages
         run: pnpm -s dlx commitlint --from ${{ steps.get-stable-version.outputs.stable-version }}
       - name: Calculate version
@@ -106,6 +106,10 @@ jobs:
           npm publish --tag beta --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - uses: actions-ecosystem/action-push-tag@v1
+        with:
+          tag: v${{ needs.prepare-version.outputs.version }}
 
       - name: Comment on Pull Request
         uses: actions/github-script@v6
