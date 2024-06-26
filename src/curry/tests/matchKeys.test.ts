@@ -41,4 +41,9 @@ describe('matchKeys function', () => {
     expect(matches(a.a, 'a', a)).toBe(true)
     expect(matches(a.b, 'b', a)).toBe(false)
   })
+  test('accepts an object as 2nd argument', () => {
+    const matches = _.matchKeys(['a'], { a: 1, b: 2 })
+    expect(matches('a')).toBe(true)
+    expect(matches('b')).toBe(false)
+  })
 })
