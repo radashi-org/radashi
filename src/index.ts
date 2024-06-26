@@ -50,8 +50,8 @@ export * from './curry/proxied'
 export * from './curry/throttle'
 
 export * from './number/inRange'
-export * from './number/toInt'
 export * from './number/toFloat'
+export * from './number/toInt'
 
 export * from './object/assign'
 export * from './object/clone'
