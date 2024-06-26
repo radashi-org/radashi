@@ -1,0 +1,39 @@
+---
+title: matchKeys
+group: 'Curry'
+description: Create a key-matching function
+---
+
+## Basic usage
+
+You have a utility function that is filtering an object's properties somehow. Using `matchKeys` will allow your function to filter those properties based on either an array of keys (an allowlist) or a function that returns a boolean for each property.
+
+```ts
+import { matchKeys, KeyFilter } from 'radash'
+
+// Define your function with a `KeyFilter` parameter type,
+// then use `matchKeys` to create a function that will
+// filter the object's properties for you.
+function filterObjectSomeway(obj: object, keys: KeyFilter) {
+  const matches = matchKeys(keys)
+  for (const key in obj) {
+    const value = obj[key]
+    if (matches(value, key, obj)) {
+      // ...
+    }
+  }
+}
+```
+
+In the next example, the `obj` whose properties are being filtered is passed into `matchKeys` to simplify the signature of the returned function. Notice how we call `matches(key)` instead of the `matches(value, key, obj)` from the previous example. Both ways have their trade-offs, but this way is the one you'll probably use most often.
+
+```ts
+function filterObjectSomehow(obj: object, keys: KeyFilter) {
+  const matches = matchKeys(keys, obj)
+  for (const key in obj) {
+    if (matches(key)) {
+      // ...
+    }
+  }
+}
+```
