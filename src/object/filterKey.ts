@@ -24,7 +24,7 @@ export type KeyFilter<
  */
 export const filterKey = (
   obj: object,
-  key: string,
+  key: keyof any,
   filter: KeyFilter | null | undefined
 ): boolean => {
   return (
