@@ -7,18 +7,27 @@ import { isArray, isPlainObject } from 'radashi'
  * keys({ name: 'ra' }) // ['name']
  * keys({ name: 'ra', children: [{ name: 'hathor' }] }) // ['name', 'children.0.name']
  */
-export const keys = <TValue extends object>(value: TValue): string[] => {
+export const keys = (value: object): string[] => {
   if (!value) return []
-  const getKeys = (nested: any, paths: string[]): string[] => {
-    if (isPlainObject(nested)) {
-      return Object.entries(nested).flatMap(([k, v]) =>
-        getKeys(v, [...paths, k])
-      )
+  const keys: string[] = []
+  const keyPath: (string | number)[] = []
+  const recurse = (value: any) => {
+    if (isPlainObject(value)) {
+      for (const [prop, propValue] of Object.entries(value)) {
+        keyPath.push(prop)
+        recurse(propValue)
+        keyPath.pop()
+      }
+    } else if (isArray(value)) {
+      value.forEach((item, index) => {
+        keyPath.push(index)
+        recurse(item)
+        keyPath.pop()
+      })
+    } else {
+      keys.push(keyPath.join('.'))
     }
-    if (isArray(nested)) {
-      return nested.flatMap((item, i) => getKeys(item, [...paths, `${i}`]))
-    }
-    return [paths.join('.')]
   }
-  return getKeys(value, [])
+  recurse(value)
+  return keys
 }
