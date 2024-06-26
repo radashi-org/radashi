@@ -11,9 +11,7 @@ export type KeyFilterFunction<T extends object = object> = (
 
 /**
  * Functions can use this type to accept either an array of keys or a
- * filter callback. This provides type safety for such a parameter
- * type, whose value can then be passed into `matchKeys` to receive a
- * matching function.
+ * filter function.
  */
 export type KeyFilter<
   T extends object = object,
