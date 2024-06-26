@@ -15,4 +15,15 @@ describe('mapValues function', () => {
       y: 'xbye'
     })
   })
+  test('objects with possibly undefined values', () => {
+    const result = _.mapValues({ x: 'hi  ', y: undefined }, value => {
+      // Importantly, the value is typed as "string | undefined"
+      // here, due to how the overloads of mapValues are defined.
+      return value?.trim()
+    })
+    expect(result).toEqual({
+      x: 'hi',
+      y: undefined
+    })
+  })
 })
