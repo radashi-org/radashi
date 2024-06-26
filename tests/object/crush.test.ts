@@ -33,4 +33,12 @@ describe('crush', () => {
       timestamp: now,
     })
   })
+  test('handles property names with dots', () => {
+    const obj = {
+      a: { 'b.c': 'value' }
+    }
+    expect(_.crush(obj)).toEqual({
+      'a.b.c': 'value'
+    })
+  })
 })
