@@ -25,9 +25,13 @@ export type KeyFilter<
 export const filterKey = (
   obj: object,
   key: string,
-  keys: KeyFilter
+  filter: KeyFilter | null | undefined
 ): boolean => {
-  return isArray(keys)
-    ? Object.hasOwnProperty.call(obj, key) && keys.includes(key)
-    : keys((obj as any)[key], key, obj)
+  return (
+    Object.hasOwnProperty.call(obj, key) &&
+    (filter == null ||
+      (isArray(filter)
+        ? filter.includes(key)
+        : filter((obj as any)[key], key, obj)))
+  )
 }
