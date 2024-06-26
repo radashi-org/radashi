@@ -4,5 +4,9 @@
   "exports": "./src/mod.ts",
   "imports": {
     "radashi": "./src/mod.ts"
+  },
+  "publish": {
+    "include": ["src", "LICENSE.md", "README.md"],
+    "exclude": ["src/**/tests"]
   }
 }
