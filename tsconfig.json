@@ -11,7 +11,18 @@
     "strict": true,
     "types": [],
     "paths": {
-      "radashi": ["./src/index"]
+      "radashi": [
+        "./src/index",
+        "./src/array/*",
+        "./src/async/*",
+        "./src/curry/*",
+        "./src/number/*",
+        "./src/object/*",
+        "./src/random/*",
+        "./src/series/*",
+        "./src/string/*",
+        "./src/typed/*"
+      ]
     }
   }
 }
