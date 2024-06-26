@@ -7,25 +7,26 @@ import { isArray, isPlainObject } from 'radashi'
  * keys({ name: 'ra' }) // ['name']
  * keys({ name: 'ra', children: [{ name: 'hathor' }] }) // ['name', 'children.0.name']
  */
-export const keys = <TValue extends object>(value: TValue): string[] => {
+export const keys = (value: object): string[] => {
   if (!value) return []
   const keys: string[] = []
   const keyPath: (string | number)[] = []
   const recurse = (value: any) => {
     if (isPlainObject(value)) {
-      for (const [k, v] of Object.entries(value)) {
-        keyPath.push(k)
-        recurse(v)
+      for (const [prop, propValue] of Object.entries(value)) {
+        keyPath.push(prop)
+        recurse(propValue)
         keyPath.pop()
       }
     } else if (isArray(value)) {
-      value.forEach((v, i) => {
-        keyPath.push(i)
-        recurse(v)
+      value.forEach((item, index) => {
+        keyPath.push(index)
+        recurse(item)
         keyPath.pop()
       })
+    } else {
+      keys.push(keyPath.join('.'))
     }
-    keys.push(keyPath.join('.'))
   }
   recurse(value)
   return keys
