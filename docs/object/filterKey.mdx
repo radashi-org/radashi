@@ -1,0 +1,23 @@
+---
+title: filterKey
+group: 'Object'
+description: Check if an object key passes a filter
+---
+
+## Basic usage
+
+You have a utility function that is filtering an object's properties somehow. Using `filterKey` will allow your function to filter those properties based on either an array of keys (an allowlist) or a function that returns a boolean for each property.
+
+The `KeyFilter` type provided by Radashi is fundamental in taking advantage of the `filterKey` function. Be sure to use it to ensure type safety and maintainable code.
+
+```ts
+import { filterKey, KeyFilter } from 'radash'
+
+function filterObject(obj: object, filter: KeyFilter) {
+  for (const key in obj) {
+    if (filterKey(obj, key, filter)) {
+      // ...
+    }
+  }
+}
+```
