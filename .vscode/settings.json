@@ -6,5 +6,8 @@
     "**/node_modules/**",
     "**/dist/**",
     "**/dist"
-  ]
+  ],
+  "[typescript]": {
+    "rewrap.wrappingColumn": 70
+  }
 }
