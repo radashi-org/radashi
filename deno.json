@@ -1,5 +1,8 @@
 {
   "name": "@radashi-org/radashi",
   "version": "0.0.0",
-  "exports": "./src/mod.ts"
+  "exports": "./src/mod.ts",
+  "imports": {
+    "radashi": "./src/mod.ts"
+  }
 }
