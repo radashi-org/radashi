@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: { radashi: 'src/mod.ts' },
   format: ['cjs', 'esm'],
   dts: true,
   target: 'node16'

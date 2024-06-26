@@ -38,15 +38,15 @@
   "repository": {
     "url": "https://github.com/radashi-org/radashi"
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.cts",
+  "main": "dist/radashi.cjs",
+  "module": "dist/radashi.js",
+  "types": "dist/radashi.d.cts",
   "exports": {
     "require": {
-      "types": "./dist/index.d.cts",
-      "default": "./dist/index.cjs"
+      "types": "./dist/radashi.d.cts",
+      "default": "./dist/radashi.cjs"
     },
-    "types": "./dist/index.d.ts",
-    "default": "./dist/index.js"
+    "types": "./dist/radashi.d.ts",
+    "default": "./dist/radashi.js"
   }
 }

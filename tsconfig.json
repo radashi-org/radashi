@@ -12,7 +12,7 @@
     "types": [],
     "paths": {
       "radashi": [
-        "./src/index",
+        "./src/mod",
         "./src/array/*",
         "./src/async/*",
         "./src/curry/*",

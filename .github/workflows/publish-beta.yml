@@ -90,6 +90,9 @@ jobs:
     name: Publish Beta to NPM
     needs: [test, prepare-version]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -142,3 +145,12 @@ jobs:
                 body: body
               })
             }
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v1
+
+      - name: Publish to JSR
+        run: |
+          deno run -A jsr:@david/publish-on-tag@0.1.4
+        env:
+          GITHUB_REF: refs/tags/v${{ needs.prepare-version.outputs.version }}

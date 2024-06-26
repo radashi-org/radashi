@@ -13,7 +13,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      radashi: resolve('./src/index.js')
+      radashi: resolve('./src/mod.js')
     }
   }
 })
