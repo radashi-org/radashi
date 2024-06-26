@@ -1,9 +1,13 @@
 /**
- * template is used to replace data by name in template strings. The
- * default expression looks for {{name}} to identify names.
+ * Replace data by name in template strings. The default expression
+ * looks for `{{name}}` to identify names.
  *
- * Ex. template('Hello, {{name}}', { name: 'ray' }) Ex.
- * template('Hello, <name>', { name: 'ray' }, /<(.+?)>/g)
+ * @example
+ * template('Hello, {{name}}', { name: 'Radashi' })
+ * // "Hello, Radashi"
+ *
+ * template('Hello, <name>', { name: 'Radashi' }, /<(.+?)>/g)
+ * // "Hello, Radashi"
  */
 export const template = (
   str: string,

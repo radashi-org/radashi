@@ -3,8 +3,9 @@
  * the first elements of the given arrays, the second of which
  * contains the second elements of the given arrays, and so on.
  *
- * Ex. const zipped = zip(['a', 'b'], [1, 2], [true, false]) // [['a',
- * 1, true], ['b', 2, false]]
+ * @example
+ * const zipped = zip(['a', 'b'], [1, 2], [true, false])
+ * // [['a', 1, true], ['b', 2, false]]
  */
 export function zip<T1, T2, T3, T4, T5>(
   array1: T1[],

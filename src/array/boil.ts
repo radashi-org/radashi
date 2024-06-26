@@ -3,7 +3,8 @@
  * comparing with the second. Keep the one you want then compare that
  * to the next item in the list with the same
  *
- * Ex. const greatest = () => boil(numbers, (a, b) => a > b)
+ * @example
+ * boil([1, 2, 3, 0], (a, b) => a > b ? a : b) // 3
  */
 export const boil = <T>(
   array: readonly T[],
