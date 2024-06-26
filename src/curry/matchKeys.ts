@@ -28,8 +28,16 @@ export type KeyFilter<
  * If you pass in a function, it will be returned as is. The function
  * should have a `(value, key, obj) => boolean` signature.
  */
-export const matchKeys = (keys: KeyFilter): KeyMatcher =>
-  isArray(keys)
+export const matchKeys: {
+  <T extends object>(keys: KeyFilter<T>): KeyMatcher
+  <T extends object>(keys: KeyFilter<T>, obj: T): (key: keyof any) => boolean
+} = (keys: KeyFilter, obj?: object): any => {
+  const matcher: KeyMatcher = isArray(keys)
     ? (_, key, obj) =>
         Object.hasOwnProperty.call(obj, key) && keys.includes(key)
     : keys
+
+  return obj
+    ? (key: keyof any) => matcher((obj as any)[key], key, obj)
+    : matcher
+}
