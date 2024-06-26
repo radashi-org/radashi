@@ -1,7 +1,7 @@
 import type { KeyFilter } from 'radashi'
 import * as _ from 'radashi'
 
-describe('matchKeys function', () => {
+describe('filterKey function', () => {
   test('accepts an array of keys', () => {
     const obj = { a: 1, b: 2, c: 3 }
     const filter: KeyFilter = ['a', 'b']
