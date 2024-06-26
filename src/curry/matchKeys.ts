@@ -2,7 +2,7 @@ import { isArray } from 'radashi'
 
 export type KeyFilter<T extends object, Key extends keyof T = keyof T> =
   | KeyMatcher<T>
-  | Key[]
+  | readonly Key[]
 
 export type KeyMatcher<T extends object> = (
   value: T[keyof T],
