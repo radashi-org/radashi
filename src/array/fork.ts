@@ -11,16 +11,16 @@ export function fork<T>(
   list: readonly T[],
   condition: (item: T) => boolean
 ): [T[], T[]] {
-  if (!list) return [[], []]
-  return list.reduce(
-    (acc, item) => {
-      const [a, b] = acc
-      if (condition(item)) {
-        return [[...a, item], b]
-      } else {
-        return [a, [...b, item]]
-      }
-    },
-    [[], []] as [T[], T[]]
-  )
+  var result: [T[], T[]] = [[], []]
+  
+  if (!list) return result
+  
+  for (var item of list) {
+    if (condition(item)) 
+      result[0].push(item)
+    else 
+      result[1].push(item)
+  }
+  
+  return result
 }
