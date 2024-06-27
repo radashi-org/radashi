@@ -12,7 +12,7 @@
  */
 type RemoveItemsInFront<
   TItems extends any[],
-  TItemsToRemove extends any[]
+  TItemsToRemove extends any[],
 > = TItems extends [...TItemsToRemove, ...infer TRest] ? TRest : TItems
 
 /**

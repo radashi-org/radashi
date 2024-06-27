@@ -16,6 +16,6 @@ export function crush<TValue extends object>(value: TValue): object {
   return objectify(
     keys(value),
     k => k,
-    k => get(value, k)
+    k => get(value, k),
   )
 }

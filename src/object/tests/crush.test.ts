@@ -13,15 +13,15 @@ describe('crush function', () => {
       power: 100,
       friend: {
         name: 'loki',
-        power: 80
+        power: 80,
       },
       enemies: [
         {
           name: 'hathor',
-          power: 12
-        }
+          power: 12,
+        },
       ],
-      timestamp: now
+      timestamp: now,
     }
     expect(_.crush(ra)).toEqual({
       name: 'ra',
@@ -30,7 +30,7 @@ describe('crush function', () => {
       'friend.power': 80,
       'enemies.0.name': 'hathor',
       'enemies.0.power': 12,
-      timestamp: now
+      timestamp: now,
     })
   })
 })

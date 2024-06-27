@@ -10,9 +10,9 @@ describe('assign function', () => {
       street: '23 main',
       state: {
         abbrv: 'FL',
-        name: 'Florida'
-      }
-    }
+        name: 'Florida',
+      },
+    },
   }
   const override = {
     name: 'charles',
@@ -21,9 +21,9 @@ describe('assign function', () => {
       street: '8114 capo',
       state: {
         abbrv: 'TX',
-        name: 'Texas'
-      }
-    }
+        name: 'Texas',
+      },
+    },
   }
   test('handles both null input', () => {
     const result = _.assign(cast(null), cast(null))

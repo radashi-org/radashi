@@ -4,7 +4,7 @@ function memoize<TArgs extends any[], TResult>(
   cache: Cache<TResult>,
   func: (...args: TArgs) => TResult,
   keyFunc: ((...args: TArgs) => string) | null,
-  ttl: number | null
+  ttl: number | null,
 ) {
   return function callWithMemo(...args: any): TResult {
     const key = keyFunc ? keyFunc(...args) : JSON.stringify({ args })
@@ -20,7 +20,7 @@ function memoize<TArgs extends any[], TResult>(
     const result = func(...args)
     cache[key] = {
       exp: ttl ? new Date().getTime() + ttl : null,
-      value: result
+      value: result,
     }
     return result
   }
@@ -37,7 +37,7 @@ export function memo<TArgs extends any[], TResult>(
   options: {
     key?: (...args: TArgs) => string
     ttl?: number
-  } = {}
+  } = {},
 ) {
   return memoize({}, func, options.key ?? null, options.ttl ?? null) as (
     ...args: TArgs

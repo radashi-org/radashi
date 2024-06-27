@@ -6,7 +6,7 @@ describe('first function', () => {
   test('returns first item in list', () => {
     const list = [
       { game: 'a', score: 100 },
-      { game: 'b', score: 200 }
+      { game: 'b', score: 200 },
     ]
     const result = _.first(list)
     expect(result!.game).toBe('a')

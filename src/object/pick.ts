@@ -3,7 +3,7 @@
  */
 export function pick<T extends object, TKeys extends keyof T>(
   obj: T,
-  keys: TKeys[]
+  keys: TKeys[],
 ): Pick<T, TKeys> {
   if (!obj) {
     return {} as Pick<T, TKeys>

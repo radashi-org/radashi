@@ -18,7 +18,7 @@ describe('fork function', () => {
       { name: 'ray', group: 'X' },
       { name: 'sara', group: 'X' },
       { name: 'bo', group: 'Y' },
-      { name: 'mary', group: 'Y' }
+      { name: 'mary', group: 'Y' },
     ]
     const [xs, ys] = _.fork(input, x => x.group === 'X')
     expect(xs).toHaveLength(2)

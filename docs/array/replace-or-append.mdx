@@ -14,26 +14,26 @@ import { replaceOrAppend } from 'radash'
 const fish = [
   {
     name: 'Marlin',
-    weight: 105
+    weight: 105,
   },
   {
     name: 'Salmon',
-    weight: 19
+    weight: 19,
   },
   {
     name: 'Trout',
-    weight: 13
-  }
+    weight: 13,
+  },
 ]
 
 const salmon = {
   name: 'Salmon',
-  weight: 22
+  weight: 22,
 }
 
 const sockeye = {
   name: 'Sockeye',
-  weight: 8
+  weight: 8,
 }
 
 replaceOrAppend(fish, salmon, f => f.name === 'Salmon') // => [marlin, salmon (weight:22), trout]

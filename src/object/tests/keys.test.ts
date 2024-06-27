@@ -12,14 +12,14 @@ describe('keys function', () => {
       power: 100,
       friend: {
         name: 'loki',
-        power: 80
+        power: 80,
       },
       enemies: [
         {
           name: 'hathor',
-          power: 12
-        }
-      ]
+          power: 12,
+        },
+      ],
     }
     expect(_.keys(ra)).toEqual([
       'name',
@@ -27,7 +27,7 @@ describe('keys function', () => {
       'friend.name',
       'friend.power',
       'enemies.0.name',
-      'enemies.0.power'
+      'enemies.0.power',
     ])
   })
   test('works with Object.create(null)', () => {

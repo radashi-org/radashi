@@ -10,7 +10,7 @@ export function snake(
   str: string,
   options?: {
     splitOnNumber?: boolean
-  }
+  },
 ): string {
   const parts =
     str

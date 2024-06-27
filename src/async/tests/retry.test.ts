@@ -86,14 +86,14 @@ describe('_.retry', () => {
         backoff: i => {
           backoffs += i ** 10
           return i ** 10
-        }
+        },
       },
       async () => {
         count++
         if (count < 3) {
           throw 'error'
         }
-      }
+      },
     )
     const diff = Date.now() - start
     expect(count).toBe(3)

@@ -17,7 +17,7 @@ import { isArray, isFunction } from 'radashi'
  */
 export function zipToObject<K extends string | number | symbol, V>(
   keys: K[],
-  values: V | ((key: K, idx: number) => V) | V[]
+  values: V | ((key: K, idx: number) => V) | V[],
 ): Record<K, V> {
   if (!keys || !keys.length) {
     return {} as Record<K, V>

@@ -15,19 +15,19 @@ import { merge } from 'radash'
 const gods = [
   {
     name: 'Zeus',
-    power: 92
+    power: 92,
   },
   {
     name: 'Ra',
-    power: 97
-  }
+    power: 97,
+  },
 ]
 
 const newGods = [
   {
     name: 'Zeus',
-    power: 100
-  }
+    power: 100,
+  },
 ]
 
 merge(gods, newGods, f => f.name) // => [{name: "Zeus" power: 100}, {name: "Ra", power: 97}]

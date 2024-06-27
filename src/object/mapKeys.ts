@@ -4,10 +4,10 @@
 export function mapKeys<
   TValue,
   TKey extends string | number | symbol,
-  TNewKey extends string | number | symbol
+  TNewKey extends string | number | symbol,
 >(
   obj: Record<TKey, TValue>,
-  mapFunc: (key: TKey, value: TValue) => TNewKey
+  mapFunc: (key: TKey, value: TValue) => TNewKey,
 ): Record<TNewKey, TValue> {
   const keys = Object.keys(obj) as TKey[]
   return keys.reduce((acc, key) => {

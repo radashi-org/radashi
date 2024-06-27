@@ -17,16 +17,16 @@ import { counting } from 'radash'
 const gods = [
   {
     name: 'Ra',
-    culture: 'egypt'
+    culture: 'egypt',
   },
   {
     name: 'Zeus',
-    culture: 'greek'
+    culture: 'greek',
   },
   {
     name: 'Loki',
-    culture: 'greek'
-  }
+    culture: 'greek',
+  },
 ]
 
 counting(gods, g => g.culture) // => { egypt: 1, greek: 2 }

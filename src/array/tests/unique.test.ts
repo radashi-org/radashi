@@ -12,7 +12,7 @@ describe('unique function', () => {
       { id: 'a', word: 'hello' },
       { id: 'b', word: 'oh' },
       { id: 'b', word: 'oh' },
-      { id: 'c', word: 'yolo' }
+      { id: 'c', word: 'yolo' },
     ]
     const result = _.unique(list, x => x.id)
     const [a, b, c] = result
@@ -32,7 +32,7 @@ describe('unique function', () => {
       'true',
       false,
       { id: 'a', word: 'hello' },
-      { id: 'a', word: 'hello' }
+      { id: 'a', word: 'hello' },
     ]
     const result = _.unique(list, val => val?.id ?? val)
     expect(result).toEqual([
@@ -40,7 +40,7 @@ describe('unique function', () => {
       true,
       'true',
       false,
-      { id: 'a', word: 'hello' }
+      { id: 'a', word: 'hello' },
     ])
   })
 })

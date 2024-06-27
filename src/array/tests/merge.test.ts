@@ -28,11 +28,11 @@ describe('merge function', () => {
       { name: 'ray', group: 'X' },
       { name: 'sara', group: 'X' },
       { name: 'bo', group: 'Y' },
-      { name: 'mary', group: 'Y' }
+      { name: 'mary', group: 'Y' },
     ]
     const inputB = [
       { name: 'ray', group: 'XXX' },
-      { name: 'mary', group: 'YYY' }
+      { name: 'mary', group: 'YYY' },
     ]
     const result = _.merge(inputA, inputB, x => x.name)
     expect(result[0].group).toBe('XXX')

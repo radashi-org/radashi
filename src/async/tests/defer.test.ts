@@ -91,7 +91,7 @@ describe('defer function', () => {
           async () => {
             throw new Error('soooo broken')
           },
-          { rethrow: true }
+          { rethrow: true },
         )
       })
     } catch (err: any) {
@@ -108,7 +108,7 @@ describe('defer function', () => {
           async () => {
             throw new Error('soooo broken')
           },
-          { rethrow: false }
+          { rethrow: false },
         )
       })
     } catch (err: any) {

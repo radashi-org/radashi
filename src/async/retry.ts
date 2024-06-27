@@ -12,7 +12,7 @@ export type RetryOptions = {
  */
 export async function retry<TResponse>(
   options: RetryOptions,
-  func: (exit: (err: any) => void) => Promise<TResponse>
+  func: (exit: (err: any) => void) => Promise<TResponse>,
 ): Promise<TResponse> {
   const times = options?.times ?? 3
   const delay = options?.delay

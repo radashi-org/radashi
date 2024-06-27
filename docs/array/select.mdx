@@ -15,23 +15,23 @@ const fish = [
   {
     name: 'Marlin',
     weight: 105,
-    source: 'ocean'
+    source: 'ocean',
   },
   {
     name: 'Bass',
     weight: 8,
-    source: 'lake'
+    source: 'lake',
   },
   {
     name: 'Trout',
     weight: 13,
-    source: 'lake'
-  }
+    source: 'lake',
+  },
 ]
 
 select(
   fish,
   f => f.weight,
-  f => f.source === 'lake'
+  f => f.source === 'lake',
 ) // => [8, 13]
 ```

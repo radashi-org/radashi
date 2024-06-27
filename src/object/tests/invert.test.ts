@@ -6,7 +6,7 @@ describe('invert function', () => {
   const peopleByRole = {
     admin: 'jay',
     user: 'fey',
-    guest: 'bray'
+    guest: 'bray',
   }
   test('handles null input', () => {
     const result = _.invert(cast(null))

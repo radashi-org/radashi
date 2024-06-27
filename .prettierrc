@@ -3,7 +3,7 @@
   "semi": false,
   "singleQuote": true,
   "printWidth": 80,
-  "trailingComma": "none",
+  "trailingComma": "all",
   "bracketSpacing": true,
   "bracketSameLine": false,
   "arrowParens": "avoid",

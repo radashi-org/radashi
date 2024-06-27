@@ -54,7 +54,7 @@ want to implement them separately for performance's sake.
 const superPoweredGodsFromEgypt = _.select(
   gods,
   g => ({ ...g, power: g.power * g.power }),
-  g => g.culture === 'egypt'
+  g => g.culture === 'egypt',
 )
 ```
 
@@ -88,7 +88,7 @@ in two steps or write a reduce.
 const godsByCulture = _.objectify(
   gods,
   g => g.name,
-  g => g.culture
+  g => g.culture,
 )
 ```
 

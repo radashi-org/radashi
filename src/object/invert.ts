@@ -4,7 +4,7 @@
  */
 export function invert<
   TKey extends string | number | symbol,
-  TValue extends string | number | symbol
+  TValue extends string | number | symbol,
 >(obj: Record<TKey, TValue>): Record<TValue, TKey> {
   if (!obj) {
     return {} as Record<TValue, TKey>

@@ -19,9 +19,9 @@ const users = await reduce(
     const user = await api.users.find(userId)
     return {
       ...acc,
-      [userId]: user
+      [userId]: user,
     }
   },
-  {}
+  {},
 )
 ```

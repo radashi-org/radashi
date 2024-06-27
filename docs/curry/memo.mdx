@@ -27,7 +27,7 @@ You can optionally pass a `ttl` (time to live) that will expire memoized results
 import { memo, sleep } from 'radash'
 
 const timestamp = memo(() => Date.now(), {
-  ttl: 1000 // milliseconds
+  ttl: 1000, // milliseconds
 })
 
 const now = timestamp()
@@ -52,8 +52,8 @@ const timestamp = memo(
     return `${ts}::${group}`
   },
   {
-    key: ({ group }: { group: string }) => group
-  }
+    key: ({ group }: { group: string }) => group,
+  },
 )
 
 const now = timestamp({ group: 'alpha' })

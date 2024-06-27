@@ -16,11 +16,11 @@ describe('compose function', () => {
       objectize,
       increment,
       increment,
-      returnArg('num')
+      returnArg('num'),
     )
 
     const decomposed = useZero(
-      objectize(increment(increment(returnArg('num'))))
+      objectize(increment(increment(returnArg('num')))),
     )
 
     const expected = decomposed()
@@ -45,11 +45,11 @@ describe('compose function', () => {
       objectize,
       increment,
       increment,
-      returnArg('num')
+      returnArg('num'),
     )
 
     const decomposed = useZero(
-      objectize(increment(increment(returnArg('num'))))
+      objectize(increment(increment(returnArg('num')))),
     )
 
     const expected = await decomposed()
@@ -75,7 +75,7 @@ describe('compose function', () => {
     expect(_.compose(useZero, objectize, increment, returnArg('num'))()).toBe(1)
 
     expect(
-      _.compose(useZero, objectize, increment, increment, returnArg('num'))()
+      _.compose(useZero, objectize, increment, increment, returnArg('num'))(),
     ).toBe(2)
 
     expect(
@@ -85,8 +85,8 @@ describe('compose function', () => {
         increment,
         increment,
         increment,
-        returnArg('num')
-      )()
+        returnArg('num'),
+      )(),
     ).toBe(3)
 
     expect(
@@ -97,8 +97,8 @@ describe('compose function', () => {
         increment,
         increment,
         increment,
-        returnArg('num')
-      )()
+        returnArg('num'),
+      )(),
     ).toBe(4)
 
     expect(
@@ -110,8 +110,8 @@ describe('compose function', () => {
         increment,
         increment,
         increment,
-        returnArg('num')
-      )()
+        returnArg('num'),
+      )(),
     ).toBe(5)
 
     expect(
@@ -124,8 +124,8 @@ describe('compose function', () => {
         increment,
         increment,
         increment,
-        returnArg('num')
-      )()
+        returnArg('num'),
+      )(),
     ).toBe(6)
 
     expect(
@@ -139,8 +139,8 @@ describe('compose function', () => {
         increment,
         increment,
         increment,
-        returnArg('num')
-      )()
+        returnArg('num'),
+      )(),
     ).toBe(7)
   })
 })

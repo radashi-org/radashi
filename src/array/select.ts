@@ -14,7 +14,7 @@
 export function select<T, K>(
   array: readonly T[],
   mapper: (item: T, index: number) => K,
-  condition?: (item: T, index: number) => boolean
+  condition?: (item: T, index: number) => boolean,
 ) {
   if (!array) {
     return []

@@ -12,7 +12,7 @@
 export function intersects<T, K>(
   listA: readonly T[],
   listB: readonly T[],
-  identity?: (t: T) => K
+  identity?: (t: T) => K,
 ): boolean {
   if (!listA || !listB) {
     return false

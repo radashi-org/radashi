@@ -18,7 +18,7 @@ const weekdays = series<Weekday>([
   'tuesday',
   'wednesday',
   'thursday',
-  'friday'
+  'friday',
 ])
 
 weekdays.min('tuesday', 'thursday') // => 'tuesday'
@@ -49,9 +49,9 @@ const weekdays = series<Weekday>(
     { day: 'tuesday' },
     { day: 'wednesday' },
     { day: 'thursday' },
-    { day: 'friday' }
+    { day: 'friday' },
   ],
-  w => w.day
+  w => w.day,
 )
 
 weekdays.next({ day: 'wednesday' }) // => { day: 'thursday' }

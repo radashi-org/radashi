@@ -6,7 +6,7 @@ type ValueOf<T extends object> = object extends T ? unknown : T[keyof T]
 export type KeyFilterFunction<T extends object = object> = (
   value: ValueOf<T>,
   key: KeyOf<T>,
-  obj: T
+  obj: T,
 ) => boolean
 
 /**
@@ -15,7 +15,7 @@ export type KeyFilterFunction<T extends object = object> = (
  */
 export type KeyFilter<
   T extends object = object,
-  Key extends keyof any = keyof any
+  Key extends keyof any = keyof any,
 > = KeyFilterFunction<T> | readonly Key[]
 
 /**
@@ -25,7 +25,7 @@ export type KeyFilter<
 export function filterKey(
   obj: object,
   key: keyof any,
-  filter: KeyFilter | null | undefined
+  filter: KeyFilter | null | undefined,
 ): boolean {
   return (
     Object.hasOwnProperty.call(obj, key) &&

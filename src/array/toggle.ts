@@ -28,7 +28,7 @@ export function toggle<T>(
   toKey?: null | ((item: T, idx: number) => number | string | symbol),
   options?: {
     strategy?: 'prepend' | 'append'
-  }
+  },
 ) {
   if (!list && !item) {
     return []

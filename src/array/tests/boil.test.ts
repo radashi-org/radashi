@@ -9,7 +9,7 @@ describe('boil function', () => {
       { game: 'b', score: 200 },
       { game: 'c', score: 300 },
       { game: 'd', score: 400 },
-      { game: 'e', score: 500 }
+      { game: 'e', score: 500 },
     ]
     const result = _.boil(list, (a, b) => (a.score > b.score ? a : b))
     expect(result!.game).toBe('e')

@@ -18,11 +18,11 @@ type WorkItemResult<K> = {
 export async function parallel<T, K>(
   limit: number,
   array: readonly T[],
-  func: (item: T) => Promise<K>
+  func: (item: T) => Promise<K>,
 ): Promise<K[]> {
   const work = array.map((item, index) => ({
     index,
-    item
+    item,
   }))
   // Process array items
   const processor = async (res: (value: WorkItemResult<K>[]) => void) => {
@@ -36,7 +36,7 @@ export async function parallel<T, K>(
       results.push({
         error,
         result: result as K,
-        index: next.index
+        index: next.index,
       })
     }
   }
@@ -46,7 +46,7 @@ export async function parallel<T, K>(
   const itemResults = (await Promise.all(queues)) as WorkItemResult<K>[][]
   const [errors, results] = fork(
     sort(itemResults.flat(), r => r.index),
-    x => !!x.error
+    x => !!x.error,
   )
   if (errors.length > 0) {
     throw new AggregateError(errors.map(error => error.error))

@@ -4,7 +4,7 @@
  */
 export function omit<T, TKeys extends keyof T>(
   obj: T,
-  keys: TKeys[]
+  keys: TKeys[],
 ): Omit<T, TKeys> {
   if (!obj) {
     return {} as Omit<T, TKeys>
@@ -21,6 +21,6 @@ export function omit<T, TKeys extends keyof T>(
       delete acc[key]
       return acc
     },
-    { ...obj }
+    { ...obj },
   )
 }

@@ -14,7 +14,7 @@
 export function replaceOrAppend<T>(
   list: readonly T[],
   newItem: T,
-  match: (a: T, idx: number) => boolean
+  match: (a: T, idx: number) => boolean,
 ) {
   if (!list && !newItem) {
     return []
@@ -31,7 +31,7 @@ export function replaceOrAppend<T>(
       return [
         ...list.slice(0, idx),
         newItem,
-        ...list.slice(idx + 1, list.length)
+        ...list.slice(idx + 1, list.length),
       ]
     }
   }

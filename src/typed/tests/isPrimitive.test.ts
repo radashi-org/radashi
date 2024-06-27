@@ -9,7 +9,7 @@ describe('isPrimitive function', () => {
       Symbol('key'),
       BigInt('1'),
       undefined,
-      null
+      null,
     ]
 
     for (const elm of arr) {

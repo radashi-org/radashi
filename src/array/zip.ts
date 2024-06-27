@@ -13,18 +13,18 @@ export function zip<T1, T2, T3, T4, T5>(
   array2: T2[],
   array3: T3[],
   array4: T4[],
-  array5: T5[]
+  array5: T5[],
 ): [T1, T2, T3, T4, T5][]
 export function zip<T1, T2, T3, T4>(
   array1: T1[],
   array2: T2[],
   array3: T3[],
-  array4: T4[]
+  array4: T4[],
 ): [T1, T2, T3, T4][]
 export function zip<T1, T2, T3>(
   array1: T1[],
   array2: T2[],
-  array3: T3[]
+  array3: T3[],
 ): [T1, T2, T3][]
 export function zip<T1, T2>(array1: T1[], array2: T2[]): [T1, T2][]
 export function zip<T>(...arrays: T[][]): T[][] {

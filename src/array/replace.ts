@@ -5,7 +5,7 @@
 export function replace<T>(
   list: readonly T[],
   newItem: T,
-  match: (item: T, idx: number) => boolean
+  match: (item: T, idx: number) => boolean,
 ): T[] {
   if (!list) {
     return []
@@ -19,7 +19,7 @@ export function replace<T>(
       return [
         ...list.slice(0, idx),
         newItem,
-        ...list.slice(idx + 1, list.length)
+        ...list.slice(idx + 1, list.length),
       ]
     }
   }

@@ -14,16 +14,16 @@ import { group } from 'radash'
 const fish = [
   {
     name: 'Marlin',
-    source: 'ocean'
+    source: 'ocean',
   },
   {
     name: 'Bass',
-    source: 'lake'
+    source: 'lake',
   },
   {
     name: 'Trout',
-    source: 'lake'
-  }
+    source: 'lake',
+  },
 ]
 
 const fishBySource = group(fish, f => f.source) // => { ocean: [marlin], lake: [bass, trout] }

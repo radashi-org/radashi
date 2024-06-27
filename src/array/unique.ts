@@ -10,7 +10,7 @@
  */
 export function unique<T, K = T>(
   array: readonly T[],
-  toKey?: (item: T) => K
+  toKey?: (item: T) => K,
 ): T[] {
   if (toKey) {
     const keys = new Set<K>()

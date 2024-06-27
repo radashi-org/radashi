@@ -9,7 +9,7 @@
  */
 export function fork<T>(
   array: readonly T[],
-  condition: (item: T) => boolean
+  condition: (item: T) => boolean,
 ): [T[], T[]] {
   const forked: [T[], T[]] = [[], []]
   if (array) {

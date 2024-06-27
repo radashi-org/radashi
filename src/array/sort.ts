@@ -16,7 +16,7 @@
 export function sort<T>(
   array: readonly T[],
   getter: (item: T) => number,
-  desc = false
+  desc = false,
 ) {
   if (!array) {
     return []

@@ -14,7 +14,7 @@ describe('filterKey function', () => {
     const obj: any = { a: 1, b: undefined, c: 3 }
     for (const key in obj) {
       expect(_.filterKey(obj, key, filter)).toBe(
-        obj[key] !== undefined || key === 'd'
+        obj[key] !== undefined || key === 'd',
       )
     }
   })

@@ -9,7 +9,7 @@
  */
 export function counting<T, TId extends string | number | symbol>(
   array: readonly T[],
-  identity: (item: T) => TId
+  identity: (item: T) => TId,
 ): Record<TId, number> {
   if (!array) {
     return {} as Record<TId, number>

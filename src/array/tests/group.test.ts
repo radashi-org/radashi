@@ -7,7 +7,7 @@ describe('group function', () => {
       { group: 'b', word: 'bye' },
       { group: 'a', word: 'oh' },
       { group: 'b', word: 'hey' },
-      { group: 'c', word: 'ok' }
+      { group: 'c', word: 'ok' },
     ]
     const groups = _.group(list, x => x.group)
     expect(groups.a?.length).toBe(2)
@@ -19,7 +19,7 @@ describe('group function', () => {
     const objects = [
       { id: 1, group: 'a' },
       { id: 2, group: 'b' },
-      { id: 3, group: 'a' }
+      { id: 3, group: 'a' },
     ] as const
 
     // Notice how the types of `groupedObjects` and `groupedIds` are
@@ -37,7 +37,7 @@ describe('group function', () => {
 
     expect(groupedIds).toEqual({
       a: [1, 3],
-      b: [2]
+      b: [2],
     })
   })
 })

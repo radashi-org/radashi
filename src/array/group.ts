@@ -10,7 +10,7 @@
  */
 export function group<T, Key extends string | number | symbol>(
   array: readonly T[],
-  getGroupId: (item: T) => Key
+  getGroupId: (item: T) => Key,
 ): { [K in Key]?: T[] } {
   return array.reduce((acc, item) => {
     const groupId = getGroupId(item)

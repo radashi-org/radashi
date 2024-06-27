@@ -19,19 +19,19 @@ describe('replace function', () => {
     const result = _.replace(
       ['a', 'b', 'c', 'd'],
       'BB',
-      (_letter, idx) => idx === 1
+      (_letter, idx) => idx === 1,
     )
     expect(result[1]).toBe('BB')
   })
   test('returns copy of list with replaced item', () => {
     const list = [
       { game: 'a', score: 100 },
-      { game: 'b', score: 200 }
+      { game: 'b', score: 200 },
     ]
     const result = _.replace(
       list,
       { game: 'x', score: 800 },
-      item => item.game === 'a'
+      item => item.game === 'a',
     )
     expect(result[0].game).toBe('x')
     expect(list[1].game).toBe('b')
@@ -39,12 +39,12 @@ describe('replace function', () => {
   test('returns copy of list without changing', () => {
     const list = [
       { game: 'a', score: 100 },
-      { game: 'b', score: 200 }
+      { game: 'b', score: 200 },
     ]
     const result = _.replace(
       list,
       { game: 'x', score: 800 },
-      item => item.game === 'XX'
+      item => item.game === 'XX',
     )
     expect(result[0].game).toBe('a')
     expect(list[1].game).toBe('b')

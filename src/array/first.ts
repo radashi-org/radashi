@@ -11,7 +11,7 @@
  */
 export function first<T>(
   array: readonly T[],
-  defaultValue: T | null | undefined = undefined
+  defaultValue: T | null | undefined = undefined,
 ) {
   return array?.length > 0 ? array[0] : defaultValue
 }

@@ -9,7 +9,7 @@ describe('clone function', () => {
       Symbol('key'),
       BigInt('1'),
       undefined,
-      null
+      null,
     ]
     for (const elm of arr) {
       const newElm = _.clone(elm)
@@ -50,8 +50,8 @@ describe('clone function', () => {
       x: 22,
       add: (a: number, b: number) => a + b,
       child: {
-        key: 'yolo'
-      }
+        key: 'yolo',
+      },
     }
     const result = _.clone(obj)
     expect(result.x).toBe(obj.x)
@@ -65,7 +65,7 @@ describe('clone function', () => {
         return a + b
       }
       public child: any = {
-        key: 'yolo'
+        key: 'yolo',
       }
     }
     const result = _.clone(new Data())

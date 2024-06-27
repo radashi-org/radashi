@@ -6,23 +6,23 @@ import { list } from 'radashi'
  */
 export const series = <T>(
   items: readonly T[],
-  toKey: (item: T) => string | symbol = item => `${item}`
+  toKey: (item: T) => string | symbol = item => `${item}`,
 ) => {
   const { indexesByKey, itemsByIndex } = items.reduce(
     (acc, item, idx) => ({
       indexesByKey: {
         ...acc.indexesByKey,
-        [toKey(item)]: idx
+        [toKey(item)]: idx,
       },
       itemsByIndex: {
         ...acc.itemsByIndex,
-        [idx]: item
-      }
+        [idx]: item,
+      },
     }),
     {
       indexesByKey: {} as Record<string | symbol, number>,
-      itemsByIndex: {} as Record<number, T>
-    }
+      itemsByIndex: {} as Record<number, T>,
+    },
   )
   /**
    * Given two values in the series, returns the value that occurs
@@ -86,7 +86,7 @@ export const series = <T>(
     const rel = abs > items.length ? abs % items.length : abs
     return list(0, rel - 1).reduce(
       acc => (num > 0 ? next(acc) : previous(acc)),
-      current
+      current,
     )
   }
   return {
@@ -96,6 +96,6 @@ export const series = <T>(
     last,
     next,
     previous,
-    spin
+    spin,
   }
 }

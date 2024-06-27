@@ -3,7 +3,7 @@
  */
 export function listify<TValue, TKey extends string | number | symbol, KResult>(
   obj: Record<TKey, TValue>,
-  toItem: (key: TKey, value: TValue) => KResult
+  toItem: (key: TKey, value: TValue) => KResult,
 ) {
   if (!obj) {
     return []

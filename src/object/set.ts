@@ -12,7 +12,7 @@ import { clone, isIntString } from 'radashi'
 export function set<T extends object, K>(
   initial: T,
   path: string,
-  value: K
+  value: K,
 ): T {
   if (!initial) {
     return {} as T
@@ -32,7 +32,7 @@ export function set<T extends object, K>(
         i < keys.length - 1
           ? (object[key] ??= isIntString(keys[i + 1]) ? [] : {})
           : (object[key] = value),
-      root
+      root,
     )
   }
 

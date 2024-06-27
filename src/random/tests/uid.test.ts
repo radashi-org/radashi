@@ -18,7 +18,7 @@ describe('uid function', () => {
   test('uid generates string including special', () => {
     const result = _.uid(
       300,
-      '________________________________________________________________'
+      '________________________________________________________________',
     )
     expect(result).toContain('_')
   })

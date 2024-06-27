@@ -5,10 +5,10 @@ export function mapEntries<
   TKey extends string | number | symbol,
   TValue,
   TNewKey extends string | number | symbol,
-  TNewValue
+  TNewValue,
 >(
   obj: Record<TKey, TValue>,
-  toEntry: (key: TKey, value: TValue) => [TNewKey, TNewValue]
+  toEntry: (key: TKey, value: TValue) => [TNewKey, TNewValue],
 ): Record<TNewKey, TNewValue> {
   if (!obj) {
     return {} as Record<TNewKey, TNewValue>

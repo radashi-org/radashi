@@ -4,7 +4,7 @@
  */
 export async function map<T, K>(
   array: readonly T[],
-  asyncMapFunc: (item: T, index: number) => Promise<K>
+  asyncMapFunc: (item: T, index: number) => Promise<K>,
 ): Promise<K[]> {
   if (!array) {
     return []

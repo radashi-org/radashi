@@ -16,11 +16,11 @@ describe('get function', () => {
         friends: [
           {
             name: 'sara',
-            age: 17
-          }
-        ]
-      }
-    ]
+            age: 17,
+          },
+        ],
+      },
+    ],
   }
   test('handles null and undefined input', () => {
     expect(_.get(null, 'name')).toBeUndefined()

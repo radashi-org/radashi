@@ -33,7 +33,7 @@ describe('diff function', () => {
     const result = _.diff(
       [letter('a'), letter('b'), letter('c')],
       [letter('c'), letter('d'), letter('e')],
-      identity
+      identity,
     )
     expect(result).toEqual([letter('a'), letter('b')])
   })

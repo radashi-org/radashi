@@ -16,22 +16,22 @@ import { objectify } from 'radash'
 const fish = [
   {
     name: 'Marlin',
-    weight: 105
+    weight: 105,
   },
   {
     name: 'Bass',
-    weight: 8
+    weight: 8,
   },
   {
     name: 'Trout',
-    weight: 13
-  }
+    weight: 13,
+  },
 ]
 
 objectify(fish, f => f.name) // => { Marlin: [marlin object], Bass: [bass object], ... }
 objectify(
   fish,
   f => f.name,
-  f => f.weight
+  f => f.weight,
 ) // => { Marlin: 105, Bass: 8, Trout: 13 }
 ```

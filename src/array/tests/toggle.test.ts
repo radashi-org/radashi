@@ -27,7 +27,7 @@ describe('toggle function', () => {
     const result = _.toggle(
       [{ value: 'a' }, { value: 'b' }],
       { value: 'b' },
-      v => v.value
+      v => v.value,
     )
     expect(result).toEqual([{ value: 'a' }])
   })

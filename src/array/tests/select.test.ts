@@ -8,15 +8,15 @@ describe('select function', () => {
       _.select(
         cast(null),
         x => x,
-        x => x
-      )
+        x => x,
+      ),
     ).toEqual([])
     expect(
       _.select(
         cast(undefined),
         x => x,
-        x => x
-      )
+        x => x,
+      ),
     ).toEqual([])
   })
   test('returns mapped and filtered values', () => {
@@ -25,12 +25,12 @@ describe('select function', () => {
       { group: 'b', word: 'bye' },
       { group: 'a', word: 'oh' },
       { group: 'b', word: 'hey' },
-      { group: 'c', word: 'ok' }
+      { group: 'c', word: 'ok' },
     ]
     const result = _.select(
       list,
       x => x.word,
-      x => x.group === 'a'
+      x => x.group === 'a',
     )
     expect(result).toEqual(['hello', 'oh'])
   })
@@ -39,7 +39,7 @@ describe('select function', () => {
     const result = _.select(
       list,
       (x: any) => x.word,
-      x => x.group === 'a'
+      x => x.group === 'a',
     )
     expect(result).toEqual([])
   })
@@ -48,7 +48,7 @@ describe('select function', () => {
     const result = _.select(
       letters,
       (l, idx) => `${l}${idx}`,
-      (_, idx) => idx > 1
+      (_, idx) => idx > 1,
     )
     expect(result).toEqual(['c2', 'd3'])
   })

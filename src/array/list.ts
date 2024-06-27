@@ -18,7 +18,7 @@ export function list<T = number>(
   startOrLength: number,
   end?: number,
   valueOrMapper?: T | ((i: number) => T),
-  step?: number
+  step?: number,
 ): T[] {
   return Array.from(range(startOrLength, end, valueOrMapper, step))
 }

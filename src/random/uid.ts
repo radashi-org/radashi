@@ -8,6 +8,6 @@ export function uid(length: number, specials = ''): string {
     acc => {
       return acc + characters.charAt(random(0, characters.length - 1))
     },
-    ''
+    '',
   )
 }

@@ -21,7 +21,7 @@ describe('range function', () => {
       'y0',
       'y1',
       'y2',
-      'y3'
+      'y3',
     ])
     expect(toList(_.range(0, 3, obj))).toEqual([obj, obj, obj, obj])
     expect(toList(_.range(0, 6, i => i, 2))).toEqual([0, 2, 4, 6])

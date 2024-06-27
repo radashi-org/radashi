@@ -5,7 +5,7 @@
 export function alphabetical<T>(
   array: readonly T[],
   getter: (item: T) => string,
-  dir: 'asc' | 'desc' = 'asc'
+  dir: 'asc' | 'desc' = 'asc',
 ) {
   if (!array) {
     return []

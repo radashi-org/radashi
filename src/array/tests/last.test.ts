@@ -6,7 +6,7 @@ describe('last function', () => {
   test('returns last item in list', () => {
     const list = [
       { game: 'a', score: 100 },
-      { game: 'b', score: 200 }
+      { game: 'b', score: 200 },
     ]
     const result = _.last(list)
     expect(result!.game).toBe('b')

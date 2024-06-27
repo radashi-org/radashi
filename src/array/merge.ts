@@ -15,7 +15,7 @@
 export function merge<T>(
   root: readonly T[],
   others: readonly T[],
-  matcher: (item: T) => any
+  matcher: (item: T) => any,
 ) {
   if (!others && !root) {
     return []
