@@ -16,6 +16,7 @@ describe('isPromise function', () => {
     expect(_.isPromise(() => {})).toBeFalsy()
     expect(_.isPromise(Symbol(''))).toBeFalsy()
     expect(_.isPromise(Symbol('hello'))).toBeFalsy()
+    // biome-ignore lint/suspicious/noThenProperty:
     expect(_.isPromise({ then: 2 })).toBeFalsy()
   })
 })

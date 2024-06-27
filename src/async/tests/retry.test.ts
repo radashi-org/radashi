@@ -78,7 +78,7 @@ describe('_.retry', () => {
   })
   test('uses backoff between retries', async () => {
     let count = 0
-    let backoffs: number = 0
+    let backoffs = 0
     const start = Date.now()
     await _.retry(
       {
@@ -90,7 +90,9 @@ describe('_.retry', () => {
       },
       async () => {
         count++
-        if (count < 3) throw 'error'
+        if (count < 3) {
+          throw 'error'
+        }
       }
     )
     const diff = Date.now() - start

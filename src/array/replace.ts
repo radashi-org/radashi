@@ -7,8 +7,12 @@ export function replace<T>(
   newItem: T,
   match: (item: T, idx: number) => boolean
 ): T[] {
-  if (!list) return []
-  if (newItem === undefined) return [...list]
+  if (!list) {
+    return []
+  }
+  if (newItem === undefined) {
+    return [...list]
+  }
   for (let idx = 0; idx < list.length; idx++) {
     const item = list[idx]
     if (match(item, idx)) {

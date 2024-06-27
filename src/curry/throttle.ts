@@ -21,7 +21,9 @@ export function throttle<TArgs extends any[]>(
   let timer: unknown = undefined
 
   const throttled: ThrottledFunction<TArgs> = (...args: TArgs) => {
-    if (!ready) return
+    if (!ready) {
+      return
+    }
     func(...args)
     ready = false
     timer = setTimeout(() => {

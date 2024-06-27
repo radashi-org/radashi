@@ -6,6 +6,6 @@ export function toFloat<T extends number | null = number>(
   if (value === null || value === undefined) {
     return def
   }
-  const result = parseFloat(value)
-  return isNaN(result) ? def : result
+  const result = Number.parseFloat(value)
+  return Number.isNaN(result) ? def : result
 }

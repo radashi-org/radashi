@@ -19,7 +19,9 @@ describe('_.parallel function', () => {
     const [error, results] = await _.try(async () => {
       return _.parallel(1, _.list(1, 3), async num => {
         await _.sleep(1000)
-        if (num === 2) throw new Error('number is 2')
+        if (num === 2) {
+          throw new Error('number is 2')
+        }
         return `hi_${num}`
       })
     })()

@@ -6,6 +6,6 @@ export function toInt<T extends number | null = number>(
   if (value === null || value === undefined) {
     return def
   }
-  const result = parseInt(value)
-  return isNaN(result) ? def : result
+  const result = Number.parseInt(value)
+  return Number.isNaN(result) ? def : result
 }

@@ -10,7 +10,9 @@ import { set } from 'radashi'
  * ```
  */
 export function construct<TObject extends object>(obj: TObject): object {
-  if (!obj) return {}
+  if (!obj) {
+    return {}
+  }
   return Object.keys(obj).reduce((acc, path) => {
     return set(acc, path, (obj as any)[path])
   }, {})

@@ -27,7 +27,7 @@ describe('isEqual function', () => {
     loop: null as any,
     person: jake,
     date: new Date(0),
-    reg: new RegExp('/regexp/ig'),
+    reg: /\/regexp\/ig/,
     [symbolKey]: 'symbol'
   }
   complex.loop = complex

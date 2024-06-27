@@ -1,6 +1,6 @@
 import { iterate, random } from 'radashi'
 
-export function uid(length: number, specials: string = ''): string {
+export function uid(length: number, specials = ''): string {
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' + specials
   return iterate(

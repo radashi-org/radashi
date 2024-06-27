@@ -31,7 +31,10 @@ describe('_.try function', () => {
   })
   test('handles non-async function errors', async () => {
     const [err, result] = _.try(() => {
-      if (1 < 0) return ''
+      // biome-ignore lint/correctness/noConstantCondition:
+      if (1 < 0) {
+        return ''
+      }
       throw new Error('unknown')
     })()
     expect(result).toBeUndefined()

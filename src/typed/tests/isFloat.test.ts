@@ -7,7 +7,7 @@ describe('isFloat function', () => {
     expect(_.isFloat(null)).toBeFalsy()
     expect(_.isFloat(false)).toBeFalsy()
     expect(_.isFloat(new Data())).toBeFalsy()
-    expect(_.isFloat(NaN)).toBeFalsy()
+    expect(_.isFloat(Number.NaN)).toBeFalsy()
     expect(_.isFloat([1, 2, 3])).toBeFalsy()
     expect(_.isFloat({})).toBeFalsy()
     expect(_.isFloat('abc')).toBeFalsy()

@@ -79,7 +79,9 @@ export const series = <T>(
    * ```
    */
   const spin = (current: T, num: number): T => {
-    if (num === 0) return current
+    if (num === 0) {
+      return current
+    }
     const abs = Math.abs(num)
     const rel = abs > items.length ? abs % items.length : abs
     return list(0, rel - 1).reduce(

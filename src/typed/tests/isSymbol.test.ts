@@ -19,7 +19,7 @@ describe('isSymbol function', () => {
   })
   test('returns false for class instance with properties', () => {
     class Data {
-      name: string = 'ray'
+      name = 'ray'
     }
     const input = new Data()
     const result = _.isSymbol(input)

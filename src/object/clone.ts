@@ -22,9 +22,9 @@ export function clone<T>(obj: T): T {
       ? new proto.constructor()
       : Object.create(proto)
 
-  Object.getOwnPropertyNames(obj).forEach(key => {
+  for (const key of Object.getOwnPropertyNames(obj)) {
     newObj[key] = obj[key as keyof T]
-  })
+  }
 
   return newObj
 }

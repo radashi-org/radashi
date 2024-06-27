@@ -25,7 +25,10 @@ describe('_.guard', () => {
   })
   it('returns error if given sync function throws', async () => {
     const alwaysThrow = () => {
-      if (1 > 0) throw new Error('error')
+      // biome-ignore lint/correctness/noConstantCondition:
+      if (1 > 0) {
+        throw new Error('error')
+      }
       return undefined
     }
     const result = _.guard(alwaysThrow) ?? 'good-bye'
@@ -34,8 +37,12 @@ describe('_.guard', () => {
   it('throws error if shouldGuard returns false', async () => {
     const makeFetchUser = (id: number) => {
       return async () => {
-        if (id === 1) return 'user1'
-        if (id === 2) throw new Error('user not found')
+        if (id === 1) {
+          return 'user1'
+        }
+        if (id === 2) {
+          throw new Error('user not found')
+        }
         throw new Error('unknown error')
       }
     }

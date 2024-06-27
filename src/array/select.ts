@@ -16,11 +16,16 @@ export function select<T, K>(
   mapper: (item: T, index: number) => K,
   condition?: (item: T, index: number) => boolean
 ) {
-  if (!array) return []
+  if (!array) {
+    return []
+  }
   let mapped: K
   return array.reduce((acc, item, index) => {
-    if (condition) condition(item, index) && acc.push(mapper(item, index))
-    else (mapped = mapper(item, index)) != null && acc.push(mapped)
+    if (condition) {
+      condition(item, index) && acc.push(mapper(item, index))
+    } else if ((mapped = mapper(item, index)) != null) {
+      acc.push(mapped)
+    }
     return acc
   }, [] as K[])
 }

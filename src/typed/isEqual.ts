@@ -1,5 +1,7 @@
 export function isEqual<TType>(x: TType, y: TType): boolean {
-  if (Object.is(x, y)) return true
+  if (Object.is(x, y)) {
+    return true
+  }
   if (x instanceof Date && y instanceof Date) {
     return x.getTime() === y.getTime()
   }
@@ -16,10 +18,16 @@ export function isEqual<TType>(x: TType, y: TType): boolean {
   }
   const keysX = Reflect.ownKeys(x as unknown as object) as (keyof typeof x)[]
   const keysY = Reflect.ownKeys(y as unknown as object)
-  if (keysX.length !== keysY.length) return false
+  if (keysX.length !== keysY.length) {
+    return false
+  }
   for (let i = 0; i < keysX.length; i++) {
-    if (!Reflect.has(y as unknown as object, keysX[i])) return false
-    if (!isEqual(x[keysX[i]], y[keysX[i]])) return false
+    if (!Reflect.has(y as unknown as object, keysX[i])) {
+      return false
+    }
+    if (!isEqual(x[keysX[i]], y[keysX[i]])) {
+      return false
+    }
   }
   return true
 }

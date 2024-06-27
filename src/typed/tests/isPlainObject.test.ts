@@ -12,13 +12,11 @@ describe('isPlainObject function', () => {
   test('returns false for non-plain object', () => {
     expect(_.isPlainObject(new Date())).toBeFalsy()
     expect(_.isPlainObject(Math)).toBeFalsy()
-    expect(
-      _.isPlainObject(
-        (function () {
-          return arguments
-        })()
-      )
-    ).toBeFalsy()
+    function returnArguments() {
+      // biome-ignore lint/style/noArguments:
+      return arguments
+    }
+    expect(_.isPlainObject(returnArguments())).toBeFalsy()
   })
   test('returns false for array', () => {
     const result = _.isPlainObject([1, 2, 3])
