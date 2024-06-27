@@ -110,9 +110,13 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - uses: actions-ecosystem/action-push-tag@v1
-        with:
-          tag: v${{ needs.prepare-version.outputs.version }}
+      - name: Tag the Beta Release
+        run: |
+          tag=v${{ needs.prepare-version.outputs.version }}
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git tag -a "${tag}"
+          git push origin "${tag}"
 
       - name: Comment on Pull Request
         uses: actions/github-script@v6
