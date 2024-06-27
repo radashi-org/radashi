@@ -8,19 +8,14 @@
  * ```
  */
 export function fork<T>(
-  list: readonly T[],
+  array: readonly T[],
   condition: (item: T) => boolean
 ): [T[], T[]] {
-  var result: [T[], T[]] = [[], []]
-  
-  if (!list) return result
-  
-  for (var item of list) {
-    if (condition(item)) 
-      result[0].push(item)
-    else 
-      result[1].push(item)
+  const forked: [T[], T[]] = [[], []]
+  if (array) {
+    for (const item of array) {
+      forked[condition(item) ? 0 : 1].push(item)
+    }
   }
-  
-  return result
+  return forked
 }
