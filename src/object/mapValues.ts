@@ -32,8 +32,11 @@ export function mapValues<
   mapFunc: (value: TValue, key: TKey) => TNewValue,
 ): Record<TKey, TNewValue> {
   const keys = Object.keys(obj) as TKey[]
-  return keys.reduce((acc, key) => {
-    acc[key] = mapFunc(obj[key]!, key)
-    return acc
-  }, {} as Record<TKey, TNewValue>)
+  return keys.reduce(
+    (acc, key) => {
+      acc[key] = mapFunc(obj[key]!, key)
+      return acc
+    },
+    {} as Record<TKey, TNewValue>,
+  )
 }

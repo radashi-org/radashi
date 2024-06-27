@@ -4,7 +4,21 @@
     "enabled": false
   },
   "formatter": {
-    "enabled": false
+    "enabled": true,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "indentStyle": "space"
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "asNeeded",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "quoteProperties": "asNeeded",
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all"
+    }
   },
   "linter": {
     "enabled": true,

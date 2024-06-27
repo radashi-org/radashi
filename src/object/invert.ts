@@ -10,8 +10,11 @@ export function invert<
     return {} as Record<TValue, TKey>
   }
   const keys = Object.keys(obj) as TKey[]
-  return keys.reduce((acc, key) => {
-    acc[obj[key]] = key
-    return acc
-  }, {} as Record<TValue, TKey>)
+  return keys.reduce(
+    (acc, key) => {
+      acc[obj[key]] = key
+      return acc
+    },
+    {} as Record<TValue, TKey>,
+  )
 }

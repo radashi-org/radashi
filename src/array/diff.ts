@@ -25,9 +25,12 @@ export function diff<T>(
   if (!other?.length) {
     return [...root]
   }
-  const bKeys = other.reduce((acc, item) => {
-    acc[identity(item)] = true
-    return acc
-  }, {} as Record<string | number | symbol, boolean>)
+  const bKeys = other.reduce(
+    (acc, item) => {
+      acc[identity(item)] = true
+      return acc
+    },
+    {} as Record<string | number | symbol, boolean>,
+  )
   return root.filter(a => !bKeys[identity(a)])
 }
