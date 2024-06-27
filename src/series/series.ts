@@ -26,33 +26,33 @@ export const series = <T>(
   )
   /**
    * Given two values in the series, returns the value that occurs
-   * earlier in the series
+   * earlier in the series.
    */
   const min = (a: T, b: T): T => {
     return indexesByKey[toKey(a)] < indexesByKey[toKey(b)] ? a : b
   }
   /**
    * Given two values in the series, returns the value that occurs
-   * later in the series
+   * later in the series.
    */
   const max = (a: T, b: T): T => {
     return indexesByKey[toKey(a)] > indexesByKey[toKey(b)] ? a : b
   }
   /**
-   * Returns the first item from the series
+   * Returns the first item from the series.
    */
   const first = (): T => {
     return itemsByIndex[0]
   }
   /**
-   * Returns the last item in the series
+   * Returns the last item in the series.
    */
   const last = (): T => {
     return itemsByIndex[items.length - 1]
   }
   /**
-   * Given an item in the series returns the next item in the series
-   * or default if the given value is the last item in the series
+   * Given an item in the series, returns the next item in the series
+   * or `defaultValue` if the given value is the last item in the series.
    */
   const next = (current: T, defaultValue?: T): T => {
     return (
@@ -60,9 +60,9 @@ export const series = <T>(
     )
   }
   /**
-   * Given an item in the series returns the previous item in the
-   * series or default if the given value is the first item in the
-   * series
+   * Given an item in the series, returns the previous item in the
+   * series or `defaultValue` if the given value is the first item in
+   * the series.
    */
   const previous = (current: T, defaultValue?: T): T => {
     return (
@@ -70,10 +70,13 @@ export const series = <T>(
     )
   }
   /**
-   * A more dynamic method than next and previous that lets you move
+   * A more dynamic method than `next` and `previous` that lets you move
    * many times in either direction.
-   * @example series(weekdays).spin('wednesday', 3) => 'monday'
-   * @example series(weekdays).spin('wednesday', -3) => 'friday'
+   *
+   * ```ts
+   * series(weekdays).spin('wednesday', 3) // => 'monday'
+   * series(weekdays).spin('wednesday', -3) // => 'friday'
+   * ```
    */
   const spin = (current: T, num: number): T => {
     if (num === 0) return current

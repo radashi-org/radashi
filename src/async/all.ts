@@ -1,43 +1,47 @@
-import { AggregateError } from 'radashi'
-import { isArray } from 'radashi'
+import { AggregateError, isArray } from 'radashi'
 
 type PromiseValues<T extends Promise<any>[]> = {
   [K in keyof T]: T[K] extends Promise<infer U> ? U : never
 }
 
 /**
- * Functionally similar to Promise.all or Promise.allSettled. If any
- * errors are thrown, all errors are gathered and thrown in an
- * AggregateError.
+ * Functionally similar to `Promise.all` or `Promise.allSettled`. If
+ * any errors are thrown, all errors are gathered and thrown in an
+ * `AggregateError`.
  *
- * @example
+ * ```ts
  * const [user] = await all([
  *   api.users.create(...),
  *   s3.buckets.create(...),
  *   slack.customerSuccessChannel.sendMessage(...)
  * ])
+ * ```
  */
 export async function all<T extends [Promise<any>, ...Promise<any>[]]>(
   promises: T
 ): Promise<PromiseValues<T>>
+
 export async function all<T extends Promise<any>[]>(
   promises: T
 ): Promise<PromiseValues<T>>
+
 /**
- * Functionally similar to Promise.all or Promise.allSettled. If any
- * errors are thrown, all errors are gathered and thrown in an
- * AggregateError.
+ * Functionally similar to `Promise.all` or `Promise.allSettled`. If
+ * any errors are thrown, all errors are gathered and thrown in an
+ * `AggregateError`.
  *
- * @example
+ * ```ts
  * const { user } = await all({
  *   user: api.users.create(...),
  *   bucket: s3.buckets.create(...),
  *   message: slack.customerSuccessChannel.sendMessage(...)
  * })
+ * ```
  */
 export async function all<T extends Record<string, Promise<any>>>(
   promises: T
 ): Promise<{ [K in keyof T]: Awaited<T[K]> }>
+
 export async function all<
   T extends Record<string, Promise<any>> | Promise<any>[]
 >(promises: T) {

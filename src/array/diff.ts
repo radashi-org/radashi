@@ -1,6 +1,14 @@
 /**
  * Returns all items from the first list that do not exist in the
  * second list.
+ *
+ * ```ts
+ * diff([1, 2, 3, 4], [2, 4])
+ * // [1, 3]
+ *
+ * diff([{a:1}, {a:2}, {a:3}], [{a:2}, {a:4}], (n) => n.a)
+ * // [{a:1}, {a:3}]
+ * ```
  */
 export function diff<T>(
   root: readonly T[],

@@ -1,14 +1,13 @@
-import { objectify } from 'radashi'
-import { get } from 'radashi'
-import { keys } from 'radashi'
+import { get, keys, objectify } from 'radashi'
 
 /**
- * Flattens a deep object to a single demension, converting the keys
+ * Flattens a deep object to a single dimension, converting the keys
  * to dot notation.
  *
- * @example
+ * ```ts
  * crush({ name: 'ra', children: [{ name: 'hathor' }] })
  * // { name: 'ra', 'children.0.name': 'hathor' }
+ * ```
  */
 export function crush<TValue extends object>(value: TValue): object {
   if (!value) return {}

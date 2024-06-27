@@ -3,9 +3,10 @@ import { boil } from 'radashi'
 /**
  * Min gets the smallest value from a list
  *
- * @example
- * min([1, 2, 3, 4]) == 1
- * min([{ num: 1 }, { num: 2 }], x => x.num) == { num: 1 }
+ * ```ts
+ * min([1, 2, 3, 4]) // => 1
+ * min([{ num: 1 }, { num: 2 }], x => x.num) // => { num: 1 }
+ * ```
  */
 export function min(array: readonly [number, ...number[]]): number
 export function min(array: readonly number[]): number | null

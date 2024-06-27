@@ -4,6 +4,11 @@
  *
  * NOTE: This is NOT zero indexed. If you pass count=5 you will get 1,
  * 2, 3, 4, 5 iteration in the callback function
+ *
+ * ```ts
+ * iterate(3, (total, i) => total + i, 0)
+ * // 6
+ * ```
  */
 export function iterate<T>(
   count: number,

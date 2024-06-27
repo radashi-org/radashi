@@ -2,6 +2,11 @@
  * Given a list of items returns a new list with only unique items.
  * Accepts an optional identity function to convert each item in the
  * list to a comparable identity value
+ *
+ * ```ts
+ * unique([1, 1, 2, 2]) // => [1, 2]
+ * unique([1, 2, 3], (n) => n % 2) // => [1, 2]
+ * ```
  */
 export function unique<T, K = T>(
   array: readonly T[],

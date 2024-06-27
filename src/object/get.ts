@@ -2,7 +2,15 @@
  * Dynamically get a nested value from an array or object with a
  * string.
  *
- * @example get(person, 'friends[0].name')
+ * ```ts
+ * const person = {
+ *   name: 'John',
+ *   friends: [{ name: 'Jane' }]
+ * }
+ *
+ * get(person, 'friends[0].name')
+ * // => 'Jane'
+ * ```
  */
 export function get<TDefault = unknown>(
   value: any,

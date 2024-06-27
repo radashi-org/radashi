@@ -3,9 +3,10 @@ import { boil } from 'radashi'
 /**
  * Max gets the greatest value from a list
  *
- * @example
- * max([ 2, 3, 5]) == 5
- * max([{ num: 1 }, { num: 2 }], x => x.num) == { num: 2 }
+ * ```ts
+ * max([2, 3, 5]) // => 5
+ * max([{ num: 1 }, { num: 2 }], x => x.num) // => { num: 2 }
+ * ```
  */
 export function max(array: readonly [number, ...number[]]): number
 export function max(array: readonly number[]): number | null

@@ -2,8 +2,9 @@
  * A helper to try an async function that returns undefined if it
  * fails.
  *
- * @example
+ * ```ts
  * const result = await guard(fetchUsers)() ?? [];
+ * ```
  */
 export function guard<TFunction extends () => any>(
   func: TFunction,

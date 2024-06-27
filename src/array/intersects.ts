@@ -1,5 +1,13 @@
 /**
- * Given two arrays, returns true if any elements intersect
+ * Given two arrays, returns true if any elements intersect.
+ *
+ * ```ts
+ * intersects([1, 2, 3], [4, 5, 6])
+ * // false
+ *
+ * intersects([1, 0, 0], [0, 1], (n) => n > 1)
+ * // true
+ * ```
  */
 export function intersects<T, K>(
   listA: readonly T[],

@@ -1,6 +1,16 @@
 /**
- * Given two lists of the same type, iterate the first list and
- * replace items matched by the matcher func in the first place.
+ * Given two arrays of the same type, iterate the first list and
+ * replace items matched by the `matcher` function in the first place.
+ * The given arrays are never modified.
+ *
+ * ```ts
+ * merge(
+ *   [{id: 1}, {id: 2}],
+ *   [{id: 3}, {id: 1, name: 'John'}],
+ *   (obj) => obj.id
+ * )
+ * // [{id: 1, name: 'John'}, {id: 2}]
+ * ```
  */
 export function merge<T>(
   root: readonly T[],

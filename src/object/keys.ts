@@ -3,9 +3,12 @@ import { isArray, isPlainObject } from 'radashi'
 /**
  * Get a string list of all key names that exist in an object (deep).
  *
- * @example
+ * ```ts
  * keys({ name: 'ra' }) // ['name']
- * keys({ name: 'ra', children: [{ name: 'hathor' }] }) // ['name', 'children.0.name']
+ *
+ * keys({ name: 'ra', children: [{ name: 'hathor' }] })
+ * // ['name', 'children.0.name']
+ * ```
  */
 export function keys(value: object): string[] {
   if (!value) return []

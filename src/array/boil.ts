@@ -3,13 +3,11 @@
  * comparing with the second. Keep the one you want then compare that
  * to the next item in the list with the same
  *
- * @example
+ * ```ts
  * boil([1, 2, 3, 0], (a, b) => a > b ? a : b) // 3
+ * ```
  */
-export function boil<T>(
-  array: readonly T[],
-  compareFunc: (a: T, b: T) => T
-) {
+export function boil<T>(array: readonly T[], compareFunc: (a: T, b: T) => T) {
   if (!array || (array.length ?? 0) === 0) return null
   return array.reduce(compareFunc)
 }

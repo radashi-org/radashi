@@ -2,12 +2,13 @@
  * Replace data by name in template strings. The default expression
  * looks for `{{name}}` to identify names.
  *
- * @example
+ * ```ts
  * template('Hello, {{name}}', { name: 'Radashi' })
  * // "Hello, Radashi"
  *
  * template('Hello, <name>', { name: 'Radashi' }, /<(.+?)>/g)
  * // "Hello, Radashi"
+ * ```
  */
 export function template(
   str: string,

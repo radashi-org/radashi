@@ -1,7 +1,10 @@
 /**
- * Splits a single list into many lists of the desired size. If given
- * a list of 10 items and a size of 2, it will return 5 lists with 2
- * items each
+ * Splits a single list into many lists of the desired size.
+ *
+ * ```ts
+ * cluster([1, 2, 3, 4, 5, 6], 2)
+ * // [[1, 2], [3, 4], [5, 6]]
+ * ```
  */
 export function cluster<T>(list: readonly T[], size: number = 2): T[][] {
   const clusterCount = Math.ceil(list.length / size)

@@ -1,7 +1,12 @@
 /**
- * Sorts an array of items into groups. The return value is a map
- * where the keys are the group ids the given getGroupId function
+ * Sorts an `array` of items into groups. The return value is a map
+ * where the keys are the group IDs the given `getGroupId` function
  * produced and the value is an array of each item in that group.
+ *
+ * ```ts
+ * group([1, 2, 3, 4], (n) => n % 2 === 0 ? 'even' : 'odd')
+ * // { even: [2], odd: [1, 3, 4] }
+ * ```
  */
 export function group<T, Key extends string | number | symbol>(
   array: readonly T[],

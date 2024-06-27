@@ -4,7 +4,6 @@ import { clone, isIntString } from 'radashi'
  * Opposite of get, dynamically set a nested value into an object
  * using a key path. Does not modify the given initial object.
  *
- * @example
  * ```ts
  * set({}, 'name', 'ra') // => { name: 'ra' }
  * set({}, 'cards[0].value', 2) // => { cards: [{ value: 2 }] }

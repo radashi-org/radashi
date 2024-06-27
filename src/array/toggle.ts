@@ -1,6 +1,22 @@
 /**
  * If the item matching the condition already exists in the list it
  * will be removed. If it does not it will be added.
+ *
+ * ```ts
+ * toggle([1, 2, 3], 4) // => [1, 2, 3, 4]
+ * toggle([1, 2, 3], 2) // => [1, 3]
+ *
+ * toggle(
+ *   [
+ *     { id: 1 },
+ *     { id: 2 },
+ *   ],
+ *   { id: 3 },
+ *   (obj) => obj.id,
+ *   { strategy: 'prepend' }
+ * )
+ * // => [{ id: 3 }, { id: 1 }, { id: 2 }]
+ * ```
  */
 export function toggle<T>(
   list: readonly T[],
