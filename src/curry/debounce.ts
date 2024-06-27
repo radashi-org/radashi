@@ -29,7 +29,7 @@ export type DebounceFunction<TArgs extends any[]> = {
 export function debounce<TArgs extends any[]>(
   { delay }: { delay: number },
   func: (...args: TArgs) => any,
-) {
+): DebounceFunction<TArgs> {
   let timer: unknown = undefined
   let active = true
 

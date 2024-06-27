@@ -3,7 +3,10 @@
   "exclude": ["**/*.test.ts"],
   "compilerOptions": {
     "moduleResolution": "node",
-    "noEmit": true,
+    "outDir": "./dist/tmp",
+    "noEmitOnError": true,
+    "declaration": true,
+    "isolatedDeclarations": true,
     "target": "esnext",
     "lib": ["es2020"],
     "esModuleInterop": true,

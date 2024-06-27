@@ -1,6 +1,11 @@
 /**
  * Replace an element in an array with a new item without modifying
  * the array and return the new value
+ *
+ * ```ts
+ * replace([1, 2, 3], 4, (n) => n === 2)
+ * // [1, 4, 3]
+ * ```
  */
 export function replace<T>(
   list: readonly T[],
