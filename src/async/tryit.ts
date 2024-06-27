@@ -12,7 +12,7 @@ export function tryit<Args extends any[], Return>(
     ...args: Args
   ): Return extends Promise<any>
     ? Promise<[Error, undefined] | [undefined, Awaited<Return>]>
-    : [Error, undefined] | [undefined, Return] {
+    : [Error, undefined] | [undefined, Return] => {
     try {
       const result = func(...args)
       if (isPromise(result)) {
