@@ -151,6 +151,6 @@ jobs:
 
       - name: Publish to JSR
         run: |
-          deno run -A jsr:@david/publish-on-tag@0.1.4
+          deno run -A jsr:@david/publish-on-tag@0.1.4 --allow-slow-types --allow-dirty
         env:
           GITHUB_REF: refs/tags/v${{ needs.prepare-version.outputs.version }}
