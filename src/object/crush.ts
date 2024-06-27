@@ -10,7 +10,9 @@ import { get, keys, objectify } from 'radashi'
  * ```
  */
 export function crush<TValue extends object>(value: TValue): object {
-  if (!value) return {}
+  if (!value) {
+    return {}
+  }
   return objectify(
     keys(value),
     k => k,

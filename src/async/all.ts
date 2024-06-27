@@ -68,11 +68,8 @@ export async function all<
       : unknown
   }
 
-  return results.reduce(
-    (acc, item) => ({
-      ...acc,
-      [item.key!]: item.result
-    }),
-    {} as { [K in keyof T]: Awaited<T[K]> }
-  )
+  return results.reduce((acc, item) => {
+    acc[item.key as keyof T] = item.result
+    return acc
+  }, {} as { [K in keyof T]: Awaited<T[K]> })
 }

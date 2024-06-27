@@ -6,8 +6,12 @@ export function omit<T, TKeys extends keyof T>(
   obj: T,
   keys: TKeys[]
 ): Omit<T, TKeys> {
-  if (!obj) return {} as Omit<T, TKeys>
-  if (!keys || keys.length === 0) return obj as Omit<T, TKeys>
+  if (!obj) {
+    return {} as Omit<T, TKeys>
+  }
+  if (!keys || keys.length === 0) {
+    return obj as Omit<T, TKeys>
+  }
   return keys.reduce(
     (acc, key) => {
       // Gross, I know, it's mutating the object, but we are allowing

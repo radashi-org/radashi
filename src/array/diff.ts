@@ -16,9 +16,15 @@ export function diff<T>(
   identity: (item: T) => string | number | symbol = (t: T) =>
     t as unknown as string | number | symbol
 ): T[] {
-  if (!root?.length && !other?.length) return []
-  if (root?.length === undefined) return [...other]
-  if (!other?.length) return [...root]
+  if (!root?.length && !other?.length) {
+    return []
+  }
+  if (root?.length === undefined) {
+    return [...other]
+  }
+  if (!other?.length) {
+    return [...root]
+  }
   const bKeys = other.reduce((acc, item) => {
     acc[identity(item)] = true
     return acc

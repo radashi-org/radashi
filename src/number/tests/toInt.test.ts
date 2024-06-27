@@ -30,7 +30,7 @@ describe('isInt function', () => {
     expect(_.isInt(null)).toBeFalsy()
     expect(_.isInt(false)).toBeFalsy()
     expect(_.isInt(new Data())).toBeFalsy()
-    expect(_.isInt(NaN)).toBeFalsy()
+    expect(_.isInt(Number.NaN)).toBeFalsy()
     expect(_.isInt([1, 2, 3])).toBeFalsy()
     expect(_.isInt({})).toBeFalsy()
     expect(_.isInt('abc')).toBeFalsy()

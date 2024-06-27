@@ -60,7 +60,7 @@ describe('clone function', () => {
   })
   test('copies all attributes from class instance', () => {
     class Data {
-      public x: number = 22
+      public x = 22
       public add(a: number, b: number) {
         return a + b
       }

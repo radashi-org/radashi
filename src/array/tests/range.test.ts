@@ -3,8 +3,10 @@ import * as _ from 'radashi'
 describe('range function', () => {
   const obj = { name: 'radash' }
   const toList = <T>(gen: Generator<T>): T[] => {
-    let items: T[] = []
-    for (const item of gen) items.push(item)
+    const items: T[] = []
+    for (const item of gen) {
+      items.push(item)
+    }
     return items
   }
 

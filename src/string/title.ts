@@ -8,7 +8,9 @@ import { capitalize } from 'radashi'
  * 'Query Items'
  */
 export function title(str: string | null | undefined): string {
-  if (!str) return ''
+  if (!str) {
+    return ''
+  }
   return str
     .split(/(?=[A-Z])|[\.\-\s_]/)
     .map(s => s.trim())

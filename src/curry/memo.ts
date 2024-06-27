@@ -10,7 +10,9 @@ function memoize<TArgs extends any[], TResult>(
     const key = keyFunc ? keyFunc(...args) : JSON.stringify({ args })
     const existing = cache[key]
     if (existing !== undefined) {
-      if (!existing.exp) return existing.value
+      if (!existing.exp) {
+        return existing.value
+      }
       if (existing.exp > new Date().getTime()) {
         return existing.value
       }

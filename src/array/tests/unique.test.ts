@@ -34,7 +34,7 @@ describe('unique function', () => {
       { id: 'a', word: 'hello' },
       { id: 'a', word: 'hello' }
     ]
-    const result = _.unique(list, val => (val && val.id) ?? val)
+    const result = _.unique(list, val => val?.id ?? val)
     expect(result).toEqual([
       null,
       true,

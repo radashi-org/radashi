@@ -3,8 +3,12 @@ import * as _ from 'radashi'
 describe('proxied function', () => {
   test('returns proxy that calls callback function', () => {
     const handler = (propertyName: string) => {
-      if (propertyName === 'x') return 2
-      if (propertyName === 'getName') return () => 'radash'
+      if (propertyName === 'x') {
+        return 2
+      }
+      if (propertyName === 'getName') {
+        return () => 'radash'
+      }
       return undefined
     }
     const proxy = _.proxied(handler) as any

@@ -1,3 +1,4 @@
+// biome-ignore lint/complexity/noBannedTypes:
 export function isFunction(value: any): value is Function {
-  return !!(value && value.constructor && value.call && value.apply)
+  return !!(value?.constructor && value.call && value.apply)
 }

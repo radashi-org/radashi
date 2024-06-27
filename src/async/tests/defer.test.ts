@@ -60,7 +60,10 @@ describe('defer function', () => {
         defer(async () => {
           three = 3
         })
-        if (!!true) throw new Error('soooo broken')
+        // biome-ignore lint/correctness/noConstantCondition:
+        if (true) {
+          throw new Error('soooo broken')
+        }
         return 'x'
       })
     } catch {}

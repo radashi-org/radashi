@@ -29,7 +29,9 @@ export async function parallel<T, K>(
     const results: WorkItemResult<K>[] = []
     while (true) {
       const next = work.pop()
-      if (!next) return res(results)
+      if (!next) {
+        return res(results)
+      }
       const [error, result] = await tryit(func)(next.item)
       results.push({
         error,
