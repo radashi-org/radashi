@@ -8,7 +8,7 @@ describe('_.retry', () => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
   })
   test('returns result of given function', async () => {
-    const result = await _.retry(cast(null), async bail => {
+    const result = await _.retry(cast(null), async _bail => {
       return 'hello'
     })
     expect(result).toBe('hello')
@@ -21,7 +21,7 @@ describe('_.retry', () => {
   })
   test('retries on failure', async () => {
     let failedOnce = false
-    const result = await _.retry(cast(null), async bail => {
+    const result = await _.retry(cast(null), async _bail => {
       if (!failedOnce) {
         failedOnce = true
         throw 'Failing for test'

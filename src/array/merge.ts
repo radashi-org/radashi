@@ -16,18 +16,18 @@ export function merge<T>(
   root: readonly T[],
   others: readonly T[],
   matcher: (item: T) => any,
-) {
+): T[] {
   if (!others && !root) {
     return []
   }
   if (!others) {
-    return root
+    return [...root]
   }
   if (!root) {
     return []
   }
   if (!matcher) {
-    return root
+    return [...root]
   }
   return root.reduce((acc, r) => {
     const matched = others.find(o => matcher(r) === matcher(o))

@@ -15,7 +15,7 @@ export function replaceOrAppend<T>(
   list: readonly T[],
   newItem: T,
   match: (a: T, idx: number) => boolean,
-) {
+): T[] {
   if (!list && !newItem) {
     return []
   }

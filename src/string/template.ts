@@ -13,8 +13,8 @@
 export function template(
   str: string,
   data: Record<string, any>,
-  regex = /\{\{(.+?)\}\}/g,
-) {
+  regex: RegExp = /\{\{(.+?)\}\}/g,
+): string {
   return Array.from(str.matchAll(regex)).reduce((acc, match) => {
     return acc.replace(match[0], data[match[1]])
   }, str)

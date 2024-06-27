@@ -6,6 +6,8 @@
     "source.organizeImports",
     "source.formatDocument"
   ],
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.autoImportFileExcludePatterns": [
     "**/node_modules/**",

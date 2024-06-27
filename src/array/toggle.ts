@@ -29,7 +29,7 @@ export function toggle<T>(
   options?: {
     strategy?: 'prepend' | 'append'
   },
-) {
+): T[] {
   if (!list && !item) {
     return []
   }

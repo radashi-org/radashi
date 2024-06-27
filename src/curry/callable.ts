@@ -24,6 +24,6 @@ export function callable<
       ;(target as any)[key] = value
       return true
     },
-    apply: (target, self, args) => fn(Object.assign({}, target))(...args),
+    apply: (target, _, args) => fn(Object.assign({}, target))(...args),
   }) as unknown as TObj & TFunc
 }

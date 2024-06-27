@@ -10,7 +10,10 @@
  * trim('222222__hello__1111111', '12_') // => 'hello'
  * ```
  */
-export function trim(str: string | null | undefined, charsToTrim = ' ') {
+export function trim(
+  str: string | null | undefined,
+  charsToTrim = ' ',
+): string {
   if (!str) {
     return ''
   }

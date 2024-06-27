@@ -16,7 +16,7 @@ export type ThrottledFunction<TArgs extends any[]> = {
 export function throttle<TArgs extends any[]>(
   { interval }: { interval: number },
   func: (...args: TArgs) => any,
-) {
+): ThrottledFunction<TArgs> {
   let ready = true
   let timer: unknown = undefined
 
