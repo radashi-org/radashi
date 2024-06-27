@@ -41,6 +41,7 @@ export * from './async/tryit'
 
 export * from './curry/callable'
 export * from './curry/chain'
+export * from './curry/compare'
 export * from './curry/compose'
 export * from './curry/debounce'
 export * from './curry/memo'
