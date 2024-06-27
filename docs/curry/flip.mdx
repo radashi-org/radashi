@@ -1,0 +1,20 @@
+---
+title: flip
+group: 'Curry'
+description: Swap the only two arguments of a function
+---
+
+## Basic usage
+
+Return a new function that swaps the only two arguments of the original function. This is most useful for reversing the order of a “comparator” (i.e. a function used for sorting).
+
+```ts
+import * as _ from 'radashi'
+
+const subtract = (a: number, b: number) => a - b
+
+subtract(1, 2) // => -1
+_.flip(subtract)(1, 2) // => 1
+```
+
+Note that functions with more than two arguments are not supported.
