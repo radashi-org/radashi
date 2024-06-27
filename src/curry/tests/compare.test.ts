@@ -5,6 +5,7 @@ describe('compare function', () => {
     const compare = _.compare('a')
     expect(compare({ a: 1 }, { a: 2 })).toBe(-1)
     expect(compare({ a: 2 }, { a: 1 })).toBe(1)
+    expect(compare({ a: 1 }, { a: 1 })).toBe(0)
   })
   test('accepts a property name and a compare function', () => {
     const order = vi.fn((a: number, b: number) => a - b)
