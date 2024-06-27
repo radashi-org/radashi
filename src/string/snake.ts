@@ -6,12 +6,12 @@ import { capitalize } from 'radashi'
  * snake('hello world')   -> 'hello_world' snake('va va-VOOM') ->
  * 'va_va_voom' snake('helloWord') -> 'hello_world'
  */
-export const snake = (
+export function snake(
   str: string,
   options?: {
     splitOnNumber?: boolean
   }
-): string => {
+): string {
   const parts =
     str
       ?.replace(/([A-Z])+/g, capitalize)

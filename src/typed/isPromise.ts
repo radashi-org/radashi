@@ -5,7 +5,7 @@ import { isFunction } from 'radashi'
  * use Promise.resolve(value) to be 100% sure you're handling it
  * correctly.
  */
-export const isPromise = (value: any): value is Promise<any> => {
+export function isPromise(value: any): value is Promise<any> {
   if (!value) return false
   if (!value.then) return false
   if (!isFunction(value.then)) return false

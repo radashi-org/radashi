@@ -5,10 +5,10 @@ import { isPlainObject } from 'radashi'
  * values from right to left. Recursion only applies to child object
  * properties.
  */
-export const assign = <X extends Record<string | symbol | number, any>>(
+export function assign<X extends Record<string | symbol | number, any>>(
   initial: X,
   override: X
-): X => {
+): X {
   if (!initial || !override) return initial ?? override ?? {}
   const proto = Object.getPrototypeOf(initial)
   const merged = proto

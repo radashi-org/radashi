@@ -2,10 +2,10 @@
  * Omit a list of properties from an object returning a new object
  * with the properties that remain
  */
-export const omit = <T, TKeys extends keyof T>(
+export function omit<T, TKeys extends keyof T>(
   obj: T,
   keys: TKeys[]
-): Omit<T, TKeys> => {
+): Omit<T, TKeys> {
   if (!obj) return {} as Omit<T, TKeys>
   if (!keys || keys.length === 0) return obj as Omit<T, TKeys>
   return keys.reduce(

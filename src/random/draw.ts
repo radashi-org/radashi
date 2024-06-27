@@ -3,7 +3,7 @@ import { random } from 'radashi'
 /**
  * Draw a random item from a list. Returns null if the list is empty
  */
-export const draw = <T>(array: readonly T[]): T | null => {
+export function draw<T>(array: readonly T[]): T | null {
   const max = array.length
   if (max === 0) {
     return null

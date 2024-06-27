@@ -2,12 +2,12 @@
  * Returns all items from the first list that do not exist in the
  * second list.
  */
-export const diff = <T>(
+export function diff<T>(
   root: readonly T[],
   other: readonly T[],
   identity: (item: T) => string | number | symbol = (t: T) =>
     t as unknown as string | number | symbol
-): T[] => {
+): T[] {
   if (!root?.length && !other?.length) return []
   if (root?.length === undefined) return [...other]
   if (!other?.length) return [...root]

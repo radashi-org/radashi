@@ -1,9 +1,6 @@
-import { isDate } from 'radashi'
-import { isFunction } from 'radashi'
-import { isNumber } from 'radashi'
-import { isSymbol } from 'radashi'
+import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
 
-export const isEmpty = (value: any) => {
+export function isEmpty(value: any): boolean {
   if (value === true || value === false) return true
   if (value === null || value === undefined) return true
   if (isNumber(value)) return value === 0

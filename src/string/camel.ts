@@ -6,7 +6,7 @@ import { capitalize } from 'radashi'
  * camel('hello world')   -> 'helloWorld' camel('va va-VOOM') ->
  * 'vaVaVoom' camel('helloWorld') -> 'helloWorld'
  */
-export const camel = (str: string): string => {
+export function camel(str: string): string {
   const parts =
     str
       ?.replace(/([A-Z])+/g, capitalize)

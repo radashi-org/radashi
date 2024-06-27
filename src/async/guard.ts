@@ -5,12 +5,12 @@
  * @example
  * const result = await guard(fetchUsers)() ?? [];
  */
-export const guard = <TFunction extends () => any>(
+export function guard<TFunction extends () => any>(
   func: TFunction,
   shouldGuard?: (err: any) => boolean
 ): ReturnType<TFunction> extends Promise<any>
   ? Promise<Awaited<ReturnType<TFunction>> | undefined>
-  : ReturnType<TFunction> | undefined => {
+  : ReturnType<TFunction> | undefined {
   const _guard = (err: any) => {
     if (shouldGuard && !shouldGuard(err)) throw err
     return undefined as any

@@ -13,11 +13,11 @@ import { range } from 'radashi'
  * list(0, 3, obj)          // obj, obj, obj, obj
  * list(0, 6, i => i, 2)    // 0, 2, 4, 6
  */
-export const list = <T = number>(
+export function list<T = number>(
   startOrLength: number,
   end?: number,
   valueOrMapper?: T | ((i: number) => T),
   step?: number
-): T[] => {
+): T[] {
   return Array.from(range(startOrLength, end, valueOrMapper, step))
 }

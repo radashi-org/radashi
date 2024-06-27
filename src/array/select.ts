@@ -5,11 +5,11 @@
  * @example
  * select([1, 2, 3, 4], x => x*x, x > 2) == [9, 16]
  */
-export const select = <T, K>(
+export function select<T, K>(
   array: readonly T[],
   mapper: (item: T, index: number) => K,
   condition?: (item: T, index: number) => boolean
-) => {
+) {
   if (!array) return []
   let mapped: K
   return array.reduce((acc, item, index) => {

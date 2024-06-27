@@ -6,7 +6,7 @@ import { capitalize } from 'radashi'
  * dash('hello world')   -> 'hello-world' dash('va va_VOOM') ->
  * 'va-va-voom' dash('helloWord') -> 'hello-word'
  */
-export const dash = (str: string): string => {
+export function dash(str: string): string {
   const parts =
     str
       ?.replace(/([A-Z])+/g, capitalize)

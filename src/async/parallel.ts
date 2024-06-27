@@ -15,11 +15,11 @@ type WorkItemResult<K> = {
  * any errors were thrown, they are rethrown in an instance of
  * AggregateError
  */
-export const parallel = async <T, K>(
+export async function parallel<T, K>(
   limit: number,
   array: readonly T[],
   func: (item: T) => Promise<K>
-): Promise<K[]> => {
+): Promise<K[]> {
   const work = array.map((item, index) => ({
     index,
     item

@@ -14,14 +14,14 @@
  * car() // => 'driving'
  * ```
  */
-export const callable = <
+export function callable<
   TValue,
   TObj extends Record<string | number | symbol, TValue>,
   TFunc extends (...args: any) => any
 >(
   obj: TObj,
   fn: (self: TObj) => TFunc
-): TObj & TFunc => {
+): TObj & TFunc {
   return new Proxy(Object.assign(fn.bind(null), obj), {
     get: (target, key: string) => target[key],
     set: (target, key: string, value: any) => {

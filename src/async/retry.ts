@@ -10,10 +10,10 @@ export type RetryOptions = {
 /**
  * Retries the given function the specified number of times.
  */
-export const retry = async <TResponse>(
+export async function retry<TResponse>(
   options: RetryOptions,
   func: (exit: (err: any) => void) => Promise<TResponse>
-): Promise<TResponse> => {
+): Promise<TResponse> {
   const times = options?.times ?? 3
   const delay = options?.delay
   const backoff = options?.backoff ?? null

@@ -1,4 +1,4 @@
-export const isNumber = (value: any): value is number => {
+export function isNumber(value: any): value is number {
   try {
     return Number(value) === value
   } catch {

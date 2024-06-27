@@ -13,10 +13,10 @@ export type ThrottledFunction<TArgs extends any[]> = {
  * only call the source function if interval milliseconds have passed
  * since the last invocation
  */
-export const throttle = <TArgs extends any[]>(
+export function throttle<TArgs extends any[]>(
   { interval }: { interval: number },
   func: (...args: TArgs) => any
-) => {
+) {
   let ready = true
   let timer: unknown = undefined
 

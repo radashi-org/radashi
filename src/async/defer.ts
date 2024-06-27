@@ -7,14 +7,14 @@ import { tryit } from 'radashi'
  * You can call defer many times to register many defered functions
  * that will all be called when the function exits in any state.
  */
-export const defer = async <TResponse>(
+export async function defer<TResponse>(
   func: (
     register: (
       fn: (error?: any) => any,
       options?: { rethrow?: boolean }
     ) => void
   ) => Promise<TResponse>
-): Promise<TResponse> => {
+): Promise<TResponse> {
   const callbacks: {
     fn: (error?: any) => any
     rethrow: boolean

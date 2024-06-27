@@ -2,11 +2,11 @@
  * Replace an element in an array with a new item without modifying
  * the array and return the new value
  */
-export const replace = <T>(
+export function replace<T>(
   list: readonly T[],
   newItem: T,
   match: (item: T, idx: number) => boolean
-): T[] => {
+): T[] {
   if (!list) return []
   if (newItem === undefined) return [...list]
   for (let idx = 0; idx < list.length; idx++) {

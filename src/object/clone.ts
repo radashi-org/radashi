@@ -5,7 +5,7 @@ import { isPrimitive } from 'radashi'
  * @param {*} obj value to clone @returns {*} shallow clone of the
  * given value
  */
-export const clone = <T>(obj: T): T => {
+export function clone<T>(obj: T): T {
   // Primitive values do not need cloning.
   if (isPrimitive(obj)) {
     return obj

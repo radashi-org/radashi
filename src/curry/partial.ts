@@ -13,10 +13,10 @@ type RemoveItemsInFront<
   TItemsToRemove extends any[]
 > = TItems extends [...TItemsToRemove, ...infer TRest] ? TRest : TItems
 
-export const partial = <T extends any[], TA extends Partial<T>, R>(
+export function partial<T extends any[], TA extends Partial<T>, R>(
   fn: (...args: T) => R,
   ...args: TA
-) => {
+) {
   return (...rest: RemoveItemsInFront<T, TA>) =>
     fn(...([...args, ...rest] as T))
 }

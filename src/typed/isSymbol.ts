@@ -1,3 +1,3 @@
-export const isSymbol = (value: any): value is symbol => {
+export function isSymbol(value: any): value is symbol {
   return !!value && value.constructor === Symbol
 }

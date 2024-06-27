@@ -2,7 +2,7 @@
  * If the item matching the condition already exists in the list it
  * will be removed. If it does not it will be added.
  */
-export const toggle = <T>(
+export function toggle<T>(
   list: readonly T[],
   item: T,
   /**
@@ -13,7 +13,7 @@ export const toggle = <T>(
   options?: {
     strategy?: 'prepend' | 'append'
   }
-) => {
+) {
   if (!list && !item) return []
   if (!list) return [item]
   if (!item) return [...list]

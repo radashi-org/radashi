@@ -26,10 +26,10 @@ export type DebounceFunction<TArgs extends any[]> = {
  * delayed `func` invocations and a `flush` method to invoke them
  * immediately
  */
-export const debounce = <TArgs extends any[]>(
+export function debounce<TArgs extends any[]>(
   { delay }: { delay: number },
   func: (...args: TArgs) => any
-) => {
+) {
   let timer: unknown = undefined
   let active = true
 

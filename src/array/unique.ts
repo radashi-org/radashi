@@ -3,10 +3,10 @@
  * Accepts an optional identity function to convert each item in the
  * list to a comparable identity value
  */
-export const unique = <T, K = T>(
+export function unique<T, K = T>(
   array: readonly T[],
   toKey?: (item: T) => K
-): T[] => {
+): T[] {
   if (toKey) {
     const keys = new Set<K>()
     return array.reduce((acc, item) => {

@@ -10,10 +10,10 @@
  * trim('222222__hello__1111111', '12_') // => 'hello'
  * ```
  */
-export const trim = (
+export function trim(
   str: string | null | undefined,
   charsToTrim: string = ' '
-) => {
+) {
   if (!str) return ''
   const toTrim = charsToTrim.replace(/[\W]{1}/g, '\\$&')
   const regex = new RegExp(`^[${toTrim}]+|[${toTrim}]+$`, 'g')

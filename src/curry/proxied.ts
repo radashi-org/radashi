@@ -2,9 +2,9 @@
  * Creates a Proxy object that will dynamically call the handler
  * argument when attributes are accessed
  */
-export const proxied = <T, K>(
+export function proxied<T, K>(
   handler: (propertyName: T) => K
-): Record<string, K> => {
+): Record<string, K> {
   return new Proxy(
     {},
     {

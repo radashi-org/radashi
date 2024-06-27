@@ -22,11 +22,11 @@ export type KeyFilter<
  * Returns true if the key is in the “keys array” or if the “filter
  * function” returns true.
  */
-export const filterKey = (
+export function filterKey(
   obj: object,
   key: keyof any,
   filter: KeyFilter | null | undefined
-): boolean => {
+): boolean {
   return (
     Object.hasOwnProperty.call(obj, key) &&
     (filter == null ||

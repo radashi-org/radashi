@@ -7,5 +7,6 @@ type UppercasedKeys<T extends Record<string, any>> = {
 /**
  * Convert all keys in an object to upper case
  */
-export const upperize = <T extends Record<string, any>>(obj: T) =>
-  mapKeys(obj, k => k.toUpperCase()) as UppercasedKeys<T>
+export function upperize<T extends Record<string, any>>(obj: T) {
+  return mapKeys(obj, k => k.toUpperCase()) as UppercasedKeys<T>
+}

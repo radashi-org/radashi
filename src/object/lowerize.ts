@@ -7,5 +7,6 @@ type LowercasedKeys<T extends Record<string, any>> = {
 /**
  * Convert all keys in an object to lower case
  */
-export const lowerize = <T extends Record<string, any>>(obj: T) =>
-  mapKeys(obj, k => k.toLowerCase()) as LowercasedKeys<T>
+export function lowerize<T extends Record<string, any>>(obj: T) {
+  return mapKeys(obj, k => k.toLowerCase()) as LowercasedKeys<T>
+}

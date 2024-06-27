@@ -10,7 +10,7 @@ import { keys } from 'radashi'
  * crush({ name: 'ra', children: [{ name: 'hathor' }] })
  * // { name: 'ra', 'children.0.name': 'hathor' }
  */
-export const crush = <TValue extends object>(value: TValue): object => {
+export function crush<TValue extends object>(value: TValue): object {
   if (!value) return {}
   return objectify(
     keys(value),

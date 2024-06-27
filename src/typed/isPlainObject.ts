@@ -1,6 +1,6 @@
 // Credit to
 // https://github.com/sindresorhus/is-plain-obj/blob/97f38e8836f86a642cce98fc6ab3058bc36df181/index.js
-export const isPlainObject = (value: any): value is object => {
+export function isPlainObject(value: any): value is object {
   if (typeof value !== 'object' || value === null) {
     return false
   }

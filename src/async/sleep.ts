@@ -3,6 +3,6 @@ declare const setTimeout: (fn: () => void, ms: number) => unknown
 /**
  * Async wait
  */
-export const sleep = (milliseconds: number) => {
-  return new Promise<void>(res => setTimeout(res, milliseconds))
+export function sleep(milliseconds: number): Promise<void> {
+  return new Promise(res => setTimeout(res, milliseconds))
 }

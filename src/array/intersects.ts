@@ -1,11 +1,11 @@
 /**
  * Given two arrays, returns true if any elements intersect
  */
-export const intersects = <T, K>(
+export function intersects<T, K>(
   listA: readonly T[],
   listB: readonly T[],
   identity?: (t: T) => K
-): boolean => {
+): boolean {
   if (!listA || !listB) return false
   if (identity) {
     const known = new Set(listA.map(identity))

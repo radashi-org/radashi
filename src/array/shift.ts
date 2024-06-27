@@ -1,8 +1,14 @@
 /**
- * Shift array items by n steps If n > 0 items will shift n steps to
- * the right If n < 0 items will shift n steps to the left
+ * Shifts array items by `n` steps. If `n` is greater than 0, items
+ * will shift `n` steps to the right. If `n` is less than 0, items
+ * will shift `n` steps to the left.
+ *
+ * ```ts
+ * shift([1, 2, 3], 1) // [3, 1, 2]
+ * shift([1, 2, 3], -1) // [2, 3, 1]
+ * ```
  */
-export function shift<T>(arr: Array<T>, n: number) {
+export function shift<T>(arr: T[], n: number): T[] {
   if (arr.length === 0) return arr
 
   const shiftNumber = n % arr.length

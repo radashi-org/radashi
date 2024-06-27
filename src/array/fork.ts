@@ -2,10 +2,10 @@
  * Split an array into two array based on a true/false condition
  * function
  */
-export const fork = <T>(
+export function fork<T>(
   list: readonly T[],
   condition: (item: T) => boolean
-): [T[], T[]] => {
+): [T[], T[]] {
   if (!list) return [[], []]
   return list.reduce(
     (acc, item) => {

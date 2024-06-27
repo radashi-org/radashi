@@ -8,7 +8,7 @@ import { set } from 'radashi'
  * construct({ name: 'ra', 'children.0.name': 'hathor' })
  * // { name: 'ra', children: [{ name: 'hathor' }] }
  */
-export const construct = <TObject extends object>(obj: TObject): object => {
+export function construct<TObject extends object>(obj: TObject): object {
   if (!obj) return {}
   return Object.keys(obj).reduce((acc, path) => {
     return set(acc, path, (obj as any)[path])

@@ -5,14 +5,14 @@ import { isPromise } from 'radashi'
  * Returns an error-first callback-_like_ array response as `[Error,
  * result]`
  */
-export const tryit = <Args extends any[], Return>(
+export function tryit<Args extends any[], Return>(
   func: (...args: Args) => Return
-) => {
+) {
   return (
     ...args: Args
   ): Return extends Promise<any>
     ? Promise<[Error, undefined] | [undefined, Awaited<Return>]>
-    : [Error, undefined] | [undefined, Return] => {
+    : [Error, undefined] | [undefined, Return] {
     try {
       const result = func(...args)
       if (isPromise(result)) {

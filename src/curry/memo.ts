@@ -1,11 +1,11 @@
 type Cache<T> = Record<string, { exp: number | null; value: T }>
 
-const memoize = <TArgs extends any[], TResult>(
+function memoize<TArgs extends any[], TResult>(
   cache: Cache<TResult>,
   func: (...args: TArgs) => TResult,
   keyFunc: ((...args: TArgs) => string) | null,
   ttl: number | null
-) => {
+) {
   return function callWithMemo(...args: any): TResult {
     const key = keyFunc ? keyFunc(...args) : JSON.stringify({ args })
     const existing = cache[key]
@@ -30,13 +30,13 @@ const memoize = <TArgs extends any[], TResult>(
  * computed. If a ttl (milliseconds) is given previously computed
  * values will be checked for expiration before being returned.
  */
-export const memo = <TArgs extends any[], TResult>(
+export function memo<TArgs extends any[], TResult>(
   func: (...args: TArgs) => TResult,
   options: {
     key?: (...args: TArgs) => string
     ttl?: number
   } = {}
-) => {
+) {
   return memoize({}, func, options.key ?? null, options.ttl ?? null) as (
     ...args: TArgs
   ) => TResult

@@ -1,4 +1,4 @@
-export const isEqual = <TType>(x: TType, y: TType): boolean => {
+export function isEqual<TType>(x: TType, y: TType): boolean {
   if (Object.is(x, y)) return true
   if (x instanceof Date && y instanceof Date) {
     return x.getTime() === y.getTime()

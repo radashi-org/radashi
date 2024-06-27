@@ -10,11 +10,11 @@ import { clone, isIntString } from 'radashi'
  * set({}, 'cards[0].value', 2) // => { cards: [{ value: 2 }] }
  * ```
  */
-export const set = <T extends object, K>(
+export function set<T extends object, K>(
   initial: T,
   path: string,
   value: K
-): T => {
+): T {
   if (!initial) return {} as T
   if (!path || value === undefined) return initial
 

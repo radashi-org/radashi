@@ -7,7 +7,7 @@ import { isArray, isPlainObject } from 'radashi'
  * keys({ name: 'ra' }) // ['name']
  * keys({ name: 'ra', children: [{ name: 'hathor' }] }) // ['name', 'children.0.name']
  */
-export const keys = (value: object): string[] => {
+export function keys(value: object): string[] {
   if (!value) return []
   const keys: string[] = []
   const keyPath: (string | number)[] = []

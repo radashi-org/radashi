@@ -1,5 +1,5 @@
 import { isNumber } from 'radashi'
 
-export const isInt = (value: any): value is number => {
+export function isInt(value: any): value is number {
   return isNumber(value) && value % 1 === 0
 }
