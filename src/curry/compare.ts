@@ -33,6 +33,11 @@ export function compare<
   b: { [P in PropertyKey]: Value },
 ) => number
 
+export function compare<T, Value>(
+  by: (obj: T) => Value,
+  compare?: (a: Value, b: Value) => number,
+): (a: T, b: T) => number
+
 export function compare<T, By extends ComparedBy<T>>(
   by: By,
   compare?: (a: ComparedValue<T, By>, b: ComparedValue<T, By>) => number,
