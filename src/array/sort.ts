@@ -1,4 +1,4 @@
-import { ComparedValue, compare, flip } from 'radashi'
+import { ComparedBy, compare, flip } from 'radashi'
 
 /**
  * Sort an array without modifying it and return the newly sorted
@@ -17,12 +17,12 @@ import { ComparedValue, compare, flip } from 'radashi'
  */
 export function sort<T>(
   array: readonly T[],
-  getter: ComparedValue<T>,
+  by: ComparedBy<T>,
   desc = false,
 ): T[] {
   if (!array) {
     return []
   }
-  const cmp = compare(getter)
+  const cmp = compare(by)
   return array.slice().sort(desc ? flip(cmp) : cmp)
 }
