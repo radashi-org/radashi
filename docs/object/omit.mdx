@@ -9,7 +9,7 @@ group: Object
 Given an object and a list of keys in the object, returns a new object without any of the given keys.
 
 ```ts
-import { omit } from 'radash'
+import * as _ from 'radashi'
 
 const fish = {
   name: 'Bass',
@@ -18,5 +18,5 @@ const fish = {
   brackish: false,
 }
 
-omit(fish, ['name', 'source']) // => { weight, brackish }
+_.omit(fish, ['name', 'source']) // => { weight, brackish }
 ```

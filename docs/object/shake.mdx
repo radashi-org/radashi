@@ -9,7 +9,7 @@ group: Object
 A bit like `_.sift` but for objects. By default, it will return a new object with all the undefined attributes removed. You can pass a second function argument to remove any attributes by a custom condition.
 
 ```ts
-import { shake } from 'radash'
+import * as _ from 'radashi'
 
 const ra = {
   mode: 'god',
@@ -17,6 +17,6 @@ const ra = {
   limit: undefined,
 }
 
-shake(ra) // => { mode, greek }
-shake(ra, a => !a) // => { mode }
+_.shake(ra) // => { mode, greek }
+_.shake(ra, a => !a) // => { mode }
 ```

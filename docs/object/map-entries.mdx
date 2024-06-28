@@ -12,7 +12,7 @@ in one. The `toEntry` callback function should return an array with
 two items `[key, value]` (a.k.a the new entry).
 
 ```ts
-import { mapEntries } from 'radash'
+import * as _ from 'radashi'
 
 const ra = {
   name: 'Ra',
@@ -21,5 +21,5 @@ const ra = {
   culture: 'egypt',
 }
 
-mapEntries(ra, (key, value) => [key.toUpperCase(), `${value}`]) // => { NAME: 'Ra', POWER: 'sun', RANK: '100', CULTURE: 'egypt' }
+_.mapEntries(ra, (key, value) => [key.toUpperCase(), `${value}`]) // => { NAME: 'Ra', POWER: 'sun', RANK: '100', CULTURE: 'egypt' }
 ```

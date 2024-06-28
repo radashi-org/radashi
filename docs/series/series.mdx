@@ -9,11 +9,11 @@ group: Random
 Sometimes you have an enum or union type, possibly a status, that has inherint order and you need to work with values as though they're ordered. The `series` function takes many values and returns an object that let's you do ordered logic on those values.
 
 ```ts
-import { series } from 'radash'
+import * as _ from 'radashi'
 
 type Weekday = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday'
 
-const weekdays = series<Weekday>([
+const weekdays = _.series<Weekday>([
   'monday',
   'tuesday',
   'wednesday',
@@ -37,13 +37,13 @@ weekdays.spin('monday', 3) // => 'thursday'
 When working with objects you'll want to provide a second argument to `series`, a function that converts non-primitive values into an identity that can be checked for equality.
 
 ```ts
-import { series } from 'radash'
+import * as _ from 'radashi'
 
 type Weekday = {
   day: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday'
 }
 
-const weekdays = series<Weekday>(
+const weekdays = _.series<Weekday>(
   [
     { day: 'monday' },
     { day: 'tuesday' },

@@ -9,9 +9,9 @@ description: Remove all falsy items from list
 Given a list of items, return a new list with all items that are not falsy.
 
 ```ts
-import { sift } from 'radash'
+import * as _ from 'radashi'
 
 const fish = ['salmon', null, false, NaN, 'sockeye', 'bass']
 
-sift(fish) // => ['salmon', 'sockeye', 'bass']
+_.sift(fish) // => ['salmon', 'sockeye', 'bass']
 ```

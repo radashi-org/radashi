@@ -9,7 +9,7 @@ description: Add up all items of an array
 Given an array of items, and an optional function to map each item to a number, add up all the items.
 
 ```ts
-import { sum } from 'radash'
+import * as _ from 'radashi'
 
 const fish = [
   {
@@ -26,5 +26,5 @@ const fish = [
   },
 ]
 
-sum(fish, f => f.weight) // => 125
+_.sum(fish, f => f.weight) // => 125
 ```

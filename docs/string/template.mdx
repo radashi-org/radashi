@@ -9,8 +9,8 @@ group: String
 Given a string, an object of data, and a format expression to search for, returns a string with all elements that matched the search replaced with their matching value from the data object.
 
 ```ts
-import { template } from 'radash'
+import * as _ from 'radashi'
 
-template('It is {{color}}', { color: 'blue' }) // => It is blue
-template('It is <color>', { color: 'blue' }, /<(.+?)>/g) // => It is blue
+_.template('It is {{color}}', { color: 'blue' }) // => It is blue
+_.template('It is <color>', { color: 'blue' }, /<(.+?)>/g) // => It is blue
 ```

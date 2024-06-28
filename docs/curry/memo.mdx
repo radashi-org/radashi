@@ -9,9 +9,9 @@ description: Memoize a function
 Wrap a function with memo to get a function back that automagically returns values that have already been calculated.
 
 ```ts
-import { memo } from 'radash'
+import * as _ from 'radashi'
 
-const timestamp = memo(() => Date.now())
+const timestamp = _.memo(() => Date.now())
 
 const now = timestamp()
 const later = timestamp()
@@ -24,16 +24,16 @@ now === later // => true
 You can optionally pass a `ttl` (time to live) that will expire memoized results. In versions prior to version 10, `ttl` had a value of 300 milliseconds if not specified.
 
 ```ts
-import { memo, sleep } from 'radash'
+import * as _ from 'radashi'
 
-const timestamp = memo(() => Date.now(), {
+const timestamp = _.memo(() => Date.now(), {
   ttl: 1000, // milliseconds
 })
 
 const now = timestamp()
 const later = timestamp()
 
-await sleep(2000)
+await _.sleep(2000)
 
 const muchLater = timestamp()
 
@@ -46,7 +46,7 @@ now === muchLater // => false
 You can optionally customize how values are stored when memoized.
 
 ```ts
-const timestamp = memo(
+const timestamp = _.memo(
   ({ group }: { group: string }) => {
     const ts = Date.now()
     return `${ts}::${group}`

@@ -9,7 +9,7 @@ group: Object
 Given an object and a list of keys in the object, returns a new object with only the given keys.
 
 ```ts
-import { pick } from 'radash'
+import * as _ from 'radashi'
 
 const fish = {
   name: 'Bass',
@@ -18,5 +18,5 @@ const fish = {
   barckish: false,
 }
 
-pick(fish, ['name', 'source']) // => { name, source }
+_.pick(fish, ['name', 'source']) // => { name, source }
 ```

@@ -9,12 +9,12 @@ description: Combine multiple arrays in sets
 Creates an array of grouped elements, the first of which contains the first elements of the given arrays, the second of which contains the second elements of the given arrays, and so on.
 
 ```ts
-import { zip } from 'radash'
+import * as _ from 'radashi'
 
 const names = ['ra', 'zeus', 'loki']
 const cultures = ['egypt', 'greek', 'norse']
 
-zip(names, cultures)
+_.zip(names, cultures)
 // => [
 //   [ra, egypt]
 //   [zeus, greek]

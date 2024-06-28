@@ -9,11 +9,11 @@ group: Typed
 Pass in a value and get a boolean telling you if the value is empty.
 
 ```ts
-import { isEmpty } from 'radash'
+import * as _ from 'radashi'
 
-isEmpty([]) // => true
-isEmpty('') // => true
+_.isEmpty([]) // => true
+_.isEmpty('') // => true
 
-isEmpty('hello') // => false
-isEmpty(['hello']) // => false
+_.isEmpty('hello') // => false
+_.isEmpty(['hello']) // => false
 ```

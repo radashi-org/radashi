@@ -9,7 +9,7 @@ group: Object
 The opposite of crush, given an object that was crushed into key paths and values will return the original object reconstructed.
 
 ```ts
-import { construct } from 'radash'
+import * as _ from 'radashi'
 
 const flat = {
   name: 'ra',
@@ -20,7 +20,7 @@ const flat = {
   'enemies.0.power': 12,
 }
 
-construct(flat)
+_.construct(flat)
 // {
 //   name: 'ra',
 //   power: 100,

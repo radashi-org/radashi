@@ -9,7 +9,7 @@ group: Object
 Creates a shallow copy of the given object/value.
 
 ```ts
-import { clone } from 'radash'
+import * as _ from 'radashi'
 
 const ra = {
   name: 'Ra',
@@ -18,6 +18,6 @@ const ra = {
 
 const gods = [ra]
 
-clone(ra) // => copy of ra
-clone(gods) // => copy of gods
+_.clone(ra) // => copy of ra
+_.clone(gods) // => copy of gods
 ```

@@ -9,7 +9,7 @@ description: 'Reduce a list of items down to one item'
 Given an array of items return the final item that wins the comparison condition. Useful for more complicated min/max.
 
 ```ts
-import { boil } from 'radash'
+import * as _ from 'radashi'
 
 const gods = [
   {
@@ -26,6 +26,6 @@ const gods = [
   },
 ]
 
-boil(gods, (a, b) => (a.power > b.power ? a : b))
+_.boil(gods, (a, b) => (a.power > b.power ? a : b))
 // => { name: 'Ra', power: 100 }
 ```

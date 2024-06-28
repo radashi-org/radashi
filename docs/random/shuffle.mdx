@@ -9,7 +9,7 @@ group: Random
 Given an array of items, return a new array with the items in a random order.
 
 ```ts
-import { shuffle } from 'radash'
+import * as _ from 'radashi'
 
 const fish = [
   {
@@ -29,7 +29,7 @@ const fish = [
   },
 ]
 
-shuffle(fish)
+_.shuffle(fish)
 ```
 
 Note, this is not a cutting edge performance optimized function. This function is optimized for simplicity and best used as a utility. If performance is a priority for you, use a randomness and/or shuffle library.

@@ -9,7 +9,7 @@ group: Object
 Flattens a deep object to a single dimension. The deep keys will be converted to a dot notation in the new object.
 
 ```ts
-import { crush } from 'radash'
+import * as _ from 'radashi'
 
 const ra = {
   name: 'ra',
@@ -26,7 +26,7 @@ const ra = {
   ],
 }
 
-crush(ra)
+_.crush(ra)
 // {
 //   name: 'ra',
 //   power: 100,

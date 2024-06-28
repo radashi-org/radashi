@@ -9,12 +9,12 @@ group: Typed
 Pass in a value and get a boolean telling you if the value is a plain object.
 
 ```ts
-import { isPlainObject } from 'radash'
+import * as _ from 'radashi'
 
-isPlainObject({}) // => true
-isPlainObject(Object.create(null)) // => true
+_.isPlainObject({}) // => true
+_.isPlainObject(Object.create(null)) // => true
 
-isPlainObject([]) // => false
-isPlainObject(null) // => false
-isPlainObject(new Date()) // => false
+_.isPlainObject([]) // => false
+_.isPlainObject(null) // => false
+_.isPlainObject(new Date()) // => false
 ```

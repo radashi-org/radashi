@@ -11,7 +11,7 @@ First argument is the array to map. The second argument is the function to deter
 for each item. The third argument is optional and determines the value for each item.
 
 ```ts
-import { objectify } from 'radash'
+import * as _ from 'radashi'
 
 const fish = [
   {
@@ -28,8 +28,8 @@ const fish = [
   },
 ]
 
-objectify(fish, f => f.name) // => { Marlin: [marlin object], Bass: [bass object], ... }
-objectify(
+_.objectify(fish, f => f.name) // => { Marlin: [marlin object], Bass: [bass object], ... }
+_.objectify(
   fish,
   f => f.name,
   f => f.weight,

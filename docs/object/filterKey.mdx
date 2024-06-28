@@ -11,11 +11,11 @@ You have a utility function that is filtering an object's properties somehow. Us
 The `KeyFilter` type provided by Radashi is fundamental in taking advantage of the `filterKey` function. Be sure to use it to ensure type safety and maintainable code.
 
 ```ts
-import { filterKey, KeyFilter } from 'radash'
+import * as _ from 'radashi'
 
-function filterObject(obj: object, filter: KeyFilter) {
+function filterObject(obj: object, filter: _.KeyFilter) {
   for (const key in obj) {
-    if (filterKey(obj, key, filter)) {
+    if (_.filterKey(obj, key, filter)) {
       // ...
     }
   }

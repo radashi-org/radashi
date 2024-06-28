@@ -20,9 +20,9 @@ function supports an optional second `options` argument that lets you configure 
 strategy so that error in the cleanup function is rethrown.
 
 ```ts
-import { defer } from 'radash'
+import * as _ from 'radashi'
 
-await defer(async cleanup => {
+await _.defer(async cleanup => {
   const buildDir = await createBuildDir()
 
   cleanup(() => fs.unlink(buildDir))
@@ -30,7 +30,7 @@ await defer(async cleanup => {
   await build()
 })
 
-await defer(async register => {
+await _.defer(async register => {
   const org = await api.org.create()
   register(async () => api.org.delete(org.id), { rethrow: true })
 

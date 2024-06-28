@@ -9,7 +9,7 @@ group: Object
 Given any value and a select function to get the desired attribute, returns the desired value or a default value if the desired value couldn't be found.
 
 ```ts
-import { get } from 'radash'
+import * as _ from 'radashi'
 
 const fish = {
   name: 'Bass',
@@ -23,7 +23,7 @@ const fish = {
   ],
 }
 
-get(fish, 'sizes[0].range[1]') // 18
-get(fish, 'sizes.0.range.1') // 18
-get(fish, 'foo', 'default') // 'default'
+_.get(fish, 'sizes[0].range[1]') // 18
+_.get(fish, 'sizes.0.range.1') // 18
+_.get(fish, 'foo', 'default') // 'default'
 ```

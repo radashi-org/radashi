@@ -9,7 +9,7 @@ group: Object
 Given an object, return all of it's keys and children's keys deeply as a flat string list.
 
 ```ts
-import { keys } from 'radash'
+import * as _ from 'radashi'
 
 const ra = {
   name: 'ra',
@@ -26,7 +26,7 @@ const ra = {
   ],
 }
 
-keys(ra)
+_.keys(ra)
 // => [
 //   'name',
 //   'power',
@@ -40,12 +40,12 @@ keys(ra)
 This is a function you might like to use with `get`, which dynamically looks up values in an object given a string path. Using the two together you could do something like flatten a deep object.
 
 ```ts
-import { keys, get, objectify } from 'radash'
+import * as _ from 'radashi'
 
-objectify(
-  keys(ra),
+_.objectify(
+  _.keys(ra),
   key => key,
-  key => get(ra, key),
+  key => _.get(ra, key),
 )
 // => {
 //   'name': 'ra'

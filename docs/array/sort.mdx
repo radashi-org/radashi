@@ -11,7 +11,7 @@ Given an array of objects, return a new array sorted by the numerical property s
 This function only supports numerical sorting. For alphabetic sorting, see the [alphabetical](./alphabetical) function.
 
 ```ts
-import { sort } from 'radash'
+import * as _ from 'radashi'
 
 const fish = [
   {
@@ -28,6 +28,6 @@ const fish = [
   },
 ]
 
-sort(fish, f => f.weight) // => [bass, trout, marlin]
-sort(fish, f => f.weight, true) // => [marlin, trout, bass]
+_.sort(fish, f => f.weight) // => [bass, trout, marlin]
+_.sort(fish, f => f.weight, true) // => [marlin, trout, bass]
 ```

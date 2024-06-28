@@ -9,11 +9,11 @@ description: Create a partial a function
 Create a partial function by providing some -- or all -- of the arguments the given function needs.
 
 ```ts
-import { partial } from 'radash'
+import * as _ from 'radashi'
 
 const add = (a: number, b: number) => a + b
 
-const addFive = partial(add, 5)
+const addFive = _.partial(add, 5)
 
 addFive(2) // => 7
 ```

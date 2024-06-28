@@ -10,13 +10,13 @@ Given an object and a `toValue` callback function, returns a new object with all
 mapped through the `toValue` function. The callback is given both the value and key for each entry.
 
 ```ts
-import { mapValues } from 'radash'
+import * as _ from 'radashi'
 
 const ra = {
   mode: 'god',
   power: 'sun',
 }
 
-mapValues(ra, value => value.toUpperCase()) // => { mode: 'GOD', power: 'SUN' }
-mapValues(ra, (value, key) => key) // => { mode: 'mode', power: 'power' }
+_.mapValues(ra, value => value.toUpperCase()) // => { mode: 'GOD', power: 'SUN' }
+_.mapValues(ra, (value, key) => key) // => { mode: 'mode', power: 'power' }
 ```

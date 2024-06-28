@@ -11,7 +11,7 @@ Given an array of items -- and optionally, a function to determine their identit
 The function does not preserve the original order of items.
 
 ```ts
-import { unique } from 'radash'
+import * as _ from 'radashi'
 
 const fish = [
   {
@@ -31,7 +31,7 @@ const fish = [
   },
 ]
 
-unique(fish, f => f.name)
+_.unique(fish, f => f.name)
 // [
 //     { name: 'Marlin', weight: 105, source: 'ocean' },
 //     { name: 'Salmon', weight: 22, source: 'river' }

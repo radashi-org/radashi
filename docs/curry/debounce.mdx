@@ -12,13 +12,13 @@ function after the `delay` milliseconds of time has passed. Calls that don't res
 in invoking the source reset the delay, pushing off the next invocation.
 
 ```ts
-import { debounce } from 'radash'
+import * as _ from 'radashi'
 
 const makeSearchRequest = event => {
   api.movies.search(event.target.value)
 }
 
-input.addEventListener('change', debounce({ delay: 100 }, makeSearchRequest))
+input.addEventListener('change', _.debounce({ delay: 100 }, makeSearchRequest))
 ```
 
 ## Timing
@@ -38,7 +38,7 @@ debounce Invocations: x x x x - - - - - - - - x x x x x x x x x x - - - - - - - 
 The function returned by `debounce` has a `cancel` method that when called will permanently stop the source function from being debounced.
 
 ```ts
-const debounced = debounce({ delay: 100 }, api.feed.refresh)
+const debounced = _.debounce({ delay: 100 }, api.feed.refresh)
 
 // ... sometime later
 
@@ -50,7 +50,7 @@ debounced.cancel()
 The function returned by `debounce` has a `flush` method that when called will directly invoke the source function.
 
 ```ts
-const debounced = debounce({ delay: 100 }, api.feed.refresh)
+const debounced = _.debounce({ delay: 100 }, api.feed.refresh)
 
 // ... sometime later
 
@@ -62,7 +62,7 @@ debounced.flush(event)
 The function returned by `debounce` has a `isPending` method that when called will return if there is any pending invocation the source function.
 
 ```ts
-const debounced = debounce({ delay: 100 }, api.feed.refresh)
+const debounced = _.debounce({ delay: 100 }, api.feed.refresh)
 
 // ... sometime later
 
