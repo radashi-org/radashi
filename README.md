@@ -15,7 +15,7 @@
 - **Why use this over Radash?**  
   This fork aims to be a more consistently maintained version, with bug fixes and improvements. We're open to adding many maintainers to the Radashi team, to keep responsiveness high.
 
-  We are a **community first** fork, which means putting the community's needs first. As such, your feedback is very welcome and we value your perspective. Specifically, we want you to [contribute your viewpoint](https://github.com/radashi-org/radashi/issues?q=is%3Aissue+is%3Aopen+label%3A%22feedback+wanted%22) to issues tagged “Feedback wanted”.
+  We are a **community first** fork, which means putting the community's needs first. As such, your feedback is very welcome and we value your perspective. Specifically, we want you to [contribute your viewpoint](https://github.com/orgs/radashi-org/discussions/categories/rfcs?discussions_q=is%3Aopen+category%3ARFCs) to discussions in our RFCs category.
 
 - **Is there official documentation?**  
   Currently, there is no documentation beyond this page. There is work being done, which is tracked by #40. Until then, you can refer to the original `radash` documentation.
