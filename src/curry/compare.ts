@@ -1,4 +1,10 @@
-import { isFunction } from 'radashi'
+import { CompatibleProperty, isFunction } from 'radashi'
+
+// Used to detect type `any`
+declare const AnyKind: unique symbol
+declare class Any {
+  private declare any: typeof AnyKind
+}
 
 export type Comparable =
   | number
@@ -8,39 +14,35 @@ export type Comparable =
   | { [Symbol.toPrimitive](hint: 'number'): number }
   | { [Symbol.toPrimitive](hint: 'string'): string }
 
-export type ComparableProperty<T> = {
-  [P in keyof T]: T[P] extends Comparable ? P : never
-}[keyof T]
+export type ComparableProperty<
+  T extends object,
+  Compared extends Comparable = Comparable,
+> = CompatibleProperty<T, Compared>
 
-export type ComparedBy<T> =
-  | (T extends object ? ComparableProperty<T> : never)
-  | ((arg: T) => Comparable)
+export type ComparedBy<T, Compared extends Comparable = Comparable> =
+  | ComparableProperty<Extract<T, object>, Compared>
+  | ((arg: T) => Compared)
 
-export type ComparedValue<T, By extends ComparedBy<T>> = T extends (
+export type ComparedValue<T, By extends ComparedBy<T>> = By extends (
   arg: any,
 ) => infer Result
   ? Result
-  : T[By & keyof T]
+  : Comparable
 
 export function compare<
   PropertyKey extends keyof any,
   Value extends Comparable = Comparable,
 >(
-  property: PropertyKey,
+  property: PropertyKey & keyof any,
   compare?: (a: Value, b: Value) => number,
 ): (
   a: { [P in PropertyKey]: Value },
   b: { [P in PropertyKey]: Value },
 ) => number
 
-export function compare<T, Value>(
-  by: (obj: T) => Value,
-  compare?: (a: Value, b: Value) => number,
-): (a: T, b: T) => number
-
-export function compare<T, By extends ComparedBy<T>>(
-  by: By,
-  compare?: (a: ComparedValue<T, By>, b: ComparedValue<T, By>) => number,
+export function compare<T, Compared extends Comparable = Comparable>(
+  by: ComparedBy<T, Compared>,
+  compare?: (a: Compared, b: Compared) => number,
 ): (a: T, b: T) => number
 
 export function compare(
