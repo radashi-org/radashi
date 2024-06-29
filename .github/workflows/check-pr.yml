@@ -28,6 +28,8 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     name: Validate
     runs-on: ubuntu-latest
+    env:
+      PR_TITLE: "${{ github.event.pull_request.title }}"
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -39,7 +41,7 @@ jobs:
       - name: Lint
         run: pnpm lint
       - name: Check PR Title
-        run: echo "${{ github.event.pull_request.title }}" | pnpm -s dlx commitlint
+        run: echo "$PR_TITLE" | pnpm -s dlx commitlint
 
   publish-beta:
     if: ${{ github.event_name == 'merge_group' }}
