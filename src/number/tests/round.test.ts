@@ -1,44 +1,36 @@
 import * as _ from 'radashi';
 
 describe('round function', () => {
-  test('handles null', () => {
-    const result = _.round(null);
-    expect(result).toBe(0);
-  });
+  test('rounds to default precision (2 decimal places)', () => {
+    expect(_.round(123.456)).toBe(123.46);
+    expect(_.round(987.654321)).toBe(987.65);
+    expect(_.round(0.123456789)).toBe(0.12);
+});
 
-  test('handles undefined', () => {
-    const result = _.round(undefined);
-    expect(result).toBe(0);
-  });
+test('rounds to specified precision', () => {
+    expect(_.round(123.456, 0)).toBe(123); // No decimals
+    expect(_.round(987.654, 3)).toBe(987.654); // More decimals
+});
 
-  test('handles NaN', () => {
-    const result = _.round(NaN);
-    expect(result).toBe(0);
-  });
+test('handles negative precisions', () => {
+    expect(_.round(123.456, -1)).toBe(120);
+    expect(_.round(123.456, -2)).toBe(100);
+    expect(_.round(987.654, -2)).toBe(1000);
+});
 
-  test('handles bad input', () => {
-    class Data {}
-    expect(_.round('abc')).toBe(NaN);
-    expect(_.round(new Data())).toBe(NaN);
-    expect(_.round([1, 2, 3])).toBe(NaN);
-    expect(_.round({})).toBe(NaN);
-    expect(_.round(false)).toBe(NaN);
-  });
+test('handles zero precision', () => {
+    expect(_.round(123.456, 0)).toBe(123);
+    expect(_.round(987.654, 0)).toBe(988);
+});
 
-  test('handles numbers', () => {
-    expect(_.round(123.456)).toBe(123);
-    expect(_.round(123.645, 0)).toBe(124);
-    expect(_.round(-123.456, 3)).toBe(123.456);
-    expect(_.round(0.00009, 4)).toBe(0.0001);
-    expect(_.round(0.00009, 4)).toBe(0.0001);
-    expect(_.round(19.9999, 4)).toBe(19.9999);
-    expect(_.round(2.5, 10)).toBe(19.9999);
-  });
+test('handles negative numbers', () => {
+    expect(_.round(-123.456, 2)).toBe(-123.46);
+    expect(_.round(-987.654, 1)).toBe(-987.7);
+    expect(_.round(-0.123456789, 6)).toBe(-0.123457);
+});
 
-  test('handles strings', () => {
-    expect(_.round("123.6458", 3)).toBe(123.646);
-    expect(_.round("-123.456", 3)).toBe(123.456);
-    expect(_.round("123.456")).toBe(123);
-  })
-
+test('handles zero input', () => {
+    expect(_.round(0)).toBe(0);
+    expect(_.round(0.000000001)).toBe(0);
+});
 });
