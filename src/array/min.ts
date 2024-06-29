@@ -12,11 +12,11 @@ export function min(array: readonly [number, ...number[]]): number
 export function min(array: readonly number[]): number | null
 export function min<T>(
   array: readonly T[],
-  getter: (item: T) => number
+  getter: (item: T) => number,
 ): T | null
 export function min<T>(
   array: readonly T[],
-  getter?: (item: T) => number
+  getter?: (item: T) => number,
 ): T | null {
   const get = getter ?? ((v: any) => v)
   return boil(array, (a, b) => (get(a) < get(b) ? a : b))

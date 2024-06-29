@@ -5,7 +5,7 @@
 export async function reduce<T, K>(
   array: readonly T[],
   asyncReducer: (acc: K, item: T, index: number) => Promise<K>,
-  initValue?: K
+  initValue?: K,
 ): Promise<K> {
   const initProvided = initValue !== undefined
   if (!initProvided && array?.length < 1) {

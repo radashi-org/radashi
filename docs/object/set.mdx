@@ -9,11 +9,11 @@ group: Object
 Opposite of get, dynamically set a nested value into an object using a key path. Does not modify the given initial object.
 
 ```ts
-import { set } from 'radash'
+import * as _ from 'radashi'
 
-set({}, 'name', 'ra')
+_.set({}, 'name', 'ra')
 // => { name: 'ra' }
 
-set({}, 'cards[0].value', 2)
+_.set({}, 'cards[0].value', 2)
 // => { cards: [{ value: 2 }] }
 ```

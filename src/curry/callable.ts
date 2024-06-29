@@ -16,7 +16,7 @@
 export function callable<
   TValue,
   TObj extends Record<string | number | symbol, TValue>,
-  TFunc extends (...args: any) => any
+  TFunc extends (...args: any) => any,
 >(obj: TObj, fn: (self: TObj) => TFunc): TObj & TFunc {
   return new Proxy(Object.assign(fn.bind(null), obj), {
     get: (target, key: string) => target[key],
@@ -24,6 +24,6 @@ export function callable<
       ;(target as any)[key] = value
       return true
     },
-    apply: (target, self, args) => fn(Object.assign({}, target))(...args)
+    apply: (target, _, args) => fn(Object.assign({}, target))(...args),
   }) as unknown as TObj & TFunc
 }

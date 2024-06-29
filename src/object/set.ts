@@ -12,24 +12,29 @@ import { clone, isIntString } from 'radashi'
 export function set<T extends object, K>(
   initial: T,
   path: string,
-  value: K
+  value: K,
 ): T {
-  if (!initial) return {} as T
-  if (!path || value === undefined) return initial
+  if (!initial) {
+    return {} as T
+  }
+  if (!path || value === undefined) {
+    return initial
+  }
 
   // NOTE: One day, when structuredClone has more compatability use it
   // to clone the value
   // https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
   const root: any = clone(initial)
   const keys = path.match(/[^.[\]]+/g)
-  if (keys)
+  if (keys) {
     keys.reduce(
       (object, key, i) =>
         i < keys.length - 1
           ? (object[key] ??= isIntString(keys[i + 1]) ? [] : {})
           : (object[key] = value),
-      root
+      root,
     )
+  }
 
   return root
 }

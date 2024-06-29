@@ -7,13 +7,13 @@ describe('shake function', () => {
       y: null,
       z: undefined,
       o: false,
-      r: 'x'
+      r: 'x',
     })
     expect(result).toEqual({
       x: 2,
       y: null,
       o: false,
-      r: 'x'
+      r: 'x',
     })
   })
   test('removes values based on filter function input', () => {
@@ -23,12 +23,12 @@ describe('shake function', () => {
         y: null,
         z: undefined,
         o: false,
-        r: 'x'
+        r: 'x',
       },
-      val => val !== 'x'
+      val => val !== 'x',
     )
     expect(result).toEqual({
-      r: 'x'
+      r: 'x',
     })
   })
   test('handles undefined input', () => {

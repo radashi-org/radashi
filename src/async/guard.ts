@@ -8,12 +8,14 @@
  */
 export function guard<TFunction extends () => any>(
   func: TFunction,
-  shouldGuard?: (err: any) => boolean
+  shouldGuard?: (err: any) => boolean,
 ): ReturnType<TFunction> extends Promise<any>
   ? Promise<Awaited<ReturnType<TFunction>> | undefined>
   : ReturnType<TFunction> | undefined {
   const _guard = (err: any) => {
-    if (shouldGuard && !shouldGuard(err)) throw err
+    if (shouldGuard && !shouldGuard(err)) {
+      throw err
+    }
     return undefined as any
   }
   try {

@@ -10,13 +10,13 @@ Given an object and a `toKey` callback function, returns a new object with all t
 mapped through the `toKey` function. The callback is given both the key and value for each entry.
 
 ```ts
-import { mapKeys } from 'radash'
+import * as _ from 'radashi'
 
 const ra = {
   mode: 'god',
-  power: 'sun'
+  power: 'sun',
 }
 
-mapKeys(ra, key => key.toUpperCase()) // => { MODE, POWER }
-mapKeys(ra, (key, value) => value) // => { god: 'god', power: 'power' }
+_.mapKeys(ra, key => key.toUpperCase()) // => { MODE, POWER }
+_.mapKeys(ra, (key, value) => value) // => { god: 'god', power: 'power' }
 ```

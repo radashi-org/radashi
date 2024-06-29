@@ -6,7 +6,7 @@ describe('series function', () => {
     'tuesday',
     'wednesday',
     'thursday',
-    'friday'
+    'friday',
   ] as const)
 
   describe('min method', () => {

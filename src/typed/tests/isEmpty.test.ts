@@ -3,7 +3,7 @@ import * as _ from 'radashi'
 describe('isEmpty function', () => {
   class Data {}
   class Person {
-    name: string = 'ray'
+    name = 'ray'
   }
   test('returns true for empty values', () => {
     expect(_.isEmpty(null)).toBeTruthy()

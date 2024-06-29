@@ -3,11 +3,18 @@
  */
 export function pick<T extends object, TKeys extends keyof T>(
   obj: T,
-  keys: TKeys[]
+  keys: TKeys[],
 ): Pick<T, TKeys> {
-  if (!obj) return {} as Pick<T, TKeys>
-  return keys.reduce((acc, key) => {
-    if (Object.hasOwnProperty.call(obj, key)) acc[key] = obj[key]
-    return acc
-  }, {} as Pick<T, TKeys>)
+  if (!obj) {
+    return {} as Pick<T, TKeys>
+  }
+  return keys.reduce(
+    (acc, key) => {
+      if (Object.hasOwnProperty.call(obj, key)) {
+        acc[key] = obj[key]
+      }
+      return acc
+    },
+    {} as Pick<T, TKeys>,
+  )
 }

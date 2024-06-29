@@ -12,7 +12,7 @@ describe('asyncReduce function', () => {
       1,
       2,
       3,
-      4 // => 10
+      4, // => 10
     ]
     const asyncSum = async (a: number, b: number): Promise<number> => {
       return new Promise(res => res(a + b))
@@ -25,7 +25,7 @@ describe('asyncReduce function', () => {
     const asyncSumIndex = async (
       a: number[],
       b: string,
-      i: number
+      i: number,
     ): Promise<number[]> => {
       return new Promise(res => {
         a.push(i)

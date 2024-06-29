@@ -11,9 +11,9 @@ Checks if the given value is primitive.
 Primitive Types: number , string , boolean , symbol, bigint, undefined, null
 
 ```ts
-import { isPrimitive } from 'radash'
+import * as _ from 'radashi'
 
-isPrimitive(22) // => true
-isPrimitive('hello') // => true
-isPrimitive(['hello']) // => false
+_.isPrimitive(22) // => true
+_.isPrimitive('hello') // => true
+_.isPrimitive(['hello']) // => false
 ```

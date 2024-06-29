@@ -1,3 +1,7 @@
 {
-  "recommendations": ["esbenp.prettier-vscode", "vitest.explorer"]
+  "recommendations": [
+    "vitest.explorer",
+    "rohit-gohri.format-code-action",
+    "biomejs.biome"
+  ]
 }

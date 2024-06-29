@@ -6,21 +6,21 @@ describe('mapEntries function', () => {
   const peopleByRole = {
     admin: 'jay',
     user: 'fey',
-    guest: 'bray'
+    guest: 'bray',
   }
   test('handles null input', () => {
     const result = _.mapEntries(
       cast(null),
       cast<(key: never, value: never) => [string | number | symbol, unknown]>(
-        null
-      )
+        null,
+      ),
     )
     expect(result).toEqual({})
   })
   test('correctly maps keys and values', () => {
     const result = _.mapEntries(peopleByRole, (key, value) => [
       value,
-      key.toUpperCase()
+      key.toUpperCase(),
     ])
     expect(result.jay).toBe('ADMIN')
     expect(result.fey).toBe('USER')

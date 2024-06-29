@@ -24,7 +24,7 @@ describe('replaceOrAppend', () => {
     const result = _.replaceOrAppend(
       ['a', 'b', 'c', 'd'],
       'BB',
-      (_letter, idx) => idx === 1
+      (_letter, idx) => idx === 1,
     )
     expect(result[1]).toBe('BB')
   })

@@ -13,9 +13,14 @@
 export function template(
   str: string,
   data: Record<string, any>,
-  regex = /\{\{(.+?)\}\}/g
-) {
-  return Array.from(str.matchAll(regex)).reduce((acc, match) => {
-    return acc.replace(match[0], data[match[1]])
-  }, str)
+  regex: RegExp = /\{\{(.+?)\}\}/g,
+): string {
+  let result = ''
+  let from = 0
+  let match: RegExpExecArray | null
+  while ((match = regex.exec(str))) {
+    result += str.slice(from, match.index) + data[match[1]]
+    from = regex.lastIndex
+  }
+  return result + str.slice(from)
 }

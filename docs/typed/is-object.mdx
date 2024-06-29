@@ -6,15 +6,15 @@ group: Typed
 
 ## Basic usage
 
-Pass in a value and get a boolean telling you if the value is an Object.
+Pass in a value and get a boolean telling you if the value is an instance of `Object` (or a subclass of `Object`).
 
 ```ts
-import { isObject } from 'radash'
+import * as _ from 'radashi'
 
-isObject('hello') // => false
-isObject(['hello']) // => false
-isObject(null) // => false
-isObject({ say: 'hello' }) // => true
+_.isObject('hello') // => false
+_.isObject(['hello']) // => false
+_.isObject(null) // => false
+_.isObject({ say: 'hello' }) // => true
 ```
 
-**Beware:** This function returns `false` for objects created with `Object.create(null)`.
+**Beware:** This function returns `false` for objects created with `Object.create(null)`. If you want to check if a value is a plain object, use `_.isPlainObject` instead.

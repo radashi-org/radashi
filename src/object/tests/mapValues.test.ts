@@ -6,13 +6,13 @@ describe('mapValues function', () => {
     const result = _.mapValues(
       {
         x: 'hi',
-        y: 'bye'
+        y: 'bye',
       },
-      prefixWith('x')
+      prefixWith('x'),
     )
     expect(result).toEqual({
       x: 'xhi',
-      y: 'xbye'
+      y: 'xbye',
     })
   })
   test('objects with possibly undefined values', () => {
@@ -23,7 +23,7 @@ describe('mapValues function', () => {
     })
     expect(result).toEqual({
       x: 'hi',
-      y: undefined
+      y: undefined,
     })
   })
 })

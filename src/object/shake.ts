@@ -4,9 +4,11 @@
  */
 export function shake<T extends object>(
   obj: T,
-  filter: (value: T[keyof T]) => boolean = (value) => value === undefined
+  filter: (value: T[keyof T]) => boolean = value => value === undefined,
 ): T {
-  if (!obj) return {} as T
+  if (!obj) {
+    return {} as T
+  }
   const keys = Object.keys(obj) as (keyof T)[]
   return keys.reduce((acc, key) => {
     if (!filter(obj[key])) {

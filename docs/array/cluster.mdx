@@ -11,7 +11,7 @@ of arrays. Each child array containing `n` (cluster size) items
 split as evenly as possible.
 
 ```ts
-import { cluster } from 'radash'
+import * as _ from 'radashi'
 
 const gods = [
   'Ra',
@@ -23,10 +23,10 @@ const gods = [
   'Thor',
   'Apollo',
   'Artemis',
-  'Athena'
+  'Athena',
 ]
 
-cluster(gods, 3)
+_.cluster(gods, 3)
 // => [
 //   [ 'Ra', 'Zeus', 'Loki' ],
 //   [ 'Vishnu', 'Icarus', 'Osiris' ],

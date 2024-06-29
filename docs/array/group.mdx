@@ -9,22 +9,22 @@ description: 'Sort an array of items into groups'
 Given an array of items, `group` will build up an object where each key is an array of the items that belong in that group. Generally, this can be useful to categorize an array.
 
 ```ts
-import { group } from 'radash'
+import * as _ from 'radashi'
 
 const fish = [
   {
     name: 'Marlin',
-    source: 'ocean'
+    source: 'ocean',
   },
   {
     name: 'Bass',
-    source: 'lake'
+    source: 'lake',
   },
   {
     name: 'Trout',
-    source: 'lake'
-  }
+    source: 'lake',
+  },
 ]
 
-const fishBySource = group(fish, f => f.source) // => { ocean: [marlin], lake: [bass, trout] }
+const fishBySource = _.group(fish, f => f.source) // => { ocean: [marlin], lake: [bass, trout] }
 ```

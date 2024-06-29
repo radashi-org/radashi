@@ -9,13 +9,13 @@ group: Object
 Given an object returns a new object with the keys and values reversed.
 
 ```ts
-import { invert } from 'radash'
+import * as _ from 'radashi'
 
 const powersByGod = {
   ra: 'sun',
   loki: 'tricks',
-  zeus: 'lighning'
+  zeus: 'lighning',
 }
 
-invert(gods) // => { sun: ra, tricks: loki, lightning: zeus }
+_.invert(powersByGod) // => { sun: ra, tricks: loki, lightning: zeus }
 ```

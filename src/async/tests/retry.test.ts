@@ -8,7 +8,7 @@ describe('_.retry', () => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
   })
   test('returns result of given function', async () => {
-    const result = await _.retry(cast(null), async bail => {
+    const result = await _.retry(cast(null), async _bail => {
       return 'hello'
     })
     expect(result).toBe('hello')
@@ -21,7 +21,7 @@ describe('_.retry', () => {
   })
   test('retries on failure', async () => {
     let failedOnce = false
-    const result = await _.retry(cast(null), async bail => {
+    const result = await _.retry(cast(null), async _bail => {
       if (!failedOnce) {
         failedOnce = true
         throw 'Failing for test'
@@ -78,7 +78,7 @@ describe('_.retry', () => {
   })
   test('uses backoff between retries', async () => {
     let count = 0
-    let backoffs: number = 0
+    let backoffs = 0
     const start = Date.now()
     await _.retry(
       {
@@ -86,12 +86,14 @@ describe('_.retry', () => {
         backoff: i => {
           backoffs += i ** 10
           return i ** 10
-        }
+        },
       },
       async () => {
         count++
-        if (count < 3) throw 'error'
-      }
+        if (count < 3) {
+          throw 'error'
+        }
+      },
     )
     const diff = Date.now() - start
     expect(count).toBe(3)

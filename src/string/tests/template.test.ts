@@ -11,7 +11,7 @@ describe('template function', () => {
     const data = {
       name: 'Ray',
       type: 'template',
-      reason: 'so beautiful'
+      reason: 'so beautiful',
     }
 
     const result = _.template(tmp, data)
@@ -26,9 +26,9 @@ describe('template function', () => {
   })
 
   test('replaces all occurrences given template', () => {
-    const tmp = `Hello <name>.`
+    const tmp = 'Hello <name>.'
     const data = {
-      name: 'Ray'
+      name: 'Ray',
     }
 
     const result = _.template(tmp, data, /<(.+?)>/g)

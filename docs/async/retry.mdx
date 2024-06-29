@@ -13,12 +13,12 @@ The `times` option defaults to `3`. The `delay` option (defaults to null) can sp
 The `backoff` option is like delay but uses a function to sleep -- makes for easy exponential backoff.
 
 ```ts
-import { retry } from 'radash'
+import * as _ from 'radashi'
 
-await retry({}, api.users.list)
-await retry({ times: 10 }, api.users.list)
-await retry({ times: 2, delay: 1000 }, api.users.list)
+await _.retry({}, api.users.list)
+await _.retry({ times: 10 }, api.users.list)
+await _.retry({ times: 2, delay: 1000 }, api.users.list)
 
 // exponential backoff
-await retry({ backoff: i => 10 ** i }, api.users.list)
+await _.retry({ backoff: i => 10 ** i }, api.users.list)
 ```

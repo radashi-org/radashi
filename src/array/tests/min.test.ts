@@ -12,7 +12,7 @@ describe('min function', () => {
       { game: 'b', score: 200 },
       { game: 'c', score: 300 },
       { game: 'd', score: 400 },
-      { game: 'e', score: 500 }
+      { game: 'e', score: 500 },
     ]
     const result = _.min(list, x => x.score)
     expect(result!.game).toBe('a')

@@ -10,25 +10,25 @@ Given two arrays of items and an identity function, returns the first
 list with all items from the second list where there was a match.
 
 ```ts
-import { merge } from 'radash'
+import * as _ from 'radashi'
 
 const gods = [
   {
     name: 'Zeus',
-    power: 92
+    power: 92,
   },
   {
     name: 'Ra',
-    power: 97
-  }
+    power: 97,
+  },
 ]
 
 const newGods = [
   {
     name: 'Zeus',
-    power: 100
-  }
+    power: 100,
+  },
 ]
 
-merge(gods, newGods, f => f.name) // => [{name: "Zeus" power: 100}, {name: "Ra", power: 97}]
+_.merge(gods, newGods, f => f.name) // => [{name: "Zeus" power: 100}, {name: "Ra", power: 97}]
 ```

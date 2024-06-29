@@ -4,39 +4,32 @@
   "description": "Functional utility library - modern, simple, typed, powerful",
   "sideEffects": false,
   "author": "Alec Larson",
-  "contributors": [
-    "Ray Epps"
-  ],
+  "contributors": ["Ray Epps"],
   "type": "module",
   "license": "MIT",
   "scripts": {
     "dev": "tsup --clean --watch --sourcemap",
     "build": "tsup --clean",
-    "lint": "tsc && prettier -c -u src docs *.ts *.json",
-    "format": "prettier --write -u src docs *.ts *.json",
+    "lint": "tsc && biome check",
+    "format": "biome check --fix --unsafe",
     "test": "vitest run --coverage",
-    "docs:install": "pnpm add next@12.3.4 chiller@1.0.0-rc.30 -D",
-    "docs:build": "chiller build --ci",
-    "prepublishOnly": "pnpm build"
+    "prepublishOnly": "tsc && biome check --fix && pnpm -s build"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
     "@commitlint/config-conventional": "^19.2.2",
     "@vitest/coverage-v8": "^1.6.0",
-    "prettier": "^2.7.1",
-    "prettier-plugin-organize-imports": "^3.0.3",
     "tsup": "^8.1.0",
-    "typescript": "^4.8.4",
+    "typescript": "^5.5.2",
     "vitest": "^1.6.0"
   },
   "packageManager": "pnpm@9.1.3",
   "engines": {
     "node": ">=16.0.0"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "repository": {
-    "url": "https://github.com/radashi-org/radashi"
+    "url": "git+https://github.com/radashi-org/radashi.git"
   },
   "main": "dist/radashi.cjs",
   "module": "dist/radashi.js",

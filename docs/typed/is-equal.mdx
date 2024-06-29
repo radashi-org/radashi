@@ -9,11 +9,11 @@ group: Typed
 Given two values, returns true if they are equal.
 
 ```ts
-import { isEqual } from 'radash'
+import * as _ from 'radashi'
 
-isEqual(null, null) // => true
-isEqual([], []) // => true
+_.isEqual(null, null) // => true
+_.isEqual([], []) // => true
 
-isEqual('hello', 'world') // => false
-isEqual(22, 'abc') // => false
+_.isEqual('hello', 'world') // => false
+_.isEqual(22, 'abc') // => false
 ```

@@ -35,9 +35,7 @@ describe('isFunction function', () => {
     expect(result).toBeFalsy()
   })
   test('returns true for anonymous function', () => {
-    const result = _.isFunction(function () {
-      return 'hello'
-    })
+    const result = _.isFunction(() => 'hello')
     expect(result).toBeTruthy()
   })
   test('returns true for arrow function', () => {

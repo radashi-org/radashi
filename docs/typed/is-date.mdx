@@ -9,9 +9,9 @@ group: Typed
 Determine if a value is a Date. Does not check that the input date is valid, only that it is a Javascript Date type.
 
 ```ts
-import { isDate } from 'radash'
+import * as _ from 'radashi'
 
-isDate(new Date()) // => true
-isDate(12) // => false
-isDate('hello') // => false
+_.isDate(new Date()) // => true
+_.isDate(12) // => false
+_.isDate('hello') // => false
 ```

@@ -9,11 +9,15 @@
  * ```
  */
 export function shift<T>(arr: T[], n: number): T[] {
-  if (arr.length === 0) return arr
+  if (arr.length === 0) {
+    return arr
+  }
 
   const shiftNumber = n % arr.length
 
-  if (shiftNumber === 0) return arr
+  if (shiftNumber === 0) {
+    return arr
+  }
 
   return [...arr.slice(-shiftNumber, arr.length), ...arr.slice(0, -shiftNumber)]
 }

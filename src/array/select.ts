@@ -11,16 +11,21 @@
  * // => [9, 16]
  * ```
  */
-export function select<T, K>(
+export function select<T, U>(
   array: readonly T[],
-  mapper: (item: T, index: number) => K,
-  condition?: (item: T, index: number) => boolean
-) {
-  if (!array) return []
-  let mapped: K
+  mapper: (item: T, index: number) => U,
+  condition?: (item: T, index: number) => boolean,
+): U[] {
+  if (!array) {
+    return []
+  }
+  let mapped: U
   return array.reduce((acc, item, index) => {
-    if (condition) condition(item, index) && acc.push(mapper(item, index))
-    else (mapped = mapper(item, index)) != null && acc.push(mapped)
+    if (condition) {
+      condition(item, index) && acc.push(mapper(item, index))
+    } else if ((mapped = mapper(item, index)) != null) {
+      acc.push(mapped)
+    }
     return acc
-  }, [] as K[])
+  }, [] as U[])
 }

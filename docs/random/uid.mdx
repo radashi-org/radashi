@@ -9,10 +9,10 @@ group: Random
 Generates a unique string with optional special characters.
 
 ```ts
-import { uid } from 'radash'
+import * as _ from 'radashi'
 
-uid(7) // => UaOKdlW
-uid(20, '*') // => dyJdbC*NsEgcnGjTHS
+_.uid(7) // => UaOKdlW
+_.uid(20, '*') // => dyJdbC*NsEgcnGjTHS
 ```
 
 Note, this function is optimized for simplicity and usability -- not performance or security. If you need to create universally unique or cryptographically random strings use a package specifically for that purpose.

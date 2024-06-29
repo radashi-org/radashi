@@ -11,13 +11,13 @@ in parallel. The first argument is a limit of how many functions should
 be allowed to run at once. Returns an array of results.
 
 ```ts
-import { parallel } from 'radash'
+import * as _ from 'radashi'
 
 const userIds = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 // Will run the find user async function 3 at a time
 // starting another request when one of the 3 is freed
-const users = await parallel(3, userIds, async userId => {
+const users = await _.parallel(3, userIds, async userId => {
   return await api.users.find(userId)
 })
 ```
@@ -29,11 +29,11 @@ occurred they will all be thrown in a single `AggregateError` that
 has an `errors` property that is all the errors that were thrown.
 
 ```ts
-import { parallel, try as tryit } from 'radash'
+import * as _ from 'radashi'
 
 const userIds = [1, 2, 3]
 
-const [err, users] = await tryit(parallel)(3, userIds, async userId => {
+const [err, users] = await _.tryit(_.parallel)(3, userIds, async userId => {
   throw new Error(`No, I don\'t want to find user ${userId}`)
 })
 

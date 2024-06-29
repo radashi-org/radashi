@@ -10,7 +10,7 @@ describe('draw function', () => {
     const list = [
       { id: 'a', word: 'hello' },
       { id: 'b', word: 'oh' },
-      { id: 'c', word: 'yolo' }
+      { id: 'c', word: 'yolo' },
     ]
     const result = _.draw(list)
     expect('abc').toContain(result!.id)

@@ -27,7 +27,7 @@ describe('isNumber function', () => {
     expect(result).toBeTruthy()
   })
   test('returns false for NaN', () => {
-    const result = _.isNumber(NaN)
+    const result = _.isNumber(Number.NaN)
     expect(result).toBeFalsy()
   })
   test('returns false for array', () => {

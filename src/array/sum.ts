@@ -17,11 +17,11 @@
 export function sum<T extends number>(array: readonly T[]): number
 export function sum<T extends object>(
   array: readonly T[],
-  fn: (item: T) => number
+  fn: (item: T) => number,
 ): number
 export function sum<T extends object | number>(
   array: readonly any[],
-  fn?: (item: T) => number
+  fn?: (item: T) => number,
 ): number {
   return (array || []).reduce((acc, item) => acc + (fn ? fn(item) : item), 0)
 }

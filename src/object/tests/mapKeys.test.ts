@@ -6,13 +6,13 @@ describe('mapKeys function', () => {
     const result = _.mapKeys(
       {
         x: 22,
-        y: 8
+        y: 8,
       },
-      prefixWith('x')
+      prefixWith('x'),
     )
     expect(result).toEqual({
       xx: 22,
-      xy: 8
+      xy: 8,
     })
   })
 })

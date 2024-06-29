@@ -9,9 +9,9 @@ group: Typed
 Pass in a value and get a boolean telling you if the value is an int.
 
 ```ts
-import { isInt } from 'radash'
+import * as _ from 'radashi'
 
-isInt(12) // => true
-isInt(12.233) // => false
-isInt('hello') // => false
+_.isInt(12) // => true
+_.isInt(12.233) // => false
+_.isInt('hello') // => false
 ```

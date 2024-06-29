@@ -15,13 +15,15 @@ export type ThrottledFunction<TArgs extends any[]> = {
  */
 export function throttle<TArgs extends any[]>(
   { interval }: { interval: number },
-  func: (...args: TArgs) => any
-) {
+  func: (...args: TArgs) => any,
+): ThrottledFunction<TArgs> {
   let ready = true
   let timer: unknown = undefined
 
   const throttled: ThrottledFunction<TArgs> = (...args: TArgs) => {
-    if (!ready) return
+    if (!ready) {
+      return
+    }
     func(...args)
     ready = false
     timer = setTimeout(() => {

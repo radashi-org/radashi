@@ -6,7 +6,7 @@ import { isPromise } from 'radashi'
  * result]`
  */
 export function tryit<Args extends any[], Return>(
-  func: (...args: Args) => Return
+  func: (...args: Args) => Return,
 ) {
   return (
     ...args: Args

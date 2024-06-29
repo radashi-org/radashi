@@ -16,8 +16,8 @@ Scan through the [existing issues](https://github.com/aleclarson/radashi/issues)
 
 ## You want to write code?
 
-- To get started, run `yarn` in the project's root directory to install the dependencies.
-- You can run the unit tests with `yarn test`. They require Node v16+. You can run `nvm use` in the root directory to change to the correct Node version. The tests should pass (duh) and maintain 100% code coverage.
+- To get started, run `pnpm i` in the project's root directory to install the dependencies.
+- You can run the unit tests with `pnpm test`. They require Node v16+. You can run `nvm use` in the root directory to change to the correct Node version. The tests should pass (duh) and maintain 100% code coverage.
 - To get familiar with the existing code I would recommend looking through the docs and the codebase in parallel. For each function in the docs, find the implementation in the source and skim over the code.
 - When coding, try not to create internal APIs (any function or module that is not exported to be used by the client).
 - Also, try not to use functions from other Radashi modules. This is a softer rule but we want to make it easy for readers to understand a function without having to navigate the codebase. As a utility library users should ideally be able to copy/paste a function from Radashi into their project. Most Radashi functions should be easy to write in isolation.

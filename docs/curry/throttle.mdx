@@ -12,13 +12,13 @@ function if the `interval` milliseconds of time has passed. Otherwise, it will i
 the invocation.
 
 ```ts
-import { throttle } from 'radash'
+import * as _ from 'radashi'
 
 const onMouseMove = () => {
   rerender()
 }
 
-addEventListener('mousemove', throttle({ interval: 200 }, onMouseMove))
+addEventListener('mousemove', _.throttle({ interval: 200 }, onMouseMove))
 ```
 
 ## Timing
@@ -38,7 +38,7 @@ Throttle Invocations: x x x x x x x x x x x x x x x x x x x x x x x x x x x x x 
 The function returned by `throttle` has a `isThrottled` method that when called will return if there is any active throttle.
 
 ```ts
-const debounced = throttle({ interval: 200 }, onMouseMove)
+const debounced = _.throttle({ interval: 200 }, onMouseMove)
 
 // ... sometime later
 

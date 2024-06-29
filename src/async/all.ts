@@ -18,11 +18,11 @@ type PromiseValues<T extends Promise<any>[]> = {
  * ```
  */
 export async function all<T extends [Promise<any>, ...Promise<any>[]]>(
-  promises: T
+  promises: T,
 ): Promise<PromiseValues<T>>
 
 export async function all<T extends Promise<any>[]>(
-  promises: T
+  promises: T,
 ): Promise<PromiseValues<T>>
 
 /**
@@ -39,11 +39,11 @@ export async function all<T extends Promise<any>[]>(
  * ```
  */
 export async function all<T extends Record<string, Promise<any>>>(
-  promises: T
+  promises: T,
 ): Promise<{ [K in keyof T]: Awaited<T[K]> }>
 
 export async function all<
-  T extends Record<string, Promise<any>> | Promise<any>[]
+  T extends Record<string, Promise<any>> | Promise<any>[],
 >(promises: T) {
   const entries = isArray(promises)
     ? promises.map(p => [null, p] as [null, Promise<any>])
@@ -53,8 +53,8 @@ export async function all<
     entries.map(([key, value]) =>
       value
         .then(result => ({ result, exc: null, key }))
-        .catch(exc => ({ result: null, exc, key }))
-    )
+        .catch(exc => ({ result: null, exc, key })),
+    ),
   )
 
   const exceptions = results.filter(r => r.exc)
@@ -69,10 +69,10 @@ export async function all<
   }
 
   return results.reduce(
-    (acc, item) => ({
-      ...acc,
-      [item.key!]: item.result
-    }),
-    {} as { [K in keyof T]: Awaited<T[K]> }
+    (acc, item) => {
+      acc[item.key as keyof T] = item.result
+      return acc
+    },
+    {} as { [K in keyof T]: Awaited<T[K]> },
   )
 }

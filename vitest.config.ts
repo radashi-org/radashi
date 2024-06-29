@@ -8,12 +8,12 @@ export default defineConfig({
     globals: true,
     coverage: {
       thresholds: { 100: true },
-      exclude: ['*.js']
-    }
+      exclude: ['*.config.ts'],
+    },
   },
   resolve: {
     alias: {
-      radashi: resolve('./src/mod.js')
-    }
-  }
+      radashi: resolve('./src/mod.js'),
+    },
+  },
 })

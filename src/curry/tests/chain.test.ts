@@ -44,7 +44,7 @@ describe('chain function', () => {
     const users: User[] = [
       { id: 1, name: 'John Doe' },
       { id: 2, name: 'John Smith' },
-      { id: 3, name: 'John Wick' }
+      { id: 3, name: 'John Wick' },
     ]
     const getName = <T extends { name: string }>(item: T) => item.name
     const upperCase: (x: string) => Uppercase<string> = (text: string) =>

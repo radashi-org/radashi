@@ -9,13 +9,13 @@ group: Object
 Merges two objects together recursively into a new object applying values from right to left. Recursion only applies to child object properties.
 
 ```ts
-import { assign } from 'radash'
+import * as _ from 'radashi'
 
 const ra = {
   name: 'Ra',
-  power: 100
+  power: 100,
 }
 
-assign(ra, { name: 'Loki' })
+_.assign(ra, { name: 'Loki' })
 // => { name: Loki, power: 100 }
 ```

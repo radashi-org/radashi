@@ -27,8 +27,8 @@ describe('isEqual function', () => {
     loop: null as any,
     person: jake,
     date: new Date(0),
-    reg: new RegExp('/regexp/ig'),
-    [symbolKey]: 'symbol'
+    reg: /\/regexp\/ig/,
+    [symbolKey]: 'symbol',
   }
   complex.loop = complex
   test('returns true for equal things', () => {
@@ -44,7 +44,7 @@ describe('isEqual function', () => {
     expect(_.isEqual([], [])).toBeTruthy()
     expect(_.isEqual(complex, { ...complex })).toBeTruthy()
     expect(
-      _.isEqual([complex, complex], [{ ...complex }, { ...complex }])
+      _.isEqual([complex, complex], [{ ...complex }, { ...complex }]),
     ).toBeTruthy()
   })
   test('returns false for non-equal things', () => {
@@ -55,7 +55,7 @@ describe('isEqual function', () => {
     expect(_.isEqual({ z: 23 }, { a: 1 })).toBeFalsy()
     expect(_.isEqual(true, false)).toBeFalsy()
     expect(
-      _.isEqual(new Date(), new Date('2022-09-01T03:25:12.750Z'))
+      _.isEqual(new Date(), new Date('2022-09-01T03:25:12.750Z')),
     ).toBeFalsy()
     expect(_.isEqual([], [1])).toBeFalsy()
     expect(_.isEqual(complex, { ...complex, num: 222 })).toBeFalsy()

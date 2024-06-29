@@ -1,16 +1,22 @@
 {
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.organizeImports": "explicit"
+    "source.organizeImports": "explicit",
+    "quickfix.biome": "explicit"
   },
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.autoImportFileExcludePatterns": [
     "**/node_modules/**",
     "**/dist/**",
     "**/dist"
   ],
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
   "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome",
     "rewrap.wrappingColumn": 70
   }
 }

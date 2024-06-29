@@ -9,14 +9,14 @@ group: Number
 Pass the number, the start and the end (optional) of the range. The `_.inRange` function will return true if the given number is in the range.
 
 ```ts
-import { inRange } from 'radash'
+import * as _ from 'radashi'
 
-inRange(10, 0, 20) // true
-inRange(9.99, 0, 10) // true
-inRange(Math.PI, 0, 3.15) // true
-inRange(10, 10, 20) // true
-inRange(10, 0, 10) // false
+_.inRange(10, 0, 20) // true
+_.inRange(9.99, 0, 10) // true
+_.inRange(Math.PI, 0, 3.15) // true
+_.inRange(10, 10, 20) // true
+_.inRange(10, 0, 10) // false
 
-inRange(1, 2) // true
-inRange(1, 0) // false
+_.inRange(1, 2) // true
+_.inRange(1, 0) // false
 ```

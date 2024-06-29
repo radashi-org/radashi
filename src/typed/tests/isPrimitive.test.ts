@@ -9,18 +9,18 @@ describe('isPrimitive function', () => {
       Symbol('key'),
       BigInt('1'),
       undefined,
-      null
+      null,
     ]
 
     for (const elm of arr) {
       expect(_.isPrimitive(elm)).toBeTruthy()
     }
-  }),
-    test('returns false for non-primitives', () => {
-      const arr = [new Date(), Number, {}, Object({}), () => 0, [1, 2]]
+  })
+  test('returns false for non-primitives', () => {
+    const arr = [new Date(), Number, {}, Object({}), () => 0, [1, 2]]
 
-      for (const elm of arr) {
-        expect(_.isPrimitive(elm)).toBeFalsy()
-      }
-    })
+    for (const elm of arr) {
+      expect(_.isPrimitive(elm)).toBeFalsy()
+    }
+  })
 })

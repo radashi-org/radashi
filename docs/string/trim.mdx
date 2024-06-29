@@ -9,15 +9,15 @@ group: String
 Trims all prefix and suffix characters from the given string. Like the builtin trim function but accepts alternate (other than space) characters you would like to trim.
 
 ```ts
-import { trim } from 'radash'
+import * as _ from 'radashi'
 
-trim('  hello ') // => hello
-trim('__hello__', '_') // => hello
-trim('/repos/:owner/', '/') // => repos/:owner
+_.trim('  hello ') // => hello
+_.trim('__hello__', '_') // => hello
+_.trim('/repos/:owner/', '/') // => repos/:owner
 ```
 
 Trim also handles more than one character to trim.
 
 ```ts
-trim('222__hello__111', '12_') // => hello
+_.trim('222__hello__111', '12_') // => hello
 ```

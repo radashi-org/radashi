@@ -9,10 +9,10 @@ description: Get the last item from a list
 Given an array of items return the last item or a default value if no items exists.
 
 ```ts
-import { last } from 'radash'
+import * as _ from 'radashi'
 
 const fish = ['marlin', 'bass', 'trout']
 
-const lastFish = last(fish) // => 'trout'
-const lastItem = last([], 'bass') // => 'bass'
+const lastFish = _.last(fish) // => 'trout'
+const lastItem = _.last([], 'bass') // => 'bass'
 ```

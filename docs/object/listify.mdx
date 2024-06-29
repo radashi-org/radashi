@@ -9,16 +9,16 @@ group: Object
 Given an object and a mapping function, return an array with an item for each entry in the object.
 
 ```ts
-import { listify } from 'radash'
+import * as _ from 'radashi'
 
 const fish = {
   marlin: {
-    weight: 105
+    weight: 105,
   },
   bass: {
-    weight: 8
-  }
+    weight: 8,
+  },
 }
 
-listify(fish, (key, value) => ({ ...value, name: key })) // => [{ name: 'marlin', weight: 105 }, { name: 'bass', weight: 8 }]
+_.listify(fish, (key, value) => ({ ...value, name: key })) // => [{ name: 'marlin', weight: 105 }, { name: 'bass', weight: 8 }]
 ```

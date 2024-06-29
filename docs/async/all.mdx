@@ -13,9 +13,9 @@ errors are gathered and thrown in an AggregateError.
 Passing an array as an argument will return the resolved promise values as an array in the same order.
 
 ```ts
-import { all } from 'radash'
+import * as _ from 'radashi'
 
-const [user] = await all([
+const [user] = await _.all([
   api.users.create(...),
   s3.buckets.create(...),
   slack.customerSuccessChannel.sendMessage(...)
@@ -27,9 +27,9 @@ const [user] = await all([
 Passing an object as an argument will return an object with the same keys and the values as the resolved promise values.
 
 ```ts
-import { all } from 'radash'
+import * as _ from 'radashi'
 
-const { user } = await all({
+const { user } = await _.all({
   user: api.users.create(...),
   bucket: s3.buckets.create(...),
   message: slack.customerSuccessChannel.sendMessage(...)

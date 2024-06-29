@@ -14,27 +14,27 @@ sort in descending order instead of the default ascending order.
 For numerical sorting, see the [sort](./sort) function.
 
 ```ts
-import { alphabetical } from 'radash'
+import * as _ from 'radashi'
 
 const gods = [
   {
     name: 'Ra',
-    power: 100
+    power: 100,
   },
   {
     name: 'Zeus',
-    power: 98
+    power: 98,
   },
   {
     name: 'Loki',
-    power: 72
+    power: 72,
   },
   {
     name: 'Vishnu',
-    power: 100
-  }
+    power: 100,
+  },
 ]
 
-alphabetical(gods, g => g.name) // => [Loki, Ra, Vishnu, Zeus]
-alphabetical(gods, g => g.name, 'desc') // => [Zeus, Vishnu, Ra, Loki]
+_.alphabetical(gods, g => g.name) // => [Loki, Ra, Vishnu, Zeus]
+_.alphabetical(gods, g => g.name, 'desc') // => [Zeus, Vishnu, Ra, Loki]
 ```

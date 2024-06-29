@@ -12,22 +12,22 @@ are the id values the callback returned and each value is an integer
 telling how many times that id occurred.
 
 ```ts
-import { counting } from 'radash'
+import * as _ from 'radashi'
 
 const gods = [
   {
     name: 'Ra',
-    culture: 'egypt'
+    culture: 'egypt',
   },
   {
     name: 'Zeus',
-    culture: 'greek'
+    culture: 'greek',
   },
   {
     name: 'Loki',
-    culture: 'greek'
-  }
+    culture: 'greek',
+  },
 ]
 
-counting(gods, g => g.culture) // => { egypt: 1, greek: 2 }
+_.counting(gods, g => g.culture) // => { egypt: 1, greek: 2 }
 ```

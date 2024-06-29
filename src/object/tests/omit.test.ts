@@ -6,7 +6,7 @@ describe('omit function', () => {
   const person = {
     name: 'jay',
     age: 20,
-    active: true
+    active: true,
   }
   test('handles null input', () => {
     const result = _.omit(null, [])
@@ -24,7 +24,7 @@ describe('omit function', () => {
     const result = _.omit(person, ['name'])
     expect(result).toEqual({
       age: 20,
-      active: true
+      active: true,
     })
   })
 })

@@ -12,7 +12,7 @@ export type RetryOptions = {
  */
 export async function retry<TResponse>(
   options: RetryOptions,
-  func: (exit: (err: any) => void) => Promise<TResponse>
+  func: (exit: (err: any) => void) => Promise<TResponse>,
 ): Promise<TResponse> {
   const times = options?.times ?? 3
   const delay = options?.delay
@@ -22,10 +22,20 @@ export async function retry<TResponse>(
     const [err, result] = (await tryit(func)((err: any) => {
       throw { _exited: err }
     })) as [any, TResponse]
-    if (!err) return result
-    if (err._exited) throw err._exited
-    if (++i === times) throw err
-    if (delay) await sleep(delay)
-    if (backoff) await sleep(backoff(i))
+    if (!err) {
+      return result
+    }
+    if (err._exited) {
+      throw err._exited
+    }
+    if (++i === times) {
+      throw err
+    }
+    if (delay) {
+      await sleep(delay)
+    }
+    if (backoff) {
+      await sleep(backoff(i))
+    }
   }
 }

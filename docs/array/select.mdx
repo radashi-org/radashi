@@ -9,29 +9,29 @@ description: Filter and map an array
 Applies a filter and a map operation at once and in one pass.
 
 ```ts
-import { select } from 'radash'
+import * as _ from 'radashi'
 
 const fish = [
   {
     name: 'Marlin',
     weight: 105,
-    source: 'ocean'
+    source: 'ocean',
   },
   {
     name: 'Bass',
     weight: 8,
-    source: 'lake'
+    source: 'lake',
   },
   {
     name: 'Trout',
     weight: 13,
-    source: 'lake'
-  }
+    source: 'lake',
+  },
 ]
 
-select(
+_.select(
   fish,
   f => f.weight,
-  f => f.source === 'lake'
+  f => f.source === 'lake',
 ) // => [8, 13]
 ```

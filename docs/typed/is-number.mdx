@@ -9,9 +9,9 @@ group: Typed
 Pass in a value and get a boolean telling you if the value is a number.
 
 ```ts
-import { isNumber } from 'radash'
+import * as _ from 'radashi'
 
-isNumber('hello') // => false
-isNumber(['hello']) // => false
-isNumber(12) // => true
+_.isNumber('hello') // => false
+_.isNumber(['hello']) // => false
+_.isNumber(12) // => true
 ```

@@ -26,7 +26,7 @@ describe('pick function', () => {
   test('returns picked properties only', () => {
     const result = _.pick({ a: 2, b: 4 }, ['a'])
     expect(result).toEqual({
-      a: 2
+      a: 2,
     })
   })
   test('type: accepts an interface', () => {
@@ -38,27 +38,27 @@ describe('pick function', () => {
     const x: SomeDeclaredType = {
       a: 'alpha',
       b: new Error('beta'),
-      c: [3]
+      c: [3],
     }
     const result = _.pick(x, ['a'])
     expect(result).toEqual({
-      a: 'alpha'
+      a: 'alpha',
     })
   })
   test('works with proxified objects', () => {
     const target = {
       a: 'hello',
-      b: 'everyone'
+      b: 'everyone',
     }
     const handler1 = {
       get() {
         return 'world'
-      }
+      },
     }
     const proxified = new Proxy(target, handler1)
     const result = _.pick(proxified, ['a'])
     expect(result).toEqual({
-      a: 'world'
+      a: 'world',
     })
   })
   test('works with objects created without the prototype chain of Object e.g. by `Object.create(null)`', () => {
@@ -67,7 +67,7 @@ describe('pick function', () => {
     obj.b = 4
     const result = _.pick(obj, ['a'])
     expect(result).toEqual({
-      a: 2
+      a: 2,
     })
   })
   test('works with objects that have `hasOwnProperty` overwritten', () => {
@@ -76,7 +76,7 @@ describe('pick function', () => {
     obj.hasOwnProperty = 'OVERWRITTEN'
     const result = _.pick(obj, ['a'])
     expect(result).toEqual({
-      a: 2
+      a: 2,
     })
   })
 })

@@ -14,8 +14,8 @@ describe('memo function', () => {
         return `${ts}::${arg.user.id}`
       },
       {
-        key: arg => arg.user.id
-      }
+        key: arg => arg.user.id,
+      },
     )
     const resultA = func({ user: { id: 'alpha' } })
     const resultB = func({ user: { id: 'beta' } })
@@ -25,7 +25,7 @@ describe('memo function', () => {
   })
   test('calls function again when first value expires', async () => {
     const func = _.memo(() => new Date().getTime(), {
-      ttl: 1
+      ttl: 1,
     })
     const resultA = func()
     await new Promise(res => setTimeout(res, 100))
@@ -34,7 +34,7 @@ describe('memo function', () => {
   })
   test('does not call function again when first value has not expired', async () => {
     const func = _.memo(() => new Date().getTime(), {
-      ttl: 1000
+      ttl: 1000,
     })
     const resultA = func()
     await new Promise(res => setTimeout(res, 100))

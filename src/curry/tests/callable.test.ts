@@ -5,10 +5,13 @@ describe('callable function', () => {
     const request = {
       source: 'client',
       body: 'ford',
-      doors: 2
+      doors: 2,
     }
 
-    const call = _.callable(request, self => (id: string) => ({ ...self, id }))
+    const call = _.callable(request, self => (id: string) => ({
+      ...self,
+      id,
+    }))
 
     expect(call.source).toBe('client')
     expect(call.body).toBe('ford')

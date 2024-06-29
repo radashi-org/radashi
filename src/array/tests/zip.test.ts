@@ -5,7 +5,7 @@ describe('zip function', () => {
     const result = _.zip(['a', 'b'], [1, 2], [true, false])
     expect(result).toEqual([
       ['a', 1, true],
-      ['b', 2, false]
+      ['b', 2, false],
     ])
   })
 

@@ -22,6 +22,6 @@ describe('isIntString function', () => {
     expect(_.isIntString(22)).toBeFalsy()
     expect(_.isIntString(true)).toBeFalsy()
     expect(_.isIntString(null)).toBeFalsy()
-    expect(_.isIntString(NaN)).toBeFalsy()
+    expect(_.isIntString(Number.NaN)).toBeFalsy()
   })
 })

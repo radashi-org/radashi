@@ -19,7 +19,7 @@ describe('snake function', () => {
   })
   test('does not split numbers when flag is set to false', () => {
     const result = _.snake('hello-world12_19-bye', {
-      splitOnNumber: false
+      splitOnNumber: false,
     })
     expect(result).toBe('hello_world12_19_bye')
   })
