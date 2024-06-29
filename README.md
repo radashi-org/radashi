@@ -84,14 +84,6 @@ Contributions are welcome and appreciated! Check out the contributing guide befo
 
 <img src="https://github.com/radashi-org/radashi/raw/b80a0e4/img/rule.png" width="100%" />
 
-## Changelog
-
-This section documents the changes between the original `radash` library and this fork.
-
-### 12.1.0
-
-- Initial release. No differences.
-
 &nbsp;
 
 <div align="center">
