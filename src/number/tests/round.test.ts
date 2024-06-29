@@ -8,8 +8,8 @@ describe('round function', () => {
 });
 
 test('rounds to specified precision', () => {
-    expect(_.round(123.456, 0)).toBe(123); // No decimals
-    expect(_.round(987.654, 3)).toBe(987.654); // More decimals
+    expect(_.round(123.456, 0)).toBe(123);
+    expect(_.round(987.654, 3)).toBe(987.654);
 });
 
 test('handles negative precisions', () => {
