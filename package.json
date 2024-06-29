@@ -4,9 +4,7 @@
   "description": "Functional utility library - modern, simple, typed, powerful",
   "sideEffects": false,
   "author": "Alec Larson",
-  "contributors": [
-    "Ray Epps"
-  ],
+  "contributors": ["Ray Epps"],
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -29,9 +27,7 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "repository": {
     "url": "https://github.com/radashi-org/radashi"
   },
