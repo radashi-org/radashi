@@ -1,6 +1,7 @@
 /**
  * Select performs a filter and a mapper inside of a reduce, only
- * iterating the list one time.
+ * iterating the list one time. If condition is omitted, will
+ * select all mapped values that are non-nullish.
  *
  * ```ts
  * select(

@@ -1,13 +1,13 @@
 ---
-title: select
+title: selectFirst
 group: 'Array'
-description: Filter and map an array
+description: Array find + map
 ---
 
 ## Basic usage
 
-Applies a filter and a map operation at once and in one pass.
-If the filter is omitted, returns all non-nullish mapped values.
+Returns the mapped value for the first element that satisfies the specified condition--else undefined.
+If the filter is omitted, returns the first non-nullish mapped value.
 
 ```ts
 import * as _ from 'radashi'
@@ -30,9 +30,9 @@ const fish = [
   },
 ]
 
-_.select(
+_.selectFirst(
   fish,
   f => f.weight,
   f => f.source === 'lake',
-) // => [8, 13]
+) // => 8
 ```
