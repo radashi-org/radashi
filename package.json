@@ -4,7 +4,9 @@
   "description": "Functional utility library - modern, simple, typed, powerful",
   "sideEffects": false,
   "author": "Alec Larson",
-  "contributors": ["Ray Epps"],
+  "contributors": [
+    "Ray Epps"
+  ],
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -13,8 +15,6 @@
     "lint": "tsc && biome check",
     "format": "biome check --fix --unsafe",
     "test": "vitest run --coverage",
-    "docs:install": "pnpm add next@12.3.4 chiller@1.0.0-rc.30 -D",
-    "docs:build": "chiller build --ci",
     "prepublishOnly": "pnpm -s lint && pnpm -s build"
   },
   "devDependencies": {
@@ -29,7 +29,9 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "repository": {
     "url": "https://github.com/radashi-org/radashi"
   },
