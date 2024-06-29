@@ -13,7 +13,7 @@
     "lint": "tsc && biome check",
     "format": "biome check --fix --unsafe",
     "test": "vitest run --coverage",
-    "prepublishOnly": "pnpm -s lint && pnpm -s build"
+    "prepublishOnly": "tsc && biome check --fix && pnpm -s build"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
