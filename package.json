@@ -29,7 +29,7 @@
   },
   "files": ["dist"],
   "repository": {
-    "url": "https://github.com/radashi-org/radashi"
+    "url": "git+https://github.com/radashi-org/radashi.git"
   },
   "main": "dist/radashi.cjs",
   "module": "dist/radashi.js",
