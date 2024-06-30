@@ -27,8 +27,7 @@ export function round(
   toInteger: (value: number) => number = Math.round,
 ): number {
   if (precision) {
-    // Limit precision according to the IEEE-754 standard. The intent
-    // here is to avoid NaN results.
+    // Limit the precision to avoid NaN results.
     const p =
       precision > 0 ? Math.min(precision, 292) : Math.max(precision, -323)
 
