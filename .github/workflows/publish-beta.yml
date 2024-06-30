@@ -126,15 +126,6 @@ jobs:
           git tag beta -f
           git push origin beta -f
 
-      # - name: Set up Deno
-      #   uses: denoland/setup-deno@v1
-
-      # - name: Publish to JSR
-      #   run: |
-      #     deno run -A jsr:@david/publish-on-tag@0.1.4 --allow-dirty
-      #   env:
-      #     GITHUB_REF: refs/tags/v${{ steps.set-version.outputs.version }}
-
       - name: Get PR Numbers
         id: get-pr-numbers
         run: |
