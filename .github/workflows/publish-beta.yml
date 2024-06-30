@@ -110,6 +110,8 @@ jobs:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Generate Changelog
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # The entire changelog is regenerated from the point in history at which Radashi was born.
           git-cliff 2be4acf455ebec86e846854dbab57bd0bfbbceb7..HEAD -o CHANGELOG.md
