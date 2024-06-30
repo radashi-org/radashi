@@ -86,6 +86,11 @@ jobs:
           echo "::set-output name=tag::$TAG"
           echo "::set-output name=tag-commit::$(git rev-parse $TAG)"
 
+      - name: Install SSH Client
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
       - name: Generate Changelog
         run: |
           # The entire changelog is regenerated from the point in history at which Radashi was born.
@@ -93,7 +98,7 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git add CHANGELOG.md
-          git commit -m "chore: update changelog"
+          git commit -m "ci: update changelog"
           git push
 
       - name: Publish to NPM
