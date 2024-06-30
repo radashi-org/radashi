@@ -2,7 +2,7 @@
 
 <div align="center">
   <p align="center">
-    <img src="https://github.com/radashi-org/radashi/raw/main/img/banner.png" alt="Radashi" width="100%" />
+    <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/banner.png" alt="Radashi" width="100%" />
   </p>
 </div>
 
@@ -21,7 +21,7 @@
   Currently, there is no documentation beyond this page. There is work being done, which is tracked by #40. Until then, you can refer to the original `radash` documentation.
 
   <a href="https://radash-docs.vercel.app">
-    <img src="https://github.com/radashi-org/radashi/raw/main/img/docs-button.png" alt="Radash documentation" width="250px" />
+    <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/docs-button.png" alt="Radash documentation" width="250px" />
   </a>
 
 - **Are my contributions welcome?**  
@@ -30,14 +30,14 @@
   Please review _“The ethos of Radashi”_ before submitting a pull request:
 
   <a href="https://github.com/orgs/radashi-org/discussions/20">
-    <img src="https://github.com/radashi-org/radashi/raw/main/img/ethos-button.png" alt="The ethos of Radashi" width="250px" />
+    <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/ethos-button.png" alt="The ethos of Radashi" width="250px" />
   </a>
 
 - **Can I help you maintain this?**  
   Yes! I'll add you as a contributor to the repository. You can review pull requests and even merge them. You can help with closing issues, too. Committing directly to the main branch is a privilege you can earn, as is publishing versions to NPM.
 
   <a href="https://github.com/orgs/radashi-org/discussions/4">
-    <img src="https://github.com/radashi-org/radashi/raw/main/img/apply-button.png" alt="Apply to join the Radashi team" width="250px" />
+    <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/apply-button.png" alt="Apply to join the Radashi team" width="250px" />
   </a>
 
 - **Is backwards compatibility a goal?**  
@@ -56,7 +56,7 @@
     - ⚠️ **Beware:** Preview releases are not audited by the Radashi team. Always look at their
       changes in the PR to ensure no malicious code was introduced.
 
-<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/img/rule.png" width="100%" />
+<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/.github/img/rule.png" width="100%" />
 
 ## Install
 
@@ -72,22 +72,22 @@ yarn add radashi
 npm install radashi
 ```
 
-<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/img/rule.png" width="100%" />
+<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/.github/img/rule.png" width="100%" />
 
 ## Contributing
 
 Contributions are welcome and appreciated! Check out the contributing guide before you dive in:
 
 <a href="https://github.com/radashi-org/radashi/blob/main/.github/contributing.md">
-  <img src="https://github.com/radashi-org/radashi/raw/main/img/contributing-button.png" alt="Contributing to Radashi" width="250px" />
+  <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/contributing-button.png" alt="Contributing to Radashi" width="250px" />
 </a>
 
-<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/img/rule.png" width="100%" />
+<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/.github/img/rule.png" width="100%" />
 
 &nbsp;
 
 <div align="center">
   <p align="center">
-    <img src="https://github.com/radashi-org/radashi/raw/46c8897/img/footer.png" alt="Radashi" width="100%" />
+    <img src="https://github.com/radashi-org/radashi/raw/46c8897/.github/img/footer.png" alt="Radashi" width="100%" />
   </p>
 </div>

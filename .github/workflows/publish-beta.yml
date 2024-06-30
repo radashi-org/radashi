@@ -157,7 +157,7 @@ jobs:
             The \`radashi@beta\` tag also includes this PR.
 
             <a href="https://github.com/radashi-org/radashi/compare/${{ steps.get-stable-version.outputs.stable-version }}...${headCommitSHA}">
-              <img src="https://github.com/radashi-org/radashi/raw/main/img/changes-button.png" alt="See the changes" width="250px" />
+              <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/changes-button.png" alt="See the changes" width="250px" />
             </a>`
 
               await github.rest.issues.createComment({
