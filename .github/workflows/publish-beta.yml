@@ -39,15 +39,8 @@ jobs:
       - run: pnpm install
       - name: Lint
         run: pnpm lint
-      - name: Prepare Build
-        # For some reason the --clean flag of tsup isn't clearing out the
-        # "dist/tmp" folder created when `tsc` is executed by the lint script,
-        # so let's remove "dist" manually before running the build.
-        run: rm -rf dist && pnpm build
-      - uses: actions/cache@v3
-        with:
-          path: dist
-          key: dist
+      - name: Check Build
+        run: pnpm build
 
   publish-beta:
     name: Publish Beta
@@ -65,10 +58,7 @@ jobs:
           node-version: '22.x'
           cache: pnpm
       - run: pnpm install
-      - uses: actions/cache@v3
-        with:
-          path: dist
-          key: dist
+      - run: pnpm build
 
       - name: Retrieve Stable Version
         id: get-stable-version
