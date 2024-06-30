@@ -8,41 +8,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [radashi@beta]
 ### Details
 #### <!-- 03 -->Added
-- Add `isIntString` function
-- Add `isPlainObject` type guard
+- Add `isIntString` function in [fa500d3](https://github.com///commit/fa500d329d7e06062e7a42cbf4ff9ad9dcb89191)
+- Add `isPlainObject` type guard in [ddae618](https://github.com///commit/ddae6182de6afb270a9e94c4dafcabe51dea602f)
 
 #### <!-- 05 -->Changed
-- **intersects:** Let `identity` callback return any value
-- **unique:** Let `toKey` return any kind of value
-- **select:** Let `condition` be undefined
-- Replace `matchKeys` with `filterKey`
-- **filterKey:** Accept null/undefined filter
-- Add selectFirst
+- **(intersects)** Let `identity` callback return any value in [49a0dc4](https://github.com///commit/49a0dc49c93e2785d928ae35cc45518586f1fd7b)
+- **(unique)** Let `toKey` return any kind of value in [3fd8446](https://github.com///commit/3fd8446522aba8236b3151636191e64713ff2377)
+- **(select)** Let `condition` be undefined in [dc74ace](https://github.com///commit/dc74aceedfd90bf4b443dc25a7ae548db9cf2ba9)
+- Replace `matchKeys` with `filterKey` in [3652c3e](https://github.com///commit/3652c3e8fa7af3b5c2438363a374d1683ea7c408)
+- **(filterKey)** Accept null/undefined filter in [b10ad10](https://github.com///commit/b10ad105bada331494c232b7a28f9d76ff77dded)
+- Add selectFirst in [f792633](https://github.com///commit/f792633c2db24cba2a27334f685b562f6914af15)
 
 #### <!-- 06 -->Fixed
-- **retry:** Stop using `range()`
-- **assign:** Remove inefficiencies in loop
-- **set:** Avoid false positive of array index in path
-- **shake:** Stop using `Omit` on return type and give `filter` parameter a safer type
-- **series:** Allow `items` param to be a readonly array
-- Copy `is-plain-obj` implementation
-- Avoid `isObject` for internal use
-- **isArray:** Work with `readonly T[]` types
-- **keys:** Improve perf by avoiding excessive array allocations
-- Ensure `mapValues` and `group` work together
-- Use typeof in `isFunction`
+- **(retry)** Stop using `range()` in [5d60893](https://github.com///commit/5d60893471240516a49c6ddf48839165b5961a47)
+- **(assign)** Remove inefficiencies in loop in [99274cc](https://github.com///commit/99274cce29a375071779e522f0e95c3dee705d2d)
+- **(set)** Avoid false positive of array index in path in [ff0c3cf](https://github.com///commit/ff0c3cf03a16265e02de5614eea659ebbdf77f5f)
+- **(shake)** Stop using `Omit` on return type and give `filter` parameter a safer type in [e6f75aa](https://github.com///commit/e6f75aa836358491f4d1a1088b498cc2cd73cb09)
+- **(series)** Allow `items` param to be a readonly array in [5114eb2](https://github.com///commit/5114eb22ecc8cc22fb1b3cb687cab79e8159e196)
+- Copy `is-plain-obj` implementation in [08a18e2](https://github.com///commit/08a18e218d83bf094354d4af1b5c9dcf92c18d1f)
+- Avoid `isObject` for internal use in [3b6a67c](https://github.com///commit/3b6a67ca7298cdcfde329a4ef28440205602b0e3)
+- **(isArray)** Work with `readonly T[]` types in [88c12b6](https://github.com///commit/88c12b6e3941b1fa6072b9ec9bf214c508e7bb70)
+- **(keys)** Improve perf by avoiding excessive array allocations in [f0e06ba](https://github.com///commit/f0e06ba0cfa172df34054055dde507704ed10277)
+- Ensure `mapValues` and `group` work together in [630f9ef](https://github.com///commit/630f9efc471dd7cf3d31a4024059eff37d2a45c6)
+- Use typeof in `isFunction` in [6ad96f4](https://github.com///commit/6ad96f44f17949ee33acda9a073307b19dca7796)
 
 #### <!-- 07 -->Performance
-- Avoid excessive array allocation in `fork`
-- Make `template` faster
+- Avoid excessive array allocation in `fork` in [88807cc](https://github.com///commit/88807cc0e73f5877ea3a6aafb0f5abfc6429c926)
+- Make `template` faster in [8e4eb5e](https://github.com///commit/8e4eb5e997501e02430ecbd08d1738004237f172)
+- Avoid object spread in loop in [d3b6331](https://github.com///commit/d3b6331cdd1334d82da263ecf3897c3317bafece)
 
 #### <!-- 08 -->Types
-- Let `filterKey` accept `key: keyof any`
+- Let `filterKey` accept `key: keyof any` in [73ac8bb](https://github.com///commit/73ac8bba9e2a2a39eb3c117cc940cc2b18199834)
 
 ## [radashi@12.1.0] - 2024-06-23
 ### Details
 #### <!-- 08 -->Types
-- Stop using `NodeJS.Timeout` type
+- Stop using `NodeJS.Timeout` type in [f88e009](https://github.com///commit/f88e009dea22f692b17a1a05cf78abe7fede0d32)
 
 [radashi@beta]: https://github.com///compare/v12.1.0..HEAD
 [radashi@12.1.0]: https://github.com///compare/v12.0.0..v12.1.0
