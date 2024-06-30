@@ -23,10 +23,10 @@ jobs:
       - run: pnpm install
       - name: Run Tests
         run: pnpm test
-      - name: Prepare Build
-        run: pnpm build
       - name: Lint
         run: pnpm lint
+      - name: Prepare Build
+        run: pnpm build
       - uses: actions/cache@v3
         with:
           path: dist
