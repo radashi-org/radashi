@@ -36,7 +36,8 @@ jobs:
           node-version: '22.x'
           cache: pnpm
       - run: pnpm install
+      - run: pnpm install @commitlint/config-conventional@19.x
       - name: Lint
         run: pnpm lint
       - name: Check PR Title
-        run: echo "$PR_TITLE" | pnpm -s dlx commitlint
+        run: echo "$PR_TITLE" | pnpm -s dlx commitlint@19.x

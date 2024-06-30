@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
-    "@commitlint/config-conventional": "^19.2.2",
     "@vitest/coverage-v8": "^1.6.0",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
