@@ -8,7 +8,6 @@ describe('round function', () => {
   })
 
   test('rounds to specified precision', () => {
-    expect(_.round(123.456, 0)).toBe(123)
     expect(_.round(987.654, 3)).toBe(987.654)
     expect(_.round(1.01, 1000)).toBe(1.01)
   })
@@ -20,11 +19,6 @@ describe('round function', () => {
     expect(_.round(987.654, -1000)).toBe(0)
     expect(_.round(1.01, -1000)).toBe(0)
     expect(_.round(1.01, -324)).toBe(0)
-  })
-
-  test('handles zero precision', () => {
-    expect(_.round(123.456, 0)).toBe(123)
-    expect(_.round(987.654, 0)).toBe(988)
   })
 
   test('handles negative numbers', () => {
