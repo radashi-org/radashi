@@ -26,6 +26,11 @@ function memoize<TArgs extends any[], TResult>(
   }
 }
 
+export interface MemoOptions<TArgs extends any[]> {
+  key?: (...args: TArgs) => string
+  ttl?: number
+}
+
 /**
  * Creates a memoized function. The returned function will only
  * execute the source function when no value has previously been
@@ -34,12 +39,7 @@ function memoize<TArgs extends any[], TResult>(
  */
 export function memo<TArgs extends any[], TResult>(
   func: (...args: TArgs) => TResult,
-  options: {
-    key?: (...args: TArgs) => string
-    ttl?: number
-  } = {},
-) {
-  return memoize({}, func, options.key ?? null, options.ttl ?? null) as (
-    ...args: TArgs
-  ) => TResult
+  options: MemoOptions<TArgs> = {},
+): (...args: TArgs) => TResult {
+  return memoize({}, func, options.key ?? null, options.ttl ?? null)
 }
