@@ -6,12 +6,10 @@
     "radashi": "./src/mod.ts"
   },
   "publish": {
-    "include": ["src", "LICENSE.md", "README.md"],
-    "exclude": ["src/**/tests"]
+    "include": ["src", "LICENSE.md", "README.md"]
   },
   "lint": {
     "include": ["src"],
-    "exclude": ["src/**/tests"],
     "rules": {
       "tags": ["jsr"]
     }

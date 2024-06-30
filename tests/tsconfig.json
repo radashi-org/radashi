@@ -9,7 +9,7 @@
     "strict": true,
     "types": ["vitest/globals"],
     "paths": {
-      "radashi": ["../../mod"]
+      "radashi": ["../src/mod"]
     }
   }
 }
