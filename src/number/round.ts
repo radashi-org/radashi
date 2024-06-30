@@ -30,7 +30,7 @@ export function round(
     // Limit precision according to the IEEE-754 standard. The intent
     // here is to avoid NaN results.
     const p =
-      precision >= 0 ? Math.min(precision, 292) : Math.max(precision, -323)
+      precision > 0 ? Math.min(precision, 292) : Math.max(precision, -323)
 
     // By using exponential notation, we can avoid floating-point
     // precision issues. The "q" is quantity, "e" is exponent.
