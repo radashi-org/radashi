@@ -6,8 +6,8 @@ on:
     - cron: '0 5 * * *'
 
 jobs:
-  verify:
-    name: Verify
+  test:
+    name: Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,12 +21,29 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
       - run: pnpm install
-      - name: Run Tests
-        run: pnpm test
+      - run: pnpm test
+
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: '22.x'
+          cache: pnpm
+      - run: pnpm install
       - name: Lint
         run: pnpm lint
       - name: Prepare Build
-        run: pnpm build
+        # For some reason the --clean flag of tsup isn't clearing out the
+        # "dist/tmp" folder created when `tsc` is executed by the lint script,
+        # so let's remove "dist" manually before running the build.
+        run: rm -rf dist && pnpm build
       - uses: actions/cache@v3
         with:
           path: dist
@@ -34,7 +51,7 @@ jobs:
 
   publish-beta:
     name: Publish Beta
-    needs: [verify]
+    needs: [test, validate]
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
