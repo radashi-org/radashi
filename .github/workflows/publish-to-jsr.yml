@@ -1,0 +1,28 @@
+name: Publish to JSR
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get Latest Version Tag
+        id: get-latest-version
+        run: |
+          VERSION=$(git describe --tags --abbrev=0 --match 'v*')
+          echo "::set-output name=version::$VERSION"
+          git checkout $VERSION
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v1
+
+      - name: Publish to JSR
+        run: |
+          deno run -A jsr:@david/publish-on-tag@0.1.4 --allow-dirty --unstable-sloppy-imports
+        env:
+          GITHUB_REF: refs/tags/${{ steps.get-latest-version.outputs.version }}
