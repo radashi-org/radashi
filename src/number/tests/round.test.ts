@@ -38,9 +38,9 @@ describe('round function', () => {
   })
 
   test('handles infinity and NaN', () => {
-    expect(_.round(Infinity)).toBe(Infinity)
-    expect(_.round(-Infinity)).toBe(-Infinity)
-    expect(_.round(NaN)).toBeNaN()
+    expect(_.round(Number.POSITIVE_INFINITY)).toBe(Number.POSITIVE_INFINITY)
+    expect(_.round(Number.NEGATIVE_INFINITY)).toBe(Number.NEGATIVE_INFINITY)
+    expect(_.round(Number.NaN)).toBeNaN()
   })
 
   test('handles extremely large numbers', () => {
