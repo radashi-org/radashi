@@ -1,4 +1,4 @@
-import { list } from 'radashi'
+import { list, range } from 'radashi'
 
 export interface Series<T> {
   min: (a: T, b: T) => T
@@ -18,22 +18,14 @@ export const series = <T>(
   items: readonly T[],
   toKey: (item: T) => string | symbol = item => `${item}`,
 ): Series<T> => {
-  const { indexesByKey, itemsByIndex } = items.reduce(
-    (acc, item, idx) => ({
-      indexesByKey: {
-        ...acc.indexesByKey,
-        [toKey(item)]: idx,
-      },
-      itemsByIndex: {
-        ...acc.itemsByIndex,
-        [idx]: item,
-      },
-    }),
-    {
-      indexesByKey: {} as Record<string | symbol, number>,
-      itemsByIndex: {} as Record<number, T>,
-    },
-  )
+  const indexesByKey: Record<string | symbol, number> = {}
+  const itemsByIndex: Record<number, T> = {}
+
+  for (const idx of range(items.length - 1)) {
+    const item = items[idx]
+    indexesByKey[toKey(item)] = idx
+    itemsByIndex[idx] = item
+  }
 
   /**
    * Returns the first item from the series.
