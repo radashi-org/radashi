@@ -63,7 +63,7 @@ jobs:
       - name: Calculate Version
         id: set-version
         run: |
-          NEXT_VERSION=$(git-cliff --bumped-version | sed 's/.//')
+          NEXT_VERSION=$(git-cliff --bumped-version | sed 's/v//')
           BUILD_DIGEST=$(find dist package.json -type f -exec shasum -a 256 {} + | shasum -a 256 | cut -c 1-7)
           NEXT_BETA_VERSION="$NEXT_VERSION-beta.$BUILD_DIGEST"
           echo "Determined next beta version: $NEXT_BETA_VERSION"
