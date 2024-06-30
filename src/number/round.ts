@@ -1,26 +1,43 @@
 /**
- * Computes `number` rounded to `precision`.
+ * Rounds a number to the given precision. The default `precision` is
+ * zero. An optional rounding function (e.g. `Math.floor` or
+ * `Math.ceil`) can be provided.
  *
- * @param {number} number The number to round.
- * @param {number} [precision=0] The precision to round to.
- * @returns {number} Returns the rounded number.
+ * The `precision` argument is limited to be within the range of -323
+ * to +292. Without this limit, precision values outside this range
+ * can result in NaN.
  *
- *
+ * ```ts
  * round(123.456)
  * // => 123.5
  *
- * round(1234.56, -2);
+ * round(1234.56, -2)
  * // => 1200
  *
+ * round(1234.56, 1, Math.floor)
+ * // => 1234.5
  *
+ * round(1234.54, 1, Math.ceil)
+ * // => 1234.6
+ * ```
  */
-export function round(value: number, precision?: number): number {
-  precision =
-    precision == null
-      ? 0
-      : precision >= 0
-        ? Math.min(precision, 307)
-        : Math.max(precision, -323)
-  const factor = 10 ** precision
-  return Math.round(value * factor) / factor
+export function round(
+  value: number,
+  precision?: number,
+  toInteger: (value: number) => number = Math.round,
+): number {
+  if (precision) {
+    // Limit precision according to the IEEE-754 standard. The intent
+    // here is to avoid NaN results.
+    const p =
+      precision >= 0 ? Math.min(precision, 292) : Math.max(precision, -323)
+
+    // By using exponential notation, we can avoid floating-point
+    // precision issues. The "q" is quantity, "e" is exponent.
+    let [q, e] = `${value}e`.split('e')
+    ;[q, e] = `${toInteger(+`${q}e${+e + p}`)}e`.split('e')
+    return +`${q}e${+e - p}`
+  }
+
+  return toInteger(value)
 }
