@@ -8,5 +8,12 @@
   "publish": {
     "include": ["src", "LICENSE.md", "README.md"],
     "exclude": ["src/**/tests"]
+  },
+  "lint": {
+    "include": ["src"],
+    "exclude": ["src/**/tests"],
+    "rules": {
+      "tags": ["jsr"]
+    }
   }
 }
