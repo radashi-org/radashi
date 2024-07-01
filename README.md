@@ -18,7 +18,7 @@
   We are a **community first** fork, which means putting the community's needs first. As such, your feedback is very welcome and we value your perspective. Specifically, we want you to [contribute your viewpoint](https://github.com/orgs/radashi-org/discussions/categories/rfcs?discussions_q=is%3Aopen+category%3ARFCs) to discussions in our RFCs category.
 
 - **Is there official documentation?**  
-  Currently, there is no documentation beyond this page. There is work being done, which is tracked by #40. Until then, you can refer to the original `radash` documentation.
+  Currently, there is no documentation beyond this page. There is work being done, which is tracked by [#40](https://github.com/radashi-org/radashi/issues/40). Until then, you can refer to the original `radash` documentation.
 
   <a href="https://radash-docs.vercel.app">
     <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/docs-button.png" alt="Radash documentation" width="250px" />
