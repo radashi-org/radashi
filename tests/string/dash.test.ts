@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('dash function', () => {
+describe('dash', () => {
   test('returns correctly cased string', () => {
     const result = _.dash('hello world')
     expect(result).toBe('hello-world')
@@ -21,9 +21,6 @@ describe('dash function', () => {
     const result = _.dash('hello-world')
     expect(result).toBe('hello-world')
   })
-})
-
-describe('dashCase function', () => {
   test('returns non alphanumerics with -', () => {
     const result = _.dash('Exobase Starter_flash AND-go')
     expect(result).toBe('exobase-starter-flash-and-go')

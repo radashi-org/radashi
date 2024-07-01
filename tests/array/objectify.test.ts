@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('objectify function', () => {
+describe('objectify', () => {
   const list = [
     { id: 'a', word: 'hello' },
     { id: 'b', word: 'bye' },

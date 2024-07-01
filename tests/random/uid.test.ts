@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('uid function', () => {
+describe('uid', () => {
   test('generates the correct length string', () => {
     const result = _.uid(10)
     expect(result.length).toBe(10)

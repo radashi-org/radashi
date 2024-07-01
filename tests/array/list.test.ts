@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('list function', () => {
+describe('list', () => {
   const obj = { name: 'radash' }
   test('creates correct list', () => {
     expect(_.list(0, 4)).toEqual([0, 1, 2, 3, 4])

@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('construct function', () => {
+describe('construct', () => {
   test('handles bad input', () => {
     expect(_.construct({})).toEqual({})
     expect(_.construct(null as any)).toEqual({})

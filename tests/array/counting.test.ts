@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = number[]>(value: any): T => value
 
-describe('counting function', () => {
+describe('counting', () => {
   const people = [
     { name: 'ray', group: 'X' },
     { name: 'sara', group: 'X' },

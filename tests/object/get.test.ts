@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('get function', () => {
+describe('get', () => {
   type Person = {
     name: string
     age: number

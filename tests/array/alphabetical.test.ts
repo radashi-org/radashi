@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = (value: any) => value as string[]
 
-describe('alphabetical function', () => {
+describe('alphabetical', () => {
   test('uses getter', () => {
     const list = [{ name: 'Leo' }, { name: 'AJ' }, { name: 'Cynthia' }]
     const result = _.alphabetical(list, i => i.name)

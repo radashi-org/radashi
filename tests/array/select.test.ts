@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = any[]>(value: any): T => value
 
-describe('select function', () => {
+describe('select', () => {
   test('does not fail on bad input', () => {
     expect(
       _.select(

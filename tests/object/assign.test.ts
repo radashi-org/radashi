@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = object>(value: any): T => value
 
-describe('assign function', () => {
+describe('assign', () => {
   const initial = {
     name: 'jay',
     cards: ['ac'],

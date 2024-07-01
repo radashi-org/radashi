@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isEqual function', () => {
+describe('isEqual', () => {
   class Person {
     name: string
     friends: Person[] = []

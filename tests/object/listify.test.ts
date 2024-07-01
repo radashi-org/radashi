@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('listify function', () => {
+describe('listify', () => {
   test('handles null input', () => {
     const result = _.listify(null as any as Record<string, string>, () => 1)
     expect(result).toEqual([])

@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = number[]>(value: any): T => value
 
-describe('sum function', () => {
+describe('sum', () => {
   test('adds list of number correctly', () => {
     const list = [5, 5, 10, 2]
     const result = _.sum(list)

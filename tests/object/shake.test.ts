@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('shake function', () => {
+describe('shake', () => {
   test('removes all undefined values', () => {
     const result = _.shake({
       x: 2,

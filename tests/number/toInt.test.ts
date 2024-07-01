@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('toInt function', () => {
+describe('toInt', () => {
   test('handles null', () => {
     const result = _.toInt(null)
     expect(result).toBe(0)
@@ -23,7 +23,7 @@ describe('toInt function', () => {
   })
 })
 
-describe('isInt function', () => {
+describe('isInt', () => {
   class Data {}
   test('returns false for non-number values', () => {
     expect(_.isInt(undefined)).toBeFalsy()

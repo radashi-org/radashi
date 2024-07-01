@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('throttle function', () => {
+describe('throttle', () => {
   test('throttles!', async () => {
     let calls = 0
     const func = _.throttle({ interval: 600 }, () => calls++)

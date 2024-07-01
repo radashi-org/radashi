@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('crush function', () => {
+describe('crush', () => {
   test('handles bad input', () => {
     expect(_.crush({})).toEqual({})
     expect(_.crush(null as any)).toEqual({})

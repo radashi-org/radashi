@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = unknown[]>(value: any): T => value
 
-describe('replace function', () => {
+describe('replace', () => {
   test('returns empty list for null input list', () => {
     const result = _.replace(cast(null), 'x', () => false)
     expect(result).toEqual([])

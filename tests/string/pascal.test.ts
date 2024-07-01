@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('pascal function', () => {
+describe('pascal', () => {
   test('returns non alphanumerics in pascal', () => {
     const result = _.pascal('Exobase Starter_flash AND-go')
     expect(result).toBe('ExobaseStarterFlashAndGo')

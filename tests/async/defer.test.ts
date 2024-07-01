@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('defer function', () => {
+describe('defer', () => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
   })

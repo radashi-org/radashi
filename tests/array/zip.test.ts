@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('zip function', () => {
+describe('zip', () => {
   test('zips an array correctly', () => {
     const result = _.zip(['a', 'b'], [1, 2], [true, false])
     expect(result).toEqual([

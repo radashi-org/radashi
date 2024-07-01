@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('chain function', () => {
+describe('chain', () => {
   test('calls all given functions', () => {
     const genesis = (num: number, name: string) => 0
     const addFive = (num: number) => num + 5

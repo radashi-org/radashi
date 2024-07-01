@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('series function', () => {
+describe('series', () => {
   const sut = _.series([
     'monday',
     'tuesday',

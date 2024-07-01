@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('set function', () => {
+describe('set', () => {
   test('handles bad input', () => {
     expect(_.set({}, '', {})).toEqual({})
     expect(_.set({}, null as any, {})).toEqual({})

@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('partob function', () => {
+describe('partob', () => {
   test('partob passes single args', () => {
     const add = ({ a, b }: { a: number; b: number }) => a + b
     const expected = 20

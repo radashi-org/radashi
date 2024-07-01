@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('range function', () => {
+describe('range', () => {
   const obj = { name: 'radash' }
   const toList = <T>(gen: Generator<T>): T[] => {
     const items: T[] = []

@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = (value: any) => value as unknown[]
 
-describe('fork function', () => {
+describe('fork', () => {
   test('returns two empty arrays for null input', () => {
     const [a, b] = _.fork(cast(null), x => !!x)
     expect(a).toEqual([])

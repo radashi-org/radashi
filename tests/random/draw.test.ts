@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('draw function', () => {
+describe('draw', () => {
   test('returns a string from the list', () => {
     const letters = 'abcde'
     const result = _.draw(letters.split(''))

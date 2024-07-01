@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isIntString function', () => {
+describe('isIntString', () => {
   test('returns true for int string', () => {
     expect(_.isIntString('0')).toBeTruthy()
     expect(_.isIntString('22')).toBeTruthy()

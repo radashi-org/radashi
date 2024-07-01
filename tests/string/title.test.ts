@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('title function', () => {
+describe('title', () => {
   test('returns input formatted in title case', () => {
     expect(_.title('hello world')).toBe('Hello World')
     expect(_.title('va_va_boom')).toBe('Va Va Boom')

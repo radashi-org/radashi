@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('min function', () => {
+describe('min', () => {
   test('returns the min value from list of number', () => {
     const list = [5, 5, 10, 2]
     const result = _.min(list)

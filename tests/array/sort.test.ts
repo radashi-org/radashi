@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('sort function', () => {
+describe('sort', () => {
   test('uses getter', () => {
     const list = [{ index: 2 }, { index: 0 }, { index: 1 }]
     const result = _.sort(list, i => i.index)

@@ -1,7 +1,7 @@
 import * as _ from 'radashi'
 import { DebounceFunction } from 'radashi'
 
-describe('debounce function', () => {
+describe('debounce', () => {
   let func: DebounceFunction<any>
   const mockFunc = vi.fn()
   const runFunc3Times = () => {

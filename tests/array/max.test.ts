@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('max function', () => {
+describe('max', () => {
   test('returns the max value from list of number', () => {
     const list = [5, 5, 10, 2]
     const result = _.max(list)

@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('flat function', () => {
+describe('flat', () => {
   test('returns all items in all arrays', () => {
     const lists = [['a', 'b'], ['c', 'd'], ['e']]
     const result = _.flat(lists)

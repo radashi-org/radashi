@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = any[]>(value: any): T => value
 
-describe('toggle function', () => {
+describe('toggle', () => {
   test('should handle null input list', () => {
     const result = _.toggle(cast(null), 'a')
     expect(result).toEqual(['a'])

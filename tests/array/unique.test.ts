@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('unique function', () => {
+describe('unique', () => {
   test('correctly removed duplicate items', () => {
     const list = [1, 1, 2]
     const result = _.unique(list)

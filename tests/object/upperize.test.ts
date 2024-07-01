@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('upperize function', () => {
+describe('upperize', () => {
   test('changes all keys to upper case', () => {
     const result = _.upperize({
       'x-api-key': 'value',

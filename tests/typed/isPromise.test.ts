@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isPromise function', () => {
+describe('isPromise', () => {
   test('return true for Promise values', () => {
     expect(_.isPromise(new Promise(res => res(0)))).toBeTruthy()
     expect(_.isPromise(new Promise(res => res('')))).toBeTruthy()

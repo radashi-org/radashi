@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isDate function', () => {
+describe('isDate', () => {
   test('return true for Date values', () => {
     expect(_.isDate(new Date())).toBeTruthy()
     expect(_.isDate(new Date('2022-09-01T02:19:55.976Z'))).toBeTruthy()

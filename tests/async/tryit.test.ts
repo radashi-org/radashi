@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('_.try function', () => {
+describe('_.try', () => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
   })

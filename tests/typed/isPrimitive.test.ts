@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isPrimitive function', () => {
+describe('isPrimitive', () => {
   test('returns true for all the primitives', () => {
     const arr = [
       1.1,

@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('shift function', () => {
+describe('shift', () => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   test('should shift array right 3 positions', () => {
     const result = _.shift(arr, 3)

@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isArray function', () => {
+describe('isArray', () => {
   test('returns false for null', () => {
     const result = _.isArray(null)
     expect(result).toBeFalsy()

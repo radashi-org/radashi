@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('round function', () => {
+describe('round', () => {
   test('rounds to default precision (0 decimal places)', () => {
     expect(_.round(123.456)).toBe(123)
     expect(_.round(987.654321)).toBe(988)

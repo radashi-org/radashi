@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('trim function', () => {
+describe('trim', () => {
   test('handles bad input', () => {
     expect(_.trim(null)).toBe('')
     expect(_.trim(undefined)).toBe('')

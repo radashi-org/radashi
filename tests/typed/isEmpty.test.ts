@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isEmpty function', () => {
+describe('isEmpty', () => {
   class Data {}
   class Person {
     name = 'ray'

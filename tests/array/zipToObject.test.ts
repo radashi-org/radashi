@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('zipToObject function', () => {
+describe('zipToObject', () => {
   test('zips to an object correctly', () => {
     const result = _.zipToObject(['a', 'b'], [1, 2])
     expect(result).toEqual({ a: 1, b: 2 })

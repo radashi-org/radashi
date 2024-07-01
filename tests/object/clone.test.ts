@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('clone function', () => {
+describe('clone', () => {
   test('copies the primitives', () => {
     const arr = [
       1.1,

@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('partial function', () => {
+describe('partial', () => {
   test('passes single args', () => {
     const add = (a: number, b: number) => a + b
     const expected = 20

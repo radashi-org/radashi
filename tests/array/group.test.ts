@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('group function', () => {
+describe('group', () => {
   test('groups by provided attribute', () => {
     const list = [
       { group: 'a', word: 'hello' },

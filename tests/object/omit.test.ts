@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = any>(value: any): T => value
 
-describe('omit function', () => {
+describe('omit', () => {
   const person = {
     name: 'jay',
     age: 20,

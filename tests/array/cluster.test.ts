@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('cluster function', () => {
+describe('cluster', () => {
   test('returns an array of arrays', () => {
     const list = [1, 1, 1, 1, 1, 1, 1, 1]
     const result = _.cluster(list)

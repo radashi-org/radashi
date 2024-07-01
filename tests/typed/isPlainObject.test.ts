@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isPlainObject function', () => {
+describe('isPlainObject', () => {
   test('returns true for object literal', () => {
     const result = _.isPlainObject({})
     expect(result).toBeTruthy()

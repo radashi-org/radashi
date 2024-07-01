@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('callable function', () => {
+describe('callable', () => {
   test('makes object callable', async () => {
     const request = {
       source: 'client',

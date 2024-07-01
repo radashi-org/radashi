@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('lowerize function', () => {
+describe('lowerize', () => {
   test('changes all keys to lower case', () => {
     const result = _.lowerize({
       'X-Api-Key': 'value',

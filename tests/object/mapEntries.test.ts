@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = object>(value: any): T => value
 
-describe('mapEntries function', () => {
+describe('mapEntries', () => {
   const peopleByRole = {
     admin: 'jay',
     user: 'fey',

@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isFunction function', () => {
+describe('isFunction', () => {
   test('returns false for null', () => {
     const result = _.isFunction(null)
     expect(result).toBeFalsy()

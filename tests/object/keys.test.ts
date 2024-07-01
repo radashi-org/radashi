@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('keys function', () => {
+describe('keys', () => {
   test('handles bad input', () => {
     expect(_.keys({})).toEqual([])
     expect(_.keys(null as any)).toEqual([])

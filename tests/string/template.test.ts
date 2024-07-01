@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('template function', () => {
+describe('template', () => {
   test('replaces all occurrences', () => {
     const tmp = `
   Hello my name is {{name}}. I am a {{type}}.

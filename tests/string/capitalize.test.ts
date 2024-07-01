@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('capitalize function', () => {
+describe('capitalize', () => {
   test('handles null', () => {
     const result = _.capitalize(null as any)
     expect(result).toBe('')

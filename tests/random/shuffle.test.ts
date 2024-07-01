@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('shuffle function', () => {
+describe('shuffle', () => {
   test('returns list with same number of items', () => {
     const list = [1, 2, 3, 4, 5]
     const result = _.shuffle(list)

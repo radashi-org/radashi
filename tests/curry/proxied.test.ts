@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('proxied function', () => {
+describe('proxied', () => {
   test('returns proxy that calls callback function', () => {
     const handler = (propertyName: string) => {
       if (propertyName === 'x') {

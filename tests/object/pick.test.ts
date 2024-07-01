@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = any>(value: any): T => value
 
-describe('pick function', () => {
+describe('pick', () => {
   test('handles null input', () => {
     const result = _.pick(cast(null), [])
     expect(result).toEqual({})

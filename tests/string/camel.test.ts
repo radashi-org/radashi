@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('camel function', () => {
+describe('camel', () => {
   test('returns correctly cased string', () => {
     const result = _.camel('hello world')
     expect(result).toBe('helloWorld')
@@ -17,9 +17,6 @@ describe('camel function', () => {
     const result = _.camel('helloWorld')
     expect(result).toBe('helloWorld')
   })
-})
-
-describe('camelCase function', () => {
   test('returns non alphanumerics with -space and capital', () => {
     const result = _.camel('Exobase Starter_flash AND-go')
     expect(result).toBe('exobaseStarterFlashAndGo')

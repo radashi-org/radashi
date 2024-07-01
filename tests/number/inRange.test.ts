@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('inRange function', () => {
+describe('inRange', () => {
   test('handles nullish values', () => {
     expect(_.inRange(0, 1, null as any)).toBe(false)
     expect(_.inRange(0, null as any, 1)).toBe(false)

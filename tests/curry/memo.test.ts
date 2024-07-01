@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('memo function', () => {
+describe('memo', () => {
   test('only executes function once', () => {
     const func = _.memo(() => new Date().getTime())
     const resultA = func()

@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = unknown[]>(value: any): T => value
 
-describe('boil function', () => {
+describe('boil', () => {
   test('compares and keeps item based on condition', () => {
     const list = [
       { game: 'a', score: 100 },

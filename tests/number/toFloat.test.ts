@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('toFloat function', () => {
+describe('toFloat', () => {
   test('handles null', () => {
     const result = _.toFloat(null)
     expect(result).toBe(0.0)

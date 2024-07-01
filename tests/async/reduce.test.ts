@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = any[]>(value: any): T => value
 
-describe('asyncReduce function', () => {
+describe('asyncReduce', () => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
   })
@@ -37,7 +37,7 @@ describe('asyncReduce function', () => {
   })
 })
 
-describe('reduce/asyncReduceV2 function', () => {
+describe('reduce/asyncReduceV2', () => {
   const numbers = [0, 1, 2, 3, 4]
   const reducer = async (a: number, b: number): Promise<number> => {
     return new Promise(res => res(a + b))

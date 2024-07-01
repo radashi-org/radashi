@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = (value: any) => value as unknown[]
 
-describe('last function', () => {
+describe('last', () => {
   test('returns last item in list', () => {
     const list = [
       { game: 'a', score: 100 },

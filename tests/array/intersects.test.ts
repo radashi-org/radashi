@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = unknown[]>(value: any): T => value
 
-describe('intersects function', () => {
+describe('intersects', () => {
   test('returns true if list a & b have items in common', () => {
     const listA = ['a', 'b']
     const listB = [1, 2, 'b', 'x']

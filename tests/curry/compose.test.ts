@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('compose function', () => {
+describe('compose', () => {
   test('composes functions', () => {
     const useZero = (fn: (num: number) => number) => () => fn(0)
     const objectize = (fn: (obj: { num: number }) => number) => (num: number) =>

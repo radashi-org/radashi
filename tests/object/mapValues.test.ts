@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('mapValues function', () => {
+describe('mapValues', () => {
   test('runs all values against mapper function', () => {
     const prefixWith = (prefix: string) => (str: string) => `${prefix}${str}`
     const result = _.mapValues(

@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = object>(value: any): T => value
 
-describe('invert function', () => {
+describe('invert', () => {
   const peopleByRole = {
     admin: 'jay',
     user: 'fey',

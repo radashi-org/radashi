@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = unknown[]>(value: any) => value as T
 
-describe('merge function', () => {
+describe('merge', () => {
   test('returns empty array for two null inputs', () => {
     const result = _.merge(cast(null), cast(null), _ => '')
     expect(result).toEqual([])

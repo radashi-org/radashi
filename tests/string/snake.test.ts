@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('snake function', () => {
+describe('snake', () => {
   test('returns correctly cased string', () => {
     const result = _.snake('hello world')
     expect(result).toBe('hello_world')
@@ -31,9 +31,6 @@ describe('snake function', () => {
     const result = _.snake(null as any)
     expect(result).toBe('')
   })
-})
-
-describe('snakeCase function', () => {
   test('returns non alphanumerics with _', () => {
     const result = _.snake('Exobase Starter_flash AND-go')
     expect(result).toBe('exobase_starter_flash_and_go')

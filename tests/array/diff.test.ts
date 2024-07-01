@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = unknown[]>(value: any): T => value
 
-describe('diff function', () => {
+describe('diff', () => {
   test('handles null root', () => {
     const result = _.diff(cast(null), ['a'])
     expect(result).toEqual(['a'])

@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isSymbol function', () => {
+describe('isSymbol', () => {
   test('returns false for null', () => {
     const input = null
     const result = _.isSymbol(input)

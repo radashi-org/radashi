@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isFloat function', () => {
+describe('isFloat', () => {
   class Data {}
   test('returns false for non-number values', () => {
     expect(_.isFloat(undefined)).toBeFalsy()

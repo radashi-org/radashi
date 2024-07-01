@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('isInt function', () => {
+describe('isInt', () => {
   class Data {}
   test('returns false for non-number values', () => {
     expect(_.isInt(undefined)).toBeFalsy()
