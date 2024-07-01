@@ -17,11 +17,16 @@ Scan through the [existing issues](https://github.com/aleclarson/radashi/issues)
 ## You want to write code?
 
 - To get started, run `pnpm i` in the project's root directory to install the dependencies.
+- You can add a new function with `pnpm add-function <group-name>/<function-name>`. This will create the necessary files and open a PR with the new function. Try to use a `group-name` that already exists, if possible (check the `src` directory). Note that you will need to manually export the function from `src/mod.ts` before you can use it.
 - You can run the unit tests with `pnpm test`. They require Node v16+. You can run `nvm use` in the root directory to change to the correct Node version. The tests should pass (duh) and maintain 100% code coverage.
+- You can lint your code with `pnpm lint`.
 - To get familiar with the existing code I would recommend looking through the docs and the codebase in parallel. For each function in the docs, find the implementation in the source and skim over the code.
-- When coding, try not to create internal APIs (any function or module that is not exported to be used by the client).
-- Also, try not to use functions from other Radashi modules. This is a softer rule but we want to make it easy for readers to understand a function without having to navigate the codebase. As a utility library users should ideally be able to copy/paste a function from Radashi into their project. Most Radashi functions should be easy to write in isolation.
-- If an implementation needs more than ~20 lines of code it might be better suited for another package or library. This is another softer rule.
+
+Please review _“The ethos of Radashi”_ before getting started:
+
+<a href="https://github.com/orgs/radashi-org/discussions/20">
+  <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/ethos-button.png" alt="The ethos of Radashi" width="250px" />
+</a>
 
 ## You're ready to push a change?
 
@@ -35,4 +40,4 @@ Once you submit your PR, one of Radashi's maintainers will review it. They might
 
 ## Your PR gets merged!
 
-Congratulations :tada::tada: Currently, the package publishing process is manual. Your PR will be updated with a comment when the next release is published. This should happen within 24-48 hours of your PR being merged.
+Congratulations :tada::tada: Currently, official versions are published manually. But beta versions are published automatically, every day, at 5:00AM UTC (if a PR has been merged). Your PR will be updated with a comment when the next release is published.
