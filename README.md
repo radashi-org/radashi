@@ -6,23 +6,28 @@
   </p>
 </div>
 
-- **What is this?**  
-  Radashi, pronounced /raw-dash-ee/, is a modern, zero-dependency JavaScript utility toolkit built with TypeScript for type-safe, readable, and maintainable code. Radashi omits functions that have become obsolete in Lodash and introduces innovative tools for improved error handling, asynchronous operations, and data manipulation. With a focus on readability and maintainability, Radashi ensures that its source code is easy to understand and use, making it simple for developers to copy individual functions directly from GitHub if needed. Radashi is the go-to toolkit for cleaner, more efficient code in today's JavaScript ecosystem.
+**Radashi** (pronounced /ruh-DAH-shee/) is a minimal set of TypeScript utility library, packed with useful functions that are readable, performant, and robust. The package is dependency-free, tree-shakeable, type-safe, and future-proof (written with modern ES6+ syntax). Best of all, it's actively maintained, has full test coverage, and tracks performance regressions with continuous benchmarking.
 
-- **Is this related to Radash?**  
-  Yes! This is a fork of the renowned [`radash`](https://github.com/sodiray/radash) library by Ray Epps [@sodiray](https://github.com/sodiray).
+**Ditch the bloat of Lodash. Stop reinventing the wheel.** If you have a need not met by our current set of functions, we want to hear about it! Open an issue so we can discuss it together.
 
-- **Why use this over Radash?**  
-  This fork aims to be a more consistently maintained version, with bug fixes and improvements. We're open to adding many maintainers to the Radashi team, to keep responsiveness high.
+*Radashi is an actively maintained fork of Radash, the fastest growing Lodash alternative with 100K+ weekly downloads.*
 
-  We are a **community first** fork, which means putting the community's needs first. As such, your feedback is very welcome and we value your perspective. Specifically, we want you to [contribute your viewpoint](https://github.com/orgs/radashi-org/discussions/categories/rfcs?discussions_q=is%3Aopen+category%3ARFCs) to discussions in our RFCs category.
+<img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
-- **Is there official documentation?**  
-  Currently, there is no documentation beyond this page. There is work being done, which is tracked by [#40](https://github.com/radashi-org/radashi/issues/40). Until then, you can refer to the original `radash` documentation.
+## Documentation
 
-  <a href="https://radash-docs.vercel.app">
-    <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/docs-button.png" alt="Radash documentation" width="250px" />
-  </a>
+An official website is in the works (tracked by [#40](https://github.com/radashi-org/radashi/issues/40)). Until then, you can refer to the original `radash` documentation and the [CHANGELOG.md](https://github.com/radashi-org/radashi/blob/main/CHANGELOG.md) file.
+
+<a href="https://radash-docs.vercel.app">
+  <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/docs-button.png" alt="Radash documentation" width="250px" />
+</a>
+
+<img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
+
+## FAQ
+
+- **What does “community first” mean exactly?**  
+  It means putting the community's needs first, leaning towards adding support for popular use cases, as opposed to being strictly minimalist. As such, your feedback is very welcome and we value your perspective. Specifically, we want you to [contribute your viewpoint](https://github.com/orgs/radashi-org/discussions/categories/rfcs?discussions_q=is%3Aopen+category%3ARFCs) to discussions in our RFCs category.
 
 - **Are my contributions welcome?**  
   Yes! Pull requests are encouraged, but please keep them small and focused. Sweeping changes are discouraged and won't be merged (unless the rationale's been thoroughly discussed).
