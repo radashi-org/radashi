@@ -13,10 +13,12 @@
     "lint": "tsc && biome check && pnpm -s dlx deno-bin@1.44.4 lint",
     "format": "biome check --fix --unsafe",
     "test": "vitest run --coverage",
+    "bench": "vitest bench",
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
+    "@codspeed/vitest-plugin": "^3.1.0",
     "@vitest/coverage-v8": "1.6.0",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
