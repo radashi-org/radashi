@@ -38,6 +38,32 @@ An official website is in the works (tracked by [#40](https://github.com/radashi
 
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
+## Install
+
+```sh
+pnpm add radashi
+```
+
+```sh
+yarn add radashi
+```
+
+```sh
+npm install radashi
+```
+
+### Beta version
+
+The `radashi@beta` version is a nightly release containing everything in the main branch at the time (5:00AM UTC).
+
+```sh
+pnpm add radashi@beta
+```
+
+Its changes are documented [here](https://github.com/radashi-org/radashi/blob/main/CHANGELOG.md#radashibeta). If there's no `radashi@beta` section in the changelog, it means no pull requests have been merged since the last stable release.
+
+<img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
+
 ## FAQ
 
 - **What does “community first” mean exactly?**  
@@ -74,32 +100,6 @@ An official website is in the works (tracked by [#40](https://github.com/radashi
 
     - ⚠️ **Beware:** Preview releases are not audited by the Radashi team. Always look at their
       changes in the PR to ensure no malicious code was introduced.
-
-<img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
-
-## Install
-
-```sh
-pnpm add radashi
-```
-
-```sh
-yarn add radashi
-```
-
-```sh
-npm install radashi
-```
-
-### Beta version
-
-The `radashi@beta` version is a nightly release containing everything in the main branch at the time (5:00AM UTC).
-
-```sh
-pnpm add radashi@beta
-```
-
-Its changes are documented [here](https://github.com/radashi-org/radashi/blob/main/CHANGELOG.md#radashibeta). If there's no `radashi@beta` section in the changelog, it means no pull requests have been merged since the last stable release.
 
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
