@@ -69,6 +69,18 @@ pnpm add radashi@beta
 
 Its changes are documented [here](https://github.com/radashi-org/radashi/blob/main/CHANGELOG.md#radashibeta). If there's no `radashi@beta` section in the changelog, it means no pull requests have been merged since the last stable release.
 
+### JSR.io
+
+Radashi is also published to the [JSR registry](https://jsr.io/docs/why), which gives Radashi [its own page](https://jsr.io/@radashi-org/radashi).
+
+```sh
+jsr add @radashi-org/radashi
+```
+
+```sh
+deno add @radashi-org/radashi
+```
+
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
 ## FAQ
