@@ -6,11 +6,25 @@
   </p>
 </div>
 
-**Radashi** (pronounced /ruh-DAH-shee/) is a minimal set of TypeScript utility library, packed with useful functions that are readable, performant, and robust. The package is dependency-free, tree-shakeable, type-safe, and future-proof (written with modern ES6+ syntax). Best of all, it's actively maintained, has full test coverage, and tracks performance regressions with continuous benchmarking.
+**Radashi** (pronounced /ruh-DAH-shee/) is a minimal set of TypeScript utility library, packed with useful functions that are readable, performant, and robust.
+
+*Radashi is an actively maintained fork of Radash, the fastest growing Lodash alternative with 100K+ weekly downloads.*
 
 **Ditch the bloat of Lodash. Stop reinventing the wheel.** If you have a need not met by our current set of functions, we want to hear about it! [Open an issue](https://github.com/radashi-org/radashi/issues/new) so we can discuss it together.
 
-*Radashi is an actively maintained fork of Radash, the fastest growing Lodash alternative with 100K+ weekly downloads.*
+*“What makes Radashi so great?”*
+- **unique** and **well-designed** functions
+- **tree-shakeable** (use only what you need!)
+- **dependency-free**
+- **community-first** (your opinions matter)
+- **future-proof** (written with modern ES6+ syntax)
+- **actively maintained** (with a growing team of passionate maintainers)
+- **type-safe** (the best type definitions possible)
+- **full test coverage**
+- **performance tracking** (tracks performance regressions with continuous benchmarking)
+- **well-documented**
+- **nightly releases** (`radashi@beta`)
+- **changelog** (easily see what's new in each release)
 
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
@@ -52,7 +66,7 @@ An official website is in the works (tracked by [#40](https://github.com/radashi
   To ensure contributions are quickly rolled out, we have the following automatic processes:
 
   - **Beta releases**  
-    Whenever the `main` branch receives a fix or feature, a beta release is automatically published to NPM.
+    Whenever the `main` branch receives a fix or feature, a beta release is automatically published to NPM at 5:00AM UTC.
     Installing `radashi@beta` will always fetch the latest beta release. Beta releases are always audited by the Radashi team.
 
   - **Preview releases**  
