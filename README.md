@@ -8,7 +8,7 @@
 
 **Radashi** (pronounced /ruh-DAH-shee/) is a minimal set of TypeScript utility library, packed with useful functions that are readable, performant, and robust. The package is dependency-free, tree-shakeable, type-safe, and future-proof (written with modern ES6+ syntax). Best of all, it's actively maintained, has full test coverage, and tracks performance regressions with continuous benchmarking.
 
-**Ditch the bloat of Lodash. Stop reinventing the wheel.** If you have a need not met by our current set of functions, we want to hear about it! Open an issue so we can discuss it together.
+**Ditch the bloat of Lodash. Stop reinventing the wheel.** If you have a need not met by our current set of functions, we want to hear about it! [Open an issue](https://github.com/radashi-org/radashi/issues/new) so we can discuss it together.
 
 *Radashi is an actively maintained fork of Radash, the fastest growing Lodash alternative with 100K+ weekly downloads.*
 
