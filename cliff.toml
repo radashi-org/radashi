@@ -1,6 +1,10 @@
 # git-cliff ~ configuration file
 # https://git-cliff.org/docs/configuration
 
+[remote.github]
+owner = "radashi-org"
+repo = "radashi"
+
 [changelog]
 # template for the changelog header
 header = """
