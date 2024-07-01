@@ -4,7 +4,14 @@
   <p align="center">
     <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/banner.png" alt="Radashi" width="100%" />
   </p>
+  <a href="https://github.com/radashi-org/radashi/blob/main/LICENSE.md"><img src="https://img.shields.io/npm/l/radashi" alt="License" /></a>
+  <a href="https://github.com/radashi-org/radashi/actions/workflows/publish-beta.yml"><img src="https://img.shields.io/github/actions/workflow/status/radashi-org/radashi/publish-beta.yml?logo=github" alt="Build Status" /></a>
+  <a href="https://app.codecov.io/gh/radashi-org/radashi/tree/main/src"><img src="https://img.shields.io/codecov/c/github/radashi-org/radashi?logo=codecov" alt="Codecov" /></a>
+  <a href="https://biomejs.dev/"><img src="https://img.shields.io/badge/code_style-biome.js-blue?logo=biome" alt="Code Style: Biome.js" /></a>
+  <a href="https://github.com/radashi-org/radashi/discussions"><img src="https://img.shields.io/github/discussions/radashi-org/radashi?logo=github" alt="GitHub Discussions" /></a>
 </div>
+
+&nbsp;
 
 **Radashi** (pronounced /ruh-DAH-shee/) is a TypeScript utility toolkit, packed with lightweight functions that are readable, performant, and robust.
 
