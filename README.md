@@ -6,7 +6,7 @@
   </p>
 </div>
 
-**Radashi** (pronounced /ruh-DAH-shee/) is a minimal set of TypeScript utility library, packed with useful functions that are readable, performant, and robust.
+**Radashi** (pronounced /ruh-DAH-shee/) is a TypeScript utility toolkit, packed with lightweight functions that are readable, performant, and robust.
 
 *Radashi is an actively maintained fork of Radash, the fastest growing Lodash alternative with 100K+ weekly downloads.*
 
