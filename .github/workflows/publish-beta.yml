@@ -22,7 +22,8 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm test
-      - name: Upload coverage reports to Codecov
+      - if: ${{ matrix.node-version == '22.x' }}
+        name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
