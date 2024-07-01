@@ -14,7 +14,8 @@
     "format": "biome check --fix --unsafe",
     "test": "vitest run --coverage",
     "bench": "vitest bench",
-    "prepublishOnly": "tsc && biome check --fix && pnpm -s build"
+    "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
+    "add-function": "bash ./scripts/add-function.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
