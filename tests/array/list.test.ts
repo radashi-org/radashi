@@ -1,7 +1,7 @@
 import * as _ from 'radashi'
 
 describe('list', () => {
-  const obj = { name: 'radash' }
+  const obj = { name: 'radashi' }
   test('creates correct list', () => {
     expect(_.list(0, 4)).toEqual([0, 1, 2, 3, 4])
     expect(_.list(3)).toEqual([0, 1, 2, 3])

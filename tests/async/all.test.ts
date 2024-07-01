@@ -1,7 +1,7 @@
 import * as _ from 'radashi'
 import { AggregateError } from 'radashi'
 
-describe('_.all', () => {
+describe('all', () => {
   const promise = {
     resolve: <T>(value: T) => new Promise<T>(res => res(value)),
     reject: (err: any) => new Promise((res, rej) => rej(err)),

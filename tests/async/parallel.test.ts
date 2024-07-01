@@ -1,7 +1,7 @@
 import * as _ from 'radashi'
 import { AggregateError } from 'radashi'
 
-describe('_.parallel', () => {
+describe('parallel', () => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
   })

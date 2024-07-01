@@ -7,13 +7,13 @@ describe('proxied', () => {
         return 2
       }
       if (propertyName === 'getName') {
-        return () => 'radash'
+        return () => 'radashi'
       }
       return undefined
     }
     const proxy = _.proxied(handler) as any
     expect(proxy.x).toBe(2)
-    expect(proxy.getName()).toBe('radash')
+    expect(proxy.getName()).toBe('radashi')
     expect(proxy.nil).toBeUndefined()
   })
 })

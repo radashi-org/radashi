@@ -3,7 +3,7 @@ import { RetryOptions } from 'radashi'
 
 const cast = <T = RetryOptions>(value: any): T => value
 
-describe('_.retry', () => {
+describe('retry', () => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
   })

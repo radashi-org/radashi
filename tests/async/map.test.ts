@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 const cast = <T = any[]>(value: any): T => value
 
-describe('_.map', () => {
+describe('map', () => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
   })
