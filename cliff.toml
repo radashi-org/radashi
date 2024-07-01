@@ -61,11 +61,11 @@ footer = """
 
 {% for release in releases -%}
     {% if release.version -%}
-        {% if release.previous.version -%}
+        {% if release.previous.version %}
             [radashi@{{ release.version | trim_start_matches(pat="v") }}]: \
                 {{ self::remote_url() }}/compare/{{ release.previous.version }}..{{ release.version }}
         {% endif -%}
-    {% else -%}
+    {% else %}
         [radashi@beta]: {{ self::remote_url() }}/compare/{{ release.previous.version }}..HEAD
     {% endif -%}
 {% endfor %}
