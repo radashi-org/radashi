@@ -56,7 +56,7 @@
     - ⚠️ **Beware:** Preview releases are not audited by the Radashi team. Always look at their
       changes in the PR to ensure no malicious code was introduced.
 
-<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/.github/img/rule.png" width="100%" />
+<img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
 ## Install
 
@@ -72,7 +72,7 @@ yarn add radashi
 npm install radashi
 ```
 
-<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/.github/img/rule.png" width="100%" />
+<img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
 ## Contributing
 
@@ -82,12 +82,12 @@ Contributions are welcome and appreciated! Check out the contributing guide befo
   <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/contributing-button.png" alt="Contributing to Radashi" width="250px" />
 </a>
 
-<img src="https://github.com/radashi-org/radashi/raw/b80a0e4/.github/img/rule.png" width="100%" />
+<img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
 &nbsp;
 
 <div align="center">
   <p align="center">
-    <img src="https://github.com/radashi-org/radashi/raw/46c8897/.github/img/footer.png" alt="Radashi" width="100%" />
+    <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/footer.png" alt="Radashi" width="100%" />
   </p>
 </div>
