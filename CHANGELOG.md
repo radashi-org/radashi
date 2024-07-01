@@ -8,42 +8,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [radashi@beta]
 ### Details
 #### <!-- 03 -->Added
-- Add `isIntString` function in [fa500d3](https://github.com///commit/fa500d329d7e06062e7a42cbf4ff9ad9dcb89191)
-- Add `isPlainObject` type guard in [ddae618](https://github.com///commit/ddae6182de6afb270a9e94c4dafcabe51dea602f)
-- Add `round` function in [eadf5d0](https://github.com///commit/eadf5d03054a0cba93c989303debfd99144e9d0c)
+- Add `isIntString` function by @aleclarson in [fa500d3](https://github.com/radashi-org/radashi/commit/fa500d329d7e06062e7a42cbf4ff9ad9dcb89191)
+- Add `isPlainObject` type guard by @aleclarson in [#16](https://github.com/radashi-org/radashi/pull/16)
+
+- Add `round` function by @shan-shaji in [#53](https://github.com/radashi-org/radashi/pull/53)
+
 
 #### <!-- 05 -->Changed
-- **(intersects)** Let `identity` callback return any value in [49a0dc4](https://github.com///commit/49a0dc49c93e2785d928ae35cc45518586f1fd7b)
-- **(unique)** Let `toKey` return any kind of value in [3fd8446](https://github.com///commit/3fd8446522aba8236b3151636191e64713ff2377)
-- **(select)** Let `condition` be undefined in [dc74ace](https://github.com///commit/dc74aceedfd90bf4b443dc25a7ae548db9cf2ba9)
-- Replace `matchKeys` with `filterKey` in [3652c3e](https://github.com///commit/3652c3e8fa7af3b5c2438363a374d1683ea7c408)
-- **(filterKey)** Accept null/undefined filter in [b10ad10](https://github.com///commit/b10ad105bada331494c232b7a28f9d76ff77dded)
-- Add selectFirst in [f792633](https://github.com///commit/f792633c2db24cba2a27334f685b562f6914af15)
+- **(intersects)** Let `identity` callback return any value by @aleclarson in [#11](https://github.com/radashi-org/radashi/pull/11)
+
+- **(unique)** Let `toKey` return any kind of value by @aleclarson in [#10](https://github.com/radashi-org/radashi/pull/10)
+
+- **(select)** Let `condition` be undefined by @aleclarson in [#9](https://github.com/radashi-org/radashi/pull/9)
+
+- Replace `matchKeys` with `filterKey` by @aleclarson in [#28](https://github.com/radashi-org/radashi/pull/28)
+
+- **(filterKey)** Accept null/undefined filter by @aleclarson in [b10ad10](https://github.com/radashi-org/radashi/commit/b10ad105bada331494c232b7a28f9d76ff77dded)
+- Add selectFirst by @adamhamlin in [#52](https://github.com/radashi-org/radashi/pull/52)
+
 
 #### <!-- 06 -->Fixed
-- **(retry)** Stop using `range()` in [5d60893](https://github.com///commit/5d60893471240516a49c6ddf48839165b5961a47)
-- **(assign)** Remove inefficiencies in loop in [99274cc](https://github.com///commit/99274cce29a375071779e522f0e95c3dee705d2d)
-- **(set)** Avoid false positive of array index in path in [ff0c3cf](https://github.com///commit/ff0c3cf03a16265e02de5614eea659ebbdf77f5f)
-- **(shake)** Stop using `Omit` on return type and give `filter` parameter a safer type in [e6f75aa](https://github.com///commit/e6f75aa836358491f4d1a1088b498cc2cd73cb09)
-- **(series)** Allow `items` param to be a readonly array in [5114eb2](https://github.com///commit/5114eb22ecc8cc22fb1b3cb687cab79e8159e196)
-- Copy `is-plain-obj` implementation in [08a18e2](https://github.com///commit/08a18e218d83bf094354d4af1b5c9dcf92c18d1f)
-- Avoid `isObject` for internal use in [3b6a67c](https://github.com///commit/3b6a67ca7298cdcfde329a4ef28440205602b0e3)
-- **(isArray)** Work with `readonly T[]` types in [88c12b6](https://github.com///commit/88c12b6e3941b1fa6072b9ec9bf214c508e7bb70)
-- **(keys)** Improve perf by avoiding excessive array allocations in [f0e06ba](https://github.com///commit/f0e06ba0cfa172df34054055dde507704ed10277)
-- Ensure `mapValues` and `group` work together in [630f9ef](https://github.com///commit/630f9efc471dd7cf3d31a4024059eff37d2a45c6)
-- Use typeof in `isFunction` in [6ad96f4](https://github.com///commit/6ad96f44f17949ee33acda9a073307b19dca7796)
+- **(retry)** Stop using `range()` by @aleclarson in [5d60893](https://github.com/radashi-org/radashi/commit/5d60893471240516a49c6ddf48839165b5961a47)
+- **(assign)** Remove inefficiencies in loop by @aleclarson in [#13](https://github.com/radashi-org/radashi/pull/13)
+
+- **(set)** Avoid false positive of array index in path by @aleclarson in [#15](https://github.com/radashi-org/radashi/pull/15)
+
+- **(shake)** Stop using `Omit` on return type and give `filter` parameter a safer type by @aleclarson in [#12](https://github.com/radashi-org/radashi/pull/12)
+
+- **(series)** Allow `items` param to be a readonly array by @aleclarson in [#14](https://github.com/radashi-org/radashi/pull/14)
+
+- Copy `is-plain-obj` implementation by @aleclarson in [08a18e2](https://github.com/radashi-org/radashi/commit/08a18e218d83bf094354d4af1b5c9dcf92c18d1f)
+- Avoid `isObject` for internal use by @aleclarson in [3b6a67c](https://github.com/radashi-org/radashi/commit/3b6a67ca7298cdcfde329a4ef28440205602b0e3)
+- **(isArray)** Work with `readonly T[]` types by @aleclarson in [88c12b6](https://github.com/radashi-org/radashi/commit/88c12b6e3941b1fa6072b9ec9bf214c508e7bb70)
+- **(keys)** Improve perf by avoiding excessive array allocations by @aleclarson in [#25](https://github.com/radashi-org/radashi/pull/25)
+
+- Ensure `mapValues` and `group` work together by @aleclarson in [#24](https://github.com/radashi-org/radashi/pull/24)
+
+- Use typeof in `isFunction` by @aleclarson in [6ad96f4](https://github.com/radashi-org/radashi/commit/6ad96f44f17949ee33acda9a073307b19dca7796)
 
 #### <!-- 07 -->Performance
-- Avoid excessive array allocation in `fork` in [88807cc](https://github.com///commit/88807cc0e73f5877ea3a6aafb0f5abfc6429c926)
-- Make `template` faster in [8e4eb5e](https://github.com///commit/8e4eb5e997501e02430ecbd08d1738004237f172)
-- Avoid object spread in loop in [d3b6331](https://github.com///commit/d3b6331cdd1334d82da263ecf3897c3317bafece)
+- Avoid excessive array allocation in `fork` by @localusercamp in [#33](https://github.com/radashi-org/radashi/pull/33)
+
+- Make `template` faster by @aleclarson in [#32](https://github.com/radashi-org/radashi/pull/32)
+
+- Avoid object spread in loop by @cdreeves in [#37](https://github.com/radashi-org/radashi/pull/37)
+
 
 #### <!-- 08 -->Types
-- Let `filterKey` accept `key: keyof any` in [73ac8bb](https://github.com///commit/73ac8bba9e2a2a39eb3c117cc940cc2b18199834)
-- Add `TryitResult<T>` type in [f044364](https://github.com///commit/f0443644bace43ad3092751e0ba4193ead336ef6)
-- Add `MemoOptions<T>` type in [877a1e4](https://github.com///commit/877a1e4e4d6fba76eea04731e69f7490d3f3191a)
-- Export `UppercaseKeys` and `LowercaseKeys` types in [96b28b9](https://github.com///commit/96b28b9b037bd03277511d0174e4896729bcee93)
+- Let `filterKey` accept `key: keyof any` by @aleclarson in [73ac8bb](https://github.com/radashi-org/radashi/commit/73ac8bba9e2a2a39eb3c117cc940cc2b18199834)
+- Add `TryitResult<T>` type by @aleclarson in [f044364](https://github.com/radashi-org/radashi/commit/f0443644bace43ad3092751e0ba4193ead336ef6)
+- Add `MemoOptions<T>` type by @aleclarson in [877a1e4](https://github.com/radashi-org/radashi/commit/877a1e4e4d6fba76eea04731e69f7490d3f3191a)
+- Export `UppercaseKeys` and `LowercaseKeys` types by @aleclarson in [96b28b9](https://github.com/radashi-org/radashi/commit/96b28b9b037bd03277511d0174e4896729bcee93)
 
-[radashi@beta]: https://github.com///compare/v12.1.0..HEAD
+### New Contributors
+* @shan-shaji made their first contribution in [#53](https://github.com/radashi-org/radashi/pull/53)
+* @cdreeves made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
+* @localusercamp made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
+## [radashi@12.1.0] - 2024-06-23
+### Details
+#### <!-- 05 -->Changed
+- Add return type generic to memo func by @sodiray in [069b26c](https://github.com/radashi-org/radashi/commit/069b26cdd7d62e6ac16a0ad3baa1c9abcca420bc)
+
+[radashi@beta]: https://github.com/radashi-org/radashi/compare/v12.1.0..HEAD
+[radashi@12.1.0]: https://github.com/radashi-org/radashi/compare/v12.0.0..v12.1.0
 
 <!-- generated by git-cliff -->
