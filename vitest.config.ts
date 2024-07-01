@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => ({
     globals: true,
     coverage: {
       thresholds: { 100: true },
-      exclude: ['*.config.ts'],
+      exclude: ['*.config.ts', 'benchmarks/**'],
     },
   },
   resolve: {
