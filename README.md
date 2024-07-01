@@ -72,6 +72,16 @@ yarn add radashi
 npm install radashi
 ```
 
+### Beta version
+
+The `radashi@beta` version is a nightly release containing everything in the main branch at the time (5:00AM UTC).
+
+```sh
+pnpm add radashi@beta
+```
+
+Its changes are documented [here](https://github.com/radashi-org/radashi/blob/main/CHANGELOG.md#radashibeta). If there's no `radashi@beta` section in the changelog, it means no pull requests have been merged since the last stable release.
+
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
 ## Contributing
