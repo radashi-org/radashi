@@ -1,0 +1,16 @@
+diff --git a/dist/index.d.ts b/dist/index.d.mts
+similarity index 100%
+rename from dist/index.d.ts
+rename to dist/index.d.mts
+diff --git a/package.json b/package.json
+index f51062b7f85397bd10b24cfd01e4316c410e8fd7..cb5ed57516f899119d08bca600a3a36dab97a9d4 100644
+--- a/package.json
++++ b/package.json
+@@ -12,6 +12,7 @@
+   "types": "./dist/index.d.ts",
+   "exports": {
+     ".": {
++      "types": "./dist/index.d.mts",
+       "import": "./dist/index.mjs"
+     }
+   },

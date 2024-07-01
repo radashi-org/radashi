@@ -1,8 +1,5 @@
 import codspeed from '@codspeed/vitest-plugin'
-import { defineConfig, UserConfig } from 'vitest/config'
-
-// FIXME: vitest doesn‘t provide the Plugin type???
-type Plugin = Extract<UserConfig['plugins'], any[]>[number]
+import { defineConfig } from 'vitest/config'
 
 const resolve = (specifier: string) =>
   new URL(import.meta.resolve(specifier)).pathname
@@ -20,7 +17,5 @@ export default defineConfig(({ mode }) => ({
       radashi: resolve('./src/mod.js'),
     },
   },
-  plugins: [
-    mode === 'benchmark' && process.env.CI ? (codspeed() as Plugin) : [],
-  ],
+  plugins: [mode === 'benchmark' && process.env.CI ? codspeed() : []],
 }))
