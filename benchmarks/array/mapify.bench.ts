@@ -10,7 +10,7 @@ describe('mapify', () => {
       { id: 'd', word: 'hey' },
       { id: 'e', word: 'ok' },
     ]
-    _.objectify(
+    _.mapify(
       list,
       x => x.id,
       x => x,
@@ -18,7 +18,7 @@ describe('mapify', () => {
   })
 
   bench('with empty list', () => {
-    _.objectify(
+    _.mapify(
       [],
       (x: any) => x.id,
       x => x,
