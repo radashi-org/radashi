@@ -27,6 +27,7 @@ export * from './array/sort.ts'
 export * from './array/sum.ts'
 export * from './array/toggle.ts'
 export * from './array/unique.ts'
+export * from './array/unzip.ts'
 export * from './array/zip.ts'
 export * from './array/zipToObject.ts'
 
