@@ -6,9 +6,9 @@
  * // [[1, 2], [3, 4], [5, 6]]
  * ```
  */
-export function cluster<T>(list: readonly T[], size = 2): T[][] {
-  const clusterCount = Math.ceil(list.length / size)
+export function cluster<T>(array: readonly T[], size = 2): T[][] {
+  const clusterCount = Math.ceil(array.length / size)
   return new Array(clusterCount).fill(null).map((_c: null, i: number) => {
-    return list.slice(i * size, i * size + size)
+    return array.slice(i * size, i * size + size)
   })
 }

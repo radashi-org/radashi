@@ -8,6 +8,6 @@ type Falsy = null | undefined | false | '' | 0 | 0n
  * // => [1, 2, 3]
  * ```
  */
-export function sift<T>(list: readonly (T | Falsy)[]): T[] {
-  return (list?.filter(x => !!x) as T[]) ?? []
+export function sift<T>(array: readonly (T | Falsy)[]): T[] {
+  return (array?.filter(x => !!x) as T[]) ?? []
 }

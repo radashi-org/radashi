@@ -8,25 +8,25 @@
  * ```
  */
 export function replace<T>(
-  list: readonly T[],
+  array: readonly T[],
   newItem: T,
   match: (item: T, idx: number) => boolean,
 ): T[] {
-  if (!list) {
+  if (!array) {
     return []
   }
   if (newItem === undefined) {
-    return [...list]
+    return [...array]
   }
-  for (let idx = 0; idx < list.length; idx++) {
-    const item = list[idx]
+  for (let idx = 0; idx < array.length; idx++) {
+    const item = array[idx]
     if (match(item, idx)) {
       return [
-        ...list.slice(0, idx),
+        ...array.slice(0, idx),
         newItem,
-        ...list.slice(idx + 1, list.length),
+        ...array.slice(idx + 1, array.length),
       ]
     }
   }
-  return [...list]
+  return [...array]
 }

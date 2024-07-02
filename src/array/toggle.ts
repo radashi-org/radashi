@@ -19,7 +19,7 @@
  * ```
  */
 export function toggle<T>(
-  list: readonly T[],
+  array: readonly T[],
   item: T,
   /**
    * Converts an item of type T item into a value that can be checked
@@ -30,25 +30,25 @@ export function toggle<T>(
     strategy?: 'prepend' | 'append'
   },
 ): T[] {
-  if (!list && !item) {
+  if (!array && !item) {
     return []
   }
-  if (!list) {
+  if (!array) {
     return [item]
   }
   if (!item) {
-    return [...list]
+    return [...array]
   }
   const matcher = toKey
     ? (x: T, idx: number) => toKey(x, idx) === toKey(item, idx)
     : (x: T) => x === item
-  const existing = list.find(matcher)
+  const existing = array.find(matcher)
   if (existing) {
-    return list.filter((x, idx) => !matcher(x, idx))
+    return array.filter((x, idx) => !matcher(x, idx))
   }
   const strategy = options?.strategy ?? 'append'
   if (strategy === 'append') {
-    return [...list, item]
+    return [...array, item]
   }
-  return [item, ...list]
+  return [item, ...array]
 }
