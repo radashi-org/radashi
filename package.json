@@ -13,6 +13,7 @@
     "lint": "tsc && biome check && pnpm -s dlx deno-bin@1.44.4 lint",
     "format": "biome check --fix --unsafe",
     "test": "vitest run --coverage",
+    "test-single": "bash ./scripts/test-single.sh",
     "bench": "vitest bench",
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
     "add-function": "bash ./scripts/add-function.sh"
