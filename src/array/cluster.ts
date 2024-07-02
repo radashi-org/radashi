@@ -7,8 +7,9 @@
  * ```
  */
 export function cluster<T>(array: readonly T[], size = 2): T[][] {
-  const clusterCount = Math.ceil(array.length / size)
-  return new Array(clusterCount).fill(null).map((_c: null, i: number) => {
-    return array.slice(i * size, i * size + size)
-  })
+  const clusters: T[][] = []
+  for (let i = 0; i < array.length; i += size) {
+    clusters.push(array.slice(i, i + size))
+  }
+  return clusters
 }
