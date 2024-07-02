@@ -14,4 +14,13 @@ describe('zip', () => {
     const result = _.zip()
     expect(result).toEqual([])
   })
+
+  test('arrays with differing lengths', () => {
+    const result = _.zip(['a', 'b', 'c'], [1, 2])
+    expect(result).toEqual([
+      ['a', 1],
+      ['b', 2],
+      ['c', undefined],
+    ])
+  })
 })
