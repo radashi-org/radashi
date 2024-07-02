@@ -24,27 +24,16 @@ if [ ! -d "src/$GROUP_NAME" ]; then
   fi
 fi
 
-# Prompt the user for a description:
-echo "Enter a description for $FUNC_NAME:"
-read -r DESCRIPTION
-
-# Make the group in the following parent directories:
-#   - src
-#   - docs
-#   - tests
-#   - benchmarks
-SRC_DIR="src/$GROUP_NAME"
-DOCS_DIR="docs/$GROUP_NAME"
-TESTS_DIR="tests/$GROUP_NAME"
-BENCHMARKS_DIR="benchmarks/$GROUP_NAME"
-
-mkdir -p $SRC_DIR $DOCS_DIR $TESTS_DIR $BENCHMARKS_DIR
-
 # Create the function in the following files:
 #   - src/<group-name>/<function-name>.ts
 #   - tests/<group-name>/<function-name>.test.ts
 #   - benchmarks/<group-name>/<function-name>.bench.ts
 #   - docs/<group-name>/<function-name>.mdx
+
+SRC_DIR="src/$GROUP_NAME"
+DOCS_DIR="docs/$GROUP_NAME"
+TESTS_DIR="tests/$GROUP_NAME"
+BENCHMARKS_DIR="benchmarks/$GROUP_NAME"
 
 SRC_FILE="$SRC_DIR/$FUNC_NAME.ts"
 TESTS_FILE="$TESTS_DIR/$FUNC_NAME.test.ts"
@@ -52,24 +41,32 @@ BENCHMARKS_FILE="$BENCHMARKS_DIR/$FUNC_NAME.bench.ts"
 DOCS_FILE="$DOCS_DIR/$FUNC_NAME.mdx"
 
 if [ ! -f "$SRC_FILE" ]; then
+  mkdir -p "$SRC_DIR"
   echo -e "export function $FUNC_NAME(): void {}\n" > "$SRC_FILE"
 else
   echo "Warning: $SRC_FILE already exists. Skipping."
 fi
 
 if [ ! -f "$TESTS_FILE" ]; then
+  mkdir -p "$TESTS_DIR"
   echo -e "import * as _ from 'radashi'\n\ndescribe('$FUNC_NAME', () => {\n  test('does a thing', () => {\n    expect(_.$FUNC_NAME()).toBe(undefined)\n  })\n})\n" > "$TESTS_FILE"
 else
   echo "Warning: $TESTS_FILE already exists. Skipping."
 fi
 
 if [ ! -f "$BENCHMARKS_FILE" ]; then
+  mkdir -p "$BENCHMARKS_DIR"
   echo -e "import * as _ from 'radashi'\nimport { bench } from 'vitest'\n\ndescribe('$FUNC_NAME', () => {\n  bench('with no arguments', () => {\n    _.$FUNC_NAME()\n  })\n})\n" > "$BENCHMARKS_FILE"
 else
   echo "Warning: $BENCHMARKS_FILE already exists. Skipping."
 fi
 
 if [ ! -f "$DOCS_FILE" ]; then
+  # Prompt the user for a description:
+  echo "Enter a description for $FUNC_NAME:"
+  read -r DESCRIPTION
+
+  mkdir -p "$DOCS_DIR"
   echo -e "---\ntitle: $FUNC_NAME\ndescription: $DESCRIPTION\n---\n\n## Basic usage\n\nDoes a thing. Returns a value.\n\n\`\`\`ts\nimport * as _ from 'radashi'\n\n_.$FUNC_NAME()\n\`\`\`" > "$DOCS_FILE"
 else
   echo "Warning: $DOCS_FILE already exists. Skipping."
