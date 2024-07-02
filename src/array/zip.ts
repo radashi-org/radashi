@@ -1,3 +1,5 @@
+import { unzip } from 'radashi'
+
 /**
  * Creates an array of grouped elements, the first of which contains
  * the first elements of the given arrays, the second of which
@@ -31,10 +33,5 @@ export function zip<T1, T2>(
   array2: readonly T2[],
 ): [T1, T2][]
 export function zip<T>(...arrays: (readonly T[])[]): T[][] {
-  if (!arrays || !arrays.length) {
-    return []
-  }
-  return new Array(Math.max(...arrays.map(({ length }) => length)))
-    .fill([])
-    .map((_, idx) => arrays.map(array => array[idx]))
+  return unzip(arrays)
 }

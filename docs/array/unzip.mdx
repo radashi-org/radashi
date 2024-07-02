@@ -1,0 +1,22 @@
+---
+title: unzip
+description: Group array elements by their index position across the input arrays
+---
+
+## Basic usage
+
+Creates an array of ungrouped elements, where each resulting array contains all elements at a specific index from the input arrays. The first array contains all first elements, the second array contains all second elements, and so on.
+
+```ts
+import * as _ from 'radashi'
+
+_.unzip([
+  ['a', 1, true],
+  ['b', 2, false],
+])
+// => [
+//   ['a', 'b'],
+//   [1, 2],
+//   [true, false],
+// ]
+```
