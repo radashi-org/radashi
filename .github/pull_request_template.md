@@ -15,23 +15,6 @@
 
 <!-- Paste issue's link or number hashtag here. -->
 
-## What kind of change does this PR introduce?
-
-<!--
-  Copy/paste any of the relevant following options:
-
-  Bugfix
-  Feature
-  Code style update
-  Refactor
-  Docs
-  Build-related changes
-  Repo settings
-  Other
-
-  If you choose Other, describe it.
--->
-
 ## For any code change,
 
 <!-- (Change "[ ]" to "[x]" to check a box.) -->
