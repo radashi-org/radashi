@@ -40,6 +40,17 @@ TESTS_FILE="$TESTS_DIR/$FUNC_NAME.test.ts"
 BENCHMARKS_FILE="$BENCHMARKS_DIR/$FUNC_NAME.bench.ts"
 DOCS_FILE="$DOCS_DIR/$FUNC_NAME.mdx"
 
+if [ ! -f "$DOCS_FILE" ]; then
+  # Prompt the user for a description:
+  echo "Enter a description for $FUNC_NAME:"
+  read -r DESCRIPTION
+
+  mkdir -p "$DOCS_DIR"
+  echo -e "---\ntitle: $FUNC_NAME\ndescription: $DESCRIPTION\n---\n\n## Basic usage\n\nDoes a thing. Returns a value.\n\n\`\`\`ts\nimport * as _ from 'radashi'\n\n_.$FUNC_NAME()\n\`\`\`" > "$DOCS_FILE"
+else
+  echo "Warning: $DOCS_FILE already exists. Skipping."
+fi
+
 if [ ! -f "$SRC_FILE" ]; then
   mkdir -p "$SRC_DIR"
   echo -e "export function $FUNC_NAME(): void {}\n" > "$SRC_FILE"
@@ -59,15 +70,4 @@ if [ ! -f "$BENCHMARKS_FILE" ]; then
   echo -e "import * as _ from 'radashi'\nimport { bench } from 'vitest'\n\ndescribe('$FUNC_NAME', () => {\n  bench('with no arguments', () => {\n    _.$FUNC_NAME()\n  })\n})\n" > "$BENCHMARKS_FILE"
 else
   echo "Warning: $BENCHMARKS_FILE already exists. Skipping."
-fi
-
-if [ ! -f "$DOCS_FILE" ]; then
-  # Prompt the user for a description:
-  echo "Enter a description for $FUNC_NAME:"
-  read -r DESCRIPTION
-
-  mkdir -p "$DOCS_DIR"
-  echo -e "---\ntitle: $FUNC_NAME\ndescription: $DESCRIPTION\n---\n\n## Basic usage\n\nDoes a thing. Returns a value.\n\n\`\`\`ts\nimport * as _ from 'radashi'\n\n_.$FUNC_NAME()\n\`\`\`" > "$DOCS_FILE"
-else
-  echo "Warning: $DOCS_FILE already exists. Skipping."
 fi
