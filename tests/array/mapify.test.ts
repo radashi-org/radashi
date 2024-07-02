@@ -16,8 +16,8 @@ describe('mapify', () => {
     )
     expect(result).toBeTypeOf(typeof new Map())
     expect(result.size).toBe(5)
-    expect(result.get("a")?.word).toBe('hello')
-    expect(result.get("b")?.word).toBe('bye')
+    expect(result.get('a')?.word).toBe('hello')
+    expect(result.get('b')?.word).toBe('bye')
   })
   test('does not fail on empty input list', () => {
     const result = _.mapify(
@@ -31,6 +31,6 @@ describe('mapify', () => {
     const result = _.mapify(list.slice(0, 1), x => x.id)
     expect(result).toBeTypeOf(typeof new Map())
     expect(result.size).toBe(1)
-    expect(result.get("a")?.word).toBe('hello')
+    expect(result.get('a')?.word).toBe('hello')
   })
 })
