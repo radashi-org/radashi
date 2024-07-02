@@ -22,7 +22,7 @@ export function replace<T>(
   for (let index = 0; index < array.length; index++) {
     const item = array[index]
     if (match(item, index)) {
-      out.splice(index, 1, newItem)
+      out[index] = newItem
       break
     }
   }
