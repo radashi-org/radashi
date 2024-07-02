@@ -28,7 +28,7 @@ export function replaceOrAppend<T>(
   const out = array.slice()
   for (let index = 0; index < array.length; index++) {
     if (match(array[index], index)) {
-      out.splice(index, 1, newItem)
+      out[index] =  newItem;
       return out
     }
   }
