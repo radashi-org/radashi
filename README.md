@@ -19,7 +19,8 @@ Radashi (pronounced /ruh-DAH-shee/) is a TypeScript utility toolkit, packed with
 
 Radashi is an actively maintained fork of Radash, the fastest growing Lodash alternative with 100K+ weekly downloads.
 
-*“What makes Radashi so great?”*
+_“What makes Radashi so great?”_
+
 - **unique** and **well-designed** functions
 - **tree-shakeable** (use only what you need!)
 - **dependency-free**

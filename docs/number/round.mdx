@@ -8,10 +8,10 @@ description: Rounds a number to a specified precision.
 The `_.round` function rounds a given number to a specified precision.
 
 ```ts
-import * as _ from 'radashi';
+import * as _ from 'radashi'
 
-_.round(123.456); // => 123
-_.round(1234.56, -2); // => 1200
+_.round(123.456) // => 123
+_.round(1234.56, -2) // => 1200
 ```
 
 ## Precision
@@ -24,6 +24,6 @@ Without this limit, precision values outside this range can result in NaN.
 You may provide a custom rounding method. The default is `Math.round`.
 
 ```ts
-_.round(4.001, 2, Math.ceil); // => 4.01
-_.round(4.089, 2, Math.floor); // => 4.08
+_.round(4.001, 2, Math.ceil) // => 4.01
+_.round(4.089, 2, Math.floor) // => 4.08
 ```

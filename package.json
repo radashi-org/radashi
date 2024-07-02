@@ -19,7 +19,6 @@
     "add-function": "bash ./scripts/add-function.sh"
   },
   "devDependencies": {
-    "@alloc/prettier-config": "^1.0.0",
     "@biomejs/biome": "^1.8.3",
     "@codspeed/vitest-plugin": "^3.1.0",
     "@vitest/coverage-v8": "1.6.0",

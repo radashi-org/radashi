@@ -11,27 +11,27 @@ function to determine the key for each item. The third argument is optional and
 determines the value for each item.
 
 ```ts
-import * as _ from "radashi";
+import * as _ from 'radashi'
 
 const fish = [
   {
-    name: "Marlin",
+    name: 'Marlin',
     weight: 105,
   },
   {
-    name: "Bass",
+    name: 'Bass',
     weight: 8,
   },
   {
-    name: "Trout",
+    name: 'Trout',
     weight: 13,
   },
-];
+]
 
-_.mapify(fish, f => f.name); // => Map(3) {'Marlin' => { name: 'Marlin', weight: 105 }, 'Bass' => { name: 'Bass', weight: 8 }, 'Trout' => { name: 'Trout', weight: 13 }}
+_.mapify(fish, f => f.name) // => Map(3) {'Marlin' => { name: 'Marlin', weight: 105 }, 'Bass' => { name: 'Bass', weight: 8 }, 'Trout' => { name: 'Trout', weight: 13 }}
 _.mapify(
   fish,
   f => f.name,
   f => f.weight
-); // => Map(3) { 'Marlin' => 105, 'Bass' => 8, 'Trout' => 13 }
+) // => Map(3) { 'Marlin' => 105, 'Bass' => 8, 'Trout' => 13 }
 ```
