@@ -13,11 +13,11 @@
 
 &nbsp;
 
-**Radashi** (pronounced /ruh-DAH-shee/) is a TypeScript utility toolkit, packed with lightweight functions that are readable, performant, and robust.
+**Ditch the bloat of Lodash. Stop reinventing the wheel.**
 
-*Radashi is an actively maintained fork of Radash, the fastest growing Lodash alternative with 100K+ weekly downloads.*
+Radashi (pronounced /ruh-DAH-shee/) is a TypeScript utility toolkit, packed with lightweight functions that are readable, performant, and robust.
 
-**Ditch the bloat of Lodash. Stop reinventing the wheel.** If you have a need not met by our current set of functions, we want to hear about it! [Open an issue](https://github.com/radashi-org/radashi/issues/new) so we can discuss it together.
+Radashi is an actively maintained fork of Radash, the fastest growing Lodash alternative with 100K+ weekly downloads.
 
 *“What makes Radashi so great?”*
 - **unique** and **well-designed** functions
@@ -28,7 +28,7 @@
 - **actively maintained** (with a growing team of passionate maintainers)
 - **type-safe** (the best type definitions possible)
 - **full test coverage**
-- **performance tracking** (tracks performance regressions with continuous benchmarking)
+- **performance tracking** (we track perf regressions with continuous benchmarking)
 - **well-documented**
 - **nightly releases** (`radashi@beta`)
 - **changelog** (easily see what's new in each release)
@@ -84,6 +84,9 @@ deno add @radashi-org/radashi
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
 ## FAQ
+
+- **“I need XYZ, but Radashi doesn‘t have it.”**  
+  If you have a need not met by our current set of functions, we want to hear about it. [Start a discussion](https://github.com/orgs/radashi-org/discussions/new?category=ideas) so we can explore the idea together!
 
 - **What does “community first” mean exactly?**  
   It means putting the community's needs first, leaning towards adding support for popular use cases, as opposed to being strictly minimalist. As such, your feedback is very welcome and we value your perspective. Specifically, we want you to [contribute your viewpoint](https://github.com/orgs/radashi-org/discussions/categories/rfcs?discussions_q=is%3Aopen+category%3ARFCs) to discussions in our RFCs category.
