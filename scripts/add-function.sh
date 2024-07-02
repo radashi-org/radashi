@@ -46,10 +46,31 @@ mkdir -p $SRC_DIR $DOCS_DIR $TESTS_DIR $BENCHMARKS_DIR
 #   - benchmarks/<group-name>/<function-name>.bench.ts
 #   - docs/<group-name>/<function-name>.mdx
 
-echo -e "export function $FUNC_NAME(): void {}\n" > $SRC_DIR/$FUNC_NAME.ts
+SRC_FILE="$SRC_DIR/$FUNC_NAME.ts"
+TESTS_FILE="$TESTS_DIR/$FUNC_NAME.test.ts"
+BENCHMARKS_FILE="$BENCHMARKS_DIR/$FUNC_NAME.bench.ts"
+DOCS_FILE="$DOCS_DIR/$FUNC_NAME.mdx"
 
-echo -e "import * as _ from 'radashi'\n\ndescribe('$FUNC_NAME', () => {\n  test('does a thing', () => {\n    expect(_.$FUNC_NAME()).toBe(undefined)\n  })\n})\n" > $TESTS_DIR/$FUNC_NAME.test.ts
+if [ ! -f "$SRC_FILE" ]; then
+  echo -e "export function $FUNC_NAME(): void {}\n" > "$SRC_FILE"
+else
+  echo "Warning: $SRC_FILE already exists. Skipping."
+fi
 
-echo -e "import * as _ from 'radashi'\nimport { bench } from 'vitest'\n\ndescribe('$FUNC_NAME', () => {\n  bench('with no arguments', () => {\n    _.$FUNC_NAME()\n  })\n})\n" > $BENCHMARKS_DIR/$FUNC_NAME.bench.ts
+if [ ! -f "$TESTS_FILE" ]; then
+  echo -e "import * as _ from 'radashi'\n\ndescribe('$FUNC_NAME', () => {\n  test('does a thing', () => {\n    expect(_.$FUNC_NAME()).toBe(undefined)\n  })\n})\n" > "$TESTS_FILE"
+else
+  echo "Warning: $TESTS_FILE already exists. Skipping."
+fi
 
-echo -e "---\ntitle: $FUNC_NAME\ndescription: $DESCRIPTION\n---\n\n## Basic usage\n\nDoes a thing. Returns a value.\n\n\`\`\`ts\nimport * as _ from 'radashi'\n\n_.$FUNC_NAME()\n\`\`\`" > $DOCS_DIR/$FUNC_NAME.mdx
+if [ ! -f "$BENCHMARKS_FILE" ]; then
+  echo -e "import * as _ from 'radashi'\nimport { bench } from 'vitest'\n\ndescribe('$FUNC_NAME', () => {\n  bench('with no arguments', () => {\n    _.$FUNC_NAME()\n  })\n})\n" > "$BENCHMARKS_FILE"
+else
+  echo "Warning: $BENCHMARKS_FILE already exists. Skipping."
+fi
+
+if [ ! -f "$DOCS_FILE" ]; then
+  echo -e "---\ntitle: $FUNC_NAME\ndescription: $DESCRIPTION\n---\n\n## Basic usage\n\nDoes a thing. Returns a value.\n\n\`\`\`ts\nimport * as _ from 'radashi'\n\n_.$FUNC_NAME()\n\`\`\`" > "$DOCS_FILE"
+else
+  echo "Warning: $DOCS_FILE already exists. Skipping."
+fi
