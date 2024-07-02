@@ -19,13 +19,16 @@
     "add-function": "bash ./scripts/add-function.sh"
   },
   "devDependencies": {
+    "@alloc/prettier-config": "^1.0.0",
     "@biomejs/biome": "^1.8.3",
     "@codspeed/vitest-plugin": "^3.1.0",
     "@vitest/coverage-v8": "1.6.0",
+    "prettier": "^3.3.2",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
     "vitest": "1.6.0"
   },
+  "prettier": "@alloc/prettier-config",
   "packageManager": "pnpm@9.1.3",
   "engines": {
     "node": ">=16.0.0"
