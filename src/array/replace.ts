@@ -20,8 +20,7 @@ export function replace<T>(
   }
   const out = array.slice()
   for (let index = 0; index < array.length; index++) {
-    const item = array[index]
-    if (match(item, index)) {
+    if (match(array[index], index)) {
       out[index] = newItem
       break
     }
