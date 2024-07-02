@@ -42,6 +42,7 @@
       },
       "suspicious": {
         "noAssignInExpressions": "off",
+        "noConfusingVoidType": "off",
         "noExplicitAny": "off",
         "noShadowRestrictedNames": "off"
       }
