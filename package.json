@@ -11,7 +11,7 @@
     "dev": "tsup --clean --watch --sourcemap",
     "build": "tsup --clean",
     "lint": "tsc && biome check ./src ./tests ./benchmarks && pnpm -s dlx deno-bin@1.44.4 lint",
-    "format": "biome check --fix --unsafe",
+    "format": "bash ./scripts/format.sh",
     "test": "vitest run --coverage",
     "test-single": "bash ./scripts/test-single.sh",
     "bench": "vitest bench",
