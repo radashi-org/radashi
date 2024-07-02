@@ -13,29 +13,26 @@
  * ```
  */
 export function merge<T>(
-  root: readonly T[],
-  others: readonly T[],
-  matcher: (item: T) => any,
+  prev: readonly T[],
+  array: readonly T[],
+  toKey: (item: T) => any,
 ): T[] {
-  if (!others && !root) {
+  if (!array && !prev) {
     return []
   }
-  if (!others) {
-    return [...root]
+  if (!array) {
+    return [...prev]
   }
-  if (!root) {
+  if (!prev) {
     return []
   }
-  if (!matcher) {
-    return [...root]
+  if (!toKey) {
+    return [...prev]
   }
-  return root.reduce((acc, r) => {
-    const matched = others.find(o => matcher(r) === matcher(o))
-    if (matched) {
-      acc.push(matched)
-    } else {
-      acc.push(r)
-    }
-    return acc
+  const keys = array.map(toKey)
+  return prev.reduce((next, prevItem) => {
+    const index = keys.indexOf(toKey(prevItem))
+    next.push(index > -1 ? array[index] : prevItem)
+    return next
   }, [] as T[])
 }
