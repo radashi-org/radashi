@@ -1,5 +1,3 @@
-import { boil } from 'radashi'
-
 /**
  * Max gets the greatest value from a list
  *
@@ -18,6 +16,9 @@ export function max<T>(
   array: readonly T[],
   getter?: (item: T) => number,
 ): T | null {
+  if (!array || (array.length ?? 0) === 0) {
+    return null
+  }
   const get = getter ?? ((v: any) => v)
-  return boil(array, (a, b) => (get(a) > get(b) ? a : b))
+  return array.reduce((a, b) => (get(a) > get(b) ? a : b))
 }
