@@ -30,8 +30,8 @@ export function merge<T>(
     return [...prev]
   }
   const keys = array.map(toKey)
-  return prev.map((prevItem) => {
-    const index = keys.indexOf(toKey(prevItem));
-    return index > -1 ? array[index] : prevItem;
+  return prev.map(prevItem => {
+    const index = keys.indexOf(toKey(prevItem))
+    return index > -1 ? array[index] : prevItem
   })
 }
