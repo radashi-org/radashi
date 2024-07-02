@@ -21,6 +21,7 @@
 
 - [ ] Related documentation has been updated, if needed
 - [ ] Related tests have been added or updated, if needed
+- [ ] Related benchmarks have been added or updated, if needed
 
 ## Does this PR introduce a breaking change?
 
