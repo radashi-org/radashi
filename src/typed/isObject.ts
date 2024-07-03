@@ -1,3 +1,5 @@
-export function isObject(value: any): value is object {
-  return !!value && value.constructor === Object
+import { isTagged } from 'radashi'
+
+export function isObject(value: unknown): value is object {
+  return isTagged(value, '[object Object]')
 }
