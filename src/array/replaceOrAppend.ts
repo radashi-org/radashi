@@ -1,3 +1,6 @@
+// biome-ignore lint/complexity/noBannedTypes: {} represents “all types but null/undefined”
+type Defined<T> = T & ({} | null)
+
 /**
  * Replace the first occurrence of an item in an array where the
  * `match` function returns true. If no items match, append the new
@@ -14,11 +17,11 @@
  * ```
  * @version 12.1.0
  */
-export function replaceOrAppend<T>(
+export function replaceOrAppend<T, U>(
   array: readonly T[],
-  newItem: T,
+  newItem: U,
   match: (a: T, idx: number) => boolean,
-): T[] {
+): (T | Defined<U>)[] {
   if (newItem === undefined) {
     return [...array]
   }
