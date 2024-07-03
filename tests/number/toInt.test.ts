@@ -2,20 +2,16 @@ import * as _ from 'radashi'
 
 describe('toInt', () => {
   test('handles null', () => {
-    const result = _.toInt(null)
-    expect(result).toBe(0)
+    expect(_.toInt(null)).toBe(0)
   })
   test('uses null default', () => {
-    const result = _.toInt('x', null)
-    expect(result).toBeNull()
+    expect(_.toInt('x', null)).toBeNull()
   })
   test('handles undefined', () => {
-    const result = _.toInt(undefined)
-    expect(result).toBe(0)
+    expect(_.toInt(undefined)).toBe(0)
   })
   test('handles bad input', () => {
-    const result = _.toInt({})
-    expect(result).toBe(0)
+    expect(_.toInt({})).toBe(0)
   })
   test('do not throw on symbols', () => {
     expect(_.toInt(Symbol())).toBe(0)

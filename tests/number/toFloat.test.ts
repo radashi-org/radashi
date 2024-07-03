@@ -2,20 +2,16 @@ import * as _ from 'radashi'
 
 describe('toFloat', () => {
   test('handles null', () => {
-    const result = _.toFloat(null)
-    expect(result).toBe(0.0)
+    expect(_.toFloat(null)).toBe(0.0)
   })
   test('handles undefined', () => {
-    const result = _.toFloat(undefined)
-    expect(result).toBe(0.0)
+    expect(_.toFloat(undefined)).toBe(0.0)
   })
   test('uses null default', () => {
-    const result = _.toFloat('x', null)
-    expect(result).toBeNull()
+    expect(_.toFloat('x', null)).toBeNull()
   })
   test('handles bad input', () => {
-    const result = _.toFloat({})
-    expect(result).toBe(0.0)
+    expect(_.toFloat({})).toBe(0.0)
   })
   test('do not throw on symbols', () => {
     expect(_.toFloat(Symbol())).toBe(0)
