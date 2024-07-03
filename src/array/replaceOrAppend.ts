@@ -25,15 +25,13 @@ export function replaceOrAppend<T>(
   if (!array) {
     return [newItem]
   }
-  for (let idx = 0; idx < array.length; idx++) {
-    const item = array[idx]
-    if (match(item, idx)) {
-      return [
-        ...array.slice(0, idx),
-        newItem,
-        ...array.slice(idx + 1, array.length),
-      ]
+  const out = array.slice()
+  for (let index = 0; index < array.length; index++) {
+    if (match(array[index], index)) {
+      out[index] = newItem
+      return out
     }
   }
-  return [...array, newItem]
+  out.push(newItem)
+  return out
 }
