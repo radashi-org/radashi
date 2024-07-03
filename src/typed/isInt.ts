@@ -1,5 +1,1 @@
-import { isNumber } from 'radashi'
-
-export function isInt(value: any): value is number {
-  return isNumber(value) && value % 1 === 0
-}
+export const isInt = Number.isInteger as (value: unknown) => value is number
