@@ -1,7 +1,3 @@
-export function isNumber(value: any): value is number {
-  try {
-    return Number(value) === value
-  } catch {
-    return false
-  }
+export function isNumber(value: unknown): value is number {
+  return typeof value === 'number' && !Number.isNaN(value)
 }
