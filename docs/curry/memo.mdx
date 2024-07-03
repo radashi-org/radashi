@@ -52,7 +52,7 @@ const timestamp = _.memo(
   },
   {
     key: ({ group }: { group: string }) => group,
-  }
+  },
 )
 
 const now = timestamp({ group: 'alpha' })

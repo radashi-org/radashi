@@ -50,7 +50,7 @@ const weekdays = _.series<Weekday>(
     { day: 'thursday' },
     { day: 'friday' },
   ],
-  w => w.day
+  w => w.day,
 )
 
 weekdays.next({ day: 'wednesday' }) // => { day: 'thursday' }
