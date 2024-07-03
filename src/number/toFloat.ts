@@ -1,11 +1,23 @@
-export function toFloat<T extends number | null = number>(
+import { isSymbol } from 'radashi'
+
+export function toFloat(value: unknown): number
+
+export function toFloat(value: unknown, defaultValue: number): number
+
+export function toFloat<T>(
+  value: unknown,
+  defaultValue: T,
+): number | Exclude<T, undefined>
+
+export function toFloat<T>(
   value: any,
   defaultValue?: T,
-): number | T {
-  const def = defaultValue === undefined ? 0.0 : defaultValue
-  if (value === null || value === undefined) {
-    return def
-  }
-  const result = Number.parseFloat(value)
-  return Number.isNaN(result) ? def : result
+): number | Exclude<T, undefined> {
+  // Symbols throw on string coercion, which parseFloat does.
+  const parsedValue = isSymbol(value) ? Number.NaN : Number.parseFloat(value)
+  return Number.isNaN(parsedValue)
+    ? defaultValue !== undefined
+      ? (defaultValue as Exclude<T, undefined>)
+      : 0
+    : parsedValue
 }
