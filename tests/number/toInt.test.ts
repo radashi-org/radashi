@@ -17,31 +17,20 @@ describe('toInt', () => {
     const result = _.toInt({})
     expect(result).toBe(0)
   })
-  test('converts 20 correctly', () => {
-    const result = _.toInt('20')
-    expect(result).toBe(20)
+  test('do not throw on symbols', () => {
+    expect(_.toInt(Symbol())).toBe(0)
   })
-})
-
-describe('isInt', () => {
-  class Data {}
-  test('returns false for non-number values', () => {
-    expect(_.isInt(undefined)).toBeFalsy()
-    expect(_.isInt(null)).toBeFalsy()
-    expect(_.isInt(false)).toBeFalsy()
-    expect(_.isInt(new Data())).toBeFalsy()
-    expect(_.isInt(Number.NaN)).toBeFalsy()
-    expect(_.isInt([1, 2, 3])).toBeFalsy()
-    expect(_.isInt({})).toBeFalsy()
-    expect(_.isInt('abc')).toBeFalsy()
-    expect(_.isInt(String('abc'))).toBeFalsy()
+  test('convert "20" to 20', () => {
+    expect(_.toInt('20')).toBe(20)
   })
-  test('returns true for int', () => {
-    const result = _.isInt(22)
-    expect(result).toBeTruthy()
+  test('convert 1.23 to 1', () => {
+    expect(_.toInt(1.23)).toBe(1)
   })
-  test('returns false for float', () => {
-    const result = _.isInt(22.0567)
-    expect(result).toBeFalsy()
+  test('convert infinite values to default', () => {
+    expect(_.toInt(Number.POSITIVE_INFINITY, 1)).toBe(1)
+    expect(_.toInt(Number.NEGATIVE_INFINITY, 1)).toBe(1)
+  })
+  test('convert NaN to default', () => {
+    expect(_.toInt(Number.NaN, 1)).toBe(1)
   })
 })
