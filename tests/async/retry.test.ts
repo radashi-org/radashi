@@ -5,7 +5,7 @@ const cast = <T = RetryOptions>(value: any): T => value
 
 describe('retry', () => {
   beforeEach(() => {
-    vi.useFakeTimers({ shouldAdvanceTime: true })
+    vi.useFakeTimers()
   })
   test('returns result of given function', async () => {
     const result = await _.retry(cast(null), async _bail => {
@@ -69,7 +69,9 @@ describe('retry', () => {
       const func = async () => {
         throw 'quitagain'
       }
-      await _.retry({ delay: 100 }, func)
+      const promise = _.retry({ delay: 1000, times: 2 }, func)
+      vi.advanceTimersByTimeAsync(1000)
+      await promise
     } catch (err) {
       expect(err).toBe('quitagain')
       return
@@ -80,7 +82,7 @@ describe('retry', () => {
     let count = 0
     let backoffs = 0
     const start = Date.now()
-    await _.retry(
+    const promise = _.retry(
       {
         times: 3,
         backoff: i => {
@@ -95,13 +97,19 @@ describe('retry', () => {
         }
       },
     )
+    // Two async advances for the first two async attempts, each of which are
+    // followed by sleeps
+    vi.advanceTimersToNextTimerAsync()
+    vi.advanceTimersToNextTimerAsync()
+    await promise
+
     const diff = Date.now() - start
     expect(count).toBe(3)
     // Time taken should at least be the
     // total ms backed off. Using exponential
     // backoff (above) 3 times (passing on
     // the third try) that is:
-    //   - 10**1 + 10**2 = 1025
+    //   - 1**10 + 2**10 = 1025
     // The performance typically comes in 1
     // or 2 milliseconds after.
     expect(diff).toBeGreaterThanOrEqual(backoffs)

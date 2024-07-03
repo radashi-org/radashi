@@ -2,13 +2,10 @@ import * as _ from 'radashi'
 import { AggregateError } from 'radashi'
 
 describe('parallel', () => {
-  beforeEach(() => {
-    vi.useFakeTimers({ shouldAdvanceTime: true })
-  })
   test('returns all results from all functions', async () => {
     const [errors, results] = await _.try(async () => {
       return _.parallel(1, _.list(1, 3), async num => {
-        await _.sleep(1000)
+        await _.sleep(0)
         return `hi_${num}`
       })
     })()
@@ -18,7 +15,7 @@ describe('parallel', () => {
   test('throws errors as array of all errors', async () => {
     const [error, results] = await _.try(async () => {
       return _.parallel(1, _.list(1, 3), async num => {
-        await _.sleep(1000)
+        await _.sleep(0)
         if (num === 2) {
           throw new Error('number is 2')
         }
@@ -36,7 +33,7 @@ describe('parallel', () => {
     await _.parallel(3, _.list(1, 14), async () => {
       numInProgress++
       tracking.push(numInProgress)
-      await _.sleep(300)
+      await _.sleep(0)
       numInProgress--
     })
     expect(Math.max(...tracking)).toBe(3)

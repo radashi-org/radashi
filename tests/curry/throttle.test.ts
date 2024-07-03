@@ -1,14 +1,20 @@
 import * as _ from 'radashi'
 
 describe('throttle', () => {
+  const interval = 600
+
+  beforeEach(() => {
+    vi.useFakeTimers()
+  })
+
   test('throttles!', async () => {
     let calls = 0
-    const func = _.throttle({ interval: 600 }, () => calls++)
+    const func = _.throttle({ interval }, () => calls++)
     func()
     func()
     func()
     expect(calls).toBe(1)
-    await _.sleep(610)
+    vi.advanceTimersByTime(interval + 10)
     func()
     func()
     func()
@@ -17,7 +23,7 @@ describe('throttle', () => {
 
   test('returns if the throttle is active', async () => {
     const results = []
-    const func = _.throttle({ interval: 600 }, () => {})
+    const func = _.throttle({ interval }, () => {})
     results.push(func.isThrottled())
     func()
     results.push(func.isThrottled())
@@ -25,7 +31,7 @@ describe('throttle', () => {
     results.push(func.isThrottled())
     func()
     results.push(func.isThrottled())
-    await _.sleep(610)
+    vi.advanceTimersByTime(interval + 10)
     results.push(func.isThrottled())
     assert.deepEqual(results, [false, true, true, true, false])
   })
