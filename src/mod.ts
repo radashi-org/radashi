@@ -110,5 +110,6 @@ export * from './typed/isPrimitive.ts'
 export * from './typed/isPromise.ts'
 export * from './typed/isString.ts'
 export * from './typed/isSymbol.ts'
+export * from './typed/isTagged.ts'
 
 export * from './types'
