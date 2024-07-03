@@ -28,9 +28,6 @@ export function shake<T extends object>(
   obj: T,
   filter: (value: unknown) => boolean = value => value === undefined,
 ): T {
-  if (!obj) {
-    return {} as T
-  }
   return (Object.keys(obj) as (keyof T)[]).reduce((acc, key) => {
     if (!filter(obj[key])) {
       acc[key] = obj[key]

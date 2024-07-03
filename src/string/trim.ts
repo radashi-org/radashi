@@ -13,13 +13,7 @@
  * ```
  * @version 12.1.0
  */
-export function trim(
-  str: string | null | undefined,
-  charsToTrim = ' ',
-): string {
-  if (!str) {
-    return ''
-  }
+export function trim(str: string, charsToTrim = ' '): string {
   const toTrim = charsToTrim.replace(/[\W]{1}/g, '\\$&')
   const regex = new RegExp(`^[${toTrim}]+|[${toTrim}]+$`, 'g')
   return str.replace(regex, '')

@@ -20,18 +20,6 @@ export function merge<T>(
   array: readonly T[],
   toKey: (item: T) => any,
 ): T[] {
-  if (!array && !prev) {
-    return []
-  }
-  if (!array) {
-    return [...prev]
-  }
-  if (!prev) {
-    return []
-  }
-  if (!toKey) {
-    return [...prev]
-  }
   const keys = new Map()
   for (const item of array) {
     keys.set(toKey(item), item)

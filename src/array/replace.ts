@@ -15,9 +15,6 @@ export function replace<T>(
   newItem: T,
   match: (item: T, idx: number) => boolean,
 ): T[] {
-  if (!array) {
-    return []
-  }
   if (newItem === undefined) {
     return [...array]
   }

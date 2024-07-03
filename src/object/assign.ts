@@ -27,9 +27,6 @@ export function assign<
   TInitial extends Record<keyof any, any>,
   TOverride extends Record<keyof any, any>,
 >(initial: TInitial, override: TOverride): Assign<TInitial, TOverride> {
-  if (!initial || !override) {
-    return (initial ?? override ?? {}) as any
-  }
   const proto = Object.getPrototypeOf(initial)
   const merged = proto
     ? { ...initial }

@@ -19,14 +19,8 @@ export function replaceOrAppend<T>(
   newItem: T,
   match: (a: T, idx: number) => boolean,
 ): T[] {
-  if (!array && !newItem) {
-    return []
-  }
-  if (!newItem) {
+  if (newItem === undefined) {
     return [...array]
-  }
-  if (!array) {
-    return [newItem]
   }
   const out = array.slice()
   for (let index = 0; index < array.length; index++) {
