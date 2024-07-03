@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `round` function by [@shan-shaji](https://github.com/shan-shaji) in [#53](https://github.com/radashi-org/radashi/pull/53)
 
+- Add `mapify` function by [@cimbraien](https://github.com/cimbraien) in [#58](https://github.com/radashi-org/radashi/pull/58)
+
+- Add `unzip` function by [@aleclarson](https://github.com/aleclarson) in [#64](https://github.com/radashi-org/radashi/pull/64)
+
 
 #### <!-- 05 -->Changed
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
@@ -53,14 +57,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Avoid object spread in loop by [@cdreeves](https://github.com/cdreeves) in [#37](https://github.com/radashi-org/radashi/pull/37)
 
+- Avoid an array allocation by [@aleclarson](https://github.com/aleclarson) in [#63](https://github.com/radashi-org/radashi/pull/63)
+
+- Avoid creating 2 intermediate arrays by [@aleclarson](https://github.com/aleclarson) in [#61](https://github.com/radashi-org/radashi/pull/61)
+
+- Avoid arrow function in loop and avoid calling user-provided key generator more than once per item by [@aleclarson](https://github.com/aleclarson) in [#60](https://github.com/radashi-org/radashi/pull/60)
+
+- Avoid creating 2 intermediate arrays by [@aleclarson](https://github.com/aleclarson) in [#62](https://github.com/radashi-org/radashi/pull/62)
+
 
 #### <!-- 08 -->Types
 - Let `filterKey` accept `key: keyof any` by [@aleclarson](https://github.com/aleclarson) in [73ac8bb](https://github.com/radashi-org/radashi/commit/73ac8bba9e2a2a39eb3c117cc940cc2b18199834)
 - Add `TryitResult<T>` type by [@aleclarson](https://github.com/aleclarson) in [f044364](https://github.com/radashi-org/radashi/commit/f0443644bace43ad3092751e0ba4193ead336ef6)
 - Add `MemoOptions<T>` type by [@aleclarson](https://github.com/aleclarson) in [877a1e4](https://github.com/radashi-org/radashi/commit/877a1e4e4d6fba76eea04731e69f7490d3f3191a)
 - Export `UppercaseKeys` and `LowercaseKeys` types by [@aleclarson](https://github.com/aleclarson) in [96b28b9](https://github.com/radashi-org/radashi/commit/96b28b9b037bd03277511d0174e4896729bcee93)
+- Let `zip` accept readonly arrays by [@aleclarson](https://github.com/aleclarson) in [f7d93cc](https://github.com/radashi-org/radashi/commit/f7d93cc9c9909e081a2584175154eb4a141d88a3)
 
 ### New Contributors
+* [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
 * [@shan-shaji](https://github.com/shan-shaji) made their first contribution in [#53](https://github.com/radashi-org/radashi/pull/53)
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
