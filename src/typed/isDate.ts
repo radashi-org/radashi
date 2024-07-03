@@ -1,3 +1,5 @@
-export function isDate(value: any): value is Date {
-  return Object.prototype.toString.call(value) === '[object Date]'
+import { isTagged } from 'radashi'
+
+export function isDate(value: unknown): value is Date {
+  return isTagged(value, '[object Date]')
 }
