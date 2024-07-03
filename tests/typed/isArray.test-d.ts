@@ -1,6 +1,14 @@
 import * as _ from 'radashi'
 
 describe('isArray return type', () => {
+  test('value is any', () => {
+    const value = {} as any
+    if (_.isArray(value)) {
+      expectTypeOf(value).toEqualTypeOf<unknown[]>()
+    } else {
+      expectTypeOf(value).toEqualTypeOf<any>()
+    }
+  })
   test('value is unknown', () => {
     const value = {} as unknown
     if (_.isArray(value)) {
