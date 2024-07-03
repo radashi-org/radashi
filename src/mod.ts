@@ -114,6 +114,7 @@ export * from './typed/isSet.ts'
 export * from './typed/isString.ts'
 export * from './typed/isSymbol.ts'
 export * from './typed/isTagged.ts'
+export * from './typed/isWeakMap.ts'
 export * from './typed/isWeakSet.ts'
 
 export * from './types'
