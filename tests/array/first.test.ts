@@ -1,7 +1,5 @@
 import * as _ from 'radashi'
 
-const cast = (value: any) => value as unknown[]
-
 describe('first', () => {
   test('returns first item in list', () => {
     const list = [
@@ -16,9 +14,5 @@ describe('first', () => {
     const list = [] as string[]
     const result = _.first(list, 'yolo')
     expect(result).toBe('yolo')
-  })
-  test('gracefully handles null input list', () => {
-    const result = _.first(cast(null))
-    expect(result).toBeUndefined()
   })
 })

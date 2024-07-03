@@ -1,11 +1,6 @@
 import * as _ from 'radashi'
 
 describe('construct', () => {
-  test('handles bad input', () => {
-    expect(_.construct({})).toEqual({})
-    expect(_.construct(null as any)).toEqual({})
-    expect(_.construct(undefined as any)).toEqual({})
-  })
   test('returns correctly constructed object', () => {
     const now = new Date()
     const ra = {

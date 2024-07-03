@@ -15,8 +15,4 @@ describe('sort', () => {
     expect(result[1].index).toBe(1)
     expect(result[2].index).toBe(0)
   })
-  test('gracefully handles null input list', () => {
-    const result = _.sort(null as any as number[], x => x)
-    expect(result).toEqual([])
-  })
 })

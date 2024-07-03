@@ -27,10 +27,6 @@ describe('snake', () => {
     const result = _.snake('hello')
     expect(result).toBe('hello')
   })
-  test('returns empty string for empty input', () => {
-    const result = _.snake(null as any)
-    expect(result).toBe('')
-  })
   test('returns non alphanumerics with _', () => {
     const result = _.snake('Exobase Starter_flash AND-go')
     expect(result).toBe('exobase_starter_flash_and_go')

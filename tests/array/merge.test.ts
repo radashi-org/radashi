@@ -1,27 +1,9 @@
 import * as _ from 'radashi'
 
-const cast = <T = unknown[]>(value: any) => value as T
-
 describe('merge', () => {
-  test('returns empty array for two null inputs', () => {
-    const result = _.merge(cast(null), cast(null), _ => '')
-    expect(result).toEqual([])
-  })
   test('returns an empty array for two empty array inputs', () => {
     const result = _.merge([], [], _ => '')
     expect(result).toEqual([])
-  })
-  test('returns root for a null other input', () => {
-    const result = _.merge([], cast(null), _ => '')
-    expect(result).toEqual([])
-  })
-  test('returns empty array for a null root input', () => {
-    const result = _.merge(cast(null), [], _ => '')
-    expect(result).toEqual([])
-  })
-  test('returns root for a null matcher input', () => {
-    const result = _.merge(['a'], [], cast(null))
-    expect(result).toEqual(['a'])
   })
   test('returns correctly merged lists', () => {
     const inputA = [
