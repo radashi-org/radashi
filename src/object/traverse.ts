@@ -1,4 +1,4 @@
-import { isArray, isIterable, isPlainObject, last } from 'radashi'
+import { isArray, isFunction, isIterable, isPlainObject, last } from 'radashi'
 
 /**
  * Iterate an object's properties and those of any nested objects.
@@ -66,14 +66,14 @@ export function traverse(
     }
 
     context.path.push(key)
-    if (
-      visitor(
-        (context.value = value),
-        (context.key = key),
-        context.parent,
-        context,
-      ) === false
-    ) {
+    const result = visitor(
+      (context.value = value),
+      (context.key = key),
+      context.parent,
+      context,
+    )
+
+    if (result === false) {
       return (ok = false)
     }
 
@@ -87,6 +87,10 @@ export function traverse(
       !context.parents.includes(value)
     ) {
       traverse(value)
+
+      if (isFunction(result)) {
+        result()
+      }
     }
 
     context.path.pop()
@@ -147,7 +151,7 @@ export type TraverseVisitor = (
   key: keyof any,
   parent: object,
   context: TraverseContext,
-) => boolean | void
+) => (() => void) | boolean | void
 
 /**
  * The context object for the `traverse` function.

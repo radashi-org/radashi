@@ -301,4 +301,20 @@ describe('traverse', () => {
     expect(paths).toEqual([['a'], ['a', 'b']])
     expect(parents).toEqual([[obj], [obj, obj.a]])
   })
+
+  test('visitor can return a leave callback', () => {
+    const obj = { a: { b: 2 } }
+    const visited: [keyof any, unknown][] = []
+    _.traverse(obj, (value, key) => {
+      visited.push([key, value])
+      return () => {
+        visited.push([key, value])
+      }
+    })
+    expect(visited).toEqual([
+      ['a', { b: 2 }],
+      ['b', 2],
+      ['a', { b: 2 }],
+    ])
+  })
 })
