@@ -24,20 +24,22 @@ describe('memo', () => {
     expect(resultB).not.toBe(resultA)
   })
   test('calls function again when first value expires', async () => {
+    vi.useFakeTimers()
     const func = _.memo(() => new Date().getTime(), {
       ttl: 1,
     })
     const resultA = func()
-    await new Promise(res => setTimeout(res, 100))
+    vi.advanceTimersByTime(100)
     const resultB = func()
     expect(resultA).not.toBe(resultB)
   })
   test('does not call function again when first value has not expired', async () => {
+    vi.useFakeTimers()
     const func = _.memo(() => new Date().getTime(), {
       ttl: 1000,
     })
     const resultA = func()
-    await new Promise(res => setTimeout(res, 100))
+    vi.advanceTimersByTime(100)
     const resultB = func()
     expect(resultA).toBe(resultB)
   })

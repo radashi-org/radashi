@@ -9,9 +9,11 @@ describe('debounce', () => {
     func()
     func()
   }
+  const delay = 600
 
   beforeEach(() => {
-    func = _.debounce({ delay: 600 }, mockFunc)
+    vi.useFakeTimers()
+    func = _.debounce({ delay }, mockFunc)
   })
 
   afterEach(() => {
@@ -21,7 +23,7 @@ describe('debounce', () => {
   test('only executes once when called rapidly', async () => {
     runFunc3Times()
     expect(mockFunc).toHaveBeenCalledTimes(0)
-    await _.sleep(610)
+    vi.advanceTimersByTime(delay + 10)
     expect(mockFunc).toHaveBeenCalledTimes(1)
   })
 
@@ -47,7 +49,7 @@ describe('debounce', () => {
     expect(mockFunc).toHaveBeenCalledTimes(1)
     func()
     expect(mockFunc).toHaveBeenCalledTimes(1)
-    await _.sleep(610)
+    vi.advanceTimersByTime(delay + 10)
     expect(mockFunc).toHaveBeenCalledTimes(2)
     func.flush()
     expect(mockFunc).toHaveBeenCalledTimes(3)
@@ -58,11 +60,11 @@ describe('debounce', () => {
     func()
     results.push(func.isPending())
     results.push(func.isPending())
-    await _.sleep(610)
+    vi.advanceTimersByTime(delay + 10)
     results.push(func.isPending())
     func()
     results.push(func.isPending())
-    await _.sleep(610)
+    vi.advanceTimersByTime(delay + 10)
     results.push(func.isPending())
     assert.deepEqual(results, [true, true, false, true, false])
   })
@@ -70,7 +72,7 @@ describe('debounce', () => {
   test('returns if there is any pending invocation when the pending method is called', async () => {
     func()
     func.cancel()
-    await _.sleep(610)
+    vi.advanceTimersByTime(delay + 10)
     expect(mockFunc).toHaveBeenCalledTimes(0)
   })
 })
