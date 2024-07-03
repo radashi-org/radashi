@@ -8,7 +8,7 @@ pnpm biome check --fix --unsafe
 pnpm prettier --write README.md docs/**/*
 
 # 3. Commit if there were no uncommitted changes, but there are now.
-if [ -z "$UNCOMMITTED_CHANGES" -a -z "$(git status --porcelain -uno)" ]; then
+if [ -z "$UNCOMMITTED_CHANGES" ] && [ -n "$(git status --porcelain -uno)" ]; then
   git add -u
   git commit -m "chore: format"
 fi
