@@ -1,0 +1,16 @@
+---
+title: isSet
+description: Returns true for Set instances
+---
+
+## Basic usage
+
+Returns true for `Set` instances, even if they are subclass instances or from
+other [realms](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms).
+
+```ts
+import * as _ from 'radashi'
+
+_.isSet(new Set()) // true
+_.isSet(new (class extends Set {})()) // true
+```
