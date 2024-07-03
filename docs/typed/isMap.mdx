@@ -1,0 +1,16 @@
+---
+title: isMap
+description: Returns true for Map instances
+---
+
+## Basic usage
+
+Returns true for `Map` instances, even if they are subclass instances or from
+other [realms](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms).
+
+```ts
+import * as _ from 'radashi'
+
+_.isMap(new Map()) // true
+_.isMap(new (class extends Map {})()) // true
+```
