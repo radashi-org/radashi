@@ -1,0 +1,17 @@
+---
+title: isRegExp
+description: Returns true for RegExp instances
+---
+
+## Basic usage
+
+Returns true for `RegExp` instances, even if they are subclass instances or from
+other [realms](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms).
+
+```ts
+import * as _ from 'radashi'
+
+_.isRegExp(/.+/) // true
+_.isRegExp(new RegExp('.+')) // true
+_.isRegExp(new (class extends RegExp {})('.+')) // true
+```
