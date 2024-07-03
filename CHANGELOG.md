@@ -55,15 +55,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Make `template` faster by [@aleclarson](https://github.com/aleclarson) in [#32](https://github.com/radashi-org/radashi/pull/32)
 
-- Avoid object spread in loop by [@cdreeves](https://github.com/cdreeves) in [#37](https://github.com/radashi-org/radashi/pull/37)
+- **(series)** Avoid object spread in loop by [@cdreeves](https://github.com/cdreeves) in [#37](https://github.com/radashi-org/radashi/pull/37)
 
-- Avoid an array allocation by [@aleclarson](https://github.com/aleclarson) in [#63](https://github.com/radashi-org/radashi/pull/63)
+- **(cluster)** Avoid an array allocation by [@aleclarson](https://github.com/aleclarson) in [#63](https://github.com/radashi-org/radashi/pull/63)
 
-- Avoid creating 2 intermediate arrays by [@aleclarson](https://github.com/aleclarson) in [#61](https://github.com/radashi-org/radashi/pull/61)
+- **(replace)** Avoid creating 2 intermediate arrays by [@aleclarson](https://github.com/aleclarson) in [#61](https://github.com/radashi-org/radashi/pull/61)
 
-- Avoid arrow function in loop and avoid calling user-provided key generator more than once per item by [@aleclarson](https://github.com/aleclarson) in [#60](https://github.com/radashi-org/radashi/pull/60)
+- **(merge)** Avoid arrow function in loop and avoid calling user-provided key generator more than once per item by [@aleclarson](https://github.com/aleclarson) in [#60](https://github.com/radashi-org/radashi/pull/60)
 
-- Avoid creating 2 intermediate arrays by [@aleclarson](https://github.com/aleclarson) in [#62](https://github.com/radashi-org/radashi/pull/62)
+- **(replaceOrAppend)** Avoid creating 2 intermediate arrays by [@aleclarson](https://github.com/aleclarson) in [#62](https://github.com/radashi-org/radashi/pull/62)
 
 
 #### <!-- 08 -->Types
