@@ -30,25 +30,15 @@ export function toggle<T>(
     strategy?: 'prepend' | 'append'
   },
 ): T[] {
-  if (!array && !item) {
-    return []
-  }
-  if (!array) {
-    return [item]
-  }
-  if (!item) {
-    return [...array]
-  }
   const matcher = toKey
     ? (x: T, idx: number) => toKey(x, idx) === toKey(item, idx)
     : (x: T) => x === item
+
   const existing = array.find(matcher)
-  if (existing) {
+
+  if (existing !== undefined) {
     return array.filter((x, idx) => !matcher(x, idx))
   }
-  const strategy = options?.strategy ?? 'append'
-  if (strategy === 'append') {
-    return [...array, item]
-  }
-  return [item, ...array]
+
+  return options?.strategy === 'prepend' ? [item, ...array] : [...array, item]
 }
