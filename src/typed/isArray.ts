@@ -1,4 +1,4 @@
-import { ExtractNotAny } from 'radashi'
+import type { ExtractNotAny } from 'radashi'
 
 export const isArray = Array.isArray as <Input>(
   value: Input,
