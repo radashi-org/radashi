@@ -28,16 +28,10 @@ export function clone<T>(
 
 export function clone(obj: unknown): unknown {
   if (isObject(obj)) {
-    const proto = Object.getPrototypeOf(obj)
-    const newObj =
-      typeof proto?.constructor === 'function'
-        ? new proto.constructor()
-        : Object.create(proto)
-
+    const newObj = Object.create(Object.getPrototypeOf(obj))
     for (const key of Object.getOwnPropertyNames(obj)) {
       newObj[key] = obj[key as keyof object]
     }
-
     return newObj
   }
 
