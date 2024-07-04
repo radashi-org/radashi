@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ensure `mapValues` and `group` work together by [@aleclarson](https://github.com/aleclarson) in [#24](https://github.com/radashi-org/radashi/pull/24)
 
 - Use typeof in `isFunction` by [@aleclarson](https://github.com/aleclarson) in [6ad96f4](https://github.com/radashi-org/radashi/commit/6ad96f44f17949ee33acda9a073307b19dca7796)
+- `toInt` and `toFloat` should not throw on symbols by [@aleclarson](https://github.com/aleclarson) in [cafc7fc](https://github.com/radashi-org/radashi/commit/cafc7fc4833447d6e5ed6bdc88957201aae6372a)
 
 #### <!-- 07 -->Performance
 - Avoid excessive array allocation in `fork` by [@localusercamp](https://github.com/localusercamp) in [#33](https://github.com/radashi-org/radashi/pull/33)
@@ -72,6 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `MemoOptions<T>` type by [@aleclarson](https://github.com/aleclarson) in [877a1e4](https://github.com/radashi-org/radashi/commit/877a1e4e4d6fba76eea04731e69f7490d3f3191a)
 - Export `UppercaseKeys` and `LowercaseKeys` types by [@aleclarson](https://github.com/aleclarson) in [96b28b9](https://github.com/radashi-org/radashi/commit/96b28b9b037bd03277511d0174e4896729bcee93)
 - Let `zip` accept readonly arrays by [@aleclarson](https://github.com/aleclarson) in [f7d93cc](https://github.com/radashi-org/radashi/commit/f7d93cc9c9909e081a2584175154eb4a141d88a3)
+- Improve the `isArray` return type for `unknown` input type by [@aleclarson](https://github.com/aleclarson) in [#72](https://github.com/radashi-org/radashi/pull/72)
+
 
 ### New Contributors
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
