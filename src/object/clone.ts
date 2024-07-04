@@ -36,7 +36,7 @@ export function clone(obj: unknown): unknown {
   }
 
   if (isArray(obj)) {
-    return [...obj]
+    return obj.slice()
   }
 
   if (isMap(obj) || isSet(obj)) {
