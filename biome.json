@@ -42,7 +42,6 @@
           "fix": "safe",
           "options": { "syntax": "shorthand" }
         },
-        "useImportType": "off",
         "useTemplate": "off"
       },
       "suspicious": {
