@@ -1,5 +1,5 @@
 import * as _ from 'radashi'
-import { RetryOptions } from 'radashi'
+import type { RetryOptions } from 'radashi'
 
 const cast = <T = RetryOptions>(value: any): T => value
 

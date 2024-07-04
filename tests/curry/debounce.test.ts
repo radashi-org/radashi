@@ -1,5 +1,5 @@
 import * as _ from 'radashi'
-import { DebounceFunction } from 'radashi'
+import type { DebounceFunction } from 'radashi'
 
 describe('debounce', () => {
   let func: DebounceFunction<any>
