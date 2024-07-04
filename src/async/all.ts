@@ -42,11 +42,11 @@ export async function all<T extends Record<string, Promise<any>>>(
   promises: T,
 ): Promise<{ [K in keyof T]: Awaited<T[K]> }>
 
-export async function all<
-  T extends Record<string, Promise<any>> | Promise<any>[],
->(promises: T) {
+export async function all(
+  promises: Record<string, Promise<any>> | Promise<any>[],
+): Promise<any> {
   const entries = isArray(promises)
-    ? promises.map(p => [null, p] as [null, Promise<any>])
+    ? promises.map(p => [null, p] as const)
     : Object.entries(promises)
 
   const results = await Promise.all(
@@ -63,16 +63,14 @@ export async function all<
   }
 
   if (isArray(promises)) {
-    return results.map(r => r.result) as T extends Promise<any>[]
-      ? PromiseValues<T>
-      : unknown
+    return results.map(r => r.result)
   }
 
   return results.reduce(
     (acc, item) => {
-      acc[item.key as keyof T] = item.result
+      acc[item.key!] = item.result
       return acc
     },
-    {} as { [K in keyof T]: Awaited<T[K]> },
+    {} as Record<string, any>,
   )
 }
