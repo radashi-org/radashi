@@ -23,7 +23,7 @@ describe('shuffle', () => {
     const list = [1, 2, 3, 4, 5]
     const mockRandom = vi.fn(() => 1)
     const result = _.shuffle(list, mockRandom)
-    
+
     expect(mockRandom).toHaveBeenCalled()
     expect(result).not.toEqual(list)
     expect(result.length).toBe(list.length)
