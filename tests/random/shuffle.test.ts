@@ -19,4 +19,14 @@ describe('shuffle', () => {
     expect(list).not.toBe(result)
     expect(list).toEqual([1, 2, 3, 4, 5])
   })
+  test('uses custom random function when provided', () => {
+    const list = [1, 2, 3, 4, 5]
+    const mockRandom = vi.fn(() => 1)
+    const result = _.shuffle(list, mockRandom)
+
+    expect(mockRandom).toHaveBeenCalled()
+    expect(result).not.toEqual(list)
+    expect(result.length).toBe(list.length)
+    expect(new Set(result)).toEqual(new Set(list))
+  })
 })
