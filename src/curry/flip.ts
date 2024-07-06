@@ -1,5 +1,9 @@
-export function flip<Arg1, Arg2, Result>(
-  fn: (arg1: Arg1, arg2: Arg2) => Result,
-): (arg2: Arg2, arg1: Arg1) => Result {
-  return (arg2, arg1) => fn(arg1, arg2)
+export function flip<Args extends any[], Result>(
+  fn: (...args: Args) => Result,
+): (...args: Flip<Args>) => Result {
+  return (arg2, arg1, ...args) => (fn as any)(arg1, arg2, ...args)
 }
+
+export type Flip<T extends any[]> = T extends [infer A, infer B, ...infer R]
+  ? [B, A, ...R]
+  : never

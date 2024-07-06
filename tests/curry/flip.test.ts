@@ -7,4 +7,14 @@ describe('flip function', () => {
     expect(subtract(1, 2)).toBe(-1)
     expect(flipSubtract(1, 2)).toBe(1)
   })
+  test('more than two arguments', () => {
+    const compute = (a: number, b: number, c: number) => a + b * c
+
+    // 1 + 2 * 4
+    expect(compute(1, 2, 4)).toBe(9)
+
+    // 2 + 1 * 4
+    const flippedCompute = _.flip(compute)
+    expect(flippedCompute(1, 2, 4)).toBe(6)
+  })
 })
