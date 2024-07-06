@@ -6,9 +6,7 @@ type UnsafeFunction = Function
 /**
  * Creates a shallow copy of the given object/value.
  *
- * It's assumed that you don't care about cloning `RegExp`/`Date`
- * objects or typed arrays like `Uint8Array`. In fact, the only cloned
- * object types are as follows:
+ * The only object types that get cloned are:
  * * plain objects (including `Object.create(null)` objects)
  * * class instances
  * * arrays
