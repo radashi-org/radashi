@@ -111,7 +111,7 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git add CHANGELOG.md
-          git commit -m "ci: update changelog" -m "[skip ci]"
+          git commit -m "chore(release): ${{ steps.set-version.outputs.version }}" -m "[skip ci]"
           git push
 
       - name: Publish to NPM
