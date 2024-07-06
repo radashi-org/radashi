@@ -1,0 +1,42 @@
+---
+title: parseColor
+description: Parses a color string to an RGB color object.
+---
+
+## Basic Usage
+
+The `parseColor` function is designed to parse a color string into an RGB color object. It supports various color formats including HEX, RGB, and RGBA strings.
+
+### Parsing HEX Color Strings
+
+HEX color strings can be in various formats:
+
+```ts
+import * as _ from 'radashi'
+
+_.parseColor('#FFF')
+// => { red: 1, green: 1, blue: 1, alpha: 1 }
+
+_.parseColor('#FFF0')
+// => { red: 1, green: 1, blue: 1, alpha: 0 }
+
+_.parseColor('#ffffff')
+// => { red: 1, green: 1, blue: 1, alpha: 1 }
+
+_.parseColor('#ffffff00')
+// => { red: 1, green: 1, blue: 1, alpha: 0 }
+```
+
+### Parsing RGB and RGBA Color Strings
+
+RGB and RGBA color strings should specify their values within the range:
+
+```ts
+import * as _ from 'radashi'
+
+_.parseColor('rgb(0,0,0)')
+// => { red: 0, green: 0, blue: 0, alpha: 1 }
+
+_.parseColor('rgba(255, 255, 255, 0.5)')
+// => { red: 1, green: 1, blue: 1, alpha: 0.5 }
+```
