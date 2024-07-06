@@ -27,4 +27,41 @@ export class Color {
   }
 }
 
+export namespace Color {
+  /**
+   * CMYK color model.
+   *
+   * Its values range from 0 to 1.
+   */
+  export type CMYK = {
+    cyan: number
+    magenta: number
+    yellow: number
+    key: number
+    alpha: number
+  }
+  /**
+   * XYZ color model.
+   *
+   * Its values range from 0 to 1.
+   */
+  export type XYZ = {
+    x: number
+    y: number
+    z: number
+    alpha: number
+  }
+  /**
+   * LAB color model.
+   *
+   * Its values range from 0 to 1.
+   */
+  export type LAB = {
+    l: number
+    a: number
+    b: number
+    alpha: number
+  }
+}
+
 export type ColorLike = Color | string

@@ -42,6 +42,8 @@ export * from './async/retry.ts'
 export * from './async/sleep.ts'
 export * from './async/tryit.ts'
 
+export * from './color/colorMixCMYK.ts'
+export * from './color/colorMixLAB.ts'
 export * from './color/parseColor.ts'
 
 export * from './curry/callable.ts'
@@ -113,3 +115,4 @@ export * from './typed/isSymbol.ts'
 
 export * from './color/types'
 export * from './types'
+
