@@ -26,14 +26,14 @@ export function clone<T>(
 
 export function clone(obj: unknown): unknown {
   if (isObject(obj)) {
-    const newObj = Object.create(Object.getPrototypeOf(obj))
-    for (const key of Object.getOwnPropertyNames(obj)) {
-      newObj[key] = obj[key as keyof object]
-    }
-    return newObj
+    return Object.create(
+      Object.getPrototypeOf(obj),
+      Object.getOwnPropertyDescriptors(obj),
+    )
   }
 
   if (isArray(obj)) {
+    // Use .slice to preserve sparseness.
     return obj.slice()
   }
 
