@@ -1,0 +1,22 @@
+---
+title: lerp
+description: Smoothly transitions between two values based on a factor
+---
+
+## Basic usage
+
+The `lerp` function is used to linearly interpolate between two numbers based on a specified amount. This function is particularly useful in animations, graphics, and games for smooth transitions.
+
+```ts
+import * as _ from 'radashi'
+
+_.lerp(0, 10, 0.5) // => 5
+_.lerp(5, 15, 0.2) // => 7
+_.lerp(-10, 10, 0.75) // => 5
+```
+
+## Etymology
+
+The name `lerp` is short for "linear interpolation". It's a term from computer graphics that means "interpolate linearly between two values".
+
+For more information, check out the [Wikipedia article](https://en.wikipedia.org/wiki/Linear_interpolation) on linear interpolation. Even better, read [this article](https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/) by Keith Muggio.

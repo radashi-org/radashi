@@ -55,6 +55,7 @@ export * from './curry/proxied.ts'
 export * from './curry/throttle.ts'
 
 export * from './number/inRange.ts'
+export * from './number/lerp.ts'
 export * from './number/round.ts'
 export * from './number/toFloat.ts'
 export * from './number/toInt.ts'
