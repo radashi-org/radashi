@@ -1,20 +1,30 @@
+import { type FilteredKeys, filterKey, isArray, type KeyFilter } from 'radashi'
+
 /**
  * Pick a list of properties from an object into a new object
  */
-export function pick<T extends object, TKeys extends keyof T>(
+export function pick<T extends object, F extends KeyFilter<T, keyof T>>(
   obj: T,
-  keys: TKeys[],
-): Pick<T, TKeys> {
+  filter: F,
+): Pick<T, FilteredKeys<T, F>>
+
+export function pick<T extends object>(
+  obj: T,
+  filter: KeyFilter<T, keyof T> | null,
+) {
   if (!obj) {
-    return {} as Pick<T, TKeys>
+    return {}
   }
-  return keys.reduce(
-    (acc, key) => {
-      if (Object.hasOwnProperty.call(obj, key)) {
-        acc[key] = obj[key]
-      }
-      return acc
-    },
-    {} as Pick<T, TKeys>,
-  )
+  let keys: (keyof T)[] = filter as any
+  if (isArray(filter)) {
+    filter = null
+  } else {
+    keys = Reflect.ownKeys(obj) as (keyof T)[]
+  }
+  return keys.reduce((acc, key) => {
+    if (filterKey(obj, key, filter)) {
+      acc[key] = obj[key]
+    }
+    return acc
+  }, {} as T)
 }

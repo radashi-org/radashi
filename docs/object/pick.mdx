@@ -1,6 +1,6 @@
 ---
 title: pick
-description: Pick only the desired attributes from an object
+description: Pick only the desired properties from an object
 ---
 
 ## Basic usage
@@ -18,4 +18,19 @@ const fish = {
 }
 
 _.pick(fish, ['name', 'source']) // => { name, source }
+```
+
+### Predicate function
+
+The `pick` function can also accept a predicate function as the filter argument. This allows for more complex filtering logic beyond simple key inclusion or exclusion.
+
+```ts
+import * as _ from 'radashi'
+
+const source = { a: 1, b: 2, c: 3, d: 4 }
+
+_.pick(source, (value, key) => {
+  return value % 2 === 0 // Include only even values
+})
+// => { b: 2, d: 4 }
 ```
