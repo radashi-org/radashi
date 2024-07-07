@@ -30,10 +30,10 @@ export type FilteredKeys<
  * Returns true if the key is in the “keys array” or if the “filter
  * function” returns true.
  */
-export function filterKey(
-  obj: object,
-  key: keyof any,
-  filter: KeyFilter | null | undefined,
+export function filterKey<T extends object>(
+  obj: T,
+  key: keyof T,
+  filter: KeyFilter<T, keyof T> | null | undefined,
 ): boolean {
   return (
     Object.hasOwnProperty.call(obj, key) &&
