@@ -1,5 +1,4 @@
-import { sleep } from 'radashi'
-import { tryit } from 'radashi'
+import { sleep, tryit } from 'radashi'
 
 export type RetryOptions = {
   times?: number
@@ -28,7 +27,7 @@ export async function retry<TResponse>(
     if (err._exited) {
       throw err._exited
     }
-    if (++i === times) {
+    if (++i >= times) {
       throw err
     }
     if (delay) {
