@@ -1,3 +1,5 @@
+import { type FilteredKeys, filterKey, type KeyFilter } from 'radashi'
+
 /**
  * Create a generator that yields the names of the object's own
  * properties.
@@ -15,18 +17,22 @@
  * will say they are. For these reasons, it's recommended to use this
  * only with plain objects being used as maps.
  */
-export function* ownPropertyNames<T extends object>(
-  iterable: T,
-): Generator<PropertyNames<T>, void, undefined> {
-  for (const key in iterable) {
-    if (Object.prototype.hasOwnProperty.call(iterable, key)) {
+export function* ownPropertyNames<
+  T extends object,
+  F extends KeyFilter<T, keyof T> | null | undefined = undefined,
+>(obj: T, filter?: F): Generator<PropertyNames<T, F>, void, undefined> {
+  for (const key in obj) {
+    if (filterKey(obj, key, filter)) {
       yield key as any
     }
   }
 }
 
-type PropertyNames<T extends object> = T extends any
-  ? keyof T extends infer K
+type PropertyNames<
+  T extends object,
+  F extends KeyFilter<T, keyof T> | null | undefined,
+> = T extends any
+  ? FilteredKeys<T, F> extends infer K
     ? K extends string
       ? K
       : K extends number

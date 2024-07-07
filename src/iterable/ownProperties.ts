@@ -1,3 +1,5 @@
+import { type FilteredKeys, filterKey, type KeyFilter } from 'radashi'
+
 /**
  * Create a generator that yields the names and values of the object's
  * own properties.
@@ -15,12 +17,13 @@
  * will say they are. For these reasons, it's recommended to use this
  * only with plain objects being used as maps.
  */
-export function* ownProperties<T extends object>(
-  iterable: T,
-): Generator<OwnProperties<T>, void, undefined> {
-  for (const key in iterable) {
-    if (Object.prototype.hasOwnProperty.call(iterable, key)) {
-      yield [key, iterable[key]] as any
+export function* ownProperties<
+  T extends object,
+  F extends KeyFilter<T, keyof T> | null | undefined = undefined,
+>(obj: T, filter?: F): Generator<OwnProperties<T, F>, void, undefined> {
+  for (const key in obj) {
+    if (filterKey(obj, key, filter)) {
+      yield [key, obj[key]] as any
     }
   }
 }
@@ -30,8 +33,11 @@ export function* ownProperties<T extends object>(
  * each key in `keyof T` its own tuple type and combine them into a
  * union type.
  */
-type OwnProperties<T extends object> = T extends any
-  ? keyof T extends infer K
+type OwnProperties<
+  T extends object,
+  F extends KeyFilter<T, keyof T> | null | undefined = undefined,
+> = T extends any
+  ? FilteredKeys<T, F> extends infer K
     ? K extends keyof T & (string | number)
       ? [K extends string ? K : K extends number ? `${K}` : never, T[K]]
       : never
