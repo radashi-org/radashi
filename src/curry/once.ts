@@ -9,7 +9,7 @@ export interface OnceFunction<
   This = unknown,
 > {
   (this: This, ...args: Args): Return
-  [onceSymbol]?: Return
+  [onceSymbol]: Return | typeof onceSymbol
 }
 
 /**
