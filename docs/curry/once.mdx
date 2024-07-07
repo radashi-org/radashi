@@ -17,7 +17,7 @@ fn() // 0.5
 
 ## Resetting the function
 
-The `onceReset` function clears the stored result of a function that was previously wrapped with `once`. This allows the function to be executed again as if it were never called before, enabling dynamic reuse of the function with fresh computations.
+The `once.reset` function clears the stored result of a function that was previously wrapped with `once`. This allows the function to be executed again as if it were never called before, enabling dynamic reuse of the function with fresh computations.
 
 ```ts
 import * as _ from 'radashi'
@@ -26,7 +26,7 @@ const fn = once(() => Math.random())
 fn() // 0.5
 fn() // 0.5
 
-onceReset(fn)
+once.reset(fn)
 fn() // 0.3
 fn() // 0.3
 ```

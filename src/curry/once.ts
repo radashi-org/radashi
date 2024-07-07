@@ -25,31 +25,35 @@ export interface OnceFunction<
  * fn() // 0.5
  * ```
  */
-export function once<Args extends unknown[], Return, This = unknown>(
-  fn: (this: This, ...args: Args) => Return,
-): (this: This, ...args: Args) => Return {
-  const onceFn = function (this, ...args) {
+export const once: {
+  <Args extends unknown[], Return, This = unknown>(
+    fn: (this: This, ...args: Args) => Return,
+  ): (this: This, ...args: Args) => Return
+
+  /**
+   * Reset the result of a function that was created with `once`,
+   * allowing it to be called again.
+   *
+   * ```ts
+   * const fn = once(() => Math.random())
+   * fn() // 0.5
+   * fn() // 0.5
+   * once.reset(fn)
+   * fn() // 0.3
+   * fn() // 0.3
+   * ```
+   */
+  reset(fn: OnceFunction): void
+} = fn => {
+  const onceFn = function (...args: any) {
     if (!(onceResult in onceFn)) {
-      onceFn[onceResult] = fn.apply(this, args)
+      onceFn[onceResult] = fn.apply(this as any, args)
     }
     return onceFn[onceResult]
-  } as OnceFunction<Args, Return, This>
-  return onceFn
+  } as OnceFunction
+  return onceFn as typeof fn
 }
 
-/**
- * Reset the result of a function that was created with `once`,
- * allowing it to be called again.
- *
- * ```ts
- * const fn = once(() => Math.random())
- * fn() // 0.5
- * fn() // 0.5
- * onceReset(fn)
- * fn() // 0.3
- * fn() // 0.3
- * ```
- */
-export function onceReset(fn: OnceFunction): void {
+once.reset = (fn: OnceFunction): void => {
   delete fn[onceResult]
 }

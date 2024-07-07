@@ -33,7 +33,7 @@ describe('onceReset', () => {
     let count = 0
     const fn = _.once(() => count++)
     const firstResult = fn()
-    _.onceReset(fn)
+    _.once.reset(fn)
     expect(fn()).not.toBe(firstResult)
   })
 })
