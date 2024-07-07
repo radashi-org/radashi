@@ -34,6 +34,18 @@ export function filterKey<T extends object>(
   obj: T,
   key: keyof T,
   filter: KeyFilter<T, keyof T> | null | undefined,
+): boolean
+
+export function filterKey(
+  obj: object,
+  key: keyof any,
+  filter: KeyFilter | null | undefined,
+): boolean
+
+export function filterKey(
+  obj: object,
+  key: keyof any,
+  filter: KeyFilter | null | undefined,
 ): boolean {
   return (
     Object.hasOwnProperty.call(obj, key) &&
