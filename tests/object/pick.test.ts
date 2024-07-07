@@ -79,4 +79,11 @@ describe('pick', () => {
       a: 2,
     })
   })
+  test('works with predicate function', () => {
+    const result = _.pick({ a: 1, b: 2, c: 3, d: 4 }, value => value % 2 === 0)
+    expect(result).toEqual({
+      b: 2,
+      d: 4,
+    })
+  })
 })
