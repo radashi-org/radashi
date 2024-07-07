@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `unzip` function by [@aleclarson](https://github.com/aleclarson) in [#64](https://github.com/radashi-org/radashi/pull/64)
 
+- Add `flip` function by [@aleclarson](https://github.com/aleclarson) in [#35](https://github.com/radashi-org/radashi/pull/35)
+
 
 #### <!-- 05 -->Changed
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
