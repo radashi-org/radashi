@@ -19,6 +19,14 @@ export type KeyFilter<
 > = KeyFilterFunction<T> | readonly Key[]
 
 /**
+ * Extract the keys of an object that pass a filter.
+ */
+export type FilteredKeys<
+  T extends object,
+  F extends KeyFilter<T> | null | undefined,
+> = Extract<keyof T, F extends readonly any[] ? F[number] : any>
+
+/**
  * Returns true if the key is in the “keys array” or if the “filter
  * function” returns true.
  */
