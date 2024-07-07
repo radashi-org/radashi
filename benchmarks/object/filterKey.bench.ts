@@ -9,7 +9,11 @@ describe('filterKey', () => {
 
   bench('with filter callback', () => {
     const obj = { a: 1, b: undefined, c: 3 }
-    _.filterKey(obj, 'a', (value, key) => value !== undefined || key === 'd')
+    _.filterKey(
+      obj,
+      'a',
+      (value: unknown, key: keyof any) => value !== undefined || key === 'd',
+    )
   })
 
   bench('with class instance', () => {
