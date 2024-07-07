@@ -1,0 +1,49 @@
+---
+title: ownPropertyValues
+description: Create a generator of an object's own property values
+---
+
+## Basic usage
+
+Iterates over an object's own property values in a lazy manner. This is more efficient than `Object.values` when the `for..of` loop is ended early with `break` or `return`.
+
+- Symbol properties are skipped.
+- Inherited properties are skipped.
+- Non-enumerable properties are skipped.
+
+```ts
+import * as _ from 'radashi'
+
+const data = {
+  a: 1,
+  b: 2,
+}
+
+for (const value of _.ownPropertyValues(data)) {
+  console.log(value)
+}
+```
+
+### Use Cases
+
+This function is best when you need more accurate TypeScript inference than what `Object.values` provides or when you need to iterate over the object's own properties in a lazy manner for efficiency. It's particularly useful for objects with hundreds or thousands of properties. As seen below, it pairs well with `selectFirst` due to its indeterminate nature.
+
+```ts
+const data = {
+  a: 1,
+  b: 2,
+}
+
+_.selectFirst(
+  _.ownPropertyValues(data),
+  value => value,
+  value => value > 1,
+)
+// => 2
+```
+
+### TypeScript Limitations
+
+Note that the return type isn't entirely accurate, since it includes instance methods that won't actually be yielded. TypeScript currently has no way to omit inherited properties.
+
+In addition, non-enumerable properties are not yielded, but TypeScript will say they are. For these reasons, it's recommended to use this only with plain objects being used as maps.

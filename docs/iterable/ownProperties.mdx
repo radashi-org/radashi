@@ -1,0 +1,56 @@
+---
+title: ownProperties
+description: Create a generator of an object's own property names/values
+---
+
+## Basic usage
+
+Iterates over an object's own property names and values in a lazy manner. This is more efficient than `Object.entries` when the `for..of` loop is ended early with `break` or `return`.
+
+- Symbol properties are skipped.
+- Inherited properties are skipped.
+- Non-enumerable properties are skipped.
+
+```ts
+import * as _ from 'radashi'
+
+const data = {
+  a: 1,
+  b: 2,
+}
+
+for (const [name, value] of _.ownProperties(data)) {
+  console.log(name, value)
+}
+```
+
+### Use Cases
+
+This function is best when you need more accurate TypeScript inference than what `Object.entries` provides or when you need to iterate over the object's own properties in a lazy manner for efficiency. It's particularly useful for objects with hundreds or thousands of properties. As seen below, it pairs well with `selectFirst` due to its indeterminate nature.
+
+```ts
+const logEntries = {
+  '2023-07-01T10:15:30Z': 'User login',
+  '2023-07-01T10:16:45Z': 'Profile updated',
+  '2023-07-01T10:17:20Z': 'Item added to cart',
+  // ... potentially hundreds more entries
+}
+
+// This is useful for efficiently finding the next log entry
+// after a given timestamp in a large dataset
+const firstLogAfter = timestamp =>
+  _.selectFirst(
+    _.ownProperties(logEntries),
+    ([name, value]) => value,
+    ([name, value]) => name > timestamp,
+  )
+
+console.log(firstLogAfter('2023-07-01T10:16:00Z'))
+// => 'Profile updated'
+```
+
+### TypeScript Limitations
+
+Note that the return type isn't entirely accurate, since it includes instance methods that won't actually be yielded. TypeScript currently has no way to omit inherited properties.
+
+In addition, non-enumerable properties are not yielded, but TypeScript will say they are. For these reasons, it's recommended to use this only with plain objects being used as maps.
