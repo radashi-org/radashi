@@ -1,4 +1,4 @@
-const onceResult = '__once__'
+const onceSymbol: unique symbol = Symbol()
 
 /**
  * The type of a function wrapped with `once`.
@@ -9,7 +9,7 @@ export interface OnceFunction<
   This = unknown,
 > {
   (this: This, ...args: Args): Return
-  [onceResult]?: Return
+  [onceSymbol]?: Return
 }
 
 /**
@@ -46,14 +46,15 @@ export const once: {
   reset(fn: OnceFunction): void
 } = fn => {
   const onceFn = function (...args: any) {
-    if (!(onceResult in onceFn)) {
-      onceFn[onceResult] = fn.apply(this as any, args)
+    if (onceFn[onceSymbol] === onceSymbol) {
+      onceFn[onceSymbol] = fn.apply(this as any, args)
     }
-    return onceFn[onceResult]
+    return onceFn[onceSymbol]
   } as OnceFunction
+  onceFn[onceSymbol] = onceSymbol
   return onceFn as typeof fn
 }
 
 once.reset = (fn: OnceFunction): void => {
-  delete fn[onceResult]
+  fn[onceSymbol] = onceSymbol
 }
