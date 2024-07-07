@@ -1,3 +1,5 @@
+import { searchIterable, type ToIterableItem } from 'radashi'
+
 /**
  * Select performs a find + map operation, short-circuiting on the first
  * element that satisfies the prescribed condition. If condition is omitted,
@@ -14,18 +16,29 @@
  * // => 9
  * ```
  */
-export function selectFirst<T, U>(
-  array: readonly T[],
-  mapper: (item: T, index: number) => U,
-  condition?: (item: T, index: number) => boolean,
+export function selectFirst<T extends object, U>(
+  iterable: T,
+  mapper: (item: ToIterableItem<T>, index: number) => U,
+  condition?: (item: ToIterableItem<T>, index: number) => boolean,
 ): U | undefined {
-  if (!array) {
+  if (!iterable) {
     return undefined
   }
-  let foundIndex = -1
-  const found = array.find((item, index) => {
-    foundIndex = index
-    return condition ? condition(item, index) : mapper(item, index) != null
-  })
-  return found === undefined ? undefined : mapper(found, foundIndex)
+  let found: boolean | undefined
+  let foundValue: U
+  let lastItem: ToIterableItem<T>
+  let lastIndex: number
+  searchIterable(
+    iterable,
+    condition
+      ? (item, index) =>
+          (found = condition((lastItem = item), (lastIndex = index)))
+      : (item, index) =>
+          (found = (foundValue = mapper(item, (lastIndex = index))) != null),
+  )
+  return found
+    ? condition
+      ? mapper(lastItem!, lastIndex!)
+      : foundValue!
+    : undefined
 }

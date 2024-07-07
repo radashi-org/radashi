@@ -57,6 +57,10 @@ export * from './function/castComparator.ts'
 export * from './function/castMapping.ts'
 export * from './function/noop.ts'
 
+export * from './iterable/reduceIterable.ts'
+export * from './iterable/searchIterable.ts'
+export * from './iterable/toIterable.ts'
+
 export * from './number/clamp.ts'
 export * from './number/inRange.ts'
 export * from './number/lerp.ts'

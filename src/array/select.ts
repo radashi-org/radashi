@@ -1,3 +1,5 @@
+import { reduceIterable, type ToIterableItem } from 'radashi'
+
 /**
  * Select performs a filter and a mapper inside of a reduce, only
  * iterating the list one time. If condition is omitted, will
@@ -14,32 +16,41 @@
  * // => [9, 16]
  * ```
  */
-export function select<T, U>(
-  array: readonly T[],
-  mapper: (item: T, index: number) => U,
-  condition: (item: T, index: number) => boolean,
+export function select<T extends object, U>(
+  iterable: T,
+  mapper: (item: ToIterableItem<T>, index: number) => U | null | undefined,
 ): U[]
 
-export function select<T, U>(
-  array: readonly T[],
-  mapper: (item: T, index: number) => U | null | undefined,
+export function select<T extends object, U>(
+  iterable: T,
+  mapper: (item: ToIterableItem<T>, index: number) => U,
+  condition?: (item: ToIterableItem<T>, index: number) => boolean,
 ): U[]
 
-export function select<T, U>(
-  array: readonly T[],
-  mapper: (item: T, index: number) => U,
-  condition?: (item: T, index: number) => boolean,
+export function select<T extends object, U>(
+  iterable: T,
+  mapper: (item: ToIterableItem<T>, index: number) => U,
+  condition?: (item: ToIterableItem<T>, index: number) => boolean,
 ): U[] {
-  if (!array) {
+  if (!iterable) {
     return []
   }
-  let mapped: U
-  return array.reduce((acc, item, index) => {
-    if (condition) {
-      condition(item, index) && acc.push(mapper(item, index))
-    } else if ((mapped = mapper(item, index)) != null) {
-      acc.push(mapped)
-    }
-    return acc
-  }, [] as U[])
+  return reduceIterable(
+    iterable,
+    condition
+      ? (acc, item, index) => {
+          if (condition(item, index)) {
+            acc.push(mapper(item, index))
+          }
+          return acc
+        }
+      : (acc, item, index) => {
+          const mapped = mapper(item, index)
+          if (mapped != null) {
+            acc.push(mapped)
+          }
+          return acc
+        },
+    [] as U[],
+  )
 }
