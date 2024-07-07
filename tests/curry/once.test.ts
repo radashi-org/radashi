@@ -20,6 +20,12 @@ describe('once', () => {
     expect(fn()).toBeUndefined()
     expect(count).toBe(1)
   })
+  test('this is forwarded', () => {
+    const fn = _.once(function () {
+      return this
+    })
+    expect(fn.call(Math)).toBe(Math)
+  })
 })
 
 describe('onceReset', () => {
