@@ -1,4 +1,4 @@
-import { get, keys, objectify } from 'radashi'
+import { isDate, isPrimitive, objectify } from "radashi";
 
 /**
  * Flattens a deep object to a single dimension, converting the keys
@@ -11,13 +11,34 @@ import { get, keys, objectify } from 'radashi'
  * // { name: 'ra', 'children.0.name': 'hathor' }
  * ```
  */
-export function crush<TValue extends object>(value: TValue): object {
-  if (!value) {
-    return {}
-  }
-  return objectify(
-    keys(value),
-    k => k,
-    k => get(value, k),
-  )
+type Primitive =
+	| number
+	| string
+	| boolean
+	| Date
+	| symbol
+	| bigint
+	| undefined
+	| null;
+
+export function crush<TValue extends object>(
+	value: TValue,
+): Record<string, Primitive> | Record<string, never> {
+	if (!value) return {};
+	const crushToPvArray: (
+		obj: object,
+		path: string,
+	) => Array<{ p: string; v: Primitive }> = (obj: object, path: string) =>
+		Object.entries(obj).flatMap(([key, value]) =>
+			isPrimitive(value) || isDate(value)
+				? { p: path === "" ? key : `${path}.${key}`, v: value }
+				: crushToPvArray(value, path === "" ? key : `${path}.${key}`),
+		);
+
+	const result = objectify(
+		crushToPvArray(value, ""),
+		(o) => o.p,
+		(o) => o.v,
+	);
+	return result;
 }
