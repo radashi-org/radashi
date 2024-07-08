@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `flip` function by [@aleclarson](https://github.com/aleclarson) in [#35](https://github.com/radashi-org/radashi/pull/35)
 
+- Add `once` function by [@aleclarson](https://github.com/aleclarson) in [#80](https://github.com/radashi-org/radashi/pull/80)
+
+- Add `lerp` function by [@aleclarson](https://github.com/aleclarson) in [#86](https://github.com/radashi-org/radashi/pull/86)
+
 
 #### <!-- 05 -->Changed
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
@@ -31,6 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **(filterKey)** Accept null/undefined filter by [@aleclarson](https://github.com/aleclarson) in [b10ad10](https://github.com/radashi-org/radashi/commit/b10ad105bada331494c232b7a28f9d76ff77dded)
 - Add selectFirst by [@adamhamlin](https://github.com/adamhamlin) in [#52](https://github.com/radashi-org/radashi/pull/52)
+
+- **(pick)** Accept a callback for advanced picking by [@aleclarson](https://github.com/aleclarson) in [#30](https://github.com/radashi-org/radashi/pull/30)
 
 
 #### <!-- 06 -->Fixed
@@ -79,6 +85,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Let `zip` accept readonly arrays by [@aleclarson](https://github.com/aleclarson) in [f7d93cc](https://github.com/radashi-org/radashi/commit/f7d93cc9c9909e081a2584175154eb4a141d88a3)
 - Improve the `isArray` return type for `unknown` input type by [@aleclarson](https://github.com/aleclarson) in [#72](https://github.com/radashi-org/radashi/pull/72)
 
+- `select` return type when no condition is defined by [@aleclarson](https://github.com/aleclarson) in [ab76d65](https://github.com/radashi-org/radashi/commit/ab76d6502e479b378ad824c89974f389ec597a9e)
+- Add `FilteredKeys` type by [@aleclarson](https://github.com/aleclarson) in [6a6f899](https://github.com/radashi-org/radashi/commit/6a6f899316229efc6706d8c40998df5fa99e004b)
+- Improve the return type of `filterKey` by [@aleclarson](https://github.com/aleclarson) in [bc298c6](https://github.com/radashi-org/radashi/commit/bc298c6cfcaaf74726e1f2b901e210dea1fed641)
 
 ### New Contributors
 * [@eumkz](https://github.com/eumkz) made their first contribution in [#76](https://github.com/radashi-org/radashi/pull/76)
