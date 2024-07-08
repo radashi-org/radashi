@@ -17,6 +17,7 @@
     "format": "bash ./scripts/format.sh",
     "test": "vitest run --coverage",
     "test-single": "bash ./scripts/test-single.sh",
+    "test-branch": "bash ./scripts/test-branch.sh",
     "bench": "vitest bench",
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
     "add-function": "bash ./scripts/add-function.sh"
