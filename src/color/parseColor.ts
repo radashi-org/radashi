@@ -29,8 +29,27 @@ export function parseColor<T>(input: string, defaultValue: T): Color | T
 export function parseColor(input: string, defaultValue?: any): Color | any {
   const hex = hexColorRegex.exec(input)
   if (hex) {
-    return colorHexToRgb(hex[1])
+    const [, match] = hex
+
+    // Compute slice factor based on whether it's a 3/4 or 6/8 digit hex.
+    const f = match.length < 6 ? 1 : 2
+
+    // Extract bytes from matching slice.
+    let red = Number.parseInt(match.slice(0 * f, 1 * f), 16)
+    let green = Number.parseInt(match.slice(1 * f, 2 * f), 16)
+    let blue = Number.parseInt(match.slice(2 * f, 3 * f), 16)
+    const alpha = Number.parseInt(match.slice(3 * f, 4 * f) || 'ff', 16)
+
+    // If it's a 3/4 digit hex, copy the bytes to the left.
+    if (f === 1) {
+      red = red | (red << 4)
+      green = green | (green << 4)
+      blue = blue | (blue << 4)
+    }
+
+    return new Color(red / 255, green / 255, blue / 255, alpha / 255)
   }
+
   const rgba = rgbColorRegex.exec(input)
   if (rgba) {
     const [, fn, red, green, blue, alpha] = rgba
@@ -41,37 +60,9 @@ export function parseColor(input: string, defaultValue?: any): Color | any {
       fn === 'rgba' ? +alpha : 1,
     )
   }
+
   if (defaultValue !== undefined) {
     return defaultValue
   }
   throw new Error('Invalid color string: ' + input)
-}
-
-/**
- * Converts a hexadecimal color string to an RGB color object.
- * Supports 3, 4, 6, or 8 digit hex colors. The alpha channel is
- * optional and defaults to fully opaque.
- *
- * ```ts
- * colorHexToRgb('#fff') // => { r: 1, g: 1, b: 1, a: 1 }
- * ```
- */
-function colorHexToRgb(hex: string): Color | null {
-  // Compute slice factor based on whether it's a 3/4 or 6/8 digit hex.
-  const f = hex.length < 6 ? 1 : 2
-
-  // Extract bytes from matching slice.
-  let red = Number.parseInt(hex.slice(0 * f, 1 * f), 16)
-  let green = Number.parseInt(hex.slice(1 * f, 2 * f), 16)
-  let blue = Number.parseInt(hex.slice(2 * f, 3 * f), 16)
-  const alpha = Number.parseInt(hex.slice(3 * f, 4 * f) || 'ff', 16)
-
-  // If it's a 3/4 digit hex, copy the bytes to the left.
-  if (f === 1) {
-    red = red | (red << 4)
-    green = green | (green << 4)
-    blue = blue | (blue << 4)
-  }
-
-  return new Color(red / 255, green / 255, blue / 255, alpha / 255)
 }
