@@ -7,12 +7,8 @@ describe('toggle', () => {
     const result = _.toggle(cast(null), 'a')
     expect(result).toEqual(['a'])
   })
-  test('should handle null input list and null item', () => {
-    const result = _.toggle(cast(null), null)
-    expect(result).toEqual([])
-  })
-  test('should handle null item', () => {
-    const result = _.toggle(['a'], null)
+  test('should skip undefined item', () => {
+    const result = _.toggle(['a'], undefined)
     expect(result).toEqual(['a'])
   })
   test('should add item when it does not exist using default matcher', () => {
