@@ -27,5 +27,8 @@
   "[typescript]": {
     "editor.defaultFormatter": "biomejs.biome",
     "rewrap.wrappingColumn": 70
+  },
+  "[shellscript]": {
+    "rewrap.wrappingColumn": 70
   }
 }

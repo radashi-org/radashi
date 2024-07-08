@@ -3,5 +3,6 @@
   "bracketSpacing": true,
   "singleQuote": true,
   "semi": false,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "plugins": ["prettier-plugin-sh"]
 }
