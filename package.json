@@ -1,49 +1,22 @@
 {
   "name": "radashi",
   "version": "12.1.0",
-  "description": "Functional utility library - modern, simple, typed, powerful",
-  "sideEffects": false,
-  "author": "Alec Larson",
-  "contributors": ["Ray Epps"],
   "type": "module",
+  "description": "Functional utility library - modern, simple, typed, powerful",
+  "repository": {
+    "url": "git+https://github.com/radashi-org/radashi.git"
+  },
+  "author": "Alec Larson",
+  "contributors": [
+    "Ray Epps"
+  ],
   "license": "MIT",
-  "scripts": {
-    "dev": "tsup --clean --watch --sourcemap",
-    "build": "tsup --clean",
-    "lint": "concurrently -c=auto -g --kill-others-on-fail 'npm:lint:*'",
-    "lint:tsc": "concurrently -c=auto -g --kill-others-on-fail --names src,tests,benchmarks 'tsc' 'tsc -p tests' 'tsc -p benchmarks'",
-    "lint:biome": "biome check ./src ./tests ./benchmarks",
-    "lint:jsr": "pnpm -s dlx deno-bin@1.44.4 lint",
-    "format": "bash ./scripts/format.sh",
-    "test": "vitest run --coverage",
-    "test-single": "bash ./scripts/test-single.sh",
-    "test-branch": "bash ./scripts/test-branch.sh",
-    "bench": "vitest bench",
-    "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
-    "add-function": "bash ./scripts/add-function.sh"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.8.3",
-    "@codspeed/vitest-plugin": "^3.1.0",
-    "@vitest/coverage-v8": "1.6.0",
-    "concurrently": "^8.2.2",
-    "prettier": "^3.3.2",
-    "prettier-plugin-sh": "^0.14.0",
-    "tsup": "^8.1.0",
-    "typescript": "^5.5.2",
-    "vitest": "1.6.0"
-  },
   "packageManager": "pnpm@9.1.3",
   "engines": {
     "node": ">=16.0.0"
   },
-  "files": ["dist"],
-  "repository": {
-    "url": "git+https://github.com/radashi-org/radashi.git"
-  },
   "main": "dist/radashi.cjs",
   "module": "dist/radashi.js",
-  "types": "dist/radashi.d.cts",
   "exports": {
     "require": {
       "types": "./dist/radashi.d.cts",
@@ -52,6 +25,38 @@
     "types": "./dist/radashi.d.ts",
     "default": "./dist/radashi.js"
   },
+  "types": "dist/radashi.d.cts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "add-function": "bash ./scripts/add-function.sh",
+    "bench": "vitest bench",
+    "build": "tsup --clean",
+    "dev": "tsup --clean --watch --sourcemap",
+    "format": "bash ./scripts/format.sh",
+    "lint": "concurrently -c=auto -g --kill-others-on-fail 'npm:lint:*'",
+    "lint:biome": "biome check ./src ./tests ./benchmarks",
+    "lint:jsr": "pnpm -s dlx deno-bin@1.44.4 lint",
+    "lint:tsc": "concurrently -c=auto -g --kill-others-on-fail --names src,tests,benchmarks 'tsc' 'tsc -p tests' 'tsc -p benchmarks'",
+    "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
+    "test": "vitest run --coverage",
+    "test-branch": "bash ./scripts/test-branch.sh",
+    "test-single": "bash ./scripts/test-single.sh"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@codspeed/vitest-plugin": "^3.1.0",
+    "@vitest/coverage-v8": "1.6.0",
+    "concurrently": "^8.2.2",
+    "prettier": "^3.3.2",
+    "prettier-plugin-pkg": "^0.18.1",
+    "prettier-plugin-sh": "^0.14.0",
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.2",
+    "vitest": "1.6.0"
+  },
+  "sideEffects": false,
   "pnpm": {
     "patchedDependencies": {
       "@codspeed/vitest-plugin@3.1.0": "patches/@codspeed__vitest-plugin@3.1.0.patch"
