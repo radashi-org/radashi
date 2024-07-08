@@ -1,11 +1,15 @@
 ---
 title: inRange
-description: Checks if the given number is between two numbers. The starting number is inclusive. The ending number is exclusive. The start and the end of the range can be ascending OR descending order. If end is not specified, it's set to start value. And start is set to 0.
+description: Verifies number within range, inclusive start, exclusive end, flexible order, defaulting to 0 if end unspecified
 ---
 
-## Basic usage
+### Basic usage
 
 Pass the number, the start and the end (optional) of the range. The `_.inRange` function will return true if the given number is in the range.
+
+- The start is inclusive, the end is exclusive. So 10 is in the range 0-11 and 10-20, but not 0-10.
+- If an end is unspecified, the range defaults to `>= 0 and < start`.
+- If the end is lower than the start, the range is reversed.
 
 ```ts
 import * as _ from 'radashi'
