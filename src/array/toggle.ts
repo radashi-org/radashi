@@ -33,6 +33,9 @@ export function toggle<T>(
   if (!array) {
     return item !== undefined ? [item] : []
   }
+  if (item === undefined) {
+    return [...array]
+  }
 
   const matcher = toKey
     ? (x: T, idx: number) => toKey(x, idx) === toKey(item, idx)
