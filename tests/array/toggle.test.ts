@@ -1,6 +1,20 @@
 import * as _ from 'radashi'
 
+const cast = <T = any[]>(value: any): T => value
+
 describe('toggle', () => {
+  test('should handle null input list', () => {
+    const result = _.toggle(cast(null), 'a')
+    expect(result).toEqual(['a'])
+  })
+  test('should handle null input list and null item', () => {
+    const result = _.toggle(cast(null), null)
+    expect(result).toEqual([])
+  })
+  test('should handle null item', () => {
+    const result = _.toggle(['a'], null)
+    expect(result).toEqual(['a'])
+  })
   test('should add item when it does not exist using default matcher', () => {
     const result = _.toggle(['a'], 'b')
     expect(result).toEqual(['a', 'b'])

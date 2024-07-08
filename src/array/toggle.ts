@@ -30,6 +30,16 @@ export function toggle<T>(
     strategy?: 'prepend' | 'append'
   },
 ): T[] {
+  if (!array && !item) {
+    return []
+  }
+  if (!array) {
+    return [item]
+  }
+  if (!item) {
+    return [...array]
+  }
+
   const matcher = toKey
     ? (x: T, idx: number) => toKey(x, idx) === toKey(item, idx)
     : (x: T) => x === item
