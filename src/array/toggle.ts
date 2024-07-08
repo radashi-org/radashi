@@ -30,14 +30,8 @@ export function toggle<T>(
     strategy?: 'prepend' | 'append'
   },
 ): T[] {
-  if (!array && !item) {
-    return []
-  }
   if (!array) {
-    return [item]
-  }
-  if (!item) {
-    return [...array]
+    return item !== undefined ? [item] : []
   }
 
   const matcher = toKey
