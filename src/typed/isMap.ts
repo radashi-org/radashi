@@ -6,9 +6,9 @@ export function isMap<Input>(
   Input,
   ReadonlyMap<any, any>
 >
-  ? Extract<Input, ReadonlyMap<any, any>>
+  ? Extract<Input, ReadonlyMap<unknown, unknown>>
   : Map<any, any> extends ExtractNotAny<Input, Map<any, any>>
-    ? Extract<Input, Map<any, any>>
+    ? Extract<Input, Map<unknown, unknown>>
     : Map<unknown, unknown> extends Input
       ? Map<unknown, unknown>
       : never
