@@ -36,4 +36,31 @@ describe('ownPropertyNames', () => {
     const result = Array.from(_.ownPropertyNames(new TestClass()))
     expect(result).toEqual(['a'])
   })
+  test("don't provide unexpected properties after type narrowing", () => {
+    type FullLog = 'debug' | 'info' | 'error' | 'warn'
+    type ProdLog = Extract<FullLog, 'warn' | 'error'>
+
+    const error = vi.fn()
+    const warn = vi.fn()
+
+    const handlers = { error, warn }
+
+    function handleLogs(logs: { [key in ProdLog]: number }) {
+      for (const log of _.ownPropertyNames(logs)) {
+        handlers[log]()
+      }
+    }
+
+    const logs: { [key in FullLog]: number } = {
+      error: 1,
+      warn: 2,
+      info: 3,
+      debug: 4,
+    }
+
+    handleLogs(logs)
+
+    expect(error).toHaveBeenCalledTimes(1)
+    expect(warn).toHaveBeenCalledTimes(1)
+  })
 })
