@@ -35,15 +35,25 @@ done
 index=0
 while [ $index -lt ${#SOURCE_FILES[@]} ]; do
   file=${SOURCE_FILES[$index]}
+
   func_name=$(basename $file)
   func_name=${func_name/.ts/}
 
-  IMPORTERS=$(rg "import[^}]*?\b$func_name\b" -U -l -- src)
-  for importer in $IMPORTERS; do
-    if [[ ! " ${SOURCE_FILES[@]} " =~ " ${importer} " ]]; then
-      add_source_file "$importer"
-    fi
-  done
+  if command -v rgz &> /dev/null; then
+    IMPORTERS=$(rg "import[^}]*?\b$func_name\b" -U -l -- src)
+
+    for importer in $IMPORTERS; do
+      if [[ ! " ${SOURCE_FILES[@]} " =~ " ${importer} " ]]; then
+        add_source_file "$importer"
+      fi
+    done
+  else
+    echo -e "ripgrep (rg) is not installed. Please install it to use this script:\n"
+    echo "  > brew install ripgrep"
+    echo "  > sudo apt-get install ripgrep"
+    echo -e "\n  https://github.com/BurntSushi/ripgrep/blob/master/README.md#installation\n"
+    exit 1
+  fi
 
   index=$((index + 1))
 done
