@@ -6,17 +6,17 @@ export function isMap<Input>(value: Input): value is ExtractMap<Input> {
 
 /**
  * An absurdly complicated but accurate type for extracting Map types.
+ *
+ * It's like `Extract<T, Map<any, any>>` but better with edge cases.
  */
-export type ExtractMap<Input> = Input extends any
-  ? [StrictExtract<Input, ReadonlyMap<unknown, unknown>>] extends [
+export type ExtractMap<T> = T extends any
+  ? [StrictExtract<T, ReadonlyMap<unknown, unknown>>] extends [
       ReadonlyMap<unknown, unknown>,
     ]
-    ? Extract<Input, ReadonlyMap<unknown, unknown>>
-    : [StrictExtract<Input, Map<unknown, unknown>>] extends [
-          Map<unknown, unknown>,
-        ]
-      ? Extract<Input, Map<unknown, unknown>>
-      : Map<unknown, unknown> extends Input
+    ? Extract<T, ReadonlyMap<unknown, unknown>>
+    : [StrictExtract<T, Map<unknown, unknown>>] extends [Map<unknown, unknown>]
+      ? Extract<T, Map<unknown, unknown>>
+      : Map<unknown, unknown> extends T
         ? Map<unknown, unknown>
         : never
   : never

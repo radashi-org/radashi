@@ -4,12 +4,17 @@ export const isArray = Array.isArray as <Input>(
   value: Input,
 ) => value is ExtractArray<Input>
 
-export type ExtractArray<Input> = Input extends any
-  ? [StrictExtract<Input, readonly any[]>] extends [readonly any[]]
-    ? Extract<Input, readonly any[]>
-    : [StrictExtract<Input, any[]>] extends [any[]]
-      ? Extract<Input, any[]>
-      : unknown[] extends Input
+/**
+ * An absurdly complicated but accurate type for extracting Array types.
+ *
+ * It's like `Extract<T, any[]>` but better with edge cases.
+ */
+export type ExtractArray<T> = T extends any
+  ? [StrictExtract<T, readonly any[]>] extends [readonly any[]]
+    ? Extract<T, readonly any[]>
+    : [StrictExtract<T, any[]>] extends [any[]]
+      ? Extract<T, any[]>
+      : unknown[] extends T
         ? unknown[]
         : never
   : never
