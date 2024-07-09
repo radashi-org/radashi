@@ -3,7 +3,7 @@ title: throttle
 description: Create a throttled callback function
 ---
 
-## Basic usage
+### Usage
 
 Throttle accepts an options object with an `interval` and a source function to call
 when invoked. When the returned function is invoked it will only call the source
@@ -27,9 +27,9 @@ returned by `throttle` can be called every millisecond but it will only call
 the given callback after `interval` milliseconds have passed.
 
 ```sh
-                Time: 0ms - - - - 100ms - - - - 200ms - - - - 300ms - - - - 400ms - - - -
+Time: 0ms - - - - 100ms - - - - 200ms - - - - 300ms - - - - 400ms - - - -
 Throttle Invocations: x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x - - -
-  Source Invocations: x - - - - - - - - - - - - x - - - - - - - - - - - - - x - - - - - -
+Source Invocations: x - - - - - - - - - - - - x - - - - - - - - - - - - - x - - - - - -
 ```
 
 ### isThrottled

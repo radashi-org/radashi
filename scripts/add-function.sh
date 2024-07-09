@@ -46,7 +46,7 @@ if [ ! -f "$DOCS_FILE" ]; then
   read -r DESCRIPTION
 
   mkdir -p "$DOCS_DIR"
-  echo -e "---\ntitle: $FUNC_NAME\ndescription: $DESCRIPTION\n---\n\n## Basic usage\n\nDoes a thing. Returns a value.\n\n\`\`\`ts\nimport * as _ from 'radashi'\n\n_.$FUNC_NAME()\n\`\`\`" > "$DOCS_FILE"
+  echo -e "---\ntitle: $FUNC_NAME\ndescription: $DESCRIPTION\n---\n\n### Usage\n\nDoes a thing. Returns a value.\n\n\`\`\`ts\nimport * as _ from 'radashi'\n\n_.$FUNC_NAME()\n\`\`\`" > "$DOCS_FILE"
 else
   echo "Warning: $DOCS_FILE already exists. Skipping."
 fi
