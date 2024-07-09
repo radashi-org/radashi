@@ -1,0 +1,11 @@
+export function toArrayIfExists<T>(
+  value: T | readonly T[],
+): T extends any[]
+  ? T[number][]
+  : T extends readonly any[]
+    ? readonly T[number][]
+    : Exclude<T, null | undefined>[] | undefined
+
+export function toArrayIfExists<T>(value: T | readonly T[]): any {
+  return Array.isArray(value) ? [...value] : value != null ? [value] : undefined
+}
