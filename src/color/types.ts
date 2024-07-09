@@ -10,8 +10,9 @@ import type {
   ColorValues,
   ParsedColor,
 } from './model/types'
+import * as ColorXYZ from './model/xyz'
 
-export { ColorHex, ColorHSL, ColorLAB, ColorOKLCH, ColorRGB }
+export { ColorHex, ColorHSL, ColorLAB, ColorOKLCH, ColorRGB, ColorXYZ }
 
 export type ColorLike = Color | string
 
@@ -23,15 +24,14 @@ export declare namespace Color {
   export type HSL = Color<ColorHSL.Type>
   export type LAB = Color<ColorLAB.Type>
   export type OKLCH = Color<ColorOKLCH.Type>
+  export type XYZ = Color<ColorXYZ.Type>
 
   /**
    * The color model identifies the name of the colorspace and its
    * components (in order of occurrence in CSS format).
    */
-  export type Type<
-    ComponentList extends AnyComponentList = AnyComponentList,
-    Alpha extends boolean = boolean,
-  > = ColorType<ComponentList, Alpha>
+  export type Type<ComponentList extends AnyComponentList = AnyComponentList> =
+    ColorType<ComponentList>
 
   /**
    * A color parser that returns a color in a specific colorspace.

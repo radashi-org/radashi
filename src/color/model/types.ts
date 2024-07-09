@@ -2,23 +2,14 @@ export type AnyComponentList = readonly string[]
 
 export type ParsedColor<Type extends ColorType = ColorType> =
   {} & (Type extends any
-    ? {
-        type: Type
-        alpha: number
-        /**
-         * Returns a string representation of the color in its format.
-         */
-        toString(): string
-      } & ColorValues<Type>
+    ? { type: Type; alpha: number } & ColorValues<Type>
     : never)
 
 export type ColorType<
   ComponentList extends AnyComponentList = AnyComponentList,
-  Alpha extends boolean = boolean,
 > = {
   name: string
   components: ComponentList
-  alpha?: Alpha
 }
 
 export type ColorParser<
