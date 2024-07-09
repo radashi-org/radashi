@@ -1,18 +1,22 @@
-import { type ExtractNotAny, isTagged } from 'radashi'
+import { isTagged, type StrictExtract } from 'radashi'
 
-export function isMap<Input>(
-  value: Input,
-): value is ReadonlyMap<any, any> extends ExtractNotAny<
-  Input,
-  ReadonlyMap<any, any>
->
-  ? Extract<Input, ReadonlyMap<unknown, unknown>>
-  : Map<any, any> extends ExtractNotAny<Input, Map<any, any>>
-    ? Extract<Input, Map<unknown, unknown>>
-    : Map<unknown, unknown> extends Input
-      ? Map<unknown, unknown>
-      : never
-
-export function isMap(value: unknown): boolean {
+export function isMap<Input>(value: Input): value is ExtractMap<Input> {
   return isTagged(value, '[object Map]')
 }
+
+/**
+ * An absurdly complicated but accurate type for extracting Map types.
+ */
+export type ExtractMap<Input> = Input extends any
+  ? [StrictExtract<Input, ReadonlyMap<unknown, unknown>>] extends [
+      ReadonlyMap<unknown, unknown>,
+    ]
+    ? Extract<Input, ReadonlyMap<unknown, unknown>>
+    : [StrictExtract<Input, Map<unknown, unknown>>] extends [
+          Map<unknown, unknown>,
+        ]
+      ? Extract<Input, Map<unknown, unknown>>
+      : Map<unknown, unknown> extends Input
+        ? Map<unknown, unknown>
+        : never
+  : never

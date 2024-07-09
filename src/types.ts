@@ -23,3 +23,15 @@ export declare class Any {
  * ```
  */
 export type ExtractNotAny<T, U> = Extract<[T] extends [Any] ? never : T, U>
+
+export type SwitchAny<T, U> = [T] extends [Any] ? U : T
+export type SwitchNever<T, U> = [T] extends [never] ? U : T
+
+/**
+ * Extract types in `T` that are assignable to `U`. Coerce `any` and
+ * `never` types to unknown.
+ */
+export type StrictExtract<T, U> = SwitchNever<
+  Extract<SwitchAny<T, unknown>, U>,
+  unknown
+>

@@ -17,6 +17,14 @@ describe('isArray return type', () => {
       expectTypeOf(value).toEqualTypeOf<unknown>()
     }
   })
+  test('value is never', () => {
+    const value = {} as never
+    if (_.isArray(value)) {
+      expectTypeOf(value).toEqualTypeOf<never>()
+    } else {
+      expectTypeOf(value).toEqualTypeOf<never>()
+    }
+  })
   test('value is string', () => {
     const value = {} as string
     if (_.isArray(value)) {
@@ -25,7 +33,7 @@ describe('isArray return type', () => {
       expectTypeOf(value).toEqualTypeOf<string>()
     }
   })
-  test('value is string or ReadonlyMap', () => {
+  test('value is string or readonly string[]', () => {
     const value = {} as string | readonly string[]
     if (_.isArray(value)) {
       expectTypeOf(value).toEqualTypeOf<readonly string[]>()
@@ -33,7 +41,7 @@ describe('isArray return type', () => {
       expectTypeOf(value).toEqualTypeOf<string>()
     }
   })
-  test('value is string, ReadonlyMap, or Map', () => {
+  test('value is string, readonly string[], or string[]', () => {
     const value = {} as string | readonly string[] | string[]
     if (_.isArray(value)) {
       expectTypeOf(value).toEqualTypeOf<readonly string[] | string[]>()
@@ -41,12 +49,20 @@ describe('isArray return type', () => {
       expectTypeOf(value).toEqualTypeOf<string>()
     }
   })
-  test('value is string or Map', () => {
+  test('value is string or string[]', () => {
     const value = {} as string | string[]
     if (_.isArray(value)) {
       expectTypeOf(value).toEqualTypeOf<string[]>()
     } else {
       expectTypeOf(value).toEqualTypeOf<string>()
+    }
+  })
+  test('value is readonly [number, number] | number', () => {
+    const value = {} as readonly [number, number] | number
+    if (_.isArray(value)) {
+      expectTypeOf(value).toEqualTypeOf<readonly [number, number]>()
+    } else {
+      expectTypeOf(value).toEqualTypeOf<number>()
     }
   })
 })

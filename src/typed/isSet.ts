@@ -1,15 +1,15 @@
-import { type ExtractNotAny, isTagged } from 'radashi'
+import { isTagged, type StrictExtract } from 'radashi'
 
-export function isSet<Input>(
-  value: Input,
-): value is ReadonlySet<any> extends ExtractNotAny<Input, ReadonlySet<any>>
-  ? Extract<Input, ReadonlySet<unknown>>
-  : Set<any> extends ExtractNotAny<Input, Set<any>>
-    ? Extract<Input, Set<unknown>>
-    : Set<unknown> extends Input
-      ? Set<unknown>
-      : never
-
-export function isSet(value: unknown): boolean {
+export function isSet<Input>(value: Input): value is ExtractSet<Input> {
   return isTagged(value, '[object Set]')
 }
+
+export type ExtractSet<Input> = Input extends any
+  ? [StrictExtract<Input, ReadonlySet<unknown>>] extends [ReadonlySet<unknown>]
+    ? Extract<Input, ReadonlySet<unknown>>
+    : [StrictExtract<Input, Set<unknown>>] extends [Set<unknown>]
+      ? Extract<Input, Set<unknown>>
+      : Set<unknown> extends Input
+        ? Set<unknown>
+        : never
+  : never
