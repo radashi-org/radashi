@@ -23,6 +23,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `lerp` function by [@aleclarson](https://github.com/aleclarson) in [#86](https://github.com/radashi-org/radashi/pull/86)
 
+- Add `isMap` function by [@aleclarson](https://github.com/aleclarson) in [4f2e48c](https://github.com/radashi-org/radashi/commit/4f2e48c24e7e10162cf0040f8c9b7b91bc9a37c0)
+- Add `isRegExp` function by [@aleclarson](https://github.com/aleclarson) in [58e7d96](https://github.com/radashi-org/radashi/commit/58e7d96baed7ea73e09dff3884aeebb6150f9485)
+- Add `isSet` function by [@aleclarson](https://github.com/aleclarson) in [73e70c1](https://github.com/radashi-org/radashi/commit/73e70c1011fffa21d1d38bb04d5616073c8e8739)
+- Add `isWeakSet` function by [@aleclarson](https://github.com/aleclarson) in [aacd5be](https://github.com/radashi-org/radashi/commit/aacd5be35e38e4ba7a6ecabb7942eafb26111486)
+- Add `isWeakMap` function by [@aleclarson](https://github.com/aleclarson) in [f32cfd5](https://github.com/radashi-org/radashi/commit/f32cfd5c2160724d5d12d3e9f9a43c328daf0f4d)
 
 #### <!-- 05 -->Changed
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
