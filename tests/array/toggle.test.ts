@@ -4,8 +4,10 @@ const cast = <T = any[]>(value: any): T => value
 
 describe('toggle', () => {
   test('should handle null input list', () => {
-    const result = _.toggle(cast(null), 'a')
+    let result = _.toggle(cast(null), 'a')
     expect(result).toEqual(['a'])
+    result = _.toggle(cast(null), undefined)
+    expect(result).toEqual([])
   })
   test('should skip undefined item', () => {
     const result = _.toggle(['a'], undefined)
