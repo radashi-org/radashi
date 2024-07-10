@@ -9,7 +9,12 @@ export default defineConfig(({ mode }) => ({
     globals: true,
     coverage: {
       thresholds: { 100: true },
-      exclude: ['*.config.ts', 'benchmarks/**', 'tests/**/*.test-d.ts'],
+      exclude: [
+        '*.config.ts',
+        'benchmarks/**',
+        'scripts/**',
+        'tests/**/*.test-d.ts',
+      ],
     },
   },
   resolve: {

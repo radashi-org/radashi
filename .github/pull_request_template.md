@@ -34,4 +34,6 @@ No
 
 ## Bundle impact
 
+<!-- This is calculated in Github Actions. -->
+
 _Calculating..._
