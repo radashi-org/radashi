@@ -63,6 +63,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use typeof in `isFunction` by [@aleclarson](https://github.com/aleclarson) in [6ad96f4](https://github.com/radashi-org/radashi/commit/6ad96f44f17949ee33acda9a073307b19dca7796)
 - `toInt` and `toFloat` should not throw on symbols by [@aleclarson](https://github.com/aleclarson) in [cafc7fc](https://github.com/radashi-org/radashi/commit/cafc7fc4833447d6e5ed6bdc88957201aae6372a)
+- **(toggle)** Handle falsy input as expected by [@Minhir](https://github.com/Minhir) in [#82](https://github.com/radashi-org/radashi/pull/82)
+
 
 #### <!-- 07 -->Performance
 - Avoid excessive array allocation in `fork` by [@localusercamp](https://github.com/localusercamp) in [#33](https://github.com/radashi-org/radashi/pull/33)
@@ -93,6 +95,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `select` return type when no condition is defined by [@aleclarson](https://github.com/aleclarson) in [ab76d65](https://github.com/radashi-org/radashi/commit/ab76d6502e479b378ad824c89974f389ec597a9e)
 - Add `FilteredKeys` type by [@aleclarson](https://github.com/aleclarson) in [6a6f899](https://github.com/radashi-org/radashi/commit/6a6f899316229efc6706d8c40998df5fa99e004b)
 - Improve the return type of `filterKey` by [@aleclarson](https://github.com/aleclarson) in [bc298c6](https://github.com/radashi-org/radashi/commit/bc298c6cfcaaf74726e1f2b901e210dea1fed641)
+- Handle tuples in `isArray` return type by [@aleclarson](https://github.com/aleclarson) in [9257535](https://github.com/radashi-org/radashi/commit/925753578761bda277838bf8fbbcc24b3813f2b9)
 
 ### New Contributors
 * [@eumkz](https://github.com/eumkz) made their first contribution in [#76](https://github.com/radashi-org/radashi/pull/76)
