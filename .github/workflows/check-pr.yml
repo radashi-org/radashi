@@ -27,7 +27,7 @@ jobs:
     name: Validate
     runs-on: ubuntu-latest
     env:
-      PR_TITLE: "${{ github.event.pull_request.title }}"
+      PR_TITLE: '${{ github.event.pull_request.title }}'
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -41,3 +41,10 @@ jobs:
         run: pnpm lint
       - name: Check PR Title
         run: echo "$PR_TITLE" | pnpm -s dlx commitlint@19.x
+      - name: Refresh Bundle Impact
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { run } = require('./scripts/pr-bundle-impact.cjs');
+            run({ github, core, context });

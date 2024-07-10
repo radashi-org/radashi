@@ -42,7 +42,8 @@
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
     "test": "vitest run --coverage",
     "test-branch": "bash ./scripts/test-branch.sh",
-    "test-single": "bash ./scripts/test-single.sh"
+    "test-single": "bash ./scripts/test-single.sh",
+    "bundle-impact": "bash ./scripts/weigh-changed.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",

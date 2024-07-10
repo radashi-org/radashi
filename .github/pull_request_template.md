@@ -31,3 +31,7 @@ Yes
 No
 
 <!-- If yes, describe the impact and migration path for existing applications. -->
+
+## Bundle impact
+
+_Calculating..._

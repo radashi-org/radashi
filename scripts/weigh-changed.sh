@@ -7,6 +7,20 @@ TARGET_BRANCH=${TARGET_BRANCH:-main}
 # Get the list of changed source files relative to the target branch.
 CHANGES=$(git diff --name-status "$TARGET_BRANCH" HEAD -- 'src/*/*.ts')
 
+# Separate the file statuses and file names.
+FILE_STATUSES=()
+FILE_NAMES=()
+
+i=0
+for item in $CHANGES; do
+  if [ $((i % 2)) -eq 0 ]; then
+    FILE_STATUSES+=($item)
+  else
+    FILE_NAMES+=($item)
+  fi
+  i=$((i + 1))
+done
+
 # If esbuild is not found, install it.
 if ! which esbuild > /dev/null 2>&1; then
   # If not CI, confirm the installation:
@@ -28,27 +42,31 @@ PREV_SIZES=()
 
 # Collect previous sizes if there are no uncommitted changes.
 if [ -z "$(git status -s)" ]; then
-  git checkout "$TARGET_BRANCH"
+  git checkout "$TARGET_BRANCH" &> /dev/null
 
-  for line in $CHANGES; do
-    status=${line:0:1}
-    file=${line:1}
+  i=0
+  for file in "${FILE_NAMES[@]}"; do
+    status=${FILE_STATUSES[$i]}
 
-    bytes=$(esbuild --bundle --minify "$file" | wc -c | tr -d '[:space:]')
     if [ "$status" == "A" ]; then
       PREV_SIZES+=(0)
     else
-      PREV_SIZES+=(bytes)
+      PREV_SIZES+=($(esbuild --bundle --minify "$file" | wc -c | tr -d '[:space:]'))
     fi
+
+    i=$((i + 1))
   done
 
-  git checkout -
+  git checkout - &> /dev/null
 fi
 
 column_count=2
+if [ ${#PREV_SIZES[@]} -gt 0 ]; then
+  column_count=3
+fi
+
 if [[ -n "$CI" ]]; then
-  if [ ${#PREV_SIZES[@]} -gt 0 ]; then
-    column_count=3
+  if [ "$column_count" -gt 2 ]; then
     echo "| File | Size | Difference (%) |"
     echo "|---|---|---|"
   else
@@ -57,12 +75,11 @@ if [[ -n "$CI" ]]; then
   fi
 fi
 
-for line in $CHANGES; do
-  status=${line:0:1}
-  file=${line:1}
+i=0
+for file in "${FILE_NAMES[@]}"; do
+  status=${FILE_STATUSES[$i]}
 
-  prev_bytes=0
-  if [ "$column_count" -gt 0 ]; then
+  if [ "$column_count" -gt 2 ]; then
     prev_bytes=${PREV_SIZES[$i]}
   fi
 
@@ -72,16 +89,30 @@ for line in $CHANGES; do
     bytes=$(esbuild --bundle --minify "$file" | wc -c | tr -d '[:space:]')
   fi
 
-  if [[ -n "$CI" ]]; then
-    if [ "$column_count" -gt 0 ]; then
-      ratio=$(echo "scale=0; (100 * $bytes / $prev_bytes) - 100" | bc -l)
-      ratio=$(if [ "$ratio" -ge 0 ]; then echo "+"; fi)$ratio
+  diff=$((bytes - prev_bytes))
+  diff=$(if [ "$diff" -ge 0 ]; then echo "+"; fi)$diff
 
-      echo "| $file | $bytes | $((bytes - prev_bytes)) ($ratio%) |"
+  if [ "$column_count" -gt 2 ] && [ "$prev_bytes" -ne 0 ]; then
+    ratio=$(echo "scale=0; (100 * $bytes / $prev_bytes) - 100" | bc -l)
+    ratio=$(if [ "$ratio" -ge 0 ]; then echo "+"; fi)$ratio
+    ratio=" ($ratio%)"
+  else
+    ratio=""
+  fi
+
+  if [[ -n "$CI" ]]; then
+    if [ "$column_count" -gt 2 ]; then
+      echo "| $file | $bytes | $diff$ratio |"
     else
       echo "| $file | $bytes |"
     fi
   else
-    echo "$file: $bytes bytes"
+    if [ "$column_count" -gt 2 ] && [ "$prev_bytes" -ne 0 ]; then
+      echo "$file: $bytes bytes ($diff bytes)$ratio"
+    else
+      echo "$file: $bytes bytes"
+    fi
   fi
+
+  i=$((i + 1))
 done
