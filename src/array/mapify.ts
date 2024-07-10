@@ -19,12 +19,13 @@
  */
 export function mapify<T, Key, Value = T>(
   array: readonly T[],
-  getKey: (item: T) => Key,
-  getValue: (item: T) => Value = item => item as unknown as Value,
+  getKey: (item: T, index: number) => Key,
+  getValue: (item: T, index: number) => Value = item =>
+    item as unknown as Value,
 ): Map<Key, Value> {
   const map: Map<Key, Value> = new Map()
   for (const item of array) {
-    map.set(getKey(item), getValue(item))
+    map.set(getKey(item, map.size), getValue(item, map.size))
   }
   return map
 }
