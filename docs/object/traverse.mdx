@@ -3,12 +3,184 @@ title: traverse
 description: Deeply enumerate an object and any nested objects
 ---
 
-## Basic usage
+### Usage
 
-Does a thing. Returns a value.
+Recursively visit each property of an object (or each element of an array) and its nested objects or arrays. To traverse non-array iterables (e.g. `Map`, `Set`) and class instances, see the “Traversing other objects” section.
 
 ```ts
 import * as _ from 'radashi'
 
-_.traverse()
+const root = { a: { b: 2 }, c: [1, 2] }
+
+_.traverse(root, (value, key, parent, context) => {
+  const depth = context.parents.length
+  console.log(' '.repeat(depth * 2), key, '=>', value)
+})
+// Logs the following:
+//   a => { b: 2 }
+//     b => 2
+//   c => [1, 2]
+//     0 => 1
+//     1 => 2
+```
+
+:::tip[Did you know?]
+
+- Sparse arrays don't have their holes visited.
+- Circular references are skipped.
+
+:::
+
+## Types
+
+### TraverseVisitor
+
+The `TraverseVisitor` type represents the function passed to `traverse` as its 2nd argument. If you ever need to declare a visitor separate from a `traverse` call, you can do so by declaring a function with this type signature.
+
+```ts
+import { TraverseVisitor } from 'radashi'
+
+const visitor: TraverseVisitor = (value, key, parent, context) => {
+  // ...
+}
+```
+
+### TraverseContext
+
+Every visit includes a context object typed with `TraverseContext`, which contains the following properties:
+
+- `key`: The current key being visited.
+- `parent`: The parent object of the current value.
+- `parents`: An array of objects (from parent to child) that the current value is contained by.
+- `path`: An array of keys/indices (from parent to child) that the current value is contained by.
+- `skip`: A function used for skipping traversal of an object. If no object is provided, the current value is skipped.
+- `skipped`: A set of objects that have been skipped.
+- `value`: The current value being visited.
+
+:::danger
+
+The `path` and `parents` arrays are mutated by the `traverse` function. If you need to use them after the current visit, you should make a copy.
+
+:::
+
+### TraverseOptions
+
+You may set these options for `traverse` using an object as its 3rd argument.
+
+- `ownKeys`: A function that returns the own enumerable property names of an object.
+- `rootNeedsVisit`: A boolean indicating whether the root object should be visited.
+
+See the [Options](#options) section for more details.
+
+## Options
+
+### Traversing all properties
+
+By default, non-enumerable properties and symbol properties are skipped. You can pass in a custom `ownKeys` implementation to control which object properties are visited.
+
+This example shows how `Reflect.ownKeys` can be used to include non-enumerable properties and symbol properties. Note that symbol properties are always traversed last when using `Reflect.ownKeys`.
+
+```ts
+import * as _ from 'radashi'
+
+const symbol = Symbol('b')
+const root = { [symbol]: 1 }
+Object.defineProperty(root, 'a', { value: 2, enumerable: false })
+
+_.traverse(
+  root,
+  (value, key) => {
+    console.log(key, '=>', value)
+  },
+  { ownKeys: Reflect.ownKeys },
+)
+// Logs the following:
+//   a => 2
+//   Symbol(b) => 1
+```
+
+### Visiting the root object
+
+By default, your `visitor` callback will never receive the object passed into `traverse`. To override this behavior, set the `rootNeedsVisit` option to true.
+
+When the root object is visited, the `key` will be `null`.
+
+```ts
+import * as _ from 'radashi'
+
+const root = { a: 1 }
+
+_.traverse(
+  root,
+  (value, key) => {
+    console.log(key, '=>', value)
+  },
+  { rootNeedsVisit: true },
+)
+// Logs the following:
+//   null => { a: 1 }
+//   a => 1
+```
+
+## Advanced
+
+### Traversing other objects
+
+If traversing plain objects and arrays isn't enough, try calling `traverse` from within another `traverse` callback like follows. This takes advantage of the fact that the root object is always traversed.
+
+```ts
+import * as _ from 'radashi'
+
+// Note how we're using a named visitor function so it can reference itself.
+_.traverse(root, function visitor(value, key, parent, context, options) {
+  if (value instanceof MyClass) {
+    return _.traverse(value, visitor, options, context)
+  }
+  // TODO: Handle other values as needed.
+})
+```
+
+If you didn't set any options, the `options` argument can be null:
+
+```ts
+return _.traverse(root, visitor, null, context)
+```
+
+### Exiting early
+
+If your `visitor` callback returns false, `traverse` will exit early and also return false. This is useful if you found what you wanted, so you don't need to traverse the rest of the objects.
+
+```ts
+let found = null
+_.traverse(root, value => {
+  if (isWhatImLookingFor(value)) {
+    found = value
+    return false
+  }
+})
+```
+
+### Leave callbacks
+
+If your `visitor` callback returns a function, it will be called once `traverse` has visited every visitable property/element within the current object. This is known as a “leave callback”.
+
+Your leave callback can return false to exit traversal early.
+
+```ts
+_.traverse({ arr: ['a', 'b'] }, (value, key) => {
+  if (isArray(value)) {
+    console.log('start of array')
+    return () => {
+      console.log('end of array')
+      return false
+    }
+  } else {
+    console.log(key, '=>', value)
+  }
+})
+// Logs the following:
+//     start of array
+//     0 => 'a'
+//     1 => 'b'
+//     end of array
 ```
