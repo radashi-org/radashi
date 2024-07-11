@@ -26,30 +26,46 @@ import { isArray, isFunction, isIterable, isPlainObject, last } from 'radashi'
  *   To traverse a nested iterable or class instance, you can call
  *   `traverse` inside your `visitor` callback recursively, but make
  *   sure to pass the `context` object to it.
+ *
+ * - **Visiting The Root Object**  \
+ *   If the `rootNeedsVisit` option is enabled, the `visitor` callback
+ *   will be invoked for the root object.
  */
 export function traverse(
   root: object,
   visitor: TraverseVisitor,
   outerContext?: TraverseContext | null,
+  ownKeys?: (parent: object) => Iterable<keyof any>,
+): boolean
+
+export function traverse(
+  root: object,
+  visitor: TraverseVisitor<keyof any | null>,
+  outerContext: TraverseContext<keyof any | null> | null | undefined,
+  ownKeys: ((parent: object) => Iterable<keyof any>) | undefined,
+  rootNeedsVisit: boolean | undefined,
+): boolean
+
+export function traverse(
+  root: object,
+  visitor: TraverseVisitor<any>,
+  outerContext?: TraverseContext<any> | null,
   ownKeys: (parent: object) => Iterable<keyof any> = Object.keys,
+  rootNeedsVisit?: boolean,
 ): boolean {
-  const context = (
-    outerContext
-      ? { ...outerContext }
-      : {
-          value: null,
-          key: null,
-          parent: null,
-          parents: [],
-          path: [],
-          skipped: new Set(),
-          skip(obj) {
-            context.skipped.add(obj ?? context.value)
-          },
-        }
-  ) as TraverseContext & {
+  const context = (outerContext ?? {
+    value: null,
+    key: null,
+    parent: null,
+    parents: [],
+    path: [],
+    skipped: new Set(),
+    skip(obj) {
+      context.skipped.add(obj ?? context.value)
+    },
+  }) as TraverseContext<keyof any | null> & {
     value: unknown
-    key: keyof any
+    key: keyof any | null
     parent: any
     parents: object[]
     path: (keyof any)[]
@@ -86,20 +102,31 @@ export function traverse(
       !context.skipped.has(value) &&
       !context.parents.includes(value)
     ) {
-      traverse(value)
-
-      if (isFunction(result)) {
-        result()
-      }
+      traverse(value, result)
     }
 
     context.path.pop()
     return ok
   }
 
-  const traverse = (parent: object, isRoot?: boolean): boolean => {
+  const traverse = (
+    parent: object,
+    parentResult?: ReturnType<TraverseVisitor>,
+  ): boolean => {
     context.parents.push(parent)
     context.parent = parent
+
+    if (rootNeedsVisit && parent === root) {
+      parentResult = visitor(
+        (context.value = parent),
+        (context.key = null),
+        context.parent,
+        context,
+      )
+      if (parentResult === false) {
+        return ok
+      }
+    }
 
     if (isArray(parent)) {
       // Use Array.prototype.forEach for arrays so that sparse arrays
@@ -113,11 +140,11 @@ export function traverse(
     }
     // Allow an iterable (e.g. a Map or a Set) to be passed in as the
     // root object.
-    else if (isRoot && isIterable(parent)) {
+    else if (parent === root && isIterable(parent)) {
       let index = 0
       for (const value of parent) {
         if (visit(value, index) === false) {
-          return false
+          return ok
         }
         index++
       }
@@ -126,7 +153,7 @@ export function traverse(
     else {
       for (const key of ownKeys(parent)) {
         if (visit(parent[key as keyof object], key) === false) {
-          return false
+          return ok
         }
       }
     }
@@ -134,29 +161,50 @@ export function traverse(
     context.parents.pop()
     context.parent = last(context.parents)
 
+    // Invoke the leave callback for the completed parent.
+    if (isFunction(parentResult)) {
+      parentResult()
+    }
+
     return ok
   }
 
-  // If this is a recursive call, it's possible that the root object
-  // was skipped earlier. Check for that here so the caller doesn't
-  // have to check for it.
-  return outerContext?.skipped.has(root) || traverse(root, true)
+  if (outerContext) {
+    // If this is a recursive call, it's possible that the root object
+    // was skipped earlier. Check for that here so the caller doesn't
+    // have to check for it.
+    if (outerContext.skipped.has(root)) {
+      return true
+    }
+
+    // We'll have to restore the context after the traversal because
+    // it might be used by the caller.
+    const { value, key } = context
+
+    traverse(root)
+
+    context.value = value
+    context.key = key
+    return ok
+  }
+
+  return traverse(root)
 }
 
 /**
  * The visitor callback for the `traverse` function.
  */
-export type TraverseVisitor = (
+export type TraverseVisitor<Key = keyof any> = (
   value: unknown,
-  key: keyof any,
+  key: Key,
   parent: object,
-  context: TraverseContext,
+  context: TraverseContext<Key>,
 ) => (() => void) | boolean | void
 
 /**
  * The context object for the `traverse` function.
  */
-export interface TraverseContext {
+export interface TraverseContext<Key = keyof any> {
   /**
    * The current value being traversed.
    */
@@ -164,7 +212,7 @@ export interface TraverseContext {
   /**
    * The property key or index with which the current value was found.
    */
-  readonly key: keyof any
+  readonly key: Key
   /**
    * The parent object of the current value.
    */
