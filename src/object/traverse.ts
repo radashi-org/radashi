@@ -1,5 +1,20 @@
 import { isArray, isFunction, isIterable, isPlainObject, last } from 'radashi'
 
+export interface TraverseOptions<Key = string | number | symbol> {
+  /**
+   * A function that returns the keys of the object to be traversed.
+   *
+   * @default Object.keys
+   */
+  ownKeys?: ((parent: object) => Iterable<Key>) | null
+  /**
+   * When true, the visitor callback will be invoked for the root object.
+   *
+   * @default false
+   */
+  rootNeedsVisit?: boolean | null
+}
+
 /**
  * Iterate an object's properties and those of any nested objects.
  * “Non-array iterables” (e.g. Map and Set instances) are only
@@ -34,24 +49,22 @@ import { isArray, isFunction, isIterable, isPlainObject, last } from 'radashi'
 export function traverse(
   root: object,
   visitor: TraverseVisitor,
-  outerContext?: TraverseContext | null,
-  ownKeys?: (parent: object) => Iterable<keyof any>,
+  options?: TraverseOptions & { rootNeedsVisit?: null },
+  outerContext?: TraverseContext,
 ): boolean
 
 export function traverse(
   root: object,
   visitor: TraverseVisitor<keyof any | null>,
-  outerContext: TraverseContext<keyof any | null> | null | undefined,
-  ownKeys: ((parent: object) => Iterable<keyof any>) | undefined,
-  rootNeedsVisit: boolean | undefined,
+  options?: TraverseOptions<keyof any | null>,
+  outerContext?: TraverseContext<keyof any | null>,
 ): boolean
 
 export function traverse(
   root: object,
   visitor: TraverseVisitor<any>,
+  options?: TraverseOptions<any>,
   outerContext?: TraverseContext<any> | null,
-  ownKeys: (parent: object) => Iterable<keyof any> = Object.keys,
-  rootNeedsVisit?: boolean,
 ): boolean {
   const context = (outerContext ?? {
     value: null,
@@ -72,6 +85,13 @@ export function traverse(
     skipped: Set<unknown>
   }
 
+  const { rootNeedsVisit } = (options ??= {})
+  const ownKeys = options.ownKeys ?? Object.keys
+  const nestedOptions = {
+    ...options,
+    rootNeedsVisit: null,
+  }
+
   let ok = true
 
   // This is called for each value in an object or iterable.
@@ -87,6 +107,7 @@ export function traverse(
       (context.key = key),
       context.parent,
       context,
+      nestedOptions,
     )
 
     if (result === false) {
@@ -122,6 +143,7 @@ export function traverse(
         (context.key = null),
         context.parent,
         context,
+        nestedOptions,
       )
       if (parentResult === false) {
         return ok
@@ -199,6 +221,7 @@ export type TraverseVisitor<Key = keyof any> = (
   key: Key,
   parent: object,
   context: TraverseContext<Key>,
+  options: TraverseOptions<Key> & { rootNeedsVisit?: null },
 ) => (() => void) | boolean | void
 
 /**
