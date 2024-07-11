@@ -7,6 +7,8 @@ description: Deeply enumerate an object and any nested objects
 
 Recursively visit each property of an object (or each element of an array) and its nested objects or arrays. To traverse non-array iterables (e.g. `Map`, `Set`) and class instances, see the [Traversing other objects](#traversing-other-objects) section.
 
+Traversal is performed in a depth-first manner. That means the deepest object will be visited before the last property of the root object.
+
 ```ts
 import * as _ from 'radashi'
 
