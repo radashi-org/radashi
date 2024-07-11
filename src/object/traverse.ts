@@ -184,8 +184,8 @@ export function traverse(
     context.parent = last(context.parents)
 
     // Invoke the leave callback for the completed parent.
-    if (isFunction(parentResult)) {
-      parentResult()
+    if (ok && isFunction(parentResult)) {
+      ok = parentResult() !== false
     }
 
     return ok
@@ -222,7 +222,7 @@ export type TraverseVisitor<Key = keyof any> = (
   parent: object,
   context: TraverseContext<Key>,
   options: TraverseOptions<Key> & { rootNeedsVisit?: null },
-) => (() => void) | boolean | void
+) => (() => boolean | void) | boolean | void
 
 /**
  * The context object for the `traverse` function.
