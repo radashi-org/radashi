@@ -16,35 +16,28 @@ export interface TraverseOptions<Key = string | number | symbol> {
 }
 
 /**
- * Iterate an object's properties and those of any nested objects.
- * “Non-array iterables” (e.g. Map and Set instances) are only
- * traversed when they are the root object.
+ * Recursively visit each property of an object (or each element of an
+ * array) and its nested objects or arrays. By default, the only
+ * nested objects to be traversed are plain objects and arrays.
  *
- * - By default, only plain objects and arrays are traversed.
+ * @see https://radashi-org.github.io/reference/object/traverse
+ * @example
+ * ```ts
+ * import { traverse } from 'radashi'
  *
- * - The traversal is performed in a depth-first manner.
+ * const root = { a: 1, b: { c: { d: [2] }, e: 3 } }
  *
- * - **Non-Enumerable Properties**  \
- *   Only enumerable properties are traversed by default. The
- *   `ownKeys` callback can be customized to traverse non-enumerable
- *   properties (try passing `Reflect.ownKeys`).
- *
- * - **Early Return**  \
- *   The `visitor` callback can return `false` to stop the traversal.
- *
- * - **Skipping**  \
- *   To skip traversal of an object, call `context.skip(obj)`. If the
- *   current value is an object, you may call `context.skip()` without
- *   an argument to skip it.
- *
- * - **Nested Iterables & Class Instances**  \
- *   To traverse a nested iterable or class instance, you can call
- *   `traverse` inside your `visitor` callback recursively, but make
- *   sure to pass the `context` object to it.
- *
- * - **Visiting The Root Object**  \
- *   If the `rootNeedsVisit` option is enabled, the `visitor` callback
- *   will be invoked for the root object.
+ * traverse(root, (value, key, parent, context) => {
+ *   console.log(key, '=>', value)
+ * })
+ * // Logs the following:
+ * //   a => 1
+ * //   b => { … }
+ * //   c => { … }
+ * //   d => [ 2 ]
+ * //   0 => 2
+ * //   e => 3
+ * ```
  */
 export function traverse(
   root: object,
