@@ -49,14 +49,14 @@ export interface TraverseOptions<Key = string | number | symbol> {
 export function traverse(
   root: object,
   visitor: TraverseVisitor,
-  options?: TraverseOptions & { rootNeedsVisit?: null },
+  options?: (TraverseOptions & { rootNeedsVisit?: null }) | null,
   outerContext?: TraverseContext,
 ): boolean
 
 export function traverse(
   root: object,
   visitor: TraverseVisitor<keyof any | null>,
-  options?: TraverseOptions<keyof any | null>,
+  options?: TraverseOptions<keyof any | null> | null,
   outerContext?: TraverseContext<keyof any | null>,
 ): boolean
 
