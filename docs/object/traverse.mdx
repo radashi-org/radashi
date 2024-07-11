@@ -5,7 +5,7 @@ description: Deeply enumerate an object and any nested objects
 
 ### Usage
 
-Recursively visit each property of an object (or each element of an array) and its nested objects or arrays. To traverse non-array iterables (e.g. `Map`, `Set`) and class instances, see the “Traversing other objects” section.
+Recursively visit each property of an object (or each element of an array) and its nested objects or arrays. To traverse non-array iterables (e.g. `Map`, `Set`) and class instances, see the [Traversing other objects](#traversing-other-objects) section.
 
 ```ts
 import * as _ from 'radashi'
@@ -23,6 +23,8 @@ _.traverse(root, (value, key, parent, context) => {
 //     0 => 1
 //     1 => 2
 ```
+
+**Tip:** Check out the [Advanced](#advanced) section to see what else is possible.
 
 :::tip[Did you know?]
 
@@ -52,8 +54,8 @@ Every visit includes a context object typed with `TraverseContext`, which contai
 - `key`: The current key being visited.
 - `parent`: The parent object of the current value.
 - `parents`: An array of objects (from parent to child) that the current value is contained by.
-- `path`: An array of keys/indices (from parent to child) that the current value is contained by.
-- `skip`: A function used for skipping traversal of an object. If no object is provided, the current value is skipped.
+- `path`: An array describing the key path to the current value from the root.
+- `skip`: A function used for skipping traversal of an object. If no object is provided, the current value is skipped. See [Skipping objects](#skipping-objects) for more details.
 - `skipped`: A set of objects that have been skipped.
 - `value`: The current value being visited.
 
@@ -144,6 +146,60 @@ If you didn't set any options, the `options` argument can be null:
 
 ```ts
 return _.traverse(root, visitor, null, context)
+```
+
+### Skipping objects
+
+Using the `TraverseContext::skip` method, you can prevent an object from being traversed. By calling `skip()` with no arguments, the current value won't be traversed.
+
+```ts
+import * as _ from 'radashi'
+
+const root = {
+  a: { b: 1 },
+  c: { d: 2 },
+}
+
+_.traverse(root, (value, key, parent, context) => {
+  console.log(key, '=>', value)
+
+  // Skip traversal of the 'a' object.
+  if (key === 'a') {
+    context.skip()
+  }
+})
+// Logs the following:
+//   a => { b: 1 }
+//   c => { d: 2 }
+//   d => 2
+```
+
+You can pass any object to `skip()` to skip traversal of that object.
+
+```ts
+import * as _ from 'radashi'
+
+const root = {
+  a: {
+    b: {
+      c: 1,
+    },
+  },
+}
+
+_.traverse(root, (value, key, parent, context) => {
+  console.log(key, '=>', value)
+
+  // Visit the properties of the current object, but skip any objects nested within.
+  Object.values(value).forEach(nestedValue => {
+    if (_.isObject(nestedValue)) {
+      context.skip(nestedValue)
+    }
+  })
+})
+// Logs the following:
+//   a => { b: { c: 1 } }
+//   b => { c: 1 }
 ```
 
 ### Exiting early
