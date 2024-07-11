@@ -56,7 +56,7 @@ export function traverse(
 export function traverse(
   root: object,
   visitor: TraverseVisitor<any>,
-  options?: TraverseOptions<any>,
+  options?: TraverseOptions<any> | null,
   outerContext?: TraverseContext<any> | null,
 ): boolean {
   const context = (outerContext ?? {
