@@ -78,8 +78,7 @@ describe('traverse', () => {
       (value, key) => {
         visited.push([key, value])
       },
-      null,
-      Reflect.ownKeys,
+      { ownKeys: Reflect.ownKeys },
     )
 
     expect(visited).toEqual([
@@ -276,10 +275,10 @@ describe('traverse', () => {
     ])
 
     const visited: [(keyof any)[], unknown][] = []
-    _.traverse(map, function visitor(value, _key, _parent, context) {
+    _.traverse(map, function visitor(value, _key, _parent, context, options) {
       visited.push([[...context.path], value])
       if (value instanceof Map) {
-        _.traverse(value, visitor, context)
+        _.traverse(value, visitor, options, context)
       }
     })
 
@@ -315,6 +314,86 @@ describe('traverse', () => {
       ['a', { b: 2 }],
       ['b', 2],
       ['a', { b: 2 }],
+    ])
+  })
+
+  test('leave callback that returns false', () => {
+    const obj = { a: { b: { type: 'b' }, c: { type: 'c' } } }
+    const visited: [keyof any, unknown][] = []
+    _.traverse(obj, (value, key) => {
+      visited.push([key, value])
+      return () => {
+        visited.push([key, value])
+        // Stop traversing once an object is fully traversed.
+        return false
+      }
+    })
+    expect(visited).toEqual([
+      ['a', obj.a],
+      ['b', obj.a.b],
+      ['type', 'b'],
+      ['b', obj.a.b],
+    ])
+  })
+
+  test('rootNeedsVisit=true with early exit', () => {
+    const obj = { a: { b: 1 } }
+    const visited: [keyof any | null, unknown][] = []
+    _.traverse(
+      obj,
+      (value, key) => {
+        visited.push([key, value])
+        return false
+      },
+      { rootNeedsVisit: true },
+    )
+    expect(visited).toEqual([[null, obj]])
+  })
+
+  test('rootNeedsVisit=true with leave callback', () => {
+    const obj = { a: 1 }
+    const visited: [keyof any | null, unknown][] = []
+    _.traverse(
+      obj,
+      (value, key) => {
+        visited.push([key, value])
+        return () => {
+          visited.push([key, value])
+        }
+      },
+      { rootNeedsVisit: true },
+    )
+    expect(visited).toEqual([
+      [null, obj],
+      ['a', obj.a],
+      [null, obj],
+    ])
+  })
+
+  test('nested traverse with skipped root', () => {
+    class Random {
+      value = Math.random()
+    }
+    const obj = { r: new Random() }
+    const visited: [keyof any | null, unknown][] = []
+    _.traverse(
+      obj,
+      function visitor(value, key, _parent, context) {
+        visited.push([key, value])
+        if (key === null) {
+          context.skip(obj.r)
+        } else if (value instanceof Random) {
+          // This is a no-op since `obj.r` was skipped.
+          _.traverse(value, visitor, null, context)
+        }
+      },
+      { rootNeedsVisit: true },
+    )
+    // The `Random::value` instance property shouldn't be visited
+    // since `context.skip` was called with the Random instance.
+    expect(visited).toEqual([
+      [null, obj],
+      ['r', obj.r],
     ])
   })
 })
