@@ -43,11 +43,35 @@ describe('cloneDeep', () => {
     expect(result.a.d).toBe(source.a.d)
   })
 
-  test('set ownKeys argument to handle objects with non-enumerable properties', () => {
+  test('object with non-enumerable properties', () => {
     const source = { a: 1 }
     Object.defineProperty(source, 'b', { value: 2, enumerable: false })
-    const result = _.cloneDeep(source, null, Reflect.ownKeys)
+    const result = _.cloneDeep(source)
     expect(result).toEqual(source)
+  })
+
+  test('object containing Set and Map instances', () => {
+    const source = {
+      a: new Set([{ a: 1 }, { a: 2 }]),
+      b: new Map([[{ b: 1 }, { b: 2 }]]),
+    }
+
+    const result = _.cloneDeep(source)
+    expect(result).toEqual(source)
+
+    expect(result.a).not.toBe(source.a)
+    expect(result.b).not.toBe(source.b)
+
+    // Objects inside sets are cloned.
+    expect([...result.a].every(item => !source.a.has(item))).toBe(true)
+
+    // Object keys in maps are *not* cloned.
+    // Object values in maps are cloned.
+    expect(
+      [...result.b].every(
+        ([key, value]) => source.b.has(key) && source.b.get(key) !== value,
+      ),
+    ).toBe(true)
   })
 
   test('handle circular references', () => {
@@ -80,5 +104,24 @@ describe('cloneDeep', () => {
     // Once for the root object, another for the nested object that
     // appears twice.
     expect(cloneObject).toHaveBeenCalledTimes(2)
+  })
+
+  describe('FastCloningStrategy', () => {
+    test('object with non-enumerable and computed properties', () => {
+      const source = {
+        a: 1,
+        get b() {
+          return this.a + 1
+        },
+      }
+      Object.defineProperty(source, 'c', { value: 2, enumerable: false })
+
+      const result = _.cloneDeep(source, _.FastCloningStrategy)
+
+      expect(result.a).toBe(source.a)
+      expect(result.b).toBe(source.b)
+      expect('get' in Object.getOwnPropertyDescriptor(result, 'b')!).toBe(false)
+      expect('c' in result).toBe(false)
+    })
   })
 })
