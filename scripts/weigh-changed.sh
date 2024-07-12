@@ -2,10 +2,11 @@ set -e
 
 # Try using gh to get the target branch, otherwise use 'main' as a fallback.
 TARGET_BRANCH=$(which gh > /dev/null 2>&1 && gh pr view --json baseRefName --jq .baseRefName || echo "")
+echo "TARGET_BRANCH => $TARGET_BRANCH"
 TARGET_BRANCH=${TARGET_BRANCH:-main}
 
 # Get the list of changed source files relative to the target branch.
-CHANGES=$(git diff --name-status "$TARGET_BRANCH" HEAD -- 'src/*/*.ts')
+CHANGES=$(git diff --name-status "origin/$TARGET_BRANCH" HEAD -- 'src/*/*.ts')
 
 # Separate the file statuses and file names.
 FILE_STATUSES=()
@@ -42,6 +43,7 @@ PREV_SIZES=()
 
 # Collect previous sizes if there are no uncommitted changes.
 if [ -z "$(git status -s)" ]; then
+  echo "Checking out $TARGET_BRANCH..."
   git checkout "$TARGET_BRANCH" &> /dev/null
 
   i=0
