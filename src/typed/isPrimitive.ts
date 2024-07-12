@@ -1,11 +1,23 @@
 /**
  * Checks if the given value is primitive.
  *
- * Primitive Types: number , string , boolean , symbol, bigint,
- * undefined, null
+ * Primitive types include:
+ * - number
+ * - string
+ * - boolean
+ * - symbol
+ * - bigint
+ * - undefined
+ * - null
  *
- * @param {*} value value to check
- * @returns {boolean} result
+ * @see https://radashi-org.github.io/reference/typed/isPrimitive
+ * @example
+ * ```ts
+ * isPrimitive(0) // => true
+ * isPrimitive(null) // => true
+ * isPrimitive(undefined) // => true
+ * isPrimitive('0') // => false
+ * ```
  */
 export function isPrimitive(value: any): boolean {
   return (

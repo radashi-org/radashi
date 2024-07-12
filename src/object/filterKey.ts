@@ -28,7 +28,20 @@ export type FilteredKeys<
 
 /**
  * Returns true if the key is in the “keys array” or if the “filter
- * function” returns true.
+ * function” returns true. This function is useful when creating other
+ * functions that need to enumerate an object or array and filter keys
+ * in a flexible manner. Using it directly in everyday code is not
+ * recommended.
+ *
+ * @see https://radashi-org.github.io/reference/object/filterKey
+ * @example
+ * ```ts
+ * const a = { a: 1, b: 2, c: 3 }
+ * filterKey(a, 'a', ['a', 'b'])
+ * // => true
+ * filterKey(a, 'a', ['a', 'b'])
+ * // => true
+ * ```
  */
 export function filterKey<T extends object>(
   obj: T,

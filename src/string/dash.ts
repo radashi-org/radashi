@@ -1,10 +1,15 @@
 import { capitalize } from 'radashi'
 
 /**
- * Formats the given string in dash case fashion
+ * Formats the given string in dash case fashion.
  *
- * dash('hello world')   -> 'hello-world' dash('va va_VOOM') ->
- * 'va-va-voom' dash('helloWord') -> 'hello-word'
+ * @see https://radashi-org.github.io/reference/string/dash
+ * @example
+ * ```ts
+ * dash('hello world') // => 'hello-world'
+ * dash('va va_VOOM') // => 'va-va-voom'
+ * dash('helloWord') // => 'hello-word'
+ * ```
  */
 export function dash(str: string): string {
   const parts =

@@ -1,3 +1,20 @@
+/**
+ * Create a function that composes multiple functions together. In a
+ * composition of functions, each function is given the next function
+ * as an argument and must call it to continue executing.
+ *
+ * @see https://radashi-org.github.io/reference/curry/compose
+ * @example
+ * ```ts
+ * const myComposedFunc = compose(
+ *   (x) => x + 5,
+ *   (x) => x * 2,
+ * )
+ *
+ * myComposedFunc(0)
+ * // => 5
+ * ```
+ */
 export function compose<
   F1Result,
   F1Args extends any[],

@@ -17,8 +17,11 @@ export interface OnceFunction<
  * it's called. If it was already called before, returns the result
  * from the first call. This is a lighter version of `memo()`.
  *
- * To allow the function to be called again, use `onceReset()`.
+ * To allow your `once`-wrapped function to be called again, see the
+ * `once.reset` function.
  *
+ * @see https://radashi-org.github.io/reference/curry/once
+ * @example
  * ```ts
  * const fn = once(() => Math.random())
  * fn() // 0.5

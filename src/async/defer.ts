@@ -4,8 +4,20 @@ import { tryit } from 'radashi'
  * Useful when for script like things where cleanup should be done on
  * fail or sucess no matter.
  *
- * You can call defer many times to register many defered functions
+ * You can call defer many times to register many deferred functions
  * that will all be called when the function exits in any state.
+ *
+ * @see https://radashi-org.github.io/reference/async/defer
+ * @example
+ * ```ts
+ * const result = await defer(async (defer) => {
+ *   const fileHandle = await openFile('path/to/file')
+ *   defer(() => fileHandle.close())
+ *
+ *   // Perform operations on the file
+ *   return processFile(fileHandle)
+ * })
+ * ```
  */
 export async function defer<TResponse>(
   func: (

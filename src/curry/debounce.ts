@@ -24,7 +24,17 @@ export type DebounceFunction<TArgs extends any[]> = {
  *
  * The debounce function comes with a `cancel` method to cancel
  * delayed `func` invocations and a `flush` method to invoke them
- * immediately
+ * immediately.
+ *
+ * @see https://radashi-org.github.io/reference/curry/debounce
+ * @example
+ * ```ts
+ * const myDebouncedFunc = debounce({ delay: 1000 }, (x) => console.log(x))
+ *
+ * myDebouncedFunc(0)
+ * myDebouncedFunc(1)
+ * // Logs 1, but not 0
+ * ```
  */
 export function debounce<TArgs extends any[]>(
   { delay }: { delay: number },

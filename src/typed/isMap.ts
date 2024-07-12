@@ -1,5 +1,19 @@
 import { isTagged, type StrictExtract } from 'radashi'
 
+/**
+ * Return true if the given value is a Map.
+ *
+ * Instances from [other realms][1] are also supported.
+ *
+ * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms
+ *
+ * @see https://radashi-org.github.io/reference/typed/isMap
+ * @example
+ * ```ts
+ * isMap(new Map()) // => true
+ * isMap(new Set()) // => false
+ * ```
+ */
 export function isMap<Input>(value: Input): value is ExtractMap<Input> {
   return isTagged(value, '[object Map]')
 }

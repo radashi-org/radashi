@@ -1,6 +1,8 @@
 /**
  * Given two arrays, returns true if any elements intersect.
  *
+ * @see https://radashi-org.github.io/reference/array/intersects
+ * @example
  * ```ts
  * intersects([1, 2, 3], [4, 5, 6])
  * // false

@@ -2,6 +2,8 @@
  * Counts the occurrences of each unique value returned by the `identity`
  * function when applied to each item in the array.
  *
+ * @see https://radashi-org.github.io/reference/array/counting
+ * @example
  * ```ts
  * counting([1, 2, 3, 4], (n) => n % 2 === 0 ? 'even' : 'odd')
  * // { even: 2, odd: 2 }

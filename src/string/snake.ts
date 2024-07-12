@@ -1,10 +1,15 @@
 import { capitalize } from 'radashi'
 
 /**
- * Formats the given string in snake case fashion
+ * Formats the given string in snake case fashion.
  *
- * snake('hello world')   -> 'hello_world' snake('va va-VOOM') ->
- * 'va_va_voom' snake('helloWord') -> 'hello_world'
+ * @see https://radashi-org.github.io/reference/string/snake
+ * @example
+ * ```ts
+ * snake('hello world') // => 'hello_world'
+ * snake('va va-VOOM') // => 'va_va_voom'
+ * snake('helloWorld') // => 'hello_world'
+ * ```
  */
 export function snake(
   str: string,

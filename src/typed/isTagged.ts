@@ -3,6 +3,8 @@
  *
  * ⚠️ You probably won't use this except when implementing another type guard.
  *
+ * @internal
+ * @example
  * ```ts
  * isTagged('foo', '[object String]') // true
  * ```

@@ -3,6 +3,8 @@ import { isArray, isPlainObject } from 'radashi'
 /**
  * Get a string list of all key names that exist in an object (deep).
  *
+ * @see https://radashi-org.github.io/reference/object/keys
+ * @example
  * ```ts
  * keys({ name: 'ra' }) // ['name']
  *

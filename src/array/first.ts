@@ -1,6 +1,8 @@
 /**
- * Get the first item in an array or a default value
+ * Get the first item in an array or a default value.
  *
+ * @see https://radashi-org.github.io/reference/array/first
+ * @example
  * ```ts
  * first([1, 2, 3, 4])
  * // 1

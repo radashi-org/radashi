@@ -1,6 +1,8 @@
 /**
- * Min gets the smallest value from a list
+ * Min gets the smallest value from a list.
  *
+ * @see https://radashi-org.github.io/reference/array/min
+ * @example
  * ```ts
  * min([1, 2, 3, 4]) // => 1
  * min([{ num: 1 }, { num: 2 }], x => x.num) // => { num: 1 }

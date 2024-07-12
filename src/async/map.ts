@@ -1,6 +1,16 @@
 /**
  * An async map function. Works like the built-in Array.map function
- * but handles an async mapper function
+ * but handles an async mapper function.
+ *
+ * @see https://radashi-org.github.io/reference/async/map
+ * @example
+ * ```ts
+ * const urls = ['/data1', '/data2', '/data3']
+ * const responses = await map(urls, async (url) => {
+ *   const response = await fetch('https://api.example.com' + url)
+ *   return response.json()
+ * })
+ * ```
  */
 export async function map<T, K>(
   array: readonly T[],

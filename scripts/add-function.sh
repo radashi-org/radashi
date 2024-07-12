@@ -53,7 +53,7 @@ fi
 
 if [ ! -f "$SRC_FILE" ]; then
   mkdir -p "$SRC_DIR"
-  echo -e "export function $FUNC_NAME(): void {}\n" > "$SRC_FILE"
+  echo -e "/**\n * Does a thing.\n *\n * @see https://radashi-org.github.io/reference/$GROUP_NAME/$FUNC_NAME\n * @example\n * \`\`\`ts\n * $FUNC_NAME()\n * \`\`\`\n */\nexport function $FUNC_NAME(): void {}\n" > "$SRC_FILE"
 else
   echo "Warning: $SRC_FILE already exists. Skipping."
 fi

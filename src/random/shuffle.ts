@@ -1,5 +1,18 @@
 import * as _ from 'radashi'
 
+/**
+ * Clone an array and shuffle its items randomly.
+ *
+ * @see https://radashi-org.github.io/reference/random/shuffle
+ * @example
+ * ```ts
+ * const numbers = [1, 2, 3, 4, 5]
+ * const shuffled = shuffle(numbers)
+ * // => [2, 1, 4, 5, 3]
+ * shuffled !== numbers
+ * // => true
+ * ```
+ */
 export function shuffle<T>(
   array: readonly T[],
   random: (min: number, max: number) => number = _.random,
