@@ -1,5 +1,9 @@
 set -e
 
+# DEBUG (remove this)
+git branch -vv
+git remote -vv
+
 # Try using gh to get the target branch, otherwise use 'main' as a fallback.
 TARGET_BRANCH=$(which gh > /dev/null 2>&1 && gh pr view --json baseRefName --jq .baseRefName || echo "")
 echo "TARGET_BRANCH => $TARGET_BRANCH"
