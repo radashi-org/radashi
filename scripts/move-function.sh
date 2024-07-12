@@ -15,3 +15,5 @@ git mv "benchmarks/$GROUP/$FUNC.bench.ts" "benchmarks/$DEST/$FUNC.bench.ts"
 
 mkdir -p "tests/$DEST"
 git mv "tests/$GROUP/$FUNC.test.ts" "tests/$DEST/$FUNC.test.ts"
+
+echo "WARNING: You need to update src/mod.ts to export $FUNC"
