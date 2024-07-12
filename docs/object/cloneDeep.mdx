@@ -1,0 +1,65 @@
+---
+title: cloneDeep
+description: Create a deep copy of an object or array
+---
+
+### Usage
+
+Deeply clone the given object or array. The only nested objects that get cloned by default are: plain objects, arrays, `Map` instances, and `Set` instances.
+
+The default behavior aims to support the most popular use cases. See “Customized cloning” below if you need more control.
+
+By default, non-enumerable properties and computed properties are copied losslessly. Note that you can opt out of this behavior if you need better performance (see “Faster cloning” below).
+
+```ts
+import * as _ from 'radashi'
+
+_.cloneDeep()
+```
+
+### Faster cloning
+
+You can pass the `FastCloningStrategy` for better performance, but bear in mind the following tradeoff.
+
+All plain objects and class instances are cloned with `{...obj}`. This means that the original prototype, computed properties, and non-enumerable properties are not preserved.
+
+Also note that built-in, complex objects like `RegExp` and `Date` are still not cloned with this cloning strategy. You can override the `cloneOther` function if you need to clone these object types.
+
+### Customized cloning
+
+“Cloning strategies” control how certain object types are handled by `cloneDeep`. You can pass in a custom strategy, which may even be a partial strategy. Any undefined methods in your strategy will inherit the default logic. Your custom methods can return `null` to use the default logic, or they can return the received object to skip cloning.
+
+```ts
+import * as _ from 'radashi'
+
+_.cloneDeep(obj, {
+  // Clone arrays with default logic if they are not frozen.
+  cloneArray: array => (Object.isFrozen(array) ? array : null),
+})
+```
+
+If you clone the object in your custom method, make sure to pass the clone into the `track` function before cloning the nested objects. Here's an example with `cloneOther` that handles a custom class instance.
+
+```ts
+import * as _ from 'radashi'
+
+_.cloneDeep(obj, {
+  cloneOther: (obj, track, clone) => {
+    if (obj instanceof MyClass) {
+      // 1. Create a new instance and track it.
+      const clone = track(new MyClass())
+
+      // 2. Copy over the properties of the original instance.
+      for (const key in obj) {
+        clone[key] = clone(obj[key])
+      }
+
+      // 3. Return the cloned instance.
+      return clone
+    }
+
+    // Use default logic for anything else.
+    return null
+  },
+})
+```

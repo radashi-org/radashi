@@ -62,6 +62,7 @@ export * from './number/toInt.ts'
 
 export * from './object/assign.ts'
 export * from './object/clone.ts'
+export * from './object/cloneDeep.ts'
 export * from './object/construct.ts'
 export * from './object/crush.ts'
 export * from './object/filterKey.ts'
