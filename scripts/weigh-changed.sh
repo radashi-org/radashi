@@ -1,13 +1,10 @@
 set -e
 
-# DEBUG (remove this)
-git branch -vv
-git remote -vv
-
 # Try using gh to get the target branch, otherwise use 'main' as a fallback.
-TARGET_BRANCH=$(which gh > /dev/null 2>&1 && gh pr view --json baseRefName --jq .baseRefName || echo "")
-echo "TARGET_BRANCH => $TARGET_BRANCH"
-TARGET_BRANCH=${TARGET_BRANCH:-main}
+if [[ -z "$TARGET_BRANCH" ]]; then
+  TARGET_BRANCH=$(which gh > /dev/null 2>&1 && gh pr view --json baseRefName --jq .baseRefName 2> /dev/null || echo "")
+  TARGET_BRANCH=${TARGET_BRANCH:-main}
+fi
 
 # Get the list of changed source files relative to the target branch.
 CHANGES=$(git diff --name-status "origin/$TARGET_BRANCH" HEAD -- 'src/*/*.ts')
@@ -73,11 +70,11 @@ fi
 
 if [[ -n "$CI" ]]; then
   if [ "$column_count" -gt 2 ]; then
-    echo "| File | Size | Difference (%) |"
-    echo "|---|---|---|"
+    echo "| Status | File | Size | Difference (%) |"
+    echo "|---|---|---|---|"
   else
-    echo "| File | Size |"
-    echo "|---|---|"
+    echo "| Status | File | Size |"
+    echo "|---|---|---|"
   fi
 fi
 
@@ -108,9 +105,9 @@ for file in "${FILE_NAMES[@]}"; do
 
   if [[ -n "$CI" ]]; then
     if [ "$column_count" -gt 2 ]; then
-      echo "| $file | $bytes | $diff$ratio |"
+      echo "| $status | \`$file\` | $bytes | $diff$ratio |"
     else
-      echo "| $file | $bytes |"
+      echo "| $status | \`$file\` | $bytes |"
     fi
   else
     if [ "$column_count" -gt 2 ] && [ "$prev_bytes" -ne 0 ]; then
