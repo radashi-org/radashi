@@ -1,4 +1,4 @@
-export function toArrayIfExists<T>(
+export function castArrayIfExists<T>(
   value: T | readonly T[],
 ): T extends any[]
   ? T[number][]
@@ -6,6 +6,6 @@ export function toArrayIfExists<T>(
     ? readonly T[number][]
     : Exclude<T, null | undefined>[] | undefined
 
-export function toArrayIfExists<T>(value: T | readonly T[]): any {
+export function castArrayIfExists<T>(value: T | readonly T[]): any {
   return Array.isArray(value) ? [...value] : value != null ? [value] : undefined
 }
