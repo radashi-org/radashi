@@ -1,6 +1,8 @@
 /**
- * Max gets the greatest value from a list
+ * Max gets the greatest value from a list.
  *
+ * @see https://radashi-org.github.io/reference/array/max
+ * @example
  * ```ts
  * max([2, 3, 5]) // => 5
  * max([{ num: 1 }, { num: 2 }], x => x.num) // => { num: 2 }

@@ -3,6 +3,8 @@
  * iterating the list one time. If condition is omitted, will
  * select all mapped values that are non-nullish.
  *
+ * @see https://radashi-org.github.io/reference/array/select
+ * @example
  * ```ts
  * select(
  *   [1, 2, 3, 4],

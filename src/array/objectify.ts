@@ -1,7 +1,9 @@
 /**
  * Convert an array to a dictionary by mapping each item into a
- * dictionary key & value
+ * dictionary key & value.
  *
+ * @see https://radashi-org.github.io/reference/array/objectify
+ * @example
  * ```ts
  * objectify([1, 2, 3], (n) => '#' + n)
  * // { '#1': 1, '#2': 2, '#3': 3 }

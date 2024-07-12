@@ -4,6 +4,8 @@ import { isFunction } from 'radashi'
  * Creates a generator that will produce an iteration through the
  * range of number as requested.
  *
+ * @see https://radashi-org.github.io/reference/array/range
+ * @example
  * ```ts
  * range(3)                  // yields 0, 1, 2, 3
  * range(0, 3)               // yields 0, 1, 2, 3

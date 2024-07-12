@@ -2,6 +2,8 @@
  * If the item matching the condition already exists in the list it
  * will be removed. If it does not it will be added.
  *
+ * @see https://radashi-org.github.io/reference/array/toggle
+ * @example
  * ```ts
  * toggle([1, 2, 3], 4) // => [1, 2, 3, 4]
  * toggle([1, 2, 3], 2) // => [1, 3]

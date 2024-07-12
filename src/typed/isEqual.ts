@@ -1,3 +1,19 @@
+/**
+ * Return true if the given values are equal.
+ *
+ * To determine equality, `Object.is()` is used first. If it returns
+ * false, we do the following special checks:
+ * - `Date` and `Date` with the same time
+ * - `RegExp` and `RegExp` with the same pattern/flags
+ * - object with the same keys and values (recursive)
+ *
+ * @see https://radashi-org.github.io/reference/typed/isEqual
+ * @example
+ * ```ts
+ * isEqual(0, 0) // => true
+ * isEqual(0, 1) // => false
+ * ```
+ */
 export function isEqual<TType>(x: TType, y: TType): boolean {
   if (Object.is(x, y)) {
     return true

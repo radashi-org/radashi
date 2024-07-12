@@ -2,6 +2,8 @@
  * Sum all numbers in an array. Optionally provide a function to
  * convert objects in the array to number values.
  *
+ * @see https://radashi-org.github.io/reference/array/sum
+ * @example
  * ```ts
  * sum([1, 2, 3])
  * // => 6

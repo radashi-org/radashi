@@ -2,6 +2,8 @@
  * Returns all items from the first list that do not exist in the
  * second list.
  *
+ * @see https://radashi-org.github.io/reference/array/diff
+ * @example
  * ```ts
  * diff([1, 2, 3, 4], [2, 4])
  * // [1, 3]

@@ -1,13 +1,24 @@
 import { isSymbol } from 'radashi'
 
+/**
+ * Combines `Number.parseInt` with NaN handling. By default, a zero
+ * (0) is returned in place of NaN.
+ *
+ * @see https://radashi-org.github.io/reference/number/toInt
+ * @example
+ * ```ts
+ * toInt("1.23") // => 1
+ * toInt("foo") // => 0
+ * toInt("1.23px", 1) // => 1
+ * toInt("foo", -1) // => -1
+ * ```
+ */
 export function toInt(value: unknown): number
-
-export function toInt(value: unknown, defaultValue: number): number
 
 export function toInt<T>(
   value: unknown,
-  defaultValue: T,
-): number | Exclude<T, undefined>
+  defaultValue: T | undefined,
+): number | T
 
 export function toInt<T>(
   value: any,

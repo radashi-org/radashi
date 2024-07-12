@@ -3,6 +3,8 @@
  * replace items matched by the `matcher` function in the first place.
  * The given arrays are never modified.
  *
+ * @see https://radashi-org.github.io/reference/array/merge
+ * @example
  * ```ts
  * merge(
  *   [{id: 1}, {id: 2}],

@@ -5,9 +5,13 @@
  * * Numbers can be negative or positive.
  * * Ending number is exclusive.
  *
- * @param {number} number The number to check.
- * @param {number} end The end of the range. Exclusive. @returns
- * {boolean} Returns `true` if `number` is in the range, else `false`.
+ * @see https://radashi-org.github.io/reference/number/inRange
+ * @example
+ * ```ts
+ * inRange(5, 10) // => true
+ * inRange(-1, 10) // => false
+ * inRange(10, 10) // => false
+ * ```
  */
 export function inRange(number: number, end: number): boolean
 
@@ -20,10 +24,13 @@ export function inRange(number: number, end: number): boolean
  * * The start and the end of the range can be ascending OR descending
  *   order.
  *
- * @param {number} number The number to check.
- * @param {number} start The start of the range. Inclusive. @param
- * {number} end The end of the range. Exclusive. @returns {boolean}
- * Returns `true` if `number` is in the range, else `false`.
+ * @see https://radashi-org.github.io/reference/number/inRange
+ * @example
+ * ```ts
+ * inRange(5, 0, 10) // => true
+ * inRange(-1, 0, 10) // => false
+ * inRange(10, 0, 10) // => false
+ * ```
  */
 export function inRange(number: number, start: number, end: number): boolean
 export function inRange(number: number, start: number, end?: number): boolean {

@@ -9,6 +9,14 @@ import { isPromise } from 'radashi'
  *
  * If the function returns a non-promise, the result is an error-first
  * callback-_like_ array response as `[Error, result]`.
+ *
+ * @see https://radashi-org.github.io/reference/async/tryit
+ * @example
+ * ```ts
+ * const [err, result] = await tryit(async () => {
+ *   return await fetch('https://example.com')
+ * })
+ * ```
  */
 export type TryitResult<Return> = Return extends Promise<any>
   ? Promise<[Error, undefined] | [undefined, Awaited<Return>]>

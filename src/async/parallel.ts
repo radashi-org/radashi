@@ -1,8 +1,4 @@
-import { fork } from 'radashi'
-import { list } from 'radashi'
-import { sort } from 'radashi'
-import { AggregateError } from 'radashi'
-import { tryit } from 'radashi'
+import { AggregateError, fork, list, sort, tryit } from 'radashi'
 
 type WorkItemResult<K> = {
   index: number
@@ -13,7 +9,16 @@ type WorkItemResult<K> = {
  * Executes many async functions in parallel. Returns the results from
  * all functions as an array. After all functions have resolved, if
  * any errors were thrown, they are rethrown in an instance of
- * AggregateError
+ * AggregateError.
+ *
+ * @see https://radashi-org.github.io/reference/async/parallel
+ * @example
+ * ```ts
+ * // Process images concurrently, resizing each image to a standard size.
+ * const images = await parallel(2, imageFiles, async (file) => {
+ *   return await resizeImage(file)
+ * })
+ * ```
  */
 export async function parallel<T, K>(
   limit: number,

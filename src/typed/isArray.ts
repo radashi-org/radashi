@@ -1,5 +1,15 @@
 import type { StrictExtract } from 'radashi'
 
+/**
+ * Literally just `Array.isArray` but with better type inference.
+ *
+ * @see https://radashi-org.github.io/reference/typed/isArray
+ * @example
+ * ```ts
+ * isArray([]) // => true
+ * isArray('hello') // => false
+ * ```
+ */
 export const isArray = Array.isArray as <Input>(
   value: Input,
 ) => value is ExtractArray<Input>
