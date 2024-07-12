@@ -28,6 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `isSet` function by [@aleclarson](https://github.com/aleclarson) in [73e70c1](https://github.com/radashi-org/radashi/commit/73e70c1011fffa21d1d38bb04d5616073c8e8739)
 - Add `isWeakSet` function by [@aleclarson](https://github.com/aleclarson) in [aacd5be](https://github.com/radashi-org/radashi/commit/aacd5be35e38e4ba7a6ecabb7942eafb26111486)
 - Add `isWeakMap` function by [@aleclarson](https://github.com/aleclarson) in [f32cfd5](https://github.com/radashi-org/radashi/commit/f32cfd5c2160724d5d12d3e9f9a43c328daf0f4d)
+- Add `traverse` function by [@aleclarson](https://github.com/aleclarson) in [#59](https://github.com/radashi-org/radashi/pull/59)
+
+- Add `cloneDeep` function by [@aleclarson](https://github.com/aleclarson) in [#81](https://github.com/radashi-org/radashi/pull/81)
+
 
 #### <!-- 05 -->Changed
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
