@@ -1,5 +1,17 @@
 /**
- * Convert an object to a list, mapping each entry into a list item
+ * Convert an object to a list, mapping each entry into a list item.
+ *
+ * @see https://radashi-org.github.io/reference/object/listify
+ * @example
+ * ```ts
+ * const a = { a: 1, b: 2, c: 3 }
+ * listify(a, (key, value) => ({ key, value }))
+ * // => [
+ * //   { key: 'a', value: 1 },
+ * //   { key: 'b', value: 2 },
+ * //   { key: 'c', value: 3 }
+ * // ]
+ * ```
  */
 export function listify<Value, Key extends string | number | symbol, Item>(
   obj: Record<Key, Value>,

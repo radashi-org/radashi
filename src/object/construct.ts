@@ -4,6 +4,8 @@ import { set } from 'radashi'
  * The opposite of crush, given an object that was crushed into key
  * paths and values will return the original object reconstructed.
  *
+ * @see https://radashi-org.github.io/reference/object/construct
+ * @example
  * ```ts
  * construct({ name: 'ra', 'children.0.name': 'hathor' })
  * // { name: 'ra', children: [{ name: 'hathor' }] }

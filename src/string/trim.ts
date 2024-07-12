@@ -3,7 +3,9 @@
  * the builtin trim function but accepts other characters you would
  * like to trim and trims multiple characters.
  *
- * ```typescript
+ * @see https://radashi-org.github.io/reference/string/trim
+ * @example
+ * ```ts
  * trim('  hello ') // => 'hello'
  * trim('__hello__', '_') // => 'hello'
  * trim('/repos/:owner/:repo/', '/') // => 'repos/:owner/:repo'

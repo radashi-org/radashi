@@ -1,7 +1,19 @@
 import { random } from 'radashi'
 
 /**
- * Draw a random item from a list. Returns null if the list is empty
+ * “Draw” a random item from an array. The item is not removed from
+ * the array. Returns `null` if the array is empty.
+ *
+ * @see https://radashi-org.github.io/reference/random/draw
+ * @example
+ * ```ts
+ * const numbers = [1, 2, 3]
+ *
+ * draw(numbers)
+ * // => 2
+ * numbers
+ * // => [1, 2, 3]
+ * ```
  */
 export function draw<T>(array: readonly T[]): T | null {
   const max = array.length

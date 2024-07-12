@@ -3,6 +3,8 @@
  * will shift `n` steps to the right. If `n` is less than 0, items
  * will shift `n` steps to the left.
  *
+ * @see https://radashi-org.github.io/reference/array/shift
+ * @example
  * ```ts
  * shift([1, 2, 3], 1) // [3, 1, 2]
  * shift([1, 2, 3], -1) // [2, 3, 1]

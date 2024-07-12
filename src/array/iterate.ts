@@ -3,8 +3,10 @@
  * will iterate the function as many times as specified.
  *
  * NOTE: This is NOT zero indexed. If you pass count=5 you will get 1,
- * 2, 3, 4, 5 iteration in the callback function
+ * 2, 3, 4, 5 iteration in the callback function.
  *
+ * @see https://radashi-org.github.io/reference/array/iterate
+ * @example
  * ```ts
  * iterate(3, (total, i) => total + i, 0)
  * // 6

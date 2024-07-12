@@ -2,8 +2,10 @@ import { isArray, isFunction } from 'radashi'
 
 /**
  * Creates an object mapping the specified keys to their corresponding
- * values
+ * values.
  *
+ * @see https://radashi-org.github.io/reference/array/zipToObject
+ * @example
  * ```ts
  * zipToObject(['a', 'b'], [1, 2])
  * // { a: 1, b: 2 }

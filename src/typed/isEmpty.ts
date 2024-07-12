@@ -1,5 +1,31 @@
 import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
 
+/**
+ * Return true if the given value is empty.
+ *
+ * Empty values include:
+ * - `null`
+ * - `undefined`
+ * - `0`
+ * - `NaN`
+ * - `''`
+ * - `[]`
+ * - `{}`
+ * - invalid `Date` time
+ * - object with `length` property of `0`
+ * - object with `size` property of `0`
+ * - object with no enumerable keys
+ *
+ * @see https://radashi-org.github.io/reference/typed/isEmpty
+ * @example
+ * ```ts
+ * isEmpty(0) // => true
+ * isEmpty(null) // => true
+ * isEmpty(undefined) // => true
+ * isEmpty([]) // => true
+ * isEmpty({}) // => true
+ * ```
+ */
 export function isEmpty(value: any): boolean {
   if (value === true || value === false) {
     return true

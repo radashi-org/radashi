@@ -1,6 +1,8 @@
 /**
  * Sort an array without modifying it and return the newly sorted
  * value. Allows for a string sorting value.
+ *
+ * @see https://radashi-org.github.io/reference/array/alphabetical
  */
 export function alphabetical<T>(
   array: readonly T[],

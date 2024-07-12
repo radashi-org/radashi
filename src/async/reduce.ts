@@ -1,6 +1,14 @@
 /**
  * An async reduce function. Works like the built-in Array.reduce
- * function but handles an async reducer function
+ * function but handles an async reducer function.
+ *
+ * @see https://radashi-org.github.io/reference/async/reduce
+ * @example
+ * ```ts
+ * const result = await reduce([1, 2, 3], async (acc, item, index) => {
+ *   return acc + (await computeOnGPU(item))
+ * }, 0)
+ * ```
  */
 export async function reduce<T, K>(
   array: readonly T[],

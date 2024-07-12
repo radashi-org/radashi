@@ -1,6 +1,8 @@
 /**
  * Linearly interpolates between two numbers.
  *
+ * @see https://radashi-org.github.io/reference/number/lerp
+ * @example
  * ```
  * lerp(0, 10, 0.5) // => 5
  * lerp(5, 15, 0.2) // => 7

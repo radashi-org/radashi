@@ -1,11 +1,16 @@
 import { capitalize } from 'radashi'
 
 /**
- * Formats the given string in title case fashion
+ * Formats the given string in title case fashion.
  *
- * title('hello world') -> 'Hello World' title('va_va_boom') -> 'Va Va
- * Boom' title('root-hook') -> 'Root Hook' title('queryItems') ->
- * 'Query Items'
+ * @see https://radashi-org.github.io/reference/string/title
+ * @example
+ * ```ts
+ * title('hello world') // => 'Hello World'
+ * title('va_va_boom') // => 'Va Va Boom'
+ * title('root-hook') // => 'Root Hook'
+ * title('queryItems') // => 'Query Items'
+ * ```
  */
 export function title(str: string | null | undefined): string {
   if (!str) {

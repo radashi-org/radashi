@@ -1,5 +1,13 @@
 /**
- * Map over all the keys to create a new object
+ * Map over all the keys to create a new object.
+ *
+ * @see https://radashi-org.github.io/reference/object/mapEntries
+ * @example
+ * ```ts
+ * const a = { a: 1, b: 2, c: 3 }
+ * mapEntries(a, (key, value) => [value, key])
+ * // => { 1: 'a', 2: 'b', 3: 'c' }
+ * ```
  */
 export function mapEntries<
   TKey extends string | number | symbol,

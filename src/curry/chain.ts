@@ -1,3 +1,20 @@
+/**
+ * Create a function that chains multiple functions together. The
+ * functions are called in order. Each function takes the result of
+ * the previous function as its first argument.
+ *
+ * @see https://radashi-org.github.io/reference/curry/chain
+ * @example
+ * ```ts
+ * const myChainedFunc = chain(
+ *   (x) => x + 5,
+ *   (x) => x * 2,
+ * )
+ *
+ * myChainedFunc(0)
+ * // => 10
+ * ```
+ */
 export function chain<T1 extends any[], T2, T3>(
   f1: (...arg: T1) => T2,
   f2: (arg: T2) => T3,

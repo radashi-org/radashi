@@ -1,3 +1,18 @@
+/**
+ * Flip the first two arguments of a function.
+ *
+ * @see https://radashi-org.github.io/reference/curry/flip
+ * @example
+ * ```ts
+ * const subtract = (x: number, y: number) => x - y
+ *
+ * // Equivalent to “y - x”
+ * const flippedSubtract = flip(subtract)
+ *
+ * flippedSubtract(3, 4)
+ * // => 1
+ * ```
+ */
 export function flip<Args extends any[], Result>(
   fn: (...args: Args) => Result,
 ): (...args: Flip<Args>) => Result {

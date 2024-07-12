@@ -1,7 +1,9 @@
 /**
  * Sort an array without modifying it and return the newly sorted
- * value
+ * value.
  *
+ * @see https://radashi-org.github.io/reference/array/sort
+ * @example
  * ```ts
  * const fish = [
  *   { name: 'Marlin', weight: 105 },

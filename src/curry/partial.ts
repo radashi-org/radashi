@@ -19,6 +19,8 @@ type RemoveItemsInFront<
  * Create a partial function by providing some (or all) of the
  * arguments the given function needs.
  *
+ * @see https://radashi-org.github.io/reference/curry/partial
+ * @example
  * ```ts
  * const add = (a: number, b: number) => a + b
  *

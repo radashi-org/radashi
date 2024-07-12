@@ -36,6 +36,23 @@ export interface MemoOptions<TArgs extends any[]> {
  * execute the source function when no value has previously been
  * computed. If a ttl (milliseconds) is given previously computed
  * values will be checked for expiration before being returned.
+ *
+ * @see https://radashi-org.github.io/reference/curry/memo
+ * @example
+ * ```ts
+ * const calls: number[] = []
+ * const fib = memo((x: number) => {
+ *   calls.push(x)
+ *   return x < 2 ? x : fib(x - 1) + fib(x - 2)
+ * })
+ *
+ * fib(10) // 55
+ * fib(10) // 55
+ * // calls === [10]
+ *
+ * fib(11) // 89
+ * // calls === [10, 11]
+ * ```
  */
 export function memo<TArgs extends any[], TResult>(
   func: (...args: TArgs) => TResult,

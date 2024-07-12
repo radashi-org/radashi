@@ -1,7 +1,19 @@
 import { type FilteredKeys, filterKey, isArray, type KeyFilter } from 'radashi'
 
 /**
- * Pick a list of properties from an object into a new object
+ * Pick a list of properties from an object into a new object.
+ *
+ * @see https://radashi-org.github.io/reference/object/pick
+ * @example
+ * ```ts
+ * const a = { a: 1, b: 2, c: 3 }
+ *
+ * pick(a, ['a', 'c'])
+ * // => { a: 1, c: 3 }
+ *
+ * pick(a, (value, key) => value > 1)
+ * // => { b: 2, c: 3 }
+ * ```
  */
 export function pick<T extends object, F extends KeyFilter<T, keyof T>>(
   obj: T,
