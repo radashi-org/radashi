@@ -1,7 +1,7 @@
 // @ts-check
 const { execSync } = require('child_process')
 
-export async function run({ github, core, context }, exec = execSync) {
+exports.run = async function run({ github, core, context }, exec = execSync) {
   try {
     // 1. Run `pnpm bundle-impact` to get the bundle impact
     const bundleImpact = exec('pnpm -s bundle-impact').toString().trim()
