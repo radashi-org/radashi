@@ -1,12 +1,16 @@
 ---
-title: compare
-group: 'Curry'
-description: Create a comparison function
+title: castComparator
+description: Cast a value into a comparator function
 ---
 
-## Basic usage
+### Usage
 
-Create a function that compares two values. It accepts either a getter or a property name. Optionally, you can pass a custom compare function.
+Create a comparator function which can be passed into `Array.prototype.sort`. It accepts either a property name or a mapping function. Optionally, you can pass a custom compare function (e.g. for `localeCompare` use cases).
+
+The first argument of `castComparator` is called the `mapping`. This can be either:
+
+- **Function**: If `mapping` is a function, it maps the input values to a comparable value.
+- **Property Name**: If `mapping` is a property name, it maps the input values to a property of the input values with a comparable value.
 
 ```ts
 import * as _ from 'radash'
@@ -17,14 +21,36 @@ const users = [
   { id: 2, firstName: 'Drew', lastName: 'Johnson' },
 ]
 
-const compareById = _.compare('id')
+const compareById = _.castComparator('id')
 users.sort(compareById)
 // [Alice, Drew, Charlie]
 
-const compareByFullName = _.compare(
-  (user) => `${user.firstName} ${user.lastName}`,
+const compareByFullName = _.castComparator(
+  user => `${user.firstName} ${user.lastName}`,
   (a, b) => b.localeCompare(a),
 )
+users.sort(compareByFullName)
+// [Alice, Charlie, Drew]
+```
+
+### Compare Function
+
+Optionally, you can pass a custom `compare` function that receives the mapped values and returns a number. If not provided, values are compared with the `<` and `>` built-in operators.
+
+A positive number means the “right value” is greater than the “left value”, a negative number means the “left value” is greater than the “right value”, and 0 means both values are equal.
+
+```ts
+const users = [
+  { id: 1, firstName: 'Alice', lastName: 'Smith' },
+  { id: 3, firstName: 'Charlie', lastName: 'Brown' },
+  { id: 2, firstName: 'Drew', lastName: 'Johnson' },
+]
+
+const compareByFullName = _.castComparator(
+  user => `${user.firstName} ${user.lastName}`,
+  (a, b) => b.localeCompare(a),
+)
+
 users.sort(compareByFullName)
 // [Alice, Charlie, Drew]
 ```

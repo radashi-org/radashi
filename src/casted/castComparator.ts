@@ -27,7 +27,7 @@ import {
  * ```ts
  * const compareUserNames = castComparator(
  *   (user) => user.name,
- *   (a, b) => a.localeCompare(b),
+ *   (a, b) => b.localeCompare(a),
  * )
  *
  * const users = [
