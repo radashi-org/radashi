@@ -38,6 +38,9 @@ fi
 if [ -f "src/$GROUP/$FUNC.ts" ]; then
   mkdir -p "src/$DEST"
   git mv "src/$GROUP/$FUNC.ts" "src/$DEST/$DEST_FUNC.ts"
+else
+  echo -e "ERROR: Source file not found\n"
+  exit 1
 fi
 
 # Documentation file
@@ -60,5 +63,5 @@ fi
 
 # Update src/mod.ts
 echo "WARN: You need to update src/mod.ts to export \"$DEST/$DEST_FUNC.ts\""
-echo "WARN: Only the files get renamed. The implementation, tests, and so on "
-echo "must be updated manually."
+echo "WARN: Only the files were renamed. The implementation, tests, and so on "
+echo "WARN:   must be updated manually."
