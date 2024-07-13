@@ -38,6 +38,8 @@ export * from './async/retry.ts'
 export * from './async/sleep.ts'
 export * from './async/tryit.ts'
 
+export * from './casted/castMapping'
+
 export * from './curry/callable.ts'
 export * from './curry/chain.ts'
 export * from './curry/compose.ts'

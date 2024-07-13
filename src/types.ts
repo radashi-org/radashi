@@ -35,3 +35,48 @@ export type StrictExtract<T, U> = SwitchNever<
   Extract<SwitchAny<T, unknown>, U>,
   unknown
 >
+
+/**
+ * Resolve a type union of property name literals within type `T`
+ * whose property values are assignable to type `CompatibleValue`.
+ *
+ * Use case: “I want to know which properties of `T` are compatible
+ * with `CompatibleValue`.”
+ */
+export type CompatibleProperty<T, CompatibleValue> = [T] extends [Any]
+  ? keyof any
+  : T extends null | undefined
+    ? never
+    : {
+        [P in keyof BoxedPrimitive<T>]: BoxedPrimitive<T>[P] extends CompatibleValue
+          ? P
+          : never
+      }[keyof BoxedPrimitive<T>]
+
+/**
+ * Coerce a primitive type to its boxed equivalent.
+ *
+ * @example
+ * ```ts
+ * type A = BoxedPrimitive<string>
+ * //   ^? String
+ * type B = BoxedPrimitive<number>
+ * //   ^? Number
+ * ```
+ */
+export type BoxedPrimitive<T> = T extends string
+  ? // biome-ignore lint/complexity/noBannedTypes:
+    String
+  : T extends number
+    ? // biome-ignore lint/complexity/noBannedTypes:
+      Number
+    : T extends boolean
+      ? // biome-ignore lint/complexity/noBannedTypes:
+        Boolean
+      : T extends bigint
+        ? // biome-ignore lint/complexity/noBannedTypes:
+          BigInt
+        : T extends symbol
+          ? // biome-ignore lint/complexity/noBannedTypes:
+            Symbol
+          : T
