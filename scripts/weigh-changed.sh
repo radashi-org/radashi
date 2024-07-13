@@ -64,7 +64,12 @@ fi
 
 column_count=2
 if [ ${#PREV_SIZES[@]} -gt 0 ]; then
-  column_count=3
+  for size in "${PREV_SIZES[@]}"; do
+    if [ "$size" -ne 0 ]; then
+      column_count=3
+      break
+    fi
+  done
 fi
 
 echo -e "\n\n"
