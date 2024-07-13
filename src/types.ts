@@ -94,6 +94,12 @@ export type Comparable =
   | { [Symbol.toPrimitive](hint: 'string'): string }
 
 /**
+ * Extract a string union of property names from type `T` whose value
+ * can be compared with `>`, `>=`, etc.
+ */
+export type ComparableProperty<T> = CompatibleProperty<T, Comparable>
+
+/**
  * A comparator function. It can be passed to the `sort` method of
  * arrays to sort the elements.
  *

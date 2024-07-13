@@ -52,14 +52,16 @@ export type OptionalMapping<T = any, U = any> = Mapping<T, U> | null | undefined
  *
  * @see https://radashi-org.github.io/reference/casted/castMapping
  */
-export type MappedInput<TMapping> = TMapping extends (arg: infer Arg) => any
+export type MappedInput<TMapping, TPropertyValue = any> = TMapping extends (
+  arg: infer Arg,
+) => any
   ? [Arg] extends [Any]
     ? unknown
     : Arg
   : TMapping extends keyof any
     ?
-        | { [P in TMapping]: any }
-        | (TMapping extends number ? readonly any[] : never)
+        | { [P in TMapping]: TPropertyValue }
+        | (TMapping extends number ? readonly TPropertyValue[] : never)
     : unknown
 
 /**

@@ -2,6 +2,7 @@ import {
   type Comparable,
   type Comparator,
   isFunction,
+  type MappedInput,
   type MappedOutput,
   type Mapping,
 } from 'radashi'
@@ -40,10 +41,37 @@ import {
  * // => [Doe, Jane, John]
  * ```
  */
-export function castComparator<T, TMapping extends ComparatorMapping<T>>(
+// Support property name:
+//     castComparator('name')
+export function castComparator<TMapping extends keyof any>(
+  mapping: TMapping,
+): Comparator<MappedInput<TMapping, Comparable>>
+
+// Support property name and compare fn:
+//     castComparator('name', (a: number, b: number) => {…})
+export function castComparator<T, TMapping extends Mapping<any, T>>(
+  mapping: TMapping,
+  compare: Comparator<T>,
+): Comparator<MappedInput<TMapping, T>>
+
+// Support explicit function type:
+//     castComparator((data: TInput) => {…})
+export function castComparator<TInput, TOutput = Comparable>(
+  mapping: (data: TInput) => TOutput,
+  compare?: Comparator<TOutput>,
+): Comparator<TInput>
+
+// Support explicit input type parameter:
+//     castComparator<TInput>(…)
+export function castComparator<TInput>(
+  mapping: ComparatorMapping<TInput>,
+): Comparator<TInput>
+
+// Handle everything else with this signature.
+export function castComparator<TMapping extends ComparatorMapping>(
   mapping: TMapping,
   compare?: Comparator<MappedOutput<TMapping>>,
-): Comparator<T>
+): Comparator<MappedInput<TMapping>>
 
 export function castComparator(
   mapping: ComparatorMapping<any>,
@@ -67,6 +95,6 @@ export function castComparator(
  * @see https://radashi-org.github.io/reference/casted/castComparator
  */
 export type ComparatorMapping<
-  T,
+  T = any,
   Compared extends Comparable = Comparable,
 > = Mapping<T, Compared>
