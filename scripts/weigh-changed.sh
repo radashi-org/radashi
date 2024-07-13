@@ -44,7 +44,7 @@ PREV_SIZES=()
 
 # Collect previous sizes if there are no uncommitted changes or it's CI.
 if [ -n "$CI" ] || [ -z "$(git status -s)" ]; then
-  git checkout "$TARGET_BRANCH" &> /dev/null
+  git checkout "$TARGET_BRANCH"
 
   i=0
   for file in "${FILE_NAMES[@]}"; do
