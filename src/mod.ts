@@ -40,11 +40,11 @@ export * from './async/tryit.ts'
 
 export * from './casted/castArray.ts'
 export * from './casted/castArrayIfExists.ts'
+export * from './casted/castComparator.ts'
 export * from './casted/castMapping.ts'
 
 export * from './curry/callable.ts'
 export * from './curry/chain.ts'
-export * from './curry/compare'
 export * from './curry/compose.ts'
 export * from './curry/debounce.ts'
 export * from './curry/flip.ts'
