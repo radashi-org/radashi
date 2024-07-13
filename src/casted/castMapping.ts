@@ -27,7 +27,7 @@ export function castMapping<TMapping extends Mapping | null | undefined>(
     ? mapping
     : mapping != null
       ? <TInput extends MappedInput<TMapping>>(input: TInput) =>
-          input[mapping as keyof TInput] as MappedOutput<TMapping>
+          input[mapping as keyof object] as MappedOutput<TMapping>
       : input => input as MappedOutput<TMapping>
 }
 
