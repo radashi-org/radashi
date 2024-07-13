@@ -1,4 +1,4 @@
-import { CompatibleProperty, isFunction } from 'radashi'
+import { type CompatibleProperty, isFunction } from 'radashi'
 
 // Used to detect type `any`
 declare const AnyKind: unique symbol
