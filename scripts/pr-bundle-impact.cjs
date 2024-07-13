@@ -29,14 +29,16 @@ exports.run = async function run({ github, core, context }, exec = execSync) {
       updatedBody = `${originalBody}\n\n## Bundle impact\n\n${bundleImpact}\n\n`
     }
 
-    await github.rest.pulls.update({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      pull_number: context.issue.number,
-      body: updatedBody,
-    })
+    if (updatedBody !== originalBody) {
+      await github.rest.pulls.update({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        pull_number: context.issue.number,
+        body: updatedBody,
+      })
 
-    core.info('PR description updated with bundle impact.')
+      core.info('PR description updated with bundle impact.')
+    }
   } catch (error) {
     core.setFailed(`Action failed with error: ${error}`)
   }
