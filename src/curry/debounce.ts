@@ -41,24 +41,20 @@ export function debounce<TArgs extends any[]>(
   func: (...args: TArgs) => any,
 ): DebounceFunction<TArgs> {
   let timer: unknown = undefined
-  let active = true
 
   const debounced: DebounceFunction<TArgs> = (...args: TArgs) => {
-    if (active) {
-      clearTimeout(timer)
-      timer = setTimeout(() => {
-        active && func(...args)
-        timer = undefined
-      }, delay)
-    } else {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
       func(...args)
-    }
+      timer = undefined
+    }, delay)
   }
   debounced.isPending = () => {
     return timer !== undefined
   }
   debounced.cancel = () => {
-    active = false
+    clearTimeout(timer)
+    timer = undefined
   }
   debounced.flush = (...args: TArgs) => func(...args)
 

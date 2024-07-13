@@ -34,7 +34,7 @@ Source Invocations: - - - - - - - - - - x - - - - - - - - - - - - - - - - - x - 
 
 ### Cancel
 
-The function returned by `debounce` has a `cancel` method that when called will permanently stop the source function from being debounced.
+The function returned by `debounce` has a `cancel` method that when called will cancel any pending invocation.
 
 ```ts
 const debounced = _.debounce({ delay: 100 }, api.feed.refresh)

@@ -27,14 +27,23 @@ describe('debounce', () => {
     expect(mockFunc).toHaveBeenCalledTimes(1)
   })
 
-  test('does not debounce after cancel is called', () => {
-    runFunc3Times()
-    expect(mockFunc).toHaveBeenCalledTimes(0)
+  test('does not execute if cancel called before timeout', () => {
+    func()
+    expect(func.isPending()).toBe(true)
     func.cancel()
-    runFunc3Times()
-    expect(mockFunc).toHaveBeenCalledTimes(3)
-    runFunc3Times()
-    expect(mockFunc).toHaveBeenCalledTimes(6)
+    expect(func.isPending()).toBe(false)
+    vi.advanceTimersByTime(delay + 10)
+    expect(mockFunc).toHaveBeenCalledTimes(0)
+  })
+
+  test('continues to debounce after cancel is called', () => {
+    func()
+    func.cancel()
+    vi.advanceTimersByTime(delay + 10)
+    expect(mockFunc).toHaveBeenCalledTimes(0)
+    func()
+    vi.advanceTimersByTime(delay + 10)
+    expect(mockFunc).toHaveBeenCalledTimes(1)
   })
 
   test('executes the function immediately when the flush method is called', () => {
