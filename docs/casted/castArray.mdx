@@ -1,0 +1,16 @@
+---
+title: castArray
+description: Cast a value into an array
+---
+
+### Usage
+
+The `castArray` function ensures that the input value is always returned as an array. If the input is already an array, it returns a shallow copy of the array. If the input is not an array, it wraps the input in a new array.
+
+```ts
+import * as _ from 'radashi'
+
+_.castArray(1) // => [1]
+_.castArray([1, 2, 3]) // => [1, 2, 3]
+_.castArray('hello') // => ['hello']
+```

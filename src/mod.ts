@@ -38,7 +38,9 @@ export * from './async/retry.ts'
 export * from './async/sleep.ts'
 export * from './async/tryit.ts'
 
-export * from './casted/castMapping'
+export * from './casted/castArray.ts'
+export * from './casted/castArrayIfExists.ts'
+export * from './casted/castMapping.ts'
 
 export * from './curry/callable.ts'
 export * from './curry/chain.ts'
