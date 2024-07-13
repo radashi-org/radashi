@@ -1,9 +1,10 @@
 import * as _ from 'radashi'
 
 describe('castArray', () => {
-  test('return the same array if input is an array', () => {
+  test('return a shallow copy if input is an array', () => {
     const input = [1, 2, 3]
     expect(_.castArray(input)).toEqual(input)
+    expect(_.castArray(input)).not.toBe(input)
   })
   test('return a new array with the same elements if input is an array', () => {
     const input = [1, 2, 3]
