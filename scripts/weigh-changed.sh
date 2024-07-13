@@ -44,7 +44,6 @@ PREV_SIZES=()
 
 # Collect previous sizes if there are no uncommitted changes.
 if [ -z "$(git status -s)" ]; then
-  echo "Checking out $TARGET_BRANCH..."
   git checkout "$TARGET_BRANCH" &> /dev/null
 
   i=0
