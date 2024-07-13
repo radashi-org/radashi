@@ -95,6 +95,7 @@ commit_parsers = [
   { message = "^perf", group = "<!-- 07 -->Performance" },
   { message = "^(fix|chore).perf.:", group = "<!-- 07 -->Performance", scope = "" },
   { message = "^(build|chore|ci|docs|refactor|test|style)", skip = true },
+  { message = "^Revert", skip = true },
   { message = "^.*\\(types\\):", group = "<!-- 08 -->Types", scope = "" },
   { message = "^fix", group = "<!-- 06 -->Fixed" },
   { message = "^.*: (add|support)", group = "<!-- 03 -->Added" },
