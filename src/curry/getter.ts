@@ -18,10 +18,28 @@ export type Getter<T, U = unknown> =
   | ((arg: T) => U)
   | CompatibleProperty<Extract<T, object>, U>
 
-export function getter<T, U = T>(by: Getter<T, U> | undefined): (arg: T) => U {
+export type Gotten<T, U> = U extends (data: T) => infer Result
+  ? Result
+  : U extends undefined
+    ? T
+    : U extends keyof T
+      ? T[U]
+      : never
+
+/**
+ * Coerce the `by` value into a getter function.
+ *
+ * - If `by` is a function, it is returned as is.
+ * - If `by` is a property name, the getter uses it to retrieve the
+ *   property value from a given object.
+ * - If `by` is undefined, the getter is `(arg: T) => arg`.
+ */
+export function getter<T, TGetter extends Getter<T>>(
+  by: TGetter | undefined,
+): (arg: T) => Gotten<T, TGetter> {
   return isFunction(by)
     ? by
     : by !== undefined
-      ? (arg: T) => arg[by as keyof T] as U
-      : (arg: T) => arg as unknown as U
+      ? (arg: T) => arg[by as keyof T] as any
+      : (arg: T) => arg as any
 }
