@@ -1,0 +1,86 @@
+---
+title: castMapping
+description: Cast a value into a mapping function
+---
+
+### Usage
+
+Improve your own utility function by adding a flexible value-mapping option, using `castMapping` to retrieve a mapping function.
+
+The following types can be casted into a mapping function:
+
+1. **Function**: If the input is a function, it returns the function as is.
+2. **Property Name**: If the input is a property name, it returns a function that retrieves the value of that property from an object.
+3. **Nullish**: If the input is nullish (null or undefined), it returns a function that simply returns the input object itself.
+
+```ts
+import * as _ from 'radashi'
+
+// Using a property name
+const getName = _.castMapping('name')
+getName({ name: 'Alice' }) // => 'Alice'
+
+// Using a function
+const getLength = _.castMapping((str: string) => str.length)
+getLength('Hello') // => 5
+
+// Using undefined
+const identity = _.castMapping(undefined)
+identity({ any: 'value' }) // => { any: 'value' }
+```
+
+## Types
+
+### CastMapping
+
+This is the return type of `castMapping`.
+
+```ts
+const mapper: CastMapping<Data, number> = _.castMapping(data => data.a)
+```
+
+### MappedOutput
+
+As you may have noticed in the previous example, the `MappedOutput` type is used to infer the type of the value returned by the mapping function.
+
+```ts
+type Data = { a: number; b: string }
+
+const test = <T>() => T
+
+test<MappedOutput<Data, (data: Data) => number>>()
+// is number
+
+test < MappedOutput<CastMapping<'a'>>()
+// is number
+
+test<MappedOutput<undefined>>()
+// is Data
+```
+
+### Mapping
+
+You can use the `Mapping` type to accept a value that can be passed into `castMapping`.
+
+```ts
+import { type Mapping } from 'radashi'
+
+function mapArray<T, TMapping extends Mapping<T>>(
+  array: readonly T[],
+  mapping?: TMapping,
+): Gotten<T, TMapping>[] {
+  return array.map(castMapping(mapping))
+}
+```
+
+## Etymology
+
+### Origin
+
+The term "castMapping" combines two key concepts from programming:
+
+1. "Cast" originates from type casting in programming, which involves converting a value from one data type to another. This process ensures that data is in the correct format for a specific operation.
+
+2. "Mapping" as a noun refers to a correspondence between elements of two sets, or a function that defines such a correspondence. In programming, it often represents a data structure that associates keys with values, or a function that transforms one set of data into another.
+
+Together, "castMapping" describes a function that takes a value (which could be a function, a property name, or undefined) and converts or "casts" it into a standardized mapping. This resulting mapping can then be used to transform data consistently, regardless of the initial input type. The process enhances flexibility in data manipulation by allowing various input types to be treated uniformly as mappings for data transformation.
