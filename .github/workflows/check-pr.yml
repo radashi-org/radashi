@@ -45,6 +45,7 @@ jobs:
         run: echo "$PR_TITLE" | pnpm -s dlx commitlint@19.x
       - name: Refresh Bundle Impact
         uses: actions/github-script@v6
+        continue-on-error: true
         env:
           TARGET_BRANCH: ${{ github.event.pull_request.base.ref }}
         with:
