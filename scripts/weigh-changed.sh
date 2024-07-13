@@ -42,8 +42,8 @@ fi
 # The sizes of the changed functions before the changes.
 PREV_SIZES=()
 
-# Collect previous sizes if there are no uncommitted changes.
-if [ -z "$(git status -s)" ]; then
+# Collect previous sizes if there are no uncommitted changes or it's CI.
+if [ -n "$CI" ] || [ -z "$(git status -s)" ]; then
   git checkout "$TARGET_BRANCH" &> /dev/null
 
   i=0
@@ -66,6 +66,8 @@ column_count=2
 if [ ${#PREV_SIZES[@]} -gt 0 ]; then
   column_count=3
 fi
+
+echo "\n\n"
 
 if [[ -n "$CI" ]]; then
   if [ "$column_count" -gt 2 ]; then
