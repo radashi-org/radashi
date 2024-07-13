@@ -6,13 +6,20 @@ DEST="$2"
 DEST_FUNC="$FUNC"
 
 print_help() {
-  echo "Usage: $0 <group/func> <dest | dest/dest_func>"
+  echo "Usage: move-function <group/func> <dest>"
+  echo ""
+  echo "The \$dest can be a group or a group/func pair."
+  echo ""
+  echo "Examples:"
+  echo "  move-function array/sum number"
+  echo "  move-function array/split array/fork"
+  echo ""
   exit 1
 }
 
 # If FUNC is empty, throw an error
 if [ -z "$FUNC" ]; then
-  echo "ERROR: Function is required\n"
+  echo -e "ERROR: Function is required\n"
   print_help
 fi
 
@@ -52,4 +59,6 @@ if [ -f "tests/$GROUP/$FUNC.test.ts" ]; then
 fi
 
 # Update src/mod.ts
-echo "WARNING: You need to update src/mod.ts to export \"$DEST/$DEST_FUNC.ts\""
+echo "WARN: You need to update src/mod.ts to export \"$DEST/$DEST_FUNC.ts\""
+echo "WARN: Only the files get renamed. The implementation, tests, and so on "
+echo "must be updated manually."
