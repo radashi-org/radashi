@@ -1,0 +1,27 @@
+---
+title: clamp
+description: Limit the range of a variable number
+---
+
+### Usage
+
+The `clamp` function restricts a number to be within a specified
+range.
+
+- It takes three arguments: the number to clamp, the minimum value,
+  and the maximum value.
+- If the number is less than the minimum, it returns the minimum.
+- If the number is greater than the maximum, it returns the
+  maximum.
+- Otherwise, it returns the number itself.
+
+```ts
+import * as _ from 'radashi'
+
+_.clamp(5, 1, 10) // returns 5
+_.clamp(0, 1, 10) // returns 1
+_.clamp(15, 1, 10) // returns 10
+
+// Invalid range
+_.clamp(1, 10, 1) // throws
+```

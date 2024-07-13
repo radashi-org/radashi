@@ -52,6 +52,7 @@ export * from './curry/partob.ts'
 export * from './curry/proxied.ts'
 export * from './curry/throttle.ts'
 
+export * from './number/clamp.ts'
 export * from './number/inRange.ts'
 export * from './number/lerp.ts'
 export * from './number/max.ts'
