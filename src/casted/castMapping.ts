@@ -41,6 +41,13 @@ export type Mapping<T = any, U = any> =
   | CompatibleProperty<T, U>
 
 /**
+ * A value that can be casted with `castMapping`.
+ *
+ * @see https://radashi-org.github.io/reference/casted/castMapping
+ */
+export type OptionalMapping<T = any, U = any> = Mapping<T, U> | null | undefined
+
+/**
  * The input type of a mapping function created with `castMapping`.
  *
  * @see https://radashi-org.github.io/reference/casted/castMapping

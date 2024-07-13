@@ -36,7 +36,12 @@ identity({ any: 'value' }) // => { any: 'value' }
 This is the return type of `castMapping`.
 
 ```ts
-const mapper: CastMapping<Data, number> = _.castMapping(data => data.a)
+import * as _ from 'radashi'
+import type { CastMapping } from 'radashi'
+
+const data = { a: 1, b: '2' }
+
+const mapper: CastMapping<typeof data, number> = _.castMapping(data => data.a)
 ```
 
 ### MappedOutput
@@ -44,6 +49,8 @@ const mapper: CastMapping<Data, number> = _.castMapping(data => data.a)
 As you may have noticed in the previous example, the `MappedOutput` type is used to infer the type of the value returned by the mapping function.
 
 ```ts
+import type { MappedOutput } from 'radashi'
+
 type Data = { a: number; b: string }
 
 const test = <T>() => T
@@ -51,7 +58,7 @@ const test = <T>() => T
 test<MappedOutput<Data, (data: Data) => number>>()
 // is number
 
-test < MappedOutput<CastMapping<'a'>>()
+test<MappedOutput<CastMapping<'a'>>>()
 // is number
 
 test<MappedOutput<undefined>>()
@@ -63,13 +70,27 @@ test<MappedOutput<undefined>>()
 You can use the `Mapping` type to accept a value that can be passed into `castMapping`.
 
 ```ts
-import { type Mapping } from 'radashi'
+import * as _ from 'radashi'
+import type { Mapping, MappedOutput } from 'radashi'
 
 function mapArray<T, TMapping extends Mapping<T>>(
   array: readonly T[],
+  mapping: TMapping,
+): MappedOutput<TMapping, T>[] {
+  return array.map(_.castMapping(mapping))
+}
+```
+
+If you want a mapping to be optional, use the `OptionalMapping` type instead.
+
+```ts
+import type { OptionalMapping, MappedOutput } from 'radashi'
+
+function mapArray<T, TMapping extends OptionalMapping<T>>(
+  array: readonly T[],
   mapping?: TMapping,
-): Gotten<T, TMapping>[] {
-  return array.map(castMapping(mapping))
+): MappedOutput<TMapping, T>[] {
+  return array.map(_.castMapping(mapping))
 }
 ```
 
