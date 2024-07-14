@@ -1,0 +1,20 @@
+---
+title: isBoolean
+description: Check if a value is a boolean type
+---
+
+### Usage
+
+Returns true if the value is a `boolean` type. Boxed boolean values (e.g. `new Boolean(false)`) are not considered booleans by this function.
+
+```ts
+import * as _ from 'radashi'
+
+_.isBoolean(true) // => true
+_.isBoolean(false) // => true
+_.isBoolean('true') // => false
+_.isBoolean(1) // => false
+_.isBoolean(new Boolean(true)) // => false
+_.isBoolean(undefined) // => false
+_.isBoolean(null) // => false
+```
