@@ -5,10 +5,23 @@ description: Convert an array to a map
 
 ### Usage
 
-Given an array of items, create a map with keys and values mapped by given
-functions. First argument is the array to map. The second argument is the
-function to determine the key for each item. The third argument is optional and
-determines the value for each item.
+The `mapify` function converts an array into a `Map` object, allowing you to specify how keys and values are derived from each array item.
+
+#### Parameters
+
+1. `array`: The input array to be converted into a Map.
+2. `getKey`: A function that determines the key for each item in the array. It receives two arguments:
+   - `item`: The current array item.
+   - `index`: The index of the current item in the array.
+3. `getValue` (optional): A function that determines the value for each item in the array. If not provided, the original array item is used as the value. It also receives two arguments:
+   - `item`: The current array item.
+   - `index`: The index of the current item in the array.
+
+#### Return Value
+
+Returns a new `Map` object where keys and values are derived from the input array using the provided mapping functions.
+
+#### Example
 
 ```ts
 import * as _ from 'radashi'
