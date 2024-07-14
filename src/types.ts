@@ -80,3 +80,31 @@ export type BoxedPrimitive<T> = T extends string
           ? // biome-ignore lint/complexity/noBannedTypes:
             Symbol
           : T
+
+/**
+ * A value that can be reliably compared with JavaScript comparison
+ * operators (e.g. `>`, `>=`, etc).
+ */
+export type Comparable =
+  | number
+  | string
+  | bigint
+  | { valueOf: () => number | string | bigint }
+  | { [Symbol.toPrimitive](hint: 'number'): number }
+  | { [Symbol.toPrimitive](hint: 'string'): string }
+
+/**
+ * Extract a string union of property names from type `T` whose value
+ * can be compared with `>`, `>=`, etc.
+ */
+export type ComparableProperty<T> = CompatibleProperty<T, Comparable>
+
+/**
+ * A comparator function. It can be passed to the `sort` method of
+ * arrays to sort the elements.
+ *
+ * Return a negative number to sort the “left” value before the “right”
+ * value, a positive number to sort the “right” value before the “left”
+ * value, and 0 to keep the order of the values.
+ */
+export type Comparator<T> = (left: T, right: T) => number
