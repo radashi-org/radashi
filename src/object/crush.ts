@@ -21,19 +21,20 @@ type Primitive =
 	| undefined
 	| null;
 
+const crushToPvArray: (
+	obj: object,
+	path: string,
+) => Array<{ p: string; v: Primitive }> = (obj: object, path: string) =>
+	Object.entries(obj).flatMap(([key, value]) =>
+		isPrimitive(value) || isDate(value)
+			? { p: path === "" ? key : `${path}.${key}`, v: value }
+			: crushToPvArray(value, path === "" ? key : `${path}.${key}`),
+	);
+
 export function crush<TValue extends object>(
 	value: TValue,
 ): Record<string, Primitive> | Record<string, never> {
 	if (!value) return {};
-	const crushToPvArray: (
-		obj: object,
-		path: string,
-	) => Array<{ p: string; v: Primitive }> = (obj: object, path: string) =>
-		Object.entries(obj).flatMap(([key, value]) =>
-			isPrimitive(value) || isDate(value)
-				? { p: path === "" ? key : `${path}.${key}`, v: value }
-				: crushToPvArray(value, path === "" ? key : `${path}.${key}`),
-		);
 
 	const result = objectify(
 		crushToPvArray(value, ""),
