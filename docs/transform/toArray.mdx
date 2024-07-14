@@ -1,5 +1,5 @@
 ---
-title: listify
+title: toArray
 description: Convert an object to a list
 ---
 
@@ -19,5 +19,5 @@ const fish = {
   },
 }
 
-_.listify(fish, (key, value) => ({ ...value, name: key })) // => [{ name: 'marlin', weight: 105 }, { name: 'bass', weight: 8 }]
+_.toArray(fish, (key, value) => ({ ...value, name: key })) // => [{ name: 'marlin', weight: 105 }, { name: 'bass', weight: 8 }]
 ```

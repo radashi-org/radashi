@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('objectify', () => {
+describe('toObject', () => {
   const list = [
     { id: 'a', word: 'hello' },
     { id: 'b', word: 'bye' },
@@ -9,7 +9,7 @@ describe('objectify', () => {
     { id: 'e', word: 'ok' },
   ]
   test('returns correct map of values', () => {
-    const result = _.objectify(
+    const result = _.toObject(
       list,
       x => x.id,
       x => x,
@@ -18,7 +18,7 @@ describe('objectify', () => {
     expect(result.b.word).toBe('bye')
   })
   test('does not fail on empty input list', () => {
-    const result = _.objectify(
+    const result = _.toObject(
       [],
       (x: any) => x.id,
       x => x,
@@ -26,7 +26,7 @@ describe('objectify', () => {
     expect(result).toEqual({})
   })
   test('defaults value to array item', () => {
-    const result = _.objectify(list.slice(0, 1), x => x.id)
+    const result = _.toObject(list.slice(0, 1), x => x.id)
     expect(result).toEqual({
       a: { id: 'a', word: 'hello' },
     })

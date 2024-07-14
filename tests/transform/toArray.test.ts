@@ -1,12 +1,12 @@
 import * as _ from 'radashi'
 
-describe('listify', () => {
+describe('toArray', () => {
   test('handles null input', () => {
-    const result = _.listify(null as any as Record<string, string>, () => 1)
+    const result = _.toArray(null as any as Record<string, string>, () => 1)
     expect(result).toEqual([])
   })
   test('handles empty object', () => {
-    const result = _.listify({} as Record<string, string>, () => 1)
+    const result = _.toArray({} as Record<string, string>, () => 1)
     expect(result).toEqual([])
   })
   test('calls toItem to convert to list', () => {
@@ -15,7 +15,7 @@ describe('listify', () => {
       one: { name: 'ray' },
       two: { name: 'ash' },
     }
-    const result = _.listify(obj, (key, value) => ({
+    const result = _.toArray(obj, (key, value) => ({
       index: key,
       name: value.name,
     }))
