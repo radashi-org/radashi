@@ -1,7 +1,7 @@
 import * as _ from 'radashi'
 import { bench } from 'vitest'
 
-describe('mapify', () => {
+describe('castObject', () => {
   bench('with full list and identity value function', () => {
     const list = [
       { id: 'a', word: 'hello' },
@@ -10,7 +10,7 @@ describe('mapify', () => {
       { id: 'd', word: 'hey' },
       { id: 'e', word: 'ok' },
     ]
-    _.mapify(
+    _.castObject(
       list,
       x => x.id,
       x => x,
@@ -18,7 +18,7 @@ describe('mapify', () => {
   })
 
   bench('with empty list', () => {
-    _.mapify(
+    _.castObject(
       [],
       (x: any) => x.id,
       x => x,

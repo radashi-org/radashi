@@ -1,9 +1,9 @@
 import * as _ from 'radashi'
 import { bench } from 'vitest'
 
-describe('listify', () => {
+describe('mapEntriesToArray', () => {
   bench('with empty object', () => {
-    _.listify({} as Record<string, string>, () => 1)
+    _.mapEntriesToArray({} as Record<string, string>, () => 1)
   })
 
   bench('with non-empty object', () => {
@@ -11,7 +11,7 @@ describe('listify', () => {
       one: { name: 'ray' },
       two: { name: 'ash' },
     }
-    _.listify(obj, (key, value) => ({
+    _.mapEntriesToArray(obj, (key, value) => ({
       index: key,
       name: value.name,
     }))

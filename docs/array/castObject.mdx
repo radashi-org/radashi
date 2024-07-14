@@ -1,6 +1,6 @@
 ---
-title: objectify
-description: Convert a list to a dictionary object
+title: castObject
+description: Convert an array to a dictionary object
 ---
 
 ### Usage
@@ -27,8 +27,8 @@ const fish = [
   },
 ]
 
-_.objectify(fish, f => f.name) // => { Marlin: [marlin object], Bass: [bass object], ... }
-_.objectify(
+_.castObject(fish, f => f.name) // => { Marlin: [marlin object], Bass: [bass object], ... }
+_.castObject(
   fish,
   f => f.name,
   f => f.weight,

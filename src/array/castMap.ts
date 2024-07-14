@@ -1,7 +1,7 @@
 /**
  * Create a new `Map` instance from an array.
  *
- * @see https://radashi-org.github.io/reference/array/mapify
+ * @see https://radashi-org.github.io/reference/transform/castMap
  * @example
  * ```ts
  * const array = [
@@ -9,7 +9,7 @@
  *   { id: 2, name: 'Annie' },
  * ]
  *
- * mapify(
+ * castMap(
  *   array,
  *   item => item.id,
  *   item => item.name,
@@ -17,7 +17,7 @@
  * // Map(2) { 1 => 'Fred', 2 => 'Annie' }
  * ```
  */
-export function mapify<T, Key, Value = T>(
+export function castMap<T, Key, Value = T>(
   array: readonly T[],
   getKey: (item: T, index: number) => Key,
   getValue: (item: T, index: number) => Value = item =>
@@ -29,3 +29,8 @@ export function mapify<T, Key, Value = T>(
   }
   return map
 }
+
+/**
+ * @deprecated Use `castMap` instead.
+ */
+export const mapify: typeof castMap = castMap

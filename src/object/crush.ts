@@ -1,4 +1,4 @@
-import { get, keys, objectify } from 'radashi'
+import { castObject, get, keys } from 'radashi'
 
 /**
  * Flattens a deep object to a single dimension, converting the keys
@@ -15,7 +15,7 @@ export function crush<TValue extends object>(value: TValue): object {
   if (!value) {
     return {}
   }
-  return objectify(
+  return castObject(
     keys(value),
     k => k,
     k => get(value, k),
