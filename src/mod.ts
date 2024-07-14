@@ -55,6 +55,9 @@ export * from './curry/partob.ts'
 export * from './curry/proxied.ts'
 export * from './curry/throttle.ts'
 
+export * from './function/always.ts'
+export * from './function/noop.ts'
+
 export * from './number/clamp.ts'
 export * from './number/inRange.ts'
 export * from './number/lerp.ts'
