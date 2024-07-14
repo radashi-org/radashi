@@ -32,6 +32,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `cloneDeep` function by [@aleclarson](https://github.com/aleclarson) in [#81](https://github.com/radashi-org/radashi/pull/81)
 
+- Add `castMapping` function by [@aleclarson](https://github.com/aleclarson) in [#43](https://github.com/radashi-org/radashi/pull/43)
+
+- Add `clamp` function by [@aleclarson](https://github.com/aleclarson) in [#106](https://github.com/radashi-org/radashi/pull/106)
+
+- Add `castArray` and `castArrayIfExists` by [@aleclarson](https://github.com/aleclarson) in [#97](https://github.com/radashi-org/radashi/pull/97)
+
+- Add `castComparator` function by [@aleclarson](https://github.com/aleclarson) in [#34](https://github.com/radashi-org/radashi/pull/34)
+
+- Add reverse argument to `castComparator` by [@aleclarson](https://github.com/aleclarson) in [1d7937e](https://github.com/radashi-org/radashi/commit/1d7937ef006139883aedac782ad032c1d6269c7a)
+- Add `isBoolean` function by [@aleclarson](https://github.com/aleclarson) in [adc419d](https://github.com/radashi-org/radashi/commit/adc419d5bbb1786d75619ed3d7f41a45f68c9857)
+- Add `noop` and `always` functions by [@aleclarson](https://github.com/aleclarson) in [eb77c8f](https://github.com/radashi-org/radashi/commit/eb77c8f004a35f1499968f6e40d01b3595384848)
 
 #### <!-- 05 -->Changed
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
@@ -46,6 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add selectFirst by [@adamhamlin](https://github.com/adamhamlin) in [#52](https://github.com/radashi-org/radashi/pull/52)
 
 - **(pick)** Accept a callback for advanced picking by [@aleclarson](https://github.com/aleclarson) in [#30](https://github.com/radashi-org/radashi/pull/30)
+
+- **(mapify)** Provide an index argument to the callbacks by [@aleclarson](https://github.com/aleclarson) in [#100](https://github.com/radashi-org/radashi/pull/100)
 
 
 #### <!-- 06 -->Fixed
