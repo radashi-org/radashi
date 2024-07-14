@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('toMap', () => {
+describe('castMap', () => {
   const list = [
     { id: 'a', word: 'hello' },
     { id: 'b', word: 'bye' },
@@ -9,7 +9,7 @@ describe('toMap', () => {
     { id: 'e', word: 'ok' },
   ]
   test('returns correct map of values', () => {
-    const result = _.toMap(
+    const result = _.castMap(
       list,
       x => x.id,
       x => x,
@@ -20,7 +20,7 @@ describe('toMap', () => {
     expect(result.get('b')?.word).toBe('bye')
   })
   test('does not fail on empty input list', () => {
-    const result = _.toMap(
+    const result = _.castMap(
       [],
       (x: any) => x.id,
       x => x,
@@ -28,7 +28,7 @@ describe('toMap', () => {
     expect(result).toBeTypeOf(typeof new Map())
   })
   test('defaults value to array item', () => {
-    const result = _.toMap(list.slice(0, 1), x => x.id)
+    const result = _.castMap(list.slice(0, 1), x => x.id)
     expect(result).toBeTypeOf(typeof new Map())
     expect(result.size).toBe(1)
     expect(result.get('a')?.word).toBe('hello')

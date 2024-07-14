@@ -41,7 +41,7 @@ This is a function you might like to use with `get`, which dynamically looks up 
 ```ts
 import * as _ from 'radashi'
 
-_.toObject(
+_.castObject(
   _.keys(ra),
   key => key,
   key => _.get(ra, key),

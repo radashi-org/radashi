@@ -1,5 +1,5 @@
 ---
-title: toObject
+title: castObject
 description: Convert an array to a dictionary object
 ---
 
@@ -27,8 +27,8 @@ const fish = [
   },
 ]
 
-_.toObject(fish, f => f.name) // => { Marlin: [marlin object], Bass: [bass object], ... }
-_.toObject(
+_.castObject(fish, f => f.name) // => { Marlin: [marlin object], Bass: [bass object], ... }
+_.castObject(
   fish,
   f => f.name,
   f => f.weight,
