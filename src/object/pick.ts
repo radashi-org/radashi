@@ -3,10 +3,11 @@ import { type FilteredKeys, filterKey, isArray, type KeyFilter } from 'radashi'
 /**
  * Pick a list of properties from an object into a new object.
  *
- * ⚠️ This function is unsafe, because of partial type matching
- * performed by TypeScript. If you pass an object with more properties
- * than its TypeScript type has listed, the `value` and `key`
- * parameter types of your callback will be inaccurate.
+ * ⚠️ When used with a predicate function, `pick` is potentially
+ * unsafe, because of partial type matching performed by TypeScript.
+ * If you pass an object with more properties than its TypeScript type
+ * has listed, the `value` and `key` parameter types of your callback
+ * will be inaccurate.
  *
  * @see https://radashi-org.github.io/reference/object/pick
  * @example

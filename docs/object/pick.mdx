@@ -14,7 +14,7 @@ const fish = {
   name: 'Bass',
   weight: 8,
   source: 'lake',
-  barckish: false,
+  brackish: false,
 }
 
 _.pick(fish, ['name', 'source']) // => { name, source }
@@ -33,4 +33,49 @@ _.pick(source, (value, key) => {
   return value % 2 === 0 // Include only even values
 })
 // => { b: 2, d: 4 }
+```
+
+#### Unsafe predicate function
+
+:::caution
+
+When used with a predicate function, `pick` is potentially unsafe, because of partial type matching performed by TypeScript. If you pass an object with more properties than its TypeScript type has listed, the `value` and `key` parameter types of your callback will be inaccurate.
+
+:::
+
+```typescript
+// Example demonstrating potential inaccuracy in `key` and `value` types within `_.pick` callback
+import _ from 'lodash'
+
+interface User {
+  name: string
+  age: number
+}
+
+function getUserDetails(user: User) {
+  return _.pick(user, (value, key) => {
+    // TypeScript believes `key` is 'name' | 'age', but at runtime
+    // it could be 'email'
+    if (key === 'name' || key === 'age') {
+      console.log(key, '=', value)
+    } else {
+      // TypeScript believes this will never run, but it does.
+      console.log('Unexpected key:', key)
+    }
+  })
+}
+
+// At runtime, the function may receive an object with more properties
+const runtimeUser = {
+  name: 'John',
+  age: 30,
+  // This property is not listed in the User type:
+  email: 'john@example.com',
+}
+
+getUserDetails(runtimeUser)
+// Logs the following:
+//     name = John
+//     age = 30
+//     Unexpected key: email
 ```
