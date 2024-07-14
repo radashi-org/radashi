@@ -1,12 +1,15 @@
 import * as _ from 'radashi'
 
-describe('toArray', () => {
+describe('mapEntriesToArray', () => {
   test('handles null input', () => {
-    const result = _.toArray(null as any as Record<string, string>, () => 1)
+    const result = _.mapEntriesToArray(
+      null as any as Record<string, string>,
+      () => 1,
+    )
     expect(result).toEqual([])
   })
   test('handles empty object', () => {
-    const result = _.toArray({} as Record<string, string>, () => 1)
+    const result = _.mapEntriesToArray({} as Record<string, string>, () => 1)
     expect(result).toEqual([])
   })
   test('calls toItem to convert to list', () => {
@@ -15,7 +18,7 @@ describe('toArray', () => {
       one: { name: 'ray' },
       two: { name: 'ash' },
     }
-    const result = _.toArray(obj, (key, value) => ({
+    const result = _.mapEntriesToArray(obj, (key, value) => ({
       index: key,
       name: value.name,
     }))

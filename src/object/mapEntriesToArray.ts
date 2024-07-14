@@ -1,11 +1,11 @@
 /**
  * Convert an object to an array, mapping each entry into an array item.
  *
- * @see https://radashi-org.github.io/reference/transform/toArray
+ * @see https://radashi-org.github.io/reference/transform/mapEntriesToArray
  * @example
  * ```ts
  * const a = { a: 1, b: 2, c: 3 }
- * toArray(a, (key, value) => ({ key, value }))
+ * mapEntriesToArray(a, (key, value) => ({ key, value }))
  * // => [
  * //   { key: 'a', value: 1 },
  * //   { key: 'b', value: 2 },
@@ -13,10 +13,11 @@
  * // ]
  * ```
  */
-export function toArray<Value, Key extends string | number | symbol, Item>(
-  obj: Record<Key, Value>,
-  toItem: (key: Key, value: Value) => Item,
-): Item[] {
+export function mapEntriesToArray<
+  Value,
+  Key extends string | number | symbol,
+  Item,
+>(obj: Record<Key, Value>, toItem: (key: Key, value: Value) => Item): Item[] {
   if (!obj) {
     return []
   }
@@ -31,6 +32,6 @@ export function toArray<Value, Key extends string | number | symbol, Item>(
 }
 
 /**
- * @deprecated Use `toArray` instead.
+ * @deprecated Use `mapEntriesToArray` instead.
  */
-export const listify: typeof toArray = toArray
+export const listify: typeof mapEntriesToArray = mapEntriesToArray
