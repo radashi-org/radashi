@@ -134,7 +134,7 @@ jobs:
       - name: Get PR Numbers
         id: get-pr-numbers
         run: |
-          PR_NUMBERS=$(git log --oneline ${{ steps.get-previous-tag.outputs.tag-commit }}..HEAD | grep -o '(#[0-9]\+)$')
+          PR_NUMBERS=$(git log --oneline ${{ steps.get-previous-tag.outputs.tag-commit }}..HEAD | grep -o '(#[0-9]\+)$' | tr '\n' ' ')
           echo "::set-output name=pr-numbers::${PR_NUMBERS}"
 
       - name: Comment on Pull Requests
@@ -146,7 +146,7 @@ jobs:
             const baseCommitSHA = '${{ steps.get-previous-tag.outputs.tag-commit }}'
             console.log('Commit range identified: %s ... %s', baseCommitSHA, headCommitSHA)
 
-            const prNumbers = '${{ steps.get-pr-numbers.outputs.pr-numbers }}'.split(/\r\n/).map(s => s.replace(/\D/g, ''))
+            const prNumbers = '${{ steps.get-pr-numbers.outputs.pr-numbers }}'.split(/\s+/).map(s => s.replace(/\D/g, ''))
             console.log('PR numbers:', prNumbers)
 
             for (const prNumber of prNumbers) {
