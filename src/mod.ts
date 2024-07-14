@@ -64,6 +64,8 @@ export * from './number/min.ts'
 export * from './number/range.ts'
 export * from './number/round.ts'
 export * from './number/sum.ts'
+export * from './number/toFloat.ts'
+export * from './number/toInt.ts'
 
 export * from './object/assign.ts'
 export * from './object/clone.ts'
@@ -102,8 +104,6 @@ export * from './string/template.ts'
 export * from './string/title.ts'
 export * from './string/trim.ts'
 
-export * from './transform/toFloat.ts'
-export * from './transform/toInt.ts'
 export * from './transform/toMap.ts'
 export * from './transform/toObject.ts'
 

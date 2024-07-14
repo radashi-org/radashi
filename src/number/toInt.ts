@@ -4,7 +4,7 @@ import { isSymbol } from 'radashi'
  * Combines `Number.parseInt` with NaN handling. By default, a zero
  * (0) is returned in place of NaN.
  *
- * @see https://radashi-org.github.io/reference/transform/toInt
+ * @see https://radashi-org.github.io/reference/number/toInt
  * @example
  * ```ts
  * toInt("1.23") // => 1
