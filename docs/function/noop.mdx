@@ -1,0 +1,21 @@
+---
+title: noop
+description: Does nothing and returns undefined
+---
+
+### Usage
+
+This is useful when you need to pass a function somewhere, but you don't care when it runs or what it receives.
+
+Since `noop` has a function signature of `() => undefined`, you will be warned by TypeScript if you pass it where a function is expected to return something different.
+
+```ts
+import * as _ from 'radashi'
+
+_.noop() // => undefined
+```
+
+### FAQ
+
+- **Shouldn't I just use `?.` operator?**  
+  Where possible, yes you should. The `noop` is best for cases where you're not in control of the code that calls it and a function is required.
