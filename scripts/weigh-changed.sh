@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 
 # Try using gh to get the target branch, otherwise use 'main' as a fallback.
@@ -50,7 +51,7 @@ if [ -n "$CI" ] || [ -z "$(git status -s)" ]; then
   for file in "${FILE_NAMES[@]}"; do
     status=${FILE_STATUSES[$i]}
 
-    if [ "$status" == "A" ]; then
+    if [ ! -f "$file" ]; then
       PREV_SIZES+=(0)
     else
       PREV_SIZES+=($(esbuild --bundle --minify "$file" | wc -c | tr -d '[:space:]'))
