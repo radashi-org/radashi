@@ -1,0 +1,17 @@
+---
+title: always
+description: Create a function that always returns the same value
+---
+
+### Usage
+
+Creates a function that always returns the same value, regardless of any arguments passed to it.
+
+```ts
+import * as _ from 'radashi'
+
+const alwaysTrue = _.always(true)
+
+alwaysTrue() // true
+alwaysTrue(1, 2, 3) // true
+```
