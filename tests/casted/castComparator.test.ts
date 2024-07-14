@@ -25,4 +25,9 @@ describe('castComparator', () => {
     expect(compare({ a: 1 }, { a: 2 })).toBe(-1)
     expect(compare({ a: 2 }, { a: 1 })).toBe(1)
   })
+  test('with reversed order', () => {
+    const compare = _.castComparator('a', null, true)
+    expect(compare({ a: 1 }, { a: 2 })).toBe(1)
+    expect(compare({ a: 2 }, { a: 1 })).toBe(-1)
+  })
 })

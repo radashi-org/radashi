@@ -1,6 +1,7 @@
 import {
   type Comparable,
   type Comparator,
+  flip,
   isFunction,
   type MappedInput,
   type MappedOutput,
@@ -45,6 +46,8 @@ import {
 //     castComparator('name')
 export function castComparator<TMapping extends keyof any>(
   mapping: TMapping,
+  compare?: null | undefined,
+  reverse?: boolean,
 ): Comparator<MappedInput<TMapping, Comparable>>
 
 // Support property name and compare fn:
@@ -52,33 +55,39 @@ export function castComparator<TMapping extends keyof any>(
 export function castComparator<T, TMapping extends Mapping<any, T>>(
   mapping: TMapping,
   compare: Comparator<T>,
+  reverse?: boolean,
 ): Comparator<MappedInput<TMapping, T>>
 
 // Support explicit function type:
 //     castComparator((data: TInput) => {…})
 export function castComparator<TInput, TOutput = Comparable>(
   mapping: (data: TInput) => TOutput,
-  compare?: Comparator<TOutput>,
+  compare?: Comparator<TOutput> | null,
+  reverse?: boolean,
 ): Comparator<TInput>
 
 // Support explicit input type parameter:
 //     castComparator<TInput>(…)
 export function castComparator<TInput>(
   mapping: ComparatorMapping<TInput>,
+  compare?: null | undefined,
+  reverse?: boolean,
 ): Comparator<TInput>
 
 // Handle everything else with this signature.
 export function castComparator<TMapping extends ComparatorMapping>(
   mapping: TMapping,
-  compare?: Comparator<MappedOutput<TMapping>>,
+  compare?: Comparator<MappedOutput<TMapping>> | null,
+  reverse?: boolean,
 ): Comparator<MappedInput<TMapping>>
 
 export function castComparator(
   mapping: ComparatorMapping<any>,
-  compare?: Comparator<any>,
+  compare?: Comparator<any> | null,
+  reverse?: boolean,
 ) {
   const map = isFunction(mapping) ? mapping : (obj: any) => obj[mapping]
-  return (left: any, right: any) => {
+  const comparator: Comparator<unknown> = (left, right) => {
     const mappedLeft = map(left)
     const mappedRight = map(right)
     if (compare) {
@@ -86,6 +95,7 @@ export function castComparator(
     }
     return mappedLeft > mappedRight ? 1 : mappedLeft < mappedRight ? -1 : 0
   }
+  return reverse ? flip(comparator) : comparator
 }
 
 /**
