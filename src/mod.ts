@@ -1,6 +1,7 @@
 export * from './array/alphabetical.ts'
 export * from './array/boil.ts'
 export * from './array/castArray.ts'
+export * from './array/castArrayIfExists.ts'
 export * from './array/cluster.ts'
 export * from './array/counting.ts'
 export * from './array/diff.ts'
@@ -39,7 +40,6 @@ export * from './async/retry.ts'
 export * from './async/sleep.ts'
 export * from './async/tryit.ts'
 
-export * from './casted/castArrayIfExists.ts'
 export * from './casted/castComparator.ts'
 export * from './casted/castMapping.ts'
 
