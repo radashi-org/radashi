@@ -40,7 +40,6 @@ export * from './async/retry.ts'
 export * from './async/sleep.ts'
 export * from './async/tryit.ts'
 
-export * from './casted/castComparator.ts'
 export * from './casted/castMapping.ts'
 
 export * from './curry/callable.ts'
@@ -56,6 +55,7 @@ export * from './curry/proxied.ts'
 export * from './curry/throttle.ts'
 
 export * from './function/always.ts'
+export * from './function/castComparator.ts'
 export * from './function/noop.ts'
 
 export * from './number/clamp.ts'
