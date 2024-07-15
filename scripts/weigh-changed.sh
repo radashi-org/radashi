@@ -112,9 +112,9 @@ for file in "${FILE_NAMES[@]}"; do
 
   if [[ -n "$CI" ]]; then
     if [ "$column_count" -gt 2 ]; then
-      echo "| $status | \`$file\` | $bytes | $diff$ratio |"
+      echo "| $status | \`$file\` | $bytes[^1337] | $diff$ratio |"
     else
-      echo "| $status | \`$file\` | $bytes |"
+      echo "| $status | \`$file\` | $bytes[^1337] |"
     fi
   else
     if [ "$column_count" -gt 2 ] && [ "$prev_bytes" -ne 0 ]; then
@@ -126,3 +126,7 @@ for file in "${FILE_NAMES[@]}"; do
 
   i=$((i + 1))
 done
+
+echo ""
+echo "[^1337]: Function size includes the \`import\` dependencies of the function."
+echo ""
