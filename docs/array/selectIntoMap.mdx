@@ -1,5 +1,5 @@
 ---
-title: castArrayToMap
+title: selectIntoMap
 description: Convert an array to a map
 ---
 
@@ -41,8 +41,8 @@ const fish = [
   },
 ]
 
-_.castArrayToMap(fish, f => f.name) // => Map(3) {'Marlin' => { name: 'Marlin', weight: 105 }, 'Bass' => { name: 'Bass', weight: 8 }, 'Trout' => { name: 'Trout', weight: 13 }}
-_.castArrayToMap(
+_.selectIntoMap(fish, f => f.name) // => Map(3) {'Marlin' => { name: 'Marlin', weight: 105 }, 'Bass' => { name: 'Bass', weight: 8 }, 'Trout' => { name: 'Trout', weight: 13 }}
+_.selectIntoMap(
   fish,
   f => f.name,
   f => f.weight,

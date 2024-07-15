@@ -1,7 +1,7 @@
 import * as _ from 'radashi'
 import { bench } from 'vitest'
 
-describe('castArrayToMap', () => {
+describe('selectIntoMap', () => {
   bench('with full list and identity value function', () => {
     const list = [
       { id: 'a', word: 'hello' },
@@ -10,7 +10,7 @@ describe('castArrayToMap', () => {
       { id: 'd', word: 'hey' },
       { id: 'e', word: 'ok' },
     ]
-    _.castArrayToMap(
+    _.selectIntoMap(
       list,
       x => x.id,
       x => x,
@@ -18,7 +18,7 @@ describe('castArrayToMap', () => {
   })
 
   bench('with empty list', () => {
-    _.castArrayToMap(
+    _.selectIntoMap(
       [],
       (x: any) => x.id,
       x => x,
