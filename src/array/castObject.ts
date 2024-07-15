@@ -1,8 +1,8 @@
 /**
- * Cast an array to be an object by mapping each item to a key/value
- * pair.
+ * Convert an array to a dictionary by mapping each item into a
+ * dictionary key & value.
  *
- * @see https://radashi-org.github.io/reference/transform/castObject
+ * @see https://radashi-org.github.io/reference/array/castObject
  * @example
  * ```ts
  * castObject([1, 2, 3], (n) => '#' + n)
@@ -20,15 +20,10 @@ export function castObject<T, Key extends string | number | symbol, Value = T>(
   array: readonly T[],
   getKey: (item: T) => Key,
   getValue: (item: T) => Value = item => item as unknown as Value,
-  condition: (value: Value, key: Key) => boolean = () => true,
 ): Record<Key, Value> {
-  let key: Key
-  let value: Value
   return array.reduce(
     (acc, item) => {
-      if (condition((value = getValue(item)), (key = getKey(item)))) {
-        acc[key] = value
-      }
+      acc[getKey(item)] = getValue(item)
       return acc
     },
     {} as Record<Key, Value>,
