@@ -1,4 +1,4 @@
-import { reduceIterable, type ToIterableItem } from 'radashi'
+import { reduceIterable, type CastIterableItem } from 'radashi'
 
 /**
  * Sorts an `array` of items into groups. The return value is a map
@@ -14,8 +14,8 @@ import { reduceIterable, type ToIterableItem } from 'radashi'
  */
 export function group<T extends object, Key extends string | number | symbol>(
   iterable: T,
-  getGroupId: (item: ToIterableItem<T>) => Key,
-): { [K in Key]?: ToIterableItem<T>[] } {
+  getGroupId: (item: CastIterableItem<T>) => Key,
+): { [K in Key]?: CastIterableItem<T>[] } {
   return reduceIterable(
     iterable,
     (acc, item) => {
@@ -24,6 +24,6 @@ export function group<T extends object, Key extends string | number | symbol>(
       acc[groupId].push(item)
       return acc
     },
-    {} as Record<Key, ToIterableItem<T>[]>,
+    {} as Record<Key, CastIterableItem<T>[]>,
   )
 }

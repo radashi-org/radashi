@@ -1,4 +1,4 @@
-import { reduceIterable, type ToIterableItem } from 'radashi'
+import { reduceIterable, type CastIterableItem } from 'radashi'
 
 /**
  * Select performs a filter and a mapper inside of a reduce, only
@@ -18,19 +18,19 @@ import { reduceIterable, type ToIterableItem } from 'radashi'
  */
 export function select<T extends object, U>(
   iterable: T,
-  mapper: (item: ToIterableItem<T>, index: number) => U | null | undefined,
+  mapper: (item: CastIterableItem<T>, index: number) => U | null | undefined,
 ): U[]
 
 export function select<T extends object, U>(
   iterable: T,
-  mapper: (item: ToIterableItem<T>, index: number) => U,
-  condition?: (item: ToIterableItem<T>, index: number) => boolean,
+  mapper: (item: CastIterableItem<T>, index: number) => U,
+  condition?: (item: CastIterableItem<T>, index: number) => boolean,
 ): U[]
 
 export function select<T extends object, U>(
   iterable: T,
-  mapper: (item: ToIterableItem<T>, index: number) => U,
-  condition?: (item: ToIterableItem<T>, index: number) => boolean,
+  mapper: (item: CastIterableItem<T>, index: number) => U,
+  condition?: (item: CastIterableItem<T>, index: number) => boolean,
 ): U[] {
   if (!iterable) {
     return []
