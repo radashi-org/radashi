@@ -1,4 +1,4 @@
-import { castIterable, type CastIterableItem } from 'radashi'
+import { reduceIterable, type CastIterableItem } from 'radashi'
 
 /**
  * Counts the occurrences of each unique value returned by the `identity`
@@ -18,10 +18,13 @@ export function counting<T extends object, K extends keyof any>(
   if (!iterable) {
     return {} as Record<K, number>
   }
-  const counts = {} as Record<K, number>
-  for (const item of castIterable(iterable)) {
-    const id = identity(item)
-    counts[id] = (counts[id] ?? 0) + 1
-  }
-  return counts
+  return reduceIterable(
+    iterable,
+    (counts, item) => {
+      const id = identity(item)
+      counts[id] = (counts[id] ?? 0) + 1
+      return counts
+    },
+    {} as Record<K, number>,
+  )
 }

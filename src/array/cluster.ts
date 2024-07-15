@@ -1,4 +1,4 @@
-import { castIterable, type CastIterableItem } from 'radashi'
+import { reduceIterable, type CastIterableItem } from 'radashi'
 
 /**
  * Splits a single list into many lists of the desired size.
@@ -11,16 +11,20 @@ import { castIterable, type CastIterableItem } from 'radashi'
  * ```
  */
 export function cluster<T extends object>(
-  array: T,
+  iterable: T,
   size = 2,
 ): CastIterableItem<T>[][] {
-  const clusters: any[][] = []
-  let cluster = (clusters[0] = [] as any[])
-  for (const item of castIterable(array)) {
-    if (cluster.length === size) {
-      clusters.push((cluster = []))
-    }
-    cluster.push(item)
-  }
-  return clusters
+  const clusters = [[]] as any[][]
+  let [cluster] = clusters
+  return reduceIterable(
+    iterable,
+    (clusters, item) => {
+      if (cluster.length === size) {
+        clusters.push((cluster = []))
+      }
+      cluster.push(item)
+      return clusters
+    },
+    clusters,
+  )
 }

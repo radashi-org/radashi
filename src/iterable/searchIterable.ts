@@ -2,7 +2,7 @@ import { castIterable, isArray, type CastIterableItem } from 'radashi'
 
 export function searchIterable<T extends object>(
   iterable: T,
-  match: (item: CastIterableItem<T>, index: number) => boolean,
+  match: (item: CastIterableItem<T>, index: number) => boolean | undefined,
 ): CastIterableItem<T> | undefined {
   let item: CastIterableItem<T>
   if (isArray(iterable)) {

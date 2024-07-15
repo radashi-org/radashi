@@ -1,4 +1,4 @@
-import { castIterable, type CastIterableItem } from 'radashi'
+import { searchIterable, type CastIterableItem } from 'radashi'
 
 /**
  * Select performs a find + map operation, short-circuiting on the first
@@ -24,16 +24,17 @@ export function selectFirst<T extends object, U>(
   if (!iterable) {
     return undefined
   }
-  let index = 0
-  for (const item of castIterable(iterable)) {
+  let mapped: U | undefined
+  searchIterable(iterable, (item, index) => {
     if (!condition) {
-      const result = mapper(item, index)
-      if (result != null) {
-        return result
+      mapped = mapper(item, index)
+      if (mapped != null) {
+        return true
       }
     } else if (condition(item, index)) {
-      return mapper(item, index)
+      mapped = mapper(item, index)
+      return true
     }
-    index++
-  }
+  })
+  return mapped ?? undefined
 }
