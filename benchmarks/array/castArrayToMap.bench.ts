@@ -1,7 +1,7 @@
 import * as _ from 'radashi'
 import { bench } from 'vitest'
 
-describe('castMap', () => {
+describe('castArrayToMap', () => {
   bench('with full list and identity value function', () => {
     const list = [
       { id: 'a', word: 'hello' },
@@ -10,7 +10,7 @@ describe('castMap', () => {
       { id: 'd', word: 'hey' },
       { id: 'e', word: 'ok' },
     ]
-    _.castMap(
+    _.castArrayToMap(
       list,
       x => x.id,
       x => x,
@@ -18,7 +18,7 @@ describe('castMap', () => {
   })
 
   bench('with empty list', () => {
-    _.castMap(
+    _.castArrayToMap(
       [],
       (x: any) => x.id,
       x => x,

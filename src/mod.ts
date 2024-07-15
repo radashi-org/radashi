@@ -1,6 +1,6 @@
 export * from './array/alphabetical.ts'
 export * from './array/boil.ts'
-export * from './array/castMap.ts'
+export * from './array/castArrayToMap.ts'
 export * from './array/castObject.ts'
 export * from './array/cluster.ts'
 export * from './array/counting.ts'
