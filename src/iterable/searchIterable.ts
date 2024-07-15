@@ -4,7 +4,7 @@ export function searchIterable<T extends object>(
   iterable: T,
   match: (item: CastIterableItem<T>, index: number) => boolean,
 ): CastIterableItem<T> | undefined {
-  let item: CastIterableItem<T> | undefined
+  let item: CastIterableItem<T>
   if (isArray(iterable)) {
     // Note: We can't use Array.prototype.find here, because it
     // doesn't respect the sparseness of an array.
@@ -22,5 +22,5 @@ export function searchIterable<T extends object>(
       }
     }
   }
-  return item
+  return item!
 }
