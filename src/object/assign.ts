@@ -25,12 +25,11 @@ export function assign<X extends Record<string | symbol | number, any>>(
   const merged = proto
     ? { ...initial }
     : Object.assign(Object.create(proto), initial)
-  for (const key in override) {
-    if (Object.prototype.hasOwnProperty.call(override, key)) {
-      merged[key] = isPlainObject(initial[key])
+  for (const key of Object.keys(override)) {
+    merged[key] =
+      isPlainObject(initial[key]) && isPlainObject(override[key])
         ? assign(initial[key], override[key])
         : override[key]
-    }
   }
   return merged
 }
