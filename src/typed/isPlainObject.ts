@@ -18,10 +18,11 @@ export function isPlainObject(value: any): value is object {
 
   const prototype = Object.getPrototypeOf(value)
   return (
-    (prototype === null ||
-      prototype === Object.prototype ||
-      Object.getPrototypeOf(prototype) === null) &&
-    !(Symbol.toStringTag in value) &&
-    !(Symbol.iterator in value)
+    // Fast path for most common objects.
+    prototype === Object.prototype ||
+    // Support objects created without a prototype.
+    prototype === null ||
+    // Support plain objects from other realms.
+    Object.getPrototypeOf(prototype) === null
   )
 }
