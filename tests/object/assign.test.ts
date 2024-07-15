@@ -49,6 +49,10 @@ describe('assign', () => {
     const result = _.assign({}, { b: 'y' })
     expect(result).toEqual({ b: 'y' })
   })
+  test('handles null overriding nested object', () => {
+    const result = _.assign({ a: { b: { c: 1 } } }, { a: { b: null } })
+    expect(result).toEqual({ a: { b: null } })
+  })
   test('works with Object.create(null)', () => {
     const object = { a: Object.create(null) }
     object.a.b = 1
