@@ -2,7 +2,7 @@ name: Check Pull Request
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, next]
     types: [opened, synchronize, reopened, edited]
 
 jobs:
@@ -45,6 +45,7 @@ jobs:
         run: echo "$PR_TITLE" | pnpm -s dlx commitlint@19.x
       - name: Refresh Bundle Impact
         uses: actions/github-script@v6
+        if: ${{ github.head_ref != 'next' }}
         continue-on-error: true
         env:
           TARGET_BRANCH: ${{ github.event.pull_request.base.ref }}
