@@ -1,3 +1,5 @@
+import { reduceIterable, type CastIterableItem } from 'radashi'
+
 /**
  * Counts the occurrences of each unique value returned by the `identity`
  * function when applied to each item in the array.
@@ -9,19 +11,20 @@
  * // { even: 2, odd: 2 }
  * ```
  */
-export function counting<T, TId extends string | number | symbol>(
-  array: readonly T[],
-  identity: (item: T) => TId,
-): Record<TId, number> {
-  if (!array) {
-    return {} as Record<TId, number>
+export function counting<T extends object, K extends keyof any>(
+  iterable: T,
+  identity: (item: CastIterableItem<T>) => K,
+): Record<K, number> {
+  if (!iterable) {
+    return {} as Record<K, number>
   }
-  return array.reduce(
-    (acc, item) => {
+  return reduceIterable(
+    iterable,
+    (counts, item) => {
       const id = identity(item)
-      acc[id] = (acc[id] ?? 0) + 1
-      return acc
+      counts[id] = (counts[id] ?? 0) + 1
+      return counts
     },
-    {} as Record<TId, number>,
+    {} as Record<K, number>,
   )
 }

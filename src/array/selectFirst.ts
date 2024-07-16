@@ -1,3 +1,5 @@
+import { searchIterable, type CastIterableItem } from 'radashi'
+
 /**
  * Select performs a find + map operation, short-circuiting on the first
  * element that satisfies the prescribed condition. If condition is omitted,
@@ -14,18 +16,25 @@
  * // => 9
  * ```
  */
-export function selectFirst<T, U>(
-  array: readonly T[],
-  mapper: (item: T, index: number) => U,
-  condition?: (item: T, index: number) => boolean,
+export function selectFirst<T extends object, U>(
+  iterable: T,
+  mapper: (item: CastIterableItem<T>, index: number) => U,
+  condition?: (item: CastIterableItem<T>, index: number) => boolean,
 ): U | undefined {
-  if (!array) {
+  if (!iterable) {
     return undefined
   }
-  let foundIndex = -1
-  const found = array.find((item, index) => {
-    foundIndex = index
-    return condition ? condition(item, index) : mapper(item, index) != null
+  let mapped: U | undefined
+  searchIterable(iterable, (item, index) => {
+    if (!condition) {
+      mapped = mapper(item, index)
+      if (mapped != null) {
+        return true
+      }
+    } else if (condition(item, index)) {
+      mapped = mapper(item, index)
+      return true
+    }
   })
-  return found === undefined ? undefined : mapper(found, foundIndex)
+  return mapped ?? undefined
 }
