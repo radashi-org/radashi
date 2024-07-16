@@ -63,8 +63,7 @@
   },
   "sideEffects": false,
   "browserslist": [
-    "defaults and not op_mini all",
-    "ios >= 13",
+    ">0.1% and not dead",
     "node >= 16"
   ],
   "pnpm": {
