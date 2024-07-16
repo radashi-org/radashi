@@ -1,0 +1,16 @@
+---
+title: randomFloat
+description: Generate a random number in a range
+---
+
+## Basic usage
+
+Generate a random number between a given minimum and maximum value. The minimum is inclusive and the maximum is exclusive. In other words, `randomFloat(0, 1)` will never return 1.
+
+```ts
+import * as _ from 'radashi'
+
+_.randomFloat(10, 20) // 15.442857721…
+```
+
+**Note:** This uses `Math.random` for randomness, so it's not cryptographically secure. It's also biased (some results are more likely than others). Most of the time, this won't be a problem.

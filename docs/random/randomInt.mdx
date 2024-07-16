@@ -1,0 +1,16 @@
+---
+title: randomInt
+description: 'Generate a random integer'
+---
+
+## Basic usage
+
+Generates a random integer between `min` and `max`. The range is inclusive on both ends, so `randomInt(0, 1)` will return 0 or 1.
+
+```ts
+import * as _ from 'radashi'
+
+_.randomInt(0, 100) // => 27
+```
+
+**Note:** This uses `Math.random` for randomness, so it's not cryptographically secure. It's also biased (some results are more likely than others). Most of the time, this won't be a problem.

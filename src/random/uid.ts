@@ -1,4 +1,4 @@
-import { iterate, random } from 'radashi'
+import { iterate, randomInt } from 'radashi'
 
 /**
  * Generate a random string of a given length.
@@ -16,7 +16,7 @@ export function uid(length: number, specials = ''): string {
   return iterate(
     length,
     acc => {
-      return acc + characters.charAt(random(0, characters.length - 1))
+      return acc + characters.charAt(randomInt(0, characters.length - 1))
     },
     '',
   )
