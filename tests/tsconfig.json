@@ -6,6 +6,7 @@
     "target": "esnext",
     "lib": ["es2020"],
     "esModuleInterop": true,
+    "module": "ES2020",
     "skipLibCheck": true,
     "strict": true,
     "types": ["vitest/globals"],

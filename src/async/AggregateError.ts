@@ -1,9 +1,12 @@
+/// <reference lib="es2021.promise" />
 /**
  * Support for the built-in AggregateError is still new. Node < 15
  * doesn't have it so patching here.
+ * If AggregateError is available, it will be used; otherwise use
+ * a polyfill
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError#browser_compatibility
  */
-export class AggregateError extends Error {
+class AggregateErrorPolyfill extends Error {
   errors: Error[]
   constructor(errors: Error[] = []) {
     super()
@@ -14,3 +17,6 @@ export class AggregateError extends Error {
     this.errors = errors
   }
 }
+
+export const AggregateError: AggregateErrorConstructor =
+  globalThis.AggregateError ?? AggregateErrorPolyfill
