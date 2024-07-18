@@ -68,7 +68,7 @@ export function dedent(
       )
     }
 
-    return dedent(text[0])
+    text = text[0]
   }
 
   const indent = values[0] ?? detectIndent(text)
