@@ -1,0 +1,127 @@
+---
+title: dedent
+description: Remove indentation from a string
+---
+
+### Usage
+
+Remove indentation from every line of a given string. Optionally, provide your own `indent` to control the amount of indentation to remove. If you don't provide an `indent`, the amount of indentation to remove is determined by the first non-empty line of the given string.
+
+```ts
+import * as _ from 'radashi'
+
+// Explicit indentation
+_.dedent('\n    Hello\n    World!\n\n', '  ')
+// => '  Hello\n  World!\n'
+
+// Detected indentation
+_.dedent('\n    Hello\n    World!\n\n')
+// => 'Hello\nWorld!\n'
+
+// Real-world example: Email template
+const emailTemplate = _.dedent`
+  Hello, ${userName}!
+
+  Thank you for your recent purchase. Your order details are below:
+  Order ID: ${orderId}
+  Product: ${productName}
+  Quantity: ${quantity}
+
+  If you have any questions, please contact our support team.
+
+  Best regards,
+  The Support Team
+`
+// => `Hello, JohnDoe!
+//
+// Thank you for your recent purchase. Your order details are below:
+// Order ID: 12345
+// Product: Widget
+// Quantity: 2
+//
+// If you have any questions, please contact our support team.
+//
+// Best regards,
+// The Support Team`
+```
+
+### Multi-line embedded strings
+
+When embedding a string with `dedent`, you don't have to worry about the indentation of the embedded string. For example, if you have an array where each item needs its own line, just join it with `join('\n')` and `dedent` will make sure it all works out.
+
+```ts
+const items = ['one', 'two', 'three']
+const list = _.dedent`
+  My List:
+    ${items.join('\n')}
+`
+// => 'My List:\n  one\n  two\n  three'
+```
+
+### Spacing issues?
+
+There's a common use case of building up a long string of “paragraphs” (for lack of a better word) using `if` conditions and `dedent`. If you can't get an empty line to appear between two paragraphs, you're not alone and this section is for you.
+
+Since `dedent` strips the first and last empty line of a given string, your dedented string has no spacing around it by default. You might try to include an empty line at the start of each paragraph to achieve the desired spacing, like the following example.
+
+```ts
+let story = dedent`
+  There once was a programmer
+  who had a lot of trouble.
+`
+
+if (isLateAtNight()) {
+  story += dedent`
+
+    He was so confused
+    that he couldn't even
+    tell what was going on.
+  `
+}
+
+story
+// =>
+// There once was a programmer
+// who had a lot of trouble.
+// He was so confused
+// that he couldn't even
+// tell what was going on.
+```
+
+The empty line above "He was so confused" was intended to separate the paragraph from the previous one. But as you can see, it didn't work. The empty line you added was appended to the last line of the previous paragraph ("who had a lot of trouble") instead of being a separate line.
+
+Here are 3 possible solutions for this issue. Pick your favorite:
+
+1. Add `\n` to your empty line.
+
+   ```ts
+   story += dedent`
+     \n
+     He was so confused
+     that he couldn't even
+     tell what was going on.
+   `
+   ```
+
+2. Append the line breaks separately.
+
+   ```ts
+   story += '\n\n'
+   story += dedent`
+     He was so confused
+     that he couldn't even
+     tell what was going on.
+   `
+   ```
+
+3. Include two empty lines at the start of each paragraph. (An unadvised solution as its intention is not the most clear)
+
+   ```ts
+   story += dedent`
+   
+   
+     He was so confused
+     that he couldn't even
+     tell what was going on.
+   `
+   ```
