@@ -57,6 +57,11 @@ export * from './function/castComparator.ts'
 export * from './function/castMapping.ts'
 export * from './function/noop.ts'
 
+export * from './matrix/matrix.ts'
+export * from './matrix/matrixGet.ts'
+export * from './matrix/matrixPosition.ts'
+export * from './matrix/matrixSet.ts'
+
 export * from './number/clamp.ts'
 export * from './number/inRange.ts'
 export * from './number/lerp.ts'
