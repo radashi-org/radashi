@@ -17,7 +17,13 @@ _.dedent('\n    Hello\n    World!\n\n', '  ')
 // Detected indentation
 _.dedent('\n    Hello\n    World!\n\n')
 // => 'Hello\nWorld!\n'
+```
 
+#### Tagged template strings
+
+When using `dedent` in a tagged template string, the indentation is always inferred.
+
+```ts
 // Real-world example: Email template
 const emailTemplate = _.dedent`
   Hello, ${userName}!
