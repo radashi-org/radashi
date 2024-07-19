@@ -31,9 +31,9 @@
   ],
   "scripts": {
     "add-function": "bash ./scripts/add-function.sh",
-    "move-function": "bash ./scripts/move-function.sh",
     "bench": "vitest bench",
     "build": "tsup --clean",
+    "bundle-impact": "bash ./scripts/weigh-changed.sh",
     "dev": "tsup --clean --watch --sourcemap",
     "format": "bash ./scripts/format.sh",
     "lint": "concurrently -c=auto -g --kill-others-on-fail 'npm:lint:*'",
@@ -41,11 +41,11 @@
     "lint:compat": "bash ./scripts/lint-compat.sh 'src/**/*.ts'",
     "lint:jsr": "pnpm -s dlx deno-bin@1.44.4 lint",
     "lint:tsc": "concurrently -c=auto -g --kill-others-on-fail --names src,tests,benchmarks 'tsc' 'tsc -p tests' 'tsc -p benchmarks'",
+    "move-function": "bash ./scripts/move-function.sh",
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
     "test": "vitest run --coverage",
     "test-branch": "bash ./scripts/test-branch.sh",
-    "test-single": "bash ./scripts/test-single.sh",
-    "bundle-impact": "bash ./scripts/weigh-changed.sh"
+    "test-single": "bash ./scripts/test-single.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
