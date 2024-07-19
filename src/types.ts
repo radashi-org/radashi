@@ -108,3 +108,19 @@ export type ComparableProperty<T> = CompatibleProperty<T, Comparable>
  * value, and 0 to keep the order of the values.
  */
 export type Comparator<T> = (left: T, right: T) => number
+
+/** Convert a union to an intersection */
+export type Intersect<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I,
+) => void
+  ? I
+  : never
+
+/**
+ * Useful to flatten the type output to improve type hints shown in
+ * editors. And also to transform an interface into a type to aide
+ * with assignability.
+ *
+ * @see https://github.com/microsoft/TypeScript/issues/15300
+ */
+export type Simplify<T> = {} & { [P in keyof T]: T[P] }
