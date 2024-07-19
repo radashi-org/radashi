@@ -71,16 +71,16 @@ export function dedent(
     text = text[0]
   }
 
-  const indent = values[0] ?? detectIndent(text)
+  // If no indent is provided, use the indentation of the first
+  // non-empty line.
+  const indent = values[0] ?? text.match(/^[ \t]*(?=\S)/m)?.[0]
+
+  // Note: Lines with an indent less than the removed indent will not
+  // be changed.
   const output = indent
     ? text.replace(new RegExp(`^${indent}`, 'gm'), '')
     : text
 
   // Remove the first and last lines (if empty).
   return output.replace(/^[ \t]*\n|\n[ \t]*$/g, '')
-}
-
-// Find the indentation of the first non-empty line.
-function detectIndent(text: string) {
-  return text.match(/^[ \t]*(?=\S)/m)?.[0]
 }
