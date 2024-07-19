@@ -13,7 +13,7 @@ import { type Intersect, isArray, isObject, type Simplify } from 'radashi'
  */
 export function crush<T extends object>(value: T): Crush<T> {
   if (!value) {
-    return {}
+    return {} as Crush<T>
   }
   return (function crushReducer(
     crushed: Crush<T>,
