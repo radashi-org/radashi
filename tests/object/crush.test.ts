@@ -35,26 +35,26 @@ describe('crush', () => {
   })
   test('handles property names with dots 1', () => {
     const obj = {
-      a: { 'b.c': 'value' }
+      a: { 'b.c': 'value' },
     }
     expect(_.crush(obj)).toEqual({
-      'a.b.c': 'value'
+      'a.b.c': 'value',
     })
   })
   test('handles property names with dots 2', () => {
     const obj = {
-      'a.b': { c: 'value' }
+      'a.b': { c: 'value' },
     }
     expect(_.crush(obj)).toEqual({
-      'a.b.c': 'value'
+      'a.b.c': 'value',
     })
   })
   test('handles property names with dots 3', () => {
     const obj = {
-      'a.b': { 'c.d': 123.4 }
+      'a.b': { 'c.d': 123.4 },
     }
     expect(_.crush(obj)).toEqual({
-      'a.b.c.d': 123.4
+      'a.b.c.d': 123.4,
     })
   })
   test('handles arrays', () => {
@@ -62,7 +62,7 @@ describe('crush', () => {
     expect(_.crush(obj)).toEqual({
       '0': 'value',
       '1': 123.4,
-      '2': true
+      '2': true,
     })
   })
 })
