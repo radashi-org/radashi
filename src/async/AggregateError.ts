@@ -1,7 +1,5 @@
 /// <reference lib="es2021.promise" />
 
-declare const process: { env: any } | undefined
-
 /**
  * The `AggregateError` object represents an error when several errors
  * need to be wrapped in a single error.
