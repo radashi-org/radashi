@@ -3,13 +3,15 @@
 declare const process: { env: any } | undefined
 
 /**
- * Support for the built-in AggregateError is still new. Node < 15
- * doesn't have it so patching here.
+ * The `AggregateError` object represents an error when several errors
+ * need to be wrapped in a single error.
  *
- * If `AggregateError` is globally available, it will be used;
- * otherwise a polyfill is provided by Radashi.
+ * As this error type is relatively new, it's not available in every
+ * environment supported by Radashi (last checked on July 20, 2024).
+ * When it's not globally defined, Radashi provides a polyfill.
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError#browser_compatibility
+ * @see
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError
  */
 const AggregateErrorOrPolyfill: AggregateErrorConstructor =
   // eslint-disable-next-line compat/compat
