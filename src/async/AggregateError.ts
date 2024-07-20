@@ -12,6 +12,7 @@ declare const process: { env: any } | undefined
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError#browser_compatibility
  */
 const AggregateErrorOrPolyfill: AggregateErrorConstructor =
+  // eslint-disable-next-line compat/compat
   globalThis.AggregateError ??
   (class AggregateError extends Error {
     errors: Error[]
