@@ -10,8 +10,7 @@ declare const process: { env: any } | undefined
  * environment supported by Radashi (last checked on July 20, 2024).
  * When it's not globally defined, Radashi provides a polyfill.
  *
- * @see
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError
  */
 const AggregateErrorOrPolyfill: AggregateErrorConstructor =
   // eslint-disable-next-line compat/compat
