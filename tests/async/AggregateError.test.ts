@@ -1,8 +1,11 @@
 import { vi } from 'vitest'
 
-vi.stubGlobal('AggregateError', undefined)
+const { AggregateError: nativeAggregateError } = globalThis
+globalThis.AggregateError = undefined!
 
-describe('AggregateError error', () => {
+const { AggregateError } = await import('radashi')
+
+describe('AggregateError', () => {
   const fakeWork = (name?: string) => {
     const fakeJob = () => {
       const fakeTask = () => {
@@ -17,12 +20,20 @@ describe('AggregateError error', () => {
     }
     return fakeJob()
   }
+
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
   })
-  test.sequential('uses stack from the first given error', async () => {
-    const { AggregateError } = await import('radashi')
 
+  test('expect AggregateError polyfill in test environment', () => {
+    expect(
+      AggregateError.toString().startsWith(
+        'class AggregateError extends Error',
+      ),
+    ).toBe(true)
+  })
+
+  test('uses stack from the first given error', () => {
     const errors: Error[] = []
     try {
       fakeWork()
@@ -33,8 +44,8 @@ describe('AggregateError error', () => {
     expect(aggregate.stack).toContain('at fakeMicrotask')
     expect(aggregate.message).toContain('with 1')
   })
-  test('uses stack from first error with a stack', async () => {
-    const { AggregateError } = await import('radashi')
+
+  test('uses stack from first error with a stack', () => {
     const errors: Error[] = [{} as Error]
     try {
       fakeWork()
@@ -46,9 +57,40 @@ describe('AggregateError error', () => {
     expect(aggregate.stack).toContain('at fakeMicrotask')
     expect(aggregate.message).toContain('with 2')
   })
-  test('does not fail if no errors given', async () => {
+
+  test('does not throw on empty errors array', () => {
+    expect(() => new AggregateError([])).not.toThrow()
+  })
+
+  // NOTE: This diverges from native AggregateError behavior.
+  test('does not throw on undefined', () => {
+    expect(
+      () => new AggregateError(undefined as unknown as Error[]),
+    ).not.toThrow()
+  })
+})
+
+describe('AggregateError (native)', () => {
+  beforeEach(() => {
+    globalThis.AggregateError = nativeAggregateError
+    vi.resetModules()
+  })
+
+  test('expect AggregateError polyfill when globalThis.AggregateError is undefined', async () => {
+    globalThis.AggregateError = undefined!
     const { AggregateError } = await import('radashi')
-    new AggregateError([])
-    new AggregateError(undefined as unknown as Error[])
+    expect(
+      AggregateError.toString().startsWith(
+        'class AggregateError extends Error',
+      ),
+    ).toBe(true)
+  })
+
+  test('expect globalThis.AggregateError when defined', async () => {
+    if (typeof globalThis.AggregateError === 'undefined') {
+      expect.fail('AggregateError is not defined')
+    }
+    const { AggregateError } = await import('radashi')
+    expect(AggregateError).toBe(globalThis.AggregateError)
   })
 })
