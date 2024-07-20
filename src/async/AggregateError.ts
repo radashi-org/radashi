@@ -23,7 +23,7 @@ const AggregateErrorOrPolyfill: AggregateErrorConstructor =
       this.stack = errors.find(e => e.stack)?.stack ?? this.stack
       this.errors = errors
     }
-  } as AggregateErrorConstructor)
+  } as unknown as AggregateErrorConstructor)
 
 // Do not export directly, so the polyfill isn't renamed to
 // `AggregateError2` at build time (which ESBuild does to prevent
