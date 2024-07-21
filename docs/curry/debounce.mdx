@@ -32,6 +32,15 @@ debounce Invocations: x x x x - - - - - - - - x x x x x x x x x x - - - - - - - 
 Source Invocations: - - - - - - - - - - x - - - - - - - - - - - - - - - - - x - - - - -
 ```
 
+The `leading` option decides whether the source function is called on the first
+invocation of the throttle function or not.
+
+```sh
+Time: 0ms - - - - 100ms - - - - 200ms - - - - 300ms - - - - 400ms - - - -
+debounce Invocations: x x x x - - - - - - - - x x x x x x x x x x - - - - - - - - - - - -
+Source Invocations: x - - - - - - - - - x - - - - - - - - - - - - - - - - - x - - - - -
+```
+
 ### Cancel
 
 The function returned by `debounce` has a `cancel` method that when called will permanently stop the source function from being debounced.
