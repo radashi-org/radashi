@@ -60,6 +60,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **(mapify)** Provide an index argument to the callbacks by [@aleclarson](https://github.com/aleclarson) in [#100](https://github.com/radashi-org/radashi/pull/100)
 
+- Use native AggregateError if available by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#116](https://github.com/radashi-org/radashi/pull/116)
+
 
 #### <!-- 06 -->Fixed
 - **(retry)** Stop using `range()` by [@aleclarson](https://github.com/aleclarson) in [5d60893](https://github.com/radashi-org/radashi/commit/5d60893471240516a49c6ddf48839165b5961a47)
@@ -83,6 +85,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **(toggle)** Handle falsy input as expected by [@Minhir](https://github.com/Minhir) in [#82](https://github.com/radashi-org/radashi/pull/82)
 
 - **(assign)** Fix overriding a nested object with null by [@aleclarson](https://github.com/aleclarson) in [#112](https://github.com/radashi-org/radashi/pull/112)
+
+- **(crush)** Fix handling of period-containing property names by [@stefaanv](https://github.com/stefaanv) in [#95](https://github.com/radashi-org/radashi/pull/95)
 
 
 #### <!-- 07 -->Performance
@@ -118,6 +122,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make `select` more option-friendly by [@aleclarson](https://github.com/aleclarson) in [c9cfcd0](https://github.com/radashi-org/radashi/commit/c9cfcd0a7eb1af98682f5d9b56555162c92b7085)
 
 ### New Contributors
+* [@stefaanv](https://github.com/stefaanv) made their first contribution in [#95](https://github.com/radashi-org/radashi/pull/95)
 * [@eumkz](https://github.com/eumkz) made their first contribution in [#76](https://github.com/radashi-org/radashi/pull/76)
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
 * [@shan-shaji](https://github.com/shan-shaji) made their first contribution in [#53](https://github.com/radashi-org/radashi/pull/53)
