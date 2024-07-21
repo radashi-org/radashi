@@ -26,19 +26,26 @@ export type ThrottledFunction<TArgs extends any[]> = {
  * ```
  */
 export function throttle<TArgs extends any[]>(
-  { interval }: { interval: number },
+  { interval, falling = false }: { interval: number; falling?: boolean },
   func: (...args: TArgs) => any,
 ): ThrottledFunction<TArgs> {
   let ready = true
+  let pending = false
   let timer: unknown = undefined
 
   const throttled: ThrottledFunction<TArgs> = (...args: TArgs) => {
+    pending = true
     if (!ready) {
       return
     }
     func(...args)
     ready = false
+    pending = false
     timer = setTimeout(() => {
+      if (falling && pending) {
+        func(...args)
+        pending = false
+      }
       ready = true
       timer = undefined
     }, interval)

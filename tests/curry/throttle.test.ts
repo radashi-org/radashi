@@ -35,4 +35,24 @@ describe('throttle', () => {
     results.push(func.isThrottled())
     assert.deepEqual(results, [false, true, true, true, false])
   })
+
+  test('single call with falling option is set to `true` calls source function once', async () => {
+    let calls = 0
+    const func = _.throttle({ interval, falling: true }, () => calls++)
+    func()
+    expect(calls).toBe(1)
+    vi.advanceTimersByTime(interval + 10)
+    expect(calls).toBe(1)
+  })
+
+  test('repeated calls with falling option is set to `true` calls source function again on falling edge', async () => {
+    let calls = 0
+    const func = _.throttle({ interval, falling: true }, () => calls++)
+    func()
+    expect(calls).toBe(1)
+    vi.advanceTimersByTime(10)
+    func()
+    vi.advanceTimersByTime(interval + 10)
+    expect(calls).toBe(2)
+  })
 })
