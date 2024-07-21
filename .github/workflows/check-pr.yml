@@ -39,10 +39,7 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm install @commitlint/config-conventional@19.x
-      - name: Lint
-        run: pnpm lint
-      - name: Check PR Title
-        run: echo "$PR_TITLE" | pnpm -s dlx commitlint@19.x
+
       - name: Refresh Bundle Impact
         uses: actions/github-script@v6
         if: ${{ github.head_ref != 'next' }}
@@ -54,3 +51,9 @@ jobs:
           script: |
             const { run } = require('./scripts/pr-bundle-impact.cjs');
             run({ github, core, context });
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Check PR Title
+        run: echo "$PR_TITLE" | pnpm -s dlx commitlint@19.x
