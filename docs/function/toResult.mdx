@@ -1,0 +1,95 @@
+---
+title: toResult
+description: Converts a value or a promise into a Result tuple or ResultPromise.
+tableOfContents:
+  maxHeadingLevel: 2
+---
+
+### Usage
+
+The `toResult` function is designed to handle both synchronous and asynchronous values, converting them into a standardized `Result` format. This function is particularly useful for ensuring consistency in handling both errors and successful outcomes, regardless of whether the underlying computation is synchronous or asynchronous.
+
+## Call Signatures
+
+#### Synchronous Values
+
+The first argument is almost always the error. The one exception is passing a promise as the first argument (see “Asynchronous Values” below).
+
+```typescript
+import * as _ from 'radashi'
+
+const result = _.toResult(null, 'hello')
+//    ^? Ok<'hello'>
+// => [undefined, 'hello']
+
+const result2 = _.toResult(new TypeError('oops'))
+//    ^? Err<TypeError>
+// => [new TypeError('oops'), undefined]
+```
+
+#### Asynchronous Values
+
+- If either argument is a promise, the result is a promise.
+
+- **Typing:** The `ResultPromise<TResult, TError>` type is often used to represent the return type of these calls.
+
+```typescript
+import * as _ from 'radashi'
+
+const result = _.toResult(null, Promise.resolve('hello'))
+//    ^? ResultPromise<'hello'>
+// => Promise<[undefined, 'hello']>
+
+const result2 = _.toResult(Promise.resolve('hello'))
+//    ^? ResultPromise<'hello'>
+// => Promise<[undefined, 'hello']>
+```
+
+## Edge Cases
+
+#### Handling Rejected Promises
+
+```typescript
+import * as _ from 'radashi'
+
+const result = _.toResult(Promise.reject(new TypeError('oops')))
+//    ^? ResultPromise<unknown>
+// => Promise<[new TypeError('oops'), undefined]>
+
+const result2 = _.toResult(null, Promise.reject(new TypeError('oops')))
+//    ^? Promise<Err<Error>>
+// => Promise<[new TypeError('oops'), undefined]>
+```
+
+#### Handling Result Objects
+
+```typescript
+import * as _ from 'radashi'
+
+const result = _.toResult(null, Promise.resolve([undefined, 'hello']))
+//    ^? ResultPromise<'hello'>
+// => Promise<[undefined, 'hello']>
+
+const result2 = _.toResult(Promise.resolve([undefined, 'hello']))
+//    ^? ResultPromise<'hello'>
+// => Promise<[undefined, 'hello']>
+```
+
+#### Mixed Types
+
+```typescript
+import * as _ from 'radashi'
+
+const result = _.toResult(new TypeError('oops'), Promise.resolve('hello'))
+//    ^? Err<TypeError>
+// => Promise<[new TypeError('oops'), undefined]>
+
+const result2 = _.toResult(null, null)
+//    ^? Ok<null>
+// => [undefined, null]
+
+const rejectedPromise: Promise<unknown> = Promise.reject(new TypeError('oops'))
+const result3 = _.toResult(rejectedPromise, 'hello')
+//    ^? ResultPromise<unknown>
+// => Promise<[new TypeError('oops'), undefined]>
+```
