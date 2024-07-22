@@ -139,11 +139,13 @@ export type ToResult<TReturn, TError = Error> = (
                 ? Promise<Ok<TResult>>
                 : never
               : never)
-      : TReturn extends Result<any, any> | ResultPromise<any, any>
-        ? TReturn
-        : TReturn extends Promise<infer TResult>
-          ? ResultPromise<TResult, NonNullable<TError>>
-          : Result<TReturn, NonNullable<TError>>
+      : [TReturn] extends [Promise<never>]
+        ? Promise<Err<TError>>
+        : TReturn extends Result<any, any> | ResultPromise<any, any>
+          ? TReturn
+          : TReturn extends Promise<infer TResult>
+            ? ResultPromise<TResult, NonNullable<TError>>
+            : Result<TReturn, NonNullable<TError>>
 ) extends infer T
   ? //
     // Declare a combined Result type if any are sync results.

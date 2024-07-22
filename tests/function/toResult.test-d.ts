@@ -43,6 +43,10 @@ describe('_.toResult', () => {
 
     const result4 = await result3
     expectTypeOf(result4).toEqualTypeOf<Result<string, Error>>()
+
+    const result5 = _.toResult({} as Promise<never>)
+    expectTypeOf(result5).toEqualTypeOf<ResultPromise<never, Error>>()
+    expectTypeOf(result5).toEqualTypeOf<Promise<Err<Error>>>()
   })
 
   test('promise error', () => {
