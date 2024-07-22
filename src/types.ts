@@ -127,7 +127,7 @@ export type Simplify<T> = {} & { [P in keyof T]: T[P] }
 
 /**
  * A result tuple where the error is `undefined`.
- * 
+ *
  * @example
  * ```ts
  * type GoodResult = Ok<string>
@@ -148,18 +148,18 @@ export type Ok<TResult> = [err: undefined, result: TResult]
  * // doing it wrong.
  * type BadResult2 = Err<Error | null>
  * //   ^? [Error | null, undefined]
- * 
+ *
  * type BadResult3 = Err<TypeError | MyCoolCustomError>
  * //   ^? [TypeError | MyCoolCustomError, undefined]
  * ```
  */
-export type Err<TError = Error> = [err: TError, result: undefined]
+export type Err<TError = Error> = [err: NonNullable<TError>, result: undefined]
 
 /**
  * A result tuple.
  *
  * First index is the error, second index is the result.
- * 
+ *
  * @example
  * ```ts
  * type MyResult = Result<string>
@@ -169,11 +169,13 @@ export type Err<TError = Error> = [err: TError, result: undefined]
  * //   ^? Ok<string> | Err<TypeError>
  * ```
  */
-export type Result<TResult, TError = Error> = Ok<TResult> | Err<TError>
+export type Result<TResult, TError = Error> =
+  | Ok<TResult>
+  | Err<NonNullable<TError>>
 
 /**
  * A promise that resolves to a result tuple.
- * 
+ *
  * @example
  * ```ts
  * type MyResult = ResultPromise<string>
@@ -183,24 +185,10 @@ export type Result<TResult, TError = Error> = Ok<TResult> | Err<TError>
  * //   ^? Promise<Ok<string> | Err<TypeError>>
  * ```
  */
-export type ResultPromise<T, E> = Promise<Result<T, E>>
-
-/**
- * Coerce a return value into either a `Result` tuple or a
- * `ResultPromise` promise.
- *
- * @example
- * ```ts
- * type MyResult = ToResult<string>
- * //   ^? Result<string, Error>
- *
- * type MyResult2 = ToResult<Promise<string>>
- * //   ^? ResultPromise<string, Error>
- *
- * type MyResult3 = ToResult<string | Promise<string>, TypeError>
- * //   ^? Result<string, TypeError> | ResultPromise<string, TypeError>
- * ```
- */
-export type ToResult<TReturn, TError = Error> = TReturn extends Promise<any>
-  ? ResultPromise<Awaited<TReturn>, TError>
-  : Result<TReturn, TError>
+export type ResultPromise<TResult, TError = Error> = Promise<
+  [NonNullable<TError>] extends [never]
+    ? Ok<TResult>
+    : [TResult] extends [never]
+      ? Err<NonNullable<TError>>
+      : Result<TResult, NonNullable<TError>>
+>
