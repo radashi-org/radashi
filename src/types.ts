@@ -124,3 +124,83 @@ export type Intersect<U> = (U extends any ? (k: U) => void : never) extends (
  * @see https://github.com/microsoft/TypeScript/issues/15300
  */
 export type Simplify<T> = {} & { [P in keyof T]: T[P] }
+
+/**
+ * A result tuple where the error is `undefined`.
+ * 
+ * @example
+ * ```ts
+ * type GoodResult = Ok<string>
+ * //   ^? [undefined, string]
+ * ```
+ */
+export type Ok<TResult> = [err: undefined, result: TResult]
+
+/**
+ * A result tuple where an error is included.
+ *
+ * @example
+ * ```ts
+ * type BadResult = Err
+ * //   ^? [Error, undefined]
+ *
+ * // If your mastermind plan relies on `throw null`, you're probably
+ * // doing it wrong.
+ * type BadResult2 = Err<Error | null>
+ * //   ^? [Error | null, undefined]
+ * 
+ * type BadResult3 = Err<TypeError | MyCoolCustomError>
+ * //   ^? [TypeError | MyCoolCustomError, undefined]
+ * ```
+ */
+export type Err<TError = Error> = [err: TError, result: undefined]
+
+/**
+ * A result tuple.
+ *
+ * First index is the error, second index is the result.
+ * 
+ * @example
+ * ```ts
+ * type MyResult = Result<string>
+ * //   ^? Ok<string> | Err<Error>
+ *
+ * type MyResult2 = Result<string, TypeError>
+ * //   ^? Ok<string> | Err<TypeError>
+ * ```
+ */
+export type Result<TResult, TError = Error> = Ok<TResult> | Err<TError>
+
+/**
+ * A promise that resolves to a result tuple.
+ * 
+ * @example
+ * ```ts
+ * type MyResult = ResultPromise<string>
+ * //   ^? Promise<Ok<string> | Err<Error>>
+ *
+ * type MyResult2 = ResultPromise<string, TypeError>
+ * //   ^? Promise<Ok<string> | Err<TypeError>>
+ * ```
+ */
+export type ResultPromise<T, E> = Promise<Result<T, E>>
+
+/**
+ * Coerce a return value into either a `Result` tuple or a
+ * `ResultPromise` promise.
+ *
+ * @example
+ * ```ts
+ * type MyResult = ToResult<string>
+ * //   ^? Result<string, Error>
+ *
+ * type MyResult2 = ToResult<Promise<string>>
+ * //   ^? ResultPromise<string, Error>
+ *
+ * type MyResult3 = ToResult<string | Promise<string>, TypeError>
+ * //   ^? Result<string, TypeError> | ResultPromise<string, TypeError>
+ * ```
+ */
+export type ToResult<TReturn, TError = Error> = TReturn extends Promise<any>
+  ? ResultPromise<Awaited<TReturn>, TError>
+  : Result<TReturn, TError>
