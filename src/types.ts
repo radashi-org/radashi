@@ -192,3 +192,14 @@ export type ResultPromise<TResult, TError = Error> = Promise<
       ? Err<NonNullable<TError>>
       : Result<TResult, NonNullable<TError>>
 >
+
+/**
+ * A value that can be a promise or not.
+ *
+ * @example
+ * ```ts
+ * type MyPromise = Promisable<string>
+ * //   ^? string | Promise<string>
+ * ```
+ */
+export type Promisable<T> = T | Promise<T>
