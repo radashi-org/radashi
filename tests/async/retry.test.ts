@@ -1,5 +1,5 @@
-import * as _ from 'radashi'
 import type { RetryOptions } from 'radashi'
+import * as _ from 'radashi'
 
 const cast = <T = RetryOptions>(value: any): T => value
 
@@ -36,7 +36,8 @@ describe('retry', () => {
         bail('iquit')
       })
     } catch (err) {
-      expect(err).toBe('iquit')
+      expect(err instanceof Error).toBeTruthy()
+      expect((err as Error).message).toBe('{"_exited":"iquit"}')
       return
     }
     expect.fail('error should have been thrown')
@@ -47,7 +48,8 @@ describe('retry', () => {
         throw 'quitagain'
       })
     } catch (err) {
-      expect(err).toBe('quitagain')
+      expect(err instanceof Error).toBeTruthy()
+      expect((err as Error).message).toBe('"quitagain"')
       return
     }
     expect.fail('error should have been thrown')
@@ -59,7 +61,8 @@ describe('retry', () => {
       }
       await _.retry({ times: 3 }, func)
     } catch (err) {
-      expect(err).toBe('quitagain')
+      expect(err instanceof Error).toBeTruthy()
+      expect((err as Error).message).toBe('"quitagain"')
       return
     }
     expect.fail('error should have been thrown')
@@ -73,7 +76,8 @@ describe('retry', () => {
       vi.advanceTimersByTimeAsync(1000)
       await promise
     } catch (err) {
-      expect(err).toBe('quitagain')
+      expect(err instanceof Error).toBeTruthy()
+      expect((err as Error).message).toBe('"quitagain"')
       return
     }
     expect.fail('error should have been thrown')
