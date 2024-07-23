@@ -15,7 +15,7 @@ export function tryit<TArgs extends any[], TReturn, TError = Error>(
     } catch (err) {
       return [err, undefined] as ToResult<TReturn, TError>
     }
-    return toResult(result)
+    return toResult(null, result)
   }
 }
 
