@@ -73,6 +73,15 @@ _Calculating..._
   expect(env.core.info.mock.calls).toMatchInlineSnapshot(`
     [
       [
+        "running bundle-impact script...",
+      ],
+      [
+        "fetching PR data...",
+      ],
+      [
+        "updating PR description...",
+      ],
+      [
         "PR description updated with bundle impact.",
       ],
     ]
