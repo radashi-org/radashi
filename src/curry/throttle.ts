@@ -29,32 +29,31 @@ export function throttle<TArgs extends any[]>(
   { interval, trailing = false }: { interval: number; trailing?: boolean },
   func: (...args: TArgs) => any,
 ): ThrottledFunction<TArgs> {
-  let timer: ReturnType<typeof setTimeout> | undefined
   let lastCalled = 0
   let trailingArgs: TArgs | undefined
 
   const throttled: ThrottledFunction<TArgs> = (...args: TArgs) => {
-    if (Date.now() - lastCalled >= interval) {
+    if (!isThrottled()) {
       func(...args)
       lastCalled = Date.now()
-      trailingArgs = undefined
+
+      if (trailing) {
+        trailingArgs = undefined
+        setTimeout(() => {
+          if (trailingArgs) {
+            func(...trailingArgs)
+            lastCalled = Date.now()
+            trailingArgs = undefined
+          }
+        }, interval)
+      }
     } else if (trailing) {
       trailingArgs = args
     }
-
-    timer ??= setTimeout(() => {
-      timer = undefined
-      if (trailing && trailingArgs) {
-        func(...trailingArgs)
-        lastCalled = Date.now()
-        trailingArgs = undefined
-      }
-    }, interval)
   }
 
-  throttled.isThrottled = () => {
-    return timer !== undefined
-  }
+  const isThrottled = () => Date.now() - lastCalled < interval
+  throttled.isThrottled = isThrottled
 
   return throttled
 }
