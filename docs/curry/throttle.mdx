@@ -1,54 +1,61 @@
 ---
 title: throttle
-description: Create a throttled callback function
+description: Creates a throttled function that limits invocations to a specified interval
 ---
 
 ### Usage
 
-Throttle accepts an options object with an `interval` and a source function to call
-when invoked. Repeated calls to the returned function will only call the source
-function if the `interval` milliseconds of time has passed. Otherwise, it will ignore
-the invocation.
+The `throttle` function creates a new function that, when called, will only execute the original function at most once per specified time interval. This is useful for limiting the rate at which a function can fire, especially for performance-intensive operations like handling scroll or resize events.
 
-```ts
-import * as _ from 'radashi'
+The function accepts two parameters:
 
-const onMouseMove = () => {
-  rerender()
+1. An options object with:
+   - `interval`: The minimum time (in milliseconds) between function invocations
+   - `trailing` (optional): If true, also calls the function after the throttle period if it was invoked during the throttle
+2. The function to be throttled
+
+The returned throttled function also includes an `isThrottled` method to check if there's currently an active throttle.
+
+```typescript
+import { throttle } from 'radashi'
+
+// Throttle a scroll event handler
+const handleScroll = () => {
+  console.log('Scroll position:', window.scrollY)
 }
+const throttledScroll = throttle({ interval: 200 }, handleScroll)
+window.addEventListener('scroll', throttledScroll)
 
-addEventListener('mousemove', _.throttle({ interval: 200 }, onMouseMove))
+// Throttle an API call
+const throttledFetch = throttle(
+  { interval: 5000, trailing: true },
+  async () => {
+    const response = await fetch('https://api.example.com/data')
+    const data = await response.json()
+    console.log(data)
+  },
+)
+
+// Check if throttled
+console.log('Is throttled:', throttledFetch.isThrottled())
 ```
 
-## Timing
+### Timing
 
-A visual of the throttle behavior when `interval` is `200`. The throttle function
-returned by `throttle` can be called every millisecond but it will only call
-the given callback after `interval` milliseconds have passed.
+A visual representation of the throttle behavior when `interval` is set to `200ms`:
 
-```sh
+```
 Time: 0ms - - - - 100ms - - - - 200ms - - - - 300ms - - - - 400ms - - - -
 Throttle Invocations: x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x - - -
 Source Invocations: x - - - - - - - - - - - - x - - - - - - - - - - - - - x - - - - - -
 ```
 
-If the `trailing` option is set to `true`, the source function will be called again after
-`interval` if any invocations were made during the throttled period.
+When the `trailing` option is set to `true`, an additional invocation occurs after the throttle period if any calls were made during the throttled time:
 
-```sh
+```
 Time: 0ms - - - - 100ms - - - - 200ms - - - - 300ms - - - - 400ms - - - -
 Throttle Invocations: x x x x x x x x x x x x x x x x x x x x x - - - - - - - - - - - - -
 Source Invocations: x - - - - - - - - - - - - x - - - - - - - - - - - - - x - - - - - -
 ```
 
-### isThrottled
-
-The function returned by `throttle` has a `isThrottled` method that when called will return if there is any active throttle.
-
-```ts
-const debounced = _.throttle({ interval: 200 }, onMouseMove)
-
-// ... sometime later
-
-debounced.isThrottled()
-```
+In this diagram, 'x' represents function invocations, and '-' represents time passing.
