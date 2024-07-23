@@ -5,9 +5,9 @@ class MyError extends Error {
   name = 'MyError' as const
 }
 
-describe('_.toResult', () => {
+describe('_.castResult', () => {
   test('error type is preserved', () => {
-    const result = _.toResult(new MyError('error'))
+    const result = _.castResult(new MyError('error'))
     expectTypeOf(result).toEqualTypeOf<Err<MyError>>()
   })
 
@@ -15,7 +15,7 @@ describe('_.toResult', () => {
     type TError = Error | string | undefined
     type TResult = Promise<1 | Ok<2>> | 3 | Ok<4>
 
-    const result = _.toResult({} as TError | null, {} as TResult)
+    const result = _.castResult({} as TError | null, {} as TResult)
     expectTypeOf(result).toEqualTypeOf<
       | ResultPromise<1 | 2, NonNullable<TError>>
       | Result<3 | 4, NonNullable<TError>>
@@ -31,73 +31,76 @@ describe('_.toResult', () => {
   test('promise value', async () => {
     const promise: Promise<string> = Promise.resolve('hello')
 
-    const result = _.toResult(null, promise)
+    const result = _.castResult(null, promise)
     expectTypeOf(result).toEqualTypeOf<ResultPromise<string, never>>()
     expectTypeOf(result).toEqualTypeOf<Promise<Ok<string>>>()
 
-    const result2 = _.toResult(new Error(), promise)
+    const result2 = _.castResult(new Error(), promise)
     expectTypeOf(result2).toEqualTypeOf<Err<Error>>()
 
-    const result3 = _.toResult({} as Error | null, promise)
+    const result3 = _.castResult({} as Error | null, promise)
     expectTypeOf(result3).toEqualTypeOf<ResultPromise<string, Error>>()
 
     const result4 = await result3
     expectTypeOf(result4).toEqualTypeOf<Result<string, Error>>()
 
-    const result5 = _.toResult({} as Promise<never>)
+    const result5 = _.castResult({} as Promise<never>)
     expectTypeOf(result5).toEqualTypeOf<ResultPromise<never, Error>>()
     expectTypeOf(result5).toEqualTypeOf<Promise<Err<Error>>>()
   })
 
   test('promise error', () => {
     const promise: Promise<unknown> = Promise.reject(new Error())
-    const result = _.toResult(promise)
+    const result = _.castResult(promise)
     expectTypeOf(result).toEqualTypeOf<ResultPromise<unknown>>()
   })
 
   test('explicit error and value types are preserved', () => {
-    const result = _.toResult<string, MyError>(new MyError(), 'hello')
+    const result = _.castResult<string, MyError>(new MyError(), 'hello')
     expectTypeOf(result).toEqualTypeOf<Result<string, MyError>>()
   })
 
   test('null or undefined error with non-promise value', () => {
-    const result1 = _.toResult(null, 42)
+    const result1 = _.castResult(null, 42)
     expectTypeOf(result1).toEqualTypeOf<Ok<42>>()
 
-    const result2 = _.toResult(undefined, 42)
+    const result2 = _.castResult(undefined, 42)
     expectTypeOf(result2).toEqualTypeOf<Ok<42>>()
   })
 
   test('non-null error with undefined value', () => {
-    const result = _.toResult(new Error())
+    const result = _.castResult(new Error())
     expectTypeOf(result).toEqualTypeOf<Err<Error>>()
 
-    const result2 = _.toResult(new MyError())
+    const result2 = _.castResult(new MyError())
     expectTypeOf(result2).toEqualTypeOf<Err<MyError>>()
   })
 
   test('explicit type parameters', () => {
-    const result = _.toResult<string, MyError>(null, 'hello')
+    const result = _.castResult<string, MyError>(null, 'hello')
     expectTypeOf(result).toEqualTypeOf<Result<string, MyError>>()
 
-    const result2 = _.toResult<string, never>(null, 'hello')
+    const result2 = _.castResult<string, never>(null, 'hello')
     expectTypeOf(result2).toEqualTypeOf<Ok<string>>()
 
-    const result3 = _.toResult<never, Error>(new Error())
+    const result3 = _.castResult<never, Error>(new Error())
     expectTypeOf(result3).toEqualTypeOf<Err<Error>>()
 
-    const result4 = _.toResult<string, MyError>(null, Promise.resolve('hello'))
+    const result4 = _.castResult<string, MyError>(
+      null,
+      Promise.resolve('hello'),
+    )
     expectTypeOf(result4).toEqualTypeOf<ResultPromise<string, MyError>>()
   })
 
   test('primitive error value', () => {
-    const result = _.toResult('my error')
+    const result = _.castResult('my error')
     expectTypeOf(result).toEqualTypeOf<Err<'my error'>>()
 
-    const result2 = _.toResult('my error' as string)
+    const result2 = _.castResult('my error' as string)
     expectTypeOf(result2).toEqualTypeOf<Err<string>>()
 
-    const result3 = _.toResult('my error' as string | null, 1)
+    const result3 = _.castResult('my error' as string | null, 1)
     expectTypeOf(result3).toEqualTypeOf<Result<1, string>>()
   })
 })

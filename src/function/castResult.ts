@@ -14,59 +14,59 @@ const resultPromiseSymbol: unique symbol = Symbol()
  * Coerce a return value into either a `Result` tuple or a
  * `ResultPromise` promise.
  *
- * @see https://radashi-org.github.io/reference/function/toResult
+ * @see https://radashi-org.github.io/reference/function/castResult
  * @example
  * ```ts
- * const result = toResult(null, 'hello')
+ * const result = castResult(null, 'hello')
  * //    ^? Result<string, Error>
  *
- * const result2 = toResult(null, Promise.resolve('hello'))
+ * const result2 = castResult(null, Promise.resolve('hello'))
  * //    ^? ResultPromise<string, Error>
  *
- * const result3 = toResult(new TypeError('hello'))
+ * const result3 = castResult(new TypeError('hello'))
  * //    ^? Result<unknown, TypeError>
  *
- * const result4 = toResult(new TypeError('hello'), Promise.resolve('hello'))
+ * const result4 = castResult(new TypeError('hello'), Promise.resolve('hello'))
  * //    ^? ResultPromise<string, TypeError>
  * ```
  */
 
 // Promise<any> to ResultPromise
-export function toResult<TResult, TError = Error>(
+export function castResult<TResult, TError = Error>(
   error: Promise<TResult | Result<TResult, TError>>,
-): ToResult<Promise<TResult>, TError>
+): CastResult<Promise<TResult>, TError>
 
 // Nullish error + Promise<Result> to ResultPromise
-export function toResult<const TResult, TError = Error>(
+export function castResult<const TResult, TError = Error>(
   error: null | undefined,
   value: Promise<Result<TResult, TError>>,
-): ToResult<Promise<TResult>, TError>
+): CastResult<Promise<TResult>, TError>
 
 // Nullish error + Promise to ResultPromise
-export function toResult<const TResult, TError = never>(
+export function castResult<const TResult, TError = never>(
   error: null | undefined,
   value: Promise<TResult>,
-): ToResult<Promise<TResult>, TError>
+): CastResult<Promise<TResult>, TError>
 
 // Nullish error + anything to Ok tuple
-export function toResult<const TResult>(
+export function castResult<const TResult>(
   error: null | undefined,
   value: TResult,
-): ToResult<TResult, never>
+): CastResult<TResult, never>
 
 // Non-null error to Err tuple
-export function toResult<TError>(
+export function castResult<TError>(
   error: NonNullable<TError>,
   value?: unknown,
 ): Err<TError>
 
 // Catch-all: Possible error + anything to Result tuple
-export function toResult<const TResult, TError = Error>(
+export function castResult<const TResult, TError = Error>(
   error: TError | null | undefined,
   value?: TResult | undefined,
-): ToResult<TResult, NonNullable<TError>>
+): CastResult<TResult, NonNullable<TError>>
 
-export function toResult(
+export function castResult(
   error: unknown,
   value?: unknown,
 ): Promisable<Result<any, any>> {
@@ -104,37 +104,37 @@ export function toResult(
 }
 
 /**
- * The return type of the `toResult` function.
+ * The return type of the `castResult` function.
  *
  * Coerce a return value into either a `Result` tuple or a
  * `ResultPromise` promise.
  *
- * @see https://radashi-org.github.io/reference/function/toResult
+ * @see https://radashi-org.github.io/reference/function/castResult
  * @example
  * ```ts
- * type MyResult = ToResult<string>
+ * type MyResult = CastResult<string>
  * //   ^? Result<string, Error>
  *
- * type MyResult2 = ToResult<Promise<string>>
+ * type MyResult2 = CastResult<Promise<string>>
  * //   ^? ResultPromise<string, Error>
  *
- * type MyResult3 = ToResult<string | Promise<string>, TypeError>
+ * type MyResult3 = CastResult<string | Promise<string>, TypeError>
  * //   ^? Result<string, TypeError> | ResultPromise<string, TypeError>
  * ```
  */
-export type ToResult<TReturn, TError = Error> = (
+export type CastResult<TReturn, TError = Error> = (
   [TReturn] extends [never]
     ?
-        | Extract<ToResult<TError>, Err<any>>
-        | (ToResult<undefined, TError> extends infer TErr
+        | Extract<CastResult<TError>, Err<any>>
+        | (CastResult<undefined, TError> extends infer TErr
             ? TErr extends Promise<Result<any, infer TError>>
               ? Promise<Err<NonNullable<TError>>>
               : never
             : never)
     : [TError] extends [never]
       ?
-          | Extract<ToResult<TReturn>, Ok<any>>
-          | (ToResult<TReturn> extends infer TOk
+          | Extract<CastResult<TReturn>, Ok<any>>
+          | (CastResult<TReturn> extends infer TOk
               ? TOk extends Promise<infer TResult>
                 ? Promise<Ok<TResult>>
                 : never
