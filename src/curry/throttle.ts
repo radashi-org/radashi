@@ -76,11 +76,10 @@ export function throttle<TArgs extends any[]>(
       trailingArgs = undefined
 
       clearTimeout(timer)
-      timer = setTimeout(() => {
-        if (trailingArgs) {
-          trigger(...trailingArgs)
-        }
-      }, interval)
+      timer = setTimeout(
+        () => trailingArgs && trigger(...trailingArgs),
+        interval,
+      )
     }
   })
 
