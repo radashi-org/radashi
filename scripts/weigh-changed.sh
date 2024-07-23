@@ -73,9 +73,8 @@ if [ ${#PREV_SIZES[@]} -gt 0 ]; then
   done
 fi
 
-echo -e "\n\n"
-
 if [[ -n "$CI" ]]; then
+  echo -e "\n\n"
   if [ "$column_count" -gt 2 ]; then
     echo "| Status | File | Size | Difference (%) |"
     echo "|---|---|---|---|"
@@ -130,6 +129,8 @@ for file in "${FILE_NAMES[@]}"; do
   i=$((i + 1))
 done
 
-echo ""
-echo "[^1337]: Function size includes the \`import\` dependencies of the function."
-echo ""
+if [[ -n "$CI" ]]; then
+  echo ""
+  echo "[^1337]: Function size includes the \`import\` dependencies of the function."
+  echo ""
+fi
