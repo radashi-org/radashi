@@ -37,7 +37,11 @@ export async function parallel<T, K>(
       if (!next) {
         return res(results)
       }
-      const [error, result] = await tryit(func)(next.item)
+      const [error, result] = await tryit<
+        Parameters<typeof func>,
+        Promise<unknown>,
+        unknown
+      >(func)(next.item)
       results.push({
         error,
         result: result as K,

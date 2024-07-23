@@ -31,6 +31,7 @@ export async function defer<TResponse>(
     fn: (error?: any) => any
     rethrow: boolean
   }[] = []
+
   const register = (
     fn: (error?: any) => any,
     options?: { rethrow?: boolean },
@@ -39,15 +40,22 @@ export async function defer<TResponse>(
       fn,
       rethrow: options?.rethrow ?? false,
     })
-  const [err, response] = await tryit(func)(register)
+
+  const [err, response] = await tryit<
+    Parameters<typeof func>,
+    Promise<unknown>,
+    unknown
+  >(func)(register)
+
   for (const { fn, rethrow } of callbacks) {
     const [rethrown] = await tryit(fn)(err)
     if (rethrown && rethrow) {
       throw rethrown
     }
   }
+
   if (err) {
     throw err
   }
-  return response
+  return response as TResponse
 }
