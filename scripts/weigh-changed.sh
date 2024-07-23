@@ -111,10 +111,13 @@ for file in "${FILE_NAMES[@]}"; do
   fi
 
   if [[ -n "$CI" ]]; then
+    if [ $i -eq 0 ]; then
+      bytes="$bytes [^1337]"
+    fi
     if [ "$column_count" -gt 2 ]; then
-      echo "| $status | \`$file\` | $bytes[^1337] | $diff$ratio |"
+      echo "| $status | \`$file\` | $bytes | $diff$ratio |"
     else
-      echo "| $status | \`$file\` | $bytes[^1337] |"
+      echo "| $status | \`$file\` | $bytes |"
     fi
   else
     if [ "$column_count" -gt 2 ] && [ "$prev_bytes" -ne 0 ]; then
