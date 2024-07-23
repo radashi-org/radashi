@@ -44,16 +44,14 @@ export function throttle<TArgs extends any[]>(
       lastArgs = args
     }
 
-    if (timer === undefined) {
-      timer = setTimeout(() => {
-        timer = undefined
-        if (trailing && lastArgs) {
-          func(...lastArgs)
-          lastCallTime = Date.now()
-          lastArgs = undefined
-        }
-      }, interval)
-    }
+    timer ??= setTimeout(() => {
+      timer = undefined
+      if (trailing && lastArgs) {
+        func(...lastArgs)
+        lastCallTime = Date.now()
+        lastArgs = undefined
+      }
+    }, interval)
   }
   throttled.isThrottled = () => {
     return timer !== undefined
