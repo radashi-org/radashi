@@ -26,7 +26,7 @@ export type ThrottledFunction<TArgs extends any[]> = {
  * ```
  */
 export function throttle<TArgs extends any[]>(
-  { interval, trailing = false }: { interval: number; trailing?: boolean },
+  { interval, trailing }: { interval: number; trailing?: boolean },
   func: (...args: TArgs) => any,
 ): ThrottledFunction<TArgs> {
   let lastCalled = 0
