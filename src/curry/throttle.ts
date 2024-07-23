@@ -29,9 +29,9 @@ export function throttle<TArgs extends any[]>(
   { interval, trailing = false }: { interval: number; trailing?: boolean },
   func: (...args: TArgs) => any,
 ): ThrottledFunction<TArgs> {
-  let lastCallTime: number | undefined = undefined
-  let timer: ReturnType<typeof setTimeout> | undefined = undefined
-  let lastArgs: TArgs | undefined = undefined
+  let timer: ReturnType<typeof setTimeout> | undefined
+  let lastCallTime: number | undefined
+  let lastArgs: TArgs | undefined
 
   const throttled: ThrottledFunction<TArgs> = (...args: TArgs) => {
     const currentTime = Date.now()
