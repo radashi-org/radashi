@@ -19,3 +19,31 @@ describe('isResult', () => {
     expect(_.isResult(null)).toBe(false)
   })
 })
+
+describe('isResultOk', () => {
+  test('valid Ok results', () => {
+    expect(_.isResultOk([undefined, 42])).toBe(true)
+  })
+  test('invalid Ok results', () => {
+    expect(_.isResultOk([new Error(), undefined])).toBe(false)
+  })
+  test('other values', () => {
+    expect(_.isResultOk([])).toBe(false)
+    expect(_.isResultOk({})).toBe(false)
+    expect(_.isResultOk(null)).toBe(false)
+  })
+})
+
+describe('isResultErr', () => {
+  test('valid Err results', () => {
+    expect(_.isResultErr([new Error(), undefined])).toBe(true)
+  })
+  test('invalid Err results', () => {
+    expect(_.isResultErr([undefined, 42])).toBe(false)
+  })
+  test('other values', () => {
+    expect(_.isResultErr([])).toBe(false)
+    expect(_.isResultErr({})).toBe(false)
+    expect(_.isResultErr(null)).toBe(false)
+  })
+})
