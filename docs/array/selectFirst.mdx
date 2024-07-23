@@ -16,10 +16,10 @@ This function is particularly useful when you need to find and transform an elem
 - Returns `undefined` if no element satisfies the condition or if the array is empty/nullish
 
 ```typescript
-import { selectFirst } from './selectFirst'
+import * as _ from 'radashi'
 
 // Find the first even number and double it
-selectFirst(
+_.selectFirst(
   [1, 3, 4, 6, 8],
   x => x * 2,
   x => x % 2 === 0,
@@ -27,7 +27,7 @@ selectFirst(
 // => 8
 
 // Find the first non-empty string and convert to uppercase
-selectFirst(
+_.selectFirst(
   ['', null, 'hello', 'world'],
   s => s?.toUpperCase(),
   s => s !== null && s !== '',
@@ -40,7 +40,7 @@ const users = [
   { id: 2, name: 'Bob', age: 25 },
   { id: 3, name: 'Charlie', age: 35 },
 ]
-selectFirst(
+_.selectFirst(
   users,
   user => user.name,
   user => user.age > 30,
@@ -48,6 +48,6 @@ selectFirst(
 // => 'Charlie'
 
 // Using default condition (non-nullish)
-selectFirst([null, undefined, 0, '', false, 'found'], x => x)
+_.selectFirst([null, undefined, 0, '', false, 'found'], x => x)
 // => 0
 ```
