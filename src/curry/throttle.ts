@@ -11,6 +11,23 @@ export type ThrottledFunction<TArgs extends any[]> = {
    * Call the throttled function immediately, ignoring any throttling
    * that may be in effect. After, a new throttled call will be allowed
    * after the interval has passed.
+   *
+   * @example
+   * ```ts
+   * const logMessage = (message: string) => {
+   *   console.log(`Message: ${message}`)
+   * }
+   * const throttledLog = throttle({ interval: 1000 }, logMessage)
+   *
+   * throttledLog('First call')  // Logs immediately
+   * throttledLog('Throttled')   // Doesn't log (throttled)
+   *
+   * // Force a log, bypassing the throttle
+   * throttledLog.trigger('Forced log')  // Logs immediately
+   *
+   * // Check if it's still throttled
+   * throttledLog.isThrottled()  // => true
+   * ```
    */
   trigger(...args: TArgs): void
 }
