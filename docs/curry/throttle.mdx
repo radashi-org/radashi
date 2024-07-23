@@ -14,7 +14,10 @@ The function accepts two parameters:
    - `trailing` (optional): If true, also calls the function after the throttle period if it was invoked during the throttle
 2. The function to be throttled
 
-The returned throttled function also includes an `isThrottled` method to check if there's currently an active throttle.
+The returned throttled function also includes these methods:
+
+- `isThrottled(): boolean`: To check if there's currently an active throttle
+- `trigger(...args): void`: To invoke the wrapped function without waiting for the next interval
 
 ```typescript
 import { throttle } from 'radashi'
