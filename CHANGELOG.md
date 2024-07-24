@@ -43,6 +43,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add reverse argument to `castComparator` by [@aleclarson](https://github.com/aleclarson) in [1d7937e](https://github.com/radashi-org/radashi/commit/1d7937ef006139883aedac782ad032c1d6269c7a)
 - Add `isBoolean` function by [@aleclarson](https://github.com/aleclarson) in [adc419d](https://github.com/radashi-org/radashi/commit/adc419d5bbb1786d75619ed3d7f41a45f68c9857)
 - Add `noop` and `always` functions by [@aleclarson](https://github.com/aleclarson) in [eb77c8f](https://github.com/radashi-org/radashi/commit/eb77c8f004a35f1499968f6e40d01b3595384848)
+- Add `similarity` function by [@aleclarson](https://github.com/aleclarson) in [#122](https://github.com/radashi-org/radashi/pull/122)
+
+- **(throttle)** Add `trailing` option by [@crishoj](https://github.com/crishoj) in [#127](https://github.com/radashi-org/radashi/pull/127)
+
+- **(throttle)** Add `trigger` method to ThrottleFunction by [@aleclarson](https://github.com/aleclarson) in [#135](https://github.com/radashi-org/radashi/pull/135)
+
 
 #### <!-- 05 -->Changed
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
@@ -120,8 +126,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improve the return type of `filterKey` by [@aleclarson](https://github.com/aleclarson) in [bc298c6](https://github.com/radashi-org/radashi/commit/bc298c6cfcaaf74726e1f2b901e210dea1fed641)
 - Handle tuples in `isArray` return type by [@aleclarson](https://github.com/aleclarson) in [9257535](https://github.com/radashi-org/radashi/commit/925753578761bda277838bf8fbbcc24b3813f2b9)
 - Make `select` more option-friendly by [@aleclarson](https://github.com/aleclarson) in [c9cfcd0](https://github.com/radashi-org/radashi/commit/c9cfcd0a7eb1af98682f5d9b56555162c92b7085)
+- Let `shift` accept a readonly array type by [@nnmrts](https://github.com/nnmrts) in [#126](https://github.com/radashi-org/radashi/pull/126)
+
 
 ### New Contributors
+* [@crishoj](https://github.com/crishoj) made their first contribution in [#127](https://github.com/radashi-org/radashi/pull/127)
+* [@nnmrts](https://github.com/nnmrts) made their first contribution in [#126](https://github.com/radashi-org/radashi/pull/126)
 * [@stefaanv](https://github.com/stefaanv) made their first contribution in [#95](https://github.com/radashi-org/radashi/pull/95)
 * [@eumkz](https://github.com/eumkz) made their first contribution in [#76](https://github.com/radashi-org/radashi/pull/76)
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
