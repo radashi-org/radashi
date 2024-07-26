@@ -31,9 +31,9 @@
   ],
   "scripts": {
     "add-function": "bash ./scripts/add-function.sh",
-    "move-function": "bash ./scripts/move-function.sh",
     "bench": "vitest bench",
     "build": "tsup --clean",
+    "bundle-impact": "bash ./scripts/weigh-changed.sh",
     "dev": "tsup --clean --watch --sourcemap",
     "format": "bash ./scripts/format.sh",
     "lint": "concurrently -c=auto -g --kill-others-on-fail 'npm:lint:*'",
@@ -41,25 +41,26 @@
     "lint:compat": "bash ./scripts/lint-compat.sh 'src/**/*.ts'",
     "lint:jsr": "pnpm -s dlx deno-bin@1.44.4 lint",
     "lint:tsc": "concurrently -c=auto -g --kill-others-on-fail --names src,tests,benchmarks 'tsc' 'tsc -p tests' 'tsc -p benchmarks'",
+    "move-function": "bash ./scripts/move-function.sh",
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
     "test": "vitest run --coverage",
     "test-branch": "bash ./scripts/test-branch.sh",
-    "test-single": "bash ./scripts/test-single.sh",
-    "bundle-impact": "bash ./scripts/weigh-changed.sh"
+    "test-single": "bash ./scripts/test-single.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
     "@codspeed/vitest-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^7.16.1",
-    "@vitest/coverage-v8": "1.6.0",
+    "@vitest/coverage-v8": "2.0.3",
     "concurrently": "^8.2.2",
     "eslint-plugin-compat": "^6.0.0",
+    "glob": "^11.0.0",
     "prettier": "^3.3.2",
     "prettier-plugin-pkg": "^0.18.1",
     "prettier-plugin-sh": "^0.14.0",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
-    "vitest": "1.6.0"
+    "vitest": "2.0.2"
   },
   "sideEffects": false,
   "browserslist": [
