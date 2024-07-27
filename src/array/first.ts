@@ -11,9 +11,11 @@
  * // 0
  * ```
  */
-export function first<T>(array: readonly T[]): T | undefined
+export function first(array: readonly []): undefined
+export function first<T>(array: readonly T[]): T
 
-export function first<T, U>(array: readonly T[], defaultValue: U): T | U
+export function first<U>(array: readonly [], defaultValue: U): U
+export function first<T, U>(array: readonly T[], defaultValue: U): T
 
 export function first(array: readonly unknown[], defaultValue?: unknown) {
   return array?.length > 0 ? array[0] : defaultValue
