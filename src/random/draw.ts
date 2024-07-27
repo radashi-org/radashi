@@ -15,8 +15,9 @@ import { random } from 'radashi'
  * // => [1, 2, 3]
  * ```
  */
-export function draw(array: readonly []): null;
-export function draw<T>(array: readonly T[]): T;
+export function draw(array: readonly []): null
+export function draw<T>(array: readonly T[]): T
+
 export function draw<T>(array: readonly T[]): T | null {
   const max = array.length
   if (max === 0) {
