@@ -14,10 +14,13 @@ import { isPlainObject } from 'radashi'
  * // => { a: 1, b: 2, c: 3, p: { a: 4, b: 5 } }
  * ```
  */
-export function assign<X extends Record<string | symbol | number, any>>(
+export function assign<
+  X extends Record<string | symbol | number, any>,
+  Y extends Record<string | symbol | number, any>,
+>(
   initial: X,
-  override: X,
-): X {
+  override: Y,
+): X & Y {
   if (!initial || !override) {
     return initial ?? override ?? {}
   }
