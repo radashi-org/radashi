@@ -17,10 +17,7 @@ import { isPlainObject } from 'radashi'
 export function assign<
   X extends Record<string | symbol | number, any>,
   Y extends Record<string | symbol | number, any>,
->(
-  initial: X,
-  override: Y,
-): X & Y {
+>(initial: X, override: Y): X & Y {
   if (!initial || !override) {
     return initial ?? override ?? {}
   }
