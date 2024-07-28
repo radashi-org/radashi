@@ -9,7 +9,7 @@
     "emitDeclarationOnly": true,
     "isolatedDeclarations": true,
     "target": "esnext",
-    "lib": ["es2020"],
+    "lib": ["esnext", "dom"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
