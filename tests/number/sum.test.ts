@@ -17,4 +17,9 @@ describe('sum', () => {
     const result = _.sum(cast(null))
     expect(result).toBe(0)
   })
+  test('gracefully handles boolean input list', () => {
+    const list = [true, false, true, false, true]
+    const result = _.sum(list, x => (x ? 1 : 0))
+    expect(result).toBe(3)
+  })
 })

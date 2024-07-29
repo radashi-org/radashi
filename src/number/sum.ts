@@ -17,7 +17,7 @@
  * ```
  */
 export function sum<T extends number>(array: readonly T[]): number
-export function sum<T extends object>(
+export function sum<T extends object | boolean>(
   array: readonly T[],
   fn: (item: T) => number,
 ): number
