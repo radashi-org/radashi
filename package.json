@@ -50,6 +50,7 @@
     "@biomejs/biome": "^1.8.3",
     "@vitest/coverage-v8": "2.0.5",
     "cspell": "^8.13.3",
+    "flush-microtasks": "^1.0.1",
     "prettier": "^3.3.2",
     "prettier-plugin-pkg": "^0.18.1",
     "prettier-plugin-sh": "^0.14.0",
