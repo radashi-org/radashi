@@ -14,6 +14,9 @@
  *   {value: 3}
  * ], (item) => item.value)
  * // => 6
+ * 
+ * sum([true, false, true], (item) => item ? 1 : 0)
+ * // => 2
  * ```
  */
 export function sum<T extends number>(array: readonly T[]): number
