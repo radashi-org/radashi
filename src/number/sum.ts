@@ -19,12 +19,12 @@
  * // => 2
  * ```
  */
-export function sum<T extends number>(array: readonly T[]): number
-export function sum<T extends object | boolean>(
+export function sum(array: readonly number[]): number
+export function sum<T>(
   array: readonly T[],
   fn: (item: T) => number,
 ): number
-export function sum<T extends object | number>(
+export function sum<T>(
   array: readonly any[],
   fn?: (item: T) => number,
 ): number {
