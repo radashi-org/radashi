@@ -31,6 +31,9 @@ importers:
       eslint-plugin-compat:
         specifier: ^6.0.0
         version: 6.0.0(eslint@8.57.0)
+      flush-microtasks:
+        specifier: ^1.0.1
+        version: 1.0.1
       glob:
         specifier: ^11.0.0
         version: 11.0.0
@@ -792,6 +795,9 @@ packages:
 
   flatted@3.3.1:
     resolution: {integrity: sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==}
+
+  flush-microtasks@1.0.1:
+    resolution: {integrity: sha512-NvtApTWP9g282PecFpCZY7x28kFx9OusnRUXa4lyUh6q+QNazNbbQOMcEuVt5ZLM7rT8GnU2attGHrg3v4bjsw==}
 
   follow-redirects@1.15.6:
     resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
@@ -2349,6 +2355,8 @@ snapshots:
       rimraf: 3.0.2
 
   flatted@3.3.1: {}
+
+  flush-microtasks@1.0.1: {}
 
   follow-redirects@1.15.6: {}
 
