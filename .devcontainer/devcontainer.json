@@ -17,7 +17,6 @@
     "vscode": {
       "extensions": [
         "vitest.explorer",
-        "rohit-gohri.format-code-action",
         "biomejs.biome",
         "esbenp.prettier-vscode"
       ],
