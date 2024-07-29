@@ -8,8 +8,10 @@ declare const setTimeout: (callback: () => void, delay: number) => unknown
 export interface BottleneckOptions {
   /**
    * The maximum number of calls to allow per interval.
+   *
+   * @default 1
    */
-  max: number
+  max?: number
   /**
    * The interval at which to allow the maximum number of calls.
    */
@@ -68,7 +70,11 @@ export interface BottledFunction<TArgs extends any[], TReturn> {
  * ```
  */
 export function bottleneck<TArgs extends any[], TReturn>(
-  { max, interval, concurrency = Number.POSITIVE_INFINITY }: BottleneckOptions,
+  {
+    max = 1,
+    interval,
+    concurrency = Number.POSITIVE_INFINITY,
+  }: BottleneckOptions,
   fn: (...args: TArgs) => TReturn,
 ): BottledFunction<TArgs, TReturn> {
   let numCalls = 0
