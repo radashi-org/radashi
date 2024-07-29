@@ -1,6 +1,8 @@
 /**
- * Sum all numbers in an array. Optionally provide a function to
- * convert objects in the array to number values.
+ * Add up numbers related to an array in 1 of 2 ways:
+ * 1. Sum all numbers in an array of numbers
+ * 2. Sum all numbers returned by a callback function that maps
+ *    each item in an array to a number.
  *
  * @see https://radashi-org.github.io/reference/array/sum
  * @example
