@@ -76,7 +76,7 @@ async function seedProposedFunctions() {
         owner: repoOwner,
         repo: repoName,
         breaking: labels.some(label => label.name === 'BREAKING CHANGE'),
-        thumbs: async () => {
+        getApprovalRating: async () => {
           const { data: reactions } = await limit(() =>
             octokit.reactions.listForIssue({
               owner: 'radashi-org',
@@ -87,7 +87,7 @@ async function seedProposedFunctions() {
 
           return reactions.filter(reaction => reaction.content === '+1').length
         },
-        body: async () => {
+        getIssueBody: async () => {
           const { data } = await limit(() =>
             octokit.issues.get({
               owner: 'radashi-org',
@@ -105,11 +105,6 @@ async function seedProposedFunctions() {
               ref,
             }),
           )
-          console.log('commit =>', {
-            sha: commit.sha,
-            date: commit.commit.author?.date,
-            author: commit.commit.author?.name,
-          })
           return {
             sha: commit.sha,
             date: commit.commit.author?.date,

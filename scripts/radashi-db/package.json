@@ -6,6 +6,7 @@
   "dependencies": {
     "@octokit/rest": "^21.0.1",
     "@supabase/supabase-js": "^2.45.0",
+    "algoliasearch": "^4.24.0",
     "markdown-it": "^14.1.0",
     "markdown-it-front-matter": "^0.2.4",
     "radashi": "12.2.0-beta.83909af",

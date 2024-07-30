@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import { default as createAlgolia } from 'algoliasearch'
 import MarkdownIt from 'markdown-it'
 import mdFrontMatter from 'markdown-it-front-matter'
 import path from 'node:path'
@@ -8,9 +9,11 @@ import sanitize from 'ultrahtml/transformers/sanitize'
 import * as yaml from 'yaml'
 
 const supabase = createClient(
-  process.env.SUPABASE_URL!,
+  'https://yucyhkpmrdbucitpovyj.supabase.co',
   process.env.SUPABASE_KEY!,
 )
+
+const algolia = createAlgolia('7YYOXVJ9K7', process.env.ALGOLIA_KEY!)
 
 type PrFileStatus =
   | 'added'
@@ -52,10 +55,10 @@ interface Context {
   status: PrStatus
   breaking: boolean
   files: PrFile[]
-  getCommit: (ref: string, owner: string, repo: string) => Promise<Commit>
+  getCommit: (ref: string, owner?: string, repo?: string) => Promise<Commit>
   getFileContent: (file: string) => Promise<string>
-  thumbs: number | (() => Promise<number>)
-  body: string | (() => Promise<string | null>)
+  getApprovalRating: () => Promise<number>
+  getIssueBody: () => Promise<string | null>
   console?: Pick<Console, 'log' | 'error'>
 }
 
@@ -106,6 +109,7 @@ export const registerPullRequest = async (
       if (!newFunctionNames.includes(name)) {
         console.log(`Deleting ${name}#${prNumber} from Radashi database`)
       }
+
       await supabase
         .from('proposed_functions')
         .delete()
@@ -113,7 +117,7 @@ export const registerPullRequest = async (
     }
 
     let body: string | null | undefined
-    let thumbsCount: number | null = null
+    let approvalRating: number | null = null
 
     for (const file of newFunctions) {
       const name = path.basename(file.filename, '.ts')
@@ -121,10 +125,26 @@ export const registerPullRequest = async (
       if (context.status === 'merged') {
         if (!existingFunctionNames.includes(name)) {
           console.log(`Deleting ${name}#${prNumber} from Radashi database`)
+
           await supabase
             .from('proposed_functions')
             .delete()
             .match({ pr_number: prNumber, name })
+
+          // Delete from Algolia
+          if (process.env.ALGOLIA_KEY) {
+            const index = algolia.initIndex('proposed_functions')
+
+            try {
+              console.log(`Deleting ${name}#${prNumber} from Algolia index`)
+              await index.deleteObject(`${name}#${prNumber}`)
+            } catch (error) {
+              console.error(
+                `Error deleting ${name}#${prNumber} from Algolia:`,
+                error,
+              )
+            }
+          }
         }
         continue
       }
@@ -144,10 +164,7 @@ export const registerPullRequest = async (
 
       if (documentation == null) {
         if (body === undefined) {
-          body =
-            typeof context.body === 'function'
-              ? await context.body()
-              : context.body
+          body = await context.getIssueBody()
         }
 
         if (body !== null) {
@@ -216,39 +233,61 @@ export const registerPullRequest = async (
         }
       }
 
-      if (thumbsCount === null) {
+      if (approvalRating === null) {
         try {
-          thumbsCount =
-            typeof context.thumbs === 'function'
-              ? await context.thumbs()
-              : context.thumbs
+          approvalRating = await context.getApprovalRating()
         } catch (error) {
           console.error(
-            `Error getting thumbs count for ${name}#${prNumber}:`,
+            `Error getting approval rating for ${name}#${prNumber}:`,
             error,
           )
-          thumbsCount = 0
+          approvalRating = 0
         }
       }
 
-      const commit = await getCommit(context.sha, context.owner, 'radashi')
+      const commit = await getCommit(context.sha, context.owner, context.repo)
 
-      const { error } = await supabase.from('proposed_functions').insert({
+      const record = {
         name,
         pr_number: prNumber,
-        approval_rating: thumbsCount,
+        approval_rating: approvalRating,
         documentation,
         status: context.status,
         breaking: context.breaking,
         description,
         committed_at: commit?.date,
         committed_by: commit?.author,
-      })
+      }
+
+      const { error } = await supabase.from('proposed_functions').insert(record)
 
       if (error) {
-        console.error(`Error inserting ${name}#${prNumber}:`, error)
+        console.error(
+          `Error inserting ${name}#${prNumber} into Supabase:`,
+          error,
+        )
       } else {
-        console.log(`Successfully registered ${name}#${prNumber}`)
+        console.log(`Successfully registered ${name}#${prNumber} in Supabase`)
+      }
+
+      // Insert record into Algolia
+      if (process.env.ALGOLIA_KEY) {
+        try {
+          const index = algolia.initIndex('proposed_functions')
+
+          const algoliaRecord = {
+            objectID: `${name}#${prNumber}`,
+            ...record,
+          }
+
+          await index.saveObject(algoliaRecord)
+          console.log(`Successfully indexed ${name}#${prNumber} in Algolia`)
+        } catch (algoliaError) {
+          console.error(
+            `Error indexing ${name}#${prNumber} in Algolia:`,
+            algoliaError,
+          )
+        }
       }
     }
   } catch (error) {
