@@ -1,19 +1,7 @@
-import { createClient } from '@supabase/supabase-js'
-import { default as createAlgolia } from 'algoliasearch'
-import MarkdownIt from 'markdown-it'
-import mdFrontMatter from 'markdown-it-front-matter'
 import path from 'node:path'
 import { memo } from 'radashi'
-import { transform } from 'ultrahtml'
-import sanitize from 'ultrahtml/transformers/sanitize'
-import * as yaml from 'yaml'
-
-const supabase = createClient(
-  'https://yucyhkpmrdbucitpovyj.supabase.co',
-  process.env.SUPABASE_KEY!,
-)
-
-const algolia = createAlgolia('7YYOXVJ9K7', process.env.ALGOLIA_KEY!)
+import { algolia, supabase } from './db'
+import { renderPageMarkdown } from './util/markdown'
 
 type PrFileStatus =
   | 'added'
@@ -40,6 +28,12 @@ export interface Commit {
 
 interface Context {
   sha: string
+  /**
+   * The branch name (e.g. "main")
+   *
+   * @default "main"
+   */
+  branch?: string
   /**
    * The owner name (e.g. "radashi-org" or your GitHub username)
    *
@@ -80,7 +74,8 @@ export const registerPullRequest = async (
       file =>
         file.status === 'added' &&
         file.filename.startsWith('src/') &&
-        file.filename.endsWith('.ts'),
+        file.filename.endsWith('.ts') &&
+        !file.filename.endsWith('.test.ts'),
     )
 
     if (newFunctions.length === 0) {
@@ -194,42 +189,16 @@ export const registerPullRequest = async (
       }
 
       if (documentation) {
-        const markdown = new MarkdownIt({ html: true })
-
-        let metadata: any = null
-        markdown.use(mdFrontMatter, (text: string) => {
-          metadata = yaml.parse(text)
-        })
-
-        try {
-          documentation = markdown.render(documentation)
-          console.log('Front matter =>', metadata)
-          if (metadata?.title) {
-            documentation =
-              markdown.render('# ' + metadata.title + '\n\n') +
-              '\n\n' +
-              documentation
-          }
-          if (metadata?.description) {
-            description = metadata.description
-          }
-        } catch (error) {
-          console.error(
-            `Markdown renderer failed for ${name}#${prNumber}:`,
-            error,
-          )
-          documentation = null
+        interface PageData {
+          title: string
+          description?: string
         }
-      }
-
-      if (documentation) {
-        try {
-          documentation = await transform(documentation, [
-            sanitize({ allowComments: true }),
-          ])
-        } catch (error) {
-          console.error(`Sanitization failed for ${name}#${prNumber}:`, error)
-          documentation = null
+        const renderResult = await renderPageMarkdown<PageData>(documentation)
+        if (renderResult) {
+          documentation = renderResult.text
+          if (renderResult.data?.description) {
+            description = renderResult.data.description
+          }
         }
       }
 
@@ -248,6 +217,8 @@ export const registerPullRequest = async (
       const commit = await getCommit(context.sha, context.owner, context.repo)
 
       const record = {
+        ref: `${context.owner ?? 'radashi-org'}/${context.repo ?? 'radashi'}#${context.branch ?? 'main'}`,
+        group: file.filename.split('/').slice(1, -1).join('/'),
         name,
         pr_number: prNumber,
         approval_rating: approvalRating,

@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/rest'
-import { bottleneck } from './bottleneck'
 import { registerPullRequest } from './register-pr'
+import { bottleneck } from './util/bottleneck'
 
 async function seedProposedFunctions() {
   const octokit = new Octokit({
@@ -68,11 +68,13 @@ async function seedProposedFunctions() {
       const repoName = prDetails.head.repo?.name
       console.log('repoOwner == %O', repoOwner)
       console.log('repoName == %O', repoName)
+      console.log('branch == %O', pr.head.ref)
 
       await registerPullRequest(pr.number, {
         sha: pr.head.sha,
         files,
         status,
+        branch: pr.head.ref,
         owner: repoOwner,
         repo: repoName,
         breaking: labels.some(label => label.name === 'BREAKING CHANGE'),
