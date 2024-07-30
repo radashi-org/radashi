@@ -23,6 +23,13 @@ async function seedProposedFunctions() {
 
     for (const pr of pullRequests) {
       console.log(`Processing PR ${pr.number}`)
+      console.log('')
+      console.log(`  pr.head.sha == ${pr.head.sha}`)
+      console.log(`  pr.title == ${pr.title}`)
+      console.log(`  pr.state == ${pr.state}`)
+      console.log(`  pr.draft == ${pr.draft}`)
+      console.log(`  pr.merged_at == ${pr.merged_at}`)
+      console.log(`  pr.user.login == ${pr.user?.login}`)
 
       const status =
         pr.state === 'open'
@@ -49,10 +56,25 @@ async function seedProposedFunctions() {
         }),
       )
 
+      const { data: prDetails } = await limit(() =>
+        octokit.pulls.get({
+          owner: 'radashi-org',
+          repo: 'radashi',
+          pull_number: pr.number,
+        }),
+      )
+
+      const repoOwner = prDetails.head.repo?.owner.login
+      const repoName = prDetails.head.repo?.name
+      console.log('repoOwner == %O', repoOwner)
+      console.log('repoName == %O', repoName)
+
       await registerPullRequest(pr.number, {
         sha: pr.head.sha,
         files,
         status,
+        owner: repoOwner,
+        repo: repoName,
         breaking: labels.some(label => label.name === 'BREAKING CHANGE'),
         thumbs: async () => {
           const { data: reactions } = await limit(() =>
@@ -75,7 +97,26 @@ async function seedProposedFunctions() {
           )
           return data.body ?? null
         },
-        read: async path => {
+        getCommit: async (ref, owner = 'radashi-org', repo = 'radashi') => {
+          const { data: commit } = await limit(() =>
+            octokit.repos.getCommit({
+              owner,
+              repo,
+              ref,
+            }),
+          )
+          console.log('commit =>', {
+            sha: commit.sha,
+            date: commit.commit.author?.date,
+            author: commit.commit.author?.name,
+          })
+          return {
+            sha: commit.sha,
+            date: commit.commit.author?.date,
+            author: commit.commit.author?.name,
+          }
+        },
+        getFileContent: async path => {
           const { data } = await limit(() =>
             octokit.repos.getContent({
               owner: 'radashi-org',

@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import MarkdownIt from 'markdown-it'
 import mdFrontMatter from 'markdown-it-front-matter'
 import path from 'node:path'
+import { memo } from 'radashi'
 import { transform } from 'ultrahtml'
 import sanitize from 'ultrahtml/transformers/sanitize'
 import * as yaml from 'yaml'
@@ -25,14 +26,34 @@ type PrStatus = 'draft' | 'open' | 'merged' | 'closed'
 interface PrFile {
   status: PrFileStatus
   filename: string
+  sha: string
+}
+
+export interface Commit {
+  sha: string
+  date: string | undefined
+  author: string | undefined
 }
 
 interface Context {
   sha: string
+  /**
+   * The owner name (e.g. "radashi-org" or your GitHub username)
+   *
+   * @default "radashi-org"
+   */
+  owner?: string
+  /**
+   * The repository name (e.g. "radashi")
+   *
+   * @default "radashi"
+   */
+  repo?: string
   status: PrStatus
   breaking: boolean
   files: PrFile[]
-  read: (file: string) => Promise<string>
+  getCommit: (ref: string, owner: string, repo: string) => Promise<Commit>
+  getFileContent: (file: string) => Promise<string>
   thumbs: number | (() => Promise<number>)
   body: string | (() => Promise<string | null>)
   console?: Pick<Console, 'log' | 'error'>
@@ -49,6 +70,7 @@ export const registerPullRequest = async (
   context: Context,
 ): Promise<void> => {
   const { console = globalThis.console } = context
+  const getCommit = memo(context.getCommit)
 
   try {
     const newFunctions = context.files.filter(
@@ -113,7 +135,7 @@ export const registerPullRequest = async (
 
       let documentation: string | null = null
       try {
-        documentation = await context.read(docFilename)
+        documentation = await context.getFileContent(docFilename)
       } catch {
         console.log(`Documentation file not found for ${name}#${prNumber}`)
       }
@@ -134,7 +156,8 @@ export const registerPullRequest = async (
           const sections = body.split(/^(#+\s+)/m)
           const summaryIndex = sections.findIndex(
             (_section, index) =>
-              index % 2 === 1 && sections[index + 1].startsWith('Summary'),
+              index % 2 === 1 &&
+              /^(Summary|Description)\b/.test(sections[index + 1]),
           )
           if (summaryIndex !== -1) {
             const summaryDepth = sections[summaryIndex].trim().length
@@ -147,7 +170,7 @@ export const registerPullRequest = async (
             documentation = summaryContent
           } else {
             console.log(
-              `No "Summary" section found in PR body for ${name}#${prNumber}`,
+              `No "Summary" or "Description" section found in PR body for ${name}#${prNumber}`,
             )
           }
         }
@@ -208,6 +231,8 @@ export const registerPullRequest = async (
         }
       }
 
+      const commit = await getCommit(context.sha, context.owner, 'radashi')
+
       const { error } = await supabase.from('proposed_functions').insert({
         name,
         pr_number: prNumber,
@@ -216,6 +241,8 @@ export const registerPullRequest = async (
         status: context.status,
         breaking: context.breaking,
         description,
+        committed_at: commit?.date,
+        committed_by: commit?.author,
       })
 
       if (error) {
