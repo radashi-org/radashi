@@ -7,9 +7,11 @@
     "@octokit/rest": "^21.0.1",
     "@supabase/supabase-js": "^2.45.0",
     "markdown-it": "^14.1.0",
+    "markdown-it-front-matter": "^0.2.4",
     "radashi": "12.2.0-beta.83909af",
     "sucrase": "^3.35.0",
-    "ultrahtml": "^1.5.3"
+    "ultrahtml": "^1.5.3",
+    "yaml": "^2.5.0"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2"

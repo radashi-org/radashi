@@ -17,6 +17,9 @@ importers:
       markdown-it:
         specifier: ^14.1.0
         version: 14.1.0
+      markdown-it-front-matter:
+        specifier: ^0.2.4
+        version: 0.2.4
       radashi:
         specifier: 12.2.0-beta.83909af
         version: 12.2.0-beta.83909af
@@ -26,6 +29,9 @@ importers:
       ultrahtml:
         specifier: ^1.5.3
         version: 1.5.3
+      yaml:
+        specifier: ^2.5.0
+        version: 2.5.0
     devDependencies:
       '@types/markdown-it':
         specifier: ^14.1.2
@@ -237,6 +243,9 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
+  markdown-it-front-matter@0.2.4:
+    resolution: {integrity: sha512-25GUs0yjS2hLl8zAemVndeEzThB1p42yxuDEKbd4JlL3jiz+jsm6e56Ya8B0VREOkNxLYB4TTwaoPJ3ElMmW+w==}
+
   markdown-it@14.1.0:
     resolution: {integrity: sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==}
     hasBin: true
@@ -370,6 +379,11 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+
+  yaml@2.5.0:
+    resolution: {integrity: sha512-2wWLbGbYDiSqqIKoPjar3MPgB94ErzCtrNE1FdqGuaO0pi2JGjmE8aW8TDZwzU7vuxcGRdL/4gPQwQ7hD5AMSw==}
+    engines: {node: '>= 14'}
+    hasBin: true
 
 snapshots:
 
@@ -600,6 +614,8 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
+  markdown-it-front-matter@0.2.4: {}
+
   markdown-it@14.1.0:
     dependencies:
       argparse: 2.0.1
@@ -722,3 +738,5 @@ snapshots:
       strip-ansi: 7.1.0
 
   ws@8.18.0: {}
+
+  yaml@2.5.0: {}

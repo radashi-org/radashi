@@ -1,10 +1,10 @@
 import { createClient } from '@supabase/supabase-js'
 import MarkdownIt from 'markdown-it'
+import mdFrontMatter from 'markdown-it-front-matter'
 import path from 'node:path'
 import { transform } from 'ultrahtml'
 import sanitize from 'ultrahtml/transformers/sanitize'
-
-const markdown = new MarkdownIt()
+import * as yaml from 'yaml'
 
 const supabase = createClient(
   process.env.SUPABASE_URL!,
@@ -27,19 +27,15 @@ interface PrFile {
   filename: string
 }
 
-interface Console {
-  log: (message: string) => void
-  error: (message: string, error?: unknown) => void
-}
-
 interface Context {
   sha: string
   status: PrStatus
+  breaking: boolean
   files: PrFile[]
   read: (file: string) => Promise<string>
   thumbs: number | (() => Promise<number>)
-  body: string | (() => Promise<string | null | undefined>)
-  console?: Console
+  body: string | (() => Promise<string | null>)
+  console?: Pick<Console, 'log' | 'error'>
 }
 
 /**
@@ -67,19 +63,47 @@ export const registerPullRequest = async (
       return
     }
 
+    const newFunctionNames = newFunctions.map(f =>
+      path.basename(f.filename, '.ts'),
+    )
+
+    console.log(`Fetching existing functions for PR #${prNumber}`)
+    const { data: existingFunctions, error: fetchError } = await supabase
+      .from('proposed_functions')
+      .select('name')
+      .eq('pr_number', prNumber)
+
+    if (fetchError) {
+      console.error('Error fetching existing functions:', fetchError)
+      return
+    }
+
+    const existingFunctionNames = existingFunctions.map(f => f.name)
+
+    for (const name of existingFunctionNames) {
+      if (!newFunctionNames.includes(name)) {
+        console.log(`Deleting ${name}#${prNumber} from Radashi database`)
+      }
+      await supabase
+        .from('proposed_functions')
+        .delete()
+        .match({ pr_number: prNumber, name })
+    }
+
+    let body: string | null | undefined
     let thumbsCount: number | null = null
 
     for (const file of newFunctions) {
-      const functionName = path.basename(file.filename, '.ts')
+      const name = path.basename(file.filename, '.ts')
 
       if (context.status === 'merged') {
-        console.log(
-          `Deleting ${functionName}#${prNumber} from Radashi database`,
-        )
-        await supabase
-          .from('proposed_functions')
-          .delete()
-          .match({ pr_number: prNumber, name: functionName })
+        if (!existingFunctionNames.includes(name)) {
+          console.log(`Deleting ${name}#${prNumber} from Radashi database`)
+          await supabase
+            .from('proposed_functions')
+            .delete()
+            .match({ pr_number: prNumber, name })
+        }
         continue
       }
 
@@ -91,17 +115,21 @@ export const registerPullRequest = async (
       try {
         documentation = await context.read(docFilename)
       } catch {
-        console.log(
-          `Documentation file not found for ${functionName}#${prNumber}`,
-        )
+        console.log(`Documentation file not found for ${name}#${prNumber}`)
+      }
 
-        const body =
-          typeof context.body === 'function'
-            ? await context.body()
-            : context.body
+      let description: string | null = null
 
-        if (body != null) {
-          console.log(`Falling back to PR body for ${functionName}#${prNumber}`)
+      if (documentation == null) {
+        if (body === undefined) {
+          body =
+            typeof context.body === 'function'
+              ? await context.body()
+              : context.body
+        }
+
+        if (body !== null) {
+          console.log(`Falling back to PR body for ${name}#${prNumber}`)
 
           const sections = body.split(/^(#+\s+)/m)
           const summaryIndex = sections.findIndex(
@@ -119,18 +147,35 @@ export const registerPullRequest = async (
             documentation = summaryContent
           } else {
             console.log(
-              `No "Summary" section found in PR body for ${functionName}#${prNumber}`,
+              `No "Summary" section found in PR body for ${name}#${prNumber}`,
             )
           }
         }
       }
 
       if (documentation) {
+        const markdown = new MarkdownIt({ html: true })
+
+        let metadata: any = null
+        markdown.use(mdFrontMatter, (text: string) => {
+          metadata = yaml.parse(text)
+        })
+
         try {
           documentation = markdown.render(documentation)
+          console.log('Front matter =>', metadata)
+          if (metadata?.title) {
+            documentation =
+              markdown.render('# ' + metadata.title + '\n\n') +
+              '\n\n' +
+              documentation
+          }
+          if (metadata?.description) {
+            description = metadata.description
+          }
         } catch (error) {
           console.error(
-            `Markdown renderer failed for ${functionName}#${prNumber}:`,
+            `Markdown renderer failed for ${name}#${prNumber}:`,
             error,
           )
           documentation = null
@@ -139,12 +184,11 @@ export const registerPullRequest = async (
 
       if (documentation) {
         try {
-          documentation = await transform(documentation, [sanitize()])
+          documentation = await transform(documentation, [
+            sanitize({ allowComments: true }),
+          ])
         } catch (error) {
-          console.error(
-            `Sanitization failed for ${functionName}#${prNumber}:`,
-            error,
-          )
+          console.error(`Sanitization failed for ${name}#${prNumber}:`, error)
           documentation = null
         }
       }
@@ -157,7 +201,7 @@ export const registerPullRequest = async (
               : context.thumbs
         } catch (error) {
           console.error(
-            `Error getting thumbs count for ${functionName}#${prNumber}:`,
+            `Error getting thumbs count for ${name}#${prNumber}:`,
             error,
           )
           thumbsCount = 0
@@ -165,17 +209,19 @@ export const registerPullRequest = async (
       }
 
       const { error } = await supabase.from('proposed_functions').insert({
-        name: functionName,
+        name,
         pr_number: prNumber,
         approval_rating: thumbsCount,
         documentation,
         status: context.status,
+        breaking: context.breaking,
+        description,
       })
 
       if (error) {
-        console.error(`Error inserting ${functionName}#${prNumber}:`, error)
+        console.error(`Error inserting ${name}#${prNumber}:`, error)
       } else {
-        console.log(`Successfully registered ${functionName}#${prNumber}`)
+        console.log(`Successfully registered ${name}#${prNumber}`)
       }
     }
   } catch (error) {

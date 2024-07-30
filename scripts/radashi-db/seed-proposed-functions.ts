@@ -1,4 +1,5 @@
 import { Octokit } from '@octokit/rest'
+import { bottleneck } from './bottleneck'
 import { registerPullRequest } from './register-pr'
 
 async function seedProposedFunctions() {
@@ -6,80 +7,88 @@ async function seedProposedFunctions() {
     auth: process.env.GITHUB_TOKEN,
   })
 
+  const limit = bottleneck(
+    { interval: 1000 / 5 },
+    async <T>(fn: () => Promise<T>) => fn(),
+  )
+
   try {
-    console.log('Listing PRs for radashi-org/radashi')
     const { data: pullRequests } = await octokit.pulls.list({
       owner: 'radashi-org',
       repo: 'radashi',
-      state: 'all',
+      state: 'open',
     })
 
     console.log(`Found ${pullRequests.length} PRs`)
-    console.log('Example PR:', pullRequests[0])
 
     for (const pr of pullRequests) {
       console.log(`Processing PR ${pr.number}`)
-      console.log('Listing files')
-      const { data: files } = await octokit.pulls.listFiles({
-        owner: 'radashi-org',
-        repo: 'radashi',
-        pull_number: pr.number,
-      })
 
-      console.log(
-        'Example file:',
-        files.find(
-          file =>
-            file.status === 'added' &&
-            file.filename.startsWith('src') &&
-            file.filename.endsWith('.ts'),
-        ) || files[0],
+      const status =
+        pr.state === 'open'
+          ? pr.draft
+            ? 'draft'
+            : 'open'
+          : pr.merged_at != null
+            ? 'merged'
+            : 'closed'
+
+      const { data: files } = await limit(() =>
+        octokit.pulls.listFiles({
+          owner: 'radashi-org',
+          repo: 'radashi',
+          pull_number: pr.number,
+        }),
+      )
+
+      const { data: labels } = await limit(() =>
+        octokit.issues.listLabelsOnIssue({
+          owner: 'radashi-org',
+          repo: 'radashi',
+          issue_number: pr.number,
+        }),
       )
 
       await registerPullRequest(pr.number, {
         sha: pr.head.sha,
         files,
+        status,
+        breaking: labels.some(label => label.name === 'BREAKING CHANGE'),
+        thumbs: async () => {
+          const { data: reactions } = await limit(() =>
+            octokit.reactions.listForIssue({
+              owner: 'radashi-org',
+              repo: 'radashi',
+              issue_number: pr.number,
+            }),
+          )
+
+          return reactions.filter(reaction => reaction.content === '+1').length
+        },
+        body: async () => {
+          const { data } = await limit(() =>
+            octokit.issues.get({
+              owner: 'radashi-org',
+              repo: 'radashi',
+              issue_number: pr.number,
+            }),
+          )
+          return data.body ?? null
+        },
         read: async path => {
-          console.log(`Reading file ${path}`)
-          const { data } = await octokit.repos.getContent({
-            owner: 'radashi-org',
-            repo: 'radashi',
-            path,
-            ref: pr.head.sha,
-          })
+          const { data } = await limit(() =>
+            octokit.repos.getContent({
+              owner: 'radashi-org',
+              repo: 'radashi',
+              path,
+              ref: pr.head.sha,
+            }),
+          )
           if (!('content' in data)) {
             throw new Error(`File ${path} has no content`)
           }
           return Buffer.from(data.content, 'base64').toString('utf-8')
         },
-        body: async () => {
-          const { data } = await octokit.issues.get({
-            owner: 'radashi-org',
-            repo: 'radashi',
-            issue_number: pr.number,
-          })
-          return data.body
-        },
-        thumbs: async () => {
-          console.log('Listing reactions')
-          const { data: reactions } = await octokit.reactions.listForIssue({
-            owner: 'radashi-org',
-            repo: 'radashi',
-            issue_number: pr.number,
-          })
-
-          console.log('Example reaction:', reactions[0])
-
-          return reactions.filter(reaction => reaction.content === '+1').length
-        },
-        status:
-          pr.state === 'open'
-            ? pr.draft
-              ? 'draft'
-              : 'open'
-            : pr.merged_at != null
-              ? 'merged'
-              : 'closed',
       })
     }
 
