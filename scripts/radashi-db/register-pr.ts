@@ -48,6 +48,7 @@ interface Context {
   repo?: string
   status: PrStatus
   breaking: boolean
+  checksPassed: boolean
   files: PrFile[]
   getCommit: (ref: string, owner?: string, repo?: string) => Promise<Commit>
   getFileContent: (file: string) => Promise<string>
@@ -228,6 +229,7 @@ export const registerPullRequest = async (
         description,
         committed_at: commit?.date,
         committed_by: commit?.author,
+        checks_passed: context.checksPassed,
       }
 
       const { error } = await supabase.from('proposed_functions').insert(record)

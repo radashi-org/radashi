@@ -1,4 +1,5 @@
-import { Octokit } from '@octokit/rest'
+import { Octokit, type RestEndpointMethodTypes } from '@octokit/rest'
+import { parallel } from 'radashi'
 import { registerPullRequest } from './register-pr'
 import { bottleneck } from './util/bottleneck'
 
@@ -12,121 +13,166 @@ async function seedProposedFunctions() {
     async <T>(fn: () => Promise<T>) => fn(),
   )
 
-  try {
-    const { data: pullRequests } = await octokit.pulls.list({
-      owner: 'radashi-org',
-      repo: 'radashi',
-      state: 'open',
+  type PullsResponse = RestEndpointMethodTypes['pulls']['list']['response']
+  type PullRequest = PullsResponse['data'][number]
+
+  async function onPullRequest(pr: {
+    number: PullRequest['number']
+    head: {
+      sha: PullRequest['head']['sha']
+      ref: PullRequest['head']['ref']
+      repo: {
+        owner: PullRequest['head']['repo']['owner']
+        name: PullRequest['head']['repo']['name']
+      } | null
+    }
+    title: PullRequest['title']
+    state: PullRequest['state']
+    draft?: PullRequest['draft']
+    merged_at: PullRequest['merged_at']
+    user: PullRequest['user']
+    labels: { name: string }[]
+  }) {
+    console.log(`Processing PR ${pr.number}`)
+    console.log('')
+    console.log(`  pr.head.sha == ${pr.head.sha}`)
+    console.log(`  pr.title == ${pr.title}`)
+    console.log(`  pr.state == ${pr.state}`)
+    console.log(`  pr.draft == ${pr.draft}`)
+    console.log(`  pr.merged_at == ${pr.merged_at}`)
+    console.log(`  pr.user.login == ${pr.user?.login}`)
+
+    const status =
+      pr.state === 'open'
+        ? pr.draft
+          ? 'draft'
+          : 'open'
+        : pr.merged_at != null
+          ? 'merged'
+          : 'closed'
+
+    const { data: files } = await limit(() =>
+      octokit.pulls.listFiles({
+        owner: 'radashi-org',
+        repo: 'radashi',
+        pull_number: pr.number,
+      }),
+    )
+
+    const repoOwner = pr.head.repo?.owner.login
+    const repoName = pr.head.repo?.name
+    console.log('repoOwner == %O', repoOwner)
+    console.log('repoName == %O', repoName)
+    console.log('branch == %O', pr.head.ref)
+
+    // Get the status of CI checks for the PR
+    const { data: checkRuns } = await limit(() =>
+      octokit.checks.listForRef({
+        owner: 'radashi-org',
+        repo: 'radashi',
+        ref: pr.head.sha,
+      }),
+    )
+
+    const checksPassed = checkRuns.check_runs.every(
+      run => run.conclusion === 'success',
+    )
+
+    await registerPullRequest(pr.number, {
+      sha: pr.head.sha,
+      files,
+      status,
+      branch: pr.head.ref,
+      owner: repoOwner,
+      repo: repoName,
+      breaking: pr.labels.some(label => label.name === 'BREAKING CHANGE'),
+      checksPassed,
+      getApprovalRating: async () => {
+        const { data: reactions } = await limit(() =>
+          octokit.reactions.listForIssue({
+            owner: 'radashi-org',
+            repo: 'radashi',
+            issue_number: pr.number,
+          }),
+        )
+
+        return reactions.filter(reaction => reaction.content === '+1').length
+      },
+      getIssueBody: async () => {
+        const { data } = await limit(() =>
+          octokit.issues.get({
+            owner: 'radashi-org',
+            repo: 'radashi',
+            issue_number: pr.number,
+          }),
+        )
+        return data.body ?? null
+      },
+      getCommit: async (ref, owner = 'radashi-org', repo = 'radashi') => {
+        const { data: commit } = await limit(() =>
+          octokit.repos.getCommit({
+            owner,
+            repo,
+            ref,
+          }),
+        )
+        return {
+          sha: commit.sha,
+          date: commit.commit.author?.date,
+          author: commit.commit.author?.name,
+        }
+      },
+      getFileContent: async path => {
+        const { data } = await limit(() =>
+          octokit.repos.getContent({
+            owner: 'radashi-org',
+            repo: 'radashi',
+            path,
+            ref: pr.head.sha,
+          }),
+        )
+        if (!('content' in data)) {
+          throw new Error(`File ${path} has no content`)
+        }
+        return Buffer.from(data.content, 'base64').toString('utf-8')
+      },
     })
+  }
 
-    console.log(`Found ${pullRequests.length} PRs`)
+  try {
+    for await (const response of octokit.paginate.iterator(
+      octokit.rest.pulls.list,
+      {
+        owner: 'radashi-org',
+        repo: 'radashi',
+        state: 'open',
+        per_page: 100,
+      },
+    )) {
+      await parallel(3, response.data, onPullRequest)
+    }
 
-    for (const pr of pullRequests) {
-      console.log(`Processing PR ${pr.number}`)
-      console.log('')
-      console.log(`  pr.head.sha == ${pr.head.sha}`)
-      console.log(`  pr.title == ${pr.title}`)
-      console.log(`  pr.state == ${pr.state}`)
-      console.log(`  pr.draft == ${pr.draft}`)
-      console.log(`  pr.merged_at == ${pr.merged_at}`)
-      console.log(`  pr.user.login == ${pr.user?.login}`)
+    for await (const response of octokit.paginate.iterator(
+      octokit.rest.search.issuesAndPullRequests,
+      {
+        q: 'repo:radashi-org/radashi is:pr is:closed is:unmerged label:"open library" feat',
+        per_page: 100,
+      },
+    )) {
+      await parallel(3, response.data, async result => {
+        if (!result.pull_request) {
+          return
+        }
 
-      const status =
-        pr.state === 'open'
-          ? pr.draft
-            ? 'draft'
-            : 'open'
-          : pr.merged_at != null
-            ? 'merged'
-            : 'closed'
+        const { data: pr } = await limit(() =>
+          octokit.pulls.get({
+            owner: 'radashi-org',
+            repo: 'radashi',
+            pull_number: result.number,
+          }),
+        )
 
-      const { data: files } = await limit(() =>
-        octokit.pulls.listFiles({
-          owner: 'radashi-org',
-          repo: 'radashi',
-          pull_number: pr.number,
-        }),
-      )
-
-      const { data: labels } = await limit(() =>
-        octokit.issues.listLabelsOnIssue({
-          owner: 'radashi-org',
-          repo: 'radashi',
-          issue_number: pr.number,
-        }),
-      )
-
-      const { data: prDetails } = await limit(() =>
-        octokit.pulls.get({
-          owner: 'radashi-org',
-          repo: 'radashi',
-          pull_number: pr.number,
-        }),
-      )
-
-      const repoOwner = prDetails.head.repo?.owner.login
-      const repoName = prDetails.head.repo?.name
-      console.log('repoOwner == %O', repoOwner)
-      console.log('repoName == %O', repoName)
-      console.log('branch == %O', pr.head.ref)
-
-      await registerPullRequest(pr.number, {
-        sha: pr.head.sha,
-        files,
-        status,
-        branch: pr.head.ref,
-        owner: repoOwner,
-        repo: repoName,
-        breaking: labels.some(label => label.name === 'BREAKING CHANGE'),
-        getApprovalRating: async () => {
-          const { data: reactions } = await limit(() =>
-            octokit.reactions.listForIssue({
-              owner: 'radashi-org',
-              repo: 'radashi',
-              issue_number: pr.number,
-            }),
-          )
-
-          return reactions.filter(reaction => reaction.content === '+1').length
-        },
-        getIssueBody: async () => {
-          const { data } = await limit(() =>
-            octokit.issues.get({
-              owner: 'radashi-org',
-              repo: 'radashi',
-              issue_number: pr.number,
-            }),
-          )
-          return data.body ?? null
-        },
-        getCommit: async (ref, owner = 'radashi-org', repo = 'radashi') => {
-          const { data: commit } = await limit(() =>
-            octokit.repos.getCommit({
-              owner,
-              repo,
-              ref,
-            }),
-          )
-          return {
-            sha: commit.sha,
-            date: commit.commit.author?.date,
-            author: commit.commit.author?.name,
-          }
-        },
-        getFileContent: async path => {
-          const { data } = await limit(() =>
-            octokit.repos.getContent({
-              owner: 'radashi-org',
-              repo: 'radashi',
-              path,
-              ref: pr.head.sha,
-            }),
-          )
-          if (!('content' in data)) {
-            throw new Error(`File ${path} has no content`)
-          }
-          return Buffer.from(data.content, 'base64').toString('utf-8')
-        },
+        onPullRequest(pr)
       })
     }
 
