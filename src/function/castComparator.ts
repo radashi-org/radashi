@@ -3,6 +3,7 @@ import {
   type Comparator,
   isArray,
   isFunction,
+  isObject,
   type MappedInput,
   type MappedOutput,
   type Mapping,
@@ -89,12 +90,16 @@ export function castComparator(
 ) {
   // For mapping arrays, the first non-zero comparator wins.
   if (isArray(mapping)) {
-    const comparators = mapping.map(m => castComparator(m))
+    const comparators = mapping.map(m =>
+      isObject(m) && 'mapping' in m
+        ? castComparator(m.mapping, m.compare, m.reverse)
+        : castComparator(m),
+    )
     return (left: any, right: any) => {
       for (const comparator of comparators) {
         const result = comparator(left, right)
         if (result !== 0) {
-          return result
+          return reverse ? -result : result
         }
       }
       return 0
@@ -127,4 +132,18 @@ export function castComparator(
 export type ComparatorMapping<
   T = any,
   Compared extends Comparable = Comparable,
-> = Mapping<T, Compared> | Mapping<T, Compared>[]
+> =
+  | Mapping<T, Compared>
+  | readonly (
+      | Mapping<T, Compared>
+      | ComparatorMappingWithOptions<T, Compared>
+    )[]
+
+type ComparatorMappingWithOptions<
+  T = any,
+  Compared extends Comparable = Comparable,
+> = {
+  mapping: ComparatorMapping<T, Compared>
+  compare?: Comparator<MappedOutput<ComparatorMapping<T, Compared>>>
+  reverse?: boolean
+}
