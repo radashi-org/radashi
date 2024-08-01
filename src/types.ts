@@ -124,3 +124,17 @@ export type Intersect<U> = (U extends any ? (k: U) => void : never) extends (
  * @see https://github.com/microsoft/TypeScript/issues/15300
  */
 export type Simplify<T> = {} & { [P in keyof T]: T[P] }
+
+/**
+ * Extract the element type from an array or tuple, or return the type
+ * itself if it is not an array-like type.
+ *
+ * @example
+ * ```ts
+ * type A = Single<string>
+ * //   ^? string
+ * type B = Single<readonly string[]>
+ * //   ^? string
+ * ```
+ */
+export type Single<T> = T extends readonly (infer U)[] ? U : T

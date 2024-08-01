@@ -1,11 +1,13 @@
 import {
   type Comparable,
   type Comparator,
-  flip,
+  isArray,
   isFunction,
+  isObject,
   type MappedInput,
   type MappedOutput,
   type Mapping,
+  type Single,
 } from 'radashi'
 
 /**
@@ -79,23 +81,46 @@ export function castComparator<TMapping extends ComparatorMapping>(
   mapping: TMapping,
   compare?: Comparator<MappedOutput<TMapping>> | null,
   reverse?: boolean,
-): Comparator<MappedInput<TMapping>>
+): Comparator<MappedInput<Single<TMapping>>>
 
 export function castComparator(
   mapping: ComparatorMapping<any>,
   compare?: Comparator<any> | null,
   reverse?: boolean,
 ) {
+  // For mapping arrays, the first non-zero comparator wins.
+  if (isArray(mapping)) {
+    const comparators = mapping.map(m =>
+      isObject(m) && 'mapping' in m
+        ? castComparator(m.mapping, m.compare, m.reverse)
+        : castComparator(m),
+    )
+    return (left: any, right: any) => {
+      for (const comparator of comparators) {
+        const result = comparator(left, right)
+        if (result !== 0) {
+          return reverse ? -result : result
+        }
+      }
+      return 0
+    }
+  }
+
   const map = isFunction(mapping) ? mapping : (obj: any) => obj[mapping]
-  const comparator: Comparator<unknown> = (left, right) => {
+  return (left: any, right: any) => {
     const mappedLeft = map(left)
     const mappedRight = map(right)
-    if (compare) {
-      return compare(mappedLeft, mappedRight)
-    }
-    return mappedLeft > mappedRight ? 1 : mappedLeft < mappedRight ? -1 : 0
+
+    const result = compare
+      ? compare(mappedLeft, mappedRight)
+      : mappedLeft > mappedRight
+        ? 1
+        : mappedLeft < mappedRight
+          ? -1
+          : 0
+
+    return reverse ? -result : result
   }
-  return reverse ? flip(comparator) : comparator
 }
 
 /**
@@ -107,4 +132,18 @@ export function castComparator(
 export type ComparatorMapping<
   T = any,
   Compared extends Comparable = Comparable,
-> = Mapping<T, Compared>
+> =
+  | Mapping<T, Compared>
+  | readonly (
+      | Mapping<T, Compared>
+      | ComparatorMappingWithOptions<T, Compared>
+    )[]
+
+type ComparatorMappingWithOptions<
+  T = any,
+  Compared extends Comparable = Comparable,
+> = {
+  mapping: ComparatorMapping<T, Compared>
+  compare?: Comparator<MappedOutput<ComparatorMapping<T, Compared>>>
+  reverse?: boolean
+}
