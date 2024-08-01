@@ -6,6 +6,7 @@ import {
   type MappedInput,
   type MappedOutput,
   type Mapping,
+  type Single,
 } from 'radashi'
 
 /**
@@ -127,5 +128,3 @@ export type ComparatorMapping<
   T = any,
   Compared extends Comparable = Comparable,
 > = Mapping<T, Compared> | Mapping<T, Compared>[]
-
-type Single<T> = T extends readonly (infer U)[] ? U : T
