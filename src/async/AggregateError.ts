@@ -11,19 +11,20 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError
  */
 const AggregateErrorOrPolyfill: AggregateErrorConstructor =
-  // eslint-disable-next-line compat/compat
-  globalThis.AggregateError ??
-  (class AggregateError extends Error {
-    errors: Error[]
-    constructor(errors: Error[] = []) {
-      super()
-      const name = errors.find(e => e.name)?.name ?? ''
-      this.name = `AggregateError(${name}...)`
-      this.message = `AggregateError with ${errors.length} errors`
-      this.stack = errors.find(e => e.stack)?.stack ?? this.stack
-      this.errors = errors
-    }
-  } as unknown as AggregateErrorConstructor)
+  /* @__PURE__ */ (() =>
+    // eslint-disable-next-line compat/compat
+    globalThis.AggregateError ??
+    (class AggregateError extends Error {
+      errors: Error[]
+      constructor(errors: Error[] = []) {
+        super()
+        const name = errors.find(e => e.name)?.name ?? ''
+        this.name = `AggregateError(${name}...)`
+        this.message = `AggregateError with ${errors.length} errors`
+        this.stack = errors.find(e => e.stack)?.stack ?? this.stack
+        this.errors = errors
+      }
+    } as unknown as AggregateErrorConstructor))()
 
 // Do not export directly, so the polyfill isn't renamed to
 // `AggregateError2` at build time (which ESBuild does to prevent
