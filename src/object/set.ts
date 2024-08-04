@@ -23,9 +23,6 @@ export function set<T extends object, K>(
     return initial
   }
 
-  // NOTE: One day, when structuredClone has more compatability use it
-  // to clone the value
-  // https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
   const root: any = clone(initial)
   const keys = path.match(/[^.[\]]+/g)
   if (keys) {
