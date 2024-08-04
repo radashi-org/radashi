@@ -13,8 +13,13 @@ async function seedProposedFunctions() {
     async <T>(fn: () => Promise<T>) => fn(),
   )
 
-  type PullsResponse = RestEndpointMethodTypes['pulls']['list']['response']
-  type PullRequest = PullsResponse['data'][number]
+  type ListPullsResponse = RestEndpointMethodTypes['pulls']['list']['response']
+  type GetPullResponse = RestEndpointMethodTypes['pulls']['get']['response']
+
+  type ListPullsResponseItem = ListPullsResponse['data'][number]
+  type GetPullResponseData = GetPullResponse['data']
+  type PullRequest = GetPullResponseData | ListPullsResponseItem
+  type PullRequestRepo = Exclude<PullRequest['head']['repo'], null>
 
   async function onPullRequest(pr: {
     number: PullRequest['number']
@@ -22,25 +27,19 @@ async function seedProposedFunctions() {
       sha: PullRequest['head']['sha']
       ref: PullRequest['head']['ref']
       repo: {
-        owner: PullRequest['head']['repo']['owner']
-        name: PullRequest['head']['repo']['name']
+        owner: PullRequestRepo['owner']
+        name: PullRequestRepo['name']
       } | null
     }
     title: PullRequest['title']
     state: PullRequest['state']
     draft?: PullRequest['draft']
     merged_at: PullRequest['merged_at']
+    // mergeable: PullRequest['']
     user: PullRequest['user']
     labels: { name: string }[]
   }) {
     console.log(`Processing PR ${pr.number}`)
-    console.log('')
-    console.log(`  pr.head.sha == ${pr.head.sha}`)
-    console.log(`  pr.title == ${pr.title}`)
-    console.log(`  pr.state == ${pr.state}`)
-    console.log(`  pr.draft == ${pr.draft}`)
-    console.log(`  pr.merged_at == ${pr.merged_at}`)
-    console.log(`  pr.user.login == ${pr.user?.login}`)
 
     const status =
       pr.state === 'open'
@@ -59,11 +58,8 @@ async function seedProposedFunctions() {
       }),
     )
 
-    const repoOwner = pr.head.repo?.owner.login
+    const repoOwner = pr.head.repo?.owner
     const repoName = pr.head.repo?.name
-    console.log('repoOwner == %O', repoOwner)
-    console.log('repoName == %O', repoName)
-    console.log('branch == %O', pr.head.ref)
 
     // Get the status of CI checks for the PR
     const { data: checkRuns } = await limit(() =>
@@ -83,7 +79,8 @@ async function seedProposedFunctions() {
       files,
       status,
       branch: pr.head.ref,
-      owner: repoOwner,
+      owner: repoOwner?.login,
+      ownerAvatarUrl: repoOwner?.avatar_url,
       repo: repoName,
       breaking: pr.labels.some(label => label.name === 'BREAKING CHANGE'),
       checksPassed,

@@ -40,6 +40,7 @@ interface Context {
    * @default "radashi-org"
    */
   owner?: string
+  ownerAvatarUrl?: string
   /**
    * The repository name (e.g. "radashi")
    *
@@ -230,6 +231,10 @@ export const registerPullRequest = async (
         committed_at: commit?.date,
         committed_by: commit?.author,
         checks_passed: context.checksPassed,
+        pr_author:
+          context.owner && context.ownerAvatarUrl
+            ? { login: context.owner, avatar_url: context.ownerAvatarUrl }
+            : undefined,
       }
 
       const { error } = await supabase.from('proposed_functions').insert(record)
