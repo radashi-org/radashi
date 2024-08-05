@@ -39,6 +39,7 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm install @commitlint/config-conventional@19.x
+      - run: pnpm install @supabase/supabase-js@2.45.x
 
       - name: Refresh Bundle Impact
         uses: actions/github-script@v6
