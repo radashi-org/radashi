@@ -16,8 +16,8 @@ describe('draw types', () => {
   test('return type is possibly null for mutable array variables', () => {
     const emptyList: number[] = []
     const filledList = [1, 2, 3]
-    expectTypeOf(_.draw(emptyList)).toEqualTypeOf<number|null>()
-    expectTypeOf(_.draw(filledList)).toEqualTypeOf<number|null>()
+    expectTypeOf(_.draw(emptyList)).toEqualTypeOf<number | null>()
+    expectTypeOf(_.draw(filledList)).toEqualTypeOf<number | null>()
   })
   test('return type is null for immutable empty array variables', () => {
     const emptyList: number[] = [] as const
