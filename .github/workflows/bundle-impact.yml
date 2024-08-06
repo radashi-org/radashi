@@ -24,7 +24,5 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(process.env)
-            delete process.env.GITHUB_TOKEN
             const script = require('./scripts/pr-bundle-impact.cjs')
             await script.run({github, core, context})
