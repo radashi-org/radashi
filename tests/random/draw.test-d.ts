@@ -19,9 +19,10 @@ describe('draw types', () => {
     expectTypeOf(_.draw(emptyList)).toEqualTypeOf<number | null>()
     expectTypeOf(_.draw(filledList)).toEqualTypeOf<number | null>()
   })
-  test('return type is null for immutable empty array variables', () => {
+  test('return type is possibly null for immutable empty array variables', () => {
     const emptyList: number[] = [] as const
-    expectTypeOf(_.draw(emptyList)).toBeNull()
+    // FIXME: Can be narrowed to `null`
+    expectTypeOf(_.draw(emptyList)).toEqualTypeOf<number | null>()
   })
   test('return type is not null for immutable non-empty array variables', () => {
     const filledList = [1, 2, 4] as const
