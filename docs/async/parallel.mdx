@@ -21,7 +21,7 @@ const users = await _.parallel(3, userIds, async userId => {
 })
 ```
 
-## Errors
+### Errors
 
 When all work is complete parallel will check for errors. If any
 occurred they will all be thrown in a single `AggregateError` that
