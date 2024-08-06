@@ -8,4 +8,6 @@
  * isInt(0.1) // => false
  * ```
  */
-export const isInt = Number.isInteger as (value: unknown) => value is number
+export const isInt = /* @__PURE__ */ (() => Number.isInteger)() as (
+  value: unknown,
+) => value is number
