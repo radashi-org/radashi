@@ -1,4 +1,19 @@
-import { isPlainObject } from 'radashi'
+import { isPlainObject } from 'radashi';
+
+type GenericObject = Record<string | symbol | number, any>;
+type MergeDeep<A, B> = {
+  [K in keyof A | keyof B]: K extends keyof B
+    ? K extends keyof A
+      ? A[K] extends GenericObject
+        ? B[K] extends GenericObject
+          ? MergeDeep<A[K], B[K]>
+          : B[K]
+        : B[K]
+      : B[K]
+    : K extends keyof A
+    ? A[K]
+    : never;
+}
 
 /**
  * Create a copy of the first object, and then merge the second object
@@ -14,10 +29,10 @@ import { isPlainObject } from 'radashi'
  * // => { a: 1, b: 2, c: 3, p: { a: 4, b: 5 } }
  * ```
  */
-export function assign<X extends Record<string | symbol | number, any>>(
+export function assign<X extends GenericObject, Y extends GenericObject>(
   initial: X,
-  override: X,
-): X {
+  override: Y,
+): MergeDeep<X, Y> {
   if (!initial || !override) {
     return initial ?? override ?? {}
   }
