@@ -19,53 +19,7 @@
         "vitest.explorer",
         "biomejs.biome",
         "esbenp.prettier-vscode"
-      ],
-      "settings": {
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-          "source.organizeImports": "explicit",
-          "quickfix.biome": "explicit"
-        },
-        "typescript.tsdk": "./node_modules/typescript/lib",
-        "typescript.enablePromptUseWorkspaceTsdk": true,
-        "typescript.preferences.importModuleSpecifier": "non-relative",
-        "typescript.preferences.autoImportFileExcludePatterns": [
-          "**/node_modules/**",
-          "**/dist/**",
-          "**/dist"
-        ],
-        "[markdown]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode"
-        },
-        "[mdx]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode"
-        },
-        "[json]": {
-          "editor.defaultFormatter": "biomejs.biome"
-        },
-        "[jsonc]": {
-          "editor.defaultFormatter": "biomejs.biome"
-        },
-        "[typescript]": {
-          "editor.defaultFormatter": "biomejs.biome",
-          "rewrap.wrappingColumn": 70
-        },
-        "[shellscript]": {
-          "rewrap.wrappingColumn": 70
-        }
-      }
+      ]
     }
   }
-
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [],
-
-  // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "yarn install",
-
-  // Configure tool-specific properties.
-  // "customizations": {},
-
-  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-  // "remoteUser": "root"
 }
