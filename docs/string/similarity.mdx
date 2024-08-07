@@ -1,0 +1,42 @@
+---
+title: similarity
+description: Calculate the similarity between two strings using the Levenshtein distance algorithm
+---
+
+### Usage
+
+The `similarity` function computes the Levenshtein distance between two input strings. This distance represents the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one string into the other.
+
+This function is useful for various applications, including:
+
+- Spell checking and autocorrect features
+- Fuzzy string matching
+- DNA sequence analysis
+- Plagiarism detection
+
+The function is case-sensitive and treats whitespace as significant characters. The order of the input strings doesn't affect the result, as the Levenshtein distance is symmetric.
+
+```typescript
+import * as _ from 'radashi'
+
+// Identical strings
+_.similarity('hello', 'hello') // => 0
+
+// One character difference
+_.similarity('kitten', 'sitten') // => 1
+
+// Multiple differences
+_.similarity('saturday', 'sunday') // => 3
+
+// Case sensitivity
+_.similarity('foo', 'FOO') // => 3
+
+// Whitespace significance
+_.similarity('bar ', 'bar') // => 1
+
+// Argument order doesn't matter
+_.similarity('abc', 'cba') // => 2
+_.similarity('cba', 'abc') // => 2
+```
+
+The function returns a `number` representing the Levenshtein distance between the two input strings. A lower number indicates higher similarity, with 0 meaning the strings are identical.

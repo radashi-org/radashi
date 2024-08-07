@@ -39,7 +39,7 @@ while [ $index -lt ${#SOURCE_FILES[@]} ]; do
   func_name=$(basename $file)
   func_name=${func_name/.ts/}
 
-  if command -v rgz &> /dev/null; then
+  if command -v rg &> /dev/null; then
     IMPORTERS=$(rg "import[^}]*?\b$func_name\b" -U -l -- src)
 
     for importer in $IMPORTERS; do

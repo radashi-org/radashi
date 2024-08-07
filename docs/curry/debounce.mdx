@@ -20,7 +20,7 @@ const makeSearchRequest = event => {
 input.addEventListener('change', _.debounce({ delay: 100 }, makeSearchRequest))
 ```
 
-## Timing
+### Timing
 
 A visual of the debounce behavior when `delay` is `100`. The debounce function
 returned by `debounce` can be called every millisecond but it will only call

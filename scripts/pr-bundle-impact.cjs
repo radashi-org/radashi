@@ -3,11 +3,15 @@ const { execSync } = require('child_process')
 
 exports.run = async function run({ github, core, context }, exec = execSync) {
   try {
+    core.info('running bundle-impact script...')
+
     // 1. Run `pnpm bundle-impact` to get the bundle impact
     const bundleImpact = exec('pnpm -s bundle-impact').toString().trim()
     if (!bundleImpact) {
       return
     }
+
+    core.info('fetching PR data...')
 
     // 2. Update the original post of the pull request
     const { data: pullRequest } = await github.rest.pulls.get({
@@ -30,6 +34,7 @@ exports.run = async function run({ github, core, context }, exec = execSync) {
     }
 
     if (updatedBody !== originalBody) {
+      core.info('updating PR description...')
       await github.rest.pulls.update({
         owner: context.repo.owner,
         repo: context.repo.repo,

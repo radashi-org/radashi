@@ -17,7 +17,7 @@
 export function select<T, U>(
   array: readonly T[],
   mapper: (item: T, index: number) => U,
-  condition: (item: T, index: number) => boolean,
+  condition: ((item: T, index: number) => boolean) | null | undefined,
 ): U[]
 
 export function select<T, U>(
@@ -28,7 +28,7 @@ export function select<T, U>(
 export function select<T, U>(
   array: readonly T[],
   mapper: (item: T, index: number) => U,
-  condition?: (item: T, index: number) => boolean,
+  condition?: ((item: T, index: number) => boolean) | null,
 ): U[] {
   if (!array) {
     return []

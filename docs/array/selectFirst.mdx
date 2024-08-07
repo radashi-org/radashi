@@ -1,37 +1,53 @@
 ---
 title: selectFirst
-description: Array find + map
+description: Find and map the first array element meeting a condition
 ---
 
 ### Usage
 
-Returns the mapped value for the first element that satisfies the specified condition--else undefined.
-If the filter is omitted, returns the first non-nullish mapped value.
+The `selectFirst` function combines the functionality of `find` and `map` operations on an array. It iterates through the array, applying a mapper function to each element, and returns the first mapped value that satisfies a given condition. If no condition is provided, it returns the first non-nullish mapped value.
 
-```ts
+This function is particularly useful when you need to find and transform an element in a single operation, potentially saving time and improving code readability.
+
+**Key features:**
+
+- Short-circuits on the first element that satisfies the condition
+- Allows for separate mapping and condition functions
+- Returns `undefined` if no element satisfies the condition or if the array is empty/nullish
+
+```typescript
 import * as _ from 'radashi'
 
-const fish = [
-  {
-    name: 'Marlin',
-    weight: 105,
-    source: 'ocean',
-  },
-  {
-    name: 'Bass',
-    weight: 8,
-    source: 'lake',
-  },
-  {
-    name: 'Trout',
-    weight: 13,
-    source: 'lake',
-  },
-]
-
+// Find the first even number and double it
 _.selectFirst(
-  fish,
-  f => f.weight,
-  f => f.source === 'lake',
-) // => 8
+  [1, 3, 4, 6, 8],
+  x => x * 2,
+  x => x % 2 === 0,
+)
+// => 8
+
+// Find the first non-empty string and convert to uppercase
+_.selectFirst(
+  ['', null, 'hello', 'world'],
+  s => s?.toUpperCase(),
+  s => s !== null && s !== '',
+)
+// => 'HELLO'
+
+// Find the first object with a specific property and extract a value
+const users = [
+  { id: 1, name: 'Alice', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Charlie', age: 35 },
+]
+_.selectFirst(
+  users,
+  user => user.name,
+  user => user.age > 30,
+)
+// => 'Charlie'
+
+// Using default condition (non-nullish)
+_.selectFirst([null, undefined, 0, '', false, 'found'], x => x)
+// => 0
 ```

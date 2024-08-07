@@ -73,9 +73,8 @@ if [ ${#PREV_SIZES[@]} -gt 0 ]; then
   done
 fi
 
-echo -e "\n\n"
-
 if [[ -n "$CI" ]]; then
+  echo -e "\n\n"
   if [ "$column_count" -gt 2 ]; then
     echo "| Status | File | Size | Difference (%) |"
     echo "|---|---|---|---|"
@@ -111,10 +110,13 @@ for file in "${FILE_NAMES[@]}"; do
   fi
 
   if [[ -n "$CI" ]]; then
+    if [ $i -eq 0 ]; then
+      bytes="$bytes [^1337]"
+    fi
     if [ "$column_count" -gt 2 ]; then
-      echo "| $status | \`$file\` | $bytes[^1337] | $diff$ratio |"
+      echo "| $status | \`$file\` | $bytes | $diff$ratio |"
     else
-      echo "| $status | \`$file\` | $bytes[^1337] |"
+      echo "| $status | \`$file\` | $bytes |"
     fi
   else
     if [ "$column_count" -gt 2 ] && [ "$prev_bytes" -ne 0 ]; then
@@ -127,6 +129,8 @@ for file in "${FILE_NAMES[@]}"; do
   i=$((i + 1))
 done
 
-echo ""
-echo "[^1337]: Function size includes the \`import\` dependencies of the function."
-echo ""
+if [[ -n "$CI" ]]; then
+  echo ""
+  echo "[^1337]: Function size includes the \`import\` dependencies of the function."
+  echo ""
+fi

@@ -43,6 +43,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add reverse argument to `castComparator` by [@aleclarson](https://github.com/aleclarson) in [1d7937e](https://github.com/radashi-org/radashi/commit/1d7937ef006139883aedac782ad032c1d6269c7a)
 - Add `isBoolean` function by [@aleclarson](https://github.com/aleclarson) in [adc419d](https://github.com/radashi-org/radashi/commit/adc419d5bbb1786d75619ed3d7f41a45f68c9857)
 - Add `noop` and `always` functions by [@aleclarson](https://github.com/aleclarson) in [eb77c8f](https://github.com/radashi-org/radashi/commit/eb77c8f004a35f1499968f6e40d01b3595384848)
+- Add `similarity` function by [@aleclarson](https://github.com/aleclarson) in [#122](https://github.com/radashi-org/radashi/pull/122)
+
+- **(throttle)** Add `trailing` option by [@crishoj](https://github.com/crishoj) in [#127](https://github.com/radashi-org/radashi/pull/127)
+
+- **(throttle)** Add `trigger` method to ThrottleFunction by [@aleclarson](https://github.com/aleclarson) in [#135](https://github.com/radashi-org/radashi/pull/135)
+
 
 #### <!-- 05 -->Changed
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
@@ -59,6 +65,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **(pick)** Accept a callback for advanced picking by [@aleclarson](https://github.com/aleclarson) in [#30](https://github.com/radashi-org/radashi/pull/30)
 
 - **(mapify)** Provide an index argument to the callbacks by [@aleclarson](https://github.com/aleclarson) in [#100](https://github.com/radashi-org/radashi/pull/100)
+
+- Use native AggregateError if available by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#116](https://github.com/radashi-org/radashi/pull/116)
 
 
 #### <!-- 06 -->Fixed
@@ -83,6 +91,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **(toggle)** Handle falsy input as expected by [@Minhir](https://github.com/Minhir) in [#82](https://github.com/radashi-org/radashi/pull/82)
 
 - **(assign)** Fix overriding a nested object with null by [@aleclarson](https://github.com/aleclarson) in [#112](https://github.com/radashi-org/radashi/pull/112)
+
+- **(crush)** Fix handling of period-containing property names by [@stefaanv](https://github.com/stefaanv) in [#95](https://github.com/radashi-org/radashi/pull/95)
 
 
 #### <!-- 07 -->Performance
@@ -115,8 +125,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `FilteredKeys` type by [@aleclarson](https://github.com/aleclarson) in [6a6f899](https://github.com/radashi-org/radashi/commit/6a6f899316229efc6706d8c40998df5fa99e004b)
 - Improve the return type of `filterKey` by [@aleclarson](https://github.com/aleclarson) in [bc298c6](https://github.com/radashi-org/radashi/commit/bc298c6cfcaaf74726e1f2b901e210dea1fed641)
 - Handle tuples in `isArray` return type by [@aleclarson](https://github.com/aleclarson) in [9257535](https://github.com/radashi-org/radashi/commit/925753578761bda277838bf8fbbcc24b3813f2b9)
+- Make `select` more option-friendly by [@aleclarson](https://github.com/aleclarson) in [c9cfcd0](https://github.com/radashi-org/radashi/commit/c9cfcd0a7eb1af98682f5d9b56555162c92b7085)
+- Let `shift` accept a readonly array type by [@nnmrts](https://github.com/nnmrts) in [#126](https://github.com/radashi-org/radashi/pull/126)
+
 
 ### New Contributors
+* [@crishoj](https://github.com/crishoj) made their first contribution in [#127](https://github.com/radashi-org/radashi/pull/127)
+* [@nnmrts](https://github.com/nnmrts) made their first contribution in [#126](https://github.com/radashi-org/radashi/pull/126)
+* [@stefaanv](https://github.com/stefaanv) made their first contribution in [#95](https://github.com/radashi-org/radashi/pull/95)
 * [@eumkz](https://github.com/eumkz) made their first contribution in [#76](https://github.com/radashi-org/radashi/pull/76)
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
 * [@shan-shaji](https://github.com/shan-shaji) made their first contribution in [#53](https://github.com/radashi-org/radashi/pull/53)
