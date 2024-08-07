@@ -11,7 +11,8 @@ exports.run = async function run({ github, core, context }, exec = execSync) {
       return
     }
 
-    core.info('fetching PR data...')
+    const repo = `${context.repo.owner}/${context.repo.repo}`
+    core.info(`fetching PR #${context.issue.number} data from ${repo}...`)
 
     // 2. Update the original post of the pull request
     const { data: pullRequest } = await github.rest.pulls.get({
