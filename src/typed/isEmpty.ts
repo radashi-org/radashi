@@ -1,4 +1,4 @@
-import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
+import { isBoolean, isDate, isFunction, isNumber, isSymbol } from 'radashi'
 
 /**
  * Return true if the given value is empty.
@@ -27,7 +27,7 @@ import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
  * ```
  */
 export function isEmpty(value: any): boolean {
-  if (value === true || value === false) {
+  if (isBoolean(value)) {
     return true
   }
   if (value === null || value === undefined) {
