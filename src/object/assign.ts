@@ -1,7 +1,7 @@
 import { isPlainObject } from 'radashi'
 
-type GenericObject = Record<string | symbol | number, any>
-type MergeDeep<A, B> = {
+export type GenericObject = Record<string | symbol | number, any>
+export type MergeDeep<A, B> = {
   [K in keyof A | keyof B]: K extends keyof B
     ? K extends keyof A
       ? A[K] extends GenericObject
