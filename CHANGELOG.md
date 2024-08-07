@@ -7,9 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [radashi@beta]
 ### Details
-#### <!-- 00 -->Security
-- Split check-pr workflow into 3 workflows by [@aleclarson](https://github.com/aleclarson) in [24307ef](https://github.com/radashi-org/radashi/commit/24307efdb7a84fa0b17df1b71d1d19bbc681eb25)
-
 #### <!-- 03 -->Added
 - Add `isIntString` function by [@aleclarson](https://github.com/aleclarson) in [fa500d3](https://github.com/radashi-org/radashi/commit/fa500d329d7e06062e7a42cbf4ff9ad9dcb89191)
 - Add `isPlainObject` type guard by [@aleclarson](https://github.com/aleclarson) in [#16](https://github.com/radashi-org/radashi/pull/16)
