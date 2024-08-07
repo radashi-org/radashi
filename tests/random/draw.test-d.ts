@@ -26,6 +26,6 @@ describe('draw types', () => {
   })
   test('return type is not null for immutable non-empty array variables', () => {
     const filledList = [1, 2, 4] as const
-    expectTypeOf(_.draw(filledList)).toBeNumber()
+    expectTypeOf(_.draw(filledList)).toEqualTypeOf<1 | 2 | 4>()
   })
 })
