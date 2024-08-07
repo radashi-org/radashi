@@ -15,7 +15,7 @@ import { random } from 'radashi'
  * // => [1, 2, 3]
  * ```
  */
-export function draw<T>(arr: readonly [T, ...T[]]): T
+export function draw<T>(array: readonly [T, ...T[]]): T
 export function draw<T>(array: readonly T[]): T | null
 
 export function draw<T>(array: readonly T[]): T | null {
