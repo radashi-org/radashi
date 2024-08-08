@@ -1,3 +1,4 @@
+export * from './fluent'
 export {
   alphabetical,
   boil,

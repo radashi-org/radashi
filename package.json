@@ -77,6 +77,14 @@
       },
       "types": "./dist/typed.d.ts",
       "default": "./dist/typed.js"
+    },
+    "./fluent": {
+      "import": {
+        "types": "./dist/fluent/index.d.mts",
+        "default": "./dist/fluent/index.mjs"
+      },
+      "types": "./dist/fluent/index.d.ts",
+      "default": "./dist/fluent/index.js"
     }
   },
   "sideEffects": false,
