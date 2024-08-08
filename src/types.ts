@@ -124,3 +124,71 @@ export type Intersect<U> = (U extends any ? (k: U) => void : never) extends (
  * @see https://github.com/microsoft/TypeScript/issues/15300
  */
 export type Simplify<T> = {} & { [P in keyof T]: T[P] }
+
+/**
+ * A result tuple where the error is `undefined`.
+ *
+ * @example
+ * ```ts
+ * type GoodResult = Ok<string>
+ * //   ^? [undefined, string]
+ * ```
+ */
+export type Ok<TResult> = [err: undefined, result: TResult]
+
+/**
+ * A result tuple where an error is included.
+ *
+ * @example
+ * ```ts
+ * type BadResult = Err
+ * //   ^? [Error, undefined]
+ *
+ * // If your mastermind plan relies on `throw null`, you're probably
+ * // doing it wrong.
+ * type BadResult2 = Err<Error | null>
+ * //   ^? [Error | null, undefined]
+ *
+ * type BadResult3 = Err<TypeError | MyCoolCustomError>
+ * //   ^? [TypeError | MyCoolCustomError, undefined]
+ * ```
+ */
+export type Err<TError = Error> = [err: NonNullable<TError>, result: undefined]
+
+/**
+ * A result tuple.
+ *
+ * First index is the error, second index is the result.
+ *
+ * @example
+ * ```ts
+ * type MyResult = Result<string>
+ * //   ^? Ok<string> | Err<Error>
+ *
+ * type MyResult2 = Result<string, TypeError>
+ * //   ^? Ok<string> | Err<TypeError>
+ * ```
+ */
+export type Result<TResult, TError = Error> =
+  | Ok<TResult>
+  | Err<NonNullable<TError>>
+
+/**
+ * A promise that resolves to a result tuple.
+ *
+ * @example
+ * ```ts
+ * type MyResult = ResultPromise<string>
+ * //   ^? Promise<Ok<string> | Err<Error>>
+ *
+ * type MyResult2 = ResultPromise<string, TypeError>
+ * //   ^? Promise<Ok<string> | Err<TypeError>>
+ * ```
+ */
+export type ResultPromise<TResult, TError = Error> = Promise<
+  [NonNullable<TError>] extends [never]
+    ? Ok<TResult>
+    : [TResult] extends [never]
+      ? Err<NonNullable<TError>>
+      : Result<TResult, NonNullable<TError>>
+>
