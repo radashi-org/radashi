@@ -1,33 +1,6 @@
-type Cache<T> = Record<string, { exp: number | null; value: T }>
-
-function memoize<TArgs extends any[], TResult>(
-  cache: Cache<TResult>,
-  func: (...args: TArgs) => TResult,
-  keyFunc: ((...args: TArgs) => string) | null,
-  ttl: number | null,
-) {
-  return function callWithMemo(...args: any): TResult {
-    const key = keyFunc ? keyFunc(...args) : JSON.stringify({ args })
-    const existing = cache[key]
-    if (existing !== undefined) {
-      if (!existing.exp) {
-        return existing.value
-      }
-      if (existing.exp > new Date().getTime()) {
-        return existing.value
-      }
-    }
-    const result = func(...args)
-    cache[key] = {
-      exp: ttl ? new Date().getTime() + ttl : null,
-      value: result,
-    }
-    return result
-  }
-}
-
-export interface MemoOptions<TArgs extends any[]> {
-  key?: (...args: TArgs) => string
+export interface MemoOptions<Fn extends (...args: any[]) => any> {
+  cache?: Record<string, { exp: number | null; value: ReturnType<Fn> }>
+  key?: (...args: Parameters<Fn>) => string
   ttl?: number
 }
 
@@ -54,9 +27,33 @@ export interface MemoOptions<TArgs extends any[]> {
  * // calls === [10, 11]
  * ```
  */
-export function memo<TArgs extends any[], TResult>(
-  func: (...args: TArgs) => TResult,
-  options: MemoOptions<TArgs> = {},
-): (...args: TArgs) => TResult {
-  return memoize({}, func, options.key ?? null, options.ttl ?? null)
+export function memo<Fn extends (...args: any[]) => any>(
+  func: Fn,
+  options: MemoOptions<Fn> = {},
+): Memoized<Fn> {
+  const { key: keyFunc, ttl, cache = {} } = options
+
+  return function callWithMemo(...args) {
+    const key = keyFunc ? keyFunc(...args) : JSON.stringify({ args })
+    const existing = cache[key]
+    if (existing !== undefined) {
+      if (!existing.exp) {
+        return existing.value
+      }
+      if (existing.exp > new Date().getTime()) {
+        return existing.value
+      }
+    }
+    const result = func(...args)
+    cache[key] = {
+      exp: ttl ? new Date().getTime() + ttl : null,
+      value: result,
+    }
+    return result
+  } as Memoized<Fn>
 }
+
+export type Memoized<Fn extends (...args: any[]) => any> =
+  ReturnType<Fn> extends infer Result
+    ? (...args: Parameters<Fn>) => Result
+    : never
