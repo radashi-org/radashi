@@ -131,3 +131,4 @@ export * from './typed/isWeakMap.ts'
 export * from './typed/isWeakSet.ts'
 
 export * from './types'
+export * from './fluent'
