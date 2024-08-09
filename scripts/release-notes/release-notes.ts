@@ -50,6 +50,7 @@ async function main() {
 
   const argv = mri(process.argv.slice(2))
   const outFile = argv.o || argv.output
+  const limit = argv.limit ? +argv.limit : Number.POSITIVE_INFINITY
 
   if (!outFile && !argv.publish) {
     console.error('Error: No --output file or --publish flag provided')
@@ -140,8 +141,7 @@ async function main() {
 
     log('Generating release notes for', section.name)
 
-    // Truncate for testing.
-    section.commits.length = Math.min(section.commits.length, 3)
+    section.commits.length = Math.min(section.commits.length, limit)
 
     const linkLocation =
       section.noun === 'feature' || section.noun === 'fix'
@@ -241,19 +241,29 @@ main()
 function getSections(): Section[] {
   const getFormattingRules = (noun: string) => [
     `Use an H4 (####) for the heading of each ${noun}.`,
+    'Headings must be in sentence case.',
     noun === 'feature' &&
       `Each heading must describe what the ${noun} enables, not simply what the change is (e.g. "Allow throttled function to be triggered immediately" instead of "Add trigger method to throttle function").`,
     'Be concise but not vague.',
+    'Omit prefixes like "Fix:" from headings.',
     `The paragraph(s) after each heading must describe the ${noun} in more detail (but be brief where possible).`,
   ]
 
   const getCodeExampleRules = (noun: string) => [
+    `Every ${noun} needs a concise code example to showcase it.`,
+    'Never preface examples with "Example:" or similar.',
     dedent`
-      Every ${noun} needs a concise code example to showcase it. In each example, import the functions or types like this:
+      In each example, import the functions or types like this:
         \`\`\`ts
         import { sum } from 'radashi'
         \`\`\`
     `,
+  ]
+
+  const getBulletedListRules = (noun: string) => [
+    `Describe each ${noun} in a bulleted list, without being vague.`,
+    'Never use headings.',
+    'Only give me the bulleted list. No prefacing like “Here are the changes” or similar.',
   ]
 
   return [
@@ -281,18 +291,13 @@ function getSections(): Section[] {
       name: 'Performance',
       match: /^(perf|\w+\(perf\))/,
       noun: 'improvement',
-      rules: noun => [
-        `Briefly describe each ${noun} in a bulleted list, without being vague.`,
-      ],
+      rules: noun => [...getBulletedListRules(noun)],
     },
     {
       name: 'Types',
       match: /^(fix|feat)\(types\)/,
       noun: 'change',
-      rules: noun => [
-        `Briefly describe each ${noun} in a bulleted list, without being vague.`,
-        'Never use headings.',
-      ],
+      rules: noun => [...getBulletedListRules(noun)],
     },
   ]
 }
