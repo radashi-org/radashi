@@ -1,0 +1,23 @@
+name: Register PR In Database
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, reopened, synchronize, closed]
+
+jobs:
+  register-pr:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+      - uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const script = await import('${{ github.workspace }}/scripts/radashi-db/ci-register-pr.ts')
+            await script.run(context, github, console)
