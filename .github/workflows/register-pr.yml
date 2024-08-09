@@ -16,6 +16,9 @@ jobs:
         with:
           cache: pnpm
       - uses: actions/github-script@v6
+        env:
+          ALGOLIA_KEY: ${{ secrets.ALGOLIA_KEY }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
