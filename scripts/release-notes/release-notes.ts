@@ -41,6 +41,9 @@ import { dedent } from './dedent'
  *
  * --prerelease  \
  *   Publish the release notes as a prerelease.
+ *
+ * --limit <number>  \
+ *   Limit the number of commits to include in each section. (For testing purposes)
  */
 async function main() {
   if (!process.env.ANTHROPIC_API_KEY) {
