@@ -33,6 +33,7 @@
     "add-function": "bash ./scripts/add-function.sh",
     "bench": "vitest bench",
     "build": "tsup --clean",
+    "bundle-impact": "bash ./scripts/bundle-impact.sh",
     "dev": "tsup --clean --watch --sourcemap",
     "format": "bash ./scripts/format.sh",
     "lint": "concurrently -c=auto -g --kill-others-on-fail 'npm:lint:*'",
