@@ -1,5 +1,5 @@
 import { execa } from 'execa'
-import * as readline from 'node:readline'
+import * as readline from 'node:readline/promises'
 import { cluster, map, select } from 'radashi'
 
 export async function weighChangedFunctions() {
@@ -114,9 +114,9 @@ async function installEsbuild(): Promise<void> {
       output: process.stdout,
     })
 
-    const answer = await new Promise<string>(resolve => {
-      rl.question('Install esbuild to pnpm global store? (Y/n) ', resolve)
-    })
+    const answer = await rl.question(
+      'Install esbuild to pnpm global store? (Y/n) ',
+    )
 
     rl.close()
 
