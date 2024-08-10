@@ -1,4 +1,11 @@
-import { isBoolean, isDate, isFunction, isNumber, isSymbol } from 'radashi'
+import {
+  isArray,
+  isBoolean,
+  isDate,
+  isFunction,
+  isNumber,
+  isSymbol,
+} from 'radashi'
 
 /**
  * Return true if the given value is empty.
@@ -12,7 +19,6 @@ import { isBoolean, isDate, isFunction, isNumber, isSymbol } from 'radashi'
  * - `[]`
  * - `{}`
  * - invalid `Date` time
- * - object with `length` property of `0`
  * - object with `size` property of `0`
  * - object with no enumerable keys
  *
@@ -45,9 +51,8 @@ export function isEmpty(value: any): boolean {
   if (isSymbol(value)) {
     return false
   }
-  const length = (value as any).length
-  if (isNumber(length)) {
-    return length === 0
+  if (isArray(value)) {
+    return value.length === 0
   }
   const size = (value as any).size
   if (isNumber(size)) {
