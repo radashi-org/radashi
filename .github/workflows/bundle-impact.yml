@@ -24,5 +24,5 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const script = require('./scripts/pr-bundle-impact.cjs')
+            const script = await import('${{ github.workspace }}/scripts/ci/pr-bundle-impact.ts')
             await script.run({github, core, context})
