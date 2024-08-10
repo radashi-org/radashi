@@ -1,7 +1,7 @@
 import { Octokit, type RestEndpointMethodTypes } from '@octokit/rest'
 import { parallel } from 'radashi'
 import { registerPullRequest } from './src/register-pr'
-import { bottleneck } from './util/bottleneck'
+import { bottleneck } from './src/util/bottleneck'
 
 async function seedProposedFunctions() {
   const octokit = new Octokit({
