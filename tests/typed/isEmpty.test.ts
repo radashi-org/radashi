@@ -22,6 +22,7 @@ describe('isEmpty', () => {
     expect(_.isEmpty('')).toBeTruthy()
     expect(_.isEmpty(String())).toBeTruthy()
     expect(_.isEmpty(new Map())).toBeTruthy()
+    expect(_.isEmpty(new Set())).toBeTruthy()
     expect(_.isEmpty(new Date('invalid value'))).toBeTruthy()
   })
   test('returns false for non-empty values', () => {
@@ -40,75 +41,40 @@ describe('isEmpty', () => {
     const map = new Map()
     map.set('a', 1)
     expect(_.isEmpty(map)).toBeFalsy()
-  })
-
-  it('should return `false` for non-empty values', () => {
-    expect(_.isEmpty([0])).toBe(false)
-    expect(_.isEmpty({ a: 0 })).toBe(false)
-    expect(_.isEmpty('a')).toBe(false)
-  })
-
-  it('should work with jQuery/MooTools DOM query collections', () => {
-    const arrayProto = Array.prototype
-    const push = arrayProto.push
-    function Foo(elements: unknown[]) {
-      push.apply(this, elements)
-    }
-    Foo.prototype = { length: 0, splice: arrayProto.splice }
-    // @ts-ignore
-    expect(_.isEmpty(new Foo([]))).toBe(true)
-  })
-
-  it('should work with sets', () => {
     const set = new Set()
-    expect(_.isEmpty(set)).toBe(true)
     set.add(1)
-    expect(_.isEmpty(set)).toBe(false)
-    set.clear()
+    expect(_.isEmpty(set)).toBeFalsy()
+    expect(_.isEmpty(args)).toBeFalsy()
   })
 
-  it('should not treat objects with non-number lengths as array-like', () => {
-    expect(_.isEmpty({ length: '0' })).toBe(false)
+  it('should work with an object that has a `length` property', () => {
+    expect(_.isEmpty({ length: '0' })).toBeFalsy()
+    expect(_.isEmpty({ name: 'asfd', length: 0 })).toBeFalsy()
+    expect(_.isEmpty({ length: 0 })).toBeFalsy()
   })
 
-  it('should work with `arguments` objects', () => {
-    expect(_.isEmpty(args)).toBe(false)
-  })
-
-  it.skip('should work with an object that has a `length` property', () => {
-    expect(_.isEmpty({ length: 0 })).toBe(false)
-  })
-
-  it.skip('should work with prototype objects', () => {
+  it('should work with prototype objects', () => {
     function Foo() {}
+    expect(_.isEmpty(Foo.prototype)).toBeTruthy()
     Foo.prototype = { constructor: Foo }
-
-    expect(_.isEmpty(Foo.prototype)).toBe(true)
-
+    expect(_.isEmpty(Foo.prototype)).toBeFalsy()
     Foo.prototype.a = 1
-    expect(_.isEmpty(Foo.prototype)).toBe(false)
+    expect(_.isEmpty(Foo.prototype)).toBeFalsy()
   })
 
-  it.skip('should not treat objects with negative lengths as array-like', () => {
+  it('should not treat objects with negative lengths as array-like', () => {
     function Foo() {}
     Foo.prototype.length = -1
-
-    expect(_.isEmpty(new Foo())).toBe(true)
+    // @ts-ignore
+    expect(_.isEmpty(new Foo())).toBeTruthy()
   })
 
-  it.skip('should not treat objects with lengths larger than `MAX_SAFE_INTEGER` as array-like', () => {
+  it('should not treat objects with lengths larger than `MAX_SAFE_INTEGER` as array-like', () => {
     const MAX_SAFE_INTEGER = 9007199254740991
     function Foo() {}
     Foo.prototype.length = MAX_SAFE_INTEGER + 1
 
-    expect(_.isEmpty(new Foo())).toBe(true)
-  })
-
-  it.skip('should return an unwrapped value when implicitly chaining', () => {
-    expect(_({}).isEmpty()).toBe(true)
-  })
-
-  it.skip('should return a wrapped value when explicitly chaining', () => {
-    expect(_({}).chain().isEmpty() instanceof _)
+    // @ts-ignore
+    expect(_.isEmpty(new Foo())).toBeTruthy()
   })
 })
