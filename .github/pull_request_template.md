@@ -31,9 +31,3 @@ Yes
 No
 
 <!-- If yes, describe the impact and migration path for existing applications. -->
-
-## Bundle impact
-
-<!-- This is calculated in Github Actions. -->
-
-_Calculating..._
