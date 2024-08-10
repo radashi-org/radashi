@@ -1,7 +1,9 @@
 {
   "private": true,
+  "type": "module",
   "dependencies": {
     "execa": "^9.3.0",
-    "radashi": "12.2.0-beta.7fb6e89"
+    "radashi": "12.2.0-beta.7fb6e89",
+    "tsx": "^4.17.0"
   }
 }
