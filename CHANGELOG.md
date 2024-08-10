@@ -128,6 +128,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make `select` more option-friendly by [@aleclarson](https://github.com/aleclarson) in [c9cfcd0](https://github.com/radashi-org/radashi/commit/c9cfcd0a7eb1af98682f5d9b56555162c92b7085)
 - Let `shift` accept a readonly array type by [@nnmrts](https://github.com/nnmrts) in [#126](https://github.com/radashi-org/radashi/pull/126)
 
+- Remove type constraint for mapped array passed to `sum` by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [dea0f50](https://github.com/radashi-org/radashi/commit/dea0f504f417b23aaf2b91495943501c894a172a)
 
 ### New Contributors
 * [@crishoj](https://github.com/crishoj) made their first contribution in [#127](https://github.com/radashi-org/radashi/pull/127)

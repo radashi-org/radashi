@@ -5,4 +5,10 @@ export default defineConfig({
   format: ['cjs', 'esm'],
   dts: true,
   target: 'node16',
+  pure: ['Symbol'],
+  treeshake: {
+    preset: 'smallest',
+    propertyReadSideEffects: false,
+    moduleSideEffects: false,
+  },
 })
