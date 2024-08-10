@@ -17,7 +17,6 @@ export async function weighChangedFunctions() {
   const addLine = (line: string) => (result += line + '\n')
 
   if (process.env.CI && changedFiles.length > 0) {
-    addLine('\n')
     if (columnCount > 2) {
       addLine('| Status | File | Size | Difference (%) |')
       addLine('|---|---|---|---|')
