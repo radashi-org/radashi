@@ -6,6 +6,6 @@ if [ ! -d "scripts/release-notes/node_modules" ]; then
 fi
 
 pnpm -s tsx -e '
-import {weighChangedFunctions} from "./scripts/ci/weigh-changed.ts";
+import {weighChangedFunctions} from "./scripts/bundle-impact/weigh-changed.ts";
 weighChangedFunctions().then(console.log)
 '
