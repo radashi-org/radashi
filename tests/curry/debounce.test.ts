@@ -76,7 +76,7 @@ describe('debounce', () => {
     expect(mockFunc).toHaveBeenCalledTimes(0)
   })
 
-  test('executes the function immediately on the first invocation of the debounce function when set `leading` to true', async () => {
+  test('executes the function immediately on the first invocation when `leading` is `true`', async () => {
     func = _.debounce({ delay: delay, leading: true }, mockFunc)
     runFunc3Times()
     expect(mockFunc).toHaveBeenCalledTimes(1)
