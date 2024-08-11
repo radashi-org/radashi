@@ -33,7 +33,7 @@
     "add-function": "bash ./scripts/add-function.sh",
     "bench": "vitest bench",
     "build": "tsup --clean",
-    "bundle-impact": "bash ./scripts/weigh-changed.sh",
+    "bundle-impact": "bash ./scripts/bundle-impact.sh",
     "dev": "tsup --clean --watch --sourcemap",
     "format": "bash ./scripts/format.sh",
     "lint": "concurrently -c=auto -g --kill-others-on-fail 'npm:lint:*'",
@@ -51,7 +51,7 @@
     "@biomejs/biome": "^1.8.3",
     "@codspeed/vitest-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^7.16.1",
-    "@vitest/coverage-v8": "1.6.0",
+    "@vitest/coverage-v8": "2.0.3",
     "concurrently": "^8.2.2",
     "eslint-plugin-compat": "^6.0.0",
     "glob": "^11.0.0",
@@ -60,7 +60,7 @@
     "prettier-plugin-sh": "^0.14.0",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
-    "vitest": "1.6.0"
+    "vitest": "2.0.2"
   },
   "sideEffects": false,
   "browserslist": [

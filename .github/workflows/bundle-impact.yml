@@ -1,0 +1,34 @@
+name: Bundle Impact
+
+on:
+  pull_request_target:
+    branches: [main, next]
+    types: [opened, synchronize]
+
+jobs:
+  bundle-impact:
+    name: Calculate Bundle Impact
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: pnpm
+
+      - run: |
+          pnpm install -C scripts/bundle-impact
+
+      - name: Run Bundle Impact
+        uses: actions/github-script@v7
+        env:
+          TARGET_BRANCH: ${{ github.base_ref }}
+          NODE_OPTIONS: '--import ./scripts/bundle-impact/node_modules/tsx/dist/esm/index.mjs'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const script = await import('${{ github.workspace }}/scripts/bundle-impact/pr-bundle-impact.ts')
+            await script.run({ github, core, context })

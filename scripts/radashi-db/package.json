@@ -1,0 +1,25 @@
+{
+  "name": "@radashi-org/radashi-db",
+  "private": true,
+  "type": "module",
+  "main": "./index.js",
+  "dependencies": {
+    "@octokit/rest": "^21.0.1",
+    "@supabase/supabase-js": "^2.45.0",
+    "algoliasearch": "^4.24.0",
+    "execa": "^9.3.0",
+    "fast-glob": "^3.3.2",
+    "markdown-it": "^14.1.0",
+    "markdown-it-front-matter": "^0.2.4",
+    "mri": "^1.2.0",
+    "radashi": "12.2.0-beta.83909af",
+    "sucrase": "^3.35.0",
+    "tsx": "^4.17.0",
+    "ultrahtml": "^1.5.3",
+    "yaml": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^22.0.0"
+  }
+}

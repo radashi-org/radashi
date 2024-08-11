@@ -19,12 +19,14 @@ jobs:
             [Your preview release is being published.](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) :hourglass:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: xt0rted/pull-request-comment-branch@v2
+      - uses: radashi-org/pull-request-comment-branch@v2
         id: comment-branch
+
       - uses: actions/checkout@v4
         if: success()
         with:
           ref: ${{ steps.comment-branch.outputs.head_ref }}
+          repository: ${{ steps.comment-branch.outputs.head_owner }}/${{ steps.comment-branch.outputs.head_repo }}
 
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4

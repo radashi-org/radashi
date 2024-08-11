@@ -10,15 +10,15 @@
  * shift([1, 2, 3], -1) // [2, 3, 1]
  * ```
  */
-export function shift<T>(arr: T[], n: number): T[] {
+export function shift<T>(arr: readonly T[], n: number): T[] {
   if (arr.length === 0) {
-    return arr
+    return [...arr]
   }
 
   const shiftNumber = n % arr.length
 
   if (shiftNumber === 0) {
-    return arr
+    return [...arr]
   }
 
   return [...arr.slice(-shiftNumber, arr.length), ...arr.slice(0, -shiftNumber)]

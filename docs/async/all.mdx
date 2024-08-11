@@ -7,7 +7,7 @@ The `all` function is similar to the builtin Promise.all or Promise.allSettled
 functions. Given a list (or object) of promises, if any errors are thrown, all
 errors are gathered and thrown in an AggregateError.
 
-## Using an Array
+### Using an Array
 
 Passing an array as an argument will return the resolved promise values as an array in the same order.
 
@@ -21,7 +21,7 @@ const [user] = await _.all([
 ])
 ```
 
-## Using an Object
+### Using an Object
 
 Passing an object as an argument will return an object with the same keys and the values as the resolved promise values.
 
