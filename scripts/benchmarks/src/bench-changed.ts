@@ -3,10 +3,10 @@
  * benchmarks for them.
  */
 import { existsSync } from 'node:fs'
-import { createVitest } from 'vitest/node'
-import { supabase } from '../../radashi-db/supabase.js'
+import { supabase } from 'radashi-db/supabase.js'
 import { getChangedFiles } from './get-changed.js'
-import { type Benchmark, reportToBenchmarkHandler } from './reporter.js'
+import type { Benchmark } from './reporter.js'
+import { runVitest } from './runner.js'
 
 /**
  * Given a target branch, run the benchmarks for any source files that have
@@ -15,26 +15,7 @@ import { type Benchmark, reportToBenchmarkHandler } from './reporter.js'
 export async function benchChangedFiles(targetBranch: string) {
   const files = await getChangedFiles(targetBranch, ['src/**/*.ts'])
 
-  const results: { result: Benchmark; baseline: Benchmark | null }[] = []
-
-  const vitest = await createVitest('benchmark', {
-    benchmark: {
-      reporters: [
-        reportToBenchmarkHandler(async result => {
-          const { data: baseline } = await supabase
-            .from('benchmarks')
-            .select('*')
-            .eq('func', result.func)
-            .eq('name', result.name)
-            .order('created_at', { ascending: false })
-            .limit(1)
-            .single()
-
-          results.push({ result, baseline })
-        }),
-      ],
-    },
-  })
+  const benchmarks: { result: Benchmark; baseline: Benchmark | null }[] = []
 
   for (const file of files) {
     // Only run benchmarks for modified source files in a function group.
@@ -47,10 +28,24 @@ export async function benchChangedFiles(targetBranch: string) {
       .replace(/\.ts$/, '.bench.ts')
 
     if (existsSync(benchFile)) {
-      console.log(`Running benchmarks in ./${benchFile}`)
-      await vitest.start([benchFile])
+      const results = await runVitest(benchFile)
+      for (const result of results) {
+        const { data: baseline } = await supabase
+          .from('benchmarks')
+          .select('*')
+          .eq('func', result.func)
+          .eq('name', result.name)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .single()
+
+        benchmarks.push({
+          result,
+          baseline,
+        })
+      }
     }
   }
 
-  return results
+  return benchmarks
 }

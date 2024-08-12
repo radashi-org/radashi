@@ -2,7 +2,8 @@ import { execa } from 'execa'
 import { existsSync } from 'node:fs'
 import { supabase } from 'radashi-db/supabase.js'
 import { getChangedFiles } from './src/get-changed.js'
-import { runBenchmarksThenUpsert } from './src/runner.js'
+import type { Benchmark } from './src/reporter.js'
+import { runVitest } from './src/runner.js'
 
 main()
 
@@ -34,6 +35,8 @@ async function main() {
     return
   }
 
+  const benchmarks: Benchmark[] = []
+
   const files = await getChangedFiles(lastBenchedSha, ['src/**/*.ts'])
 
   for (const file of files) {
@@ -47,9 +50,22 @@ async function main() {
         .replace(/\.ts$/, '.bench.ts')
 
       if (existsSync(benchFile)) {
-        await runBenchmarksThenUpsert(benchFile, currentSha)
+        await runVitest(benchFile)
       }
     }
+  }
+
+  const { error: upsertError } = await supabase.from('benchmarks').upsert(
+    benchmarks.map(result => ({
+      ...result,
+      sha: currentSha,
+    })),
+  )
+
+  if (upsertError) {
+    upsertError.message =
+      'Error upserting benchmark results: ' + upsertError.message
+    throw upsertError
   }
 
   const { error: updateError } = await supabase

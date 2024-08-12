@@ -37,5 +37,4 @@ jobs:
         env:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
-          # https://pythonspeed.com/articles/consistent-benchmarking-in-ci/
-          valgrind --tool=cachegrind ./scripts/benchmarks/node_modules/.bin/tsx ./scripts/benchmarks/ci-bench-main.ts
+          ./scripts/benchmarks/node_modules/.bin/tsx ./scripts/benchmarks/ci-bench-main.ts

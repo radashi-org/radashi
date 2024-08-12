@@ -1,5 +1,5 @@
 import path from 'node:path'
-import type { Reporter } from 'vitest'
+import type { Reporter, RunnerTask } from 'vitest'
 
 export interface Benchmark {
   func: string
@@ -19,19 +19,28 @@ export function reportToBenchmarkHandler(
     async onFinished(files) {
       for (const file of files) {
         const func = path.basename(file.filepath).replace(/\.bench\.ts$/, '')
-        for (const task of file.tasks) {
-          const benchmark = task.result?.benchmark
-          if (!benchmark) {
-            continue
-          }
 
-          handler({
-            func,
-            name: task.name,
-            hz: benchmark.hz,
-            sd: benchmark.sd,
-            rme: benchmark.rme,
-          })
+        traverseTasks(file.tasks, func)
+      }
+
+      function traverseTasks(tasks: RunnerTask[], func: string) {
+        for (const task of tasks) {
+          if (task.type === 'suite') {
+            traverseTasks(task.tasks, func)
+          } else {
+            const benchmark = task.meta?.benchmark && task.result?.benchmark
+            if (!benchmark) {
+              continue
+            }
+
+            handler({
+              func,
+              name: task.name,
+              hz: benchmark.hz,
+              sd: benchmark.sd,
+              rme: benchmark.rme,
+            })
+          }
         }
       }
     },
