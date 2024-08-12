@@ -1,22 +1,32 @@
-import { weighChangedFunctions } from './weigh-changed'
+import { Octokit } from '@octokit/rest'
+import mri from 'mri'
+import { weighChangedFunctions } from './src/weigh-changed'
 
-export async function run({ github, core, context }) {
-  const repo = `${context.repo.owner}/${context.repo.repo}`
-  core.info(`fetching PR #${context.issue.number} data from ${repo}...`)
+const octokit = new Octokit({
+  auth: process.env.RADASHI_BOT_TOKEN,
+})
 
-  const { data: pullRequest } = await github.rest.pulls.get({
-    owner: context.repo.owner,
-    repo: context.repo.repo,
-    pull_number: context.issue.number,
+main()
+
+async function main() {
+  const { prNumber } = parseArgv(process.argv.slice(2))
+
+  console.log(`fetching PR #${prNumber} data...`)
+
+  const { data: pullRequest } = await octokit.rest.pulls.get({
+    owner: 'radashi-org',
+    repo: 'radashi',
+    pull_number: prNumber,
   })
 
-  core.info('calculating bundle impact...')
-  let bundleImpact = await weighChangedFunctions()
-  if (bundleImpact) {
-    bundleImpact = `## Bundle impact\n\n${bundleImpact}\n\n`
-  }
+  console.log('weighing changed functions...')
 
-  const originalBody = pullRequest.body
+  let bundleImpact = await weighChangedFunctions()
+  bundleImpact = bundleImpact ? `## Bundle impact\n\n${bundleImpact}\n\n` : ''
+
+  console.log('updating PR description...')
+
+  const originalBody = pullRequest.body!
   const bundleImpactRegex = /## Bundle impact[\s\S]*?(?=##|$)/
 
   let updatedBody: string
@@ -27,14 +37,35 @@ export async function run({ github, core, context }) {
   }
 
   if (updatedBody !== originalBody) {
-    core.info('updating PR description...')
-    await github.rest.pulls.update({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      pull_number: context.issue.number,
+    console.log('updating PR description...')
+    await octokit.rest.pulls.update({
+      owner: 'radashi-org',
+      repo: 'radashi',
+      pull_number: prNumber,
       body: updatedBody,
     })
 
-    core.info('PR description updated with bundle impact.')
+    console.log('PR description updated with bundle impact.')
+  }
+}
+
+function parseArgv(argv: string[]) {
+  if (!process.env.RADASHI_BOT_TOKEN) {
+    throw new Error('RADASHI_BOT_TOKEN is required')
+  }
+  if (!process.env.TARGET_BRANCH) {
+    throw new Error('TARGET_BRANCH is required')
+  }
+
+  const {
+    _: [prNumber],
+  } = mri(argv)
+
+  if (!Number.isInteger(+prNumber)) {
+    throw new Error('PR number is required')
+  }
+
+  return {
+    prNumber: +prNumber,
   }
 }

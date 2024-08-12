@@ -1,6 +1,8 @@
 import { execa } from 'execa'
-import * as readline from 'node:readline/promises'
-import { cluster, map, select } from 'radashi'
+import readline from 'node:readline/promises'
+import { cluster } from 'radashi/array/cluster.js'
+import { select } from 'radashi/array/select.js'
+import { map } from 'radashi/async/map.js'
 
 export async function weighChangedFunctions() {
   const targetBranch = await getTargetBranch()

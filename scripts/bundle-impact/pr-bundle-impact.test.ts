@@ -1,14 +1,12 @@
-import { test, vi } from 'vitest'
-import { dedent } from './dedent'
+import { expect, test, vi } from 'vitest'
 import { run } from './pr-bundle-impact'
+import { dedent } from './src/dedent'
+import { weighChangedFunctions } from './src/weigh-changed'
 
-
-vi.mock('./weigh-changed', () => ({
-  weighChangedFunctions: vi.fn(),
-}))
+vi.mock('./src/weigh-changed')
 
 test('adds the bundle impact to the PR body', async () => {
-  const pulls = {
+  const pulls: Record<string, { body: string }> = {
     'radashi-org/radashi#1': {
       body: dedent`
         ## Summary
@@ -29,7 +27,15 @@ test('adds the bundle impact to the PR body', async () => {
     github: {
       rest: {
         pulls: {
-          get({ owner, repo, pull_number }) {
+          get({
+            owner,
+            repo,
+            pull_number,
+          }: {
+            owner: string
+            repo: string
+            pull_number: number
+          }) {
             return Promise.resolve({
               data: pulls[`${owner}/${repo}#${pull_number}`],
             })
@@ -44,9 +50,7 @@ test('adds the bundle impact to the PR body', async () => {
     },
   }
 
-  const { weighChangedFunctions } = await import('./weigh-changed')
-
-  weighChangedFunctions.mockResolvedValue(
+  vi.mocked(weighChangedFunctions).mockResolvedValue(
     dedent`
       | Status | File | Size | Difference (%) |
       | --- | --- | --- | --- |
@@ -101,7 +105,7 @@ test('adds the bundle impact to the PR body', async () => {
 
   // Now that we've tested adding the "Bundle Impact" section, let's test
   // updating that section upon a subsequent run.
-  weighChangedFunctions.mockResolvedValue(
+  vi.mocked(weighChangedFunctions).mockResolvedValue(
     dedent`
       | Status | File | Size | Difference (%) |
       | --- | --- | --- | --- |
