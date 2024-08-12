@@ -1,0 +1,32 @@
+name: Seed Benchmarks
+
+on:
+  workflow_dispatch:
+
+jobs:
+  seed-benchmarks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: |
+          pnpm install -C scripts/benchmarks
+          pnpm install -C scripts/radashi-db
+
+      - uses: awalsh128/cache-apt-pkgs-action@v1.4.2
+        with:
+          packages: valgrind
+          version: 1 # The “cache version” for cache-busting
+
+      - name: Run benchmarks and seed database
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          # https://pythonspeed.com/articles/consistent-benchmarking-in-ci/
+          valgrind --tool=cachegrind ./scripts/benchmarks/node_modules/.bin/tsx ./scripts/benchmarks/seed-benchmarks.ts

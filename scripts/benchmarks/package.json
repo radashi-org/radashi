@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@octokit/rest": "^21.0.1",
+    "@types/node": "^22.2.0",
+    "execa": "^9.3.0",
+    "fast-glob": "^3.3.2",
+    "mri": "^1.2.0",
+    "radashi": "link:../../src",
+    "radashi-db": "link:../radashi-db",
+    "tsx": "^4.17.0",
+    "vitest": "2.0.5"
+  }
+}

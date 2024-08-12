@@ -1,0 +1,39 @@
+name: Benchmark Pull Request
+
+on:
+  pull_request:
+    branches: [main, next]
+    paths:
+      - 'src/**/*.ts'
+
+jobs:
+  benchmark:
+    name: Run Benchmarks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: |
+          pnpm install -C scripts/benchmarks
+          pnpm install -C scripts/radashi-db
+
+      - uses: awalsh128/cache-apt-pkgs-action@v1.4.2
+        with:
+          packages: valgrind
+          version: 1 # The “cache version” for cache-busting
+
+      - name: Run benchmarks
+        env:
+          RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          # https://pythonspeed.com/articles/consistent-benchmarking-in-ci/
+          valgrind --tool=cachegrind ./scripts/benchmarks/node_modules/.bin/tsx ./scripts/benchmarks/ci-bench-pr.ts ${{ github.base_ref }} ${{ github.event.number }}
