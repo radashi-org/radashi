@@ -15,12 +15,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           cache: pnpm
-      - uses: actions/github-script@v6
+
+      - name: Install Dependencies
+        run: |
+          pnpm install -C scripts/functions
+          pnpm install -C scripts/radashi-db
+
+      - name: Register PR
+        uses: actions/github-script@v6
         env:
           ALGOLIA_KEY: ${{ secrets.ALGOLIA_KEY }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          NODE_OPTIONS: '--import scripts/functions/node_modules/tsx/dist/esm/index.mjs'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const script = await import('${{ github.workspace }}/scripts/radashi-db/ci-register-pr.ts')
-            await script.run(context, github, console)
+            const script = await import('${{ github.workspace }}/scripts/functions/ci-register-pr.ts')
+            await script.run(context.payload.pull_request, github)

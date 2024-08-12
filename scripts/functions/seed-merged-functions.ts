@@ -2,7 +2,8 @@ import { execa } from 'execa'
 import glob from 'fast-glob'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { algolia, supabase } from './src/db'
+import { algolia } from 'radashi-db/algolia'
+import { supabase, type TablesInsert } from 'radashi-db/supabase'
 import { renderPageMarkdown } from './src/util/markdown'
 
 async function seedMergedFunctions() {
@@ -53,7 +54,7 @@ async function seedMergedFunctions() {
 
     name ??= path.basename(sourceFile, '.ts')
 
-    const record = {
+    const record: TablesInsert<'merged_functions'> = {
       ref: 'radashi-org/radashi#main',
       group: sourceFile.split('/').slice(1, -1).join('/'),
       name,
