@@ -16,6 +16,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          pnpm install -g vitest@2.0.5
           pnpm install -C scripts/benchmarks
           pnpm install -C scripts/radashi-db
 
