@@ -25,4 +25,4 @@ jobs:
           RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
           TARGET_BRANCH: ${{ github.base_ref }}
         run: |
-          scripts/bundle-impact/node_modules/.bin/tsx pr-bundle-impact.ts ${{ github.event.number }}
+          ./scripts/bundle-impact/node_modules/.bin/tsx ./scripts/bundle-impact/pr-bundle-impact.ts ${{ github.event.number }}
