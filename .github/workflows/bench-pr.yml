@@ -22,7 +22,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pnpm install -g vitest@2.0.5
+          # Only install Vitest for the root directory.
+          echo '{"dependencies":{"vitest":"2.0.5"}}' > package.json
+          pnpm install
           pnpm install -C scripts/benchmarks
           pnpm install -C scripts/radashi-db
 
