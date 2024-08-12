@@ -6,6 +6,10 @@ const resolve = (specifier: string) =>
 export default defineConfig({
   test: {
     globals: true,
+    include: ['tests/**/*.test.ts'],
+    benchmark: {
+      include: ['benchmarks/**/*.bench.ts'],
+    },
     coverage: {
       thresholds: { 100: true },
       include: ['src/**'],
@@ -14,7 +18,6 @@ export default defineConfig({
   resolve: {
     alias: {
       radashi: resolve('./src/mod.js'),
-      'radashi-baseline': resolve('./benchmarks/baseline'),
     },
   },
 })
