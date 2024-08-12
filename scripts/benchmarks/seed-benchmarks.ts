@@ -27,6 +27,8 @@ async function main() {
 
     if (existsSync(benchFile)) {
       benchmarks.push(...(await runVitest(benchFile)))
+    } else {
+      console.log(`No benchmark found for ${file}`)
     }
   }
 

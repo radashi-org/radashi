@@ -18,18 +18,14 @@ export function reportToBenchmarkHandler(
   return {
     async onFinished(files) {
       for (const file of files) {
-        const func = path.basename(file.filepath).replace(/\.bench\.ts$/, '')
-        traverseTasks(file.tasks, func, false)
+        const func = path.basename(file.filepath, '.bench.ts')
+        traverseTasks(file.tasks, func)
       }
 
-      function traverseTasks(
-        tasks: RunnerTask[],
-        func: string,
-        isBaseline: boolean,
-      ) {
+      function traverseTasks(tasks: RunnerTask[], func: string) {
         for (const task of tasks) {
           if (task.type === 'suite') {
-            traverseTasks(task.tasks, func, task.name === 'baseline')
+            traverseTasks(task.tasks, func)
           } else {
             const benchmark = task.meta?.benchmark && task.result?.benchmark
             if (benchmark) {

@@ -13,6 +13,7 @@ async function main() {
 
   const vitest = await createVitest('benchmark', {
     watch: false,
+    pool: 'vmThreads',
     benchmark: {
       reporters: [
         reportToBenchmarkHandler(benchmark => {
@@ -26,4 +27,5 @@ async function main() {
   await vitest.start([file])
 
   console.log(JSON.stringify(results))
+  process.exit(0)
 }
