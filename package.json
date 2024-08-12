@@ -53,6 +53,7 @@
     "@vitest/coverage-v8": "2.0.3",
     "concurrently": "^8.2.2",
     "eslint-plugin-compat": "^6.0.0",
+    "fast-glob": "^3.3.2",
     "glob": "^11.0.0",
     "prettier": "^3.3.2",
     "prettier-plugin-pkg": "^0.18.1",
