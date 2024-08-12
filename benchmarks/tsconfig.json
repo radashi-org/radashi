@@ -4,6 +4,7 @@
     "moduleResolution": "node",
     "noEmit": true,
     "target": "esnext",
+    "module": "esnext",
     "lib": ["es2020"],
     "esModuleInterop": true,
     "skipLibCheck": true,

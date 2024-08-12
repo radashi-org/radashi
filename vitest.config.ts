@@ -14,6 +14,7 @@ export default defineConfig({
   resolve: {
     alias: {
       radashi: resolve('./src/mod.js'),
+      'radashi-baseline': resolve('./benchmarks/baseline'),
     },
   },
 })

@@ -19,27 +19,28 @@ export function reportToBenchmarkHandler(
     async onFinished(files) {
       for (const file of files) {
         const func = path.basename(file.filepath).replace(/\.bench\.ts$/, '')
-
-        traverseTasks(file.tasks, func)
+        traverseTasks(file.tasks, func, false)
       }
 
-      function traverseTasks(tasks: RunnerTask[], func: string) {
+      function traverseTasks(
+        tasks: RunnerTask[],
+        func: string,
+        isBaseline: boolean,
+      ) {
         for (const task of tasks) {
           if (task.type === 'suite') {
-            traverseTasks(task.tasks, func)
+            traverseTasks(task.tasks, func, task.name === 'baseline')
           } else {
             const benchmark = task.meta?.benchmark && task.result?.benchmark
-            if (!benchmark) {
-              continue
+            if (benchmark) {
+              handler({
+                func,
+                name: task.name,
+                hz: benchmark.hz,
+                sd: benchmark.sd,
+                rme: benchmark.rme,
+              })
             }
-
-            handler({
-              func,
-              name: task.name,
-              hz: benchmark.hz,
-              sd: benchmark.sd,
-              rme: benchmark.rme,
-            })
           }
         }
       }

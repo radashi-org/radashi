@@ -2,6 +2,7 @@ import { execa } from 'execa'
 import { existsSync } from 'node:fs'
 import { supabase } from 'radashi-db/supabase.js'
 import { getChangedFiles } from './src/get-changed.js'
+import { injectBaseline } from './src/inject-baseline.js'
 import type { Benchmark } from './src/reporter.js'
 import { runVitest } from './src/runner.js'
 
@@ -50,10 +51,15 @@ async function main() {
         .replace(/\.ts$/, '.bench.ts')
 
       if (existsSync(benchFile)) {
+        if (file.status === 'M') {
+          await injectBaseline(lastBenchedSha, file.name, benchFile)
+        }
         await runVitest(benchFile)
       }
     }
   }
+
+  console.log('Results', benchmarks)
 
   const { error: upsertError } = await supabase.from('benchmarks').upsert(
     benchmarks.map(result => ({

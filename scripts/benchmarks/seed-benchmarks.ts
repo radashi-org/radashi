@@ -30,6 +30,8 @@ async function main() {
     }
   }
 
+  console.log('Results', benchmarks)
+
   const { error: upsertError } = await supabase.from('benchmarks').upsert(
     benchmarks.map(result => ({
       ...result,
