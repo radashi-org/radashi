@@ -8,7 +8,11 @@ export function runVitest(file: string) {
   console.log(`Running benchmarks in ./${file}`)
 
   // https://pythonspeed.com/articles/consistent-benchmarking-in-ci/
-  return execa('valgrind', ['--tool=cachegrind', tsx, runner, file]).then(
-    result => JSON.parse(result.stdout) as Benchmark[],
-  )
+  return execa(tsx, [runner, file], { reject: false }).then(result => {
+    if (result.exitCode === 1) {
+      console.error(result.stderr)
+      throw new Error('Benchmark failed. See above for details.')
+    }
+    return JSON.parse(result.stdout) as Benchmark[]
+  })
 }

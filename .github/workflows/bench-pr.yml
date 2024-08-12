@@ -28,11 +28,6 @@ jobs:
           pnpm install -C scripts/benchmarks
           pnpm install -C scripts/radashi-db
 
-      - uses: awalsh128/cache-apt-pkgs-action@v1.4.2
-        with:
-          packages: valgrind
-          version: 1 # The “cache version” for cache-busting
-
       - name: Run benchmarks
         env:
           RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
