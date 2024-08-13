@@ -46,7 +46,7 @@ export async function run(pr: PullRequest, octokit: Octokit) {
     getCommit: async () => {
       return {
         sha: pr.head.sha,
-        author: owner,
+        author: pr.user.login,
         date: pr.created_at,
       }
     },
@@ -70,7 +70,7 @@ interface PullRequest {
   labels: { name: string }[]
   user: {
     avatar_url: string
-    name: string
+    login: string
   }
   head: {
     ref: string
