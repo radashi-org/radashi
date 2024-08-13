@@ -5,7 +5,7 @@ if [ ! -d "scripts/release-notes/node_modules" ]; then
   pnpm install -C scripts/release-notes
 fi
 
-pnpm -s scripts/bundle-impact/node_modules/.bin/tsx -e '
-import {weighChangedFunctions} from "./scripts/bundle-impact/weigh-changed.ts";
+pnpm -s scripts/bundle-impact/node_modules/.bin/tsx -e "
+import { weighChangedFunctions } from '$PWD/scripts/bundle-impact/src/weigh-changed'
 weighChangedFunctions().then(console.log)
-'
+"
