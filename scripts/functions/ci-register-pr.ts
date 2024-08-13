@@ -7,13 +7,13 @@ export async function run(pr: PullRequest, octokit: Octokit) {
   const repo = pr.head.repo.name
 
   const { data: files } = await octokit.pulls.listFiles({
-    owner,
-    repo,
+    owner: 'radashi-org',
+    repo: 'radashi',
     pull_number: pr.number,
   })
   const { data: checkRuns } = await octokit.checks.listForRef({
-    owner,
-    repo,
+    owner: 'radashi-org',
+    repo: 'radashi',
     ref: pr.head.sha,
   })
 
