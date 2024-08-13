@@ -32,7 +32,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           running-workflow-name: 'register-pr'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          allowed-conclusions: success,skipped,failure,timed_out
+          allowed-conclusions: success,skipped,failure,timed_out,cancelled
 
       - name: Install pnpm
         if: steps.checkout.outputs.has_changes == 'true'
