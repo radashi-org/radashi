@@ -53,5 +53,5 @@ jobs:
           script: |
             const root = '${{ github.workspace }}/scripts/functions'
             const { tsImport } = await import(root + '/node_modules/tsx/dist/esm/api/index.cjs')
-            const script = await tsImport(root + '/ci-register-pr.ts', __filename)
+            const script = await tsImport(root + '/ci-register-pr.ts', root)
             await script.run(context.payload.pull_request, github)
