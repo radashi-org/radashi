@@ -25,7 +25,7 @@ export function toggle<T>(
   item: T,
   /**
    * Converts an item of type T item into a value that can be checked
-   * for equality
+   * for equality. For an item idx will be -1.
    */
   toKey?: null | ((item: T, idx: number) => number | string | symbol),
   options?: {
@@ -39,9 +39,15 @@ export function toggle<T>(
     return [...array]
   }
 
-  const matcher = toKey
-    ? (x: T, idx: number) => toKey(x, idx) === toKey(item, idx)
-    : (x: T) => x === item
+  let matcher: (item: T, idx: number) => boolean
+
+  if (toKey) {
+    const key = toKey(item, -1)
+
+    matcher = (x: T, idx: number) => toKey(x, idx) === key
+  } else {
+    matcher = (x: T) => x === item
+  }
 
   const existing = array.find(matcher)
 
