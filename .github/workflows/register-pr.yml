@@ -26,9 +26,10 @@ jobs:
         env:
           ALGOLIA_KEY: ${{ secrets.ALGOLIA_KEY }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-          NODE_OPTIONS: '--import scripts/functions/node_modules/tsx/dist/esm/index.mjs'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const script = await import('${{ github.workspace }}/scripts/functions/ci-register-pr.ts')
+            const root = '${{ github.workspace }}/scripts/functions'
+            const { tsImport } = await import(root + '/node_modules/tsx/dist/esm/api/index.cjs')
+            const script = await tsImport('./ci-register-pr.ts', root)
             await script.run(context.payload.pull_request, github)
