@@ -20,7 +20,7 @@ jobs:
         run: |
           bash scripts/checkout-pr.sh src docs
 
-          if git diff --quiet; then
+          if [ -z "$(git status --porcelain)" ]; then
             echo '::set-output name=has_changes::false'
           else
             echo '::set-output name=has_changes::true'
