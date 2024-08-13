@@ -4,13 +4,23 @@ import { cluster } from 'radashi/array/cluster.js'
 import { select } from 'radashi/array/select.js'
 import { map } from 'radashi/async/map.js'
 
-export async function weighChangedFunctions() {
+export async function weighChangedFunctions(opts: { verbose?: boolean } = {}) {
   const targetBranch = await getTargetBranch()
+  if (opts.verbose) {
+    console.log('targetBranch == %O', targetBranch)
+  }
+
   const changedFiles = await getChangedFiles(targetBranch)
+  if (opts.verbose) {
+    console.log('changedFiles == %O', changedFiles)
+  }
 
   await ensureEsbuildInstalled()
 
   const prevSizes = await getPreviousSizes(changedFiles, targetBranch)
+  if (opts.verbose) {
+    console.log('prevSizes == %O', prevSizes)
+  }
 
   const columnCount = prevSizes.some(size => size !== 0) ? 3 : 2
 

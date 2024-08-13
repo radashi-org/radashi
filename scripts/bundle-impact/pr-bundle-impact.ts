@@ -11,6 +11,11 @@ main()
 async function main() {
   const { prNumber } = parseArgv(process.argv.slice(2))
 
+  console.log('weighing changed functions...')
+
+  let bundleImpact = await weighChangedFunctions({ verbose: true })
+  bundleImpact = bundleImpact ? `## Bundle impact\n\n${bundleImpact}\n\n` : ''
+
   console.log(`fetching PR #${prNumber} data...`)
 
   const { data: pullRequest } = await octokit.rest.pulls.get({
@@ -18,13 +23,6 @@ async function main() {
     repo: 'radashi',
     pull_number: prNumber,
   })
-
-  console.log('weighing changed functions...')
-
-  let bundleImpact = await weighChangedFunctions()
-  bundleImpact = bundleImpact ? `## Bundle impact\n\n${bundleImpact}\n\n` : ''
-
-  console.log('updating PR description...')
 
   const originalBody = pullRequest.body!
   const bundleImpactRegex = /## Bundle impact[\s\S]*?(?=##|$)/
