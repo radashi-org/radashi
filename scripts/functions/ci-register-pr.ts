@@ -19,6 +19,9 @@ export async function run(pr: PullRequest, octokit: Octokit) {
     ref: pr.head.sha,
   })
 
+  console.log('Check runs', checkRuns)
+  console.log('Files', files)
+
   await registerPullRequest(pr.number, {
     status: pr.draft ? 'draft' : pr.merged_at ? 'merged' : pr.state,
     sha: pr.head.sha,
