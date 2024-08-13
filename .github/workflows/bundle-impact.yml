@@ -15,10 +15,12 @@ jobs:
       - name: Checkout Pull Request
         id: checkout
         env:
-          PR_REPO_URL: ${{ github.event.pull_request.head.repo.git_url }}
+          PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
           PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          bash scripts/checkout-pr.sh src
+          git remote add pr $PR_REPO_URL
+          git fetch pr "$PR_HEAD_REF"
+          git checkout "pr/$PR_HEAD_REF" -- src
 
           if [ -z "$(git status --porcelain)" ]; then
             echo '::set-output name=has_changes::false'
