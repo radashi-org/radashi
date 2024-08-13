@@ -61,6 +61,11 @@ async function main() {
 
   console.log('Results', benchmarks)
 
+  if (benchmarks.length === 0) {
+    console.log('No benchmarks were found')
+    return
+  }
+
   const { error: upsertError } = await supabase.from('benchmarks').upsert(
     benchmarks.map(result => ({
       ...result,

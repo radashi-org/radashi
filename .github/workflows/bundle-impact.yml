@@ -11,16 +11,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+
+      - name: Checkout Pull Request
+        id: checkout
+        env:
+          PR_REPO_URL: https://github.com/${{ github.event.pull_request.head.repo.owner }}/${{ github.event.pull_request.head.repo.name }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          bash scripts/checkout-pr.sh src
+
+          if git diff --quiet; then
+            echo '::set-output name=has_changes::false'
+          else
+            echo '::set-output name=has_changes::true'
+          fi
+
+      - name: Install pnpm
+        if: steps.checkout.outputs.has_changes == 'true'
+        uses: pnpm/action-setup@v4
+
+      - name: Install Node.js
+        if: steps.checkout.outputs.has_changes == 'true'
+        uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
           cache: pnpm
 
-      - run: |
+      - name: Install dependencies
+        if: steps.checkout.outputs.has_changes == 'true'
+        run: |
           pnpm install -C scripts/bundle-impact
 
       - name: Run Bundle Impact
+        if: steps.checkout.outputs.has_changes == 'true'
         env:
           RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
           TARGET_BRANCH: ${{ github.base_ref }}

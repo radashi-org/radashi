@@ -19,6 +19,11 @@ async function main() {
   console.log('Added', addedBenchmarks)
   console.log('Changed', changedBenchmarks)
 
+  if (addedBenchmarks.length === 0 && changedBenchmarks.length === 0) {
+    console.log('No benchmarks were found')
+    return
+  }
+
   const columnNames = ['Name', 'Current']
   if (changedBenchmarks.some(b => b.baseline)) {
     columnNames.push('Baseline', 'Change')

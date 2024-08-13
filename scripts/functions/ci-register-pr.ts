@@ -1,4 +1,5 @@
 import type { Octokit } from '@octokit/rest'
+import fs from 'node:fs/promises'
 import { registerPullRequest } from './src/register-pr'
 
 export async function run(pr: PullRequest, octokit: Octokit) {
@@ -47,16 +48,7 @@ export async function run(pr: PullRequest, octokit: Octokit) {
       }
     },
     getFileContent: async path => {
-      const { data } = await octokit.repos.getContent({
-        owner,
-        repo,
-        path,
-        ref: pr.head.sha,
-      })
-      if (!('content' in data)) {
-        throw new Error(`File ${path} has no content`)
-      }
-      return Buffer.from(data.content, 'base64').toString('utf-8')
+      return fs.readFile(path, 'utf-8')
     },
     getIssueBody: async () => {
       return pr.body
