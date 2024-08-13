@@ -15,7 +15,7 @@ jobs:
       - name: Checkout Pull Request
         id: checkout
         env:
-          PR_REPO_URL: ${{ github.event.pull_request.head.repo.url }}
+          PR_REPO_URL: ${{ github.event.pull_request.head.repo.git_url }}
           PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
           bash scripts/checkout-pr.sh src
