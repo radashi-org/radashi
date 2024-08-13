@@ -102,11 +102,13 @@ async function getTargetBranch(): Promise<string> {
 }
 
 async function getChangedFiles(targetBranch: string) {
+  // When run by CI, the PR changes have been checked out and will be
+  // staged. When run via the `pnpm bundle-impact` command, we need to
+  // diff the current branch against the target branch.
   const { stdout } = await execa('git', [
     'diff',
     '--name-status',
-    `origin/${targetBranch}`,
-    'HEAD',
+    ...(process.env.CI ? ['--staged'] : [`origin/${targetBranch}`, 'HEAD']),
     '--',
     'src/**/*.ts',
   ])
@@ -158,7 +160,7 @@ async function getPreviousSizes(
     process.env.CI ||
     (await execa('git', ['status', '-s'])).stdout.trim() === ''
   ) {
-    await execa('git', ['checkout', targetBranch])
+    await execa('git', process.env.CI ? ['stash'] : ['checkout', targetBranch])
 
     for (const { status, name } of changedFiles) {
       if (status === 'A') {
@@ -173,7 +175,7 @@ async function getPreviousSizes(
       }
     }
 
-    await execa('git', ['checkout', '-'])
+    await execa('git', process.env.CI ? ['stash', 'pop'] : ['checkout', '-'])
   }
 
   return prevSizes
