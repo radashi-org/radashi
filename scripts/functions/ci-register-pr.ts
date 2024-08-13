@@ -30,7 +30,7 @@ export async function run(pr: PullRequest, octokit: Octokit) {
     ownerAvatarUrl: pr.user.avatar_url,
     branch: pr.head.ref,
     checksPassed: checkRuns.check_runs.every(
-      run => run.conclusion === 'success',
+      run => run.conclusion === 'success' || run.name === 'register-pr',
     ),
     console,
     files,
