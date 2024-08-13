@@ -26,6 +26,13 @@ jobs:
             echo '::set-output name=has_changes::true'
           fi
 
+      - name: Wait for other checks to succeed
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.ref }}
+          running-workflow-name: 'register-pr'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Install pnpm
         if: steps.checkout.outputs.has_changes == 'true'
         uses: pnpm/action-setup@v4
