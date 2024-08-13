@@ -6,6 +6,8 @@ export async function run(pr: PullRequest, octokit: Octokit) {
   const owner = pr.head.repo.owner.login
   const repo = pr.head.repo.name
 
+  console.log('Registering PR in database', pr)
+
   const { data: files } = await octokit.pulls.listFiles({
     owner: 'radashi-org',
     repo: 'radashi',
@@ -29,9 +31,7 @@ export async function run(pr: PullRequest, octokit: Octokit) {
     ),
     console,
     files,
-    breaking: (pr.labels as { name: string }[]).some(
-      label => label.name === 'breaking',
-    ),
+    breaking: pr.labels.some(label => label.name === 'breaking'),
     getApprovalRating: async () => {
       const { data: reactions } = await octokit.reactions.listForIssue({
         owner: 'radashi-org',
@@ -43,7 +43,7 @@ export async function run(pr: PullRequest, octokit: Octokit) {
     getCommit: async () => {
       return {
         sha: pr.head.sha,
-        author: pr.user.name,
+        author: owner,
         date: pr.created_at,
       }
     },
