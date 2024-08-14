@@ -39,6 +39,7 @@ export * from './async/reduce.ts'
 export * from './async/retry.ts'
 export * from './async/sleep.ts'
 export * from './async/tryit.ts'
+export * from './async/withResolvers.ts'
 
 export * from './curry/callable.ts'
 export * from './curry/chain.ts'
