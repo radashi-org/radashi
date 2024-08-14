@@ -6,7 +6,7 @@ import { existsSync } from 'node:fs'
 import { group } from 'radashi/array/group.js'
 import { getStagedFiles } from './getStagedFiles.js'
 import { injectBaseline } from './injectBaseline.js'
-import type { Benchmark } from './reporter.js'
+import type { BenchmarkReport } from './reporter.js'
 import { runVitest } from './runner.js'
 
 /**
@@ -19,10 +19,7 @@ export async function benchChangedFiles(
 ) {
   files ??= await getStagedFiles(['src/**/*.ts'])
 
-  const benchmarks: {
-    result: Benchmark
-    baseline: { hz: number; rme: number } | null
-  }[] = []
+  const reports: BenchmarkReport[] = []
 
   for (const file of files) {
     // Only run benchmarks for modified source files in a function group.
@@ -37,21 +34,21 @@ export async function benchChangedFiles(
     if (existsSync(benchFile)) {
       await injectBaseline(targetBranch, file.name, benchFile)
 
-      const results = group(
+      const reportPairs = group(
         await runVitest(benchFile),
-        result => result.name,
+        report => report.benchmark.name,
       ) as {
-        [key: string]: Benchmark[]
+        [key: string]: BenchmarkReport[]
       }
 
-      for (const [result, baseline] of Object.values(results)) {
-        benchmarks.push({
-          result,
-          baseline,
+      for (const [report, baseline] of Object.values(reportPairs)) {
+        reports.push({
+          ...report,
+          baseline: baseline.benchmark,
         })
       }
     }
   }
 
-  return benchmarks
+  return reports
 }

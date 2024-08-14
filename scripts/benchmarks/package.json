@@ -6,7 +6,6 @@
     "@types/node": "^22.2.0",
     "execa": "^9.3.0",
     "fast-glob": "^3.3.2",
-    "mri": "^1.2.0",
     "radashi": "link:../../src",
     "radashi-db": "link:../radashi-db",
     "ts-morph": "^23.0.0",

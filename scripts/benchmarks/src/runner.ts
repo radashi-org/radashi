@@ -1,5 +1,5 @@
 import { execa } from 'execa'
-import type { Benchmark } from './reporter'
+import type { BenchmarkReport } from './reporter'
 
 const tsx = './scripts/benchmarks/node_modules/.bin/tsx'
 const runner = './scripts/benchmarks/vitest-bench.ts'
@@ -12,6 +12,6 @@ export function runVitest(file: string) {
       console.error(result.stderr)
       throw new Error('Benchmark failed. See above for details.')
     }
-    return JSON.parse(result.stdout) as Benchmark[]
+    return JSON.parse(result.stdout) as BenchmarkReport[]
   })
 }

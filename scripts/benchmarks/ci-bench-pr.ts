@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest'
-import mri from 'mri'
+import { execa } from 'execa'
 import { benchAddedFiles } from './src/benchAddedFiles.js'
 import { benchChangedFiles } from './src/benchChangedFiles.js'
 
@@ -10,22 +10,24 @@ const octokit = new Octokit({
 main()
 
 async function main() {
-  const { baseRef, prNumber } = parseArgv(process.argv.slice(2))
+  const { baseRef, prNumber, prBlobURL } = parseArgv(process.argv.slice(2))
 
   // Run the benchmarks
-  const addedBenchmarks = await benchAddedFiles()
-  const changedBenchmarks = await benchChangedFiles(baseRef)
+  const addedFiles = await benchAddedFiles()
+  const changedFiles = await benchChangedFiles(baseRef)
 
-  console.log('Added', addedBenchmarks)
-  console.log('Changed', changedBenchmarks)
+  console.log('Added', addedFiles)
+  console.log('Changed', changedFiles)
 
-  if (addedBenchmarks.length === 0 && changedBenchmarks.length === 0) {
+  if (addedFiles.length === 0 && changedFiles.length === 0) {
     console.log('No benchmarks were found')
     return
   }
 
+  const baseSHA = await execa('git', ['rev-parse', 'HEAD'])
+
   const columnNames = ['Name', 'Current']
-  if (changedBenchmarks.some(b => b.baseline)) {
+  if (changedFiles.some(b => b.baseline)) {
     columnNames.push('Baseline', 'Change')
   }
 
@@ -34,27 +36,36 @@ async function main() {
   commentBody += `| ${columnNames.join(' | ')} |\n`
   commentBody += `| ${columnNames.map(name => '-'.repeat(name.length)).join(' | ')} |\n`
 
-  for (const { result, baseline } of changedBenchmarks) {
-    if (!baseline) {
-      addedBenchmarks.push(result)
+  for (const report of changedFiles) {
+    if (!report.baseline) {
+      addedFiles.push(report)
       continue
     }
 
-    const change = ((result.hz - baseline.hz) / baseline.hz) * 100
+    const { file, location, benchmark, baseline } = report
+    const benchURL =
+      `${prBlobURL}/${file}` + (location ? `#L${location.line}` : '')
+    const baselineURL = `https://github.com/radashi-org/radashi/blob/${baseSHA}/${file}`
+
+    const change = ((benchmark.hz - baseline.hz) / baseline.hz) * 100
     const columns = [
-      `${result.func}: ${result.name}`,
-      `${formatNumber(result.hz)} ops/sec ±${formatNumber(result.rme)}%`,
-      `${formatNumber(baseline.hz)} ops/sec ±${formatNumber(baseline.rme)}%`,
+      `[${benchmark.func} ▶︎ ${benchmark.name}](${benchURL})`,
+      `${formatNumber(benchmark.hz)} ops/sec ±${formatNumber(benchmark.rme)}%`,
+      `${formatNumber(baseline.hz)} ops/sec ±${formatNumber(baseline.rme)}% [🔗](${baselineURL})`,
       formatChange(change),
     ]
 
     commentBody += `| ${columns.join(' | ')} |\n`
   }
 
-  for (const result of addedBenchmarks) {
+  for (const report of addedFiles) {
+    const { file, location, benchmark } = report
+    const benchURL =
+      `${prBlobURL}/${file}` + (location ? `#L${location.line}` : '')
+
     const columns = [
-      `${result.func}: ${result.name}`,
-      `${formatNumber(result.hz)} ops/sec ±${formatNumber(result.rme)}%`,
+      `[${benchmark.func}: ${benchmark.name}](${benchURL})`,
+      `${formatNumber(benchmark.hz)} ops/sec ±${formatNumber(benchmark.rme)}%`,
     ]
 
     if (columnNames.length > 2) {
@@ -139,16 +150,14 @@ function parseArgv(argv: string[]) {
   process.env.SUPABASE_KEY = ''
   process.env.RADASHI_BOT_TOKEN = ''
 
-  const {
-    _: [baseRef, prNumber],
-  } = mri(argv)
-
-  if (!baseRef || Number.isNaN(+prNumber)) {
-    throw new Error('Invalid arguments')
+  const [baseRef, prNumber, prBlobURL] = argv
+  if (!baseRef || Number.isNaN(+prNumber) || !URL.canParse(prBlobURL)) {
+    throw new Error(`Invalid arguments: ${argv.join(' ')}`)
   }
 
   return {
     baseRef,
     prNumber: +prNumber,
+    prBlobURL,
   }
 }

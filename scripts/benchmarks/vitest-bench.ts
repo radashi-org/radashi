@@ -2,30 +2,33 @@
  * This script exists to avoid out-of-memory issues when running more
  * than only a couple benchmarks in CI. Ideally, we wouldn't need it.
  */
-import mri from 'mri'
 import { createVitest } from 'vitest/node'
-import { type Benchmark, reportToBenchmarkHandler } from './src/reporter.js'
+import {
+  type BenchmarkReport,
+  reportToBenchmarkHandler,
+} from './src/reporter.js'
 
 main()
 
 async function main() {
-  const results: Benchmark[] = []
+  const reports: BenchmarkReport[] = []
 
   const vitest = await createVitest('benchmark', {
     watch: false,
     pool: 'vmThreads',
+    includeTaskLocation: true,
     benchmark: {
       reporters: [
-        reportToBenchmarkHandler(benchmark => {
-          results.push(benchmark)
+        reportToBenchmarkHandler(report => {
+          reports.push(report)
         }),
       ],
     },
   })
 
-  const [file] = mri(process.argv.slice(2))._
+  const [file] = process.argv.slice(2)
   await vitest.start([file])
 
-  console.log(JSON.stringify(results))
+  console.log(JSON.stringify(reports))
   process.exit(0)
 }
