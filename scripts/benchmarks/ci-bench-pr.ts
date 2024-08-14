@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/rest'
 import mri from 'mri'
-import { benchAddedFiles } from './src/bench-added.js'
-import { benchChangedFiles } from './src/bench-changed.js'
+import { benchAddedFiles } from './src/benchAddedFiles.js'
+import { benchChangedFiles } from './src/benchChangedFiles.js'
 
 const octokit = new Octokit({
   auth: process.env.RADASHI_BOT_TOKEN,
@@ -13,7 +13,7 @@ async function main() {
   const { baseRef, prNumber } = parseArgv(process.argv.slice(2))
 
   // Run the benchmarks
-  const addedBenchmarks = await benchAddedFiles(baseRef)
+  const addedBenchmarks = await benchAddedFiles()
   const changedBenchmarks = await benchChangedFiles(baseRef)
 
   console.log('Added', addedBenchmarks)

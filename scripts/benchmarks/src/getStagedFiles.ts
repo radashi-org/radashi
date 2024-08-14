@@ -1,15 +1,11 @@
 import { execa } from 'execa'
 import { cluster } from 'radashi/array/cluster.js'
 
-export async function getChangedFiles(
-  targetBranch: string,
-  globs: [string, ...string[]],
-) {
+export async function getStagedFiles(globs: [string, ...string[]]) {
   const { stdout } = await execa('git', [
     'diff',
     '--name-status',
-    `origin/${targetBranch}`,
-    'HEAD',
+    '--staged',
     '--',
     ...globs,
   ])

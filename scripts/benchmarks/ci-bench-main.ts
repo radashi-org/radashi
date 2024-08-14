@@ -1,8 +1,8 @@
 import { execa } from 'execa'
 import { existsSync } from 'node:fs'
 import { supabase } from 'radashi-db/supabase.js'
-import { getChangedFiles } from './src/get-changed.js'
-import { injectBaseline } from './src/inject-baseline.js'
+import { getStagedFiles } from './src/getStagedFiles.js'
+import { injectBaseline } from './src/injectBaseline.js'
 import type { Benchmark } from './src/reporter.js'
 import { runVitest } from './src/runner.js'
 
@@ -38,7 +38,7 @@ async function main() {
 
   const benchmarks: Benchmark[] = []
 
-  const files = await getChangedFiles(lastBenchedSha, ['src/**/*.ts'])
+  const files = await getStagedFiles(lastBenchedSha, ['src/**/*.ts'])
 
   for (const file of files) {
     // Run benchmarks for modified or added source files in a function group

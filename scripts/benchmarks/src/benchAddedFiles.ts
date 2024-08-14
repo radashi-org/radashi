@@ -3,7 +3,7 @@
  * benchmarks for them.
  */
 import { existsSync } from 'node:fs'
-import { getChangedFiles } from './get-changed.js'
+import { getStagedFiles } from './getStagedFiles.js'
 import type { Benchmark } from './reporter.js'
 import { runVitest } from './runner.js'
 
@@ -11,8 +11,8 @@ import { runVitest } from './runner.js'
  * Given a target branch, run the benchmarks for any source files that have
  * been modified. It returns the results of the benchmarks.
  */
-export async function benchAddedFiles(targetBranch: string) {
-  const files = await getChangedFiles(targetBranch, ['src/**/*.ts'])
+export async function benchAddedFiles() {
+  const files = await getStagedFiles(['src/**/*.ts'])
 
   const benchmarks: Benchmark[] = []
 
