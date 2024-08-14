@@ -1,19 +1,35 @@
+import * as esbuild from 'esbuild'
 import { execa } from 'execa'
 import fs from 'node:fs/promises'
 import { Project, SyntaxKind } from 'ts-morph'
 import { dedent } from './dedent'
 
-export async function injectBaseline(
+export async function compareToBaseline(
   baseRef: string,
   srcPath: string,
   benchPath: string,
 ) {
-  const baselineFile = await execa('git', [
-    'show',
-    `${baseRef}:${srcPath}`,
-  ]).then(result => result.stdout)
+  const baseCode = await execa('git', ['show', `${baseRef}:${srcPath}`]).then(
+    result => result.stdout,
+  )
 
-  await fs.writeFile('benchmarks/baseline.ts', baselineFile)
+  const basePath = 'benchmarks/baseline.ts'
+  await fs.writeFile(basePath, baseCode)
+
+  const [headBundle, baseBundle] = await Promise.all([
+    bundleFile(srcPath),
+    bundleFile(basePath),
+  ])
+
+  if (headBundle === baseBundle) {
+    return false
+  }
+
+  console.log('-------- HEAD ---------')
+  console.log(headBundle)
+  console.log('-------- BASE ---------')
+  console.log(baseBundle)
+  console.log('-----------------------')
 
   const project = new Project()
   const benchFile = project.addSourceFileAtPath(benchPath)
@@ -44,4 +60,15 @@ export async function injectBaseline(
   }
 
   await fs.writeFile(benchPath, benchFile.getFullText())
+  return true
+}
+
+async function bundleFile(file: string) {
+  const result = await esbuild.build({
+    entryPoints: [file],
+    bundle: true,
+    minify: true,
+    write: false,
+  })
+  return result.outputFiles[0].contents.toString('utf-8')
 }

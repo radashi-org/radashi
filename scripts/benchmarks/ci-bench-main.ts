@@ -1,8 +1,8 @@
 import { execa } from 'execa'
 import { existsSync } from 'node:fs'
 import { supabase } from 'radashi-db/supabase.js'
+import { compareToBaseline } from './src/compareToBaseline.js'
 import { getStagedFiles } from './src/getStagedFiles.js'
-import { injectBaseline } from './src/injectBaseline.js'
 import type { Benchmark } from './src/reporter.js'
 import { runVitest } from './src/runner.js'
 
@@ -52,7 +52,14 @@ async function main() {
 
       if (existsSync(benchFile)) {
         if (file.status === 'M') {
-          await injectBaseline(lastBenchedSha, file.name, benchFile)
+          const changed = await compareToBaseline(
+            lastBenchedSha,
+            file.name,
+            benchFile,
+          )
+          if (!changed) {
+            continue
+          }
         }
         await runVitest(benchFile)
       }
