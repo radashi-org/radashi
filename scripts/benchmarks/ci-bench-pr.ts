@@ -24,7 +24,7 @@ async function main() {
     return
   }
 
-  const baseSHA = await execa('git', ['rev-parse', 'HEAD'])
+  const baseSHA = await execa('git', ['rev-parse', 'HEAD']).then(r => r.stdout)
 
   const columnNames = ['Name', 'Current']
   if (changedFiles.some(b => b.baseline)) {
