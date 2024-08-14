@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-if [ ! -d "scripts/release-notes/node_modules" ]; then
+if [ ! -d "scripts/bundle-impact/node_modules" ]; then
   echo "Node modules not found. Installing dependencies..."
-  pnpm install -C scripts/release-notes
+  pnpm install -C scripts/bundle-impact
 fi
 
 pnpm -s scripts/bundle-impact/node_modules/.bin/tsx -e "
