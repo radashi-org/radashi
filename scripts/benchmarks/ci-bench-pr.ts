@@ -43,15 +43,19 @@ async function main() {
     }
 
     const { file, location, benchmark, baseline } = report
-    const benchURL =
+
+    const benchBlobURL =
       `${prBlobURL}/${file}` + (location ? `#L${location.line}` : '')
-    const baselineURL = `https://github.com/radashi-org/radashi/blob/${baseSHA}/${file}`
+
+    const srcFile = file
+      .replace('benchmarks', 'src')
+      .replace(/\.bench\.ts$/, '.ts')
 
     const change = ((benchmark.hz - baseline.hz) / baseline.hz) * 100
     const columns = [
-      `[${benchmark.func} ▶︎ ${benchmark.name}](${benchURL})`,
+      `[${benchmark.func} ▶︎ ${benchmark.name}](${benchBlobURL})`,
       `${formatNumber(benchmark.hz)} ops/sec ±${formatNumber(benchmark.rme)}%`,
-      `${formatNumber(baseline.hz)} ops/sec ±${formatNumber(baseline.rme)}% [🔗](${baselineURL})`,
+      `${formatNumber(baseline.hz)} ops/sec ±${formatNumber(baseline.rme)}% [🔗](https://github.com/radashi-org/radashi/blob/${baseSHA}/${srcFile})`,
       formatChange(change),
     ]
 
@@ -74,6 +78,9 @@ async function main() {
 
     commentBody += `| ${columns.join(' | ')} |\n`
   }
+
+  commentBody +=
+    "\n*Generally speaking, any regression ≥20% should be investigated if it wasn't to be expected.*"
 
   // Find and update the existing benchmark comment if it exists, or create a new one
   try {
