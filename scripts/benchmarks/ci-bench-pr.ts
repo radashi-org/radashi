@@ -30,9 +30,9 @@ async function main() {
   }
 
   // Create the comment body
-  let comment = '## Benchmark Results\n\n'
-  comment += `| ${columnNames.join(' | ')} |\n`
-  comment += `| ${columnNames.map(name => '-'.repeat(name.length)).join(' | ')} |\n`
+  let commentBody = '## Benchmark Results\n\n'
+  commentBody += `| ${columnNames.join(' | ')} |\n`
+  commentBody += `| ${columnNames.map(name => '-'.repeat(name.length)).join(' | ')} |\n`
 
   for (const { result, baseline } of changedBenchmarks) {
     if (!baseline) {
@@ -48,7 +48,7 @@ async function main() {
       formatChange(change),
     ]
 
-    comment += `| ${columns.join(' | ')} |\n`
+    commentBody += `| ${columns.join(' | ')} |\n`
   }
 
   for (const result of addedBenchmarks) {
@@ -61,10 +61,10 @@ async function main() {
       columns.push('', '')
     }
 
-    comment += `| ${columns.join(' | ')} |\n`
+    commentBody += `| ${columns.join(' | ')} |\n`
   }
 
-  // Delete the previous benchmark comment if it exists
+  // Find and update the existing benchmark comment if it exists, or create a new one
   try {
     const { data: comments } = await octokit.rest.issues.listComments({
       owner: 'radashi-org',
@@ -73,42 +73,37 @@ async function main() {
       per_page: 100,
     })
 
-    const benchmarkComment = comments.find(
+    const existingComment = comments.find(
       comment =>
         comment.body?.startsWith('## Benchmark Results') &&
         comment.user?.login === 'radashi-bot',
     )
 
-    if (benchmarkComment) {
-      await octokit.rest.issues.deleteComment({
+    if (existingComment) {
+      await octokit.rest.issues.updateComment({
         owner: 'radashi-org',
         repo: 'radashi',
-        comment_id: benchmarkComment.id,
+        comment_id: existingComment.id,
+        body: commentBody,
       })
-      console.log('Successfully deleted previous benchmark comment.')
+      console.log(
+        'Successfully updated existing benchmark comment:',
+        existingComment.html_url,
+      )
+    } else {
+      const { data: newComment } = await octokit.rest.issues.createComment({
+        owner: 'radashi-org',
+        repo: 'radashi',
+        issue_number: prNumber,
+        body: commentBody,
+      })
+      console.log(
+        'Successfully created new benchmark comment:',
+        newComment.html_url,
+      )
     }
-  } catch (error) {
-    console.error('Error deleting previous benchmark comment:', error)
-  }
-
-  // Create a comment in the PR with the benchmark results
-  try {
-    const { data: pullRequest } = await octokit.rest.pulls.get({
-      owner: 'radashi-org',
-      repo: 'radashi',
-      pull_number: prNumber,
-    })
-
-    await octokit.rest.issues.createComment({
-      owner: 'radashi-org',
-      repo: 'radashi',
-      issue_number: pullRequest.number,
-      body: comment,
-    })
-
-    console.log('Successfully posted benchmark results as a comment.')
   } catch (error: any) {
-    error.message = `Failed to create comment in PR: ${error.message}`
+    error.message = `Failed to update or create comment in PR: ${error.message}`
     throw error
   }
 }
