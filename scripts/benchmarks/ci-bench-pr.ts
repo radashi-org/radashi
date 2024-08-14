@@ -73,13 +73,14 @@ async function main() {
       per_page: 100,
     })
 
-    const existingComment = comments.find(
+    const existingCommentIndex = comments.findIndex(
       comment =>
         comment.body?.startsWith('## Benchmark Results') &&
         comment.user?.login === 'radashi-bot',
     )
 
-    if (existingComment) {
+    if (existingCommentIndex === comments.length - 1) {
+      const existingComment = comments[existingCommentIndex]
       await octokit.rest.issues.updateComment({
         owner: 'radashi-org',
         repo: 'radashi',
@@ -91,6 +92,16 @@ async function main() {
         existingComment.html_url,
       )
     } else {
+      // If the existing comment is not the last one, replace it with a new one.
+      if (existingCommentIndex !== -1) {
+        const existingComment = comments[existingCommentIndex]
+        await octokit.rest.issues.deleteComment({
+          owner: 'radashi-org',
+          repo: 'radashi',
+          comment_id: existingComment.id,
+        })
+      }
+
       const { data: newComment } = await octokit.rest.issues.createComment({
         owner: 'radashi-org',
         repo: 'radashi',
