@@ -38,7 +38,7 @@ async function main() {
 
   const benchmarks: Benchmark[] = []
 
-  const files = await getStagedFiles(lastBenchedSha, ['src/**/*.ts'])
+  const files = await getStagedFiles(['src/**/*.ts'], lastBenchedSha)
 
   for (const file of files) {
     // Run benchmarks for modified or added source files in a function group
