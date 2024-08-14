@@ -3,6 +3,7 @@
   "type": "module",
   "dependencies": {
     "@octokit/rest": "^21.0.1",
+    "esbuild": "^0.23.0",
     "execa": "^9.3.0",
     "radashi": "link:../../src",
     "tsx": "^4.17.0"

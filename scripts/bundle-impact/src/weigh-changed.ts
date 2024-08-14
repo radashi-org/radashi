@@ -1,5 +1,5 @@
+import * as esbuild from 'esbuild'
 import { execa } from 'execa'
-import readline from 'node:readline/promises'
 import { cluster } from 'radashi/array/cluster.js'
 import { select } from 'radashi/array/select.js'
 import { map } from 'radashi/async/map.js'
@@ -14,8 +14,6 @@ export async function weighChangedFunctions(opts: { verbose?: boolean } = {}) {
   if (opts.verbose) {
     console.log('changedFiles == %O', changedFiles)
   }
-
-  await ensureEsbuildInstalled()
 
   const prevSizes = await getPreviousSizes(changedFiles, targetBranch)
   if (opts.verbose) {
@@ -121,35 +119,6 @@ async function getChangedFiles(targetBranch: string) {
   )
 }
 
-async function installEsbuild(): Promise<void> {
-  if (!process.env.CI) {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    })
-
-    const answer = await rl.question(
-      'Install esbuild to pnpm global store? (Y/n) ',
-    )
-
-    rl.close()
-
-    if (answer.toLowerCase() === 'n') {
-      process.exit(1)
-    }
-  }
-
-  await execa('pnpm', ['install', '-g', 'esbuild'])
-}
-
-async function ensureEsbuildInstalled(): Promise<void> {
-  try {
-    await execa('which', ['esbuild'])
-  } catch {
-    await installEsbuild()
-  }
-}
-
 async function getPreviousSizes(
   changedFiles: { status: string; name: string }[],
   targetBranch: string,
@@ -166,12 +135,14 @@ async function getPreviousSizes(
       if (status === 'A') {
         prevSizes.push(0)
       } else {
-        const { stdout } = await execa('esbuild', [
-          '--bundle',
-          '--minify',
-          name,
-        ])
-        prevSizes.push(stdout.length)
+        const result = await esbuild.build({
+          entryPoints: [name],
+          bundle: true,
+          minify: true,
+          write: false,
+        })
+        const output = result.outputFiles[0].contents
+        prevSizes.push(output.length)
       }
     }
 
@@ -185,6 +156,12 @@ async function getFileSize(file: string, status: string): Promise<number> {
   if (status === 'D') {
     return 0
   }
-  const { stdout } = await execa('esbuild', ['--bundle', '--minify', file])
-  return stdout.length
+  const result = await esbuild.build({
+    entryPoints: [file],
+    bundle: true,
+    minify: true,
+    write: false,
+  })
+  const output = result.outputFiles[0].contents
+  return output.length
 }
