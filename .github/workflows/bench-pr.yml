@@ -1,16 +1,19 @@
-name: Bundle Impact
+name: Benchmark Pull Request
 
 on:
   pull_request_target:
     branches: [main, next]
-    types: [opened, synchronize]
+    paths:
+      - 'src/**/*.ts'
 
 jobs:
-  bundle-impact:
-    name: Calculate Bundle Impact
+  benchmark:
+    name: Run Benchmarks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Checkout Pull Request
         id: checkout
@@ -18,9 +21,7 @@ jobs:
           PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
           PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          git remote add pr $PR_REPO_URL
-          git fetch pr "$PR_HEAD_REF"
-          git checkout "pr/$PR_HEAD_REF" -- src
+          bash scripts/checkout-pr.sh src benchmarks
 
           if [ -z "$(git status --porcelain)" ]; then
             echo '::set-output name=has_changes::false'
@@ -41,12 +42,16 @@ jobs:
       - name: Install dependencies
         if: steps.checkout.outputs.has_changes == 'true'
         run: |
-          pnpm install -C scripts/bundle-impact
+          # Only install Vitest for the root directory.
+          echo '{"type":"module","dependencies":{"vitest":"2.0.5"}}' > package.json
+          pnpm install --no-frozen-lockfile
+          pnpm install -C scripts/benchmarks
+          pnpm install -C scripts/radashi-db
 
-      - name: Run Bundle Impact
+      - name: Run benchmarks
         if: steps.checkout.outputs.has_changes == 'true'
         env:
           RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
-          TARGET_BRANCH: ${{ github.base_ref }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
-          ./scripts/bundle-impact/node_modules/.bin/tsx ./scripts/bundle-impact/pr-bundle-impact.ts ${{ github.event.number }}
+          ./scripts/benchmarks/node_modules/.bin/tsx ./scripts/benchmarks/ci-bench-pr.ts ${{ github.base_ref }} ${{ github.event.number }} ${{ github.event.pull_request.head.repo.html_url }}/blob/${{ github.event.pull_request.head.sha }}

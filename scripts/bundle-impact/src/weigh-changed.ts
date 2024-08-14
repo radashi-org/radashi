@@ -1,14 +1,24 @@
+import * as esbuild from 'esbuild'
 import { execa } from 'execa'
-import * as readline from 'node:readline/promises'
-import { cluster, map, select } from 'radashi'
+import { cluster } from 'radashi/array/cluster.js'
+import { select } from 'radashi/array/select.js'
+import { map } from 'radashi/async/map.js'
 
-export async function weighChangedFunctions() {
+export async function weighChangedFunctions(opts: { verbose?: boolean } = {}) {
   const targetBranch = await getTargetBranch()
-  const changedFiles = await getChangedFiles(targetBranch)
+  if (opts.verbose) {
+    console.log('targetBranch == %O', targetBranch)
+  }
 
-  await ensureEsbuildInstalled()
+  const changedFiles = await getChangedFiles(targetBranch)
+  if (opts.verbose) {
+    console.log('changedFiles == %O', changedFiles)
+  }
 
   const prevSizes = await getPreviousSizes(changedFiles, targetBranch)
+  if (opts.verbose) {
+    console.log('prevSizes == %O', prevSizes)
+  }
 
   const columnCount = prevSizes.some(size => size !== 0) ? 3 : 2
 
@@ -90,11 +100,13 @@ async function getTargetBranch(): Promise<string> {
 }
 
 async function getChangedFiles(targetBranch: string) {
+  // When run by CI, the PR changes have been checked out and will be
+  // staged. When run via the `pnpm bundle-impact` command, we need to
+  // diff the current branch against the target branch.
   const { stdout } = await execa('git', [
     'diff',
     '--name-status',
-    `origin/${targetBranch}`,
-    'HEAD',
+    ...(process.env.CI ? ['--staged'] : [`origin/${targetBranch}`, 'HEAD']),
     '--',
     'src/**/*.ts',
   ])
@@ -107,35 +119,6 @@ async function getChangedFiles(targetBranch: string) {
   )
 }
 
-async function installEsbuild(): Promise<void> {
-  if (!process.env.CI) {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    })
-
-    const answer = await rl.question(
-      'Install esbuild to pnpm global store? (Y/n) ',
-    )
-
-    rl.close()
-
-    if (answer.toLowerCase() === 'n') {
-      process.exit(1)
-    }
-  }
-
-  await execa('pnpm', ['install', '-g', 'esbuild'])
-}
-
-async function ensureEsbuildInstalled(): Promise<void> {
-  try {
-    await execa('which', ['esbuild'])
-  } catch {
-    await installEsbuild()
-  }
-}
-
 async function getPreviousSizes(
   changedFiles: { status: string; name: string }[],
   targetBranch: string,
@@ -146,22 +129,24 @@ async function getPreviousSizes(
     process.env.CI ||
     (await execa('git', ['status', '-s'])).stdout.trim() === ''
   ) {
-    await execa('git', ['checkout', targetBranch])
+    await execa('git', process.env.CI ? ['stash'] : ['checkout', targetBranch])
 
     for (const { status, name } of changedFiles) {
       if (status === 'A') {
         prevSizes.push(0)
       } else {
-        const { stdout } = await execa('esbuild', [
-          '--bundle',
-          '--minify',
-          name,
-        ])
-        prevSizes.push(stdout.length)
+        const result = await esbuild.build({
+          entryPoints: [name],
+          bundle: true,
+          minify: true,
+          write: false,
+        })
+        const output = result.outputFiles[0].contents
+        prevSizes.push(output.length)
       }
     }
 
-    await execa('git', ['checkout', '-'])
+    await execa('git', process.env.CI ? ['stash', 'pop'] : ['checkout', '-'])
   }
 
   return prevSizes
@@ -171,6 +156,12 @@ async function getFileSize(file: string, status: string): Promise<number> {
   if (status === 'D') {
     return 0
   }
-  const { stdout } = await execa('esbuild', ['--bundle', '--minify', file])
-  return stdout.length
+  const result = await esbuild.build({
+    entryPoints: [file],
+    bundle: true,
+    minify: true,
+    write: false,
+  })
+  const output = result.outputFiles[0].contents
+  return output.length
 }

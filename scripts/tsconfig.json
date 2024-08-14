@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "allowImportingTsExtensions": true,
     "moduleResolution": "node",
-    "outDir": "./dist/tmp",
     "noEmitOnError": true,
     "declaration": true,
     "emitDeclarationOnly": true,

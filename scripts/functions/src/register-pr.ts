@@ -1,6 +1,7 @@
 import path from 'node:path'
-import { memo } from 'radashi'
-import { algolia, supabase } from './db'
+import { algolia } from 'radashi-db/algolia'
+import { supabase, type TablesInsert } from 'radashi-db/supabase'
+import { memo } from 'radashi/curry/memo.js'
 import { renderPageMarkdown } from './util/markdown'
 
 type PrFileStatus =
@@ -218,7 +219,7 @@ export const registerPullRequest = async (
 
       const commit = await getCommit(context.sha, context.owner, context.repo)
 
-      const record = {
+      const record: TablesInsert<'proposed_functions'> = {
         ref: `${context.owner ?? 'radashi-org'}/${context.repo ?? 'radashi'}#${context.branch ?? 'main'}`,
         group: file.filename.split('/').slice(1, -1).join('/'),
         name,
