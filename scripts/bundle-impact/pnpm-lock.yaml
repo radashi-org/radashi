@@ -14,9 +14,6 @@ importers:
       execa:
         specifier: ^9.3.0
         version: 9.3.0
-      mri:
-        specifier: ^1.2.0
-        version: 1.2.0
       radashi:
         specifier: link:../../src
         version: link:../../src
@@ -279,10 +276,6 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
-
-  mri@1.2.0:
-    resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
-    engines: {node: '>=4'}
 
   npm-run-path@5.3.0:
     resolution: {integrity: sha512-ppwTtiJZq0O/ai0z7yfudtBpWIoxM8yE6nHi1X47eFR2EWORqfbu6CnPlNsjeN683eT0qG6H/Pyf9fCcvjnnnQ==}
@@ -554,8 +547,6 @@ snapshots:
   is-unicode-supported@2.0.0: {}
 
   isexe@2.0.0: {}
-
-  mri@1.2.0: {}
 
   npm-run-path@5.3.0:
     dependencies:

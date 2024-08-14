@@ -4,7 +4,6 @@
   "dependencies": {
     "@octokit/rest": "^21.0.1",
     "execa": "^9.3.0",
-    "mri": "^1.2.0",
     "radashi": "link:../../src",
     "tsx": "^4.17.0"
   }

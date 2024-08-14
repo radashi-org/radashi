@@ -1,5 +1,4 @@
 import { Octokit } from '@octokit/rest'
-import mri from 'mri'
 import { weighChangedFunctions } from './src/weigh-changed'
 
 const octokit = new Octokit({
@@ -55,10 +54,7 @@ function parseArgv(argv: string[]) {
     throw new Error('TARGET_BRANCH is required')
   }
 
-  const {
-    _: [prNumber],
-  } = mri(argv)
-
+  const [prNumber] = argv
   if (!Number.isInteger(+prNumber)) {
     throw new Error('PR number is required')
   }
