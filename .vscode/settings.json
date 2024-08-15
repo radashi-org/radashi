@@ -30,5 +30,6 @@
   },
   "[shellscript]": {
     "rewrap.wrappingColumn": 70
-  }
+  },
+  "github-actions.workflows.pinned.workflows": []
 }
