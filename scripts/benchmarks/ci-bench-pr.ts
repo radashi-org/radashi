@@ -97,7 +97,10 @@ async function main() {
         comment.user?.login === 'radashi-bot',
     )
 
-    if (existingCommentIndex === comments.length - 1) {
+    if (
+      existingCommentIndex !== -1 &&
+      existingCommentIndex === comments.length - 1
+    ) {
       const existingComment = comments[existingCommentIndex]
       await octokit.rest.issues.updateComment({
         owner: 'radashi-org',
