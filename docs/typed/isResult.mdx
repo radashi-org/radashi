@@ -1,0 +1,72 @@
+---
+title: isResult
+description: Check if a value is a Result tuple
+---
+
+### Usage
+
+Check if a value is a `Result` tuple.
+
+**Don't know what that is?** Read the [Result](#result) section further down.
+
+```ts
+import * as _ from 'radashi'
+
+_.isResult([undefined, 42]) // => true
+_.isResult([new Error(), undefined]) // => true
+
+// Result tuples cannot have both a value and an error, or neither.
+_.isResult([undefined, undefined]) // => false
+_.isResult([new Error(), true]) // => false
+
+// Tuple must be of length 2.
+_.isResult([new Error()]) // => false
+_.isResult([undefined, true, undefined]) // => false
+
+// Non-tuple values are false.
+_.isResult([]) // => false
+_.isResult({}) // => false
+_.isResult(null) // => false
+```
+
+Also see the related [isResultOk](/typed/isResultOk) and [isResultErr](/typed/isResultErr) functions.
+
+## Types In-Depth
+
+### Result
+
+“Results” are tuples of 2 elements (an **error** and a **result value**).
+
+- The first element is always the **error**, or `undefined` if the operation was successful.
+- The second element is always the **result value**, or `undefined` if the operation failed.
+- These tuples are represented by the `Result<TResult, TError>` type.
+- A default error type of `Error` is used when no error type is explicitly defined (e.g. `Result<string>`).
+- The default error type is _not_ `unknown` because we assume you're following best practices and so you avoid throwing anything but `Error` objects.
+- You're free to define the error type to be anything (like `Result<string, Error | number>`), not just `Error` types.
+
+### Ok and Err
+
+There are 2 types of result: `Ok<TResult>` and `Err<TError>`.
+
+- The `Ok` type represents a successful operation. It's a tuple of `[undefined, TResult]`.
+- The `Err` type represents a failed operation. It's a tuple of `[TError, undefined]`.
+
+The names "Ok" and "Err" are inspired by Rust's `std::result` module.
+
+To check for an `Ok` result, do this:
+
+```ts
+if (isResult(value) && value[0] == null) {
+  value // <-- now an Ok<unknown> type
+  value[1] // <-- This is the resulting value!
+}
+```
+
+To check for an `Err` result, do this:
+
+```ts
+if (isResult(value) && value[0] != null) {
+  value // <-- now an Err<Error> type
+  value[0] // <-- This is the error!
+}
+```
