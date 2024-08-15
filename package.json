@@ -52,6 +52,7 @@
     "@biomejs/biome": "^1.8.3",
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/types": "^19.0.3",
     "@typescript-eslint/parser": "^7.16.1",
     "@vitest/coverage-v8": "2.0.3",
     "concurrently": "^8.2.2",
