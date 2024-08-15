@@ -80,7 +80,7 @@ async function main() {
   }
 
   commentBody +=
-    "\n*Generally speaking, any regression ≥20% should be investigated if it wasn't to be expected.*"
+    "\n*Performance regressions of 30% or more should be investigated, unless they were anticipated. Smaller regressions may be due to normal variability, as we don't use dedicated CI infrastructure.*"
 
   // Find and update the existing benchmark comment if it exists, or create a new one
   try {
