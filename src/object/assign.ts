@@ -113,7 +113,7 @@ type AtomicValue = BuiltInType | CustomClass | BoxedPrimitive
  * unmergeable and `{ n: number }` as mergeable.
  */
 type AssignDeep<TInitial, TOverride, IsOptional = false> =
-  | never // <-- ignore me!
+  | never // ← Fixes auto-formatting of the comment below.
   /**
    * When a native type is found in TInitial, it will only exist in
    * the result type if the override is optional.
