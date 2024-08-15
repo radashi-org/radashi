@@ -37,7 +37,19 @@ export type DebounceFunction<TArgs extends any[]> = {
  * ```
  */
 export function debounce<TArgs extends any[]>(
-  { delay }: { delay: number },
+  {
+    delay,
+    leading = false,
+  }: {
+    delay: number
+    /**
+     * Decides whether the source function is called on the first
+     * invocation of the throttle function or not
+     *
+     * @default false
+     */
+    leading?: boolean
+  },
   func: (...args: TArgs) => any,
 ): DebounceFunction<TArgs> {
   let timer: unknown = undefined
@@ -50,6 +62,10 @@ export function debounce<TArgs extends any[]>(
         active && func(...args)
         timer = undefined
       }, delay)
+      if (leading) {
+        func(...args)
+        leading = false
+      }
     } else {
       func(...args)
     }
