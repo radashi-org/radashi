@@ -6,3 +6,4 @@ set -e
 git remote add pr $PR_REPO_URL
 git fetch pr "$PR_HEAD_REF"
 git checkout "pr/$PR_HEAD_REF" -- $@
+git diff --name-status --staged
