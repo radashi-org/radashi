@@ -1,69 +1,88 @@
 ---
 title: debounce
-description: Create a debounced callback function
+description: Delay a function until after a specified time has elapsed since the last call
 ---
 
 ### Usage
 
-Debounce accepts an options object with a `delay` and a source function to call
-when invoked. When the returned function is invoked it will only call the source
-function after the `delay` milliseconds of time has passed. Calls that don't result
-in invoking the source reset the delay, pushing off the next invocation.
+The `debounce` function helps manage frequent function calls efficiently. It requires two inputs: a `delay` time (in milliseconds) and a callback. When you use the function returned by `debounce` (a.k.a. the “debounced function”), it doesn't immediately run your callback. Instead, it waits for the specified `delay`.
+
+If called again during this waiting period, it resets the timer. Your source function only runs after the full `delay` passes without interruption. This is useful for handling rapid events like keystrokes, ensuring your code responds only after a pause in activity.
 
 ```ts
 import * as _ from 'radashi'
 
-const makeSearchRequest = event => {
-  api.movies.search(event.target.value)
-}
-
-input.addEventListener('change', _.debounce({ delay: 100 }, makeSearchRequest))
+// Send a search request to the API server when the user stops typing
+// for at least 100ms.
+input.addEventListener(
+  'change',
+  _.debounce({ delay: 100 }, (event: InputEvent) => {
+    api.movies.search(event.target.value)
+  }),
+)
 ```
 
-### Timing
+## Options
 
-A visual of the debounce behavior when `delay` is `100`. The debounce function
-returned by `debounce` can be called every millisecond but it will only call
-the given callback after `delay` milliseconds have passed.
+### leading
 
-```sh
-Time: 0ms - - - - 100ms - - - - 200ms - - - - 300ms - - - - 400ms - - - -
-debounce Invocations: x x x x - - - - - - - - x x x x x x x x x x - - - - - - - - - - - -
-Source Invocations: - - - - - - - - - - x - - - - - - - - - - - - - - - - - x - - - - -
-```
-
-### Cancel
-
-The function returned by `debounce` has a `cancel` method that when called will permanently stop the source function from being debounced.
+When the `leading` option is `true`, your callback is invoked immediately the very first time the debounced function is called. After that, the debounced function works as if `leading` was `false`.
 
 ```ts
-const debounced = _.debounce({ delay: 100 }, api.feed.refresh)
+const myDebouncedFunc = _.debounce({ delay: 100, leading: true }, x => {
+  console.log(x)
+})
 
-// ... sometime later
-
-debounced.cancel()
+myDebouncedFunc(0) // Logs "0" immediately
+myDebouncedFunc(1) // Never logs
+myDebouncedFunc(2) // Logs "2" about 100ms later
 ```
 
-### Flush
+## Methods
 
-The function returned by `debounce` has a `flush` method that when called will directly invoke the source function.
+### cancel
+
+The `cancel` method of the debounced function does two things:
+
+1. It cancels any pending invocations of the debounced function.
+2. It permanently disables the debouncing behavior. All future invocations of the debounced function will immediately invoke your callback.
 
 ```ts
-const debounced = _.debounce({ delay: 100 }, api.feed.refresh)
+const myDebouncedFunc = _.debounce({ delay: 100 }, x => {
+  console.log(x)
+})
 
-// ... sometime later
+myDebouncedFunc(0) // Never logs
+myDebouncedFunc(1) // Never logs
+myDebouncedFunc.cancel()
+myDebouncedFunc(2) // Logs "2" immediately
+```
 
-debounced.flush(event)
+### flush
+
+The `flush` method will immediately invoke your callback, regardless of whether the debounced function is currently pending.
+
+```ts
+const myDebouncedFunc = _.debounce({ delay: 100 }, x => {
+  console.log(x)
+})
+
+myDebouncedFunc(0) // Logs "0" about 100ms later
+myDebouncedFunc.flush(1) // Logs "1" immediately
 ```
 
 ### isPending
 
-The function returned by `debounce` has a `isPending` method that when called will return if there is any pending invocation the source function.
+The `isPending` method returns `true` if there is any pending invocation of the debounced function.
 
 ```ts
-const debounced = _.debounce({ delay: 100 }, api.feed.refresh)
+const myDebouncedFunc = _.debounce({ delay: 100 }, x => {
+  console.log(x)
+})
 
-// ... sometime later
-
-debounced.isPending()
+myDebouncedFunc(0) // Logs "0" about 100ms later
+myDebouncedFunc.isPending() // => true
+setTimeout(() => {
+  myDebouncedFunc.isPending() // => false
+}, 100)
 ```

@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "algoliasearch": "^4.24.0",
+    "supabase": "^1.187.10"
+  }
+}

@@ -44,4 +44,13 @@ describe('toggle', () => {
 
     expect(_.toggle([1, 2], null)).toEqual([1, 2, null])
   })
+  test('should use idx=-1 for item', () => {
+    const toKey = vi.fn(v => v)
+
+    expect(_.toggle(['a', 'b'], 'c', toKey)).toEqual(['a', 'b', 'c'])
+
+    expect(toKey).toBeCalledWith('c', -1)
+    expect(toKey).toBeCalledWith('a', 0)
+    expect(toKey).toBeCalledWith('b', 1)
+  })
 })

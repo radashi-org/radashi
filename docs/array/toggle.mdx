@@ -16,7 +16,7 @@ _.toggle(gods, 'ra') // => ['zeus', 'loki']
 _.toggle(gods, 'vishnu') // => ['ra', 'zeus', 'loki', 'vishnu']
 ```
 
-### toggle(list, item, identity)
+### toggle(list, item, toKey)
 
 You can pass an optional `toKey` function to determine the identity of non-primitive values. Helpful when working with more complex data types.
 
@@ -34,7 +34,7 @@ _.toggle(gods, ra, g => g.name) // => [zeus, loki]
 _.toggle(gods, vishnu, g => g.name) // => [ra, zeus, loki, vishnu]
 ```
 
-### toggle(list, item, identity, options)
+### toggle(list, item, toKey, options)
 
 By default, toggle will append the item if it does not exist. If you need to prepend the item instead you can override the `strategy` in the options argument.
 

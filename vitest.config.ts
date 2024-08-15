@@ -1,12 +1,15 @@
-import codspeed from '@codspeed/vitest-plugin'
 import { defineConfig } from 'vitest/config'
 
 const resolve = (specifier: string) =>
   new URL(import.meta.resolve(specifier)).pathname
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig({
   test: {
     globals: true,
+    include: ['tests/**/*.test.ts'],
+    benchmark: {
+      include: ['benchmarks/**/*.bench.ts'],
+    },
     coverage: {
       thresholds: { 100: true },
       include: ['src/**'],
@@ -17,5 +20,4 @@ export default defineConfig(({ mode }) => ({
       radashi: resolve('./src/mod.js'),
     },
   },
-  plugins: [mode === 'benchmark' && process.env.CI ? codspeed() : []],
-}))
+})
