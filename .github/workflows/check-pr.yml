@@ -29,6 +29,6 @@ jobs:
       - name: Check PR Title
         run: echo "$PR_TITLE" | pnpm -s dlx commitlint@19.x
 
-      - name: Validate PR commits with commitlint
+      - name: Validate PR commits
         if: github.event_name == 'pull_request'
         run: pnpm -s dlx commitlint@19.x --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
