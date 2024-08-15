@@ -70,5 +70,5 @@ async function bundleFile(file: string) {
     minify: true,
     write: false,
   })
-  return result.outputFiles[0].contents.toString('utf-8')
+  return Buffer.from(result.outputFiles[0].contents).toString('utf-8')
 }
