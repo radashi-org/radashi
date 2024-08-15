@@ -42,11 +42,11 @@
     "lint:jsr": "pnpm -s dlx deno-bin@1.44.4 lint",
     "lint:tsc": "concurrently -c=auto -g --kill-others-on-fail --names src,tests,benchmarks 'tsc' 'tsc -p tests' 'tsc -p benchmarks'",
     "move-function": "bash ./scripts/move-function.sh",
+    "prepare": "husky",
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
     "test": "vitest run --coverage",
     "test-branch": "bash ./scripts/test-branch.sh",
-    "test-single": "bash ./scripts/test-single.sh",
-    "prepare": "husky"
+    "test-single": "bash ./scripts/test-single.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",

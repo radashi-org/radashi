@@ -1,6 +1,6 @@
 {
-  "private": true,
   "type": "module",
+  "private": true,
   "dependencies": {
     "@octokit/rest": "^21.0.1",
     "esbuild": "^0.23.0",
