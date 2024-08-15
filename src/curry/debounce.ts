@@ -4,40 +4,54 @@ declare const clearTimeout: (timer: unknown) => void
 export type DebounceFunction<TArgs extends any[]> = {
   (...args: TArgs): void
   /**
-   * Cancels the debounced function
+   * When called, future invocations of the debounced function are
+   * no longer delayed and are instead executed immediately.
    */
   cancel(): void
   /**
-   * Checks if there is any invocation debounced
+   * Returns `true` if the underlying function is scheduled to be
+   * called once the delay has passed.
    */
   isPending(): boolean
   /**
-   * Runs the debounced function immediately
+   * Invoke the underlying function immediately.
    */
   flush(...args: TArgs): void
 }
 
+export interface DebounceOptions {
+  delay: number
+  /**
+   * When true, your callback is invoked immediately the very first
+   * time the debounced function is called. After that, the debounced
+   * function works as if `leading` was `false`.
+   *
+   * @default false
+   */
+  leading?: boolean
+}
+
 /**
- * Given a delay and a function returns a new function that will only
- * call the source function after delay milliseconds have passed
- * without any invocations.
+ * Returns a new function that will only call your callback after
+ * `delay` milliseconds have passed without any invocations.
  *
- * The debounce function comes with a `cancel` method to cancel
- * delayed `func` invocations and a `flush` method to invoke them
- * immediately.
+ * The debounced function has a few methods, such as `cancel`,
+ * `isPending`, and `flush`.
  *
  * @see https://radashi-org.github.io/reference/curry/debounce
  * @example
  * ```ts
- * const myDebouncedFunc = debounce({ delay: 1000 }, (x) => console.log(x))
+ * const myDebouncedFunc = debounce({ delay: 1000 }, (x) => {
+ *   console.log(x)
+ * })
  *
- * myDebouncedFunc(0)
- * myDebouncedFunc(1)
- * // Logs 1, but not 0
+ * myDebouncedFunc(0) // Nothing happens
+ * myDebouncedFunc(1) // Nothing happens
+ * // Logs "1" about 1 second after the last invocation
  * ```
  */
 export function debounce<TArgs extends any[]>(
-  { delay }: { delay: number },
+  { delay, leading }: DebounceOptions,
   func: (...args: TArgs) => any,
 ): DebounceFunction<TArgs> {
   let timer: unknown = undefined
@@ -50,6 +64,10 @@ export function debounce<TArgs extends any[]>(
         active && func(...args)
         timer = undefined
       }, delay)
+      if (leading) {
+        func(...args)
+        leading = false
+      }
     } else {
       func(...args)
     }

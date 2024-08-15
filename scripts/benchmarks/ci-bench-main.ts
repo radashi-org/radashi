@@ -1,9 +1,9 @@
 import { execa } from 'execa'
 import { existsSync } from 'node:fs'
 import { supabase } from 'radashi-db/supabase.js'
+import { compareToBaseline } from './src/compareToBaseline.js'
 import { getStagedFiles } from './src/getStagedFiles.js'
-import { injectBaseline } from './src/injectBaseline.js'
-import type { Benchmark } from './src/reporter.js'
+import type { BenchmarkReport } from './src/reporter.js'
 import { runVitest } from './src/runner.js'
 
 main()
@@ -36,9 +36,9 @@ async function main() {
     return
   }
 
-  const benchmarks: Benchmark[] = []
+  const reports: BenchmarkReport[] = []
 
-  const files = await getStagedFiles(lastBenchedSha, ['src/**/*.ts'])
+  const files = await getStagedFiles(['src/**/*.ts'], lastBenchedSha)
 
   for (const file of files) {
     // Run benchmarks for modified or added source files in a function group
@@ -52,23 +52,30 @@ async function main() {
 
       if (existsSync(benchFile)) {
         if (file.status === 'M') {
-          await injectBaseline(lastBenchedSha, file.name, benchFile)
+          const changed = await compareToBaseline(
+            lastBenchedSha,
+            file.name,
+            benchFile,
+          )
+          if (!changed) {
+            continue
+          }
         }
-        await runVitest(benchFile)
+        reports.push(...(await runVitest(benchFile)))
       }
     }
   }
 
-  console.log('Results', benchmarks)
+  console.log('Results', reports)
 
-  if (benchmarks.length === 0) {
+  if (reports.length === 0) {
     console.log('No benchmarks were found')
     return
   }
 
   const { error: upsertError } = await supabase.from('benchmarks').upsert(
-    benchmarks.map(result => ({
-      ...result,
+    reports.map(report => ({
+      ...report.benchmark,
       sha: currentSha,
     })),
   )

@@ -5,7 +5,6 @@
 import { existsSync } from 'node:fs'
 import { group } from 'radashi/array/group.js'
 import { getStagedFiles } from './getStagedFiles.js'
-import { injectBaseline } from './injectBaseline.js'
 import type { BenchmarkReport } from './reporter.js'
 import { runVitest } from './runner.js'
 
@@ -32,7 +31,14 @@ export async function benchChangedFiles(
       .replace(/\.ts$/, '.bench.ts')
 
     if (existsSync(benchFile)) {
-      await injectBaseline(targetBranch, file.name, benchFile)
+      const { compareToBaseline: injectBaseline } = await import(
+        './compareToBaseline.js'
+      )
+      const changed = await injectBaseline(targetBranch, file.name, benchFile)
+
+      if (!changed) {
+        continue
+      }
 
       const reportPairs = group(
         await runVitest(benchFile),
