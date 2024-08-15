@@ -1,6 +1,6 @@
 {
-  "private": true,
   "type": "module",
+  "private": true,
   "dependencies": {
     "execa": "^9.3.0",
     "radashi-db": "link:../radashi-db",
