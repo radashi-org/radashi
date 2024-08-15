@@ -8,6 +8,9 @@ npm publish
 git cliff 2be4acf455ebec86e846854dbab57bd0bfbbceb7..HEAD --tag v$NEXT_VERSION --output CHANGELOG.md
 git add package.json CHANGELOG.md
 git commit -m "chore(release): $NEXT_VERSION"
+
+./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-set-latest.ts $NEXT_VERSION $(git rev-parse HEAD)
+
 git tag v$NEXT_VERSION
 git push
 git push --tags

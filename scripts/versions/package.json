@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "execa": "^9.3.0",
+    "radashi-db": "link:../radashi-db",
+    "tsx": "^4.17.0"
+  }
+}
