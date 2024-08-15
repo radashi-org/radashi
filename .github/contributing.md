@@ -28,6 +28,10 @@ Please review _“The ethos of Radashi”_ before getting started:
   <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/ethos-button.png" alt="The ethos of Radashi" width="250px" />
 </a>
 
+## Commit Messages
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to standardize commit messages. We use tools like [commitlint](https://commitlint.js.org/) and [husky](https://typicode.github.io/husky/) to ensure commit messages adhere to the standard.
+
 ## You're ready to push a change?
 
 Once you've made your changes on a fork of the Radashi repo, create a pull request to the `master` branch of the [radashi](https://github.com/aleclarson/radashi) repository.
