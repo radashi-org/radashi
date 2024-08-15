@@ -13,6 +13,9 @@ importers:
       '@types/node':
         specifier: ^22.2.0
         version: 22.2.0
+      esbuild:
+        specifier: ^0.23.0
+        version: 0.23.0
       execa:
         specifier: ^9.3.0
         version: 9.3.0
