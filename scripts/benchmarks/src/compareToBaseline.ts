@@ -66,9 +66,10 @@ export async function compareToBaseline(
 async function bundleFile(file: string) {
   const result = await esbuild.build({
     entryPoints: [file],
+    format: 'esm',
     bundle: true,
     minify: true,
     write: false,
   })
-  return result.outputFiles[0].contents.toString('utf-8')
+  return Buffer.from(result.outputFiles[0].contents).toString('utf-8')
 }

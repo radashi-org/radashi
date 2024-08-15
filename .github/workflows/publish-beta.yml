@@ -115,13 +115,15 @@ jobs:
           git push
 
       - name: Publish to NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm version ${{ steps.set-version.outputs.version }} --no-git-tag-version
           npm publish --tag beta --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Track Version in Database
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
           pnpm install -C scripts/versions
           pnpm install -C scripts/radashi-db

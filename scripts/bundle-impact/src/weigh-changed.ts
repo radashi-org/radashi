@@ -137,6 +137,7 @@ async function getPreviousSizes(
       } else {
         const result = await esbuild.build({
           entryPoints: [name],
+          format: 'esm',
           bundle: true,
           minify: true,
           write: false,
@@ -158,6 +159,7 @@ async function getFileSize(file: string, status: string): Promise<number> {
   }
   const result = await esbuild.build({
     entryPoints: [file],
+    format: 'esm',
     bundle: true,
     minify: true,
     write: false,
