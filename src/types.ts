@@ -54,34 +54,6 @@ export type CompatibleProperty<T, CompatibleValue> = [T] extends [Any]
       }[keyof BoxedPrimitive<T>]
 
 /**
- * Coerce a primitive type to its boxed equivalent.
- *
- * @example
- * ```ts
- * type A = BoxedPrimitive<string>
- * //   ^? String
- * type B = BoxedPrimitive<number>
- * //   ^? Number
- * ```
- */
-export type BoxedPrimitive<T> = T extends string
-  ? // biome-ignore lint/complexity/noBannedTypes:
-    String
-  : T extends number
-    ? // biome-ignore lint/complexity/noBannedTypes:
-      Number
-    : T extends boolean
-      ? // biome-ignore lint/complexity/noBannedTypes:
-        Boolean
-      : T extends bigint
-        ? // biome-ignore lint/complexity/noBannedTypes:
-          BigInt
-        : T extends symbol
-          ? // biome-ignore lint/complexity/noBannedTypes:
-            Symbol
-          : T
-
-/**
  * A value that can be reliably compared with JavaScript comparison
  * operators (e.g. `>`, `>=`, etc).
  */
@@ -124,3 +96,216 @@ export type Intersect<U> = (U extends any ? (k: U) => void : never) extends (
  * @see https://github.com/microsoft/TypeScript/issues/15300
  */
 export type Simplify<T> = {} & { [P in keyof T]: T[P] }
+
+/**
+ * Get all properties **not using** the `?:` type operator.
+ */
+export type RequiredKeys<T> = T extends any
+  ? keyof T extends infer K
+    ? K extends keyof T
+      ? Omit<T, K> extends T
+        ? never
+        : K
+      : never
+    : never
+  : never
+
+/**
+ * Get all properties using the `?:` type operator.
+ */
+export type OptionalKeys<T> = T extends any
+  ? keyof T extends infer K
+    ? K extends keyof T
+      ? Omit<T, K> extends T
+        ? K
+        : never
+      : never
+    : never
+  : never
+
+/**
+ * Resolves to `true` if `Left` and `Right` are exactly the same type.
+ *
+ * Otherwise false.
+ */
+export type IsExactType<Left, Right> = [Left] extends [Any]
+  ? [Right] extends [Any]
+    ? true
+    : false
+  : (<U>() => U extends Left ? 1 : 0) extends <U>() => U extends Right ? 1 : 0
+    ? true
+    : false
+
+export type Primitive =
+  | number
+  | string
+  | boolean
+  | symbol
+  | bigint
+  | null
+  | undefined
+  | void
+
+/**
+ * Coerce a primitive type to its boxed equivalent.
+ *
+ * @example
+ * ```ts
+ * type A = BoxedPrimitive<string>
+ * //   ^? String
+ * type B = BoxedPrimitive<number>
+ * //   ^? Number
+ * ```
+ */
+export type BoxedPrimitive<T = any> = T extends string
+  ? // biome-ignore lint:
+    String
+  : T extends number
+    ? // biome-ignore lint:
+      Number
+    : T extends boolean
+      ? // biome-ignore lint:
+        Boolean
+      : T extends bigint
+        ? // biome-ignore lint:
+          BigInt
+        : T extends symbol
+          ? // biome-ignore lint:
+            Symbol
+          : never
+
+export type TypedArray =
+  | Int8Array
+  | Uint8Array
+  | Uint8ClampedArray
+  | Int16Array
+  | Uint16Array
+  | Int32Array
+  | Uint32Array
+  | Float32Array
+  | Float64Array
+  | BigInt64Array
+  | BigUint64Array
+  | DataView
+  | ArrayBuffer
+  | SharedArrayBuffer
+
+/**
+ * Add your own classes to this regitsry by extending its interface
+ * with what's called “declaration merging” in TypeScript.
+ *
+ * All property types in this registry type may be treated specially
+ * by any of Radashi's complex types. For example, `assign` will avoid
+ * merging with types in this registry.
+ */
+// biome-ignore lint: Preserve `interface` type.
+export interface CustomClassRegistry {}
+
+/**
+ * This type represents any custom class that was "registered" through
+ * the `CustomClassRegistry` type.
+ */
+export type CustomClass = CustomClassRegistry[keyof CustomClassRegistry]
+
+/**
+ * These types are implemented natively.
+ *
+ * Note that boxed primitives like `Boolean` (different from
+ * `boolean`) are not included, because `boolean extends Boolean ? 1 :
+ * 0` resolves to 1.
+ */
+export type BuiltInType =
+  | ES2021.BuiltInType
+  | WebAPI.BuiltInType
+  | NodeJS.BuiltInType
+
+// Start at ES2020, since they are the typings used by Radashi.
+declare namespace ES2020 {
+  // Note: Don't include subtypes of types already listed here.
+  type BuiltInType =
+    | Primitive
+    | Promise<any>
+    | Date
+    | RegExp
+    | Error
+    | readonly any[]
+    | ReadonlyMap<any, any>
+    | ReadonlySet<any>
+    | WeakMap<WeakKey, any>
+    | WeakSet<WeakKey>
+    | TypedArray
+    // biome-ignore lint: Support the Function type.
+    | Function
+}
+
+declare namespace ES2021 {
+  // Note: Don't include subtypes of types already listed here.
+  type BuiltInType =
+    | ES2020.BuiltInType
+    | GlobalObjectType<'FinalizationRegistry'>
+    | GlobalObjectType<'WeakRef'>
+}
+
+declare namespace NodeJS {
+  type BuiltInType = GlobalObjectType<'Buffer'>
+}
+
+declare namespace WebAPI {
+  // Note: Don't include subtypes of types already listed here.
+  type BuiltInType =
+    | GlobalObjectType<'AbortController'>
+    | GlobalObjectType<'AbortSignal'>
+    | GlobalObjectType<'Blob'>
+    | GlobalObjectType<'Body'>
+    | GlobalObjectType<'CompressionStream'>
+    | GlobalObjectType<'Crypto'>
+    | GlobalObjectType<'CustomEvent'>
+    | GlobalObjectType<'DecompressionStream'>
+    | GlobalObjectType<'Event'>
+    | GlobalObjectType<'EventTarget'> // <-- Watch out for subtypes of this.
+    | GlobalObjectType<'FormData'>
+    | GlobalObjectType<'Headers'>
+    | GlobalObjectType<'MessageChannel'>
+    | GlobalObjectType<'Navigator'>
+    | GlobalObjectType<'ReadableStream'>
+    | GlobalObjectType<'ReadableStreamBYOBReader'>
+    | GlobalObjectType<'ReadableStreamDefaultController'>
+    | GlobalObjectType<'ReadableStreamDefaultReader'>
+    | GlobalObjectType<'SubtleCrypto'>
+    | GlobalObjectType<'TextDecoder'>
+    | GlobalObjectType<'TextDecoderStream'>
+    | GlobalObjectType<'TextEncoder'>
+    | GlobalObjectType<'TextEncoderStream'>
+    | GlobalObjectType<'TransformStream'>
+    | GlobalObjectType<'TransformStreamDefaultController'>
+    | GlobalObjectType<'URL'>
+    | GlobalObjectType<'URLSearchParams'>
+    | GlobalObjectType<'WebSocket'>
+    | GlobalObjectType<'WritableStream'>
+    | GlobalObjectType<'WritableStreamDefaultController'>
+    | GlobalObjectType<'WritableStreamDefaultWriter'>
+    | WebDocumentAPI.BuiltInType
+}
+
+declare namespace WebDocumentAPI {
+  // Note: Don't include subtypes of types already listed here.
+  type BuiltInType =
+    | GlobalObjectType<'Node'>
+    | GlobalObjectType<'NodeList'>
+    | GlobalObjectType<'NodeIterator'>
+    | GlobalObjectType<'HTMLCollection'>
+    | GlobalObjectType<'CSSStyleDeclaration'>
+    | GlobalObjectType<'DOMStringList'>
+    | GlobalObjectType<'DOMTokenList'>
+}
+
+// Infer an object type from a global constructor that is
+// environment-specific. This helps avoid including unsupported types
+// (according to tsconfig "lib" property), which can break things.
+type GlobalObjectType<Identifier extends string> = [Identifier] extends [Any]
+  ? never
+  : keyof Identifier extends never
+    ? never
+    : typeof globalThis extends { [P in Identifier]: any }
+      ? InstanceType<(typeof globalThis)[Identifier]>
+      : never
