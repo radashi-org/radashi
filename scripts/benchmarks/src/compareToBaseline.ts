@@ -72,7 +72,7 @@ async function bundleFile(file: string) {
   })
   // Minify in a separate step to avoid https://github.com/evanw/esbuild/issues/3881
   const minified = await esbuild.build({
-    stdin: bundled.outputFiles[0],
+    stdin: { contents: bundled.outputFiles[0].contents, loader: 'js' },
     format: 'esm',
     minify: true,
     write: false,
