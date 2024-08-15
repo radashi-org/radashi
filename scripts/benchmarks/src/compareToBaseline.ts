@@ -64,12 +64,18 @@ export async function compareToBaseline(
 }
 
 async function bundleFile(file: string) {
-  const result = await esbuild.build({
+  const bundled = await esbuild.build({
     entryPoints: [file],
     format: 'esm',
     bundle: true,
+    write: false,
+  })
+  // Minify in a separate step to avoid https://github.com/evanw/esbuild/issues/3881
+  const minified = await esbuild.build({
+    stdin: bundled.outputFiles[0],
+    format: 'esm',
     minify: true,
     write: false,
   })
-  return Buffer.from(result.outputFiles[0].contents).toString('utf-8')
+  return Buffer.from(minified.outputFiles[0].contents).toString('utf-8')
 }
