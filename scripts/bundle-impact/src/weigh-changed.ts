@@ -28,10 +28,10 @@ export async function weighChangedFunctions(opts: { verbose?: boolean } = {}) {
 
   if (process.env.CI && changedFiles.length > 0) {
     if (columnCount > 2) {
-      addLine('| Status | File | Size | Difference (%) |')
+      addLine('| Status | File | Size  [^1337] | Difference (%) |')
       addLine('|---|---|---|---|')
     } else {
-      addLine('| Status | File | Size |')
+      addLine('| Status | File | Size  [^1337] |')
       addLine('|---|---|---|')
     }
   }
@@ -51,13 +51,12 @@ export async function weighChangedFunctions(opts: { verbose?: boolean } = {}) {
     }
 
     if (process.env.CI) {
-      const sizeStr = i === 0 ? `${bytes} [^1337]` : `${bytes}`
       if (columnCount > 2) {
         addLine(
-          `| ${status} | \`${name}\` | ${sizeStr} | ${diffStr}${ratioStr} |`,
+          `| ${status} | \`${name}\` | ${bytes} | ${diffStr}${ratioStr} |`,
         )
       } else {
-        addLine(`| ${status} | \`${name}\` | ${sizeStr} |`)
+        addLine(`| ${status} | \`${name}\` | ${bytes} |`)
       }
     } else {
       if (columnCount > 2 && prevBytes !== 0) {
