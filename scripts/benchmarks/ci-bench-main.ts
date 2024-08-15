@@ -58,6 +58,10 @@ async function main() {
             benchFile,
           )
           if (!changed) {
+            console.log(
+              'Skipping benchmarks for "%s". Minified bundle is unchanged when compared to baseline.',
+              file.name,
+            )
             continue
           }
         }
