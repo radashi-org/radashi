@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { expectTypeOf } from 'vitest'
 
 describe('draw types', () => {
   test('return type with literal argument', () => {
