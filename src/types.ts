@@ -98,6 +98,72 @@ export type Intersect<U> = (U extends any ? (k: U) => void : never) extends (
 export type Simplify<T> = {} & { [P in keyof T]: T[P] }
 
 /**
+ * A result tuple where the error is `undefined`.
+ *
+ * @example
+ * ```ts
+ * type GoodResult = Ok<string>
+ * //   ^? [undefined, string]
+ * ```
+ */
+export type Ok<TResult> = [err: undefined, result: TResult]
+
+/**
+ * A result tuple where an error is included.
+ *
+ * Note that `TError` is non-nullable, which means that
+ * `Err<undefined>` and `Err<null>` are not valid.
+ *
+ * @example
+ * ```ts
+ * type BadResult = Err
+ * //   ^? [Error, undefined]
+ *
+ * type BadResult2 = Err<TypeError | MyCoolCustomError>
+ * //   ^? [TypeError | MyCoolCustomError, undefined]
+ * ```
+ */
+export type Err<TError = Error> = [err: NonNullable<TError>, result: undefined]
+
+/**
+ * A result tuple.
+ *
+ * First index is the error, second index is the result.
+ *
+ * @example
+ * ```ts
+ * type MyResult = Result<string>
+ * //   ^? Ok<string> | Err<Error>
+ *
+ * type MyResult2 = Result<string, TypeError>
+ * //   ^? Ok<string> | Err<TypeError>
+ * ```
+ */
+export type Result<TResult, TError = Error> =
+  | Ok<TResult>
+  | Err<NonNullable<TError>>
+
+/**
+ * A promise that resolves to a result tuple.
+ *
+ * @example
+ * ```ts
+ * type MyResult = ResultPromise<string>
+ * //   ^? Promise<Ok<string> | Err<Error>>
+ *
+ * type MyResult2 = ResultPromise<string, TypeError>
+ * //   ^? Promise<Ok<string> | Err<TypeError>>
+ * ```
+ */
+export type ResultPromise<TResult, TError = Error> = Promise<
+  [NonNullable<TError>] extends [never]
+    ? Ok<TResult>
+    : [TResult] extends [never]
+      ? Err<NonNullable<TError>>
+      : Result<TResult, NonNullable<TError>>
+>
+
+/**
  * Get all properties **not using** the `?:` type operator.
  */
 export type RequiredKeys<T> = T extends any
