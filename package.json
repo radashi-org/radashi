@@ -45,15 +45,19 @@
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
     "test": "vitest run --coverage",
     "test-branch": "bash ./scripts/test-branch.sh",
-    "test-single": "bash ./scripts/test-single.sh"
+    "test-single": "bash ./scripts/test-single.sh",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@typescript-eslint/parser": "^7.16.1",
     "@vitest/coverage-v8": "2.0.3",
     "concurrently": "^8.2.2",
     "eslint-plugin-compat": "^6.0.0",
     "glob": "^11.0.0",
+    "husky": "^9.1.4",
     "prettier": "^3.3.2",
     "prettier-plugin-pkg": "^0.18.1",
     "prettier-plugin-sh": "^0.14.0",
