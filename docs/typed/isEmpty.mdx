@@ -16,3 +16,41 @@ _.isEmpty('') // => true
 _.isEmpty('hello') // => false
 _.isEmpty(['hello']) // => false
 ```
+
+### Radashi vs [Lodash](https://lodash.com/) Implementations
+
+The handling of constructor function prototypes differs between the Radashi
+and Lodash libraries. This is due to the fact that the use of constructor
+functions, an older practice, has largely been replaced by classes since the
+introduction of [ECMAScript 2015](https://262.ecma-international.org/6.0/).
+As a result, we decided not to support this approach.
+
+```typescript
+import * as radashi from 'radashi'
+import * as lodash from 'lodash'
+
+function Foo() {}
+Foo.prototype = { constructor: Foo }
+
+console.log(radashi.isEmpty(Foo.prototype)) // false
+console.log(lodash.isEmpty(Foo.prototype)) // true
+```
+
+In this example, the `constructor` property on the prototype is handled
+differently. Lodash considers the prototype to be empty due to its specific
+approach to the `constructor` property. On the other hand, Radashi does not
+consider the prototype to be empty.
+
+```typescript
+import * as radashi from 'radashi'
+import * as lodash from 'lodash'
+
+function Foo() {}
+Foo.prototype = { name: 'John Doe' }
+
+console.log(radashi.isEmpty(Foo.prototype)) // false
+console.log(lodash.isEmpty(Foo.prototype)) // false
+```
+
+In this example, we can see that the difference is exclusively related to
+the `constructor` property.
