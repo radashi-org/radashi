@@ -5,4 +5,4 @@ if [ ! -d "scripts/release-notes/node_modules" ]; then
   pnpm install -C scripts/release-notes
 fi
 
-pnpm -s tsx scripts/release-notes/release-notes.ts "$@"
+pnpm -s scripts/release-notes/node_modules/.bin/tsx scripts/release-notes/release-notes.ts "$@"
