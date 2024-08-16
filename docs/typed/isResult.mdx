@@ -40,8 +40,6 @@ Also see the related [isResultOk](/typed/isResultOk) and [isResultErr](/typed/is
 - The second element is always the **result value**, unless an error occurred.
 - These tuples are represented by the `Result<TResult, TError>` type.
 - A default error type of `Error` is used when no error type is explicitly defined (e.g. `Result<string>`).
-- The default error type is _not_ `unknown` because we assume you're following best practices and so you avoid throwing anything but `Error` objects.
-- You're free to define the error type to be anything (like `Result<string, Error | number>`), not just `Error` types.
 
 ### Ok and Err
 
@@ -55,6 +53,8 @@ The names "Ok" and "Err" are inspired by Rust's `std::result` module.
 To check for an `Ok` result, do this:
 
 ```ts
+declare const value: unknown
+
 if (isResult(value) && value[0] == null) {
   value // <-- now an Ok<unknown> type
   value[1] // <-- This is the resulting value!
@@ -64,6 +64,8 @@ if (isResult(value) && value[0] == null) {
 To check for an `Err` result, do this:
 
 ```ts
+declare const value: unknown
+
 if (isResult(value) && value[0] != null) {
   value // <-- now an Err<Error> type
   value[0] // <-- This is the error!
