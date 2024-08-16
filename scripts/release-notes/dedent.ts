@@ -1,4 +1,4 @@
-import { isArray } from 'radashi'
+import { isArray } from 'radashi/typed/isArray.js'
 
 /**
  * Remove indentation from a string. The given string is expected to
