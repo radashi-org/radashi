@@ -22,7 +22,7 @@ import { isArray, isError, type Result } from 'radashi'
  * isResult([new Error(), true]) => false
  * ```
  */
-export function isResult(value: unknown): value is Result<unknown, unknown> {
+export function isResult(value: unknown): value is Result<unknown> {
   return (
     isArray(value) &&
     value.length === 2 &&
