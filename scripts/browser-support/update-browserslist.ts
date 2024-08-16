@@ -1,7 +1,7 @@
 import { browsersWithSupportForEcmaVersion } from 'browserslist-generator'
+import { dequal } from 'dequal'
 import { execa } from 'execa'
 import fs from 'node:fs'
-import prettier from 'prettier'
 
 main()
 
@@ -22,18 +22,31 @@ async function main() {
 
   console.log('• Browserslist generated:', targets)
 
-  const pkgJson = JSON.parse(fs.readFileSync('package.json', 'utf8'))
+  const pkgJsonPath = 'package.json'
+  const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'))
+
+  if (
+    dequal(pkgJson.browserslist, targets) &&
+    !process.argv.includes('--force')
+  ) {
+    console.log('• Browserslist is already up to date.')
+    process.exit(0)
+  }
+
   pkgJson.browserslist = targets
 
-  const formattedPkgJson = await prettier.format(
-    JSON.stringify(pkgJson, null, 2),
-    { parser: 'json' },
-  )
-
-  fs.writeFileSync('package.json', formattedPkgJson)
+  fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2))
   console.log('• package.json updated')
 
-  await execa('git', ['add', 'package.json'])
-  await execa('git', ['commit', '-m', 'chore: update browserslist'])
+  // Run prettier on the updated package.json
+  await execa('pnpm', ['prettier', '--write', pkgJsonPath], {
+    stdio: 'inherit',
+  })
+
+  await execa('git', ['add', pkgJsonPath])
+  await execa('git', ['commit', '-m', 'chore: update browserslist'], {
+    stdio: 'inherit',
+  }).catch(() => process.exit(1))
+
   console.log('• Changes committed successfully.')
 }

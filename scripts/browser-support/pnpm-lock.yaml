@@ -11,6 +11,9 @@ importers:
       browserslist-generator:
         specifier: ^2.1.0
         version: 2.1.0
+      dequal:
+        specifier: ^2.0.3
+        version: 2.0.3
       execa:
         specifier: npm:@esm2cjs/execa@6.1.1-cjs.1
         version: '@esm2cjs/execa@6.1.1-cjs.1'
@@ -223,6 +226,10 @@ packages:
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
+
+  dequal@2.0.3:
+    resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
+    engines: {node: '>=6'}
 
   electron-to-chromium@1.5.9:
     resolution: {integrity: sha512-HfkT8ndXR0SEkU8gBQQM3rz035bpE/hxkZ1YIt4KJPEFES68HfIU6LzKukH0H794Lm83WJtkSAMfEToxCs15VA==}
@@ -449,6 +456,8 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  dequal@2.0.3: {}
 
   electron-to-chromium@1.5.9: {}
 
