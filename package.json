@@ -44,7 +44,8 @@
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
     "test": "vitest run --coverage",
     "test-branch": "bash ./scripts/test-branch.sh",
-    "test-single": "bash ./scripts/test-single.sh"
+    "test-single": "bash ./scripts/test-single.sh",
+    "update-browserslist": "bash ./scripts/update-browserslist.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",

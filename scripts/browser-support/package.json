@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "browserslist-generator": "^2.1.0",
+    "execa": "npm:@esm2cjs/execa@6.1.1-cjs.1",
+    "tsx": "^4.17.0"
+  }
+}
