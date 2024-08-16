@@ -9,7 +9,7 @@
  * // [1, 2, [3], 4, 5]
  * ```
  *
- * @deprecated - use [Array.prototype.flat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat) insted
+ * @deprecated Use [Array.prototype.flat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat) instead.
  */
 export function flat<T>(lists: readonly T[][]): T[] {
   return lists.flat()

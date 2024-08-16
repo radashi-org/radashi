@@ -1,7 +1,13 @@
 ---
-title: flat (deprecated)
+title: flat
 description: Flatten an array of arrays into a single dimension
 ---
+
+:::caution[Deprecated]
+This function is deprecated. Use `Array.prototype.flat` instead, which is widely available and supports both deep and shallow flattening.
+
+[MDN: Array.prototype.flat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+:::
 
 ### Usage
 
@@ -16,9 +22,3 @@ _.flat(gods) // => [ra, loki, zeus]
 ```
 
 Note, `_.flat` is not recursive and will not flatten children of children of children ... of children. It will only flatten `T[][]` an array of arrays.
-
-:::caution
-The `_.flat` function has been deprecated and will be removed in the next major release. Please use `Array.prototype.flat` which is widely available and supports both deep and shallow flattening.
-
-[MDN Documentation for Array.prototype.flat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
-:::
