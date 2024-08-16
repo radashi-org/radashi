@@ -1,0 +1,57 @@
+name: Benchmark Pull Request
+
+on:
+  pull_request_target:
+    branches: [main, next]
+    paths:
+      - 'src/**/*.ts'
+
+jobs:
+  benchmark:
+    name: Run Benchmarks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout Pull Request
+        id: checkout
+        env:
+          PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          bash scripts/checkout-pr.sh src benchmarks
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo '::set-output name=has_changes::false'
+          else
+            echo '::set-output name=has_changes::true'
+          fi
+
+      - name: Install pnpm
+        if: steps.checkout.outputs.has_changes == 'true'
+        uses: pnpm/action-setup@v4
+
+      - name: Install Node.js
+        if: steps.checkout.outputs.has_changes == 'true'
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+
+      - name: Install dependencies
+        if: steps.checkout.outputs.has_changes == 'true'
+        run: |
+          # Only install Vitest for the root directory.
+          echo '{"type":"module","dependencies":{"vitest":"2.0.5"}}' > package.json
+          pnpm install --no-frozen-lockfile
+          pnpm install -C scripts/benchmarks
+          pnpm install -C scripts/radashi-db
+
+      - name: Run benchmarks
+        if: steps.checkout.outputs.has_changes == 'true'
+        env:
+          RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          ./scripts/benchmarks/node_modules/.bin/tsx ./scripts/benchmarks/ci-bench-pr.ts ${{ github.base_ref }} ${{ github.event.number }} ${{ github.event.pull_request.head.repo.html_url }}/blob/${{ github.event.pull_request.head.sha }}

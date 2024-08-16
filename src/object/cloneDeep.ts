@@ -42,7 +42,7 @@ export interface CloningStrategy {
   ) => T | null
 }
 
-export const DefaultCloningStrategy = {
+export const DefaultCloningStrategy: CloningStrategy = {
   cloneMap<K, V>(
     input: Map<K, V>,
     track: (newParent: Map<K, V>) => Map<K, V>,

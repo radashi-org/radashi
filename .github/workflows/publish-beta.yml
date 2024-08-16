@@ -111,23 +111,30 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git add CHANGELOG.md
-          git commit -m "chore(release): ${{ steps.set-version.outputs.version }}" -m "[skip ci]"
+          git commit -m "chore(release): ${{ steps.set-version.outputs.version }}"
           git push
 
       - name: Publish to NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm version ${{ steps.set-version.outputs.version }} --no-git-tag-version
           npm publish --tag beta --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Create Git Tags
+      - name: Track Version in Database
+        continue-on-error: true
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
-          TAG=v${{ steps.set-version.outputs.version }}
+          pnpm install -C scripts/versions
+          pnpm install -C scripts/radashi-db
+
+          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-set-latest.ts ${{ steps.set-version.outputs.version }} ${{ github.sha }}
+
+      - name: Update Beta Tag
+        run: |
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git tag $TAG
-          git push origin $TAG
           git tag beta -f
           git push origin beta -f
 
@@ -138,7 +145,7 @@ jobs:
           echo "::set-output name=pr-numbers::${PR_NUMBERS}"
 
       - name: Comment on Pull Requests
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |

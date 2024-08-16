@@ -1,11 +1,5 @@
-## ./scripts/radashi-db/
+# radashi-db
 
-This folder contains scripts for managing the Radashi database (hosted on Supabase and Algolia). For example, when a pull request is updated, the `registerPullRequest` function from the `register-pr.ts` module is called to update the database with the latest information about the pull request. This data is then used on certain pages of the Radashi website and the Radashi VSCode extension.
+Radashi has both a Supabase and Algolia database. Both are used to power the Radashi website and VSCode extension. Supabase is also used for continuous benchmarking (to help catch performance regressions).
 
-### Environment Variables
-
-To use these scripts, you may need these environment variables:
-
-- `SUPABASE_KEY`: A private API key for Supabase
-- `ALGOLIA_KEY`: A private API key for Algolia
-- `GITHUB_TOKEN`: A GitHub token with access to the Radashi organization
+Note that `supabase.types.ts` is generated from the Supabase schema, so please don't manually edit it.
