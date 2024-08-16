@@ -3,10 +3,10 @@ set -e
 # 1. Remember if the user has uncommitted changes (ignoring untracked files).
 UNCOMMITTED_CHANGES=$(git status --porcelain -uno)
 
-BIOME_GLOBS="src/**/* tests/**/* benchmarks/**/*"
+BIOME_GLOBS="src/**/*.ts tests/**/*.ts benchmarks/**/*.ts scripts/**/*.ts"
 BIOME_FILES=$(pnpm glob $BIOME_GLOBS)
 
-PRETTIER_GLOBS="package.json README.md docs/**/* scripts/**/*"
+PRETTIER_GLOBS="package.json README.md docs/**/* scripts/**/*.sh"
 PRETTIER_FILES=$(pnpm glob $PRETTIER_GLOBS)
 
 # If arguments were passed, filter the list of files to only include those.
