@@ -2,8 +2,6 @@
  * Given an array of arrays, returns a single dimensional array with
  * all items in it.
  *
- * @deprecated Use [Array.prototype.flat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat) instead.
- *
  * @see https://radashi-org.github.io/reference/array/flat
  * @example
  * ```ts
@@ -12,5 +10,8 @@
  * ```
  */
 export function flat<T>(lists: readonly T[][]): T[] {
-  return lists.flat()
+  return lists.reduce((acc, list) => {
+    acc.push(...list)
+    return acc
+  }, [])
 }
