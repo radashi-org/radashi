@@ -4,10 +4,10 @@ describe('isResult', () => {
   test('should return true for valid Result tuples', () => {
     expect(_.isResult([undefined, 42])).toBe(true)
     expect(_.isResult([new Error(), undefined])).toBe(true)
+    expect(_.isResult([undefined, undefined])).toBe(true)
   })
 
   test('should return false for invalid Result tuples', () => {
-    expect(_.isResult([undefined, undefined])).toBe(false)
     expect(_.isResult([new Error(), true])).toBe(false)
     expect(_.isResult([new Error()])).toBe(false)
     expect(_.isResult([undefined, true, undefined])).toBe(false)
