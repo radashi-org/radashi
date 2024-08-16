@@ -12,8 +12,5 @@
  * @deprecated - use [Array.prototype.flat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat) insted
  */
 export function flat<T>(lists: readonly T[][]): T[] {
-  return lists.reduce((acc, list) => {
-    acc.push(...list)
-    return acc
-  }, [])
+  return lists.flat()
 }
