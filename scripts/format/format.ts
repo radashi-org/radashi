@@ -17,6 +17,7 @@ async function main() {
     'benchmarks/**/*.ts',
     'scripts/**/*.ts',
     '!**/node_modules',
+    '!scripts/radashi-db/supabase.types.ts',
   ]
   const prettierGlobs = [
     '**/package.json',
