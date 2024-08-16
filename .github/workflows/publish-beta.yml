@@ -122,6 +122,7 @@ jobs:
           npm publish --tag beta --ignore-scripts
 
       - name: Track Version in Database
+        continue-on-error: true
         env:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
