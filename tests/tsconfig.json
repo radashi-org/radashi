@@ -11,7 +11,7 @@
     "strict": true,
     "types": ["vitest/globals"],
     "paths": {
-      "radashi": ["../src/mod"]
+      "radashi": ["../src/mod.ts"]
     }
   }
 }

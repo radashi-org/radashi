@@ -1,3 +1,5 @@
+import type { BigInt, BigInt64Array, BigUint64Array } from './bigint'
+
 declare const any: unique symbol
 
 /**
@@ -233,8 +235,7 @@ export type BoxedPrimitive<T = any> = T extends string
       ? // biome-ignore lint:
         Boolean
       : T extends bigint
-        ? // biome-ignore lint:
-          BigInt
+        ? BigInt
         : T extends symbol
           ? // biome-ignore lint:
             Symbol

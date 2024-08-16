@@ -8,25 +8,14 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "isolatedDeclarations": true,
-    "target": "esnext",
-    "lib": ["esnext", "dom"],
+    "target": "es2017",
+    "lib": ["es2017"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
     "types": [],
     "paths": {
-      "radashi": [
-        "./src/mod",
-        "./src/array/*",
-        "./src/async/*",
-        "./src/curry/*",
-        "./src/number/*",
-        "./src/object/*",
-        "./src/random/*",
-        "./src/series/*",
-        "./src/string/*",
-        "./src/typed/*"
-      ]
+      "radashi": ["./src/mod.ts"]
     }
   }
 }

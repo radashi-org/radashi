@@ -1,4 +1,4 @@
-import { AggregateError, fork, list, sort, tryit } from 'radashi'
+import { AggregateError, flat, fork, list, sort, tryit } from 'radashi'
 
 type WorkItemResult<K> = {
   index: number
@@ -50,7 +50,7 @@ export async function parallel<T, K>(
   // Wait for all queues to complete
   const itemResults = (await Promise.all(queues)) as WorkItemResult<K>[][]
   const [errors, results] = fork(
-    sort(itemResults.flat(), r => r.index),
+    sort(flat(itemResults), r => r.index),
     x => !!x.error,
   )
   if (errors.length > 0) {
