@@ -9,9 +9,13 @@
  * ```
  */
 export function pascal(str: string): string {
-  const parts = str?.split(/[\.\-\s_]/).map(x => x.toLowerCase()) ?? []
-  if (parts.length === 0) {
-    return ''
-  }
-  return parts.map(str => str.charAt(0).toUpperCase() + str.slice(1)).join('')
+  if (!str) return "";
+
+    let a=  str.replace(/(?:[^\w\d]|_|\s)+(\w)([A-Z]+)?/g, (_, a, b) => {
+      if (b) return a.toUpperCase() + b.toLowerCase()
+
+      return a.toUpperCase()
+    }) 
+
+    return a[0].toUpperCase() + a.slice(1)
 }
