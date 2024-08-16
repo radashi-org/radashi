@@ -4,6 +4,7 @@ describe('isResult', () => {
   test('should return true for valid Result tuples', () => {
     expect(_.isResult([undefined, 42])).toBe(true)
     expect(_.isResult([new Error(), undefined])).toBe(true)
+    expect(_.isResult([new TypeError(), undefined])).toBe(true)
     expect(_.isResult([undefined, undefined])).toBe(true)
   })
 
