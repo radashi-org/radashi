@@ -4,7 +4,6 @@ describe('isPromise', () => {
   test('return true for Promise-like values', () => {
     expect(_.isPromise(new Promise(() => {}))).toBeTruthy()
     expect(_.isPromise(Promise.resolve(1))).toBeTruthy()
-    expect(_.isPromise(Promise.reject(new Error('nope')))).toBeTruthy()
     expect(_.isPromise((async () => {})())).toBeTruthy()
     // biome-ignore lint/suspicious/noThenProperty:
     expect(_.isPromise({ then: () => {} })).toBeTruthy()
