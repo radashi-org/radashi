@@ -1,6 +1,6 @@
 {
-  "private": true,
   "type": "module",
+  "private": true,
   "dependencies": {
     "@octokit/rest": "^21.0.1",
     "@types/node": "^22.2.0",
