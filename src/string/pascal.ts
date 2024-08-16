@@ -6,6 +6,7 @@
  * ```ts
  * pascal('hello world') // => 'HelloWorld'
  * pascal('va va boom') // => 'VaVaBoom'
+ * pascal('helloWorld') // => 'HelloWorld'
  * ```
  */
 export function pascal(str: string): string {
