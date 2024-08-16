@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
     "moduleResolution": "node",
-    "noEmit": true,
+    "outDir": "../dist/tmp",
     "target": "esnext",
     "module": "esnext",
     "lib": ["es2020"],

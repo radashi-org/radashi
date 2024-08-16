@@ -2,7 +2,7 @@ import { execa } from 'execa'
 import glob from 'fast-glob'
 import { existsSync } from 'node:fs'
 import { supabase } from 'radashi-db/supabase.js'
-import type { Benchmark } from './src/reporter'
+import type { BenchmarkReport } from './src/reporter'
 import { runVitest } from './src/runner'
 
 async function main() {
@@ -14,7 +14,7 @@ async function main() {
     result => result.stdout,
   )
 
-  const benchmarks: Benchmark[] = []
+  const reports: BenchmarkReport[] = []
 
   for (const file of await glob('src/**/*.ts')) {
     if (!/^src\/.+?\//.test(file)) {
@@ -26,17 +26,17 @@ async function main() {
       .replace(/\.ts$/, '.bench.ts')
 
     if (existsSync(benchFile)) {
-      benchmarks.push(...(await runVitest(benchFile)))
+      reports.push(...(await runVitest(benchFile)))
     } else {
       console.log(`No benchmark found for ${file}`)
     }
   }
 
-  console.log('Results', benchmarks)
+  console.log('Results', reports)
 
   const { error: upsertError } = await supabase.from('benchmarks').upsert(
-    benchmarks.map(result => ({
-      ...result,
+    reports.map(result => ({
+      ...result.benchmark,
       sha: currentSha,
     })),
   )
