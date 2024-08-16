@@ -11,11 +11,10 @@
 export function pascal(str: string): string {
   if (!str) return "";
 
-    let a=  str.replace(/(?:[^\w\d]|_|\s)+(\w)([A-Z]+)?/g, (_, a, b) => {
-      if (b) return a.toUpperCase() + b.toLowerCase()
-
-      return a.toUpperCase()
+    let result = str.replace(/(?:[^\w\d]|_|\s)+(\w)([A-Z]+)?/g, (_, firstCharacter, capitalizedLetters) => {
+      if (capitalizedLetters) return firstCharacter.toUpperCase() + capitalizedLetters.toLowerCase()
+      return firstCharacter.toUpperCase()
     }) 
 
-    return a[0].toUpperCase() + a.slice(1)
+    return result[0].toUpperCase() + result.substring(1)
 }
