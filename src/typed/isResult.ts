@@ -1,4 +1,4 @@
-import { isArray, type Result } from 'radashi'
+import { isArray, isError, type Result } from 'radashi'
 
 /**
  * Returns true if the value is a `Result` tuple.
@@ -9,10 +9,6 @@ import { isArray, type Result } from 'radashi'
  * isResult([undefined, 42]) => true
  * isResult([new Error(), undefined]) => true
  *
- * // Result tuples cannot have both a value and an error, or neither.
- * isResult([undefined, undefined]) => false
- * isResult([new Error(), true]) => false
- *
  * // Tuple must be of length 2.
  * isResult([new Error()]) => false
  * isResult([undefined, true, undefined]) => false
@@ -21,12 +17,15 @@ import { isArray, type Result } from 'radashi'
  * isResult([]) => false
  * isResult({}) => false
  * isResult(null) => false
+ *
+ * // Result tuples cannot have both a value and an error.
+ * isResult([new Error(), true]) => false
  * ```
  */
-export function isResult(value: unknown): value is Result<unknown, unknown> {
+export function isResult(value: unknown): value is Result<unknown> {
   return (
     isArray(value) &&
     value.length === 2 &&
-    (value[0] === undefined) !== (value[1] === undefined)
+    (isError(value[0]) ? value[1] : value[0]) === undefined
   )
 }

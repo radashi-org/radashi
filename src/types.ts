@@ -123,7 +123,7 @@ export type Ok<TResult> = [err: undefined, result: TResult]
  * //   ^? [TypeError | MyCoolCustomError, undefined]
  * ```
  */
-export type Err<TError = Error> = [err: NonNullable<TError>, result: undefined]
+export type Err<TError extends Error = Error> = [err: TError, result: undefined]
 
 /**
  * A result tuple.
@@ -139,9 +139,9 @@ export type Err<TError = Error> = [err: NonNullable<TError>, result: undefined]
  * //   ^? Ok<string> | Err<TypeError>
  * ```
  */
-export type Result<TResult, TError = Error> =
+export type Result<TResult, TError extends Error = Error> =
   | Ok<TResult>
-  | Err<NonNullable<TError>>
+  | Err<TError>
 
 /**
  * A promise that resolves to a result tuple.
@@ -155,12 +155,12 @@ export type Result<TResult, TError = Error> =
  * //   ^? Promise<Ok<string> | Err<TypeError>>
  * ```
  */
-export type ResultPromise<TResult, TError = Error> = Promise<
-  [NonNullable<TError>] extends [never]
+export type ResultPromise<TResult, TError extends Error = Error> = Promise<
+  [TError] extends [never]
     ? Ok<TResult>
     : [TResult] extends [never]
-      ? Err<NonNullable<TError>>
-      : Result<TResult, NonNullable<TError>>
+      ? Err<TError>
+      : Result<TResult, TError>
 >
 
 /**

@@ -10,7 +10,7 @@ import { type Err, isResult } from 'radashi'
  * isResultErr([undefined, "hello"]) // false
  * ```
  */
-export function isResultErr<TError = Error>(
+export function isResultErr<TError extends Error = Error>(
   value: unknown,
 ): value is Err<TError> {
   return isResult(value) && value[0] !== undefined
