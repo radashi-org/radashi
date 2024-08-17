@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('isPlainObject', () => {
   bench('with object literal', () => {

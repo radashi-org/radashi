@@ -70,7 +70,7 @@ fi
 
 if [ ! -f "$BENCHMARKS_FILE" ]; then
   mkdir -p "$BENCHMARKS_DIR"
-  echo -e "import * as _ from 'radashi'\nimport { bench } from 'vitest'\n\ndescribe('$FUNC_NAME', () => {\n  bench('with no arguments', () => {\n    _.$FUNC_NAME()\n  })\n})\n" > "$BENCHMARKS_FILE"
+  echo -e "import * as _ from 'radashi'\n\ndescribe('$FUNC_NAME', () => {\n  bench('with no arguments', () => {\n    _.$FUNC_NAME()\n  })\n})\n" > "$BENCHMARKS_FILE"
 else
   echo "Warning: $BENCHMARKS_FILE already exists. Skipping."
 fi

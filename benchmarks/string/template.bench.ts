@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('template', () => {
   bench('with valid input', () => {

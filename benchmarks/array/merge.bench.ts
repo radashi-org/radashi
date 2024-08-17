@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('merge', () => {
   bench('with two empty array inputs', () => {

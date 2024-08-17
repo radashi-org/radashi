@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('cloneDeep', () => {
   const objects: any = _.list(0, 5, i => {

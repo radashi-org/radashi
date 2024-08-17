@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('isIntString', () => {
   bench('with integer string', () => {

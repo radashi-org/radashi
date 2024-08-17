@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('shift', () => {
   bench('with non-empty array', () => {

@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('group', () => {
   bench('with groups by provided attribute', () => {

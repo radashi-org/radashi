@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('similarity', () => {
   const string1 = 'h'.repeat(100)
