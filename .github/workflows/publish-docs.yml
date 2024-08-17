@@ -1,0 +1,31 @@
+name: Publish Docs
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: '22.x'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: |
+          pnpm install -C scripts/docs
+          pnpm install -C scripts/radashi-db
+
+      - name: Publish
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          ./scripts/docs/node_modules/.bin/tsx ./scripts/docs/ci-publish-docs.ts ${{ github.event.ref }}
