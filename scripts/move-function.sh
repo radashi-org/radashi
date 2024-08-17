@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 IFS="/" read -r GROUP FUNC <<< "$1"

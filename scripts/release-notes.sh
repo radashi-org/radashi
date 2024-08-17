@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 if [ ! -d "scripts/release-notes/node_modules" ]; then
   echo "Node modules not found. Installing dependencies..."

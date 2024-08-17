@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
 NAME="$1"
 
 if [ -z "$NAME" ]; then
