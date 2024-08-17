@@ -127,7 +127,7 @@ async function main() {
   }
 
   /** This is the identifier used by URLs. */
-  let newReleaseId = String(newReleaseMajor)
+  let newReleaseId = 'v' + String(newReleaseMajor)
   if (newReleaseParts.length > 3) {
     if (newReleaseMajor === lastReleaseMajor) {
       newReleaseId += '.' + newReleaseMinor
@@ -138,7 +138,7 @@ async function main() {
     newReleaseId += '-' + newReleaseParts[3]
   }
 
-  log('Publishing docs for version:', 'v' + newReleaseId)
+  log('Publishing docs for version:', newReleaseId)
 
   log('Cloning main branch of radashi-org.github.io')
   await execa(
@@ -246,9 +246,11 @@ async function main() {
     JSON.stringify([...versions]),
   )
 
-  log('Removing docs for unmaintained versions')
-  for (const removedVersion of removedVersions) {
-    await fs.rm(`./www/dist/${removedVersion}`, { recursive: true })
+  if (removedVersions.size > 0) {
+    log('Removing docs for unmaintained versions')
+    for (const removedVersion of removedVersions) {
+      await fs.rm(`./www/dist/${removedVersion}`, { recursive: true })
+    }
   }
 
   log('Removing docs that will be overwritten')
@@ -275,7 +277,7 @@ async function main() {
 
   log('Pushing to gh-pages branch')
   await execa('git', ['add', '-A'], { cwd: './www/dist' })
-  await execa('git', ['commit', '-m', `chore: v${newReleaseId}`], {
+  await execa('git', ['commit', '-m', `chore: ${newReleaseId}`], {
     cwd: './www/dist',
     stdio: 'inherit',
   })
@@ -305,7 +307,7 @@ function exit() {
  * ```
  */
 function toRawVersion(version: string) {
-  let [, rawVersion] = version.match(/^(\d+(?:\.\d+(?:\.\d+)?)?)/)!
+  let [, rawVersion] = version.match(/^v?(\d+(?:\.\d+(?:\.\d+)?)?)/)!
   for (let i = rawVersion.split('.').length; i < 3; i++) {
     rawVersion += '.0'
   }
