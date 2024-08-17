@@ -63,119 +63,21 @@ jobs:
       - run: pnpm install
       - run: pnpm build
 
-      - name: Retrieve Stable Version
-        id: get-stable-version
-        run: |
-          echo "::set-output name=stable-version::v$(npm view radashi version)"
-
-      - name: Install git-cliff
-        run: pnpm install -g git-cliff@2.4.0
-
-      - name: Calculate Version
-        id: set-version
-        run: |
-          NEXT_VERSION=$(git-cliff --bumped-version | sed 's/v//')
-          BUILD_DIGEST=$(find dist package.json -type f -exec shasum -a 256 {} + | shasum -a 256 | cut -c 1-7)
-          NEXT_BETA_VERSION="$NEXT_VERSION-beta.$BUILD_DIGEST"
-          echo "Determined next beta version: $NEXT_BETA_VERSION"
-          echo "::set-output name=version::$NEXT_BETA_VERSION"
-
-      - name: Check Version
-        id: check-version
-        run: |
-          if npm -s view radashi@${{ steps.set-version.outputs.version }}; then
-            echo "🚫 Version ${{ steps.set-version.outputs.version }} already exists"
-            exit 1
-          else
-            echo "🟢 Version ${{ steps.set-version.outputs.version }} is available"
-          fi
-
-      - name: Retrieve Previous Tag
-        id: get-previous-tag
-        run: |
-          TAG=$(git describe --tags --abbrev=0)
-          echo "::set-output name=tag::$TAG"
-          echo "::set-output name=tag-commit::$(git rev-parse $TAG)"
-
       - name: Install SSH Client
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Generate Changelog
-        env:
-          GITHUB_TOKEN: ${{ secrets.GIT_CLIFF_PAT }}
-        run: |
-          # The entire changelog is regenerated from the point in history at which Radashi was born.
-          git-cliff 2be4acf455ebec86e846854dbab57bd0bfbbceb7..HEAD -o CHANGELOG.md
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git add CHANGELOG.md
-          git commit -m "chore(release): ${{ steps.set-version.outputs.version }}"
-          git push
-
-      - name: Publish to NPM
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          npm version ${{ steps.set-version.outputs.version }} --no-git-tag-version
-          npm publish --tag beta --ignore-scripts
-
-      - name: Track Version in Database
-        continue-on-error: true
-        env:
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+      - name: Install script dependencies
         run: |
           pnpm install -C scripts/versions
           pnpm install -C scripts/radashi-db
 
-          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-set-latest.ts ${{ steps.set-version.outputs.version }} ${{ github.sha }}
-
-      - name: Update Beta Tag
+      - name: Publish
+        env:
+          GIT_CLIFF_PAT: ${{ secrets.GIT_CLIFF_PAT }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git tag beta -f
-          git push origin beta -f
-
-      - name: Get PR Numbers
-        id: get-pr-numbers
-        run: |
-          PR_NUMBERS=$(git log --oneline ${{ steps.get-previous-tag.outputs.tag-commit }}..HEAD | grep -o '(#[0-9]\+)$' | tr '\n' ' ')
-          echo "::set-output name=pr-numbers::${PR_NUMBERS}"
-
-      - name: Comment on Pull Requests
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const headCommitSHA = context.sha
-            const baseCommitSHA = '${{ steps.get-previous-tag.outputs.tag-commit }}'
-            console.log('Commit range identified: %s ... %s', baseCommitSHA, headCommitSHA)
-
-            const prNumbers = '${{ steps.get-pr-numbers.outputs.pr-numbers }}'.split(/\s+/).map(s => s.replace(/\D/g, ''))
-            console.log('PR numbers:', prNumbers)
-
-            for (const prNumber of prNumbers) {
-              const version = '${{ steps.set-version.outputs.version }}'
-              const body = `
-            A new beta version \`${version}\` has been published to NPM. :rocket:
-
-            To install:
-            \`\`\`sh
-            pnpm add radashi@${version}
-            \`\`\`
-
-            The \`radashi@beta\` tag also includes this PR.
-
-            <a href="https://github.com/radashi-org/radashi/compare/${{ steps.get-stable-version.outputs.stable-version }}...${headCommitSHA}">
-              <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/changes-button.png" alt="See the changes" width="250px" />
-            </a>`
-
-              await github.rest.issues.createComment({
-                issue_number: prNumber,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: body
-              })
-            }
+          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-publish-beta.ts --sha ${{ github.sha }}
