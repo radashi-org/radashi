@@ -3,7 +3,6 @@
   "private": true,
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
-    "algoliasearch": "^4.24.0",
-    "supabase": "^1.187.10"
+    "algoliasearch": "^4.24.0"
   }
 }
