@@ -24,7 +24,7 @@ jobs:
       - run: pnpm install @commitlint/config-conventional@19.x
 
       - name: Lint
-        run: pnpm lint
+        run: pnpm lint --base ${{ github.event.pull_request.base.sha }}
 
       - name: Check PR Title
         run: echo "$PR_TITLE" | pnpm -s dlx commitlint@19.x
