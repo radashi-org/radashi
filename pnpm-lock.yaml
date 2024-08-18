@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@radashi-org/biome-config':
+        specifier: link:scripts/biome-config
+        version: link:scripts/biome-config
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.8.3
@@ -32,6 +36,12 @@ importers:
       vitest:
         specifier: 2.0.5
         version: 2.0.5(@types/node@22.3.0)
+
+  scripts/biome-config:
+    dependencies:
+      '@biomejs/biome':
+        specifier: ^1.8.3
+        version: 1.8.3
 
 packages:
 

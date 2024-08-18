@@ -101,7 +101,9 @@ async function main() {
   const files = baseCommit ? await getChangedFiles(baseCommit) : undefined
 
   let scripts = mightLintScripts(files, ignoreScripts, commandFilters)
-    ? glob.sync(['scripts/*/package.json']).map(p => path.dirname(p))
+    ? glob
+        .sync(['scripts/*/package.json', '!scripts/biome-config'])
+        .map(p => path.dirname(p))
     : []
 
   if (files) {

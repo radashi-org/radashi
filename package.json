@@ -79,5 +79,8 @@
     "unreleased opera versions",
     "unreleased firefox versions",
     "node >= 16"
-  ]
+  ],
+  "dependencies": {
+    "@radashi-org/biome-config": "link:scripts/biome-config"
+  }
 }
