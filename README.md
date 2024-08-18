@@ -110,7 +110,7 @@ deno add @radashi-org/radashi
   </a>
 
 - **Is backwards compatibility a goal?**  
-  Yes! We want the transition from `radash` to this library to be smooth. We'll make sure to avoid breaking changes. If any are made, they will be clearly documented at the bottom of this page.
+  Yes! We want the transition from `radash` to this library to be smooth. If you're coming from Radash, we recommend installing `radashi@^12`. This version will continue to receive backported fixes even after Radashi v13 is released. You can upgrade to the latest major version when you're ready.
 
 - **Automatic releases**  
   To ensure contributions are quickly rolled out, we have the following automatic processes:
