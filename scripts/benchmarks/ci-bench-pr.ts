@@ -37,6 +37,11 @@ async function main() {
   commentBody += `| ${columnNames.map(name => '-'.repeat(name.length)).join(' | ')} |\n`
 
   for (const report of changedFiles) {
+    if (Number.isNaN(report.benchmark.hz)) {
+      console.error('Invalid benchmark', report)
+      continue
+    }
+
     if (!report.baseline) {
       addedFiles.push(report)
       continue
@@ -63,6 +68,11 @@ async function main() {
   }
 
   for (const report of addedFiles) {
+    if (Number.isNaN(report.benchmark.hz)) {
+      console.error('Invalid benchmark', report)
+      continue
+    }
+
     const { file, location, benchmark } = report
     const benchURL =
       `${prBlobURL}/${file}` + (location ? `#L${location.line}` : '')
