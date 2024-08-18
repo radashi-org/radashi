@@ -35,6 +35,8 @@ _“What makes Radashi so great?”_
 - **nightly releases** (`radashi@beta`)
 - **changelog** (easily see what's new in each release)
 
+If you've been using Radash (our predecessor), you're probably interested in what makes us different. Read [our comparison post](https://radashi-org.github.io/blog/vs-radash) to learn more.
+
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
 ## Documentation
