@@ -12,6 +12,7 @@ describe('mapValues', () => {
     )
     expect(result).toEqual({
       x: 'xhi',
+      /* cSpell:disable-next-line */
       y: 'xbye',
     })
   })

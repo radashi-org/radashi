@@ -29,7 +29,7 @@ describe('isEqual', () => {
       boolean: true,
       unf: void 0,
       nul: null,
-      obj: { name: 'object', id: 1, chilren: [0, 1, 2] },
+      obj: { name: 'object', id: 1, children: [0, 1, 2] },
       arr: [0, 1, 2],
       func() {
         console.log('function')

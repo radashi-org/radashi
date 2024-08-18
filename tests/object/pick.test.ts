@@ -1,3 +1,5 @@
+// cSpell:ignore proxified
+
 import * as _ from 'radashi'
 
 const cast = <T = any>(value: any): T => value

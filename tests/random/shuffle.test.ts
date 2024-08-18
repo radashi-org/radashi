@@ -13,7 +13,7 @@ describe('shuffle', () => {
     const totalAfter = _.sum(result)
     expect(totalBefore).toBe(totalAfter)
   })
-  test('returns copy of list without mutatuing input', () => {
+  test('returns copy of list without mutating input', () => {
     const list = [1, 2, 3, 4, 5]
     const result = _.shuffle(list)
     expect(list).not.toBe(result)

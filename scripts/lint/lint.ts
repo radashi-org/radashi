@@ -15,6 +15,11 @@ const lint = (scripts: string[]): Command[] => [
     command: 'biome check ./src ./tests ./benchmarks',
   },
   {
+    name: 'spell-check',
+    color: 'gray',
+    command: 'cspell . --quiet',
+  },
+  {
     name: 'jsr',
     color: 'green',
     command: 'dlx deno-bin@1.44.4 lint',

@@ -7,8 +7,8 @@ import { capitalize } from 'radashi'
  * @example
  * ```ts
  * camel('hello world') // => 'helloWorld'
- * camel('va va-VOOM') // => 'vaVaVoom'
- * camel('helloworld') // => 'helloWorld'
+ * camel('one two-THREE') // => 'oneTwoThree'
+ * camel('helloWorld') // => 'helloWorld'
  * ```
  */
 export function camel(str: string): string {
