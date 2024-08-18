@@ -46,33 +46,16 @@ import { dedent } from './dedent'
  *   Limit the number of commits to include in each section. (For testing purposes)
  */
 async function main() {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.error('Error: ANTHROPIC_API_KEY is not set')
-    process.exit(1)
-  }
-
   const argv = mri(process.argv.slice(2))
-  const outFile = argv.o || argv.output
-  const limit = argv.limit ? +argv.limit : Number.POSITIVE_INFINITY
-
-  if (!outFile && !argv.publish) {
-    console.error('Error: No --output file or --publish flag provided')
-    process.exit(1)
-  } else if (outFile && argv.publish) {
-    console.error('Error: Cannot use --output file and --publish flag together')
-    process.exit(1)
-  }
-
-  if (argv.publish && !process.env.GITHUB_TOKEN) {
-    console.error('Error: GITHUB_TOKEN is not set')
-    process.exit(1)
-  }
+  const diffOnly = !!argv['diff-only']
 
   const version: string = JSON.parse(
     fs.readFileSync('package.json', 'utf8'),
   ).version
 
-  log('Generating release notes for v' + version)
+  if (!diffOnly) {
+    log('Generating release notes for v' + version)
+  }
 
   /**
    * If no commit ref is provided, use the latest two tags.
@@ -112,7 +95,9 @@ async function main() {
       }),
   )
 
-  log('Grouping commits and fetching diffs...')
+  if (!diffOnly) {
+    log('Grouping commits and fetching diffs...')
+  }
 
   const sections = getSections()
   for (const commit of commits) {
@@ -133,6 +118,38 @@ async function main() {
         section.commits.push(commit)
       }
     }
+  }
+
+  if (diffOnly) {
+    for (const section of sections) {
+      if (!section.commits) {
+        continue
+      }
+      for (const commit of section.commits) {
+        console.log(commit.diff + '\n')
+      }
+    }
+    process.exit(0)
+  }
+
+  const outFile = argv.o || argv.output
+  const limit = argv.limit ? +argv.limit : Number.POSITIVE_INFINITY
+
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.error('Error: ANTHROPIC_API_KEY is not set')
+    process.exit(1)
+  }
+
+  if (!outFile && !argv.publish) {
+    console.error('Error: No --output file or --publish flag provided')
+    process.exit(1)
+  } else if (outFile && argv.publish) {
+    console.error('Error: Cannot use --output file and --publish flag together')
+    process.exit(1)
+  }
+  if (argv.publish && !process.env.GITHUB_TOKEN) {
+    console.error('Error: GITHUB_TOKEN is not set')
+    process.exit(1)
   }
 
   const anthropic = new Anthropic()
