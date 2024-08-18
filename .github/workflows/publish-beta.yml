@@ -80,4 +80,4 @@ jobs:
           RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
-          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-publish-beta.ts --sha ${{ github.sha }}
+          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-publish.ts --tag beta

@@ -40,6 +40,7 @@
     "lint": "bash ./scripts/lint.sh",
     "move-function": "bash ./scripts/move-function.sh",
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
+    "release": "bash ./scripts/release.sh",
     "test": "vitest run --coverage",
     "test-branch": "bash ./scripts/test-branch.sh",
     "test-single": "bash ./scripts/test-single.sh",
