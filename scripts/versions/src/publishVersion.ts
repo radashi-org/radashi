@@ -258,6 +258,7 @@ async function computeBuildDigest() {
 }
 
 async function getPrNumbers(range: string) {
+  // cSpell:ignore oneline
   const { stdout: gitLog } = await execa('git', ['log', '--oneline', range])
   return sift(gitLog.split('\n').map(line => line.match(/\(#(\d+)\)$/)?.[1]))
 }

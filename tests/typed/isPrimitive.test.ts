@@ -4,7 +4,7 @@ describe('isPrimitive', () => {
   test('returns true for all the primitives', () => {
     const arr = [
       1.1,
-      'How you doin?',
+      'How you doing?',
       false,
       Symbol('key'),
       BigInt('1'),

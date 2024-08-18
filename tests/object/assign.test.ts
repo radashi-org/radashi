@@ -9,7 +9,7 @@ describe('assign', () => {
     location: {
       street: '23 main',
       state: {
-        abbrv: 'FL',
+        abbreviation: 'FL',
         name: 'Florida',
       },
     },
@@ -20,7 +20,7 @@ describe('assign', () => {
     location: {
       street: '8114 capo',
       state: {
-        abbrv: 'TX',
+        abbreviation: 'TX',
         name: 'Texas',
       },
     },

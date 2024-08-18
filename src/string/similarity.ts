@@ -1,3 +1,5 @@
+// cSpell:ignore fabiospampinato
+
 /**
  * Calculate the similarity between two strings using the Levenshtein
  * distance algorithm.

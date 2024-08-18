@@ -9,8 +9,8 @@ describe('template', () => {
   Thank You - {{name}}
 `
     const data = {
-      name: 'Spongebob',
-      type: 'squarepants',
+      name: 'SpongeBob',
+      type: 'squarePants',
       reason: 'so likeable',
     }
 

@@ -258,7 +258,7 @@ export type TypedArray =
   | SharedArrayBuffer
 
 /**
- * Add your own classes to this regitsry by extending its interface
+ * Add your own classes to this registry by extending its interface
  * with what's called “declaration merging” in TypeScript.
  *
  * All property types in this registry type may be treated specially

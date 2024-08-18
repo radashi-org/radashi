@@ -16,6 +16,8 @@
 
 **Ditch the bloat of Lodash. Stop reinventing the wheel.**
 
+<!-- cSpell:ignore shee -->
+
 Radashi (pronounced /ruh-DAH-shee/) is a TypeScript utility toolkit, packed with lightweight functions that are readable, performant, and robust.
 
 Radashi is an actively maintained fork of Radash, the fastest growing Lodash alternative with 100K+ weekly downloads.
@@ -83,7 +85,7 @@ deno add @radashi-org/radashi
 
 ## FAQ
 
-- **“I need XYZ, but Radashi doesn‘t have it.”**  
+- **“I need XYZ, but Radashi doesn't have it.”**  
   If you have a need not met by our current set of functions, we want to hear about it. [Start a discussion](https://github.com/orgs/radashi-org/discussions/new?category=ideas) so we can explore the idea together!
 
 - **What does “community first” mean exactly?**  

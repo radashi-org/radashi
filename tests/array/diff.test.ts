@@ -23,7 +23,7 @@ describe('diff', () => {
     const result = _.diff(['a'], [])
     expect(result).toEqual(['a'])
   })
-  test('returns all items from root that dont exist in other', () => {
+  test(`returns all items from root that don't exist in other`, () => {
     const result = _.diff(['a', 'b', 'c'], ['c', 'd', 'e'])
     expect(result).toEqual(['a', 'b'])
   })
