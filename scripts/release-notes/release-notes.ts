@@ -145,49 +145,59 @@ async function main() {
     log('Generating release notes for', section.name)
 
     section.commits.length = Math.min(section.commits.length, limit)
+    section.notes = ''
 
-    const linkLocation =
-      section.noun === 'feature' || section.noun === 'fix'
-        ? 'immediately after the heading'
-        : 'at the end'
+    const chunkSize = 4
 
-    const rules = [
-      `You're tasked with writing in-depth release notes (using Markdown) in a professional tone.`,
-      'Never converse with me.',
-      'Always mention every change I give you.',
-      `Always link to the relevant PR (or the commit if there's no PR) ${linkLocation} of each ${section.noun} in a format like "[→ PR #110](…)" or "[→ commit {short-hash}](…)". The GitHub URL is "https://github.com/radashi-org/radashi".`,
-      `Never include headings like "Release Notes" or "v1.0.0".`,
-      ...section.rules(section.noun),
-    ]
+    for (let offset = 0; offset < section.commits.length; offset += chunkSize) {
+      log(`${section.commits.length - offset} commits left`)
 
-    log('Sending request to Anthropic...')
+      const linkLocation =
+        section.noun === 'feature' || section.noun === 'fix'
+          ? 'immediately after the heading'
+          : 'at the end'
 
-    const response = await anthropic.messages.create({
-      model: 'claude-3-haiku-20240307',
-      max_tokens: 4096,
-      messages: [
-        {
-          role: 'user',
-          content: dedent`
-            - ${rules.join('\n- ')}
+      const rules = [
+        `You're tasked with writing in-depth release notes (using Markdown) in a professional tone.`,
+        'Never converse with me.',
+        'Always mention every change I give you.',
+        `Always link to the relevant PR (or the commit if there's no PR) ${linkLocation} of each ${section.noun} in a format like "[→ PR #110](…)" or "[→ commit {short-hash}](…)". The GitHub URL is "https://github.com/radashi-org/radashi".`,
+        `Never include headings like "Release Notes" or "v1.0.0".`,
+        ...section.rules(section.noun),
+      ]
 
-            The following changes are from \`git log -p\`:
+      log('Sending request to Anthropic...')
 
-            <changes>
-            ${section.commits.map(commit => commit.diff).join('\n\n')}
-            </changes>
-          `,
-        },
-      ],
-    })
+      const response = await anthropic.messages.create({
+        model: 'claude-3-haiku-20240307',
+        max_tokens: 4096,
+        messages: [
+          {
+            role: 'user',
+            content: dedent`
+              - ${rules.join('\n- ')}
 
-    const [message] = response.content
-    if (message.type !== 'text') {
-      console.error('Expected a text message, got:', message)
-      process.exit(1)
+              The following changes are from \`git log -p\`:
+
+              <changes>
+              ${section.commits
+                .slice(offset, offset + chunkSize)
+                .map(commit => commit.diff)
+                .join('\n\n')}
+              </changes>
+            `,
+          },
+        ],
+      })
+
+      const [message] = response.content
+      if (message.type !== 'text') {
+        console.error('Expected a text message, got:', message)
+        process.exit(1)
+      }
+
+      section.notes += message.text.trim() + '\n\n'
     }
-
-    section.notes = message.text
   }
 
   let notes = sections
