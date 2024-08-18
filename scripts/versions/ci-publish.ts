@@ -10,8 +10,8 @@ async function main() {
 
 function parseArgs() {
   const { gitCliffToken, npmToken, radashiBotToken } = verifyEnvVars({
-    gitCliffToken: 'GIT_CLIFF_PAT',
-    npmToken: 'NPM_TOKEN',
+    gitCliffToken: !!process.env.CI && 'GIT_CLIFF_PAT',
+    npmToken: !!process.env.CI && 'NPM_TOKEN',
     radashiBotToken: 'RADASHI_BOT_TOKEN',
   })
 
@@ -33,20 +33,29 @@ function parseArgs() {
   }
 }
 
-function verifyEnvVars<T extends Record<string, string>>(
+function verifyEnvVars<T extends Record<string, string | false>>(
   vars: T,
-): { [K in keyof T]: string } {
+): {
+  [K in keyof T]: T[K] extends infer Value
+    ? Value extends string
+      ? string
+      : undefined
+    : undefined
+} {
   return Object.entries(vars).reduce(
     (acc, [alias, envName]) => {
+      if (!envName) {
+        return acc
+      }
       const value = process.env[envName]
       if (!value) {
         console.error(`Error: ${envName} is not set`)
         process.exit(1)
       }
       process.env[envName] = ''
-      acc[alias as keyof T] = value
+      acc[alias] = value
       return acc
     },
-    {} as { [K in keyof T]: string },
-  )
+    {} as Record<string, string>,
+  ) as any
 }

@@ -14,10 +14,11 @@ const changelogBaseSha = '2be4acf455ebec86e846854dbab57bd0bfbbceb7'
 export async function publishVersion(args: {
   tag?: 'beta' | 'next'
   push: boolean
-  gitCliffToken: string
-  npmToken: string
+  gitCliffToken?: string
+  npmToken?: string
   radashiBotToken: string
 }) {
+  const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
   const octokit = new Octokit({ auth: args.radashiBotToken })
 
   // Determine the last stable version
@@ -29,10 +30,9 @@ export async function publishVersion(args: {
   log(`Last stable version: ${stableVersion}`)
 
   // Determine the next version
-  const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
-  let nextVersion = await execa(gitCliffBin, ['--bumped-version']).then(r =>
-    r.stdout.replace(/^v/, ''),
-  )
+  let nextVersion = await execa(gitCliffBin, ['--bumped-version'], {
+    env: { GITHUB_TOKEN: args.gitCliffToken },
+  }).then(r => r.stdout.replace(/^v/, ''))
   if (args.tag) {
     const suffix = args.tag === 'beta' ? 'beta' : 'alpha'
     const buildDigest = (await computeBuildDigest()).slice(0, 7)
