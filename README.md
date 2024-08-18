@@ -35,15 +35,9 @@ _“What makes Radashi so great?”_
 - **nightly releases** (`radashi@beta`)
 - **changelog** (easily see what's new in each release)
 
-If you've been using Radash (our predecessor), you're probably interested in what makes us different. Read [our comparison post](https://radashi-org.github.io/blog/vs-radash) to learn more.
+_If you've been using Radash (our predecessor), you're probably interested in what makes us different. Read [our comparison post](https://radashi-org.github.io/blog/vs-radash) to learn how we're bringing Radash to the next level while preserving its best features._
 
-<img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
-
-## Documentation
-
-An official website is in the works (tracked by [#40](https://github.com/radashi-org/radashi/issues/40)). Until then, you can refer to the original `radash` documentation and the [CHANGELOG.md](https://github.com/radashi-org/radashi/blob/main/CHANGELOG.md) file.
-
-<a href="https://radash-docs.vercel.app">
+<a href="https://radashi-org.github.io">
   <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/docs-button.png" alt="Radash documentation" width="250px" />
 </a>
 
