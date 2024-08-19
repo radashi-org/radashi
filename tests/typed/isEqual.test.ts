@@ -12,14 +12,14 @@ describe('isEqual', () => {
   const jake = new Person('jake')
   jake.self = jake
   jake.friends = [jake, jake]
-  const symbolKey = Symbol('symkey')
+  const symbolKey = Symbol('symKey')
   const complex = {
     num: 0,
     str: '',
     boolean: true,
     unf: void 0,
     nul: null,
-    obj: { name: 'object', id: 1, chilren: [0, 1, 2] },
+    obj: { name: 'object', id: 1, children: [0, 1, 2] },
     arr: [0, 1, 2],
     func() {
       console.log('function')

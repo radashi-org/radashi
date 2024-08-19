@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 set -e
+set -x
 
-# This script takes a list of path globs and checks out the PR into
-# the current directory. The current branch is not switched.
+# Fetch the PR contents
 git remote add pr $PR_REPO_URL
 git fetch pr "$PR_HEAD_REF"
-git checkout "pr/$PR_HEAD_REF" -- $@
+
+# Import changes from the PR into the current branch without committing
+BASE_COMMIT=$(git merge-base HEAD "pr/$PR_HEAD_REF")
+git cherry-pick -n "$BASE_COMMIT..pr/$PR_HEAD_REF"
+
+# List the affected files for debugging purposes
+git diff --name-status --staged

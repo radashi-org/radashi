@@ -20,7 +20,7 @@
  */
 export function partob<T, K, PartialArgs extends Partial<T>>(
   fn: (args: T) => K,
-  argobj: PartialArgs,
-): (restobj: Omit<T, keyof PartialArgs>) => K {
-  return restobj => fn({ ...argobj, ...restobj } as T)
+  argObj: PartialArgs,
+): (restObj: Omit<T, keyof PartialArgs>) => K {
+  return restObj => fn({ ...argObj, ...restObj } as T)
 }

@@ -1,0 +1,19 @@
+---
+title: isResultOk
+description: Returns true for successful Result tuple
+---
+
+### Usage
+
+Check if a value is both a `Result` tuple and an `Ok` result.
+
+```ts
+declare const value: unknown
+
+if (isResultOk(value)) {
+  value // <-- now an Ok<unknown> type
+  value[1] // <-- This is the resulting value!
+}
+```
+
+Also see the related [isResult](/typed/isResult) and [isResultErr](/typed/isResultErr) functions.

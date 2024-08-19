@@ -2,7 +2,7 @@ import { tryit } from 'radashi'
 
 /**
  * Useful when for script like things where cleanup should be done on
- * fail or sucess no matter.
+ * fail or success no matter.
  *
  * You can call defer many times to register many deferred functions
  * that will all be called when the function exits in any state.

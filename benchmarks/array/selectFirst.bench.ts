@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('selectFirst', () => {
   bench('with non-empty input list', () => {

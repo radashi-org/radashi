@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('mapValues', () => {
   const prefixWith = (prefix: string) => (str: string) => `${prefix}${str}`

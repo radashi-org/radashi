@@ -13,4 +13,8 @@ describe('pascal', () => {
     const result = _.pascal(null as any)
     expect(result).toBe('')
   })
+  test('converts camelCase to PascalCase', () => {
+    const result = _.pascal('fooBar')
+    expect(result).toBe('FooBar')
+  })
 })

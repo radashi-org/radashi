@@ -2,6 +2,7 @@
   "recommendations": [
     "vitest.explorer",
     "biomejs.biome",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker"
   ]
 }

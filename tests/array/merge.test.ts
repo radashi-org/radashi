@@ -23,7 +23,7 @@ describe('merge', () => {
     const result = _.merge(['a'], [], cast(null))
     expect(result).toEqual(['a'])
   })
-  test('returns correctly mergeped lists', () => {
+  test('returns correctly merged lists', () => {
     const inputA = [
       { name: 'ray', group: 'X' },
       { name: 'sara', group: 'X' },

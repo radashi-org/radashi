@@ -37,6 +37,11 @@ async function main() {
   commentBody += `| ${columnNames.map(name => '-'.repeat(name.length)).join(' | ')} |\n`
 
   for (const report of changedFiles) {
+    if (Number.isNaN(report.benchmark.hz)) {
+      console.error('Invalid benchmark', report)
+      continue
+    }
+
     if (!report.baseline) {
       addedFiles.push(report)
       continue
@@ -63,6 +68,11 @@ async function main() {
   }
 
   for (const report of addedFiles) {
+    if (Number.isNaN(report.benchmark.hz)) {
+      console.error('Invalid benchmark', report)
+      continue
+    }
+
     const { file, location, benchmark } = report
     const benchURL =
       `${prBlobURL}/${file}` + (location ? `#L${location.line}` : '')
@@ -80,7 +90,7 @@ async function main() {
   }
 
   commentBody +=
-    "\n*Generally speaking, any regression ≥20% should be investigated if it wasn't to be expected.*"
+    "\n*Performance regressions of 30% or more should be investigated, unless they were anticipated. Smaller regressions may be due to normal variability, as we don't use dedicated CI infrastructure.*"
 
   // Find and update the existing benchmark comment if it exists, or create a new one
   try {

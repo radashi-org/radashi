@@ -2,10 +2,11 @@
   "name": "radashi",
   "version": "12.1.0",
   "type": "module",
-  "description": "Functional utility library - modern, simple, typed, powerful",
+  "description": "The modern, community-first TypeScript toolkit with all of the fast, readable, and minimal utility functions you need. Type-safe, dependency-free, tree-shakeable, fully tested.",
   "repository": {
     "url": "git+https://github.com/radashi-org/radashi.git"
   },
+  "homepage": "https://radashi-org.github.io",
   "author": "Alec Larson",
   "contributors": [
     "Ray Epps"
@@ -36,24 +37,19 @@
     "bundle-impact": "bash ./scripts/bundle-impact.sh",
     "dev": "tsup --clean --watch --sourcemap",
     "format": "bash ./scripts/format.sh",
-    "lint": "concurrently -c=auto -g --kill-others-on-fail 'npm:lint:*'",
-    "lint:biome": "biome check ./src ./tests ./benchmarks",
-    "lint:compat": "bash ./scripts/lint-compat.sh 'src/**/*.ts'",
-    "lint:jsr": "pnpm -s dlx deno-bin@1.44.4 lint",
-    "lint:tsc": "concurrently -c=auto -g --kill-others-on-fail --names src,tests,benchmarks 'tsc' 'tsc -p tests' 'tsc -p benchmarks'",
+    "lint": "bash ./scripts/lint.sh",
     "move-function": "bash ./scripts/move-function.sh",
     "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
+    "release": "bash ./scripts/release.sh",
     "test": "vitest run --coverage",
     "test-branch": "bash ./scripts/test-branch.sh",
-    "test-single": "bash ./scripts/test-single.sh"
+    "test-single": "bash ./scripts/test-single.sh",
+    "update-browserslist": "bash ./scripts/update-browserslist.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
-    "@typescript-eslint/parser": "^7.16.1",
-    "@vitest/coverage-v8": "2.0.3",
-    "concurrently": "^8.2.2",
-    "eslint-plugin-compat": "^6.0.0",
-    "glob": "^11.0.0",
+    "@vitest/coverage-v8": "2.0.5",
+    "cspell": "^8.13.3",
     "prettier": "^3.3.2",
     "prettier-plugin-pkg": "^0.18.1",
     "prettier-plugin-sh": "^0.14.0",
@@ -63,7 +59,29 @@
   },
   "sideEffects": false,
   "browserslist": [
-    ">0.1% and not dead",
+    "and_chr >= 57",
+    "chrome >= 57",
+    "and_ff >= 52",
+    "android >= 127",
+    "edge >= 15",
+    "samsung >= 7.4",
+    "safari >= 10.1",
+    "ios_saf >= 10.3",
+    "opera >= 44",
+    "firefox >= 52",
+    "unreleased and_chr versions",
+    "unreleased chrome versions",
+    "unreleased and_ff versions",
+    "unreleased android versions",
+    "unreleased edge versions",
+    "unreleased samsung versions",
+    "unreleased safari versions",
+    "unreleased ios_saf versions",
+    "unreleased opera versions",
+    "unreleased firefox versions",
     "node >= 16"
-  ]
+  ],
+  "dependencies": {
+    "@radashi-org/biome-config": "link:scripts/biome-config"
+  }
 }

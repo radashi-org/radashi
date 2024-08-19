@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('round', () => {
   bench('to default precision (0 decimal places)', () => {

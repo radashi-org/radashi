@@ -13,7 +13,7 @@ import * as _ from 'radashi'
 _.snake('green fish blue fish') // => green_fish_blue_fish
 ```
 
-**Warning**: In v11.0.0 a change was made to _fix_ this function so that it correctly splits numbers from neighbouring letters (`hello5` becomes `hello_5`). You can opt out of this behavior and continue with the legacy style (`hello5` becomes `hello5`) by passing the `splitOnNumber` options.
+**Warning**: In v11.0.0 a change was made to _fix_ this function so that it correctly splits numbers from neighboring letters (`hello5` becomes `hello_5`). You can opt out of this behavior and continue with the legacy style (`hello5` becomes `hello5`) by passing the `splitOnNumber` options.
 
 ```ts
 _.snake('5green fish 2blue fish') // => 5_green_fish_2_blue_fish

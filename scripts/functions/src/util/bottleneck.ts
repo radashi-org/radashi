@@ -90,6 +90,9 @@ export function bottleneck<Fn extends (...args: any[]) => any>(
   let numRunning = 0
   let startTime: number | undefined
 
+  type TArgs = Parameters<Fn>
+  type TReturn = Awaited<ReturnType<Fn>>
+
   type QueueItem = {
     args: TArgs
     resolve: (value: TReturn | PromiseLike<TReturn>) => void
@@ -148,7 +151,7 @@ export function bottleneck<Fn extends (...args: any[]) => any>(
   // every finished call.
   const next = () => queue.length && run(queue.shift()!)
 
-  const bottled: BottledFunction<TArgs, any> = (...args) => run(args)
+  const bottled = ((...args: TArgs) => run(args)) as BottledFunction<Fn>
 
   bottled.cancel = () => {
     queue.length = 0

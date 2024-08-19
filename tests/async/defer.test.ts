@@ -62,7 +62,7 @@ describe('defer', () => {
         })
         // biome-ignore lint/correctness/noConstantCondition:
         if (true) {
-          throw new Error('soooo broken')
+          throw new Error('so very broken')
         }
         return 'x'
       })
@@ -75,21 +75,21 @@ describe('defer', () => {
     let error: Error | null = null
     try {
       await _.defer(async () => {
-        throw new Error('soooo broken')
+        throw new Error('so very broken')
       })
     } catch (err: any) {
       error = err
     }
     expect(error).not.toBeNull()
-    expect(error?.message).toBe('soooo broken')
+    expect(error?.message).toBe('so very broken')
   })
-  test('rethrows the rethrown error when rethrow is true', async () => {
+  test('rethrows the re-thrown error when rethrow is true', async () => {
     let error: Error | null = null
     try {
       await _.defer(async register => {
         register(
           async () => {
-            throw new Error('soooo broken')
+            throw new Error('so very broken')
           },
           { rethrow: true },
         )
@@ -98,15 +98,15 @@ describe('defer', () => {
       error = err
     }
     expect(error).not.toBeNull()
-    expect(error?.message).toBe('soooo broken')
+    expect(error?.message).toBe('so very broken')
   })
-  test('does not rethrow the rethrown error when rethrow is false', async () => {
+  test('does not rethrow the re-thrown error when rethrow is false', async () => {
     let error: Error | null = null
     try {
       await _.defer(async register => {
         register(
           async () => {
-            throw new Error('soooo broken')
+            throw new Error('so very broken')
           },
           { rethrow: false },
         )
@@ -116,12 +116,12 @@ describe('defer', () => {
     }
     expect(error).toBeNull()
   })
-  test('does not rethrow the rethrown error by default', async () => {
+  test('does not rethrow the re-thrown error by default', async () => {
     let error: Error | null = null
     try {
       await _.defer(async register => {
         register(async () => {
-          throw new Error('soooo broken')
+          throw new Error('so very broken')
         })
       })
     } catch (err: any) {

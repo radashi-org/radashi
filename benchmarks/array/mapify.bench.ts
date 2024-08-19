@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('mapify', () => {
   bench('with full list and identity value function', () => {

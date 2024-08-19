@@ -1,0 +1,48 @@
+version: '0.2'
+language: en
+ignorePaths:
+  - '**/package.json'
+  - '**/pnpm-lock.yaml'
+  - '**/dist'
+  - coverage
+  - 'cliff.toml'
+languageSettings:
+  - languageId: markdown
+    ignoreRegExpList:
+      - '/@[\w-]+/' # ignore github handles
+    dictionaries:
+      - typescript # ignore typescript-y words in markdown
+  - languageId: typescript
+    ignoreRegExpList:
+      - "/ from '.+'/" # ignore import targets
+words:
+  - automagically
+  - backported
+  - browserslist
+  - curlopt
+  - dedented
+  - deno
+  - dequal
+  - esbuild
+  - execa
+  - exobase
+  - gitter
+  - kleur
+  - lerp
+  - listify
+  - lowerize
+  - mapify
+  - nums
+  - objectize
+  - partob
+  - ponyfill
+  - procs
+  - radash
+  - radashi
+  - smidge
+  - supabase
+  - tryit
+  - upperize
+  - upserting
+  - urlencode
+  - vitest

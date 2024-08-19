@@ -24,8 +24,8 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2
       radashi:
-        specifier: 12.2.0-beta.7fb6e89
-        version: 12.2.0-beta.7fb6e89
+        specifier: link:../../src
+        version: link:../../src
       tsx:
         specifier: ^4.17.0
         version: 4.17.0
@@ -450,10 +450,6 @@ packages:
   pretty-ms@9.1.0:
     resolution: {integrity: sha512-o1piW0n3tgKIKCwk2vpM/vOV13zjJzvP37Ioze54YlTHE06m4tjEbzg9WsKkvTuyYln2DHjo5pY4qrZGI0otpw==}
     engines: {node: '>=18'}
-
-  radashi@12.2.0-beta.7fb6e89:
-    resolution: {integrity: sha512-zBJajRnOB3vnX1mBNOMBrfblepRxSJ7/peTndW0wnfvw53mZ2Ra77ZXU9XCfpyO003y6cjJBqEioLX39jhyAsg==}
-    engines: {node: '>=16.0.0'}
 
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
@@ -921,8 +917,6 @@ snapshots:
   pretty-ms@9.1.0:
     dependencies:
       parse-ms: 4.0.0
-
-  radashi@12.2.0-beta.7fb6e89: {}
 
   resolve-pkg-maps@1.0.0: {}
 

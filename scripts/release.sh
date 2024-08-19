@@ -1,16 +1,10 @@
-# This script is used to publish an official release.
+#!/usr/bin/env bash
 set -e
 
-NEXT_VERSION=$(git cliff --bumped-version | sed 's/.//')
-npm version $NEXT_VERSION --no-git-tag-version
-npm publish
+if [ ! -d "scripts/versions/node_modules" ]; then
+  echo "Node modules not found. Installing dependencies..."
+  pnpm install -C scripts/versions
+  pnpm install -C scripts/radashi-db
+fi
 
-git cliff 2be4acf455ebec86e846854dbab57bd0bfbbceb7..HEAD --tag v$NEXT_VERSION --output CHANGELOG.md
-git add package.json CHANGELOG.md
-git commit -m "chore(release): $NEXT_VERSION"
-
-./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-set-latest.ts $NEXT_VERSION $(git rev-parse HEAD)
-
-git tag v$NEXT_VERSION
-git push
-git push --tags
+pnpm -s scripts/versions/node_modules/.bin/tsx scripts/versions/ci-publish.ts "$@"

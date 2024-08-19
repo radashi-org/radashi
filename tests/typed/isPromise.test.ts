@@ -1,12 +1,14 @@
 import * as _ from 'radashi'
 
 describe('isPromise', () => {
-  test('return true for Promise values', () => {
-    expect(_.isPromise(new Promise(res => res(0)))).toBeTruthy()
-    expect(_.isPromise(new Promise(res => res('')))).toBeTruthy()
+  test('return true for Promise-like values', () => {
+    expect(_.isPromise(new Promise(() => {}))).toBeTruthy()
+    expect(_.isPromise(Promise.resolve(1))).toBeTruthy()
     expect(_.isPromise((async () => {})())).toBeTruthy()
+    // biome-ignore lint/suspicious/noThenProperty:
+    expect(_.isPromise({ then: () => {} })).toBeTruthy()
   })
-  test('return false for non-Date values', () => {
+  test('return false for non-Promise-like values', () => {
     expect(_.isPromise(22)).toBeFalsy()
     expect(_.isPromise({ name: 'x' })).toBeFalsy()
     expect(_.isPromise('abc')).toBeFalsy()

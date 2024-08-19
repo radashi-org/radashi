@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
 # Get the list of changed files relative to the main branch.
 CHANGED_FILES=$(git diff main..HEAD --name-only -- 'src/**/*.ts' 'tests/**/*.test.ts' '!src/*.ts')
 

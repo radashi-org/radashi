@@ -20,63 +20,63 @@ export async function weighChangedFunctions(opts: { verbose?: boolean } = {}) {
     console.log('prevSizes == %O', prevSizes)
   }
 
-  const columnCount = prevSizes.some(size => size !== 0) ? 3 : 2
+  const existingFilesAffected = prevSizes.some(size => size !== 0)
 
-  let result = ''
+  let body = ''
 
-  const addLine = (line: string) => (result += line + '\n')
-
-  if (process.env.CI && changedFiles.length > 0) {
-    if (columnCount > 2) {
-      addLine('| Status | File | Size | Difference (%) |')
-      addLine('|---|---|---|---|')
-    } else {
-      addLine('| Status | File | Size |')
-      addLine('|---|---|---|')
-    }
-  }
+  const appendLine = (line: string) => (body += line + '\n')
 
   await map(changedFiles, async ({ status, name }, i) => {
     const prevBytes = prevSizes[i]
 
     const bytes = await getFileSize(name, status)
-
     const diff = bytes - prevBytes
-    const diffStr = (diff >= 0 ? '+' : '') + diff
+    if (diff === 0) {
+      return
+    }
+
+    const diffStr = (diff > 0 ? '+' : '') + diff
 
     let ratioStr = ''
-    if (columnCount > 2 && prevBytes !== 0) {
+    if (existingFilesAffected && prevBytes !== 0) {
       const ratio = Math.round((bytes / prevBytes - 1) * 100)
       ratioStr = ` (${ratio >= 0 ? '+' : ''}${ratio}%)`
     }
 
     if (process.env.CI) {
-      const sizeStr = i === 0 ? `${bytes} [^1337]` : `${bytes}`
-      if (columnCount > 2) {
-        addLine(
-          `| ${status} | \`${name}\` | ${sizeStr} | ${diffStr}${ratioStr} |`,
-        )
-      } else {
-        addLine(`| ${status} | \`${name}\` | ${sizeStr} |`)
+      const columns = [status, `\`${name}\``, bytes]
+      if (existingFilesAffected) {
+        columns.push(diffStr + ratioStr)
       }
+      appendLine(`| ${columns.join(' | ')} |`)
     } else {
-      if (columnCount > 2 && prevBytes !== 0) {
-        addLine(`${name}: ${bytes} bytes (${diffStr} bytes)${ratioStr}`)
+      if (existingFilesAffected && prevBytes !== 0) {
+        appendLine(`${name}: ${bytes} bytes (${diffStr} bytes)${ratioStr}`)
       } else {
-        addLine(`${name}: ${bytes} bytes`)
+        appendLine(`${name}: ${bytes} bytes`)
       }
     }
   })
 
-  if (process.env.CI && changedFiles.length > 0) {
-    addLine('')
-    addLine(
+  if (process.env.CI && body.length > 0) {
+    const columns = ['Status', 'File', 'Size [^1337]']
+    if (existingFilesAffected) {
+      columns.push('Difference')
+    }
+
+    body =
+      `| ${columns.join(' | ')} |\n` +
+      `| ${columns.map(() => '---').join(' | ')} |\n` +
+      body
+
+    appendLine('')
+    appendLine(
       '[^1337]: Function size includes the `import` dependencies of the function.',
     )
-    addLine('')
+    appendLine('')
   }
 
-  return result
+  return body
 }
 
 async function getTargetBranch(): Promise<string> {

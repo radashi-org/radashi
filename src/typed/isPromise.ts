@@ -11,6 +11,6 @@ import { isFunction } from 'radashi'
  * isPromise(1) // => false
  * ```
  */
-export function isPromise(value: any): value is Promise<any> {
+export function isPromise(value: any): value is PromiseLike<unknown> {
   return !!value && isFunction(value.then)
 }

@@ -1,3 +1,5 @@
 import createAlgolia from 'algoliasearch'
 
-export const algolia = createAlgolia('7YYOXVJ9K7', process.env.ALGOLIA_KEY!)
+/* cSpell:disable-next-line */
+const appId = '7YYOXVJ9K7'
+export const algolia = createAlgolia(appId, process.env.ALGOLIA_KEY!)

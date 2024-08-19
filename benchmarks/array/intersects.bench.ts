@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('intersects', () => {
   bench('with mixed arrays', () => {

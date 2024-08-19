@@ -53,6 +53,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **(debounce)** Add `leading` option by [@crishoj](https://github.com/crishoj) in [#128](https://github.com/radashi-org/radashi/pull/128)
 
+- Add isResult, isResultOk, and isResultErr functions by [@aleclarson](https://github.com/aleclarson) in [#172](https://github.com/radashi-org/radashi/pull/172)
+
+- Add `isError` function by [@aleclarson](https://github.com/aleclarson) in [#173](https://github.com/radashi-org/radashi/pull/173)
+
 
 #### <!-- 05 -->Changed
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
@@ -100,6 +104,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **(toggle)** Use -1 as index for `toKey()` with toggled `item` by [@Minhir](https://github.com/Minhir) in [#167](https://github.com/radashi-org/radashi/pull/167)
 
+- **(pascal)** Handle camel-cased strings correctly by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#178](https://github.com/radashi-org/radashi/pull/178)
+
 
 #### <!-- 07 -->Performance
 - Avoid excessive array allocation in `fork` by [@localusercamp](https://github.com/localusercamp) in [#33](https://github.com/radashi-org/radashi/pull/33)
@@ -135,6 +141,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Let `shift` accept a readonly array type by [@nnmrts](https://github.com/nnmrts) in [#126](https://github.com/radashi-org/radashi/pull/126)
 
 - Remove type constraint for mapped array passed to `sum` by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [dea0f50](https://github.com/radashi-org/radashi/commit/dea0f504f417b23aaf2b91495943501c894a172a)
+- Make `assign` return type more accurate + add `Assign` type by [@aleclarson](https://github.com/aleclarson) in [#142](https://github.com/radashi-org/radashi/pull/142)
+
+- Add Ok/Err/Result/ResultPromise types by [@aleclarson](https://github.com/aleclarson) in [#132](https://github.com/radashi-org/radashi/pull/132)
+
+- Align `isPromise` return type with its logic by [@aleclarson](https://github.com/aleclarson) in [#175](https://github.com/radashi-org/radashi/pull/175)
+
 
 ### New Contributors
 * [@crishoj](https://github.com/crishoj) made their first contribution in [#128](https://github.com/radashi-org/radashi/pull/128)

@@ -9,11 +9,14 @@
   <a href="https://app.codecov.io/gh/radashi-org/radashi/tree/main/src"><img src="https://img.shields.io/codecov/c/github/radashi-org/radashi?logo=codecov" alt="Codecov" /></a>
   <a href="https://biomejs.dev/"><img src="https://img.shields.io/badge/code_style-biome.js-blue?logo=biome" alt="Code Style: Biome.js" /></a>
   <a href="https://github.com/radashi-org/radashi/discussions"><img src="https://img.shields.io/github/discussions/radashi-org/radashi?logo=github" alt="GitHub Discussions" /></a>
+  <a href="https://app.gitter.im/#/room/#radashi:gitter.im"><img src="https://badges.gitter.im/join_chat.svg" alt="Gitter.im" /></a>
 </div>
 
 &nbsp;
 
 **Ditch the bloat of Lodash. Stop reinventing the wheel.**
+
+<!-- cSpell:ignore shee -->
 
 Radashi (pronounced /ruh-DAH-shee/) is a TypeScript utility toolkit, packed with lightweight functions that are readable, performant, and robust.
 
@@ -34,13 +37,9 @@ _“What makes Radashi so great?”_
 - **nightly releases** (`radashi@beta`)
 - **changelog** (easily see what's new in each release)
 
-<img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
+_If you've been using Radash (our predecessor), you're probably interested in what makes us different. Read [our comparison post](https://radashi-org.github.io/blog/vs-radash) to learn how we're bringing Radash to the next level while preserving its best features._
 
-## Documentation
-
-An official website is in the works (tracked by [#40](https://github.com/radashi-org/radashi/issues/40)). Until then, you can refer to the original `radash` documentation and the [CHANGELOG.md](https://github.com/radashi-org/radashi/blob/main/CHANGELOG.md) file.
-
-<a href="https://radash-docs.vercel.app">
+<a href="https://radashi-org.github.io">
   <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/docs-button.png" alt="Radash documentation" width="250px" />
 </a>
 
@@ -86,7 +85,7 @@ deno add @radashi-org/radashi
 
 ## FAQ
 
-- **“I need XYZ, but Radashi doesn‘t have it.”**  
+- **“I need XYZ, but Radashi doesn't have it.”**  
   If you have a need not met by our current set of functions, we want to hear about it. [Start a discussion](https://github.com/orgs/radashi-org/discussions/new?category=ideas) so we can explore the idea together!
 
 - **What does “community first” mean exactly?**  
@@ -109,7 +108,7 @@ deno add @radashi-org/radashi
   </a>
 
 - **Is backwards compatibility a goal?**  
-  Yes! We want the transition from `radash` to this library to be smooth. We'll make sure to avoid breaking changes. If any are made, they will be clearly documented at the bottom of this page.
+  Yes! We want the transition from `radash` to this library to be smooth. If you're coming from Radash, we recommend installing `radashi@^12`. This version will continue to receive backported fixes even after Radashi v13 is released. You can upgrade to the latest major version when you're ready.
 
 - **Automatic releases**  
   To ensure contributions are quickly rolled out, we have the following automatic processes:

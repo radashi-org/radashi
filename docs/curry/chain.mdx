@@ -11,9 +11,9 @@ Chaining functions will cause them to execute one after another, passing the out
 import * as _ from 'radashi'
 
 const add = (y: number) => (x: number) => x + y
-const mult = (y: number) => (x: number) => x * y
+const multiply = (y: number) => (x: number) => x * y
 const addFive = add(5)
-const double = mult(2)
+const double = multiply(2)
 
 const chained = _.chain(addFive, double)
 

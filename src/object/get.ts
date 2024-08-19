@@ -28,11 +28,11 @@ export function get<TDefault = unknown>(
     if (current === undefined) {
       return defaultValue as TDefault
     }
-    const dequoted = key.replace(/['"]/g, '')
-    if (dequoted.trim() === '') {
+    const unquotedKey = key.replace(/['"]/g, '')
+    if (unquotedKey.trim() === '') {
       continue
     }
-    current = current[dequoted]
+    current = current[unquotedKey]
   }
   if (current === undefined) {
     return defaultValue as TDefault

@@ -5,7 +5,7 @@
  * @example
  * ```ts
  * capitalize('hello') // => 'Hello'
- * capitalize('va va voom') // => 'Va va voom'
+ * capitalize('one two three') // => 'One two three'
  * ```
  */
 export function capitalize(str: string): string {

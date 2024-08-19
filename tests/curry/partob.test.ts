@@ -7,7 +7,7 @@ describe('partob', () => {
     const result = _.partob(add, { a: 10 })({ b: 10 })
     expect(result).toBe(expected)
   })
-  test('partob overrides inital with later', () => {
+  test('partob overrides initial with later', () => {
     const add = ({ a, b }: { a: number; b: number }) => a + b
     const expected = 15
     const result = _.partob(add, { a: 10 })({ a: 5, b: 10 } as any)

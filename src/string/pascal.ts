@@ -6,12 +6,23 @@
  * ```ts
  * pascal('hello world') // => 'HelloWorld'
  * pascal('va va boom') // => 'VaVaBoom'
+ * pascal('helloWorld') // => 'HelloWorld'
  * ```
  */
 export function pascal(str: string): string {
-  const parts = str?.split(/[\.\-\s_]/).map(x => x.toLowerCase()) ?? []
-  if (parts.length === 0) {
+  if (!str) {
     return ''
   }
-  return parts.map(str => str.charAt(0).toUpperCase() + str.slice(1)).join('')
+
+  const result = str.replace(
+    /(?:[^\w\d]|_|\s)+(\w)([A-Z]+)?/g,
+    (_, firstCharacter, capitalizedLetters) => {
+      if (capitalizedLetters) {
+        return firstCharacter.toUpperCase() + capitalizedLetters.toLowerCase()
+      }
+      return firstCharacter.toUpperCase()
+    },
+  )
+
+  return result[0].toUpperCase() + result.substring(1)
 }

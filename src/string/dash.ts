@@ -7,7 +7,7 @@ import { capitalize } from 'radashi'
  * @example
  * ```ts
  * dash('hello world') // => 'hello-world'
- * dash('va va_VOOM') // => 'va-va-voom'
+ * dash('one two_THREE') // => 'one-two-three'
  * dash('helloWord') // => 'hello-word'
  * ```
  */
