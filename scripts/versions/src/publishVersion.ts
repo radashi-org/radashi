@@ -107,21 +107,44 @@ export async function publishVersion(args: {
     log('Would have pushed to origin, but --no-push was set')
   }
 
-  // Create or update a tag
-  const gitTag = args.tag ?? `v${nextVersion}`
   if (args.push) {
+    // Update the alpha/beta tag in the main repo.
     if (args.tag) {
-      log(`Updating ${gitTag} tag`)
-      await execa('git', ['tag', gitTag, '-f'])
-      await execa('git', ['push', 'origin', gitTag, '-f'], {
+      log(`Updating ${args.tag} tag`)
+      await execa('git', ['tag', args.tag, '-f'])
+      await execa('git', ['push', 'origin', args.tag, '-f'], {
         stdio: 'inherit',
       })
-    } else {
-      log('Pushing new tag')
-      await execa('git', ['tag', gitTag])
-      await execa('git', ['push', 'origin', gitTag], {
-        stdio: 'inherit',
-      })
+    }
+
+    // When pushing a version-specific tag for an alpha/beta release,
+    // a separate remote is used to avoid cluttering the main repo
+    // with pre-release tags.
+    const remoteName = args.tag ?? 'origin'
+    if (args.tag) {
+      await execa(
+        'git',
+        [
+          'remote',
+          'add',
+          remoteName,
+          `https://github.com/radashi-org/radashi-${args.tag}`,
+        ],
+        { reject: false },
+      )
+    }
+
+    const newTag = `v${nextVersion}`
+    log(`Pushing new tag ${newTag}`)
+
+    await execa('git', ['tag', newTag])
+    await execa('git', ['push', remoteName, newTag], {
+      stdio: 'inherit',
+    })
+
+    // Delete the temporary local tag for alpha/beta releases.
+    if (args.tag) {
+      await execa('git', ['tag', '-d', args.tag])
     }
   } else {
     log('Would have pushed a tag, but --no-push was set')
