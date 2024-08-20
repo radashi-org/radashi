@@ -4,7 +4,7 @@
 /**
  * Return true if the given value is a plain object.
  *
- * @see https://radashi-org.github.io/reference/typed/isPlainObject
+ * @see https://radashi.js.org/reference/typed/isPlainObject
  * @example
  * ```ts
  * isPlainObject({}) // => true
@@ -12,17 +12,17 @@
  * ```
  */
 export function isPlainObject(value: any): value is object {
-  if (typeof value !== 'object' || value === null) {
-    return false
-  }
+	if (typeof value !== "object" || value === null) {
+		return false;
+	}
 
-  const prototype = Object.getPrototypeOf(value)
-  return (
-    // Fast path for most common objects.
-    prototype === Object.prototype ||
-    // Support objects created without a prototype.
-    prototype === null ||
-    // Support plain objects from other realms.
-    Object.getPrototypeOf(prototype) === null
-  )
+	const prototype = Object.getPrototypeOf(value);
+	return (
+		// Fast path for most common objects.
+		prototype === Object.prototype ||
+		// Support objects created without a prototype.
+		prototype === null ||
+		// Support plain objects from other realms.
+		Object.getPrototypeOf(prototype) === null
+	);
 }

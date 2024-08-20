@@ -11,15 +11,15 @@
  * ```
  */
 type RemoveItemsInFront<
-  TItems extends any[],
-  TItemsToRemove extends any[],
-> = TItems extends [...TItemsToRemove, ...infer TRest] ? TRest : TItems
+	TItems extends any[],
+	TItemsToRemove extends any[],
+> = TItems extends [...TItemsToRemove, ...infer TRest] ? TRest : TItems;
 
 /**
  * Create a partial function by providing some (or all) of the
  * arguments the given function needs.
  *
- * @see https://radashi-org.github.io/reference/curry/partial
+ * @see https://radashi.js.org/reference/curry/partial
  * @example
  * ```ts
  * const add = (a: number, b: number) => a + b
@@ -30,8 +30,8 @@ type RemoveItemsInFront<
  * ```
  */
 export function partial<T extends any[], TA extends Partial<T>, R>(
-  fn: (...args: T) => R,
-  ...args: TA
+	fn: (...args: T) => R,
+	...args: TA
 ): (...rest: RemoveItemsInFront<T, TA>) => R {
-  return (...rest) => fn(...([...args, ...rest] as T))
+	return (...rest) => fn(...([...args, ...rest] as T));
 }

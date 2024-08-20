@@ -15,7 +15,7 @@
  *   - You may define a `strategy` option, which determines where the
  *   item should be added in the array.
  *
- * @see https://radashi-org.github.io/reference/array/toggle
+ * @see https://radashi.js.org/reference/array/toggle
  * @example
  * ```ts
  * toggle([1, 2, 3], 4) // => [1, 2, 3, 4]
@@ -34,35 +34,35 @@
  * ```
  */
 export function toggle<T>(
-  array: readonly T[],
-  item: T,
-  toKey?: ((item: T, idx: number) => number | string | symbol) | null,
-  options?: {
-    strategy?: 'prepend' | 'append'
-  },
+	array: readonly T[],
+	item: T,
+	toKey?: ((item: T, idx: number) => number | string | symbol) | null,
+	options?: {
+		strategy?: "prepend" | "append";
+	},
 ): T[] {
-  if (!array) {
-    return item !== undefined ? [item] : []
-  }
-  if (item === undefined) {
-    return [...array]
-  }
+	if (!array) {
+		return item !== undefined ? [item] : [];
+	}
+	if (item === undefined) {
+		return [...array];
+	}
 
-  let matcher: (item: T, idx: number) => boolean
+	let matcher: (item: T, idx: number) => boolean;
 
-  if (toKey) {
-    const key = toKey(item, -1)
+	if (toKey) {
+		const key = toKey(item, -1);
 
-    matcher = (x: T, idx: number) => toKey(x, idx) === key
-  } else {
-    matcher = (x: T) => x === item
-  }
+		matcher = (x: T, idx: number) => toKey(x, idx) === key;
+	} else {
+		matcher = (x: T) => x === item;
+	}
 
-  const existing = array.find(matcher)
+	const existing = array.find(matcher);
 
-  if (existing !== undefined) {
-    return array.filter((x, idx) => !matcher(x, idx))
-  }
+	if (existing !== undefined) {
+		return array.filter((x, idx) => !matcher(x, idx));
+	}
 
-  return options?.strategy === 'prepend' ? [item, ...array] : [...array, item]
+	return options?.strategy === "prepend" ? [item, ...array] : [...array, item];
 }

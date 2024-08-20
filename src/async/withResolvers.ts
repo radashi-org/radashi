@@ -1,7 +1,7 @@
 interface PromiseWithResolvers<T> {
-  promise: Promise<T>
-  resolve: (value: T | PromiseLike<T>) => void
-  reject: (reason?: any) => void
+	promise: Promise<T>;
+	resolve: (value: T | PromiseLike<T>) => void;
+	reject: (reason?: any) => void;
 }
 
 /**
@@ -9,7 +9,7 @@ interface PromiseWithResolvers<T> {
  *
  * The ponyfill for https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/withResolvers
  *
- * @see https://radashi-org.github.io/reference/async/withResolvers
+ * @see https://radashi.js.org/reference/async/withResolvers
  * @example
  * ```ts
  * const {resolve, reject, promise} = withResolvers()
@@ -18,13 +18,13 @@ interface PromiseWithResolvers<T> {
  * ```
  */
 export function withResolvers<T>(): PromiseWithResolvers<T> {
-  let resolve: any
-  let reject: any
+	let resolve: any;
+	let reject: any;
 
-  const promise = new Promise<T>((res, rej) => {
-    resolve = res
-    reject = rej
-  })
+	const promise = new Promise<T>((res, rej) => {
+		resolve = res;
+		reject = rej;
+	});
 
-  return { resolve, reject, promise }
+	return { resolve, reject, promise };
 }

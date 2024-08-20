@@ -3,7 +3,7 @@
  * the builtin trim function but accepts other characters you would
  * like to trim and trims multiple characters.
  *
- * @see https://radashi-org.github.io/reference/string/trim
+ * @see https://radashi.js.org/reference/string/trim
  * @example
  * ```ts
  * trim('  hello ') // => 'hello'
@@ -13,13 +13,13 @@
  * ```
  */
 export function trim(
-  str: string | null | undefined,
-  charsToTrim = ' ',
+	str: string | null | undefined,
+	charsToTrim = " ",
 ): string {
-  if (!str) {
-    return ''
-  }
-  const toTrim = charsToTrim.replace(/[\W]{1}/g, '\\$&')
-  const regex = new RegExp(`^[${toTrim}]+|[${toTrim}]+$`, 'g')
-  return str.replace(regex, '')
+	if (!str) {
+		return "";
+	}
+	const toTrim = charsToTrim.replace(/[\W]{1}/g, "\\$&");
+	const regex = new RegExp(`^[${toTrim}]+|[${toTrim}]+$`, "g");
+	return str.replace(regex, "");
 }

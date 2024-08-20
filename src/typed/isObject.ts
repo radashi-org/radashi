@@ -1,4 +1,4 @@
-import { isTagged } from 'radashi'
+import { isTagged } from "radashi";
 
 /**
  * Returns true if `value` is a plain object, a class instance
@@ -8,7 +8,7 @@ import { isTagged } from 'radashi'
  *
  * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms
  *
- * @see https://radashi-org.github.io/reference/typed/isObject
+ * @see https://radashi.js.org/reference/typed/isObject
  * @example
  * ```ts
  * isObject({}) // true
@@ -24,5 +24,5 @@ import { isTagged } from 'radashi'
  * ```
  */
 export function isObject(value: unknown): value is object {
-  return isTagged(value, '[object Object]')
+	return isTagged(value, "[object Object]");
 }

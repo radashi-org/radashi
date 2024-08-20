@@ -5,7 +5,7 @@
  * * Numbers can be negative or positive.
  * * Ending number is exclusive.
  *
- * @see https://radashi-org.github.io/reference/number/inRange
+ * @see https://radashi.js.org/reference/number/inRange
  * @example
  * ```ts
  * inRange(5, 10) // => true
@@ -13,7 +13,7 @@
  * inRange(10, 10) // => false
  * ```
  */
-export function inRange(number: number, end: number): boolean
+export function inRange(number: number, end: number): boolean;
 
 /**
  * Checks if the given number is between two numbers.
@@ -24,7 +24,7 @@ export function inRange(number: number, end: number): boolean
  * * The start and the end of the range can be ascending OR descending
  *   order.
  *
- * @see https://radashi-org.github.io/reference/number/inRange
+ * @see https://radashi.js.org/reference/number/inRange
  * @example
  * ```ts
  * inRange(5, 0, 10) // => true
@@ -32,21 +32,21 @@ export function inRange(number: number, end: number): boolean
  * inRange(10, 0, 10) // => false
  * ```
  */
-export function inRange(number: number, start: number, end: number): boolean
+export function inRange(number: number, start: number, end: number): boolean;
 export function inRange(number: number, start: number, end?: number): boolean {
-  const isTypeSafe =
-    typeof number === 'number' &&
-    typeof start === 'number' &&
-    (typeof end === 'undefined' || typeof end === 'number')
+	const isTypeSafe =
+		typeof number === "number" &&
+		typeof start === "number" &&
+		(typeof end === "undefined" || typeof end === "number");
 
-  if (!isTypeSafe) {
-    return false
-  }
+	if (!isTypeSafe) {
+		return false;
+	}
 
-  if (typeof end === 'undefined') {
-    end = start
-    start = 0
-  }
+	if (typeof end === "undefined") {
+		end = start;
+		start = 0;
+	}
 
-  return number >= Math.min(start, end) && number < Math.max(start, end)
+	return number >= Math.min(start, end) && number < Math.max(start, end);
 }

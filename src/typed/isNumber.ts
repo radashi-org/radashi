@@ -1,7 +1,7 @@
 /**
  * Return true if the given value is a number.
  *
- * @see https://radashi-org.github.io/reference/typed/isNumber
+ * @see https://radashi.js.org/reference/typed/isNumber
  * @example
  * ```ts
  * isNumber(0) // => true
@@ -10,5 +10,5 @@
  * ```
  */
 export function isNumber(value: unknown): value is number {
-  return typeof value === 'number' && !Number.isNaN(value)
+	return typeof value === "number" && !Number.isNaN(value);
 }

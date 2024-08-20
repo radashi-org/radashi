@@ -1,9 +1,9 @@
-import { type Err, isResult } from 'radashi'
+import { type Err, isResult } from "radashi";
 
 /**
  * Returns true if the value is an `Err` result.
  *
- * @see https://radashi-org.github.io/reference/typed/isResultErr
+ * @see https://radashi.js.org/reference/typed/isResultErr
  * @example
  * ```ts
  * isResultErr([new Error(), undefined]) // true
@@ -11,7 +11,7 @@ import { type Err, isResult } from 'radashi'
  * ```
  */
 export function isResultErr<TError extends Error = Error>(
-  value: unknown,
+	value: unknown,
 ): value is Err<TError> {
-  return isResult(value) && value[0] !== undefined
+	return isResult(value) && value[0] !== undefined;
 }

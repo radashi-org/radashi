@@ -2,7 +2,7 @@
  * Sort an array without modifying it and return the newly sorted
  * value.
  *
- * @see https://radashi-org.github.io/reference/array/sort
+ * @see https://radashi.js.org/reference/array/sort
  * @example
  * ```ts
  * const fish = [
@@ -16,14 +16,14 @@
  * ```
  */
 export function sort<T>(
-  array: readonly T[],
-  getter: (item: T) => number,
-  desc = false,
+	array: readonly T[],
+	getter: (item: T) => number,
+	desc = false,
 ): T[] {
-  if (!array) {
-    return []
-  }
-  const asc = (a: T, b: T) => getter(a) - getter(b)
-  const dsc = (a: T, b: T) => getter(b) - getter(a)
-  return array.slice().sort(desc === true ? dsc : asc)
+	if (!array) {
+		return [];
+	}
+	const asc = (a: T, b: T) => getter(a) - getter(b);
+	const dsc = (a: T, b: T) => getter(b) - getter(a);
+	return array.slice().sort(desc === true ? dsc : asc);
 }

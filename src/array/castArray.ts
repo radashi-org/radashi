@@ -3,7 +3,7 @@
  * array, a shallow copy is returned. Otherwise, a new array
  * containing the value is returned.
  *
- * @see https://radashi-org.github.io/reference/array/castArray
+ * @see https://radashi.js.org/reference/array/castArray
  * @example
  * ```ts
  * castArray(1) // => [1]
@@ -12,26 +12,26 @@
  * castArray(undefined) // => [undefined]
  * ```
  */
-export function castArray<T>(value: T): CastArray<T>
+export function castArray<T>(value: T): CastArray<T>;
 export function castArray(value: unknown): unknown {
-  return Array.isArray(value) ? value.slice() : [value]
+	return Array.isArray(value) ? value.slice() : [value];
 }
 
 /**
  * The return type of the {@link castArray} function.
  *
- * @see https://radashi-org.github.io/reference/array/castArray
+ * @see https://radashi.js.org/reference/array/castArray
  */
 export type CastArray<T> = [T] extends [never]
-  ? never[]
-  : [unknown] extends [T]
-    ? unknown[]
-    :
-        | (T extends any
-            ? T extends readonly (infer U)[]
-              ? U[]
-              : never
-            : never)
-        | (Exclude<T, readonly any[]> extends never
-            ? never
-            : Exclude<T, readonly any[]>[])
+	? never[]
+	: [unknown] extends [T]
+		? unknown[]
+		:
+				| (T extends any
+						? T extends readonly (infer U)[]
+							? U[]
+							: never
+						: never)
+				| (Exclude<T, readonly any[]> extends never
+						? never
+						: Exclude<T, readonly any[]>[]);

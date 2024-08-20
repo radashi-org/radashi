@@ -1,4 +1,4 @@
-import { isTagged } from 'radashi'
+import { isTagged } from "radashi";
 
 /**
  * Return true if the given value is a Date object.
@@ -7,7 +7,7 @@ import { isTagged } from 'radashi'
  *
  * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms
  *
- * @see https://radashi-org.github.io/reference/typed/isDate
+ * @see https://radashi.js.org/reference/typed/isDate
  * @example
  * ```ts
  * isDate(new Date()) // => true
@@ -15,5 +15,5 @@ import { isTagged } from 'radashi'
  * ```
  */
 export function isDate(value: unknown): value is Date {
-  return isTagged(value, '[object Date]')
+	return isTagged(value, "[object Date]");
 }

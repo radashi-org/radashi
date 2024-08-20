@@ -1,13 +1,13 @@
-import { mapKeys } from 'radashi'
+import { mapKeys } from "radashi";
 
 export type UppercaseKeys<T extends Record<string, any>> = {
-  [P in keyof T & string as Uppercase<P>]: T[P]
-}
+	[P in keyof T & string as Uppercase<P>]: T[P];
+};
 
 /**
  * Convert all keys in an object to upper case.
  *
- * @see https://radashi-org.github.io/reference/object/upperize
+ * @see https://radashi.js.org/reference/object/upperize
  * @example
  * ```ts
  * const a = { a: 1, b: 2, c: 3 }
@@ -16,7 +16,7 @@ export type UppercaseKeys<T extends Record<string, any>> = {
  * ```
  */
 export function upperize<T extends Record<string, any>>(
-  obj: T,
+	obj: T,
 ): UppercaseKeys<T> {
-  return mapKeys(obj, k => k.toUpperCase()) as UppercaseKeys<T>
+	return mapKeys(obj, (k) => k.toUpperCase()) as UppercaseKeys<T>;
 }

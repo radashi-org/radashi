@@ -1,34 +1,34 @@
-declare const setTimeout: (fn: () => void, ms: number) => unknown
-declare const clearTimeout: (timer: unknown) => void
+declare const setTimeout: (fn: () => void, ms: number) => unknown;
+declare const clearTimeout: (timer: unknown) => void;
 
 export type DebounceFunction<TArgs extends any[]> = {
-  (...args: TArgs): void
-  /**
-   * When called, future invocations of the debounced function are
-   * no longer delayed and are instead executed immediately.
-   */
-  cancel(): void
-  /**
-   * Returns `true` if the underlying function is scheduled to be
-   * called once the delay has passed.
-   */
-  isPending(): boolean
-  /**
-   * Invoke the underlying function immediately.
-   */
-  flush(...args: TArgs): void
-}
+	(...args: TArgs): void;
+	/**
+	 * When called, future invocations of the debounced function are
+	 * no longer delayed and are instead executed immediately.
+	 */
+	cancel(): void;
+	/**
+	 * Returns `true` if the underlying function is scheduled to be
+	 * called once the delay has passed.
+	 */
+	isPending(): boolean;
+	/**
+	 * Invoke the underlying function immediately.
+	 */
+	flush(...args: TArgs): void;
+};
 
 export interface DebounceOptions {
-  delay: number
-  /**
-   * When true, your callback is invoked immediately the very first
-   * time the debounced function is called. After that, the debounced
-   * function works as if `leading` was `false`.
-   *
-   * @default false
-   */
-  leading?: boolean
+	delay: number;
+	/**
+	 * When true, your callback is invoked immediately the very first
+	 * time the debounced function is called. After that, the debounced
+	 * function works as if `leading` was `false`.
+	 *
+	 * @default false
+	 */
+	leading?: boolean;
 }
 
 /**
@@ -38,7 +38,7 @@ export interface DebounceOptions {
  * The debounced function has a few methods, such as `cancel`,
  * `isPending`, and `flush`.
  *
- * @see https://radashi-org.github.io/reference/curry/debounce
+ * @see https://radashi.js.org/reference/curry/debounce
  * @example
  * ```ts
  * const myDebouncedFunc = debounce({ delay: 1000 }, (x) => {
@@ -51,34 +51,34 @@ export interface DebounceOptions {
  * ```
  */
 export function debounce<TArgs extends any[]>(
-  { delay, leading }: DebounceOptions,
-  func: (...args: TArgs) => any,
+	{ delay, leading }: DebounceOptions,
+	func: (...args: TArgs) => any,
 ): DebounceFunction<TArgs> {
-  let timer: unknown = undefined
-  let active = true
+	let timer: unknown = undefined;
+	let active = true;
 
-  const debounced: DebounceFunction<TArgs> = (...args: TArgs) => {
-    if (active) {
-      clearTimeout(timer)
-      timer = setTimeout(() => {
-        active && func(...args)
-        timer = undefined
-      }, delay)
-      if (leading) {
-        func(...args)
-        leading = false
-      }
-    } else {
-      func(...args)
-    }
-  }
-  debounced.isPending = () => {
-    return timer !== undefined
-  }
-  debounced.cancel = () => {
-    active = false
-  }
-  debounced.flush = (...args: TArgs) => func(...args)
+	const debounced: DebounceFunction<TArgs> = (...args: TArgs) => {
+		if (active) {
+			clearTimeout(timer);
+			timer = setTimeout(() => {
+				active && func(...args);
+				timer = undefined;
+			}, delay);
+			if (leading) {
+				func(...args);
+				leading = false;
+			}
+		} else {
+			func(...args);
+		}
+	};
+	debounced.isPending = () => {
+		return timer !== undefined;
+	};
+	debounced.cancel = () => {
+		active = false;
+	};
+	debounced.flush = (...args: TArgs) => func(...args);
 
-  return debounced
+	return debounced;
 }

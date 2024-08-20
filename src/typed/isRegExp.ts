@@ -1,4 +1,4 @@
-import { isTagged } from 'radashi'
+import { isTagged } from "radashi";
 
 /**
  * Checks if the given value is a RegExp.
@@ -7,7 +7,7 @@ import { isTagged } from 'radashi'
  *
  * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms
  *
- * @see https://radashi-org.github.io/reference/typed/isRegExp
+ * @see https://radashi.js.org/reference/typed/isRegExp
  * @example
  * ```ts
  * isRegExp(/abc/) // => true
@@ -15,5 +15,5 @@ import { isTagged } from 'radashi'
  * ```
  */
 export function isRegExp(value: unknown): value is RegExp {
-  return isTagged(value, '[object RegExp]')
+	return isTagged(value, "[object RegExp]");
 }

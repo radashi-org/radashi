@@ -9,7 +9,7 @@
  *   maximum.
  * - Otherwise, it returns the number itself.
  *
- * @see https://radashi-org.github.io/reference/number/clamp
+ * @see https://radashi.js.org/reference/number/clamp
  * @example
  * ```ts
  * clamp(5, 1, 10) // returns 5
@@ -18,12 +18,12 @@
  * ```
  */
 export function clamp(
-  n: number,
-  min: number | null | undefined,
-  max: number | null | undefined,
+	n: number,
+	min: number | null | undefined,
+	max: number | null | undefined,
 ): number {
-  if (max != null && min != null && min > max) {
-    throw new Error('invalid clamp range')
-  }
-  return max != null && n > max ? max : min != null && n < min ? min : n
+	if (max != null && min != null && min > max) {
+		throw new Error("invalid clamp range");
+	}
+	return max != null && n > max ? max : min != null && n < min ? min : n;
 }

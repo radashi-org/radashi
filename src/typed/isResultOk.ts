@@ -1,9 +1,9 @@
-import { isResult, type Ok } from 'radashi'
+import { isResult, type Ok } from "radashi";
 
 /**
  * Returns true if the value is an `Ok` result.
  *
- * @see https://radashi-org.github.io/reference/typed/isResultOk
+ * @see https://radashi.js.org/reference/typed/isResultOk
  * @example
  * ```ts
  * isResultOk([undefined, "hello"]) // true
@@ -11,7 +11,7 @@ import { isResult, type Ok } from 'radashi'
  * ```
  */
 export function isResultOk<TValue = unknown>(
-  value: unknown,
+	value: unknown,
 ): value is Ok<TValue> {
-  return isResult(value) && value[0] === undefined
+	return isResult(value) && value[0] === undefined;
 }

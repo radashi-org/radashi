@@ -1,9 +1,9 @@
-import type { StrictExtract } from 'radashi'
+import type { StrictExtract } from "radashi";
 
 /**
  * Literally just `Array.isArray` but with better type inference.
  *
- * @see https://radashi-org.github.io/reference/typed/isArray
+ * @see https://radashi.js.org/reference/typed/isArray
  * @example
  * ```ts
  * isArray([]) // => true
@@ -11,8 +11,8 @@ import type { StrictExtract } from 'radashi'
  * ```
  */
 export const isArray = /* @__PURE__ */ (() => Array.isArray)() as <Input>(
-  value: Input,
-) => value is ExtractArray<Input>
+	value: Input,
+) => value is ExtractArray<Input>;
 
 /**
  * An absurdly complicated but accurate type for extracting Array types.
@@ -20,11 +20,11 @@ export const isArray = /* @__PURE__ */ (() => Array.isArray)() as <Input>(
  * It's like `Extract<T, any[]>` but better with edge cases.
  */
 export type ExtractArray<T> = T extends any
-  ? [StrictExtract<T, readonly any[]>] extends [readonly any[]]
-    ? Extract<T, readonly any[]>
-    : [StrictExtract<T, any[]>] extends [any[]]
-      ? Extract<T, any[]>
-      : unknown[] extends T
-        ? unknown[]
-        : never
-  : never
+	? [StrictExtract<T, readonly any[]>] extends [readonly any[]]
+		? Extract<T, readonly any[]>
+		: [StrictExtract<T, any[]>] extends [any[]]
+			? Extract<T, any[]>
+			: unknown[] extends T
+				? unknown[]
+				: never
+	: never;

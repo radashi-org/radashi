@@ -37,9 +37,9 @@ _“What makes Radashi so great?”_
 - **nightly releases** (`radashi@beta`)
 - **changelog** (easily see what's new in each release)
 
-_If you've been using Radash (our predecessor), you're probably interested in what makes us different. Read [our comparison post](https://radashi-org.github.io/blog/vs-radash) to learn how we're bringing Radash to the next level while preserving its best features._
+_If you've been using Radash (our predecessor), you're probably interested in what makes us different. Read [our comparison post](https://radashi.js.org/blog/vs-radash) to learn how we're bringing Radash to the next level while preserving its best features._
 
-<a href="https://radashi-org.github.io">
+<a href="https://radashi.js.org">
   <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/docs-button.png" alt="Radash documentation" width="250px" />
 </a>
 

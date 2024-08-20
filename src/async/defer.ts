@@ -1,4 +1,4 @@
-import { tryit } from 'radashi'
+import { tryit } from "radashi";
 
 /**
  * Useful when for script like things where cleanup should be done on
@@ -7,7 +7,7 @@ import { tryit } from 'radashi'
  * You can call defer many times to register many deferred functions
  * that will all be called when the function exits in any state.
  *
- * @see https://radashi-org.github.io/reference/async/defer
+ * @see https://radashi.js.org/reference/async/defer
  * @example
  * ```ts
  * const result = await defer(async (defer) => {
@@ -20,34 +20,34 @@ import { tryit } from 'radashi'
  * ```
  */
 export async function defer<TResponse>(
-  func: (
-    register: (
-      fn: (error?: any) => any,
-      options?: { rethrow?: boolean },
-    ) => void,
-  ) => Promise<TResponse>,
+	func: (
+		register: (
+			fn: (error?: any) => any,
+			options?: { rethrow?: boolean },
+		) => void,
+	) => Promise<TResponse>,
 ): Promise<TResponse> {
-  const callbacks: {
-    fn: (error?: any) => any
-    rethrow: boolean
-  }[] = []
-  const register = (
-    fn: (error?: any) => any,
-    options?: { rethrow?: boolean },
-  ) =>
-    callbacks.push({
-      fn,
-      rethrow: options?.rethrow ?? false,
-    })
-  const [err, response] = await tryit(func)(register)
-  for (const { fn, rethrow } of callbacks) {
-    const [rethrown] = await tryit(fn)(err)
-    if (rethrown && rethrow) {
-      throw rethrown
-    }
-  }
-  if (err) {
-    throw err
-  }
-  return response
+	const callbacks: {
+		fn: (error?: any) => any;
+		rethrow: boolean;
+	}[] = [];
+	const register = (
+		fn: (error?: any) => any,
+		options?: { rethrow?: boolean },
+	) =>
+		callbacks.push({
+			fn,
+			rethrow: options?.rethrow ?? false,
+		});
+	const [err, response] = await tryit(func)(register);
+	for (const { fn, rethrow } of callbacks) {
+		const [rethrown] = await tryit(fn)(err);
+		if (rethrown && rethrow) {
+			throw rethrown;
+		}
+	}
+	if (err) {
+		throw err;
+	}
+	return response;
 }

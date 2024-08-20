@@ -1,10 +1,10 @@
-import { isSymbol } from 'radashi'
+import { isSymbol } from "radashi";
 
 /**
  * Combines `Number.parseFloat` with NaN handling. By default, a zero
  * (0) is returned in place of NaN.
  *
- * @see https://radashi-org.github.io/reference/number/toFloat
+ * @see https://radashi.js.org/reference/number/toFloat
  * @example
  * ```ts
  * toFloat("1.23") // => 1.23
@@ -13,22 +13,22 @@ import { isSymbol } from 'radashi'
  * toFloat("foo", 1) // => 1
  * ```
  */
-export function toFloat(value: unknown): number
+export function toFloat(value: unknown): number;
 
 export function toFloat<T>(
-  value: unknown,
-  defaultValue: T | undefined,
-): number | T
+	value: unknown,
+	defaultValue: T | undefined,
+): number | T;
 
 export function toFloat<T>(
-  value: any,
-  defaultValue?: T,
+	value: any,
+	defaultValue?: T,
 ): number | Exclude<T, undefined> {
-  // Symbols throw on string coercion, which parseFloat does.
-  const parsedValue = isSymbol(value) ? Number.NaN : Number.parseFloat(value)
-  return Number.isNaN(parsedValue)
-    ? defaultValue !== undefined
-      ? (defaultValue as Exclude<T, undefined>)
-      : 0
-    : parsedValue
+	// Symbols throw on string coercion, which parseFloat does.
+	const parsedValue = isSymbol(value) ? Number.NaN : Number.parseFloat(value);
+	return Number.isNaN(parsedValue)
+		? defaultValue !== undefined
+			? (defaultValue as Exclude<T, undefined>)
+			: 0
+		: parsedValue;
 }

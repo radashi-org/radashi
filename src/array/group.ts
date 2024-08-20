@@ -3,7 +3,7 @@
  * where the keys are the group IDs the given `getGroupId` function
  * produced and the value is an array of each item in that group.
  *
- * @see https://radashi-org.github.io/reference/array/group
+ * @see https://radashi.js.org/reference/array/group
  * @example
  * ```ts
  * group([1, 2, 3, 4], (n) => n % 2 === 0 ? 'even' : 'odd')
@@ -11,18 +11,18 @@
  * ```
  */
 export function group<T, Key extends string | number | symbol>(
-  array: readonly T[],
-  getGroupId: (item: T) => Key,
+	array: readonly T[],
+	getGroupId: (item: T) => Key,
 ): { [K in Key]?: T[] } {
-  return array.reduce(
-    (acc, item) => {
-      const groupId = getGroupId(item)
-      if (!acc[groupId]) {
-        acc[groupId] = []
-      }
-      acc[groupId].push(item)
-      return acc
-    },
-    {} as Record<Key, T[]>,
-  )
+	return array.reduce(
+		(acc, item) => {
+			const groupId = getGroupId(item);
+			if (!acc[groupId]) {
+				acc[groupId] = [];
+			}
+			acc[groupId].push(item);
+			return acc;
+		},
+		{} as Record<Key, T[]>,
+	);
 }

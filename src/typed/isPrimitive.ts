@@ -10,7 +10,7 @@
  * - undefined
  * - null
  *
- * @see https://radashi-org.github.io/reference/typed/isPrimitive
+ * @see https://radashi.js.org/reference/typed/isPrimitive
  * @example
  * ```ts
  * isPrimitive(0) // => true
@@ -20,9 +20,9 @@
  * ```
  */
 export function isPrimitive(value: any): boolean {
-  return (
-    value === undefined ||
-    value === null ||
-    (typeof value !== 'object' && typeof value !== 'function')
-  )
+	return (
+		value === undefined ||
+		value === null ||
+		(typeof value !== "object" && typeof value !== "function")
+	);
 }

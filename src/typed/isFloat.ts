@@ -1,9 +1,9 @@
-import { isNumber } from 'radashi'
+import { isNumber } from "radashi";
 
 /**
  * Return true if the given value is a number that is not an integer.
  *
- * @see https://radashi-org.github.io/reference/typed/isFloat
+ * @see https://radashi.js.org/reference/typed/isFloat
  * @example
  * ```ts
  * isFloat(0) // => false
@@ -11,5 +11,5 @@ import { isNumber } from 'radashi'
  * ```
  */
 export function isFloat(value: any): value is number {
-  return isNumber(value) && value % 1 !== 0
+	return isNumber(value) && value % 1 !== 0;
 }
