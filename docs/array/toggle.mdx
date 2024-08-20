@@ -45,3 +45,13 @@ const gods = ['ra', 'zeus', 'loki']
 
 _.toggle(gods, 'vishnu', g => g, { strategy: 'prepend' }) // => ['vishnu', 'ra', 'zeus', 'loki']
 ```
+
+### Search terms
+
+- Commonly referred to as `toggleItem`, `arrayToggle`, or `switchItem` in other libraries.
+
+### Popular use cases
+
+- Adding or removing unique items from an array without mutating the original array, allowing for efficient state management in React applications.
+- Managing collections of objects (e.g., selecting/deselecting items in a list) using a key (like an ID) for comparison, ideal for use in UI lists or dropdowns.
+- Quickly toggling presence of items in settings or preferences, such as managing user-selected options in forms or preferences panels.
