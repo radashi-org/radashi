@@ -3,7 +3,7 @@
  * composition of functions, each function is given the next function
  * as an argument and must call it to continue executing.
  *
- * @see https://radashi-org.github.io/reference/curry/compose
+ * @see https://radashi.js.org/reference/curry/compose
  * @example
  * ```ts
  * const myComposedFunc = compose(

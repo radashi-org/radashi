@@ -2,7 +2,7 @@
  * Replace data by name in template strings. The default expression
  * looks for `{{name}}` to identify names.
  *
- * @see https://radashi-org.github.io/reference/string/template
+ * @see https://radashi.js.org/reference/string/template
  * @example
  * ```ts
  * template('Hello, {{name}}', { name: 'Radashi' })

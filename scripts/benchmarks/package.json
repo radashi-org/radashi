@@ -1,6 +1,9 @@
 {
   "type": "module",
   "private": true,
+  "scripts": {
+    "test": "vitest"
+  },
   "dependencies": {
     "@babel/parser": "^7.25.3",
     "@babel/traverse": "^7.25.3",
@@ -16,8 +19,5 @@
     "ts-morph": "^23.0.0",
     "tsx": "^4.17.0",
     "vitest": "link:../../node_modules/vitest"
-  },
-  "scripts": {
-    "test": "vitest"
   }
 }

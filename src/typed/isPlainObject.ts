@@ -4,7 +4,7 @@
 /**
  * Return true if the given value is a plain object.
  *
- * @see https://radashi-org.github.io/reference/typed/isPlainObject
+ * @see https://radashi.js.org/reference/typed/isPlainObject
  * @example
  * ```ts
  * isPlainObject({}) // => true

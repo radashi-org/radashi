@@ -10,7 +10,7 @@ import { isArray } from 'radashi/typed/isArray.js'
  * most use cases, so you should only set an explicit `indent` if
  * necessary.
  *
- * @see https://radashi-org.github.io/reference/string/dedent
+ * @see https://radashi.js.org/reference/string/dedent
  * @example
  * ```ts
  * // This is indented with 4 spaces.

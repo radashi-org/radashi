@@ -3,7 +3,7 @@ import { isPrimitive } from 'radashi'
 /**
  * Creates a shallow copy of the given object/value.
  *
- * @see https://radashi-org.github.io/reference/object/clone
+ * @see https://radashi.js.org/reference/object/clone
  * @example
  * ```ts
  * const original = { a: 1, b: { c: 3 } }

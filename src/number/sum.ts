@@ -4,7 +4,7 @@
  * 2. Sum all numbers returned by a callback function that maps
  *    each item in an array to a number.
  *
- * @see https://radashi-org.github.io/reference/array/sum
+ * @see https://radashi.js.org/reference/array/sum
  * @example
  * ```ts
  * sum([1, 2, 3])

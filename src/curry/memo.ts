@@ -37,7 +37,7 @@ export interface MemoOptions<TArgs extends any[]> {
  * computed. If a ttl (milliseconds) is given previously computed
  * values will be checked for expiration before being returned.
  *
- * @see https://radashi-org.github.io/reference/curry/memo
+ * @see https://radashi.js.org/reference/curry/memo
  * @example
  * ```ts
  * const calls: number[] = []

@@ -3,7 +3,7 @@
  * `undefined`. If the value is an array, it returns a shallow copy of
  * the array. Otherwise, it returns a new array containing the value.
  *
- * @see https://radashi-org.github.io/reference/array/castArrayIfExists
+ * @see https://radashi.js.org/reference/array/castArrayIfExists
  * @example
  * ```ts
  * castArrayIfExists(1) // => [1]
@@ -20,7 +20,7 @@ export function castArrayIfExists(value: unknown): unknown {
 /**
  * The return type of the {@link castArrayIfExists} function.
  *
- * @see https://radashi-org.github.io/reference/array/castArrayIfExists
+ * @see https://radashi.js.org/reference/array/castArrayIfExists
  */
 export type CastArrayIfExists<T> = [T] extends [never]
   ? never[]

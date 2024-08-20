@@ -9,7 +9,7 @@ export type RetryOptions = {
 /**
  * Retries the given function the specified number of times.
  *
- * @see https://radashi-org.github.io/reference/async/retry
+ * @see https://radashi.js.org/reference/async/retry
  * @example
  * ```ts
  * const result = await retry({ times: 3, delay: 1000 }, async () => {

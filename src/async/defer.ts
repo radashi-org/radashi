@@ -7,7 +7,7 @@ import { tryit } from 'radashi'
  * You can call defer many times to register many deferred functions
  * that will all be called when the function exits in any state.
  *
- * @see https://radashi-org.github.io/reference/async/defer
+ * @see https://radashi.js.org/reference/async/defer
  * @example
  * ```ts
  * const result = await defer(async (defer) => {

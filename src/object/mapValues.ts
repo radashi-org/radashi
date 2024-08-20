@@ -1,7 +1,7 @@
 /**
  * Map over all the keys to create a new object.
  *
- * @see https://radashi-org.github.io/reference/object/mapValues
+ * @see https://radashi.js.org/reference/object/mapValues
  * @example
  * ```ts
  * const a = { a: 1, b: 2, c: 3 }

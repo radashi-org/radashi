@@ -2,7 +2,7 @@
  * Omit a list of properties from an object returning a new object
  * with the properties that remain.
  *
- * @see https://radashi-org.github.io/reference/object/omit
+ * @see https://radashi.js.org/reference/object/omit
  * @example
  * ```ts
  * const a = { a: 1, b: 2, c: 3 }

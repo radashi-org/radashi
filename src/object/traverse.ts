@@ -20,7 +20,7 @@ export interface TraverseOptions<Key = string | number | symbol> {
  * array) and its nested objects or arrays. By default, the only
  * nested objects to be traversed are plain objects and arrays.
  *
- * @see https://radashi-org.github.io/reference/object/traverse
+ * @see https://radashi.js.org/reference/object/traverse
  * @example
  * ```ts
  * import { traverse } from 'radashi'

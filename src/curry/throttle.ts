@@ -37,7 +37,7 @@ export type ThrottledFunction<TArgs extends any[]> = {
  * only call the source function if interval milliseconds have passed
  * since the last invocation.
  *
- * @see https://radashi-org.github.io/reference/curry/throttle
+ * @see https://radashi.js.org/reference/curry/throttle
  * @example
  * ```ts
  * const sup = throttle({ interval: 1000 }, () => {

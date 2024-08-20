@@ -7,7 +7,7 @@ import { isTagged } from 'radashi'
  *
  * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms
  *
- * @see https://radashi-org.github.io/reference/typed/isWeakSet
+ * @see https://radashi.js.org/reference/typed/isWeakSet
  * @example
  *
  * ```ts

@@ -4,7 +4,7 @@
  * The first array contains all first elements, the second array
  * contains all second elements, and so on.
  *
- * @see https://radashi-org.github.io/reference/array/unzip
+ * @see https://radashi.js.org/reference/array/unzip
  * @example
  * ```ts
  * unzip([['a', 1, true], ['b', 2, false]])

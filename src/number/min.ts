@@ -1,7 +1,7 @@
 /**
  * Min gets the smallest value from a list.
  *
- * @see https://radashi-org.github.io/reference/array/min
+ * @see https://radashi.js.org/reference/array/min
  * @example
  * ```ts
  * min([1, 2, 3, 4]) // => 1

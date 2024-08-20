@@ -4,7 +4,7 @@ import { type Intersect, isArray, isObject, type Simplify } from 'radashi'
  * Flattens a deep object to a single dimension, converting the keys
  * to dot notation.
  *
- * @see https://radashi-org.github.io/reference/object/crush
+ * @see https://radashi.js.org/reference/object/crush
  * @example
  * ```ts
  * crush({ name: 'ra', children: [{ name: 'hathor' }] })
@@ -39,7 +39,7 @@ export function crush<T extends object>(value: T): Crush<T> {
  * we cannot infer the property types of nested objects that have been
  * crushed.
  *
- * @see https://radashi-org.github.io/reference/object/crush
+ * @see https://radashi.js.org/reference/object/crush
  */
 export type Crush<T> = T extends readonly (infer U)[]
   ? Record<string, U extends object ? unknown : U>

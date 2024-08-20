@@ -9,7 +9,7 @@ interface PromiseWithResolvers<T> {
  *
  * The ponyfill for https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/withResolvers
  *
- * @see https://radashi-org.github.io/reference/async/withResolvers
+ * @see https://radashi.js.org/reference/async/withResolvers
  * @example
  * ```ts
  * const {resolve, reject, promise} = withResolvers()

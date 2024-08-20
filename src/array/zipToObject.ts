@@ -4,7 +4,7 @@ import { isArray, isFunction } from 'radashi'
  * Creates an object mapping the specified keys to their corresponding
  * values.
  *
- * @see https://radashi-org.github.io/reference/array/zipToObject
+ * @see https://radashi.js.org/reference/array/zipToObject
  * @example
  * ```ts
  * zipToObject(['a', 'b'], [1, 2])

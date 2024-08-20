@@ -3,7 +3,7 @@
  * element that satisfies the prescribed condition. If condition is omitted,
  * will select the first mapped value which is non-nullish.
  *
- * @see https://radashi-org.github.io/reference/array/selectFirst
+ * @see https://radashi.js.org/reference/array/selectFirst
  * @example
  * ```ts
  * selectFirst(

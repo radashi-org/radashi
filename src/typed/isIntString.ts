@@ -4,7 +4,7 @@ import { isString } from 'radashi'
  * Return true if the given value is a string that can be parsed as an
  * integer.
  *
- * @see https://radashi-org.github.io/reference/typed/isIntString
+ * @see https://radashi.js.org/reference/typed/isIntString
  * @example
  * ```ts
  * isIntString('0') // => true

@@ -12,7 +12,7 @@ import {
  * Create a copy of the first object, and then merge the second object
  * into it recursively. Only plain objects are recursively merged.
  *
- * @see https://radashi-org.github.io/reference/object/assign
+ * @see https://radashi.js.org/reference/object/assign
  * @example
  * ```ts
  * const a = { a: 0, b: 2, p: { a: 4 } }
@@ -48,7 +48,7 @@ export function assign<
  * It recursively merges object types that are not native objects. The
  * root objects are always merged.
  *
- * @see https://radashi-org.github.io/reference/object/assign
+ * @see https://radashi.js.org/reference/object/assign
  */
 export type Assign<
   TInitial extends object,

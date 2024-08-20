@@ -5,7 +5,7 @@ import { unzip } from 'radashi'
  * the first elements of the given arrays, the second of which
  * contains the second elements of the given arrays, and so on.
  *
- * @see https://radashi-org.github.io/reference/array/zip
+ * @see https://radashi.js.org/reference/array/zip
  * @example
  * ```ts
  * zip(['a', 'b'], [1, 2], [true, false])

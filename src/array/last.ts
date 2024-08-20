@@ -1,7 +1,7 @@
 /**
  * Get the last item in an array or a default value.
  *
- * @see https://radashi-org.github.io/reference/array/last
+ * @see https://radashi.js.org/reference/array/last
  * @example
  * ```ts
  * last([1, 2, 3, 4])

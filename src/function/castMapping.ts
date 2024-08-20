@@ -8,7 +8,7 @@ import { type Any, type CompatibleProperty, isFunction } from 'radashi'
  *   the property value from a given object.
  * - If `mapping` is nullish, the mapping is `(input: T) => input`.
  *
- * @see https://radashi-org.github.io/reference/function/castMapping
+ * @see https://radashi.js.org/reference/function/castMapping
  * @example
  * ```ts
  * const getName = castMapping('name')
@@ -34,7 +34,7 @@ export function castMapping<TMapping extends Mapping | null | undefined>(
 /**
  * A value that can be casted with `castMapping`.
  *
- * @see https://radashi-org.github.io/reference/function/castMapping
+ * @see https://radashi.js.org/reference/function/castMapping
  */
 export type Mapping<T = any, U = any> =
   | ((arg: T) => U)
@@ -43,14 +43,14 @@ export type Mapping<T = any, U = any> =
 /**
  * A value that can be casted with `castMapping`.
  *
- * @see https://radashi-org.github.io/reference/function/castMapping
+ * @see https://radashi.js.org/reference/function/castMapping
  */
 export type OptionalMapping<T = any, U = any> = Mapping<T, U> | null | undefined
 
 /**
  * The input type of a mapping function created with `castMapping`.
  *
- * @see https://radashi-org.github.io/reference/function/castMapping
+ * @see https://radashi.js.org/reference/function/castMapping
  */
 export type MappedInput<TMapping, TPropertyValue = any> = TMapping extends (
   arg: infer Arg,
@@ -67,7 +67,7 @@ export type MappedInput<TMapping, TPropertyValue = any> = TMapping extends (
 /**
  * The return type of a mapping function created with `castMapping`.
  *
- * @see https://radashi-org.github.io/reference/function/castMapping
+ * @see https://radashi.js.org/reference/function/castMapping
  */
 export type MappedOutput<TMapping, TInput = any> = TMapping extends (
   data: TInput,
@@ -86,7 +86,7 @@ export type MappedOutput<TMapping, TInput = any> = TMapping extends (
 /**
  * A mapping function created with `castMapping`.
  *
- * @see https://radashi-org.github.io/reference/function/castMapping
+ * @see https://radashi.js.org/reference/function/castMapping
  */
 export type MappingFunction<TMapping extends Mapping | null | undefined> = <
   TInput extends MappedInput<TMapping>,

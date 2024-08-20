@@ -1,7 +1,7 @@
 /**
  * Create a new `Map` instance from an array.
  *
- * @see https://radashi-org.github.io/reference/array/mapify
+ * @see https://radashi.js.org/reference/array/mapify
  * @example
  * ```ts
  * const array = [

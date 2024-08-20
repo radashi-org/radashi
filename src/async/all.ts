@@ -9,7 +9,7 @@ type PromiseValues<T extends Promise<any>[]> = {
  * any errors are thrown, all errors are gathered and thrown in an
  * `AggregateError`.
  *
- * @see https://radashi-org.github.io/reference/async/all
+ * @see https://radashi.js.org/reference/async/all
  * @example
  * ```ts
  * const [user] = await all([
@@ -32,7 +32,7 @@ export async function all<T extends Promise<any>[]>(
  * any errors are thrown, all errors are gathered and thrown in an
  * `AggregateError`.
  *
- * @see https://radashi-org.github.io/reference/async/all
+ * @see https://radashi.js.org/reference/async/all
  * @example
  * ```ts
  * const { user } = await all({

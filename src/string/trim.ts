@@ -3,7 +3,7 @@
  * the builtin trim function but accepts other characters you would
  * like to trim and trims multiple characters.
  *
- * @see https://radashi-org.github.io/reference/string/trim
+ * @see https://radashi.js.org/reference/string/trim
  * @example
  * ```ts
  * trim('  hello ') // => 'hello'

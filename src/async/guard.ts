@@ -2,7 +2,7 @@
  * A helper to try an async function that returns undefined if it
  * fails.
  *
- * @see https://radashi-org.github.io/reference/async/guard
+ * @see https://radashi.js.org/reference/async/guard
  * @example
  * ```ts
  * const result = await guard(fetchUsers)() ?? [];

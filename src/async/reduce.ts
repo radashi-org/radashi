@@ -2,7 +2,7 @@
  * An async reduce function. Works like the built-in Array.reduce
  * function but handles an async reducer function.
  *
- * @see https://radashi-org.github.io/reference/async/reduce
+ * @see https://radashi.js.org/reference/async/reduce
  * @example
  * ```ts
  * const result = await reduce([1, 2, 3], async (acc, item, index) => {

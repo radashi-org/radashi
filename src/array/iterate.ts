@@ -5,7 +5,7 @@
  * NOTE: This is NOT zero indexed. If you pass count=5 you will get 1,
  * 2, 3, 4, 5 iteration in the callback function.
  *
- * @see https://radashi-org.github.io/reference/array/iterate
+ * @see https://radashi.js.org/reference/array/iterate
  * @example
  * ```ts
  * iterate(3, (total, i) => total + i, 0)

@@ -2,7 +2,7 @@
  * Sort an array without modifying it and return the newly sorted
  * value.
  *
- * @see https://radashi-org.github.io/reference/array/sort
+ * @see https://radashi.js.org/reference/array/sort
  * @example
  * ```ts
  * const fish = [

@@ -7,7 +7,7 @@
  * to +292. Without this limit, precision values outside this range
  * can result in NaN.
  *
- * @see https://radashi-org.github.io/reference/number/round
+ * @see https://radashi.js.org/reference/number/round
  * @example
  * ```ts
  * round(123.456)

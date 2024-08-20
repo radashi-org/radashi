@@ -1,7 +1,7 @@
 /**
  * Flip the first two arguments of a function.
  *
- * @see https://radashi-org.github.io/reference/curry/flip
+ * @see https://radashi.js.org/reference/curry/flip
  * @example
  * ```ts
  * const subtract = (x: number, y: number) => x - y

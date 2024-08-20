@@ -4,7 +4,7 @@ import { isSymbol } from 'radashi'
  * Combines `Number.parseFloat` with NaN handling. By default, a zero
  * (0) is returned in place of NaN.
  *
- * @see https://radashi-org.github.io/reference/number/toFloat
+ * @see https://radashi.js.org/reference/number/toFloat
  * @example
  * ```ts
  * toFloat("1.23") // => 1.23

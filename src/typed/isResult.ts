@@ -3,7 +3,7 @@ import { isArray, isError, type Result } from 'radashi'
 /**
  * Returns true if the value is a `Result` tuple.
  *
- * @see https://radashi-org.github.io/reference/typed/isResult
+ * @see https://radashi.js.org/reference/typed/isResult
  * @example
  * ```ts
  * isResult([undefined, 42]) => true

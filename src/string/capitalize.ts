@@ -1,7 +1,7 @@
 /**
  * Capitalize the first word of the string.
  *
- * @see https://radashi-org.github.io/reference/string/capitalize
+ * @see https://radashi.js.org/reference/string/capitalize
  * @example
  * ```ts
  * capitalize('hello') // => 'Hello'
