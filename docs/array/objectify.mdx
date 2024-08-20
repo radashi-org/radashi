@@ -34,3 +34,13 @@ _.objectify(
   f => f.weight,
 ) // => { Marlin: 105, Bass: 8, Trout: 13 }
 ```
+
+### Search terms
+
+- Often called `arrayToObject`, `arrayMapToDict`, or `convertArrayToDict` in other libraries.
+
+### Popular use cases
+
+- Transform an array of objects into a dictionary using a unique identifier as a key, such as converting user objects to a lookup table by their IDs.
+- Create a configuration object from an array of settings, where each setting is mapped to its corresponding value using a specific property as the key.
+- Convert an array of primitive values into a dictionary where the keys are generated based on some transformation of the values, like prefixing or stringifying, to enable fast retrieval by key.
