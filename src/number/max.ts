@@ -8,19 +8,19 @@
  * max([{ num: 1 }, { num: 2 }], x => x.num) // => { num: 2 }
  * ```
  */
-export function max(array: readonly [number, ...number[]]): number;
-export function max(array: readonly number[]): number | null;
+export function max(array: readonly [number, ...number[]]): number
+export function max(array: readonly number[]): number | null
 export function max<T>(
-	array: readonly T[],
-	getter: (item: T) => number,
-): T | null;
+  array: readonly T[],
+  getter: (item: T) => number,
+): T | null
 export function max<T>(
-	array: readonly T[],
-	getter?: (item: T) => number,
+  array: readonly T[],
+  getter?: (item: T) => number,
 ): T | null {
-	if (!array || (array.length ?? 0) === 0) {
-		return null;
-	}
-	const get = getter ?? ((v: any) => v);
-	return array.reduce((a, b) => (get(a) > get(b) ? a : b));
+  if (!array || (array.length ?? 0) === 0) {
+    return null
+  }
+  const get = getter ?? ((v: any) => v)
+  return array.reduce((a, b) => (get(a) > get(b) ? a : b))
 }

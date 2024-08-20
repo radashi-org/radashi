@@ -1,4 +1,4 @@
-import { isResult, type Ok } from "radashi";
+import { isResult, type Ok } from 'radashi'
 
 /**
  * Returns true if the value is an `Ok` result.
@@ -11,7 +11,7 @@ import { isResult, type Ok } from "radashi";
  * ```
  */
 export function isResultOk<TValue = unknown>(
-	value: unknown,
+  value: unknown,
 ): value is Ok<TValue> {
-	return isResult(value) && value[0] === undefined;
+  return isResult(value) && value[0] === undefined
 }

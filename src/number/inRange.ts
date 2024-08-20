@@ -13,7 +13,7 @@
  * inRange(10, 10) // => false
  * ```
  */
-export function inRange(number: number, end: number): boolean;
+export function inRange(number: number, end: number): boolean
 
 /**
  * Checks if the given number is between two numbers.
@@ -32,21 +32,21 @@ export function inRange(number: number, end: number): boolean;
  * inRange(10, 0, 10) // => false
  * ```
  */
-export function inRange(number: number, start: number, end: number): boolean;
+export function inRange(number: number, start: number, end: number): boolean
 export function inRange(number: number, start: number, end?: number): boolean {
-	const isTypeSafe =
-		typeof number === "number" &&
-		typeof start === "number" &&
-		(typeof end === "undefined" || typeof end === "number");
+  const isTypeSafe =
+    typeof number === 'number' &&
+    typeof start === 'number' &&
+    (typeof end === 'undefined' || typeof end === 'number')
 
-	if (!isTypeSafe) {
-		return false;
-	}
+  if (!isTypeSafe) {
+    return false
+  }
 
-	if (typeof end === "undefined") {
-		end = start;
-		start = 0;
-	}
+  if (typeof end === 'undefined') {
+    end = start
+    start = 0
+  }
 
-	return number >= Math.min(start, end) && number < Math.max(start, end);
+  return number >= Math.min(start, end) && number < Math.max(start, end)
 }

@@ -1,4 +1,4 @@
-declare const setTimeout: (fn: () => void, ms: number) => unknown;
+declare const setTimeout: (fn: () => void, ms: number) => unknown
 
 /**
  * Create a promise that resolves after a given amount of time.
@@ -10,5 +10,5 @@ declare const setTimeout: (fn: () => void, ms: number) => unknown;
  * ```
  */
 export function sleep(milliseconds: number): Promise<void> {
-	return new Promise((res) => setTimeout(res, milliseconds));
+  return new Promise(res => setTimeout(res, milliseconds))
 }

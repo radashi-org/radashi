@@ -1,4 +1,4 @@
-import { isPromise, type Result, type ResultPromise } from "radashi";
+import { isPromise, type Result, type ResultPromise } from 'radashi'
 
 /**
  * The result of a `tryit` function.
@@ -19,11 +19,11 @@ import { isPromise, type Result, type ResultPromise } from "radashi";
  * ```
  */
 export type TryitResult<
-	TReturn,
-	TError extends Error = Error,
+  TReturn,
+  TError extends Error = Error,
 > = TReturn extends PromiseLike<infer TResult>
-	? ResultPromise<TResult, TError>
-	: Result<TReturn, TError>;
+  ? ResultPromise<TResult, TError>
+  : Result<TReturn, TError>
 
 /**
  * A helper to try an async function without forking the control flow.
@@ -31,25 +31,25 @@ export type TryitResult<
  * result]`
  */
 export function tryit<
-	TArgs extends any[],
-	TReturn,
-	TError extends Error = Error,
+  TArgs extends any[],
+  TReturn,
+  TError extends Error = Error,
 >(
-	func: (...args: TArgs) => TReturn,
+  func: (...args: TArgs) => TReturn,
 ): (...args: TArgs) => TryitResult<TReturn, TError> {
-	return (...args): any => {
-		try {
-			const result = func(...args);
-			return isPromise(result)
-				? result.then(
-						(value) => [undefined, value],
-						(err) => [err, undefined],
-					)
-				: [undefined, result];
-		} catch (err) {
-			return [err, undefined];
-		}
-	};
+  return (...args): any => {
+    try {
+      const result = func(...args)
+      return isPromise(result)
+        ? result.then(
+            value => [undefined, value],
+            err => [err, undefined],
+          )
+        : [undefined, result]
+    } catch (err) {
+      return [err, undefined]
+    }
+  }
 }
 
-export { tryit as try };
+export { tryit as try }

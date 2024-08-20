@@ -24,21 +24,21 @@
  * ```
  */
 export function round(
-	value: number,
-	precision?: number,
-	toInteger: (value: number) => number = Math.round,
+  value: number,
+  precision?: number,
+  toInteger: (value: number) => number = Math.round,
 ): number {
-	if (precision) {
-		// Limit the precision to avoid NaN results.
-		const p =
-			precision > 0 ? Math.min(precision, 292) : Math.max(precision, -323);
+  if (precision) {
+    // Limit the precision to avoid NaN results.
+    const p =
+      precision > 0 ? Math.min(precision, 292) : Math.max(precision, -323)
 
-		// By using exponential notation, we can avoid floating-point
-		// precision issues. The "q" is quantity, "e" is exponent.
-		let [q, e] = `${value}e`.split("e");
-		[q, e] = `${toInteger(+`${q}e${+e + p}`)}e`.split("e");
-		return +`${q}e${+e - p}`;
-	}
+    // By using exponential notation, we can avoid floating-point
+    // precision issues. The "q" is quantity, "e" is exponent.
+    let [q, e] = `${value}e`.split('e')
+    ;[q, e] = `${toInteger(+`${q}e${+e + p}`)}e`.split('e')
+    return +`${q}e${+e - p}`
+  }
 
-	return toInteger(value);
+  return toInteger(value)
 }

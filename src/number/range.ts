@@ -1,4 +1,4 @@
-import { isFunction } from "radashi";
+import { isFunction } from 'radashi'
 
 /**
  * Creates a generator that will produce an iteration through the
@@ -18,20 +18,18 @@ import { isFunction } from "radashi";
  * ```
  */
 export function* range<T = number>(
-	startOrLength: number,
-	end?: number,
-	valueOrMapper: T | ((i: number) => T) = (i) => i as T,
-	step = 1,
+  startOrLength: number,
+  end?: number,
+  valueOrMapper: T | ((i: number) => T) = i => i as T,
+  step = 1,
 ): Generator<T> {
-	const mapper = isFunction(valueOrMapper)
-		? valueOrMapper
-		: () => valueOrMapper;
-	const start = end ? startOrLength : 0;
-	const final = end ?? startOrLength;
-	for (let i = start; i <= final; i += step) {
-		yield mapper(i);
-		if (i + step > final) {
-			break;
-		}
-	}
+  const mapper = isFunction(valueOrMapper) ? valueOrMapper : () => valueOrMapper
+  const start = end ? startOrLength : 0
+  const final = end ?? startOrLength
+  for (let i = start; i <= final; i += step) {
+    yield mapper(i)
+    if (i + step > final) {
+      break
+    }
+  }
 }

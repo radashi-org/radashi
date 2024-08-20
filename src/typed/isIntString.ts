@@ -1,4 +1,4 @@
-import { isString } from "radashi";
+import { isString } from 'radashi'
 
 /**
  * Return true if the given value is a string that can be parsed as an
@@ -13,9 +13,9 @@ import { isString } from "radashi";
  * ```
  */
 export function isIntString(value: any): value is string {
-	if (!isString(value)) {
-		return false;
-	}
-	const num = +value;
-	return Number.isInteger(num) && `${num}` === value;
+  if (!isString(value)) {
+    return false
+  }
+  const num = +value
+  return Number.isInteger(num) && `${num}` === value
 }

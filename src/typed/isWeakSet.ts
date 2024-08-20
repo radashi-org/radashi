@@ -1,4 +1,4 @@
-import { isTagged } from "radashi";
+import { isTagged } from 'radashi'
 
 /**
  * Checks if the given value is a WeakSet.
@@ -16,7 +16,7 @@ import { isTagged } from "radashi";
  * ```
  */
 export function isWeakSet<T extends WeakKey = WeakKey>(
-	value: unknown,
+  value: unknown,
 ): value is WeakSet<T> {
-	return isTagged(value, "[object WeakSet]");
+  return isTagged(value, '[object WeakSet]')
 }

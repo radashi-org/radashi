@@ -11,10 +11,10 @@
  * // 0
  * ```
  */
-export function first<T>(array: readonly T[]): T | undefined;
+export function first<T>(array: readonly T[]): T | undefined
 
-export function first<T, U>(array: readonly T[], defaultValue: U): T | U;
+export function first<T, U>(array: readonly T[], defaultValue: U): T | U
 
 export function first(array: readonly unknown[], defaultValue?: unknown) {
-	return array?.length > 0 ? array[0] : defaultValue;
+  return array?.length > 0 ? array[0] : defaultValue
 }

@@ -1,4 +1,4 @@
-import { isNumber } from "radashi";
+import { isNumber } from 'radashi'
 
 /**
  * Return true if the given value is a number that is not an integer.
@@ -11,5 +11,5 @@ import { isNumber } from "radashi";
  * ```
  */
 export function isFloat(value: any): value is number {
-	return isNumber(value) && value % 1 !== 0;
+  return isNumber(value) && value % 1 !== 0
 }

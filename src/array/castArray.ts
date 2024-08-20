@@ -12,9 +12,9 @@
  * castArray(undefined) // => [undefined]
  * ```
  */
-export function castArray<T>(value: T): CastArray<T>;
+export function castArray<T>(value: T): CastArray<T>
 export function castArray(value: unknown): unknown {
-	return Array.isArray(value) ? value.slice() : [value];
+  return Array.isArray(value) ? value.slice() : [value]
 }
 
 /**
@@ -23,15 +23,15 @@ export function castArray(value: unknown): unknown {
  * @see https://radashi.js.org/reference/array/castArray
  */
 export type CastArray<T> = [T] extends [never]
-	? never[]
-	: [unknown] extends [T]
-		? unknown[]
-		:
-				| (T extends any
-						? T extends readonly (infer U)[]
-							? U[]
-							: never
-						: never)
-				| (Exclude<T, readonly any[]> extends never
-						? never
-						: Exclude<T, readonly any[]>[]);
+  ? never[]
+  : [unknown] extends [T]
+    ? unknown[]
+    :
+        | (T extends any
+            ? T extends readonly (infer U)[]
+              ? U[]
+              : never
+            : never)
+        | (Exclude<T, readonly any[]> extends never
+            ? never
+            : Exclude<T, readonly any[]>[])

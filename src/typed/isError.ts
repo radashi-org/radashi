@@ -1,4 +1,4 @@
-import { isTagged } from "radashi";
+import { isTagged } from 'radashi'
 
 /**
  * Return true if the given value is an Error object.
@@ -15,5 +15,5 @@ import { isTagged } from "radashi";
  * ```
  */
 export function isError(value: unknown): value is Error {
-	return isTagged(value, "[object Error]");
+  return isTagged(value, '[object Error]')
 }

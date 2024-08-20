@@ -1,4 +1,4 @@
-import { range } from "radashi";
+import { range } from 'radashi'
 
 /**
  * Creates a list of given start, end, value, and step parameters.
@@ -17,10 +17,10 @@ import { range } from "radashi";
  * ```
  */
 export function list<T = number>(
-	startOrLength: number,
-	end?: number,
-	valueOrMapper?: T | ((i: number) => T),
-	step?: number,
+  startOrLength: number,
+  end?: number,
+  valueOrMapper?: T | ((i: number) => T),
+  step?: number,
 ): T[] {
-	return Array.from(range(startOrLength, end, valueOrMapper, step));
+  return Array.from(range(startOrLength, end, valueOrMapper, step))
 }

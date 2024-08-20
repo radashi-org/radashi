@@ -10,18 +10,18 @@
  * ```
  */
 export function counting<T, TId extends string | number | symbol>(
-	array: readonly T[],
-	identity: (item: T) => TId,
+  array: readonly T[],
+  identity: (item: T) => TId,
 ): Record<TId, number> {
-	if (!array) {
-		return {} as Record<TId, number>;
-	}
-	return array.reduce(
-		(acc, item) => {
-			const id = identity(item);
-			acc[id] = (acc[id] ?? 0) + 1;
-			return acc;
-		},
-		{} as Record<TId, number>,
-	);
+  if (!array) {
+    return {} as Record<TId, number>
+  }
+  return array.reduce(
+    (acc, item) => {
+      const id = identity(item)
+      acc[id] = (acc[id] ?? 0) + 1
+      return acc
+    },
+    {} as Record<TId, number>,
+  )
 }

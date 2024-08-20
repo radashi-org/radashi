@@ -1,83 +1,87 @@
 {
-	"name": "radashi",
-	"version": "12.1.0",
-	"type": "module",
-	"description": "The modern, community-first TypeScript toolkit with all of the fast, readable, and minimal utility functions you need. Type-safe, dependency-free, tree-shakeable, fully tested.",
-	"repository": {
-		"url": "git+https://github.com/radashi-org/radashi.git"
-	},
-	"homepage": "https://radashi.js.org",
-	"author": "Alec Larson",
-	"contributors": ["Ray Epps"],
-	"license": "MIT",
-	"packageManager": "pnpm@9.1.3",
-	"engines": {
-		"node": ">=16.0.0"
-	},
-	"main": "dist/radashi.cjs",
-	"module": "dist/radashi.js",
-	"exports": {
-		"require": {
-			"types": "./dist/radashi.d.cts",
-			"default": "./dist/radashi.cjs"
-		},
-		"types": "./dist/radashi.d.ts",
-		"default": "./dist/radashi.js"
-	},
-	"types": "dist/radashi.d.cts",
-	"files": ["dist"],
-	"scripts": {
-		"add-function": "bash ./scripts/add-function.sh",
-		"bench": "vitest bench",
-		"build": "tsup --clean",
-		"bundle-impact": "bash ./scripts/bundle-impact.sh",
-		"dev": "tsup --clean --watch --sourcemap",
-		"format": "bash ./scripts/format.sh",
-		"lint": "bash ./scripts/lint.sh",
-		"move-function": "bash ./scripts/move-function.sh",
-		"prepublishOnly": "tsc && biome check --fix && pnpm -s build",
-		"release": "bash ./scripts/release.sh",
-		"test": "vitest run --coverage",
-		"test-branch": "bash ./scripts/test-branch.sh",
-		"test-single": "bash ./scripts/test-single.sh",
-		"update-browserslist": "bash ./scripts/update-browserslist.sh"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^1.8.3",
-		"@vitest/coverage-v8": "2.0.5",
-		"cspell": "^8.13.3",
-		"prettier": "^3.3.2",
-		"prettier-plugin-pkg": "^0.18.1",
-		"prettier-plugin-sh": "^0.14.0",
-		"tsup": "^8.1.0",
-		"typescript": "^5.5.2",
-		"vitest": "2.0.5"
-	},
-	"sideEffects": false,
-	"browserslist": [
-		"and_chr >= 57",
-		"chrome >= 57",
-		"and_ff >= 52",
-		"android >= 127",
-		"edge >= 15",
-		"samsung >= 7.4",
-		"safari >= 10.1",
-		"ios_saf >= 10.3",
-		"opera >= 44",
-		"firefox >= 52",
-		"unreleased and_chr versions",
-		"unreleased chrome versions",
-		"unreleased and_ff versions",
-		"unreleased android versions",
-		"unreleased edge versions",
-		"unreleased samsung versions",
-		"unreleased safari versions",
-		"unreleased ios_saf versions",
-		"unreleased opera versions",
-		"unreleased firefox versions",
-		"node >= 16"
-	],
-	"dependencies": {
-		"@radashi-org/biome-config": "link:scripts/biome-config"
-	}
+  "name": "radashi",
+  "version": "12.1.0",
+  "type": "module",
+  "description": "The modern, community-first TypeScript toolkit with all of the fast, readable, and minimal utility functions you need. Type-safe, dependency-free, tree-shakeable, fully tested.",
+  "repository": {
+    "url": "git+https://github.com/radashi-org/radashi.git"
+  },
+  "homepage": "https://radashi.js.org",
+  "author": "Alec Larson",
+  "contributors": [
+    "Ray Epps"
+  ],
+  "license": "MIT",
+  "packageManager": "pnpm@9.1.3",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "main": "dist/radashi.cjs",
+  "module": "dist/radashi.js",
+  "exports": {
+    "require": {
+      "types": "./dist/radashi.d.cts",
+      "default": "./dist/radashi.cjs"
+    },
+    "types": "./dist/radashi.d.ts",
+    "default": "./dist/radashi.js"
+  },
+  "types": "dist/radashi.d.cts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "add-function": "bash ./scripts/add-function.sh",
+    "bench": "vitest bench",
+    "build": "tsup --clean",
+    "bundle-impact": "bash ./scripts/bundle-impact.sh",
+    "dev": "tsup --clean --watch --sourcemap",
+    "format": "bash ./scripts/format.sh",
+    "lint": "bash ./scripts/lint.sh",
+    "move-function": "bash ./scripts/move-function.sh",
+    "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
+    "release": "bash ./scripts/release.sh",
+    "test": "vitest run --coverage",
+    "test-branch": "bash ./scripts/test-branch.sh",
+    "test-single": "bash ./scripts/test-single.sh",
+    "update-browserslist": "bash ./scripts/update-browserslist.sh"
+  },
+  "dependencies": {
+    "@radashi-org/biome-config": "link:scripts/biome-config"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@vitest/coverage-v8": "2.0.5",
+    "cspell": "^8.13.3",
+    "prettier": "^3.3.2",
+    "prettier-plugin-pkg": "^0.18.1",
+    "prettier-plugin-sh": "^0.14.0",
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.2",
+    "vitest": "2.0.5"
+  },
+  "sideEffects": false,
+  "browserslist": [
+    "and_chr >= 57",
+    "chrome >= 57",
+    "and_ff >= 52",
+    "android >= 127",
+    "edge >= 15",
+    "samsung >= 7.4",
+    "safari >= 10.1",
+    "ios_saf >= 10.3",
+    "opera >= 44",
+    "firefox >= 52",
+    "unreleased and_chr versions",
+    "unreleased chrome versions",
+    "unreleased and_ff versions",
+    "unreleased android versions",
+    "unreleased edge versions",
+    "unreleased samsung versions",
+    "unreleased safari versions",
+    "unreleased ios_saf versions",
+    "unreleased opera versions",
+    "unreleased firefox versions",
+    "node >= 16"
+  ]
 }

@@ -10,8 +10,8 @@
  * ```
  */
 export function flat<T>(lists: readonly T[][]): T[] {
-	return lists.reduce((acc, list) => {
-		acc.push(...list);
-		return acc;
-	}, []);
+  return lists.reduce((acc, list) => {
+    acc.push(...list)
+    return acc
+  }, [])
 }

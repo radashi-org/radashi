@@ -21,11 +21,11 @@
  * // => 2
  * ```
  */
-export function sum(array: readonly number[]): number;
-export function sum<T>(array: readonly T[], fn: (item: T) => number): number;
+export function sum(array: readonly number[]): number
+export function sum<T>(array: readonly T[], fn: (item: T) => number): number
 export function sum<T>(
-	array: readonly any[],
-	fn?: (item: T) => number,
+  array: readonly any[],
+  fn?: (item: T) => number,
 ): number {
-	return (array || []).reduce((acc, item) => acc + (fn ? fn(item) : item), 0);
+  return (array || []).reduce((acc, item) => acc + (fn ? fn(item) : item), 0)
 }

@@ -1,4 +1,4 @@
-import { isArray, isError, type Result } from "radashi";
+import { isArray, isError, type Result } from 'radashi'
 
 /**
  * Returns true if the value is a `Result` tuple.
@@ -23,9 +23,9 @@ import { isArray, isError, type Result } from "radashi";
  * ```
  */
 export function isResult(value: unknown): value is Result<unknown> {
-	return (
-		isArray(value) &&
-		value.length === 2 &&
-		(isError(value[0]) ? value[1] : value[0]) === undefined
-	);
+  return (
+    isArray(value) &&
+    value.length === 2 &&
+    (isError(value[0]) ? value[1] : value[0]) === undefined
+  )
 }

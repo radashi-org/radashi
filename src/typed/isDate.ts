@@ -1,4 +1,4 @@
-import { isTagged } from "radashi";
+import { isTagged } from 'radashi'
 
 /**
  * Return true if the given value is a Date object.
@@ -15,5 +15,5 @@ import { isTagged } from "radashi";
  * ```
  */
 export function isDate(value: unknown): value is Date {
-	return isTagged(value, "[object Date]");
+  return isTagged(value, '[object Date]')
 }

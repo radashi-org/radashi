@@ -10,22 +10,22 @@
  * ```
  */
 export function replace<T>(
-	array: readonly T[],
-	newItem: T,
-	match: (item: T, idx: number) => boolean,
+  array: readonly T[],
+  newItem: T,
+  match: (item: T, idx: number) => boolean,
 ): T[] {
-	if (!array) {
-		return [];
-	}
-	if (newItem === undefined) {
-		return [...array];
-	}
-	const out = array.slice();
-	for (let index = 0; index < array.length; index++) {
-		if (match(array[index], index)) {
-			out[index] = newItem;
-			break;
-		}
-	}
-	return out;
+  if (!array) {
+    return []
+  }
+  if (newItem === undefined) {
+    return [...array]
+  }
+  const out = array.slice()
+  for (let index = 0; index < array.length; index++) {
+    if (match(array[index], index)) {
+      out[index] = newItem
+      break
+    }
+  }
+  return out
 }

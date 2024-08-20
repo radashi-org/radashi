@@ -1,4 +1,4 @@
-import { isTagged } from "radashi";
+import { isTagged } from 'radashi'
 
 /**
  * Checks if the given value is a RegExp.
@@ -15,5 +15,5 @@ import { isTagged } from "radashi";
  * ```
  */
 export function isRegExp(value: unknown): value is RegExp {
-	return isTagged(value, "[object RegExp]");
+  return isTagged(value, '[object RegExp]')
 }

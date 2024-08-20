@@ -10,19 +10,19 @@
  * ```
  */
 export function pascal(str: string): string {
-	if (!str) {
-		return "";
-	}
+  if (!str) {
+    return ''
+  }
 
-	const result = str.replace(
-		/(?:[^\w\d]|_|\s)+(\w)([A-Z]+)?/g,
-		(_, firstCharacter, capitalizedLetters) => {
-			if (capitalizedLetters) {
-				return firstCharacter.toUpperCase() + capitalizedLetters.toLowerCase();
-			}
-			return firstCharacter.toUpperCase();
-		},
-	);
+  const result = str.replace(
+    /(?:[^\w\d]|_|\s)+(\w)([A-Z]+)?/g,
+    (_, firstCharacter, capitalizedLetters) => {
+      if (capitalizedLetters) {
+        return firstCharacter.toUpperCase() + capitalizedLetters.toLowerCase()
+      }
+      return firstCharacter.toUpperCase()
+    },
+  )
 
-	return result[0].toUpperCase() + result.substring(1);
+  return result[0].toUpperCase() + result.substring(1)
 }

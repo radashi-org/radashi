@@ -1,4 +1,4 @@
-import { capitalize } from "radashi";
+import { capitalize } from 'radashi'
 
 /**
  * Formats the given string in title case fashion.
@@ -13,13 +13,13 @@ import { capitalize } from "radashi";
  * ```
  */
 export function title(str: string | null | undefined): string {
-	if (!str) {
-		return "";
-	}
-	return str
-		.split(/(?=[A-Z])|[\.\-\s_]/)
-		.map((s) => s.trim())
-		.filter((s) => !!s)
-		.map((s) => capitalize(s.toLowerCase()))
-		.join(" ");
+  if (!str) {
+    return ''
+  }
+  return str
+    .split(/(?=[A-Z])|[\.\-\s_]/)
+    .map(s => s.trim())
+    .filter(s => !!s)
+    .map(s => capitalize(s.toLowerCase()))
+    .join(' ')
 }

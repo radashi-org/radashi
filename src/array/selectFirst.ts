@@ -15,17 +15,17 @@
  * ```
  */
 export function selectFirst<T, U>(
-	array: readonly T[],
-	mapper: (item: T, index: number) => U,
-	condition?: (item: T, index: number) => boolean,
+  array: readonly T[],
+  mapper: (item: T, index: number) => U,
+  condition?: (item: T, index: number) => boolean,
 ): U | undefined {
-	if (!array) {
-		return undefined;
-	}
-	let foundIndex = -1;
-	const found = array.find((item, index) => {
-		foundIndex = index;
-		return condition ? condition(item, index) : mapper(item, index) != null;
-	});
-	return found === undefined ? undefined : mapper(found, foundIndex);
+  if (!array) {
+    return undefined
+  }
+  let foundIndex = -1
+  const found = array.find((item, index) => {
+    foundIndex = index
+    return condition ? condition(item, index) : mapper(item, index) != null
+  })
+  return found === undefined ? undefined : mapper(found, foundIndex)
 }

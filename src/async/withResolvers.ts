@@ -1,7 +1,7 @@
 interface PromiseWithResolvers<T> {
-	promise: Promise<T>;
-	resolve: (value: T | PromiseLike<T>) => void;
-	reject: (reason?: any) => void;
+  promise: Promise<T>
+  resolve: (value: T | PromiseLike<T>) => void
+  reject: (reason?: any) => void
 }
 
 /**
@@ -18,13 +18,13 @@ interface PromiseWithResolvers<T> {
  * ```
  */
 export function withResolvers<T>(): PromiseWithResolvers<T> {
-	let resolve: any;
-	let reject: any;
+  let resolve: any
+  let reject: any
 
-	const promise = new Promise<T>((res, rej) => {
-		resolve = res;
-		reject = rej;
-	});
+  const promise = new Promise<T>((res, rej) => {
+    resolve = res
+    reject = rej
+  })
 
-	return { resolve, reject, promise };
+  return { resolve, reject, promise }
 }

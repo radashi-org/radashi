@@ -9,5 +9,5 @@
  * ```
  */
 export const isInt = /* @__PURE__ */ (() => Number.isInteger)() as (
-	value: unknown,
-) => value is number;
+  value: unknown,
+) => value is number

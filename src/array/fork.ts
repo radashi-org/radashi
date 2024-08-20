@@ -10,14 +10,14 @@
  * ```
  */
 export function fork<T>(
-	array: readonly T[],
-	condition: (item: T) => boolean,
+  array: readonly T[],
+  condition: (item: T) => boolean,
 ): [T[], T[]] {
-	const forked: [T[], T[]] = [[], []];
-	if (array) {
-		for (const item of array) {
-			forked[condition(item) ? 0 : 1].push(item);
-		}
-	}
-	return forked;
+  const forked: [T[], T[]] = [[], []]
+  if (array) {
+    for (const item of array) {
+      forked[condition(item) ? 0 : 1].push(item)
+    }
+  }
+  return forked
 }

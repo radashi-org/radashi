@@ -18,12 +18,12 @@
  * ```
  */
 export function clamp(
-	n: number,
-	min: number | null | undefined,
-	max: number | null | undefined,
+  n: number,
+  min: number | null | undefined,
+  max: number | null | undefined,
 ): number {
-	if (max != null && min != null && min > max) {
-		throw new Error("invalid clamp range");
-	}
-	return max != null && n > max ? max : min != null && n < min ? min : n;
+  if (max != null && min != null && min > max) {
+    throw new Error('invalid clamp range')
+  }
+  return max != null && n > max ? max : min != null && n < min ? min : n
 }

@@ -15,25 +15,25 @@
  * ```
  */
 export function merge<T>(
-	prev: readonly T[],
-	array: readonly T[],
-	toKey: (item: T) => any,
+  prev: readonly T[],
+  array: readonly T[],
+  toKey: (item: T) => any,
 ): T[] {
-	if (!array && !prev) {
-		return [];
-	}
-	if (!array) {
-		return [...prev];
-	}
-	if (!prev) {
-		return [];
-	}
-	if (!toKey) {
-		return [...prev];
-	}
-	const keys = array.map(toKey);
-	return prev.map((prevItem) => {
-		const index = keys.indexOf(toKey(prevItem));
-		return index > -1 ? array[index] : prevItem;
-	});
+  if (!array && !prev) {
+    return []
+  }
+  if (!array) {
+    return [...prev]
+  }
+  if (!prev) {
+    return []
+  }
+  if (!toKey) {
+    return [...prev]
+  }
+  const keys = array.map(toKey)
+  return prev.map(prevItem => {
+    const index = keys.indexOf(toKey(prevItem))
+    return index > -1 ? array[index] : prevItem
+  })
 }

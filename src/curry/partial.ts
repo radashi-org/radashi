@@ -11,9 +11,9 @@
  * ```
  */
 type RemoveItemsInFront<
-	TItems extends any[],
-	TItemsToRemove extends any[],
-> = TItems extends [...TItemsToRemove, ...infer TRest] ? TRest : TItems;
+  TItems extends any[],
+  TItemsToRemove extends any[],
+> = TItems extends [...TItemsToRemove, ...infer TRest] ? TRest : TItems
 
 /**
  * Create a partial function by providing some (or all) of the
@@ -30,8 +30,8 @@ type RemoveItemsInFront<
  * ```
  */
 export function partial<T extends any[], TA extends Partial<T>, R>(
-	fn: (...args: T) => R,
-	...args: TA
+  fn: (...args: T) => R,
+  ...args: TA
 ): (...rest: RemoveItemsInFront<T, TA>) => R {
-	return (...rest) => fn(...([...args, ...rest] as T));
+  return (...rest) => fn(...([...args, ...rest] as T))
 }

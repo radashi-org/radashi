@@ -1,4 +1,4 @@
-import { unzip } from "radashi";
+import { unzip } from 'radashi'
 
 /**
  * Creates an array of grouped elements, the first of which contains
@@ -13,27 +13,27 @@ import { unzip } from "radashi";
  * ```
  */
 export function zip<T1, T2, T3, T4, T5>(
-	array1: readonly T1[],
-	array2: readonly T2[],
-	array3: readonly T3[],
-	array4: readonly T4[],
-	array5: readonly T5[],
-): [T1, T2, T3, T4, T5][];
+  array1: readonly T1[],
+  array2: readonly T2[],
+  array3: readonly T3[],
+  array4: readonly T4[],
+  array5: readonly T5[],
+): [T1, T2, T3, T4, T5][]
 export function zip<T1, T2, T3, T4>(
-	array1: readonly T1[],
-	array2: readonly T2[],
-	array3: readonly T3[],
-	array4: readonly T4[],
-): [T1, T2, T3, T4][];
+  array1: readonly T1[],
+  array2: readonly T2[],
+  array3: readonly T3[],
+  array4: readonly T4[],
+): [T1, T2, T3, T4][]
 export function zip<T1, T2, T3>(
-	array1: readonly T1[],
-	array2: readonly T2[],
-	array3: readonly T3[],
-): [T1, T2, T3][];
+  array1: readonly T1[],
+  array2: readonly T2[],
+  array3: readonly T3[],
+): [T1, T2, T3][]
 export function zip<T1, T2>(
-	array1: readonly T1[],
-	array2: readonly T2[],
-): [T1, T2][];
+  array1: readonly T1[],
+  array2: readonly T2[],
+): [T1, T2][]
 export function zip<T>(...arrays: (readonly T[])[]): T[][] {
-	return unzip(arrays);
+  return unzip(arrays)
 }

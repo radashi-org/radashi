@@ -1,4 +1,4 @@
-import { set } from "radashi";
+import { set } from 'radashi'
 
 /**
  * The opposite of crush, given an object that was crushed into key
@@ -12,10 +12,10 @@ import { set } from "radashi";
  * ```
  */
 export function construct<TObject extends object>(obj: TObject): object {
-	if (!obj) {
-		return {};
-	}
-	return Object.keys(obj).reduce((acc, path) => {
-		return set(acc, path, (obj as any)[path]);
-	}, {});
+  if (!obj) {
+    return {}
+  }
+  return Object.keys(obj).reduce((acc, path) => {
+    return set(acc, path, (obj as any)[path])
+  }, {})
 }

@@ -12,9 +12,9 @@
  * castArrayIfExists([1, 2, 3]) // => [1, 2, 3]
  * ```
  */
-export function castArrayIfExists<T>(value: T): CastArrayIfExists<T>;
+export function castArrayIfExists<T>(value: T): CastArrayIfExists<T>
 export function castArrayIfExists(value: unknown): unknown {
-	return Array.isArray(value) ? value.slice() : value != null ? [value] : value;
+  return Array.isArray(value) ? value.slice() : value != null ? [value] : value
 }
 
 /**
@@ -23,16 +23,16 @@ export function castArrayIfExists(value: unknown): unknown {
  * @see https://radashi.js.org/reference/array/castArrayIfExists
  */
 export type CastArrayIfExists<T> = [T] extends [never]
-	? never[]
-	: [unknown] extends [T]
-		? unknown[] | null | undefined
-		:
-				| (T extends any
-						? T extends readonly (infer U)[]
-							? U[]
-							: never
-						: never)
-				| (Exclude<T, readonly any[] | null | undefined> extends never
-						? never
-						: Exclude<T, readonly any[] | null | undefined>[])
-				| Extract<T, null | undefined>;
+  ? never[]
+  : [unknown] extends [T]
+    ? unknown[] | null | undefined
+    :
+        | (T extends any
+            ? T extends readonly (infer U)[]
+              ? U[]
+              : never
+            : never)
+        | (Exclude<T, readonly any[] | null | undefined> extends never
+            ? never
+            : Exclude<T, readonly any[] | null | undefined>[])
+        | Extract<T, null | undefined>

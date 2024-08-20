@@ -1,4 +1,4 @@
-import { isTagged } from "radashi";
+import { isTagged } from 'radashi'
 
 /**
  * Checks if the given value is a WeakMap.
@@ -15,7 +15,7 @@ import { isTagged } from "radashi";
  * ```
  */
 export function isWeakMap<K extends WeakKey = WeakKey, V = unknown>(
-	value: unknown,
+  value: unknown,
 ): value is WeakMap<K, V> {
-	return isTagged(value, "[object WeakMap]");
+  return isTagged(value, '[object WeakMap]')
 }

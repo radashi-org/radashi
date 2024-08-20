@@ -20,9 +20,9 @@
  * ```
  */
 export function isPrimitive(value: any): boolean {
-	return (
-		value === undefined ||
-		value === null ||
-		(typeof value !== "object" && typeof value !== "function")
-	);
+  return (
+    value === undefined ||
+    value === null ||
+    (typeof value !== 'object' && typeof value !== 'function')
+  )
 }

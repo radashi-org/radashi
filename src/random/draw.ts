@@ -1,4 +1,4 @@
-import { random } from "radashi";
+import { random } from 'radashi'
 
 /**
  * “Draw” a random item from an array. The item is not removed from
@@ -16,10 +16,10 @@ import { random } from "radashi";
  * ```
  */
 export function draw<T>(array: readonly T[]): T | null {
-	const max = array.length;
-	if (max === 0) {
-		return null;
-	}
-	const index = random(0, max - 1);
-	return array[index];
+  const max = array.length
+  if (max === 0) {
+    return null
+  }
+  const index = random(0, max - 1)
+  return array[index]
 }

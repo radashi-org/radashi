@@ -9,9 +9,9 @@
  * ```
  */
 export function cluster<T>(array: readonly T[], size = 2): T[][] {
-	const clusters: T[][] = [];
-	for (let i = 0; i < array.length; i += size) {
-		clusters.push(array.slice(i, i + size));
-	}
-	return clusters;
+  const clusters: T[][] = []
+  for (let i = 0; i < array.length; i += size) {
+    clusters.push(array.slice(i, i + size))
+  }
+  return clusters
 }

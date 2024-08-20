@@ -1,4 +1,4 @@
-import { isFunction } from "radashi";
+import { isFunction } from 'radashi'
 
 /**
  * Returns true if the value is a Promise or has a `then` method.
@@ -12,5 +12,5 @@ import { isFunction } from "radashi";
  * ```
  */
 export function isPromise(value: any): value is PromiseLike<unknown> {
-	return !!value && isFunction(value.then);
+  return !!value && isFunction(value.then)
 }

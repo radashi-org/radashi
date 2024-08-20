@@ -14,26 +14,26 @@
  * ```
  */
 export function replaceOrAppend<T>(
-	array: readonly T[],
-	newItem: T,
-	match: (a: T, idx: number) => boolean,
+  array: readonly T[],
+  newItem: T,
+  match: (a: T, idx: number) => boolean,
 ): T[] {
-	if (!array && !newItem) {
-		return [];
-	}
-	if (!newItem) {
-		return [...array];
-	}
-	if (!array) {
-		return [newItem];
-	}
-	const out = array.slice();
-	for (let index = 0; index < array.length; index++) {
-		if (match(array[index], index)) {
-			out[index] = newItem;
-			return out;
-		}
-	}
-	out.push(newItem);
-	return out;
+  if (!array && !newItem) {
+    return []
+  }
+  if (!newItem) {
+    return [...array]
+  }
+  if (!array) {
+    return [newItem]
+  }
+  const out = array.slice()
+  for (let index = 0; index < array.length; index++) {
+    if (match(array[index], index)) {
+      out[index] = newItem
+      return out
+    }
+  }
+  out.push(newItem)
+  return out
 }

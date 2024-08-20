@@ -1,4 +1,4 @@
-import { isTagged } from "radashi";
+import { isTagged } from 'radashi'
 
 /**
  * Returns true if `value` is a plain object, a class instance
@@ -24,5 +24,5 @@ import { isTagged } from "radashi";
  * ```
  */
 export function isObject(value: unknown): value is object {
-	return isTagged(value, "[object Object]");
+  return isTagged(value, '[object Object]')
 }
