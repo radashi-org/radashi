@@ -60,3 +60,14 @@ When given a fourth argument it's treated as the `step` size to skip when genera
 _.list(2, 4, i => i, 2) // [2, 4]
 _.list(25, 100, i => i, 25) // [25, 50, 75, 100]
 ```
+
+### Search terms
+
+- Often called `range`, `sequence`, or `generate` in other libraries.
+
+### Popular use cases
+
+- Generating a sequence of numbers from 0 to a specified limit for loops or iteration.
+- Creating a list of repeated values, such as filling an array with the same object or string for uniform data representation.
+- Constructing a custom series of values based on a callback function, allowing for dynamic or complex data generation (e.g., `list(0, 5, i => i * 2)` for even numbers).
+- Implementing pagination or chunking in data processing where a specific step size (e.g., `list(0, 10, i => i, 2)`) aids in iterating through large data sets.
