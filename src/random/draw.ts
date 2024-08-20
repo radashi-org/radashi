@@ -4,7 +4,7 @@ import { random } from 'radashi'
  * “Draw” a random item from an array. The item is not removed from
  * the array. Returns `null` if the array is empty.
  *
- * @see https://radashi-org.github.io/reference/random/draw
+ * @see https://radashi.js.org/reference/random/draw
  * @example
  * ```ts
  * const numbers = [1, 2, 3]

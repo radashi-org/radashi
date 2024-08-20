@@ -3,7 +3,7 @@ declare const setTimeout: (callback: () => void, delay: number) => unknown
 /**
  * The options for the `bottleneck` function.
  *
- * @see https://radashi-org.github.io/reference/async/bottleneck
+ * @see https://radashi.js.org/reference/async/bottleneck
  */
 export interface BottleneckOptions {
   /**
@@ -27,7 +27,7 @@ export interface BottleneckOptions {
 /**
  * The return type of the `bottleneck` function.
  *
- * @see https://radashi-org.github.io/reference/async/bottleneck
+ * @see https://radashi.js.org/reference/async/bottleneck
  */
 export type BottledFunction<Fn extends (...args: any[]) => any> = Fn & {
   /**
@@ -56,7 +56,7 @@ export type BottledFunction<Fn extends (...args: any[]) => any> = Fn & {
  * Use the `concurrency` option for limiting the number of concurrent
  * calls.
  *
- * @see https://radashi-org.github.io/reference/async/bottleneck
+ * @see https://radashi.js.org/reference/async/bottleneck
  * @example
  * ```ts
  * const double = bottleneck(

@@ -1,7 +1,7 @@
 /**
  * Checks if the given value is a string.
  *
- * @see https://radashi-org.github.io/reference/typed/isString
+ * @see https://radashi.js.org/reference/typed/isString
  * @example
  * ```ts
  * isString('abc') // => true

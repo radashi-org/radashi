@@ -9,7 +9,7 @@ import { type FilteredKeys, filterKey, isArray, type KeyFilter } from 'radashi'
  * has listed, the `value` and `key` parameter types of your callback
  * will be inaccurate.
  *
- * @see https://radashi-org.github.io/reference/object/pick
+ * @see https://radashi.js.org/reference/object/pick
  * @example
  * ```ts
  * const a = { a: 1, b: 2, c: 3 }

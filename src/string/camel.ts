@@ -3,7 +3,7 @@ import { capitalize } from 'radashi'
 /**
  * Formats the given string in camel case fashion.
  *
- * @see https://radashi-org.github.io/reference/string/camel
+ * @see https://radashi.js.org/reference/string/camel
  * @example
  * ```ts
  * camel('hello world') // => 'helloWorld'

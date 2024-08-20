@@ -12,7 +12,7 @@
  * [@fabiospampinato/tiny-levenshtein](https://github.com/fabiospampinato/tiny-levenshtein)
  * with ❤️.
  *
- * @see https://radashi-org.github.io/reference/string/similarity
+ * @see https://radashi.js.org/reference/string/similarity
  * @example
  * ```ts
  * similarity('abc', 'abc') // 0

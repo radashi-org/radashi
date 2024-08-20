@@ -2,7 +2,7 @@
  * Replace an element in an array with a new item without modifying
  * the array and return the new value.
  *
- * @see https://radashi-org.github.io/reference/array/replace
+ * @see https://radashi.js.org/reference/array/replace
  * @example
  * ```ts
  * replace([1, 2, 3], 4, (n) => n === 2)

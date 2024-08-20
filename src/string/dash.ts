@@ -3,7 +3,7 @@ import { capitalize } from 'radashi'
 /**
  * Formats the given string in dash case fashion.
  *
- * @see https://radashi-org.github.io/reference/string/dash
+ * @see https://radashi.js.org/reference/string/dash
  * @example
  * ```ts
  * dash('hello world') // => 'hello-world'

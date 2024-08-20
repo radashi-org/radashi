@@ -1,7 +1,7 @@
 /**
  * Convert an object to a list, mapping each entry into a list item.
  *
- * @see https://radashi-org.github.io/reference/object/listify
+ * @see https://radashi.js.org/reference/object/listify
  * @example
  * ```ts
  * const a = { a: 1, b: 2, c: 3 }

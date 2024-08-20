@@ -2,7 +2,7 @@
  * Make an object callable. Given an object and a function the
  * returned object will be a function with all the objects properties.
  *
- * @see https://radashi-org.github.io/reference/curry/callable
+ * @see https://radashi.js.org/reference/curry/callable
  * @example
  * ```ts
  * const car = callable({

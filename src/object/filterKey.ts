@@ -33,7 +33,7 @@ export type FilteredKeys<
  * in a flexible manner. Using it directly in everyday code is not
  * recommended.
  *
- * @see https://radashi-org.github.io/reference/object/filterKey
+ * @see https://radashi.js.org/reference/object/filterKey
  * @example
  * ```ts
  * const a = { a: 1, b: 2, c: 3 }

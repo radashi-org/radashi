@@ -3,7 +3,7 @@ import { isFunction } from 'radashi'
 /**
  * Returns true if the value is a Promise or has a `then` method.
  *
- * @see https://radashi-org.github.io/reference/typed/isPromise
+ * @see https://radashi.js.org/reference/typed/isPromise
  * @example
  * ```ts
  * isPromise(Promise.resolve(1)) // => true

@@ -3,7 +3,7 @@ import { isNumber } from 'radashi'
 /**
  * Return true if the given value is a number that is not an integer.
  *
- * @see https://radashi-org.github.io/reference/typed/isFloat
+ * @see https://radashi.js.org/reference/typed/isFloat
  * @example
  * ```ts
  * isFloat(0) // => false

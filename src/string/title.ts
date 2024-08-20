@@ -3,7 +3,7 @@ import { capitalize } from 'radashi'
 /**
  * Formats the given string in title case fashion.
  *
- * @see https://radashi-org.github.io/reference/string/title
+ * @see https://radashi.js.org/reference/string/title
  * @example
  * ```ts
  * title('hello world') // => 'Hello World'

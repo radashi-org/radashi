@@ -38,7 +38,7 @@ export interface DebounceOptions {
  * The debounced function has a few methods, such as `cancel`,
  * `isPending`, and `flush`.
  *
- * @see https://radashi-org.github.io/reference/curry/debounce
+ * @see https://radashi.js.org/reference/curry/debounce
  * @example
  * ```ts
  * const myDebouncedFunc = debounce({ delay: 1000 }, (x) => {

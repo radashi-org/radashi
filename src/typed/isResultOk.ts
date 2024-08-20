@@ -3,7 +3,7 @@ import { isResult, type Ok } from 'radashi'
 /**
  * Returns true if the value is an `Ok` result.
  *
- * @see https://radashi-org.github.io/reference/typed/isResultOk
+ * @see https://radashi.js.org/reference/typed/isResultOk
  * @example
  * ```ts
  * isResultOk([undefined, "hello"]) // true

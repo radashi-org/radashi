@@ -7,7 +7,7 @@ import { isTagged, type StrictExtract } from 'radashi'
  *
  * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms
  *
- * @see https://radashi-org.github.io/reference/typed/isSet
+ * @see https://radashi.js.org/reference/typed/isSet
  * @example
  * ```ts
  * isSet(new Set([1, 2, 3])) // => true

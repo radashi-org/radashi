@@ -3,7 +3,7 @@ declare const setTimeout: (fn: () => void, ms: number) => unknown
 /**
  * Create a promise that resolves after a given amount of time.
  *
- * @see https://radashi-org.github.io/reference/async/sleep
+ * @see https://radashi.js.org/reference/async/sleep
  * @example
  * ```ts
  * await sleep(1000)

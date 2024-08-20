@@ -1,7 +1,7 @@
 /**
  * Formats the given string in pascal case fashion.
  *
- * @see https://radashi-org.github.io/reference/string/pascal
+ * @see https://radashi.js.org/reference/string/pascal
  * @example
  * ```ts
  * pascal('hello world') // => 'HelloWorld'

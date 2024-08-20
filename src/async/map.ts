@@ -2,7 +2,7 @@
  * An async map function. Works like the built-in Array.map function
  * but handles an async mapper function.
  *
- * @see https://radashi-org.github.io/reference/async/map
+ * @see https://radashi.js.org/reference/async/map
  * @example
  * ```ts
  * const urls = ['/data1', '/data2', '/data3']

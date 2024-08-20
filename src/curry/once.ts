@@ -41,7 +41,7 @@ type OnceImplementation = {
  * To allow your `once`-wrapped function to be called again, see the
  * `once.reset` function.
  *
- * @see https://radashi-org.github.io/reference/curry/once
+ * @see https://radashi.js.org/reference/curry/once
  * @example
  * ```ts
  * const fn = once(() => Math.random())

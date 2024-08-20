@@ -15,7 +15,7 @@
  *   - You may define a `strategy` option, which determines where the
  *   item should be added in the array.
  *
- * @see https://radashi-org.github.io/reference/array/toggle
+ * @see https://radashi.js.org/reference/array/toggle
  * @example
  * ```ts
  * toggle([1, 2, 3], 4) // => [1, 2, 3, 4]

@@ -1,6 +1,6 @@
 {
-  "private": true,
   "type": "module",
+  "private": true,
   "dependencies": {
     "@types/node": "^22.3.0",
     "execa": "^9.3.1",

@@ -2,7 +2,7 @@
  * Like partial but for unary functions that accept a single object
  * argument
  *
- * @see https://radashi-org.github.io/reference/curry/partob
+ * @see https://radashi.js.org/reference/curry/partob
  * @example
  * ```ts
  * const add = (

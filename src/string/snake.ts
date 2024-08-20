@@ -3,7 +3,7 @@ import { capitalize } from 'radashi'
 /**
  * Formats the given string in snake case fashion.
  *
- * @see https://radashi-org.github.io/reference/string/snake
+ * @see https://radashi.js.org/reference/string/snake
  * @example
  * ```ts
  * snake('hello world') // => 'hello_world'

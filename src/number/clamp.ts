@@ -9,7 +9,7 @@
  *   maximum.
  * - Otherwise, it returns the number itself.
  *
- * @see https://radashi-org.github.io/reference/number/clamp
+ * @see https://radashi.js.org/reference/number/clamp
  * @example
  * ```ts
  * clamp(5, 1, 10) // returns 5

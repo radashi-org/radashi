@@ -5,7 +5,7 @@
  * * Numbers can be negative or positive.
  * * Ending number is exclusive.
  *
- * @see https://radashi-org.github.io/reference/number/inRange
+ * @see https://radashi.js.org/reference/number/inRange
  * @example
  * ```ts
  * inRange(5, 10) // => true
@@ -24,7 +24,7 @@ export function inRange(number: number, end: number): boolean
  * * The start and the end of the range can be ascending OR descending
  *   order.
  *
- * @see https://radashi-org.github.io/reference/number/inRange
+ * @see https://radashi.js.org/reference/number/inRange
  * @example
  * ```ts
  * inRange(5, 0, 10) // => true

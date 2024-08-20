@@ -2,7 +2,7 @@
  * Removes (shakes out) undefined entries from an object. Optional
  * second argument shakes out values by custom evaluation.
  *
- * @see https://radashi-org.github.io/reference/object/shake
+ * @see https://radashi.js.org/reference/object/shake
  * @example
  * ```ts
  * const a = { a: 1, b: undefined, c: 3 }

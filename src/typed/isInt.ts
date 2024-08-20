@@ -1,7 +1,7 @@
 /**
  * Literally just `Number.isInteger` with a better type.
  *
- * @see https://radashi-org.github.io/reference/typed/isInt
+ * @see https://radashi.js.org/reference/typed/isInt
  * @example
  * ```ts
  * isInt(0) // => true

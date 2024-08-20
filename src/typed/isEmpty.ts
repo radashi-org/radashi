@@ -16,7 +16,7 @@ import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
  * - object with `size` property of `0`
  * - object with no enumerable keys
  *
- * @see https://radashi-org.github.io/reference/typed/isEmpty
+ * @see https://radashi.js.org/reference/typed/isEmpty
  * @example
  * ```ts
  * isEmpty(0) // => true

@@ -11,7 +11,7 @@ type WorkItemResult<K> = {
  * any errors were thrown, they are rethrown in an instance of
  * AggregateError.
  *
- * @see https://radashi-org.github.io/reference/async/parallel
+ * @see https://radashi.js.org/reference/async/parallel
  * @example
  * ```ts
  * // Process images concurrently, resizing each image to a standard size.

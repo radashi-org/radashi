@@ -3,7 +3,7 @@ import * as _ from 'radashi'
 /**
  * Clone an array and shuffle its items randomly.
  *
- * @see https://radashi-org.github.io/reference/random/shuffle
+ * @see https://radashi.js.org/reference/random/shuffle
  * @example
  * ```ts
  * const numbers = [1, 2, 3, 4, 5]

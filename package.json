@@ -6,7 +6,7 @@
   "repository": {
     "url": "git+https://github.com/radashi-org/radashi.git"
   },
-  "homepage": "https://radashi-org.github.io",
+  "homepage": "https://radashi.js.org",
   "author": "Alec Larson",
   "contributors": [
     "Ray Epps"
@@ -46,6 +46,9 @@
     "test-single": "bash ./scripts/test-single.sh",
     "update-browserslist": "bash ./scripts/update-browserslist.sh"
   },
+  "dependencies": {
+    "@radashi-org/biome-config": "link:scripts/biome-config"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
     "@vitest/coverage-v8": "2.0.5",
@@ -80,8 +83,5 @@
     "unreleased opera versions",
     "unreleased firefox versions",
     "node >= 16"
-  ],
-  "dependencies": {
-    "@radashi-org/biome-config": "link:scripts/biome-config"
-  }
+  ]
 }

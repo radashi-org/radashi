@@ -3,7 +3,7 @@ import type { StrictExtract } from 'radashi'
 /**
  * Literally just `Array.isArray` but with better type inference.
  *
- * @see https://radashi-org.github.io/reference/typed/isArray
+ * @see https://radashi.js.org/reference/typed/isArray
  * @example
  * ```ts
  * isArray([]) // => true

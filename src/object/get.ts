@@ -2,7 +2,7 @@
  * Dynamically get a nested value from an array or object with a
  * string.
  *
- * @see https://radashi-org.github.io/reference/object/get
+ * @see https://radashi.js.org/reference/object/get
  * @example
  * ```ts
  * const person = {

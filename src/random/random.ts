@@ -2,7 +2,7 @@
  * Generates a random integer between min and max. Both min and max
  * are inclusive.
  *
- * @see https://radashi-org.github.io/reference/random/random
+ * @see https://radashi.js.org/reference/random/random
  * @example
  * ```ts
  * random(1, 10)

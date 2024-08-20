@@ -2,6 +2,21 @@
   "name": "@radashi-org/biome-config",
   "version": "1.0.0",
   "description": "Shared Biome config for Radashi projects",
+  "repository": {
+    "url": "git+https://github.com/radashi-org/radashi.git"
+  },
+  "homepage": "https://radashi.js.org",
+  "author": {
+    "name": "Alec Larson"
+  },
+  "license": "MIT",
+  "main": "biome.json",
+  "exports": {
+    ".": "./biome.json"
+  },
+  "files": [
+    "biome.json"
+  ],
   "keywords": [
     "radashi",
     "biome",
@@ -10,21 +25,6 @@
     "configuration",
     "formatter",
     "linter"
-  ],
-  "repository": {
-    "url": "git+https://github.com/radashi-org/radashi.git"
-  },
-  "homepage": "https://radashi-org.github.io",
-  "license": "MIT",
-  "author": {
-    "name": "Alec Larson"
-  },
-  "exports": {
-    ".": "./biome.json"
-  },
-  "main": "biome.json",
-  "files": [
-    "biome.json"
   ],
   "peerDependencies": {
     "@biomejs/biome": "^1.8.3"
