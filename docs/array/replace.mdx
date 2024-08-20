@@ -33,3 +33,13 @@ const salmon = {
 // read: replace fish with salmon where the name is Bass
 _.replace(fish, salmon, f => f.name === 'Bass') // => [marlin, salmon, trout]
 ```
+
+### Search terms
+
+- Often called `replace`, `modify`, or `update` in other libraries.
+
+### Popular use cases
+
+- Replacing a specific value in an array with a new item based on a condition, commonly used in state management within frameworks like React.
+- Creating a copy of an array with one of its elements modified, useful in functional programming to maintain immutability.
+- Updating a value in a list where the match function is defined by a unique identifier, such as IDs in an array of objects.
