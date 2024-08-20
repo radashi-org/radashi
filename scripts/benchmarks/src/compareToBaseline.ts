@@ -69,6 +69,9 @@ async function bundleFile(file: string) {
     format: 'esm',
     bundle: true,
     write: false,
+    // Temporary workaround to avoid CI-only esbuild tree-shaking
+    // issue. Could not reproduce locally.
+    pure: ['Symbol'],
   })
   // Minify in a separate step to avoid https://github.com/evanw/esbuild/issues/3881
   const minified = await esbuild.build({
