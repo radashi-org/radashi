@@ -26,7 +26,7 @@ export function normalizeIdentifiers(code: string): string {
   }[] = []
 
   // Parse the code and collect local identifiers
-  const ast = parse(code, { sourceType: 'module', plugins: ['jsx'] })
+  const ast = parse(code, { sourceType: 'module' })
 
   const recurse = (
     node: VariableDeclaration | Expression | LVal,
