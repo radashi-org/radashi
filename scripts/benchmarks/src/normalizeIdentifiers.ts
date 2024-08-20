@@ -1,5 +1,9 @@
 import { parse } from '@babel/parser'
-import traverse from '@babel/traverse'
+import babelTraverse from '@babel/traverse'
+
+// Workaround: Some kind of ESM/CJS interop issue that TSX doesn't
+// handle correctly for some unknown reason.
+const traverse = (babelTraverse as any).default as typeof babelTraverse
 
 /**
  * A somewhat naive approach to normalizing identifiers, since it
