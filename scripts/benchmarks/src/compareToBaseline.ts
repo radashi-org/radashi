@@ -3,6 +3,7 @@ import { execa } from 'execa'
 import fs from 'node:fs/promises'
 import { Project, SyntaxKind } from 'ts-morph'
 import { dedent } from './dedent'
+import { normalizeIdentifiers } from './normalizeIdentifiers'
 
 export async function compareToBaseline(
   baseRef: string,
@@ -21,14 +22,14 @@ export async function compareToBaseline(
     bundleFile(basePath),
   ])
 
-  if (headBundle === baseBundle) {
+  if (headBundle.normalizedCode === baseBundle.normalizedCode) {
     return false
   }
 
   console.log('-------- HEAD ---------')
-  console.log(headBundle)
+  console.log(headBundle.code)
   console.log('-------- BASE ---------')
-  console.log(baseBundle)
+  console.log(baseBundle.code)
   console.log('-----------------------')
 
   const project = new Project()
@@ -64,7 +65,7 @@ export async function compareToBaseline(
 }
 
 async function bundleFile(file: string) {
-  const bundled = await esbuild.build({
+  const bundleResult = await esbuild.build({
     entryPoints: [file],
     format: 'esm',
     bundle: true,
@@ -73,12 +74,25 @@ async function bundleFile(file: string) {
     // issue. Could not reproduce locally.
     pure: ['Symbol'],
   })
-  // Minify in a separate step to avoid https://github.com/evanw/esbuild/issues/3881
-  const minified = await esbuild.build({
-    stdin: { contents: bundled.outputFiles[0].contents, loader: 'js' },
+
+  // Minify in a separate step so we can log the un-minified code while
+  // also comparing the minified + normalized code.
+  const minifyResult = await esbuild.build({
+    stdin: { contents: bundleResult.outputFiles[0].contents, loader: 'js' },
     format: 'esm',
     minify: true,
     write: false,
   })
-  return Buffer.from(minified.outputFiles[0].contents).toString('utf-8')
+
+  const minifiedCode = Buffer.from(
+    minifyResult.outputFiles[0].contents,
+  ).toString('utf-8')
+
+  // Unfortunately, esbuild cannot be relied on to assign minified
+  // identifiers in a deterministic fashion, so we need to normalize
+  // them ourselves.
+  return {
+    code: Buffer.from(bundleResult.outputFiles[0].contents).toString('utf-8'),
+    normalizedCode: normalizeIdentifiers(minifiedCode),
+  }
 }
