@@ -16,3 +16,15 @@ _.castArrayIfExists('hello') // => ['hello']
 _.castArrayIfExists(null) // => null
 _.castArrayIfExists(undefined) // => undefined
 ```
+
+### Search terms
+
+- Often referred to as `arrayifyIfExists`, `toArrayIfPresent`, or `ensureArrayIfNotNull` in other libraries.
+
+### Popular use cases
+
+- Safely converting inputs to an array while handling cases where the input could be `null` or `undefined`.
+- Guarding against errors in data processing by ensuring that only valid values are transformed into array form.
+- Enhancing functions that require array inputs by providing flexibility for optional values, streamlining the handling of user inputs.
+- Preparing data for APIs or libraries that may not handle `null` or `undefined` gracefully by filtering out such values.
+- Simplifying the management of optional parameters in functions, making it easier to work with variables that may or may not have meaningful data.
