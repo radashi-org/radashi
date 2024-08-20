@@ -12,16 +12,16 @@
  * ```
  */
 export function unzip<T>(arrays: readonly (readonly T[])[]): T[][] {
-  if (!arrays || !arrays.length) {
-    return []
-  }
-  const out = new Array(
-    arrays.reduce((max, arr) => Math.max(max, arr.length), 0),
-  )
-  let index = 0
-  const get = (array: T[]) => array[index]
-  for (; index < out.length; index++) {
-    out[index] = Array.from(arrays as { length: number }, get)
-  }
-  return out
+	if (!arrays || !arrays.length) {
+		return [];
+	}
+	const out = new Array(
+		arrays.reduce((max, arr) => Math.max(max, arr.length), 0),
+	);
+	let index = 0;
+	const get = (array: T[]) => array[index];
+	for (; index < out.length; index++) {
+		out[index] = Array.from(arrays as { length: number }, get);
+	}
+	return out;
 }
