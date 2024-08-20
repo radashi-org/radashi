@@ -14,3 +14,15 @@ _.castArray(1) // => [1]
 _.castArray([1, 2, 3]) // => [1, 2, 3]
 _.castArray('hello') // => ['hello']
 ```
+
+### Search terms
+
+- Commonly referred to as `arrayify`, `toArray`, or `ensureArray` in other libraries.
+
+### Popular use cases
+
+- Converting single values or objects into an array format for consistent data handling.
+- Preparing values for APIs or functions that expect array inputs regardless of whether the original input was a single value or an array.
+- Ensuring safe manipulation of data collections by avoiding direct mutations or invalid operations on heterogeneous types.
+- Simplifying data transformations in functional programming contexts, especially when working with optional values like `null` or `undefined`.
+- Facilitating collection management by treating various input types uniformly, such as combining user inputs with pre-existing arrays seamlessly.
