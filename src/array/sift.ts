@@ -1,4 +1,4 @@
-type Falsy = null | undefined | false | '' | 0 | 0n
+type Falsy = null | undefined | false | "" | 0 | 0n;
 
 /**
  * Given a list returns a new list with only truthy values.
@@ -11,5 +11,5 @@ type Falsy = null | undefined | false | '' | 0 | 0n
  * ```
  */
 export function sift<T>(array: readonly (T | Falsy)[]): T[] {
-  return (array?.filter(x => !!x) as T[]) ?? []
+	return (array?.filter((x) => !!x) as T[]) ?? [];
 }
