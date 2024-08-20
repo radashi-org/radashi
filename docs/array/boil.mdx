@@ -28,3 +28,15 @@ const gods = [
 _.boil(gods, (a, b) => (a.power > b.power ? a : b))
 // => { name: 'Ra', power: 100 }
 ```
+
+### Search terms
+
+- Often known as `reduce`, `maxReducer`, or `reduceWithComparison` in other libraries.
+
+### Popular use cases
+
+- Finding the maximum or minimum value in an array using custom comparison logic.
+- Simplifying the process of accumulating values based on specific rules, such as determining the highest score or lowest quantity.
+- Implementing algorithms that require pairwise comparisons, like tournament brackets or priority queues.
+- Extracting representative values from datasets, such as the "winner" or "best" item based on defined criteria.
+- Applying complex comparison strategies to refine selections, such as filtered data sets or dynamic decision-making processes in applications.
