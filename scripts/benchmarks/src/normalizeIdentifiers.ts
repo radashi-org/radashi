@@ -1,5 +1,6 @@
 import { parse } from '@babel/parser'
-import babelTraverse from '@babel/traverse'
+import babelTraverse, { type NodePath, type Scope } from '@babel/traverse'
+import type { Expression, LVal, VariableDeclaration } from '@babel/types'
 
 // Workaround: Some kind of ESM/CJS interop issue that TSX doesn't
 // handle correctly for some unknown reason.
@@ -27,72 +28,70 @@ export function normalizeIdentifiers(code: string): string {
   // Parse the code and collect local identifiers
   const ast = parse(code, { sourceType: 'module', plugins: ['jsx'] })
 
+  const recurse = (
+    node: VariableDeclaration | Expression | LVal,
+    scope: Scope,
+    parentPath: NodePath,
+  ) => {
+    if (node.type === 'Identifier') {
+      localIdentifiers.add(node.name)
+    } else {
+      traverse(
+        node,
+        {
+          Identifier({ node }) {
+            localIdentifiers.add(node.name)
+          },
+        },
+        scope,
+        undefined,
+        parentPath,
+      )
+    }
+  }
+
   traverse(ast, {
-    VariableDeclarator({ node }) {
-      if (node.id.type === 'Identifier') {
+    VariableDeclarator({ node, scope, parentPath }) {
+      recurse(node.id, scope, parentPath)
+    },
+    FunctionDeclaration({ node, scope, parentPath }) {
+      if (node.id) {
         localIdentifiers.add(node.id.name)
       }
-    },
-    FunctionDeclaration({ node }) {
-      if (node.id && node.id.type === 'Identifier') {
-        localIdentifiers.add(node.id.name)
-      }
       for (const param of node.params) {
-        if (param.type === 'Identifier') {
-          localIdentifiers.add(param.name)
-        }
+        recurse(param, scope, parentPath)
       }
     },
-    FunctionExpression({ node }) {
+    FunctionExpression({ node, scope, parentPath }) {
       for (const param of node.params) {
-        if (param.type === 'Identifier') {
-          localIdentifiers.add(param.name)
-        }
+        recurse(param, scope, parentPath)
       }
     },
-    ArrowFunctionExpression({ node }) {
+    ArrowFunctionExpression({ node, scope, parentPath }) {
       for (const param of node.params) {
-        if (param.type === 'Identifier') {
-          localIdentifiers.add(param.name)
-        }
+        recurse(param, scope, parentPath)
       }
     },
-    CatchClause({ node }) {
-      if (node.param && node.param.type === 'Identifier') {
-        localIdentifiers.add(node.param.name)
+    CatchClause({ node, scope, parentPath }) {
+      if (node.param) {
+        recurse(node.param, scope, parentPath)
       }
     },
-    ForStatement({ node }) {
+    ForStatement({ node, scope, parentPath }) {
       if (node.init && node.init.type === 'VariableDeclaration') {
         for (const decl of node.init.declarations) {
-          if (decl.id.type === 'Identifier') {
-            localIdentifiers.add(decl.id.name)
-          }
+          recurse(decl.id, scope, parentPath)
         }
       }
     },
-    ForInStatement({ node }) {
-      if (node.left.type === 'VariableDeclaration') {
-        const decl = node.left.declarations[0]
-        if (decl && decl.id.type === 'Identifier') {
-          localIdentifiers.add(decl.id.name)
-        }
-      } else if (node.left.type === 'Identifier') {
-        localIdentifiers.add(node.left.name)
-      }
+    ForInStatement({ node, scope, parentPath }) {
+      recurse(node.left, scope, parentPath)
     },
-    ForOfStatement({ node }) {
-      if (node.left.type === 'VariableDeclaration') {
-        const decl = node.left.declarations[0]
-        if (decl && decl.id.type === 'Identifier') {
-          localIdentifiers.add(decl.id.name)
-        }
-      } else if (node.left.type === 'Identifier') {
-        localIdentifiers.add(node.left.name)
-      }
+    ForOfStatement({ node, scope, parentPath }) {
+      recurse(node.left, scope, parentPath)
     },
     ClassDeclaration({ node }) {
-      if (node.id && node.id.type === 'Identifier') {
+      if (node.id) {
         localIdentifiers.add(node.id.name)
       }
     },
@@ -101,6 +100,9 @@ export function normalizeIdentifiers(code: string): string {
         skippedIdentifiers.add(node.property)
       }
     },
+  })
+
+  traverse(ast, {
     Identifier({ node }) {
       if (skippedIdentifiers.has(node)) {
         return
