@@ -38,3 +38,13 @@ const sockeye = {
 _.replaceOrAppend(fish, salmon, f => f.name === 'Salmon') // => [marlin, salmon (weight:22), trout]
 _.replaceOrAppend(fish, sockeye, f => f.name === 'Sockeye') // => [marlin, salmon, trout, sockeye]
 ```
+
+### Search terms
+
+- Often called `replaceOrInsert`, `updateOrAppend`, or `conditionalReplace` in other libraries.
+
+### Popular use cases
+
+- **Conditional item replacement**: Use this function to replace the first element in an array that meets a certain condition defined by a match function. This is particularly useful when modifying items in configuration arrays based on specific criteria.
+- **Dynamic list expansion**: Utilize the function to add new items to a list where the item is appended if no existing item meets the specified condition. This can help maintain unique entries in datasets or maintain a flexible set of options based on user input or other dynamic data.
+- **Efficient state updates in UI frameworks**: Apply this method within state management in UI applications that utilize arrays to represent items, enabling seamless and efficient updates to lists based on user interactions without directly mutating the original state.
