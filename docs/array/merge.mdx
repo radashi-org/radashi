@@ -31,3 +31,13 @@ const newGods = [
 
 _.merge(gods, newGods, f => f.name) // => [{name: "Zeus" power: 100}, {name: "Ra", power: 97}]
 ```
+
+### Search terms
+
+- Commonly referred to as `arrayMerge`, `mergeArrays`, or `replaceWithMatcher` in other libraries.
+
+### Popular use cases
+
+- Merging two arrays while replacing items in the first array based on a custom matching function, useful for synchronizing data from two sources.
+- Updating an array of objects with values from another array based on a unique identifier, such as `id`, for applications like user data management.
+- Preparing data for rendering by merging an existing dataset with updates that may contain new or modified entries, ideal for a logistics or inventory management system.
