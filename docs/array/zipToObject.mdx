@@ -22,3 +22,13 @@ _.zipToObject(names, (k, i) => k + i)
 _.zipToObject(names, null)
 // => { ra: null, zeus: null, loki: null }
 ```
+
+### Search terms
+
+- Often called `zip`, `zipObject`, or `associate` in other libraries.
+
+### Popular use cases
+
+- Creating an object from parallel arrays where keys and values are mapped directly, such as mapping user IDs to user details.
+- Using a callback function to dynamically generate values based on keys with associated indices, suitable for scenarios like generating formatted output or indexed keys.
+- Initializing a default configuration object where all keys have the same value, such as setting default options for components or modules in a framework.
