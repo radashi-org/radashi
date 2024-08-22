@@ -62,3 +62,14 @@ const beta = timestamp({ group: 'beta' })
 now === later // => true
 beta === now // => false
 ```
+
+### Search terms
+
+- Often called `memoize`, `cacheFunction`, or `remember` in other libraries.
+
+### Popular use cases
+
+- Optimizing performance by caching the results of expensive computations and reusing them when the same inputs occur.
+- Reducing redundant calculations in recursive functions, such as those for generating Fibonacci sequences or factorials.
+- Enhancing API efficiency by storing and reusing responses within a specified time window, preventing unnecessary calls.
+- Controlling cache expiration using TTL (time-to-live) to ensure stale data is eventually recalculated or refetched.
