@@ -39,3 +39,13 @@ await _.defer(async register => {
   await executeTest(org, user)
 })
 ```
+
+### Search terms
+
+- Commonly referenced as `defer`, `cleanup`, or `ensure` in other libraries.
+
+### Popular use cases
+
+- Using `defer` for resource management, such as automatically closing file handles or database connections in a controlled manner after operations complete, ensuring that all cleanup code runs regardless of success or failure.
+- Implementing deferred execution for asynchronous tasks, allowing multiple callbacks to be registered that handle cleanup logic, which is especially useful in error-prone operations like network requests or file manipulations.
+- Facilitating error handling in complex code flows by automatically executing error handling callbacks, improving code maintainability and readability while simplifying structured cleanup of resources.
