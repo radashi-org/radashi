@@ -14,3 +14,13 @@ const { resolve, reject, promise } = withResolvers()
 
 resolve(42)
 ```
+
+### Search terms
+
+- Often called `deferred`, `promiseWithDeferred`, or `promiseResolver` in other libraries.
+
+### Popular use cases
+
+- Handling asynchronous operations in a more controlled manner where you need manual resolution or rejection of a promise, often used for testing or mock implementation.
+- Integrating with APIs or libraries that do not natively support promises by enabling conversion from callback-style to promise-style code.
+- Coordinating multiple asynchronous operations where one promise's resolution should trigger others, enabling complex workflows or event handling.
