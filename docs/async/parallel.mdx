@@ -40,3 +40,13 @@ console.log(err) // => AggregateError
 console.log(err.errors) // => [Error, Error, Error]
 console.log(err.errors[1].message) // => No, I don't want to find user 2
 ```
+
+### Search terms
+
+- Often called `parallelize`, `concurrent`, or `asyncMap` in other libraries.
+
+### Popular use cases
+
+- Running multiple API calls concurrently and aggregating results while handling errors in bulk.
+- Processing a large set of data items (e.g., files, database records) in parallel with controlled concurrency.
+- Performing parallel execution of tasks where the order of execution results does not matter but managing error propagation is necessary.
