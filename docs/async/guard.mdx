@@ -17,3 +17,13 @@ You can choose to guard only specific errors too
 const isInvalidUserError = (err: any) => err.code === 'INVALID_ID'
 const user = (await guard(fetchUser, isInvalidUserError)) ?? DEFAULT_USER
 ```
+
+### Search terms
+
+- Often called `tryAsync`, `attemptAsync`, or `safeCall` in other libraries.
+
+### Popular use cases
+
+- Safely executing asynchronous functions in environments where exceptions are undesirable, replacing potential errors with `undefined`.
+- Wrapping network requests or database calls to simplify error handling within complex applications.
+- Utilizing a guard clause for fallback mechanisms when integrating third-party APIs that may be unreliable or sporadically fail.
