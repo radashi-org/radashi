@@ -1,8 +1,8 @@
 import * as _ from 'radashi'
 import { bench } from 'vitest'
 
-describe('random', () => {
+describe('randomInt', () => {
   bench('with valid input', () => {
-    _.random(0, 100)
+    _.randomInt(0, 100)
   })
 })

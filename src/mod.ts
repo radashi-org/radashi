@@ -91,7 +91,8 @@ export * from './object/traverse.ts'
 export * from './object/upperize.ts'
 
 export * from './random/draw.ts'
-export * from './random/random.ts'
+export * from './random/randomInt.ts'
+export * from './random/randomNumber.ts'
 export * from './random/shuffle.ts'
 export * from './random/uid.ts'
 
