@@ -34,3 +34,13 @@ const { user } = await _.all({
   message: slack.customerSuccessChannel.sendMessage(...)
 })
 ```
+
+### Search terms
+
+- Often referred to as `all`, `promiseAll`, or `aggregatePromiseAll`
+
+### Popular use cases
+
+- Use this function to concurrently execute multiple asynchronous tasks, ensuring that all results are gathered, while handling any potential errors in a clean and organized manner.
+- Utilize it in a scenario where you need to create multiple resources (e.g., users, buckets, channels) at the same time from different APIs, and want to manage both successful responses and potential errors effectively.
+- Leverage it for parallel execution of API calls in a batch process, where each promise may fail independently, but you still want to collect all results or errors related to these calls.
