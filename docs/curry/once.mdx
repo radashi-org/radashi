@@ -30,3 +30,14 @@ once.reset(fn)
 fn() // 0.3
 fn() // 0.3
 ```
+
+### Search terms
+
+- Often called `once`, `runOnce`, or `singleCall` in other libraries.
+
+### Popular use cases
+
+- Ensuring that a function executes only a single time, regardless of how many times it is invoked.
+- Protecting sensitive or resource-heavy operations by restricting their execution to just one successful call.
+- Managing initialization logic, such as setting up global state or event listeners, so they only occur once.
+- Offering the ability to reset the function, allowing the operation to be executed again if needed, without repeated execution by default.
