@@ -62,3 +62,14 @@ Source Invocations: x - - - - - - - - - - - - x - - - - - - - - - - - - - x - - 
 ```
 
 In this diagram, 'x' represents function invocations, and '-' represents time passing.
+
+### Search terms
+
+- Often called `throttle`, `limitCalls`, or `rateLimit` in other libraries.
+
+### Popular use cases
+
+- Limiting the frequency of function calls in response to rapidly occurring events like scrolling, resizing, or key presses.
+- Ensuring a function is not executed more than once within a specified time interval to optimize performance.
+- Delaying execution of repeated function calls but allowing a final trailing call to execute after the last event in some cases.
+- Useful for scenarios like logging, network requests, or animation triggers that shouldn't be triggered too frequently.
