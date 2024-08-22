@@ -45,3 +45,15 @@ const getUpperName = _.chain(getName, upperCase)
 getUpperName(gods[0]) // => 'RA'
 gods.map(getUpperName) // => ['RA', 'ZEUS', 'LOKI']
 ```
+
+### Search terms
+
+- Often called `compose`, `pipe`, or `flow` in other libraries.
+
+### Popular use cases
+
+- **Function composition**: Chain together multiple transformations, applying the result of each function as the input to the next. For example, first add a value, then multiply the result.
+- **Data pipeline creation**: Build complex data transformation pipelines where each function modifies the data in sequence, improving readability and modularity.
+- **Middleware processing**: Apply a series of middleware functions where the output of one is passed as input to the next, common in frameworks or request handling.
+
+This should cover key cases without unnecessary repetition while keeping things concise.
