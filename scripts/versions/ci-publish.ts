@@ -19,14 +19,14 @@ function parseArgs() {
     boolean: ['no-push', 'tag'],
   })
 
-  if (args.tag && args.tag !== 'beta' && args.tag !== 'next') {
-    console.error('Error: --tag must be beta or next')
+  if (args.tag && args.tag !== 'beta' && args.tag !== 'alpha') {
+    console.error('Error: --tag must be beta or alpha')
     process.exit(1)
   }
 
   return {
     push: !args['no-push'],
-    tag: args.tag as 'beta' | 'next',
+    tag: args.tag as 'beta' | 'alpha',
     gitCliffToken,
     npmToken,
     radashiBotToken,
