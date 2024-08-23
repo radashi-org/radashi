@@ -19,6 +19,7 @@ words:
   - automagically
   - backported
   - browserslist
+  - codecov
   - curlopt
   - dedented
   - deno
