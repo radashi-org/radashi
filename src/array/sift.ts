@@ -1,4 +1,4 @@
-type Falsy = null | undefined | false | '' | 0 | 0n
+import type { Falsy } from 'radashi'
 
 /**
  * Given a list returns a new list with only truthy values.

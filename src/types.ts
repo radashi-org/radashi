@@ -1,5 +1,13 @@
 import type { BigInt, BigInt64Array, BigUint64Array } from './bigint'
 
+/**
+ * Represents values that are considered "falsy" in JavaScript. These
+ * values cause the condition in an `if` statement or ternary
+ * expression to be false, leading to the execution of the `else`
+ * branch.
+ */
+export type Falsy = null | undefined | false | '' | 0 | 0n
+
 declare const any: unique symbol
 
 /**
