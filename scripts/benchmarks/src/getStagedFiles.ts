@@ -8,7 +8,9 @@ export async function getStagedFiles(
   const { stdout } = await execa('git', [
     'diff',
     '--name-status',
-    ...(baseRef ? [`origin/${baseRef}`, 'HEAD'] : ['--staged']),
+    ...(baseRef
+      ? [isExactCommit(baseRef) ? baseRef : `origin/${baseRef}`, 'HEAD']
+      : ['--staged']),
     '--',
     ...globs,
   ])
@@ -17,4 +19,8 @@ export async function getStagedFiles(
     status,
     name,
   }))
+}
+
+function isExactCommit(ref: string) {
+  return /^[0-9a-f]{40}$/.test(ref)
 }
