@@ -12,7 +12,8 @@ import { trackVersion } from './trackVersion'
 const changelogBaseSha = '2be4acf455ebec86e846854dbab57bd0bfbbceb7'
 
 export async function publishVersion(args: {
-  tag?: 'beta' | 'next'
+  /** Beta is for minor/patch versions, alpha is for major versions. */
+  tag?: 'beta' | 'alpha'
   push: boolean
   gitCliffToken?: string
   npmToken?: string
@@ -34,9 +35,8 @@ export async function publishVersion(args: {
     env: { GITHUB_TOKEN: args.gitCliffToken },
   }).then(r => r.stdout.replace(/^v/, ''))
   if (args.tag) {
-    const suffix = args.tag === 'beta' ? 'beta' : 'alpha'
     const buildDigest = (await computeBuildDigest()).slice(0, 7)
-    nextVersion = `${nextVersion}-${suffix}.${buildDigest}`
+    nextVersion = `${nextVersion}-${args.tag}.${buildDigest}`
   }
   log(`Determined next version: ${nextVersion}`)
 
@@ -120,7 +120,7 @@ export async function publishVersion(args: {
     // When pushing a version-specific tag for an alpha/beta release,
     // a separate remote is used to avoid cluttering the main repo
     // with pre-release tags.
-    const remoteName = args.tag ?? 'origin'
+    const remoteName = args.tag ? 'nightly' : 'origin'
     if (args.tag) {
       await execa(
         'git',
@@ -128,7 +128,7 @@ export async function publishVersion(args: {
           'remote',
           'add',
           remoteName,
-          `https://github.com/radashi-org/radashi-${args.tag}`,
+          'https://github.com/radashi-org/radashi-nightly',
         ],
         { reject: false },
       )
@@ -165,15 +165,18 @@ export async function publishVersion(args: {
     stdio: 'inherit',
   })
 
-  // Publish to NPM
-  log('Publishing to NPM' + (args.push ? '' : ' (dry run)'))
   const npmPublishArgs = ['publish', '--ignore-scripts']
-  if (args.tag) {
-    npmPublishArgs.push('--tag', args.tag)
+
+  // Use radashi@next for pre-release major versions.
+  const npmTag = args.tag && (args.tag === 'alpha' ? 'next' : 'beta')
+  if (npmTag) {
+    npmPublishArgs.push('--tag', npmTag)
   }
   if (!args.push) {
     npmPublishArgs.push('--dry-run')
   }
+
+  log('Publishing to NPM' + (args.push ? '' : ' (dry run)'))
   await execa('npm', npmPublishArgs, {
     env: { NODE_AUTH_TOKEN: args.npmToken },
     stdio: 'inherit',
@@ -205,10 +208,10 @@ export async function publishVersion(args: {
   // Comment on Pull Requests
   if (args.push) {
     for (const prNumber of prNumbers) {
-      const adjective = args.tag ? 'pre-release' : 'stable'
+      const adjective = args.tag ? 'nightly' : 'stable'
 
       let body = dedent`
-        A ${adjective} version \`${nextVersion}\` has been published to NPM. :rocket:
+        A ${adjective} release \`${nextVersion}\` has been published to NPM. :rocket:
 
         To install:
         \`\`\`sh
@@ -216,10 +219,10 @@ export async function publishVersion(args: {
         \`\`\`
       `
 
-      if (args.tag) {
+      if (npmTag) {
         body += dedent`
           \n
-          The \`radashi@${args.tag}\` tag also includes this PR.
+          The \`radashi@${npmTag}\` tag also includes this PR.
         `
       }
 
