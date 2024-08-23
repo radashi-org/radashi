@@ -147,6 +147,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Align `isPromise` return type with its logic by [@aleclarson](https://github.com/aleclarson) in [#175](https://github.com/radashi-org/radashi/pull/175)
 
+- Publicize the `Falsy` type by [@aleclarson](https://github.com/aleclarson) in [736d334](https://github.com/radashi-org/radashi/commit/736d3342f86cf16199d6d50cacd0cec3f51db078)
 
 ### New Contributors
 * [@crishoj](https://github.com/crishoj) made their first contribution in [#128](https://github.com/radashi-org/radashi/pull/128)
