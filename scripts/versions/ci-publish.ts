@@ -15,18 +15,19 @@ function parseArgs() {
     radashiBotToken: 'RADASHI_BOT_TOKEN',
   })
 
-  const args = mri(process.argv.slice(2), {
-    boolean: ['no-push', 'tag'],
+  const argv = mri(process.argv.slice(2), {
+    boolean: ['no-push'],
+    string: ['tag'],
   })
 
-  if (args.tag && args.tag !== 'beta' && args.tag !== 'next') {
-    console.error('Error: --tag must be beta or next')
+  if (argv.tag && argv.tag !== 'beta' && argv.tag !== 'alpha') {
+    console.error('Error: --tag must be beta or alpha')
     process.exit(1)
   }
 
   return {
-    push: !args['no-push'],
-    tag: args.tag as 'beta' | 'next',
+    push: !argv['no-push'],
+    tag: argv.tag as 'beta' | 'alpha',
     gitCliffToken,
     npmToken,
     radashiBotToken,

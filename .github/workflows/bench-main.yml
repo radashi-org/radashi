@@ -1,10 +1,7 @@
 name: Benchmark Main Branch
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'src/**/*.ts'
+  workflow_dispatch:
 
 jobs:
   benchmark:
