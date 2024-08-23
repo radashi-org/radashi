@@ -182,6 +182,15 @@ export async function publishVersion(args: {
     stdio: 'inherit',
   })
 
+  log('Dispatching publish-docs workflow')
+  const branch = args.tag === 'alpha' ? 'next' : 'main'
+  await octokit.actions.createWorkflowDispatch({
+    owner: 'radashi-org',
+    repo: 'radashi',
+    workflow_id: 'publish-docs.yml',
+    ref: branch,
+  })
+
   log('Updating version in deno.json')
   const denoJson = {
     ...JSON.parse(await fs.readFile('deno.json', 'utf8')),
