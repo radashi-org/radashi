@@ -251,6 +251,11 @@ async function main() {
     extendEnv: false,
     env: {
       NODE_ENV: 'production',
+      // Additional environment variables that might be needed for Astro build.
+      CI: process.env.CI,
+      HOME: process.env.HOME,
+      NODE_PATH: process.env.NODE_PATH,
+      PATH: process.env.PATH,
     },
   }).catch(exit)
 

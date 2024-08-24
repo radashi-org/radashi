@@ -16,6 +16,7 @@ languageSettings:
     ignoreRegExpList:
       - "/ from '.+'/" # ignore import targets
 words:
+  - Astro
   - automagically
   - backported
   - browserslist
