@@ -39,6 +39,16 @@ export async function publishVersion(args: {
     env: { GITHUB_TOKEN: args.gitCliffToken },
   }).then(r => r.stdout.replace(/^v/, ''))
   if (args.tag) {
+    const currMajorVersion = stableVersion.split('.')[0]
+    const nextMajorVersion = nextVersion.split('.')[0]
+    if (currMajorVersion !== nextMajorVersion && args.tag === 'beta') {
+      log('🚫 Expected a patch or minor increment for beta tag')
+      process.exit(1)
+    }
+    if (currMajorVersion === nextMajorVersion && args.tag === 'alpha') {
+      log('🚫 Expected a major increment for alpha tag')
+      process.exit(1)
+    }
     const buildDigest = (await computeBuildDigest()).slice(0, 7)
     nextVersion = `${nextVersion}-${args.tag}.${buildDigest}`
   }
