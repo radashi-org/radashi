@@ -308,7 +308,7 @@ async function coerceTagToVersion(tag: string) {
     version = tag.slice(1)
     metaId = 'stable_version'
   } else if (tag === 'beta' || tag === 'next') {
-    const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
+    const gitCliffBin = './scripts/docs/node_modules/.bin/git-cliff'
 
     version = await execa(gitCliffBin, ['--bumped-version']).then(r =>
       r.stdout.replace(/^v/, ''),
