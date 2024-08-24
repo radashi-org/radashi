@@ -26,9 +26,6 @@ export async function publishVersion(args: {
   deployKey?: string
   nightlyDeployKey?: string
 }) {
-  const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
-  const octokit = new Octokit({ auth: args.radashiBotToken })
-
   // Determine the last stable version
   const { stdout: stableVersion } = await execa('npm', [
     'view',
@@ -37,6 +34,8 @@ export async function publishVersion(args: {
   ])
 
   log(`Last stable version: ${stableVersion}`)
+
+  const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
 
   // Determine the next version
   let newVersion = await execa(gitCliffBin, ['--bumped-version'], {
@@ -207,6 +206,8 @@ export async function publishVersion(args: {
     env: { NODE_AUTH_TOKEN: args.npmToken },
     stdio: 'inherit',
   })
+
+  const octokit = new Octokit({ auth: args.radashiBotToken })
 
   log('Dispatching publish-docs workflow')
   await octokit.actions.createWorkflowDispatch({

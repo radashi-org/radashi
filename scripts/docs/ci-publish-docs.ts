@@ -45,9 +45,12 @@ async function main() {
       newVersion = tag.slice(1)
       metaId = 'stable_version'
     } else if (tag === 'beta' || tag === 'next') {
-      newVersion = await execa('git-cliff', ['--bumped-version']).then(r =>
+      const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
+
+      newVersion = await execa(gitCliffBin, ['--bumped-version']).then(r =>
         r.stdout.replace(/^v/, ''),
       )
+
       if (tag === 'next') {
         newVersion += '-alpha'
         // Compare against the last alpha version.
