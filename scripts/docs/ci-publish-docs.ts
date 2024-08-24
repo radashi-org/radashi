@@ -3,6 +3,8 @@ import glob from 'fast-glob'
 import { green } from 'kleur/colors'
 import mri from 'mri'
 import fs from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 import { supabase } from 'radashi-db/supabase.js'
 
 main()
@@ -106,6 +108,10 @@ async function main() {
       }
     }
     newReleaseId += '-' + newReleaseParts[3]
+  }
+
+  if (process.env.DOCS_DEPLOY_KEY) {
+    await installDeployKey(process.env.DOCS_DEPLOY_KEY)
   }
 
   log('Publishing docs for version:', newReleaseId)
@@ -352,4 +358,15 @@ async function coerceTagToVersion(tag: string) {
   }
 
   return { version, metaId }
+}
+
+async function installDeployKey(deployKey: string) {
+  const sshDir = path.join(os.homedir(), '.ssh')
+  await fs.mkdir(sshDir, { recursive: true })
+
+  const keyPath = path.join(sshDir, 'deploy_key')
+  await fs.writeFile(keyPath, deployKey, { mode: 0o600 })
+
+  // Set GIT_SSH_COMMAND to use the deploy key
+  process.env.GIT_SSH_COMMAND = `ssh -i ${keyPath} -o StrictHostKeyChecking=no`
 }

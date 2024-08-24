@@ -27,6 +27,7 @@ jobs:
 
       - name: Publish
         env:
+          DOCS_DEPLOY_KEY: ${{ secrets.DOCS_DEPLOY_KEY }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
           ./scripts/docs/node_modules/.bin/tsx ./scripts/docs/ci-publish-docs.ts ${{ github.event.ref }}
