@@ -1,19 +1,3 @@
-/**
- * # Publishing A Version
- *
- * - Clone the "main" branch of https://github.com/radashi-org/radashi-org.github.io.git to ./www
- * - Clone the "gh-pages" branch of https://github.com/radashi-org/radashi-org.github.io.git to ./www/dist
- * - Run `git submodule update --init --recursive` in ./www
- * - Symlink ./ to ./www/radashi
- * - Add version to ./www/versions.json
- * - Run `pnpm build --outDir ./dist/{version}` in ./www
- * - If a stable version (or ./www/versions.json is empty), recursive copy ./www/dist/{version} to ./www/dist
- *
- * # Determining The Version
- *
- * - If triggered by a stable release or a workflow dispatch, the version is found with "$(git describe --abbrev=0 --tags)". If nothing in ./docs/ was changed between the last stable release and HEAD, skip the build.
- * - If triggered by a beta release, the version is "beta". If nothing in ./docs/ was changed between the last release and HEAD, skip the build.
- */
 import { execa } from 'execa'
 import glob from 'fast-glob'
 import { green } from 'kleur/colors'
