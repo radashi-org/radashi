@@ -41,37 +41,20 @@ async function main() {
   let metaId: string
   if (newVersion.startsWith('refs/tags/')) {
     const tag = newVersion.slice('refs/tags/'.length)
-    if (tag[0] === 'v') {
-      newVersion = tag.slice(1)
-      metaId = 'stable_version'
-    } else if (tag === 'beta' || tag === 'next') {
-      const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
+    const result = await coerceTagToVersion(tag)
+    newVersion = result.version
+    metaId = result.metaId
+  } else if (newVersion === 'refs/heads/main') {
+    // Get the most recent git tag.
+    const { stdout: newestTag } = await execa('git', [
+      'describe',
+      '--tags',
+      '--abbrev=0',
+    ])
 
-      newVersion = await execa(gitCliffBin, ['--bumped-version']).then(r =>
-        r.stdout.replace(/^v/, ''),
-      )
-
-      if (tag === 'next') {
-        newVersion += '-alpha'
-        // Compare against the last alpha version.
-        metaId = 'alpha_version'
-      } else {
-        newVersion += '-beta'
-        // Compare against the last stable version or the last beta
-        // version, whichever is more recent.
-        metaId = 'latest_version'
-      }
-    } else {
-      console.error('Invalid tag: "%s"', tag)
-      process.exit(1)
-    }
-    if (!/^\d+\.\d+\.\d+(-\w+)?$/.test(newVersion)) {
-      console.error(
-        'Expected version to be like "1.0.0", but got "%s" instead.',
-        newVersion,
-      )
-      process.exit(1)
-    }
+    const result = await coerceTagToVersion(newestTag)
+    newVersion = result.version
+    metaId = result.metaId
   } else {
     console.error(
       'Expected a tag ref like "refs/tags/v1.0.0", but got "%s" instead.',
@@ -315,4 +298,44 @@ function toRawVersion(version: string) {
     rawVersion += '.0'
   }
   return rawVersion
+}
+
+async function coerceTagToVersion(tag: string) {
+  let version: string
+  let metaId: string
+
+  if (tag[0] === 'v') {
+    version = tag.slice(1)
+    metaId = 'stable_version'
+  } else if (tag === 'beta' || tag === 'next') {
+    const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
+
+    version = await execa(gitCliffBin, ['--bumped-version']).then(r =>
+      r.stdout.replace(/^v/, ''),
+    )
+
+    if (tag === 'next') {
+      version += '-alpha'
+      // Compare against the last alpha version.
+      metaId = 'alpha_version'
+    } else {
+      version += '-beta'
+      // Compare against the last stable version or the last beta
+      // version, whichever is more recent.
+      metaId = 'latest_version'
+    }
+  } else {
+    console.error('Invalid tag: "%s"', tag)
+    process.exit(1)
+  }
+
+  if (!/^\d+\.\d+\.\d+(-\w+)?$/.test(version)) {
+    console.error(
+      'Expected version to be like "1.0.0", but got "%s" instead.',
+      version,
+    )
+    process.exit(1)
+  }
+
+  return { version, metaId }
 }
