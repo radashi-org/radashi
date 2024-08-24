@@ -2,6 +2,10 @@ name: Publish Docs
 
 on:
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'The ref to publish'
+        required: true
   push:
     tags:
       - '*'
