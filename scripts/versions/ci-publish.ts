@@ -9,10 +9,18 @@ async function main() {
 }
 
 function parseArgs() {
-  const { gitCliffToken, npmToken, radashiBotToken } = verifyEnvVars({
+  const {
+    gitCliffToken,
+    npmToken,
+    radashiBotToken,
+    deployKey,
+    nightlyDeployKey,
+  } = verifyEnvVars({
     gitCliffToken: !!process.env.CI && 'GIT_CLIFF_PAT',
     npmToken: !!process.env.CI && 'NPM_TOKEN',
     radashiBotToken: 'RADASHI_BOT_TOKEN',
+    deployKey: 'DEPLOY_KEY',
+    nightlyDeployKey: 'NIGHTLY_DEPLOY_KEY',
   })
 
   const argv = mri(process.argv.slice(2), {
@@ -31,6 +39,8 @@ function parseArgs() {
     gitCliffToken,
     npmToken,
     radashiBotToken,
+    deployKey,
+    nightlyDeployKey,
   }
 }
 

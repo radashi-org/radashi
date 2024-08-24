@@ -4,6 +4,8 @@ import glob from 'fast-glob'
 import { green } from 'kleur/colors'
 import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 import { sift } from 'radashi/array/sift.js'
 import { dedent } from './dedent'
 import { trackVersion } from './trackVersion'
@@ -18,6 +20,8 @@ export async function publishVersion(args: {
   gitCliffToken?: string
   npmToken?: string
   radashiBotToken: string
+  deployKey?: string
+  nightlyDeployKey?: string
 }) {
   const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
   const octokit = new Octokit({ auth: args.radashiBotToken })
@@ -101,6 +105,9 @@ export async function publishVersion(args: {
 
   // Push to origin
   if (args.push) {
+    if (args.deployKey) {
+      await installDeployKey(args.deployKey)
+    }
     log('Pushing to origin')
     await execa('git', ['push'], { stdio: 'inherit' })
   } else {
@@ -128,10 +135,15 @@ export async function publishVersion(args: {
           'remote',
           'add',
           remoteName,
-          'https://github.com/radashi-org/radashi-nightly',
+          'git@github.com:radashi-org/radashi-nightly.git',
         ],
         { reject: false },
       )
+    }
+
+    // Use the nightly deploy key if we're pushing a nightly tag.
+    if (args.tag && args.nightlyDeployKey) {
+      await installDeployKey(args.nightlyDeployKey)
     }
 
     const newTag = `v${nextVersion}`
@@ -296,4 +308,15 @@ async function getPrNumbers(range: string) {
   // cSpell:ignore oneline
   const { stdout: gitLog } = await execa('git', ['log', '--oneline', range])
   return sift(gitLog.split('\n').map(line => line.match(/\(#(\d+)\)$/)?.[1]))
+}
+
+async function installDeployKey(deployKey: string) {
+  const sshDir = path.join(os.homedir(), '.ssh')
+  await fs.mkdir(sshDir, { recursive: true })
+
+  const keyPath = path.join(sshDir, 'deploy_key')
+  await fs.writeFile(keyPath, deployKey, { mode: 0o600 })
+
+  // Set GIT_SSH_COMMAND to use the deploy key
+  process.env.GIT_SSH_COMMAND = `ssh -i ${keyPath} -o StrictHostKeyChecking=no`
 }
