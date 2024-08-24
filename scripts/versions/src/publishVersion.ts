@@ -14,8 +14,11 @@ import { trackVersion } from './trackVersion'
 const changelogBaseSha = '2be4acf455ebec86e846854dbab57bd0bfbbceb7'
 
 export async function publishVersion(args: {
-  /** Beta is for minor/patch versions, alpha is for major versions. */
-  tag?: 'beta' | 'alpha'
+  /**
+   * Use "beta" for pre-release minor/patch versions and "next" for
+   * pre-release major versions.
+   */
+  tag?: 'beta' | 'next'
   push: boolean
   gitCliffToken?: string
   npmToken?: string
@@ -32,37 +35,42 @@ export async function publishVersion(args: {
     'radashi',
     'version',
   ])
+
   log(`Last stable version: ${stableVersion}`)
 
   // Determine the next version
-  let nextVersion = await execa(gitCliffBin, ['--bumped-version'], {
+  let newVersion = await execa(gitCliffBin, ['--bumped-version'], {
     env: { GITHUB_TOKEN: args.gitCliffToken },
   }).then(r => r.stdout.replace(/^v/, ''))
+
+  const newMajorVersion = newVersion.split('.')[0]
+
   if (args.tag) {
-    const currMajorVersion = stableVersion.split('.')[0]
-    const nextMajorVersion = nextVersion.split('.')[0]
-    if (currMajorVersion !== nextMajorVersion && args.tag === 'beta') {
-      log('🚫 Expected a patch or minor increment for beta tag')
+    const lastMajorVersion = stableVersion.split('.')[0]
+    if (lastMajorVersion !== newMajorVersion && args.tag === 'beta') {
+      log('🚫 Expected a patch or minor increment for "beta" tag')
       process.exit(1)
     }
-    if (currMajorVersion === nextMajorVersion && args.tag === 'alpha') {
-      log('🚫 Expected a major increment for alpha tag')
+    if (lastMajorVersion === newMajorVersion && args.tag === 'next') {
+      log('🚫 Expected a major increment for "next" tag')
       process.exit(1)
     }
+
     const buildDigest = (await computeBuildDigest()).slice(0, 7)
-    nextVersion = `${nextVersion}-${args.tag}.${buildDigest}`
+    newVersion = `${newVersion}-${args.tag}.${buildDigest}`
   }
-  log(`Determined next version: ${nextVersion}`)
+
+  log(`Determined new version: ${newVersion}`)
 
   // Check Version
   try {
-    await execa('npm', ['view', `radashi@${nextVersion}`], {
+    await execa('npm', ['view', `radashi@${newVersion}`], {
       stdio: 'ignore',
     })
-    log(`🚫 Version ${nextVersion} already exists`)
+    log(`🚫 Version ${newVersion} already exists`)
     process.exit(1)
   } catch {
-    log(`🟢 Version ${nextVersion} is available`)
+    log(`🟢 Version ${newVersion} is available`)
   }
 
   // Find all commits after this tag with a PR number in the message.
@@ -94,7 +102,7 @@ export async function publishVersion(args: {
   log(`Generating changelog from ${changelogBaseSha.slice(0, 7)} to HEAD`)
   const gitCliffArgs = [`${changelogBaseSha}..HEAD`, '-o', 'CHANGELOG.md']
   if (!args.tag) {
-    gitCliffArgs.push('--tag', `v${nextVersion}`)
+    gitCliffArgs.push('--tag', `v${newVersion}`)
   }
   await execa(gitCliffBin, gitCliffArgs, {
     env: { GITHUB_TOKEN: args.gitCliffToken },
@@ -109,7 +117,7 @@ export async function publishVersion(args: {
   }
   log('Committing:', committedFiles)
   await execa('git', ['add', ...committedFiles])
-  await execa('git', ['commit', '-m', `chore(release): ${nextVersion}`], {
+  await execa('git', ['commit', '-m', `chore(release): ${newVersion}`], {
     stdio: 'inherit',
   })
 
@@ -124,19 +132,21 @@ export async function publishVersion(args: {
     log('Would have pushed to origin, but --no-push was set')
   }
 
+  const exactTag = `v${newVersion}`
+  const preReleaseTag =
+    args.tag === 'next' ? `v${newMajorVersion}-next` : args.tag
+
   if (args.push) {
-    // Update the alpha/beta tag in the main repo.
-    if (args.tag) {
-      log(`Updating ${args.tag} tag`)
-      await execa('git', ['tag', args.tag, '-f'])
-      await execa('git', ['push', 'origin', args.tag, '-f'], {
+    if (preReleaseTag) {
+      log(`Force-pushing ${preReleaseTag} tag`)
+      await execa('git', ['tag', preReleaseTag, '-f'])
+      await execa('git', ['push', 'origin', preReleaseTag, '-f'], {
         stdio: 'inherit',
       })
     }
 
-    // When pushing a version-specific tag for an alpha/beta release,
-    // a separate remote is used to avoid cluttering the main repo
-    // with pre-release tags.
+    // The "nightly" remote is where exact pre-release tags are
+    // pushed, so that they don't clutter the main repo.
     const remoteName = args.tag ? 'nightly' : 'origin'
     if (args.tag) {
       await execa(
@@ -156,18 +166,12 @@ export async function publishVersion(args: {
       await installDeployKey(args.nightlyDeployKey)
     }
 
-    const newTag = `v${nextVersion}`
-    log(`Pushing new tag ${newTag}`)
+    log(`Pushing new tag ${exactTag}`)
 
-    await execa('git', ['tag', newTag])
-    await execa('git', ['push', remoteName, newTag], {
+    await execa('git', ['tag', exactTag])
+    await execa('git', ['push', remoteName, exactTag], {
       stdio: 'inherit',
     })
-
-    // Delete the temporary local tag for alpha/beta releases.
-    if (args.tag) {
-      await execa('git', ['tag', '-d', args.tag])
-    }
   } else {
     log('Would have pushed a tag, but --no-push was set')
   }
@@ -177,22 +181,22 @@ export async function publishVersion(args: {
 
   // Track Version in Database
   if (args.push) {
-    await trackVersion(nextVersion, currentSha, log)
+    await trackVersion(newVersion, currentSha, log)
   } else {
     log('Would have tracked version in database, but --no-push was set')
   }
 
   log('Setting package.json version')
-  await execa('npm', ['version', nextVersion, '--no-git-tag-version'], {
+  await execa('npm', ['version', newVersion, '--no-git-tag-version'], {
     stdio: 'inherit',
   })
 
   const npmPublishArgs = ['publish', '--ignore-scripts']
 
-  // Use radashi@next for pre-release major versions.
-  const npmTag = args.tag && (args.tag === 'alpha' ? 'next' : 'beta')
-  if (npmTag) {
-    npmPublishArgs.push('--tag', npmTag)
+  // Use radashi@next for pre-release major versions and radashi@beta
+  // for pre-release minor/patch versions.
+  if (args.tag) {
+    npmPublishArgs.push('--tag', args.tag)
   }
   if (!args.push) {
     npmPublishArgs.push('--dry-run')
@@ -205,18 +209,17 @@ export async function publishVersion(args: {
   })
 
   log('Dispatching publish-docs workflow')
-  const branch = args.tag === 'alpha' ? 'next' : 'main'
   await octokit.actions.createWorkflowDispatch({
     owner: 'radashi-org',
     repo: 'radashi',
     workflow_id: 'publish-docs.yml',
-    ref: branch,
+    ref: 'refs/tags/' + (preReleaseTag ?? exactTag),
   })
 
   log('Updating version in deno.json')
   const denoJson = {
     ...JSON.parse(await fs.readFile('deno.json', 'utf8')),
-    version: nextVersion,
+    version: newVersion,
   }
   await fs.writeFile('deno.json', JSON.stringify(denoJson, null, 2))
 
@@ -242,11 +245,11 @@ export async function publishVersion(args: {
       const adjective = args.tag ? 'nightly' : 'stable'
 
       let body = dedent`
-        A ${adjective} release \`${nextVersion}\` has been published to NPM. :rocket:
+        A ${adjective} release \`${newVersion}\` has been published to NPM. :rocket:
 
         To install:
         \`\`\`sh
-        pnpm add radashi@${nextVersion}
+        pnpm add radashi@${newVersion}
         \`\`\`
       `
 
