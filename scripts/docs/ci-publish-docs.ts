@@ -261,6 +261,21 @@ async function main() {
     }
   }
 
+  // Set up git user in CI environment
+  if (process.env.CI) {
+    if (process.env.GITHUB_ACTOR) {
+      await execa('git', ['config', 'user.name', process.env.GITHUB_ACTOR])
+      await execa('git', [
+        'config',
+        'user.email',
+        `${process.env.GITHUB_ACTOR}@users.noreply.github.com`,
+      ])
+    } else {
+      console.error('GITHUB_ACTOR is not set')
+      process.exit(1)
+    }
+  }
+
   log('Pushing to gh-pages branch')
   await execa('git', ['add', '-A'], { cwd: './www/dist' })
   await execa('git', ['commit', '-m', `chore: ${newReleaseId}`], {
