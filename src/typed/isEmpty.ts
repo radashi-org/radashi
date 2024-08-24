@@ -2,6 +2,7 @@ import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
 
 /**
  * Return true if the given value is empty.
+ * This function also uses [Type Guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards) to ensure type safety
  *
  * Empty values include:
  * - `null`
@@ -27,7 +28,19 @@ import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
  * ```
  * @version 12.1.0
  */
-export function isEmpty(value: any): boolean {
+export function isEmpty(value: boolean): value is false
+export function isEmpty(value: number): value is 0
+export function isEmpty(value: null | undefined | symbol): boolean
+export function isEmpty<T>(value: T[]): value is never[]
+export function isEmpty(value: string): value is ''
+export function isEmpty<T extends Record<any, any>>(
+  value: T,
+): value is { [K in keyof T]: never }
+export function isEmpty<T>(
+  value: T | undefined | null,
+): value is undefined | null
+export function isEmpty(value: any): boolean
+export function isEmpty(value: unknown): boolean {
   if (value === true || value === false) {
     return true
   }
