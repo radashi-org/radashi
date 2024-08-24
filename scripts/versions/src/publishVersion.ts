@@ -262,10 +262,10 @@ export async function publishVersion(args: {
         \`\`\`
       `
 
-      if (npmTag) {
+      if (args.tag) {
         body += dedent`
           \n
-          The \`radashi@${npmTag}\` tag also includes this PR.
+          The \`radashi@${args.tag}\` tag also includes this PR.
         `
       }
 
