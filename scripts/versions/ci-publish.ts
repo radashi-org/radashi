@@ -28,14 +28,14 @@ function parseArgs() {
     string: ['tag'],
   })
 
-  if (argv.tag && argv.tag !== 'beta' && argv.tag !== 'alpha') {
-    console.error('Error: --tag must be beta or alpha')
+  if (argv.tag && argv.tag !== 'beta' && argv.tag !== 'next') {
+    console.error('Error: --tag must be beta or next')
     process.exit(1)
   }
 
   return {
     push: !argv['no-push'],
-    tag: argv.tag as 'beta' | 'alpha',
+    tag: argv.tag as 'beta' | 'next',
     gitCliffToken,
     npmToken,
     radashiBotToken,
