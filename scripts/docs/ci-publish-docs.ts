@@ -166,12 +166,14 @@ async function main() {
   await execa('pnpm', ['install'], {
     cwd: './www',
     stdio: 'inherit',
+    extendEnv: false,
   }).catch(exit)
 
   log('Installing dependencies in ./www/starlight')
   await execa('pnpm', ['install'], {
     cwd: './www/starlight',
     stdio: 'inherit',
+    extendEnv: false,
   }).catch(exit)
 
   log('Symlinking radashi to ./www/radashi')
@@ -246,8 +248,8 @@ async function main() {
   await execa('pnpm', ['build', '--outDir', `./dist/${newReleaseId}`], {
     cwd: './www',
     stdio: 'inherit',
+    extendEnv: false,
     env: {
-      ...process.env,
       NODE_ENV: 'production',
     },
   }).catch(exit)
