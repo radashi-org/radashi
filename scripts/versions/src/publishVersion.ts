@@ -107,6 +107,14 @@ export async function publishVersion(args: {
     env: { GITHUB_TOKEN: args.gitCliffToken },
   })
 
+  // Check if CHANGELOG.md has changed
+  await execa('git', ['status', '--porcelain', 'CHANGELOG.md']).then(status => {
+    if (!status.stdout.trim()) {
+      log('No changes detected in CHANGELOG.md')
+      process.exit(1)
+    }
+  })
+
   // Commit files
   const committedFiles = ['CHANGELOG.md']
   if (!args.tag) {
