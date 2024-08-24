@@ -203,7 +203,7 @@ async function main() {
       // been merged into the "next" branch.
       else if (oldVersion.includes('alpha')) {
         if (newVersion.includes('alpha')) {
-          // Only one RC version is made available at a time.
+          // Only one alpha version is made available at a time.
           removedVersions.add(oldVersion)
           return false
         }
