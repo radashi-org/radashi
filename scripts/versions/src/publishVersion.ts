@@ -85,9 +85,15 @@ export async function publishVersion(args: {
   // Set up git user in CI environment
   if (process.env.CI) {
     if (process.env.GITHUB_ACTOR) {
-      await execa('git', ['config', 'user.name', process.env.GITHUB_ACTOR])
       await execa('git', [
         'config',
+        '--global',
+        'user.name',
+        process.env.GITHUB_ACTOR,
+      ])
+      await execa('git', [
+        'config',
+        '--global',
         'user.email',
         `${process.env.GITHUB_ACTOR}@users.noreply.github.com`,
       ])
