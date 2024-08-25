@@ -1,5 +1,4 @@
 import { execa } from 'execa'
-import glob from 'fast-glob'
 import { green } from 'kleur/colors'
 import mri from 'mri'
 import fs from 'node:fs/promises'
@@ -98,23 +97,11 @@ async function main() {
     }
   }
 
-  /** This is the identifier used by URLs. */
-  let newReleaseId = 'v' + String(newReleaseMajor)
-  if (newReleaseParts.length > 3) {
-    if (newReleaseMajor === lastReleaseMajor) {
-      newReleaseId += '.' + newReleaseMinor
-      if (newReleaseMinor === lastReleaseMinor) {
-        newReleaseId += '.' + newReleaseParts[2]
-      }
-    }
-    newReleaseId += '-' + newReleaseParts[3]
-  }
-
   if (process.env.DOCS_DEPLOY_KEY) {
     await installDeployKey(process.env.DOCS_DEPLOY_KEY)
   }
 
-  log('Publishing docs for version:', newReleaseId)
+  log('Publishing docs for version:', newVersion)
 
   log('Cloning main branch of radashi-org.github.io')
   await execa(
@@ -169,73 +156,8 @@ async function main() {
   log('Symlinking radashi to ./www/radashi')
   await fs.symlink('..', './www/radashi')
 
-  const removedVersions = new Set<string>()
-  const cleanVersions = (oldVersions: string[]) =>
-    oldVersions.filter(oldVersion => {
-      if (newVersion === oldVersion) {
-        return true
-      }
-      const oldRawVersion = toRawVersion(oldVersion)
-      if (newVersion === oldRawVersion) {
-        // Avoid having a beta, RC, or stable with the same raw version.
-        removedVersions.add(oldVersion)
-        return false
-      }
-      // Beta versions are reserved for non-breaking changes that have
-      // been merged into the "main" branch and don't have a stable
-      // version yet.
-      if (oldVersion.includes('beta')) {
-        if (newVersion.includes('beta')) {
-          // Only one beta version is made available at a time.
-          removedVersions.add(oldVersion)
-          return false
-        }
-      }
-      // Alpha versions are reserved for breaking changes that have
-      // been merged into the "next" branch.
-      else if (oldVersion.includes('alpha')) {
-        if (newVersion.includes('alpha')) {
-          // Only one alpha version is made available at a time.
-          removedVersions.add(oldVersion)
-          return false
-        }
-      }
-      // Only a stable version should be left to handle.
-      else {
-        const oldMajorVersion = +oldRawVersion.split('.')[0]
-        if (newReleaseMajor - oldMajorVersion > 2) {
-          // Only 3 major versions are made available at a time.
-          removedVersions.add(oldVersion)
-          return false
-        }
-      }
-      return true
-    })
-
-  log('Updating ./www/public/versions.json')
-  const versions = new Set(
-    cleanVersions(
-      JSON.parse(await fs.readFile('./www/public/versions.json', 'utf8')),
-    ),
-  )
-  versions.add(newReleaseId)
-  await fs.writeFile(
-    './www/public/versions.json',
-    JSON.stringify([...versions]),
-  )
-
-  if (removedVersions.size > 0) {
-    log('Removing docs for unmaintained versions')
-    for (const removedVersion of removedVersions) {
-      await fs.rm(`./www/dist/${removedVersion}`, { recursive: true })
-    }
-  }
-
-  log('Removing docs that will be overwritten')
-  await fs.rm(`./www/dist/${newReleaseId}`, { recursive: true }).catch(() => {})
-
-  log('Building docs with version-specific --outDir')
-  await execa('pnpm', ['build', '--outDir', `./dist/${newReleaseId}`], {
+  log('Building docs')
+  await execa('pnpm', ['build'], {
     cwd: './www',
     stdio: 'inherit',
     extendEnv: false,
@@ -248,15 +170,6 @@ async function main() {
       PATH: process.env.PATH,
     },
   }).catch(exit)
-
-  if (newReleaseParts.length === 3) {
-    log('Copying build into root folder')
-    const cwd = `www/dist/${newReleaseId}`
-    const files = await glob('**/*', { cwd })
-    for (const file of files) {
-      await fs.cp(`${cwd}/${file}`, `www/dist/${file}`)
-    }
-  }
 
   // Set up git user in CI environment
   if (process.env.CI) {
@@ -283,7 +196,7 @@ async function main() {
 
   log('Pushing to gh-pages branch')
   await execa('git', ['add', '-A'], { cwd: './www/dist' })
-  await execa('git', ['commit', '-m', `chore: ${newReleaseId}`], {
+  await execa('git', ['commit', '-m', `chore: ${newVersion}`], {
     cwd: './www/dist',
     stdio: 'inherit',
   })
@@ -299,25 +212,6 @@ function log(msg: string, ...args: any[]) {
 
 function exit() {
   process.exit(1)
-}
-
-/**
- * Extracts the raw version from a version string that may not have
- * its minor or patch version set. It also removes any suffix like
- * "-rc" or "-beta".
- *
- * @example
- * ```ts
- * toRawVersion('1') // '1.0.0'
- * toRawVersion('1.1.0-rc') // '1.1.0'
- * ```
- */
-function toRawVersion(version: string) {
-  let [, rawVersion] = version.match(/^v?(\d+(?:\.\d+(?:\.\d+)?)?)/)!
-  for (let i = rawVersion.split('.').length; i < 3; i++) {
-    rawVersion += '.0'
-  }
-  return rawVersion
 }
 
 async function coerceTagToVersion(tag: string) {
