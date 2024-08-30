@@ -1,3 +1,5 @@
+import type { NoInfer } from 'radashi'
+
 type Cache<T> = Record<string, { exp: number | null; value: T }>
 
 function memoize<TArgs extends any[], TResult>(
@@ -56,7 +58,7 @@ export interface MemoOptions<TArgs extends any[]> {
  */
 export function memo<TArgs extends any[], TResult>(
   func: (...args: TArgs) => TResult,
-  options: MemoOptions<TArgs> = {},
+  options: MemoOptions<NoInfer<TArgs>> = {},
 ): (...args: TArgs) => TResult {
   return memoize({}, func, options.key ?? null, options.ttl ?? null)
 }
