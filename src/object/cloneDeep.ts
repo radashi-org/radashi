@@ -122,9 +122,9 @@ export const FastCloningStrategy = {
  * Clone the given object and possibly other objects nested inside.
  *
  * By default, the only objects that get cloned are plain objects,
- * class instances, arrays, `Set` instances, and `Map` instances. If
- * an object is not cloned, any objects nested inside are also not
- * cloned.
+ * non-native class instances, arrays, `Set` instances, and `Map`
+ * instances. If an object is not cloned, any objects nested inside
+ * are also not cloned.
  *
  * You may define a custom cloning strategy by passing a partial
  * implementation of the `CloningStrategy` interface to the
