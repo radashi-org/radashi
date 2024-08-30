@@ -1,6 +1,6 @@
 {
   "name": "@radashi-org/biome-config",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Shared Biome config for Radashi projects",
   "repository": {
     "url": "git+https://github.com/radashi-org/radashi.git"
