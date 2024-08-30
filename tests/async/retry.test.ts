@@ -35,16 +35,18 @@ describe('retry', () => {
     expect(result).toBe('hello')
   })
   test('call onRetry function on retries', async () => {
-    let failedOnce = false
+    let attempt = 0
     const onRetry = vi.fn()
     const result = await _.retry({ onRetry }, async _bail => {
-      if (!failedOnce) {
-        failedOnce = true
+      if (attempt < 2) {
+        attempt++
         throw 'Failing for test'
       }
       return 'hello'
     })
-    expect(onRetry).toBeCalledWith('Failing for test', 1)
+    expect(onRetry).toBeCalledTimes(2)
+    expect(onRetry).toHaveBeenNthCalledWith(1, 'Failing for test', 1)
+    expect(onRetry).toHaveBeenNthCalledWith(2, 'Failing for test', 2)
     expect(result).toBe('hello')
   })
   test('quits on bail', async () => {
