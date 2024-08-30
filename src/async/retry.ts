@@ -3,6 +3,7 @@ import { sleep, tryit } from 'radashi'
 export type RetryOptions = {
   times?: number
   delay?: number | null
+  onRetry?: (err: Error, num: number) => void
   backoff?: (count: number) => number
 }
 
@@ -25,6 +26,7 @@ export async function retry<TResponse>(
   const times = options?.times ?? 3
   const delay = options?.delay
   const backoff = options?.backoff ?? null
+  const onRetry = options?.onRetry ?? null
   let i = 0
   while (true) {
     const [err, result] = (await tryit(func)((err: any) => {
@@ -38,6 +40,9 @@ export async function retry<TResponse>(
     }
     if (++i >= times) {
       throw err
+    }
+    if (onRetry) {
+      onRetry(err, i)
     }
     if (delay) {
       await sleep(delay)
