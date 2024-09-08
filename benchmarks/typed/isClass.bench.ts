@@ -6,6 +6,6 @@ describe('isClass', () => {
   })
 
   bench('with non-class', () => {
-    _.isNumber({})
+    _.isClass({})
   })
 })
