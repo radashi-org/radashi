@@ -2,17 +2,44 @@ import type { Class } from 'radashi'
 import * as _ from 'radashi'
 import { expectTypeOf } from 'vitest'
 
+declare class Person {
+  name: string
+}
+
 describe('isClass', () => {
-  test('Type inference', () => {
-    const value = {} as unknown
-    console.log('value is', value)
+  test('value is union containing a class type', () => {
+    const value = {} as Person | typeof Person
     if (_.isClass(value)) {
-      console.log('value is a class')
-      expectTypeOf(value).toMatchTypeOf<Class>()
-      assertType(new value())
+      expectTypeOf(value).toEqualTypeOf<typeof Person>()
+      expectTypeOf(new value()).toEqualTypeOf<Person>()
     } else {
-      console.log('value is not a class')
-      expectTypeOf(value).not.toMatchTypeOf<Class>()
+      expectTypeOf(value).toEqualTypeOf<Person>()
+    }
+  })
+  test('value is unknown', () => {
+    const value = {} as unknown
+    if (_.isClass(value)) {
+      expectTypeOf(value).toEqualTypeOf<Class<unknown[], unknown>>()
+      expectTypeOf(new value()).toEqualTypeOf<unknown>()
+    } else {
+      expectTypeOf(value).toEqualTypeOf<unknown>()
+    }
+  })
+  test('value is any', () => {
+    const value = {} as any
+    if (_.isClass(value)) {
+      expectTypeOf(value).toEqualTypeOf<Class<unknown[], unknown>>()
+      expectTypeOf(new value()).toEqualTypeOf<unknown>()
+    } else {
+      expectTypeOf(value).toEqualTypeOf<any>()
+    }
+  })
+  test('value is string', () => {
+    const value = {} as string
+    if (_.isClass(value)) {
+      expectTypeOf(value).toEqualTypeOf<never>()
+    } else {
+      expectTypeOf(value).toEqualTypeOf<string>()
     }
   })
 })

@@ -1,4 +1,5 @@
-import { isFunction, type Class } from 'radashi'
+import { isFunction, type Class, type StrictExtract } from 'radashi'
+
 /**
  * Checks if the given value is a class. This function verifies
  * if the value was defined using the `class` syntax. Old school
@@ -13,6 +14,18 @@ import { isFunction, type Class } from 'radashi'
  * isClass({}) // => false
  * ```
  */
-export function isClass(value: unknown): value is Class {
+export function isClass<T>(value: T): value is ExtractClass<T> {
   return isFunction(value) && value.toString().startsWith('class ')
 }
+
+/**
+ * Used by the `isClass` type guard. It handles type narrowing for
+ * class constructors and even narrows `any` types.
+ */
+export type ExtractClass<T> = [StrictExtract<T, Class>] extends [Class]
+  ? Extract<T, Class>
+  : T extends any
+    ? Class<unknown[], unknown> extends T
+      ? Class<unknown[], unknown>
+      : never
+    : never
