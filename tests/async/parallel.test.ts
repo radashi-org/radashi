@@ -1,6 +1,19 @@
 import * as _ from 'radashi'
 
 describe('parallel', () => {
+  function makeProgressTracker() {
+    let numInProgress = 0
+    const tracking: number[] = []
+    const func = async () => {
+      numInProgress++
+      tracking.push(numInProgress)
+      await _.sleep(0)
+      numInProgress--
+    }
+
+    return { tracking, func }
+  }
+
   test('returns all results from all functions', async () => {
     const [errors, results] = await _.try(async () => {
       return _.parallel(1, _.list(1, 3), async num => {
@@ -29,14 +42,8 @@ describe('parallel', () => {
   })
 
   test('does not run more than the limit at once', async () => {
-    let numInProgress = 0
-    const tracking: number[] = []
-    await _.parallel(3, _.list(1, 14), async () => {
-      numInProgress++
-      tracking.push(numInProgress)
-      await _.sleep(0)
-      numInProgress--
-    })
+    const { tracking, func } = makeProgressTracker()
+    await _.parallel(3, _.list(1, 14), func)
     expect(Math.max(...tracking)).toBe(3)
   })
 
@@ -108,13 +115,17 @@ describe('parallel', () => {
     )
   })
 
-  test('limit defaults to 1 if negative', async () => {
+  async function testConcurrency(
+    limit: number,
+    array: readonly unknown[],
+    expected: number[],
+  ) {
     vi.useFakeTimers()
 
     let numInProgress = 0
     const tracking: number[] = []
 
-    const promise = _.parallel(-1, _.list(1, 5), async () => {
+    const promise = _.parallel(limit, array, async () => {
       numInProgress++
       tracking.push(numInProgress)
       await _.sleep(10)
@@ -124,33 +135,18 @@ describe('parallel', () => {
     await vi.advanceTimersByTimeAsync(50)
     await promise
 
-    expect(Math.max(...tracking)).toBe(1)
-    expect(tracking).toEqual([1, 1, 1, 1, 1])
+    expect(tracking).toEqual(expected)
+  }
+
+  test('limit defaults to 1 if negative', async () => {
+    await testConcurrency(-1, _.list(1, 3), [1, 1, 1])
   })
 
-  test('should run only one parallel function when 0 is passed', async () => {
-    let numInProgress = 0
-    const tracking: number[] = []
-    await _.parallel(0, _.list(1, 10), async () => {
-      numInProgress++
-      tracking.push(numInProgress)
-      await _.sleep(0)
-      numInProgress--
-    })
-    expect(Math.max(...tracking)).toBe(1)
-    expect(tracking).toEqual([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+  test('limit defaults to 1 if zero is passed', async () => {
+    await testConcurrency(0, _.list(1, 3), [1, 1, 1])
   })
 
-  test('should run the same number of parallel functions as the array size when Infinity is passed', async () => {
-    let numInProgress = 0
-    const tracking: number[] = []
-    await _.parallel(Number.POSITIVE_INFINITY, _.list(1, 10), async () => {
-      numInProgress++
-      tracking.push(numInProgress)
-      await _.sleep(0)
-      numInProgress--
-    })
-    expect(Math.max(...tracking)).toBe(10)
-    expect(tracking).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+  test('limit defaults to array length if Infinity is passed', async () => {
+    await testConcurrency(Number.POSITIVE_INFINITY, _.list(1, 3), [1, 2, 3])
   })
 })
