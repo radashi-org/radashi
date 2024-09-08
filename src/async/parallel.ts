@@ -1,5 +1,6 @@
 import {
   AggregateError,
+  clamp,
   flat,
   fork,
   isNumber,
@@ -99,7 +100,7 @@ export async function parallel<T, K>(
   }
 
   const queues = Promise.all(
-    list(1, Math.min(Math.max(options.limit, 1), array.length)).map(
+    list(1, clamp(options.limit, 1, array.length)).map(
       () => new Promise(processor),
     ),
   )
