@@ -3,6 +3,7 @@
     "vitest.explorer",
     "biomejs.biome",
     "esbenp.prettier-vscode",
-    "streetsidesoftware.code-spell-checker"
+    "streetsidesoftware.code-spell-checker",
+    "aleclarson.radashi"
   ]
 }

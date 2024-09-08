@@ -12,13 +12,15 @@
     },
     "ghcr.io/joshuanianji/devcontainer-features/mount-pnpm-store": {}
   },
-  "postCreateCommand": "pnpm i",
+  "postStartCommand": "pnpm i",
   "customizations": {
     "vscode": {
       "extensions": [
         "vitest.explorer",
         "biomejs.biome",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "streetsidesoftware.code-spell-checker",
+        "aleclarson.radashi"
       ]
     }
   }
