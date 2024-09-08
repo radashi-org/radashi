@@ -10,9 +10,10 @@ The `isClass` function returns `true` if the provided value is a class defined w
 ```ts
 import * as _ from 'radashi'
 
-_.isClass(Error) // => true
 class MyClass {}
+
 _.isClass(MyClass) // => true
+_.isClass(Error) // => false
 _.isClass(function OldClass() {}) // => false
 _.isClass('abc') // => false
 _.isClass({}) // => false
