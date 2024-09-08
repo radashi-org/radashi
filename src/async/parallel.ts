@@ -25,8 +25,9 @@ type WorkItemResult<K> = {
 export type ParallelOptions = {
   /**
    * The maximum number of functions to run concurrently. If a
-   * negative number is passed, only one function will run at a
-   * time.
+   * negative number is passed, only one function will run at a time.
+   * If a number bigger than the array `length` is passed, the array
+   * length will be used.
    */
   limit: number
   signal?: AbortSignal
@@ -98,7 +99,9 @@ export async function parallel<T, K>(
   }
 
   const queues = Promise.all(
-    list(1, Math.max(1, options.limit)).map(() => new Promise(processor)),
+    list(1, Math.min(Math.max(options.limit, 1), array.length)).map(
+      () => new Promise(processor),
+    ),
   )
 
   let signalPromise: Promise<never> | undefined

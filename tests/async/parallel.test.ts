@@ -140,4 +140,17 @@ describe('parallel', () => {
     expect(Math.max(...tracking)).toBe(1)
     expect(tracking).toEqual([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
   })
+
+  test('should run the same number of parallel functions as the array size when Infinity is passed', async () => {
+    let numInProgress = 0
+    const tracking: number[] = []
+    await _.parallel(Number.POSITIVE_INFINITY, _.list(1, 10), async () => {
+      numInProgress++
+      tracking.push(numInProgress)
+      await _.sleep(0)
+      numInProgress--
+    })
+    expect(Math.max(...tracking)).toBe(10)
+    expect(tracking).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+  })
 })
