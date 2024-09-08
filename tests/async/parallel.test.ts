@@ -1,19 +1,19 @@
 import * as _ from 'radashi'
 
-describe('parallel', () => {
-  function makeProgressTracker() {
-    let numInProgress = 0
-    const tracking: number[] = []
-    const func = async () => {
-      numInProgress++
-      tracking.push(numInProgress)
-      await _.sleep(0)
-      numInProgress--
-    }
-
-    return { tracking, func }
+function makeProgressTracker() {
+  let numInProgress = 0
+  const tracking: number[] = []
+  const func = async () => {
+    numInProgress++
+    tracking.push(numInProgress)
+    await _.sleep(0)
+    numInProgress--
   }
 
+  return { tracking, func }
+}
+
+describe('parallel', () => {
   test('returns all results from all functions', async () => {
     const [errors, results] = await _.try(async () => {
       return _.parallel(1, _.list(1, 3), async num => {
@@ -44,21 +44,18 @@ describe('parallel', () => {
     await _.parallel(3, _.list(1, 14), func)
     expect(Math.max(...tracking)).toBe(3)
   })
-
   test('should run only one parallel function when a negative number is passed', async () => {
     const { tracking, func } = makeProgressTracker()
     await _.parallel(-1, _.list(1, 10), func)
     expect(Math.max(...tracking)).toBe(1)
     expect(tracking).toEqual([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
   })
-
   test('should run only one parallel function when 0 is passed', async () => {
     const { tracking, func } = makeProgressTracker()
     await _.parallel(0, _.list(1, 10), func)
     expect(Math.max(...tracking)).toBe(1)
     expect(tracking).toEqual([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
   })
-
   test('should run the same number of parallel functions as the array size when Infinity is passed', async () => {
     const { tracking, func } = makeProgressTracker()
     await _.parallel(Number.POSITIVE_INFINITY, _.list(1, 10), func)
