@@ -22,9 +22,10 @@ _.isClass(undefined) // => false
 
 :::note
 
-Old school classes (defined using constructor functions) will return `false`.
+Old school constructors (declared with the `function` keyword) will return `false`.
 
-"Native classes", like `Error`, will return `false` because they are not defined using the `class` syntax.
+Built-in class constructors (e.g. `Error`) will also return `false`, because they're created with native code, not the `class` keyword.
+
 :::
 
 ### Popular use cases
