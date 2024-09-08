@@ -1,4 +1,4 @@
-import { AggregateError, flat, fork, list, sort, tryit } from 'radashi'
+import { AggregateError, clamp, flat, fork, list, sort, tryit } from 'radashi'
 
 type WorkItemResult<K> = {
   index: number
@@ -51,7 +51,7 @@ export async function parallel<T, K>(
     }
   }
   // Create queues
-  const queues = list(1, Math.min(Math.max(limit, 1), array.length)).map(
+  const queues = list(1, clamp(limit, 1, array.length)).map(
     () => new Promise(processor),
   )
   // Wait for all queues to complete
