@@ -13,7 +13,7 @@
     "ghcr.io/joshuanianji/devcontainer-features/mount-pnpm-store": {},
     "ghcr.io/devcontainers-contrib/features/npm-package": {
       "package": "radashi-helper",
-      "version": "0.1.3"
+      "version": "0.1.4"
     }
   },
   "postStartCommand": "pnpm i",
