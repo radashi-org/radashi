@@ -9,9 +9,15 @@ OldSchoolClass.prototype.doSomething = function () {
 }
 
 describe('isClass', () => {
-  class Data {}
   test('returns false for non-Class values', () => {
     const fn = () => {}
+
+    class MyFunction extends Function {
+      toString() {
+        return 'class instance of MyFunction'
+      }
+    }
+
     expect(_.isClass(OldSchoolClass)).toBeFalsy()
     expect(_.isClass(fn)).toBeFalsy()
     expect(_.isClass(undefined)).toBeFalsy()
@@ -19,7 +25,7 @@ describe('isClass', () => {
     expect(_.isClass(false)).toBeFalsy()
     expect(_.isClass(() => {})).toBeFalsy()
     expect(_.isClass(async () => {})).toBeFalsy()
-    expect(_.isClass(new Data())).toBeFalsy()
+    expect(_.isClass(new MyFunction())).toBeFalsy()
     expect(_.isClass(Number.NaN)).toBeFalsy()
     expect(_.isClass([1, 2, 3])).toBeFalsy()
     expect(_.isClass({})).toBeFalsy()

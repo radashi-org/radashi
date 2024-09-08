@@ -15,7 +15,10 @@ import { isFunction, type Class, type StrictExtract } from 'radashi'
  * ```
  */
 export function isClass<T>(value: T): value is ExtractClass<T> {
-  return isFunction(value) && value.toString().startsWith('class ')
+  return (
+    isFunction(value) &&
+    Function.prototype.toString.call(value).startsWith('class ')
+  )
 }
 
 /**
