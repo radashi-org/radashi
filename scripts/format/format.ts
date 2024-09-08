@@ -20,7 +20,7 @@ async function main() {
     '!scripts/radashi-db/supabase.types.ts',
   ]
   const prettierGlobs = [
-    '**/package.json',
+    '**/*.json',
     '**/README.md',
     'docs/**/*',
     'scripts/**/*.sh',
