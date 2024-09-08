@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import type { AggregateError } from 'radashi'
 
 describe('parallel', () => {
   test('returns all results from all functions', async () => {
@@ -37,5 +36,18 @@ describe('parallel', () => {
       numInProgress--
     })
     expect(Math.max(...tracking)).toBe(3)
+  })
+
+  test('should run only one parallel function when a negative number is passed', async () => {
+    let numInProgress = 0
+    const tracking: number[] = []
+    await _.parallel(-1, _.list(1, 10), async () => {
+      numInProgress++
+      tracking.push(numInProgress)
+      await _.sleep(0)
+      numInProgress--
+    })
+    expect(Math.max(...tracking)).toBe(1)
+    expect(tracking).toEqual([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
   })
 })

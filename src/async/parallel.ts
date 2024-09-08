@@ -21,6 +21,10 @@ type WorkItemResult<K> = {
  * ```
  */
 export async function parallel<T, K>(
+  /**
+   * The maximum number of functions to run concurrently.If a negative
+   * number is passed, only one function will run at a time.
+   */
   limit: number,
   array: readonly T[],
   func: (item: T) => Promise<K>,
@@ -46,7 +50,7 @@ export async function parallel<T, K>(
     }
   }
   // Create queues
-  const queues = list(1, limit).map(() => new Promise(processor))
+  const queues = list(1, Math.max(1, limit)).map(() => new Promise(processor))
   // Wait for all queues to complete
   const itemResults = (await Promise.all(queues)) as WorkItemResult<K>[][]
   const [errors, results] = fork(
