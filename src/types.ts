@@ -23,6 +23,11 @@ export declare class Any {
 }
 
 /**
+ * Represents a class constructor.
+ */
+export type Class<T = unknown> = new (...args: any[]) => T
+
+/**
  * Extracts `T` if `T` is not `any`, otherwise `never`.
  *
  * ```ts
