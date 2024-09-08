@@ -1,0 +1,31 @@
+---
+title: isClass
+description: Check if a value is a class defined using the `class` syntax.
+---
+
+### Usage
+
+The `isClass` function returns `true` if the provided value is a class defined with the new `class` syntax.
+
+```ts
+import * as _ from 'radashi'
+
+_.isClass(Error) // => true
+class MyClass {}
+_.isClass(MyClass) // => true
+_.isClass(function OldClass() {}) // => false
+_.isClass('abc') // => false
+_.isClass({}) // => false
+_.isClass(undefined) // => false
+```
+
+:::note
+
+Old school classes (defined using constructor functions) will return `false`.
+
+"Native classes", like `Error`, will return `false` because they are not defined using the `class` syntax.
+:::
+
+### Popular use cases
+
+- Type guard would check for a function that must be called with the `new` operator
