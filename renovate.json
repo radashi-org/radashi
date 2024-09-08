@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "lockFileMaintenance": {
-    "enabled": false
+    "enabled": true
   },
   "dependencyDashboard": true,
   "packageRules": [
@@ -11,6 +11,10 @@
       "matchPackageNames": ["*"]
     }
   ],
+  "vulnerabilityAlerts": {
+    "enabled": true
+  },
   "separateMajorMinor": false,
-  "schedule": ["every weekend"]
+  "osvVulnerabilityAlerts": true,
+  "schedule": ["every 2 months on the first day of the month"]
 }
