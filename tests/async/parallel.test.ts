@@ -88,8 +88,6 @@ describe('parallel', () => {
   })
 
   test('remove abort listener after completion', async () => {
-    vi.useFakeTimers()
-
     const ctrl = new AbortController()
     const removeEventListener = vi.spyOn(ctrl.signal, 'removeEventListener')
 
@@ -108,5 +106,25 @@ describe('parallel', () => {
       'abort',
       expect.any(Function),
     )
+  })
+
+  test('limit defaults to 1 if negative', async () => {
+    vi.useFakeTimers()
+
+    let numInProgress = 0
+    const tracking: number[] = []
+
+    const promise = _.parallel(-1, _.list(1, 5), async () => {
+      numInProgress++
+      tracking.push(numInProgress)
+      await _.sleep(10)
+      numInProgress--
+    })
+
+    await vi.advanceTimersByTimeAsync(50)
+    await promise
+
+    expect(Math.max(...tracking)).toBe(1)
+    expect(tracking).toEqual([1, 1, 1, 1, 1])
   })
 })
