@@ -32,14 +32,11 @@ export function merge<T>(
     return [...prev]
   }
   const keys = new Map()
-
-  for (const val of array) {
-    keys.set(toKey(val), val)
+  for (const item of array) {
+    keys.set(toKey(item), item)
   }
-
   return prev.map(prevItem => {
     const key = toKey(prevItem)
-
     return keys.has(key) ? keys.get(key)! : prevItem
   })
 }
