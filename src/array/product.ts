@@ -1,5 +1,7 @@
+import { castArray } from 'radashi'
+
 /**
- * Creates an [n-ary Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_product) from the given arrays.
+ * Create an [n-ary Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_product) from the given arrays.
  *
  * @see https://radashi.js.org/reference/array/product
  * @example
@@ -17,13 +19,16 @@
  * // ]
  * ```
  */
-export function product<T>(arrays: T[][]): T[][] {
+export function product<T extends any[]>(
+  ...arrays: [...T]
+): Array<{ [K in keyof T]: T[K][number] }>
+export function product<T extends any[][]>(...arrays: T): T[][] {
   let out: T[][] = [[]]
   for (const array of arrays) {
-    const result: T[][] = []
+    const result = []
     for (const currentArray of out) {
       for (const item of array) {
-        const currentArrayCopy = currentArray.slice()
+        const currentArrayCopy = castArray(currentArray)
         currentArrayCopy.push(item)
         result.push(currentArrayCopy)
       }
