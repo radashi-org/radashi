@@ -1,7 +1,10 @@
 import * as _ from 'radashi'
 
 describe('cartesianProduct', () => {
-  test('returns an empty array when given an array containing an empty array (n=1)', () => {
+  test('returns an array containing an empty array when given an empty input (n=0)', () => {
+    expect(_.cartesianProduct()).toEqual([[]])
+  })
+  test('returns an empty array when given an empty array (n=1)', () => {
     expect(_.cartesianProduct([])).toEqual([])
   })
   test('returns an empty array when given multiple empty arrays (n>1)', () => {
