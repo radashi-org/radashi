@@ -1,5 +1,3 @@
-import { castArray } from 'radashi'
-
 /**
  * Create an [n-ary Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_product) from the given arrays.
  *
@@ -19,16 +17,16 @@ import { castArray } from 'radashi'
  * // ]
  * ```
  */
-export function product<T extends any[]>(
+export function cartesianProduct<T extends any[]>(
   ...arrays: [...T]
 ): Array<{ [K in keyof T]: T[K][number] }>
-export function product<T extends any[][]>(...arrays: T): T[][] {
+export function cartesianProduct<T extends any[][]>(...arrays: T): T[][] {
   let out: T[][] = [[]]
   for (const array of arrays) {
     const result = []
     for (const currentArray of out) {
       for (const item of array) {
-        const currentArrayCopy = castArray(currentArray)
+        const currentArrayCopy = currentArray.slice()
         currentArrayCopy.push(item)
         result.push(currentArrayCopy)
       }
