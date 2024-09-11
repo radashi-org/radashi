@@ -5,7 +5,10 @@ description: Perform a Cartesian product of arrays
 
 ### Usage
 
-Creates an array of all possible combinations (Cartesian product) from the given arrays, where each combination is represented as an array (or tuple) of elements.
+Creates an [n-ary Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_product) from the given arrays.
+The input is an array of arrays, and the output is an array of arrays representing all
+possible combinations where the first element is from the first array, the second element
+is from the second array, and so on.
 
 ```ts
 import * as _ from 'radashi'
