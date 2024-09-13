@@ -29,6 +29,7 @@ export * from './array/unique.ts'
 export * from './array/unzip.ts'
 export * from './array/zip.ts'
 export * from './array/zipToObject.ts'
+
 export * from './async/AggregateError.ts'
 export * from './async/all.ts'
 export * from './async/defer.ts'

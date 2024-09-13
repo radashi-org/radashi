@@ -1,15 +1,11 @@
 import * as _ from 'radashi'
 
 describe('cartesianProduct', () => {
-  bench('with no arguments', () => {
-    _.cartesianProduct()
-  })
-
-  bench('with single empty array', () => {
+  bench('with an empty array (n=1)', () => {
     _.cartesianProduct([])
   })
 
-  bench('with one non-empty array (n=1)', () => {
+  bench('with a non-empty array (n=1)', () => {
     _.cartesianProduct(['a', 'b', 'c'])
   })
 
