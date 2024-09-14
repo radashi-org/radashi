@@ -10,6 +10,7 @@ import { capitalize } from 'radashi'
  * camel('one two-THREE') // => 'oneTwoThree'
  * camel('helloWorld') // => 'helloWorld'
  * ```
+ * @version 12.1.0
  */
 export function camel(str: string): string {
   const parts =
