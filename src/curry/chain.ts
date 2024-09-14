@@ -14,6 +14,7 @@
  * myChainedFunc(0)
  * // => 10
  * ```
+ * @version 12.1.0
  */
 export function chain<T1 extends any[], T2, T3>(
   f1: (...arg: T1) => T2,
