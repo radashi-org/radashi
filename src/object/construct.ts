@@ -10,6 +10,7 @@ import { set } from 'radashi'
  * construct({ name: 'ra', 'children.0.name': 'hathor' })
  * // { name: 'ra', children: [{ name: 'hathor' }] }
  * ```
+ * @version 12.1.0
  */
 export function construct<TObject extends object>(obj: TObject): object {
   if (!obj) {
