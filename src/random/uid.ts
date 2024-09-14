@@ -9,6 +9,7 @@ import { iterate, random } from 'radashi'
  * uid(8)
  * // => "a3fSDf32"
  * ```
+ * @version 12.1.0
  */
 export function uid(length: number, specials = ''): string {
   const characters =
