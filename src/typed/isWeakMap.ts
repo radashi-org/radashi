@@ -13,6 +13,7 @@ import { isTagged } from 'radashi'
  * isWeakMap(new WeakMap()) // => true
  * isWeakMap(new Map()) // => false
  * ```
+ * @version 12.2.0
  */
 export function isWeakMap<K extends WeakKey = WeakKey, V = unknown>(
   value: unknown,
