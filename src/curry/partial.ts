@@ -9,6 +9,7 @@
  * type T = RemoveItemsInFront<[File, number, string], [File, number]>
  * // [string]
  * ```
+ * @version 12.1.0
  */
 type RemoveItemsInFront<
   TItems extends any[],
