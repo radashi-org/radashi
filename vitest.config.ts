@@ -15,6 +15,11 @@ export default defineConfig(env => ({
       include: ['src/**'],
     },
     setupFiles: env.mode === 'benchmark' ? ['benchmarks/globals.ts'] : [],
+    typecheck: {
+      include: ['tests/**/*.test-d.ts'],
+      enabled: true,
+      tsconfig: "tests/tsconfig.json"
+    },
   },
   resolve: {
     alias: {
