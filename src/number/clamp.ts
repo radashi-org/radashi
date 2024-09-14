@@ -16,6 +16,7 @@
  * clamp(0, 1, 10) // returns 1
  * clamp(15, 1, 10) // returns 10
  * ```
+ * @version 12.2.0
  */
 export function clamp(
   n: number,
