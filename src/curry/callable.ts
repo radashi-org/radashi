@@ -14,6 +14,7 @@
  * car.wheels // => 2
  * car() // => 'driving'
  * ```
+ * @version 12.1.0
  */
 export function callable<
   TValue,
