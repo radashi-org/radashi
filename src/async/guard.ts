@@ -7,6 +7,7 @@
  * ```ts
  * const result = await guard(fetchUsers)() ?? [];
  * ```
+ * @version 12.1.0
  */
 export function guard<TFunction extends () => any>(
   func: TFunction,
