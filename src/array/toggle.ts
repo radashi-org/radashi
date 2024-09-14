@@ -32,6 +32,7 @@
  * )
  * // => [{ id: 3 }, { id: 1 }, { id: 2 }]
  * ```
+ * @version 12.1.0
  */
 export function toggle<T>(
   array: readonly T[],
