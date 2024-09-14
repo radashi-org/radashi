@@ -16,6 +16,7 @@ interface PromiseWithResolvers<T> {
  *
  * resolve(42)
  * ```
+ * @version 12.2.0
  */
 export function withResolvers<T>(): PromiseWithResolvers<T> {
   let resolve: any
