@@ -17,6 +17,7 @@
  * addPartial({ b: 2 }) // 3
  * addPartial({ b: 1, c: 5 }) // 7
  * ```
+ * @version 12.1.0
  */
 export function partob<T, K, PartialArgs extends Partial<T>>(
   fn: (args: T) => K,
