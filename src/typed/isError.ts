@@ -13,6 +13,7 @@ import { isTagged } from 'radashi'
  * isError(new Error()) // => true
  * isError('hello') // => false
  * ```
+ * @version 12.2.0
  */
 export function isError(value: unknown): value is Error {
   return isTagged(value, '[object Error]')
