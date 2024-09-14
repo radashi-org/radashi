@@ -25,6 +25,7 @@ import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
  * isEmpty([]) // => true
  * isEmpty({}) // => true
  * ```
+ * @version 12.1.0
  */
 export function isEmpty(value: any): boolean {
   if (value === true || value === false) {
