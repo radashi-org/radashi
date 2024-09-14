@@ -14,6 +14,7 @@ import { isTagged } from 'radashi'
  * isWeakSet(new WeakSet()) // => true
  * isWeakSet(new Set()) // => false
  * ```
+ * @version 12.2.0
  */
 export function isWeakSet<T extends WeakKey = WeakKey>(
   value: unknown,
