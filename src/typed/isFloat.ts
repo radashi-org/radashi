@@ -9,6 +9,7 @@ import { isNumber } from 'radashi'
  * isFloat(0) // => false
  * isFloat(0.1) // => true
  * ```
+ * @version 12.1.0
  */
 export function isFloat(value: any): value is number {
   return isNumber(value) && value % 1 !== 0
