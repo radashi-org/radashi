@@ -21,6 +21,7 @@ import { isArray, isError, type Result } from 'radashi'
  * // Result tuples cannot have both a value and an error.
  * isResult([new Error(), true]) => false
  * ```
+ * @version 12.2.0
  */
 export function isResult(value: unknown): value is Result<unknown> {
   return (
