@@ -16,6 +16,7 @@ import { isArray, isFunction } from 'radashi'
  * zipToObject(['a', 'b'], 1)
  * // { a: 1, b: 1 }
  * ```
+ * @version 12.1.0
  */
 export function zipToObject<K extends string | number | symbol, V>(
   keys: K[],
