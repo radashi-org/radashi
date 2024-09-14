@@ -10,6 +10,7 @@
  * intersects([1, 0, 0], [0, 1], (n) => n > 1)
  * // true
  * ```
+ * @version 12.1.0
  */
 export function intersects<T, K>(
   listA: readonly T[],
