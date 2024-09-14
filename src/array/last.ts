@@ -10,6 +10,7 @@
  * last([], 0)
  * // 0
  * ```
+ * @version 12.1.0
  */
 export function last<T>(array: readonly T[]): T | undefined
 
