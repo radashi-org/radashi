@@ -9,6 +9,7 @@
  * shake(a)
  * // => { a: 1, c: 3 }
  * ```
+ * @version 12.1.0
  */
 export function shake<T extends object>(
   obj: T,
