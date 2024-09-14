@@ -10,6 +10,7 @@ import { capitalize } from 'radashi'
  * snake('one two-THREE') // => 'one_two_three'
  * snake('helloWorld') // => 'hello_world'
  * ```
+ * @version 12.1.0
  */
 export function snake(
   str: string,
