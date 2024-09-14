@@ -11,6 +11,7 @@
  * trim('/repos/:owner/:repo/', '/') // => 'repos/:owner/:repo'
  * trim('222222__hello__1111111', '12_') // => 'hello'
  * ```
+ * @version 12.1.0
  */
 export function trim(
   str: string | null | undefined,
