@@ -20,6 +20,7 @@ import { type FilteredKeys, filterKey, isArray, type KeyFilter } from 'radashi'
  * pick(a, (value, key) => value > 1)
  * // => { b: 2, c: 3 }
  * ```
+ * @version 12.1.0
  */
 export function pick<T extends object, F extends KeyFilter<T, keyof T>>(
   obj: T,
