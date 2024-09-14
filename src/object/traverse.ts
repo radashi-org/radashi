@@ -38,6 +38,7 @@ export interface TraverseOptions<Key = string | number | symbol> {
  * //   0 => 2
  * //   e => 3
  * ```
+ * @version 12.2.0
  */
 export function traverse(
   root: object,
