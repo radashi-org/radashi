@@ -12,6 +12,7 @@ import * as _ from 'radashi'
  * shuffled !== numbers
  * // => true
  * ```
+ * @version 12.1.0
  */
 export function shuffle<T>(
   array: readonly T[],
