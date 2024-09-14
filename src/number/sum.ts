@@ -20,6 +20,7 @@
  * sum([true, false, true], (item) => item ? 1 : 0)
  * // => 2
  * ```
+ * @version 12.1.0
  */
 export function sum(array: readonly number[]): number
 export function sum<T>(array: readonly T[], fn: (item: T) => number): number
