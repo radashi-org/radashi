@@ -12,6 +12,7 @@ import { isSymbol } from 'radashi'
  * toFloat("1.23px", 1) // => 1.23
  * toFloat("foo", 1) // => 1
  * ```
+ * @version 12.1.0
  */
 export function toFloat(value: unknown): number
 
