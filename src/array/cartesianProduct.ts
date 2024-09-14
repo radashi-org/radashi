@@ -1,7 +1,7 @@
 /**
  * Create an [n-ary Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_product) from the given arrays.
  *
- * @see https://radashi.js.org/reference/array/product
+ * @see https://radashi.js.org/reference/array/cartesianProduct
  * @example
  * ```ts
  * product([['red', 'blue'], ['big', 'small'], ['fast', 'slow']])
