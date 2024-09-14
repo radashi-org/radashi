@@ -7,6 +7,7 @@
  * capitalize('hello') // => 'Hello'
  * capitalize('one two three') // => 'One two three'
  * ```
+ * @version 12.1.0
  */
 export function capitalize(str: string): string {
   if (!str || str.length === 0) {
