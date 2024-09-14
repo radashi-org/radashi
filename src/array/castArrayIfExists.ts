@@ -11,6 +11,7 @@
  * castArrayIfExists(undefined) // => undefined
  * castArrayIfExists([1, 2, 3]) // => [1, 2, 3]
  * ```
+ * @version 12.2.0
  */
 export function castArrayIfExists<T>(value: T): CastArrayIfExists<T>
 export function castArrayIfExists(value: unknown): unknown {
