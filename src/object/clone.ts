@@ -14,6 +14,7 @@ import { isPrimitive } from 'radashi'
  * original.b === cloned.b
  * // => true
  * ```
+ * @version 12.1.0
  */
 export function clone<T>(obj: T): T {
   // Primitive values do not need cloning.
