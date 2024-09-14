@@ -13,6 +13,7 @@
  * )
  * // => 9
  * ```
+ * @version 12.2.0
  */
 export function selectFirst<T, U>(
   array: readonly T[],
