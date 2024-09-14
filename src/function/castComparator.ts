@@ -41,6 +41,7 @@ import {
  * users.sort(compareUserNames)
  * // => [Doe, Jane, John]
  * ```
+ * @version 12.2.0
  */
 // Support property name:
 //     castComparator('name')
