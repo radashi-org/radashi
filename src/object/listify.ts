@@ -12,6 +12,7 @@
  * //   { key: 'c', value: 3 }
  * // ]
  * ```
+ * @version 12.1.0
  */
 export function listify<Value, Key extends string | number | symbol, Item>(
   obj: Record<Key, Value>,
