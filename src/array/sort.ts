@@ -14,6 +14,7 @@
  * sort(fish, f => f.weight) // => [Bass, Trout, Marlin]
  * sort(fish, f => f.weight, true) // => [Marlin, Trout, Bass]
  * ```
+ * @version 12.1.0
  */
 export function sort<T>(
   array: readonly T[],
