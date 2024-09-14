@@ -17,6 +17,7 @@ import { isPromise, type Result, type ResultPromise } from 'radashi'
  *   return await fetch('https://example.com')
  * })
  * ```
+ * @version 12.1.0
  */
 export type TryitResult<
   TReturn,
