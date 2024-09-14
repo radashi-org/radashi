@@ -12,6 +12,7 @@ import { isSymbol } from 'radashi'
  * toInt("1.23px", 1) // => 1
  * toInt("foo", -1) // => -1
  * ```
+ * @version 12.1.0
  */
 export function toInt(value: unknown): number
 
