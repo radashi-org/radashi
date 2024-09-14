@@ -13,6 +13,7 @@
  * get(person, 'friends[0].name')
  * // => 'Jane'
  * ```
+ * @version 12.1.0
  */
 export function get<TDefault = unknown>(
   value: any,
