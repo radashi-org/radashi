@@ -11,6 +11,7 @@
  * diff([{a:1}, {a:2}, {a:3}], [{a:2}, {a:4}], (n) => n.a)
  * // [{a:1}, {a:3}]
  * ```
+ * @version 12.1.0
  */
 export function diff<T>(
   root: readonly T[],
