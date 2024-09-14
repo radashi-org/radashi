@@ -8,6 +8,7 @@
  * pascal('va va boom') // => 'VaVaBoom'
  * pascal('helloWorld') // => 'HelloWorld'
  * ```
+ * @version 12.1.0
  */
 export function pascal(str: string): string {
   if (!str) {
