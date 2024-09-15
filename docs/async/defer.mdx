@@ -22,6 +22,13 @@ strategy so that error in the cleanup function is rethrown.
 ```ts
 import * as _ from 'radashi'
 
+const createBuildDir = async () => {
+  /* create build dir... */
+}
+const build = async () => {
+  /* build project... */
+}
+
 await _.defer(async cleanup => {
   const buildDir = await createBuildDir()
 
@@ -30,12 +37,30 @@ await _.defer(async cleanup => {
   await build()
 })
 
+const api = {
+  org: {
+    create: async () => ({ id: 1 }),
+    delete: async () => {
+      /* delete org... */
+    },
+  },
+  user: {
+    create: async () => ({ id: 2 }),
+    delete: async () => {
+      /* delete delete... */
+    },
+  },
+}
+const executeTest = async () => {
+  /* exec text... */
+}
+
 await _.defer(async register => {
   const org = await api.org.create()
   register(async () => api.org.delete(org.id), { rethrow: true })
 
   const user = await api.user.create()
-  register(async () => api.users.delete(user.id), { rethrow: true })
+  register(async () => api.user.delete(user.id), { rethrow: true })
 
   await executeTest(org, user)
 })
