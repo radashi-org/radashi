@@ -27,9 +27,9 @@ const fetchUserA = async () => {
 const fetchUserB = async () => {
   throw new Error()
 }
-const DEFAULT_USER = { name: 'Jhon Doe' }
+const DEFAULT_USER = { name: 'John Doe' }
 const isInvalidUserError = (err: any) => err.code === 'INVALID_ID'
 
-const userA = (await _.guard(fetchUserA, isInvalidUserError)) ?? DEFAULT_USER // { name: "Jhon Doe"}
+const userA = (await _.guard(fetchUserA, isInvalidUserError)) ?? DEFAULT_USER // { name: "John Doe"}
 // const userB = (await _.guard(fetchUserB, isInvalidUserError)) ?? DEFAULT_USER // this throw
 ```
