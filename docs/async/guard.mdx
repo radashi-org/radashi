@@ -9,12 +9,27 @@ since: 12.1.0
 This lets you set a default value if an async function errors out.
 
 ```ts
-const users = (await guard(fetchUsers)) ?? []
+const fetchUsers = async () => {
+  throw new Error()
+}
+const users = (await _.guard(fetchUsers)) ?? [] // []
 ```
 
 You can choose to guard only specific errors too
 
 ```ts
+class InvalidUserError extends Error {
+  code = 'INVALID_ID'
+}
+const fetchUserA = async () => {
+  throw new InvalidUserError()
+}
+const fetchUserB = async () => {
+  throw new Error()
+}
+const DEFAULT_USER = { name: 'Jhon Doe' }
 const isInvalidUserError = (err: any) => err.code === 'INVALID_ID'
-const user = (await guard(fetchUser, isInvalidUserError)) ?? DEFAULT_USER
+
+const userA = (await _.guard(fetchUserA, isInvalidUserError)) ?? DEFAULT_USER // { name: "Jhon Doe"}
+// const userB = (await _.guard(fetchUserB, isInvalidUserError)) ?? DEFAULT_USER // this throw
 ```
