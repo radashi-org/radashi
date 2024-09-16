@@ -13,14 +13,18 @@ If called again during this waiting period, it resets the timer. Your source fun
 ```ts
 import * as _ from 'radashi'
 
-// Send a search request to the API server when the user stops typing
-// for at least 100ms.
-input.addEventListener(
-  'change',
-  _.debounce({ delay: 100 }, (event: InputEvent) => {
-    api.movies.search(event.target.value)
-  }),
-)
+const processData = (data: string) => {
+  console.log(`Processing data: "${data}"...`)
+}
+const debouncedProcessData = _.debounce({ delay: 100 }, processData)
+
+debouncedProcessData('data1') // Never logs
+debouncedProcessData('data2') // Never logs
+debouncedProcessData('data3') // Processing data: "data3"...
+
+setTimeout(() => {
+  debouncedProcessData('data4') // Processing data: "data4"... (200ms later)
+}, 200)
 ```
 
 ## Options
