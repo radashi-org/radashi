@@ -21,17 +21,17 @@ The returned throttled function also includes these methods:
 - `trigger(...args): void`: To invoke the wrapped function without waiting for the next interval
 
 ```typescript
-import { throttle } from 'radashi'
+import * as _ from 'radashi'
 
 // Throttle a scroll event handler
 const handleScroll = () => {
   console.log('Scroll position:', window.scrollY)
 }
-const throttledScroll = throttle({ interval: 200 }, handleScroll)
+const throttledScroll = _.throttle({ interval: 200 }, handleScroll)
 window.addEventListener('scroll', throttledScroll)
 
 // Throttle an API call
-const throttledFetch = throttle(
+const throttledFetch = _.throttle(
   { interval: 5000, trailing: true },
   async () => {
     const response = await fetch('https://api.example.com/data')
