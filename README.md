@@ -10,6 +10,7 @@
   <a href="https://biomejs.dev/"><img src="https://img.shields.io/badge/code_style-biome.js-blue?logo=biome" alt="Code Style: Biome.js" /></a>
   <a href="https://github.com/radashi-org/radashi/discussions"><img src="https://img.shields.io/github/discussions/radashi-org/radashi?logo=github" alt="GitHub Discussions" /></a>
   <a href="https://app.gitter.im/#/room/#radashi:gitter.im"><img src="https://badges.gitter.im/join_chat.svg" alt="Gitter.im" /></a>
+  <a href="https://jsr.io/@radashi-org/radashi"><img src="https://jsr.io/badges/@radashi-org/radashi" alt="JSR.io" /></a>
 </div>
 
 &nbsp;
