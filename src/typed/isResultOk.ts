@@ -9,6 +9,7 @@ import { isResult, type Ok } from 'radashi'
  * isResultOk([undefined, "hello"]) // true
  * isResultOk([new Error(), undefined]) // false
  * ```
+ * @version 12.2.0
  */
 export function isResultOk<TValue = unknown>(
   value: unknown,

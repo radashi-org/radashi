@@ -14,6 +14,7 @@ export type UppercaseKeys<T extends Record<string, any>> = {
  * upperize(a)
  * // => { A: 1, B: 2, C: 3 }
  * ```
+ * @version 12.1.0
  */
 export function upperize<T extends Record<string, any>>(
   obj: T,

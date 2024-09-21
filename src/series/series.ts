@@ -26,6 +26,7 @@ export interface Series<T> {
  * numbers.spin(2, 1) // => 3
  * numbers.spin(2, -1) // => 1
  * ```
+ * @version 12.1.0
  */
 export const series = <T>(
   items: readonly T[],

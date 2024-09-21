@@ -10,6 +10,7 @@ import { capitalize } from 'radashi'
  * dash('one two_THREE') // => 'one-two-three'
  * dash('helloWord') // => 'hello-word'
  * ```
+ * @version 12.1.0
  */
 export function dash(str: string): string {
   const parts =

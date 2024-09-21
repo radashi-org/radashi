@@ -8,6 +8,7 @@
  * mapValues(a, (value, key) => value * 2)
  * // => { a: 2, b: 4, c: 6 }
  * ```
+ * @version 12.1.0
  */
 export function mapValues<
   TValue,

@@ -21,6 +21,7 @@ import {
  * assign(a, b)
  * // => { a: 1, b: 2, c: 3, p: { a: 4, b: 5 } }
  * ```
+ * @version 12.1.0
  */
 export function assign<
   TInitial extends Record<keyof any, any>,

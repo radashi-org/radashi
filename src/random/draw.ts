@@ -14,6 +14,7 @@ import { random } from 'radashi'
  * numbers
  * // => [1, 2, 3]
  * ```
+ * @version 12.1.0
  */
 export function draw<T>(array: readonly T[]): T | null {
   const max = array.length

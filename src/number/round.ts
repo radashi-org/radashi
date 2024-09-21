@@ -22,6 +22,7 @@
  * round(1234.54, 1, Math.ceil)
  * // => 1234.6
  * ```
+ * @version 12.2.0
  */
 export function round(
   value: number,

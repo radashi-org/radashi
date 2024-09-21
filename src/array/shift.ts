@@ -9,6 +9,7 @@
  * shift([1, 2, 3], 1) // [3, 1, 2]
  * shift([1, 2, 3], -1) // [2, 3, 1]
  * ```
+ * @version 12.1.0
  */
 export function shift<T>(arr: readonly T[], n: number): T[] {
   if (arr.length === 0) {

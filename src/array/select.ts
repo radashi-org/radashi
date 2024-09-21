@@ -13,6 +13,7 @@
  * )
  * // => [9, 16]
  * ```
+ * @version 12.1.0
  */
 export function select<T, U>(
   array: readonly T[],

@@ -9,6 +9,7 @@ import type { Falsy } from 'radashi'
  * sift([0, 1, undefined, null, 2, false, 3, ''])
  * // => [1, 2, 3]
  * ```
+ * @version 12.1.0
  */
 export function sift<T>(array: readonly (T | Falsy)[]): T[] {
   return (array?.filter(x => !!x) as T[]) ?? []

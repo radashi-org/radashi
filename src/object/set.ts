@@ -10,6 +10,7 @@ import { clone, isIntString } from 'radashi'
  * set({}, 'name', 'ra') // => { name: 'ra' }
  * set({}, 'cards[0].value', 2) // => { cards: [{ value: 2 }] }
  * ```
+ * @version 12.1.0
  */
 export function set<T extends object, K>(
   initial: T,

@@ -15,6 +15,7 @@ import { range } from 'radashi'
  * list(0, 3, obj)          // obj, obj, obj, obj
  * list(0, 6, i => i, 2)    // 0, 2, 4, 6
  * ```
+ * @version 12.1.0
  */
 export function list<T = number>(
   startOrLength: number,

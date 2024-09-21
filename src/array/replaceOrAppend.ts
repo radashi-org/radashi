@@ -12,6 +12,7 @@
  * replaceOrAppend([1, 2, 3], 4, (n) => n > 100)
  * // [1, 2, 3, 4]
  * ```
+ * @version 12.1.0
  */
 export function replaceOrAppend<T>(
   array: readonly T[],

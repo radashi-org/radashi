@@ -11,6 +11,7 @@ import { capitalize } from 'radashi'
  * title('root-hook') // => 'Root Hook'
  * title('queryItems') // => 'Query Items'
  * ```
+ * @version 12.1.0
  */
 export function title(str: string | null | undefined): string {
   if (!str) {

@@ -7,6 +7,7 @@
  * cluster([1, 2, 3, 4, 5, 6], 2)
  * // [[1, 2], [3, 4], [5, 6]]
  * ```
+ * @version 12.1.0
  */
 export function cluster<T>(array: readonly T[], size = 2): T[][] {
   const clusters: T[][] = []

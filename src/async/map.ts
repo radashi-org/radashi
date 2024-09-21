@@ -11,6 +11,7 @@
  *   return response.json()
  * })
  * ```
+ * @version 12.1.0
  */
 export async function map<T, K>(
   array: readonly T[],

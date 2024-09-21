@@ -13,6 +13,7 @@
  * )
  * // [{id: 1, name: 'John'}, {id: 2}]
  * ```
+ * @version 12.1.0
  */
 export function merge<T>(
   prev: readonly T[],

@@ -22,6 +22,7 @@ import { isTagged } from 'radashi'
  * isObject(new Map()) // false
  * isObject(new Set()) // false
  * ```
+ * @version 12.1.0
  */
 export function isObject(value: unknown): value is object {
   return isTagged(value, '[object Object]')

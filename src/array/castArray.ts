@@ -11,6 +11,7 @@
  * castArray(null) // => [null]
  * castArray(undefined) // => [undefined]
  * ```
+ * @version 12.2.0
  */
 export function castArray<T>(value: T): CastArray<T>
 export function castArray(value: unknown): unknown {

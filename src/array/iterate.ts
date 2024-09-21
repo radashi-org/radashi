@@ -11,6 +11,7 @@
  * iterate(3, (total, i) => total + i, 0)
  * // 6
  * ```
+ * @version 12.1.0
  */
 export function iterate<T>(
   count: number,

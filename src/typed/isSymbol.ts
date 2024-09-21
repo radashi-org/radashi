@@ -7,6 +7,7 @@
  * isSymbol(Symbol('abc')) // => true
  * isSymbol('abc') // => false
  * ```
+ * @version 12.1.0
  */
 export function isSymbol(value: unknown): value is symbol {
   return typeof value === 'symbol'

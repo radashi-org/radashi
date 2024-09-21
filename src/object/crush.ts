@@ -10,6 +10,7 @@ import { type Intersect, isArray, isObject, type Simplify } from 'radashi'
  * crush({ name: 'ra', children: [{ name: 'hathor' }] })
  * // { name: 'ra', 'children.0.name': 'hathor' }
  * ```
+ * @version 12.1.0
  */
 export function crush<T extends object>(value: T): Crush<T> {
   if (!value) {

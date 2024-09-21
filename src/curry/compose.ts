@@ -14,6 +14,7 @@
  * myComposedFunc(0)
  * // => 5
  * ```
+ * @version 12.1.0
  */
 export function compose<
   F1Result,

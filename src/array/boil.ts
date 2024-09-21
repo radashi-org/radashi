@@ -8,6 +8,7 @@
  * ```ts
  * boil([1, 2, 3, 0], (a, b) => a > b ? a : b) // 3
  * ```
+ * @version 12.1.0
  */
 export function boil<T>(
   array: readonly T[],

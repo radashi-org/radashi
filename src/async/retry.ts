@@ -16,6 +16,7 @@ export type RetryOptions = {
  *   return await fetch('https://example.com')
  * })
  * ```
+ * @version 12.1.0
  */
 export async function retry<TResponse>(
   options: RetryOptions,

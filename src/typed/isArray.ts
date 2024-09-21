@@ -9,6 +9,7 @@ import type { StrictExtract } from 'radashi'
  * isArray([]) // => true
  * isArray('hello') // => false
  * ```
+ * @version 12.1.0
  */
 export const isArray = /* @__PURE__ */ (() => Array.isArray)() as <Input>(
   value: Input,

@@ -7,6 +7,7 @@
  * min([1, 2, 3, 4]) // => 1
  * min([{ num: 1 }, { num: 2 }], x => x.num) // => { num: 1 }
  * ```
+ * @version 12.1.0
  */
 export function min(array: readonly [number, ...number[]]): number
 export function min(array: readonly number[]): number | null

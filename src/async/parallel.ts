@@ -19,6 +19,7 @@ type WorkItemResult<K> = {
  *   return await resizeImage(file)
  * })
  * ```
+ * @version 12.1.0
  */
 export async function parallel<T, K>(
   limit: number,

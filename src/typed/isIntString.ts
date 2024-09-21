@@ -11,6 +11,7 @@ import { isString } from 'radashi'
  * isIntString('0.1') // => false
  * isIntString('+1') // => false
  * ```
+ * @version 12.2.0
  */
 export function isIntString(value: any): value is string {
   if (!isString(value)) {

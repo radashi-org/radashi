@@ -8,6 +8,7 @@
  * alwaysTrue() // true
  * alwaysTrue() // true
  * ```
+ * @version 12.2.0
  */
 export function always<T>(value: T): () => T {
   return () => value

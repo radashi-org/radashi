@@ -9,6 +9,7 @@
  * When it's not globally defined, Radashi provides a polyfill.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError
+ * @version 12.2.0
  */
 const AggregateErrorOrPolyfill: AggregateErrorConstructor =
   /* @__PURE__ */ (() =>

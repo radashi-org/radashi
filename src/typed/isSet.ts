@@ -13,6 +13,7 @@ import { isTagged, type StrictExtract } from 'radashi'
  * isSet(new Set([1, 2, 3])) // => true
  * isSet(new Map([1, 2, 3])) // => false
  * ```
+ * @version 12.2.0
  */
 export function isSet<Input>(value: Input): value is ExtractSet<Input> {
   return isTagged(value, '[object Set]')

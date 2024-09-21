@@ -7,6 +7,7 @@
  * max([2, 3, 5]) // => 5
  * max([{ num: 1 }, { num: 2 }], x => x.num) // => { num: 2 }
  * ```
+ * @version 12.1.0
  */
 export function max(array: readonly [number, ...number[]]): number
 export function max(array: readonly number[]): number | null

@@ -11,6 +11,7 @@
  * template('Hello, <name>', { name: 'Radashi' }, /<(.+?)>/g)
  * // "Hello, Radashi"
  * ```
+ * @version 12.1.0
  */
 export function template(
   str: string,

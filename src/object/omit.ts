@@ -9,6 +9,7 @@
  * omit(a, ['b'])
  * // => { a: 1, c: 3 }
  * ```
+ * @version 12.1.0
  */
 export function omit<T, TKeys extends keyof T>(
   obj: T,

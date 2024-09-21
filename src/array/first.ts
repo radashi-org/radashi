@@ -10,6 +10,7 @@
  * first([], 0)
  * // 0
  * ```
+ * @version 12.1.0
  */
 export function first<T>(array: readonly T[]): T | undefined
 

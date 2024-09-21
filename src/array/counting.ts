@@ -8,6 +8,7 @@
  * counting([1, 2, 3, 4], (n) => n % 2 === 0 ? 'even' : 'odd')
  * // { even: 2, odd: 2 }
  * ```
+ * @version 12.1.0
  */
 export function counting<T, TId extends string | number | symbol>(
   array: readonly T[],
