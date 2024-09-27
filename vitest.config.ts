@@ -8,7 +8,7 @@ export default defineConfig(env => ({
     globals: true,
     include: ['tests/**/*.test.ts'],
     benchmark: {
-      include: ['benchmarks/**/*.bench.ts'],
+      include: ['(benchmarks|comparisons)/**/*.bench.ts'],
     },
     coverage: {
       thresholds: { 100: true },
