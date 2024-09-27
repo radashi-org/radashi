@@ -63,7 +63,7 @@ const benchmarks:  Partial<Record<keyof typeof radashi, Benchmark | Record<strin
       }
     },
     "with key not in object": _ => {
-      const input = { a: 2, b: 3 } as const
+      const input = { a: 2, b: 3 }
 
       if (isLodash(_)) {
         _.pickBy(input, ['c'])
@@ -72,12 +72,39 @@ const benchmarks:  Partial<Record<keyof typeof radashi, Benchmark | Record<strin
       }
     },
     "with one key not in object": _ => {
-      const input = { a: 2, b: 3 } as const
+      const input = { a: 2, b: 3 }
 
       if (isLodash(_)) {
         _.pickBy(input, ['a', 'c'])
       } else {
         _.pick(input, ['a', 'c'] as unknown as ["a"])
+      }
+    }
+  },
+  castArray: {
+    "with an array": _ => {
+      const input = new Array(100)
+
+      if (isLodash(_)) {
+        _.castArray(input)
+      } else {
+        _.castArray(input)
+      }
+    },
+    "with number": _ => {
+      const input = 1
+
+      if (isLodash(_)) {
+        _.castArray(input)
+      } else {
+        _.castArray(input)
+      }
+    },
+    "with null": _ => {
+      if (isLodash(_)) {
+        _.castArray(null)
+      } else {
+        _.castArray(null)
       }
     }
   },
