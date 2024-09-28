@@ -4,4 +4,4 @@ if [ ! -d "comparisons/node_modules" ]; then
   pnpm install --prefix comparisons --reporter=silent
 fi
 
-vitest bench
+vitest bench comparisons/* --run
