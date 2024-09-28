@@ -1,4 +1,4 @@
-import * as lodash from 'lodash'
+import lodash from 'lodash'
 import * as radashi from 'radashi'
 
 const libs = { radashi, lodash } as const
@@ -406,7 +406,162 @@ const benchmarks: Partial<
       }
     },
   },
+  last: _ => {
+    const list = [
+      { game: 'a', score: 100 },
+      { game: 'b', score: 200 },
+    ]
+    if (isLodash(_)) {
+      _.last(list)
+    } else {
+      _.last(list)
+    }
+  },
+  assign: _ => {
+    const initial = {
+      name: 'jay',
+      cards: ['ac'],
+      location: {
+        street: '23 main',
+        state: {
+          abbreviation: 'FL',
+          name: 'Florida',
+        },
+      },
+    }
+    const override = {
+      name: 'charles',
+      cards: ['4c'],
+      location: {
+        street: '8114 capo',
+        state: {
+          abbreviation: 'TX',
+          name: 2,
+          a: 2,
+        },
+      },
+    }
+    if (isLodash(_)) {
+      const a = _.assign(initial, override)
+    } else {
+      const a = _.assign(initial, override)
+    }
+  },
+  isArray: _ => {
+    _.isArray([])
+  },
+  isBoolean: {
+    'with boolean value': _ => {
+      _.isBoolean(true)
+    },
+    'with non-boolean value': _ => {
+      _.isBoolean(null)
+    },
+  },
+  isDate: {
+    'with valid input': _ => {
+      _.isDate(new Date())
+    },
+    'with invalid input': _ => {
+      _.isDate(new Date('invalid value'))
+    },
+    'with non-Date value': _ => {
+      _.isDate(22)
+    },
+  },
+  cluster: {
+    'with default cluster size': _ => {
+      const list = [1, 1, 1, 1, 1, 1, 1, 1]
+      if (isLodash(_)) {
+        _.chunk(list, 2)
+      } else {
+        _.cluster(list, 2)
+      }
+    },
+    'specified cluster size of 3': _ => {
+      const list = [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2]
+
+      if (isLodash(_)) {
+        _.chunk(list, 3)
+      } else {
+        _.cluster(list, 3)
+      }
+    },
+  },
+  isEqual: {
+    'with numbers': _ => {
+      _.isEqual(1, 1)
+    },
+    'with string': _ => {
+      _.isEqual('a', 'a')
+    },
+    'with object': _ => {
+      _.isEqual({ a: 1 }, { a: 1 })
+    },
+    'with array': _ => {
+      _.isEqual([1, 2], [1, 2])
+    },
+    'with complex object': _ => {
+      class Person {
+        constructor(readonly name: string) {}
+      }
+      const jake = new Person('jake')
+      const symbolKey = Symbol('symbol')
+      const complex = {
+        num: 0,
+        str: '',
+        boolean: true,
+        unf: void 0,
+        nul: null,
+        obj: { name: 'object', id: 1, children: [0, 1, 2] },
+        arr: [0, 1, 2],
+        func() {
+          console.log('function')
+        },
+        loop: null as any,
+        person: jake,
+        date: new Date(0),
+        reg: /\/regexp\/ig/,
+        [symbolKey]: 'symbol',
+      }
+      complex.loop = complex
+
+      _.isEqual(complex, { ...complex })
+    },
+  },
+  isError: {
+    'with error': _ => {
+      _.isError(new Error())
+    },
+    'with non-error': _ => {
+      _.isError(new Date())
+    },
+  },
+  isInt: {
+    'with integer': _ => {
+      if (isLodash(_)) {
+        _.isInteger(22)
+      } else {
+        _.isInt(22)
+      }
+    },
+    'with non-integer': _ => {
+      if (isLodash(_)) {
+        _.isInteger(22.0567)
+      } else {
+        _.isInt(22.0567)
+      }
+    },
+    'with non-number': _ => {
+      if (isLodash(_)) {
+        _.isInteger('abc')
+      } else {
+        _.isInt('22')
+      }
+    },
+  },
 }
+
 for (const [funcName, run] of Object.entries(benchmarks)) {
   if (!radashi.isFunction(run)) {
     const tests = Object.entries(run)
