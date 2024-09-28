@@ -15,5 +15,6 @@ describe('isError', () => {
     expect(_.isError([])).toBeFalsy()
     expect(_.isError(() => {})).toBeFalsy()
     expect(_.isError(Symbol('error'))).toBeFalsy()
+    expect(_.isError(Error)).toBeFalsy()
   })
 })
