@@ -32,7 +32,7 @@
   ],
   "scripts": {
     "add-function": "bash ./scripts/add-function.sh",
-    "bench": "vitest bench",
+    "bench": "bash ./scripts/run-bench.sh",
     "build": "tsup --clean",
     "bundle-impact": "bash ./scripts/bundle-impact.sh",
     "dev": "tsup --clean --watch --sourcemap",
@@ -47,7 +47,8 @@
     "update-browserslist": "bash ./scripts/update-browserslist.sh"
   },
   "dependencies": {
-    "@radashi-org/biome-config": "link:scripts/biome-config"
+    "@radashi-org/biome-config": "link:scripts/biome-config",
+    "comparisons": "link:comparisons"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",

@@ -11,6 +11,9 @@ importers:
       '@radashi-org/biome-config':
         specifier: link:scripts/biome-config
         version: link:scripts/biome-config
+      comparisons:
+        specifier: link:comparisons
+        version: link:comparisons
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.8.3
