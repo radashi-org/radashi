@@ -587,6 +587,17 @@ const benchmarks: Partial<
       _.template(tmp, data)
     }
   },
+  trim: {
+    'with valid input': _ => {
+      _.trim('  hello world  ')
+    },
+    'with a specific character': _ => {
+      _.trim('__hello__', '_')
+    },
+    'with two specific characters': _ => {
+      _.trim('_- hello_- ', '_- ')
+    },
+  },
 }
 
 for (const [funcName, run] of Object.entries(benchmarks)) {
