@@ -556,6 +556,9 @@ const benchmarks: Partial<
   isSet: _ => {
     _.isSet(new Set())
   },
+  isSymbol: _ => {
+    _.isSymbol(Symbol('abc'))
+  },
 }
 
 for (const [funcName, run] of Object.entries(benchmarks)) {
