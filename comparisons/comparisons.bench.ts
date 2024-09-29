@@ -559,6 +559,9 @@ const benchmarks: Partial<
   isSymbol: _ => {
     _.isSymbol(Symbol('abc'))
   },
+  isWeakMap: _ => {
+    _.isWeakMap(new WeakMap())
+  },
 }
 
 for (const [funcName, run] of Object.entries(benchmarks)) {
