@@ -562,6 +562,9 @@ const benchmarks: Partial<
   isWeakMap: _ => {
     _.isWeakMap(new WeakMap())
   },
+  isWeakSet: _ => {
+    _.isWeakSet(new WeakSet())
+  },
 }
 
 for (const [funcName, run] of Object.entries(benchmarks)) {
