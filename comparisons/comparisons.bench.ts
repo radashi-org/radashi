@@ -565,6 +565,28 @@ const benchmarks: Partial<
   isWeakSet: _ => {
     _.isWeakSet(new WeakSet())
   },
+  template: _ => {
+    const tmp = `
+      Hello my name is {{name}}. I am a {{type}}.
+      Not sure why I am {{reason}}.
+
+      Thank You - {{name}}
+    `
+    const data = {
+      name: 'SpongeBob',
+      type: 'squarePants',
+      reason: 'so likeable',
+    }
+
+    if (isLodash(_)) {
+      const compiled = _.template(tmp, {
+        interpolate: /{{([\s\S]+?)}}/g,
+      })
+      compiled(data)
+    } else {
+      _.template(tmp, data)
+    }
+  },
 }
 
 for (const [funcName, run] of Object.entries(benchmarks)) {
