@@ -553,6 +553,9 @@ const benchmarks: Partial<
   isRegExp: _ => {
     _.isRegExp(/abc/)
   },
+  isSet: _ => {
+    _.isSet(new Set())
+  },
 }
 
 for (const [funcName, run] of Object.entries(benchmarks)) {
