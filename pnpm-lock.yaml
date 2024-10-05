@@ -7,14 +7,13 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@radashi-org/biome-config':
-        specifier: link:scripts/biome-config
-        version: link:scripts/biome-config
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.8.3
         version: 1.8.3
+      '@radashi-org/biome-config':
+        specifier: link:scripts/biome-config
+        version: link:scripts/biome-config
       '@vitest/coverage-v8':
         specifier: 2.0.5
         version: 2.0.5(vitest@2.1.1(@types/node@22.3.0))

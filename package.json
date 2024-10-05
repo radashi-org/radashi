@@ -46,11 +46,9 @@
     "test-single": "bash ./scripts/test-single.sh",
     "update-browserslist": "bash ./scripts/update-browserslist.sh"
   },
-  "dependencies": {
-    "@radashi-org/biome-config": "link:scripts/biome-config"
-  },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
+    "@radashi-org/biome-config": "link:scripts/biome-config",
     "@vitest/coverage-v8": "2.0.5",
     "cspell": "^8.13.3",
     "prettier": "^3.3.2",
