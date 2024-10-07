@@ -13,6 +13,7 @@
 </div>
 
 &nbsp;
+English | [Português](./README-pt_br.md)
 
 **Ditch the bloat of Lodash. Stop reinventing the wheel.**
 
@@ -35,7 +36,7 @@ _“What makes Radashi so great?”_
 - **performance tracking** (we track perf regressions with continuous benchmarking)
 - **well-documented**
 - **nightly releases** (`radashi@beta`)
-- **changelog** (easily see what's new in each release)
+- **[changelog](https://github.com/radashi-org/radashi/blob/main/CHANGELOG.md)** (easily see what's new in each release)
 
 _If you've been using Radash (our predecessor), you're probably interested in what makes us different. Read [our comparison post](https://radashi.js.org/blog/vs-radash) to learn how we're bringing Radash to the next level while preserving its best features._
 
