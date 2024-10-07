@@ -37,4 +37,25 @@ describe('parallel', () => {
     })
     expect(Math.max(...tracking)).toBe(3)
   })
+  test('aborts the operation when the signal is triggered', async () => {
+    const abortController = new AbortController()
+
+    setTimeout(() => abortController.abort(), 150)
+
+    const [error, results] = await _.try(async () => {
+      return _.parallel(
+        1,
+        _.list(1, 3),
+        async num => {
+          await _.sleep(50)
+          return `hi_${num}`
+        },
+        abortController.signal,
+      )
+    })()
+
+    expect(results).toBeUndefined()
+    expect(error).toBeInstanceOf(Error)
+    expect(error?.message).toBe('Operation aborted')
+  })
 })

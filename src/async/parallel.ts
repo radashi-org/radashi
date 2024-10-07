@@ -9,15 +9,20 @@ type WorkItemResult<K> = {
  * Executes many async functions in parallel. Returns the results from
  * all functions as an array. After all functions have resolved, if
  * any errors were thrown, they are rethrown in an instance of
- * AggregateError.
+ * AggregateError. The operation can be aborted by passing optional AbortSignal,
+ * which will throw an Error if aborted.
  *
  * @see https://radashi.js.org/reference/async/parallel
  * @example
  * ```ts
  * // Process images concurrently, resizing each image to a standard size.
+ * const abortController = new AbortController();
  * const images = await parallel(2, imageFiles, async (file) => {
  *   return await resizeImage(file)
- * })
+ * }, abortController)
+ *
+ * // To abort the operation:
+ * // abortController.abort()
  * ```
  * @version 12.1.0
  */
@@ -25,14 +30,25 @@ export async function parallel<T, K>(
   limit: number,
   array: readonly T[],
   func: (item: T) => Promise<K>,
+  signal?: AbortSignal,
 ): Promise<K[]> {
   const work = array.map((item, index) => ({
     index,
     item,
   }))
   // Process array items
-  const processor = async (res: (value: WorkItemResult<K>[]) => void) => {
+  const processor = async (
+    res: (value: WorkItemResult<K>[]) => void,
+    rej: (error: any) => void,
+  ) => {
     const results: WorkItemResult<K>[] = []
+    signal?.addEventListener(
+      'abort',
+      () => rej(new Error('Operation aborted')),
+      {
+        once: true,
+      },
+    )
     while (true) {
       const next = work.pop()
       if (!next) {
