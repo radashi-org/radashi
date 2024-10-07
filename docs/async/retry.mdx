@@ -12,6 +12,8 @@ The `times` option defaults to `3`. The `delay` option (defaults to null) can sp
 
 The `backoff` option is like delay but uses a function to sleep -- makes for easy exponential backoff.
 
+The signal option allows you to pass an AbortSignal to abort the retry operation if needed.
+
 ```ts
 import * as _ from 'radashi'
 
@@ -32,4 +34,21 @@ await _.retry({ times: 2, delay: 1000 }, api.users.list) // try 2 times with 1 s
 
 // exponential backoff
 await _.retry({ backoff: i => 10 ** i }, api.users.list) // try 3 times with 10, 100, 1000 ms delay
+
+// aborting the retry operation
+const abortController = new AbortController()
+const signal = abortController.signal
+
+const promise = _.retry({ times: 3, delay: 1000, signal }, api.users.list)
+
+// To abort the operation:
+abortController.abort()
+
+try {
+  await promise
+} catch (err) {
+  if (err.message === 'Operation aborted') {
+    console.log('Retry operation was aborted')
+  }
+}
 ```
