@@ -1,0 +1,33 @@
+---
+title: isClass
+description: Determine if a value was declared with `class` syntax
+---
+
+### Usage
+
+This function returns `true` if the provided value is a constructor declared with the ES6 `class` keyword.
+
+```ts
+import * as _ from 'radashi'
+
+class MyClass {}
+
+_.isClass(MyClass) // => true
+_.isClass(Error) // => false
+_.isClass(function OldClass() {}) // => false
+_.isClass('abc') // => false
+_.isClass({}) // => false
+_.isClass(undefined) // => false
+```
+
+:::note
+
+Old school constructors (declared with the `function` keyword) will return `false`.
+
+Built-in class constructors (e.g. `Error`) will also return `false`, because they're created with native code, not the `class` keyword.
+
+:::
+
+### Popular use cases
+
+- Type guard would check for a function that must be called with the `new` operator
