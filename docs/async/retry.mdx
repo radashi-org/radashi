@@ -12,7 +12,7 @@ The `times` option defaults to `3`. The `delay` option (defaults to null) can sp
 
 The `backoff` option is like delay but uses a function to sleep -- makes for easy exponential backoff.
 
-The signal option allows you to pass an AbortSignal to abort the retry operation if needed.
+The `signal` option allows you to pass an AbortSignal to abort the retry operation if needed.
 
 ```ts
 import * as _ from 'radashi'
