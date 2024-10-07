@@ -17,3 +17,45 @@ _.isEmpty('') // => true
 _.isEmpty('hello') // => false
 _.isEmpty(['hello']) // => false
 ```
+
+### Type Guards
+
+The function also acts as a [type guard](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards), which helps TypeScript infer more specific types based on the result of the function. This can be particularly useful when dealing with complex types or when you need to ensure type safety in your code.
+
+```ts
+import * as _ from 'radashi'
+
+// Example with string
+const value1: string | '' = ''
+if (_.isEmpty(value1)) {
+  // TypeScript infers value1 as ''
+  console.log('Value is an empty string')
+} else {
+  // TypeScript infers value1 as string
+  console.log('Value is a non-empty string')
+}
+
+// Example with object
+type Person = {
+  name: string
+  age: number
+}
+const value2: Person | undefined = {}
+if (_.isEmpty(value2)) {
+  // TypeScript infers value2 as undefined
+  console.log('Value is an empty object')
+} else {
+  // TypeScript infers value2 as Person
+  console.log('Value is a non-empty object')
+}
+
+// Example with array
+const value3: string[] = []
+if (_.isEmpty(value3)) {
+  // TypeScript infers value3 as never[]
+  console.log('Value is an empty array')
+} else {
+  // TypeScript infers value3 as string[]
+  console.log('Value is a non-empty array')
+}
+```
