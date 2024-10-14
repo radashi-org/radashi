@@ -14,6 +14,9 @@ importers:
       '@radashi-org/biome-config':
         specifier: link:scripts/biome-config
         version: link:scripts/biome-config
+      '@types/node':
+        specifier: ^22.7.5
+        version: 22.7.5
       '@vitest/coverage-v8':
         specifier: 2.0.5
         version: 2.0.5(vitest@2.1.1(@types/node@22.7.5))
@@ -41,12 +44,6 @@ importers:
       vitest:
         specifier: 2.1.1
         version: 2.1.1(@types/node@22.7.5)
-
-  tests:
-    dependencies:
-      '@types/node':
-        specifier: ^22.7.5
-        version: 22.7.5
 
 packages:
 
