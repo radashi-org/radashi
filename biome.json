@@ -3,12 +3,5 @@
   "extends": ["@radashi-org/biome-config"],
   "files": {
     "ignore": ["**/src/bigint.ts", "**/package.json"]
-  },
-  "linter": {
-    "rules": {
-      "style": {
-        "useNodejsImportProtocol": "off"
-      }
-    }
   }
 }

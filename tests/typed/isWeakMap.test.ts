@@ -1,5 +1,5 @@
+import * as vm from 'node:vm'
 import * as _ from 'radashi'
-import * as vm from 'vm'
 
 describe('isWeakMap', () => {
   test('returns true for WeakMap instances', () => {
