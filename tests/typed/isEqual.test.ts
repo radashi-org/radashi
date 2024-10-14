@@ -22,7 +22,7 @@ describe('isEqual', () => {
     obj: { name: 'object', id: 1, children: [0, 1, 2] },
     arr: [0, 1, 2],
     func() {
-      console.log('function')
+      return true
     },
     loop: null as any,
     person: jake,
