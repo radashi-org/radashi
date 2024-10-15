@@ -10,13 +10,7 @@ import {
 
 type AbortSignal = {
   readonly aborted: boolean
-  addEventListener(
-    type: 'abort',
-    listener: () => void,
-    options?: {
-      once: boolean
-    },
-  ): void
+  addEventListener(type: 'abort', listener: () => void): void
   removeEventListener(type: 'abort', listener: () => void): void
   throwIfAborted(): void
 }
