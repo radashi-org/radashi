@@ -129,7 +129,7 @@ describe('retry', () => {
       })
     } catch (err) {
       expect(err).toBeInstanceOf(Error)
-      expect((err as Error).message).toBe('Operation aborted')
+      expect((err as Error).message).toBe('This operation was aborted')
       return
     }
 
