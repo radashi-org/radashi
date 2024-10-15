@@ -83,4 +83,29 @@ describe('parallel', () => {
     expect(error).toBeInstanceOf(Error)
     expect(error?.message).toBe('This operation was aborted')
   })
+  test('removes abort event listener after completion', async () => {
+    const mockAbortSignal = {
+      aborted: false,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      throwIfAborted: vi.fn(),
+    }
+
+    await _.parallel(
+      {
+        limit: 2,
+        signal: mockAbortSignal,
+      },
+      _.list(1, 5),
+      async num => {
+        await new Promise(resolve => setTimeout(resolve, 10))
+        return `hi_${num}`
+      },
+    )
+
+    expect(mockAbortSignal.removeEventListener).toHaveBeenCalledWith(
+      'abort',
+      expect.any(Function),
+    )
+  })
 })
