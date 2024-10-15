@@ -44,18 +44,43 @@ describe('parallel', () => {
 
     const [error, results] = await _.try(async () => {
       return _.parallel(
-        1,
-        _.list(1, 3),
+        {
+          limit: 1,
+          signal: abortController.signal,
+        },
+        _.list(1, 12),
         async num => {
           await _.sleep(50)
           return `hi_${num}`
         },
-        abortController.signal,
       )
     })()
 
     expect(results).toBeUndefined()
     expect(error).toBeInstanceOf(Error)
-    expect(error?.message).toBe('Operation aborted')
+    expect(error?.message).toBe('This operation was aborted')
+  })
+  test('should throw if the abort controller aborted before first iteration has finished execution', async () => {
+    const abortController = new AbortController()
+
+    abortController.abort()
+
+    const [error, results] = await _.try(async () => {
+      return _.parallel(
+        {
+          limit: 1,
+          signal: abortController.signal,
+        },
+        _.list(1, 24),
+        async num => {
+          await _.sleep(50)
+          return `hi_${num}`
+        },
+      )
+    })()
+
+    expect(results).toBeUndefined()
+    expect(error).toBeInstanceOf(Error)
+    expect(error?.message).toBe('This operation was aborted')
   })
 })
