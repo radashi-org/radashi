@@ -8,7 +8,7 @@ since: 12.1.0
 
 Like `_.map` but built specifically to run the async callback functions
 in parallel. The first argument is a limit of how many functions should
-be allowed to run at once. 
+be allowed to run at once.
 
 Optionally, you can pass `AbortController.signal` as the last parameter to abort the operation if needed.
 
@@ -55,9 +55,16 @@ const userIds = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const abortController = new AbortController()
 const signal = abortController.signal
 
-const [err, users] = await _.tryit(_.parallel)(3, userIds, async userId => {
-  return await api.users.find(userId)
-}, signal)
+const [err, users] = await _.tryit(_.parallel)(
+  {
+    limit: 3,
+    signal: signal,
+  },
+  userIds,
+  async userId => {
+    return await api.users.find(userId)
+  },
+)
 
 // To abort the operation:
 abortController.abort()
