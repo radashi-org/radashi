@@ -1,5 +1,9 @@
 import { sleep, tryit } from 'radashi'
 
+type AbortSignal = {  
+  throwIfAborted(): void  
+}  
+
 export type RetryOptions = {
   times?: number
   delay?: number | null
@@ -36,9 +40,7 @@ export async function retry<TResponse>(
     const [err, result] = (await tryit(func)((err: any) => {
       throw { _exited: err }
     })) as [any, TResponse]
-    if (signal?.aborted) {
-      throw new Error('Operation aborted')
-    }
+    signal?.throwIfAborted()
     if (!err) {
       return result
     }
