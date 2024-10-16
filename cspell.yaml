@@ -2,10 +2,12 @@ version: '0.2'
 language: en
 ignorePaths:
   - '**/package.json'
+  - '**/tsconfig.json'
   - '**/pnpm-lock.yaml'
   - '**/dist'
-  - coverage
+  - 'coverage'
   - 'cliff.toml'
+  - 'README-pt_br.md'
 languageSettings:
   - languageId: markdown
     ignoreRegExpList:
@@ -38,6 +40,7 @@ words:
   - objectize
   - partob
   - ponyfill
+  - Português
   - procs
   - radash
   - radashi
