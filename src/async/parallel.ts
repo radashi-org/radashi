@@ -66,39 +66,37 @@ export async function parallel<T, K>(
   if (isNumber(options)) {
     options = {
       limit: options,
-      signal: undefined,
     }
   }
 
-  options?.signal?.throwIfAborted()
+  options.signal?.throwIfAborted()
 
   // Process array items
   const processor = async (
-    res: (value: WorkItemResult<K>[]) => void,
-    rej: (error: any) => void,
+    resolve: (value: WorkItemResult<K>[]) => void,
+    reject: (error: any) => void,
   ) => {
     const results: WorkItemResult<K>[] = []
-    const abortListener = () => rej(new Error('This operation was aborted'))
+    const abortListener = () => reject(new Error('This operation was aborted'))
 
-    options?.signal?.addEventListener('abort', abortListener)
-    try {
-      while (true) {
-        const next = work.pop()
-        if (!next) {
-          return res(results)
-        }
-        const [error, result] = await tryit(func)(next.item)
-        results.push({
-          error,
-          result: result as K,
-          index: next.index,
-        })
+    options.signal?.addEventListener('abort', abortListener)
+    while (true) {
+      const next = work.pop()
+      if (!next) {
+        break
       }
-    } finally {
-      options?.signal?.removeEventListener('abort', abortListener)
+      const [error, result] = await tryit(func)(next.item)
+      results.push({
+        error,
+        result: result as K,
+        index: next.index,
+      })
     }
+
+    options.signal?.removeEventListener('abort', abortListener)
+
+    return resolve(results)
   }
-  // Create queues
   const queues = list(1, options.limit).map(() => new Promise(processor))
   // Wait for all queues to complete
   const itemResults = (await Promise.all(queues)) as WorkItemResult<K>[][]
