@@ -78,7 +78,6 @@ export async function parallel<T, K>(
   ) => {
     const results: WorkItemResult<K>[] = []
     const abortListener = () => reject(new Error('This operation was aborted'))
-
     options.signal?.addEventListener('abort', abortListener)
     while (true) {
       const next = work.pop()
@@ -92,9 +91,7 @@ export async function parallel<T, K>(
         index: next.index,
       })
     }
-
     options.signal?.removeEventListener('abort', abortListener)
-
     return resolve(results)
   }
   const queues = list(1, options.limit).map(() => new Promise(processor))
