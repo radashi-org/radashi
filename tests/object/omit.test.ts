@@ -21,7 +21,15 @@ describe('omit', () => {
     expect(result).toEqual(person)
   })
   test('returns object without omitted properties', () => {
-    const result = _.omit(person, ['name'])
+    const result = _.omit(person, ['name'] )
+    expect(result).toEqual({
+      age: 20,
+      active: true,
+    })
+  })
+  test('returns object without omitted properties when keys are readonly', () => {
+    const keysToOmit = ['name', 'age'] as const;
+    const result = _.omit(person, keysToOmit)
     expect(result).toEqual({
       age: 20,
       active: true,
