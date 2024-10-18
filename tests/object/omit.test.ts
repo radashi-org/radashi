@@ -31,7 +31,6 @@ describe('omit', () => {
     const keysToOmit = ['name', 'age'] as const;
     const result = _.omit(person, keysToOmit)
     expect(result).toEqual({
-      age: 20,
       active: true,
     })
   })
