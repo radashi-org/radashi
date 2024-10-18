@@ -13,7 +13,16 @@ The `tryit` function let's you wrap a function to convert it to an error-first f
 ```ts
 import * as _ from 'radashi'
 
-const [err, user] = await _.tryit(api.users.find)(userId)
+const api = {
+  users: {
+    find: async (id: number) => id < 3 ? { id, name: 'Alice' } : throw new Error('Not found'),
+  },
+}
+const userIdA = 1
+const userIdB = 3
+
+const [err, user] = await _.tryit(api.users.find)(userId) // [null, { id: 1, name: 'Alice' }]
+const [err, user] = await _.tryit(api.users.find)(userIdB) // [Error('Not found'), undefined]
 ```
 
 ### Currying
