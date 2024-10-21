@@ -1,28 +1,60 @@
-import { AggregateError, flat, fork, list, sort, tryit } from 'radashi'
+import {
+  AggregateError,
+  flat,
+  fork,
+  isNumber,
+  list,
+  sort,
+  tryit,
+} from 'radashi'
 
+type AbortSignal = {
+  readonly aborted: boolean
+  addEventListener(type: 'abort', listener: () => void): void
+  removeEventListener(type: 'abort', listener: () => void): void
+  throwIfAborted(): void
+}
 type WorkItemResult<K> = {
   index: number
   result: K
   error: any
 }
+export type ParallelOptions =
+  | {
+      limit: number
+      signal?: AbortSignal
+    }
+  | number
+
 /**
  * Executes many async functions in parallel. Returns the results from
  * all functions as an array. After all functions have resolved, if
  * any errors were thrown, they are rethrown in an instance of
- * AggregateError.
+ * AggregateError. The operation can be aborted by passing optional AbortSignal,
+ * which will throw an Error if aborted.
  *
  * @see https://radashi.js.org/reference/async/parallel
  * @example
  * ```ts
  * // Process images concurrently, resizing each image to a standard size.
- * const images = await parallel(2, imageFiles, async (file) => {
+ * const abortController = new AbortController();
+ * const images = await parallel(
+ * {
+ *  limit: 2,
+ *  signal: abortController.signal,
+ * },
+ *  imageFiles,
+ *  async file => {
  *   return await resizeImage(file)
  * })
+ *
+ * // To abort the operation:
+ * // abortController.abort()
  * ```
  * @version 12.1.0
  */
 export async function parallel<T, K>(
-  limit: number,
+  options: ParallelOptions,
   array: readonly T[],
   func: (item: T) => Promise<K>,
 ): Promise<K[]> {
@@ -30,13 +62,27 @@ export async function parallel<T, K>(
     index,
     item,
   }))
+
+  if (isNumber(options)) {
+    options = {
+      limit: options,
+    }
+  }
+
+  options.signal?.throwIfAborted()
+
   // Process array items
-  const processor = async (res: (value: WorkItemResult<K>[]) => void) => {
+  const processor = async (
+    resolve: (value: WorkItemResult<K>[]) => void,
+    reject: (error: any) => void,
+  ) => {
     const results: WorkItemResult<K>[] = []
+    const abortListener = () => reject(new Error('This operation was aborted'))
+    options.signal?.addEventListener('abort', abortListener)
     while (true) {
       const next = work.pop()
       if (!next) {
-        return res(results)
+        break
       }
       const [error, result] = await tryit(func)(next.item)
       results.push({
@@ -45,9 +91,10 @@ export async function parallel<T, K>(
         index: next.index,
       })
     }
+    options.signal?.removeEventListener('abort', abortListener)
+    return resolve(results)
   }
-  // Create queues
-  const queues = list(1, limit).map(() => new Promise(processor))
+  const queues = list(1, options.limit).map(() => new Promise(processor))
   // Wait for all queues to complete
   const itemResults = (await Promise.all(queues)) as WorkItemResult<K>[][]
   const [errors, results] = fork(
