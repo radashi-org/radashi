@@ -13,10 +13,10 @@ importers:
         version: 0.25.2
       '@types/node':
         specifier: ^22.1.0
-        version: 22.7.4
+        version: 22.7.7
       execa:
         specifier: ^9.3.0
-        version: 9.4.0
+        version: 9.4.1
       mri:
         specifier: ^1.2.0
         version: 1.2.0
@@ -237,8 +237,8 @@ packages:
   '@octokit/openapi-webhooks-types@8.3.0':
     resolution: {integrity: sha512-vKLsoR4xQxg4Z+6rU/F65ItTUz/EXbD+j/d4mlq2GW8TsA4Tc8Kdma2JTAAJ5hrKWUQzkR/Esn2fjsqiVRYaQg==}
 
-  '@octokit/plugin-paginate-graphql@5.2.3':
-    resolution: {integrity: sha512-EzFueuXVU3VHv5FwEXbdznn9EmyF0vA5LGDX6a8fJ9YJAlDgdYHRKJMO4Ghl2PPPJBxIPMDUJMnlUHqcvP7AnQ==}
+  '@octokit/plugin-paginate-graphql@5.2.4':
+    resolution: {integrity: sha512-pLZES1jWaOynXKHOqdnwZ5ULeVR6tVVCMm+AUbp0htdcyXDU95WbkYdU4R2ej1wKj5Tu94Mee2Ne0PjPO9cCyA==}
     engines: {node: '>= 18'}
     peerDependencies:
       '@octokit/core': '>=6'
@@ -299,11 +299,11 @@ packages:
   '@types/node-fetch@2.6.11':
     resolution: {integrity: sha512-24xFj9R5+rfQJLRyM56qh+wnVSYhyXC2tkoBndtY0U+vubqNsYXGjufB2nn8Q6gt0LrARwL6UBtMCSVCwl4B1g==}
 
-  '@types/node@18.19.54':
-    resolution: {integrity: sha512-+BRgt0G5gYjTvdLac9sIeE0iZcJxi4Jc4PV5EUzqi+88jmQLr+fRZdv2tCTV7IHKSGxM6SaLoOXQWWUiLUItMw==}
+  '@types/node@18.19.57':
+    resolution: {integrity: sha512-I2ioBd/IPrYDMv9UNR5NlPElOZ68QB7yY5V2EsLtSrTO0LM0PnCEFF9biLWHf5k+sIy4ohueCV9t4gk1AEdlVA==}
 
-  '@types/node@22.7.4':
-    resolution: {integrity: sha512-y+NPi1rFzDs1NdQHHToqeiX2TIS79SWEAw9GYhkkx8bD0ChpfqC+n2j5OXOCpzfojBEBt6DnEnnG9MY0zk1XLg==}
+  '@types/node@22.7.7':
+    resolution: {integrity: sha512-SRxCrrg9CL/y54aiMCG3edPKdprgMVGDXjA3gB8UmmBW5TcXzRUYAh8EWzTnSJFAd1rgImPELza+A3bJ+qxz8Q==}
 
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
@@ -343,8 +343,8 @@ packages:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
     engines: {node: '>=6'}
 
-  execa@9.4.0:
-    resolution: {integrity: sha512-yKHlle2YGxZE842MERVIplWwNH5VYmqqcPFgtnlU//K8gxuFFXu0pwd/CrfXTumFpeEiufsP7+opT/bPJa1yVw==}
+  execa@9.4.1:
+    resolution: {integrity: sha512-5eo/BRqZm3GYce+1jqX/tJ7duA2AnE39i88fuedNFUV8XxGxUpF3aWkBRfbUcjV49gCkvS/pzc0YrCPhaIewdg==}
     engines: {node: ^18.19.0 || >=20.5.0}
 
   figures@6.1.0:
@@ -354,8 +354,8 @@ packages:
   form-data-encoder@1.7.2:
     resolution: {integrity: sha512-qfqtYan3rxrnCk1VYaA4H+Ms9xdpPqvLZa6xmMgFvhO32x7/3J/ExcTd6qpxM0vH2GdMI+poehyBZvqfMTto8A==}
 
-  form-data@4.0.0:
-    resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
+  form-data@4.0.1:
+    resolution: {integrity: sha512-tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==}
     engines: {node: '>= 6'}
 
   formdata-node@4.4.1:
@@ -517,7 +517,7 @@ snapshots:
 
   '@anthropic-ai/sdk@0.25.2':
     dependencies:
-      '@types/node': 18.19.54
+      '@types/node': 18.19.57
       '@types/node-fetch': 2.6.11
       abort-controller: 3.0.0
       agentkeepalive: 4.5.0
@@ -695,7 +695,7 @@ snapshots:
 
   '@octokit/openapi-webhooks-types@8.3.0': {}
 
-  '@octokit/plugin-paginate-graphql@5.2.3(@octokit/core@6.1.2)':
+  '@octokit/plugin-paginate-graphql@5.2.4(@octokit/core@6.1.2)':
     dependencies:
       '@octokit/core': 6.1.2
 
@@ -753,14 +753,14 @@ snapshots:
 
   '@types/node-fetch@2.6.11':
     dependencies:
-      '@types/node': 22.7.4
-      form-data: 4.0.0
+      '@types/node': 22.7.7
+      form-data: 4.0.1
 
-  '@types/node@18.19.54':
+  '@types/node@18.19.57':
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@22.7.4':
+  '@types/node@22.7.7':
     dependencies:
       undici-types: 6.19.8
 
@@ -819,7 +819,7 @@ snapshots:
 
   event-target-shim@5.0.1: {}
 
-  execa@9.4.0:
+  execa@9.4.1:
     dependencies:
       '@sindresorhus/merge-streams': 4.0.0
       cross-spawn: 7.0.3
@@ -840,7 +840,7 @@ snapshots:
 
   form-data-encoder@1.7.2: {}
 
-  form-data@4.0.0:
+  form-data@4.0.1:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
@@ -905,7 +905,7 @@ snapshots:
       '@octokit/app': 15.1.0
       '@octokit/core': 6.1.2
       '@octokit/oauth-app': 7.1.3
-      '@octokit/plugin-paginate-graphql': 5.2.3(@octokit/core@6.1.2)
+      '@octokit/plugin-paginate-graphql': 5.2.4(@octokit/core@6.1.2)
       '@octokit/plugin-paginate-rest': 11.3.5(@octokit/core@6.1.2)
       '@octokit/plugin-rest-endpoint-methods': 13.2.6(@octokit/core@6.1.2)
       '@octokit/plugin-retry': 7.1.2(@octokit/core@6.1.2)
