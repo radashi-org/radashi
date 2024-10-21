@@ -16,7 +16,7 @@ importers:
         version: 21.0.2
       execa:
         specifier: ^9.3.0
-        version: 9.4.0
+        version: 9.4.1
       fast-glob:
         specifier: ^3.3.2
         version: 3.3.2
@@ -272,8 +272,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  execa@9.4.0:
-    resolution: {integrity: sha512-yKHlle2YGxZE842MERVIplWwNH5VYmqqcPFgtnlU//K8gxuFFXu0pwd/CrfXTumFpeEiufsP7+opT/bPJa1yVw==}
+  execa@9.4.1:
+    resolution: {integrity: sha512-5eo/BRqZm3GYce+1jqX/tJ7duA2AnE39i88fuedNFUV8XxGxUpF3aWkBRfbUcjV49gCkvS/pzc0YrCPhaIewdg==}
     engines: {node: ^18.19.0 || >=20.5.0}
 
   fast-glob@3.3.2:
@@ -657,7 +657,7 @@ snapshots:
       '@esbuild/win32-ia32': 0.23.1
       '@esbuild/win32-x64': 0.23.1
 
-  execa@9.4.0:
+  execa@9.4.1:
     dependencies:
       '@sindresorhus/merge-streams': 4.0.0
       cross-spawn: 7.0.3
@@ -724,7 +724,7 @@ snapshots:
 
   git-cliff@2.4.0:
     dependencies:
-      execa: 9.4.0
+      execa: 9.4.1
     optionalDependencies:
       git-cliff-darwin-arm64: 2.4.0
       git-cliff-darwin-x64: 2.4.0
