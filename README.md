@@ -10,10 +10,10 @@
   <a href="https://biomejs.dev/"><img src="https://img.shields.io/badge/code_style-biome.js-blue?logo=biome" alt="Code Style: Biome.js" /></a>
   <a href="https://github.com/radashi-org/radashi/discussions"><img src="https://img.shields.io/github/discussions/radashi-org/radashi?logo=github" alt="GitHub Discussions" /></a>
   <a href="https://app.gitter.im/#/room/#radashi:gitter.im"><img src="https://badges.gitter.im/join_chat.svg" alt="Gitter.im" /></a>
+  <p align="center">
+    <span>English</span> | <a href="./README-pt_br.md">Português</a>
+  </p>
 </div>
-
-&nbsp;
-English | [Português](./README-pt_br.md)
 
 **Ditch the bloat of Lodash. Stop reinventing the wheel.**
 
