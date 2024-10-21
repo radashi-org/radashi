@@ -1,4 +1,4 @@
-import * as _ from 'radashi';
+import * as _ from 'radashi'
 
 describe('isNullish', () => {
   bench('with null', () => {
@@ -21,4 +21,3 @@ describe('isNullish', () => {
     _.isNullish([])
   })
 })
-

@@ -1,4 +1,4 @@
-import * as _ from 'radashi';
+import * as _ from 'radashi'
 
 describe('isNullish', () => {
   test('returns true for null', () => {
