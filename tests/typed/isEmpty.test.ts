@@ -23,6 +23,7 @@ describe('isEmpty', () => {
     expect(_.isEmpty(new Date())).toBeFalsy()
     expect(_.isEmpty(new Date('2022-09-01T02:19:55.976Z'))).toBeFalsy()
     expect(_.isEmpty(22)).toBeFalsy()
+    expect(_.isEmpty(-22)).toBeFalsy()
     expect(_.isEmpty(new Person())).toBeFalsy()
     expect(_.isEmpty({ name: 'x' })).toBeFalsy()
     expect(_.isEmpty('abc')).toBeFalsy()
