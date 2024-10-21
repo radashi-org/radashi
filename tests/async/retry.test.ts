@@ -1,7 +1,7 @@
 // cSpell:ignore backoffs
 
-import * as _ from 'radashi'
 import type { RetryOptions } from 'radashi'
+import * as _ from 'radashi'
 
 const cast = <T = RetryOptions>(value: any): T => value
 
@@ -16,9 +16,11 @@ describe('retry', () => {
     expect(result).toBe('hello')
   })
   test('simple + quick + happy path', async () => {
-    const result = await _.retry(cast(null), async () => {
+    const onRetry = vi.fn()
+    const result = await _.retry({ onRetry }, async () => {
       return 'hello'
     })
+    expect(onRetry).not.toBeCalled()
     expect(result).toBe('hello')
   })
   test('retries on failure', async () => {
@@ -30,6 +32,21 @@ describe('retry', () => {
       }
       return 'hello'
     })
+    expect(result).toBe('hello')
+  })
+  test('call onRetry function on retries', async () => {
+    let attempt = 0
+    const onRetry = vi.fn()
+    const result = await _.retry({ onRetry }, async _bail => {
+      if (attempt < 2) {
+        attempt++
+        throw 'Failing for test'
+      }
+      return 'hello'
+    })
+    expect(onRetry).toBeCalledTimes(2)
+    expect(onRetry).toHaveBeenNthCalledWith(1, 'Failing for test', 1)
+    expect(onRetry).toHaveBeenNthCalledWith(2, 'Failing for test', 2)
     expect(result).toBe('hello')
   })
   test('quits on bail', async () => {
