@@ -12,6 +12,13 @@ A reduce that handles callback functions that return a promise.
 import * as _ from 'radashi'
 
 const userIds = [1, 2, 3, 4]
+const api = {
+  users: {
+    async find(id: number) {
+      return { name: `person ${id}` }
+    },
+  },
+}
 
 const users = await _.reduce(
   userIds,
@@ -23,5 +30,5 @@ const users = await _.reduce(
     }
   },
   {},
-)
+) // { 1: { name: 'person 1' }, 2: { name: 'person 2' }, 3: { name: 'person 3' }, 4: { name: 'person 4' } }
 ```
