@@ -1,0 +1,19 @@
+---
+title: isNullish
+description: Determine if a value is null or undefined
+since: 12.2.0
+---
+
+### Usage
+
+Pass in a value and get a boolean telling you if the value is null or undefined.
+
+```ts
+import * as _ from 'radashi'
+
+_.isNullish(null) // => true
+_.isNullish(undefined) // => true
+_.isNullish('') // => false
+_.isNullish([]) // => false
+_.isNullish(0) // => false
+```
