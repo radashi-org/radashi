@@ -12,8 +12,10 @@
  * ```
  * @version 12.1.0
  */
+export function last<T>(array: readonly [T, ...T[]]): T
 export function last<T>(array: readonly T[]): T | undefined
 
+export function last<T, U>(array: readonly [T, ...T[]], defaultValue: U): T
 export function last<T, U>(array: readonly T[], defaultValue: U): T | U
 
 export function last(array: readonly unknown[], defaultValue?: unknown) {
