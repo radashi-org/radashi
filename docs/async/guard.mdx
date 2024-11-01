@@ -1,20 +1,61 @@
 ---
 title: guard
-description: Have a function return undefined if it errors out
+description: Make an async function return undefined if it rejects
 since: 12.1.0
 ---
 
 ### Usage
 
-This lets you set a default value if an async function errors out.
+The `guard` function allows you to make an async function return `undefined` if it rejects. This is useful when you want to handle errors in a functional way, such as returning a default value.
 
 ```ts
-const users = (await guard(fetchUsers)) ?? []
+import * as _ from 'radashi'
+
+const example = async () => {
+  throw new Error()
+}
+
+const result = (await _.guard(example)) ?? []
+// []
 ```
 
-You can choose to guard only specific errors too
+#### Guard only specific errors
+
+The 2nd argument to `guard` is an error predicate. If provided, the function will only return `undefined` if the error matches the predicate.
 
 ```ts
-const isInvalidUserError = (err: any) => err.code === 'INVALID_ID'
-const user = (await guard(fetchUser, isInvalidUserError)) ?? DEFAULT_USER
+import * as _ from 'radashi'
+
+const DEFAULT_USER = { name: 'John Doe' }
+
+async function fetchUser(id: string) {
+  if (id === 'unknown') throw new Error('User does not exist')
+  if (id === 'oops') throw new ReferenceError()
+  return { name: 'Jim Jimmy' }
+}
+
+const isPlainError = (err: any) => err.name === 'Error'
+
+const userA =
+  (await _.guard(() => fetchUser('unknown'), isPlainError)) ?? DEFAULT_USER
+// { name: "John Doe"}
+
+// This one will reject.
+const userB = await _.guard(() => fetchUser('oops'), isPlainError).catch(e => e)
+// [object ReferenceError]
+```
+
+#### Synchronous guards
+
+The `guard` function also works with synchronous functions.
+
+```ts
+import * as _ from 'radashi'
+
+function example() {
+  throw new Error()
+}
+
+const result = _.guard(example) ?? []
+// []
 ```
