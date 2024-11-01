@@ -12,6 +12,8 @@ The `times` option defaults to `3`. The `delay` option (defaults to null) can sp
 
 The `backoff` option is like delay but uses a function to sleep -- makes for easy exponential backoff.
 
+The `onRetry` option is a Function that is invoked after a new retry is performed. It's passed the Error that triggered it as a parameter and the attempt number.
+
 ```ts
 import * as _ from 'radashi'
 
@@ -21,4 +23,10 @@ await _.retry({ times: 2, delay: 1000 }, api.users.list)
 
 // exponential backoff
 await _.retry({ backoff: i => 10 ** i }, api.users.list)
+
+// onRetry usage
+await _.retry(
+  { onRetry: (err, i) => console.log(`Trying again... Attempt: ${i}`) },
+  api.users.list,
+)
 ```
