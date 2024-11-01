@@ -1,6 +1,6 @@
 {
   "name": "radashi",
-  "version": "12.1.0",
+  "version": "12.2.0",
   "type": "module",
   "description": "The modern, community-first TypeScript toolkit with all of the fast, readable, and minimal utility functions you need. Type-safe, dependency-free, tree-shakeable, fully tested.",
   "repository": {
