@@ -5,6 +5,7 @@ ignorePaths:
   - '**/tsconfig.json'
   - '**/pnpm-lock.yaml'
   - '**/dist'
+  - 'vitest.config.ts'
   - 'coverage'
   - 'cliff.toml'
   - 'README-pt_br.md'
