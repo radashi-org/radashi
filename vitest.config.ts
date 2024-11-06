@@ -19,7 +19,7 @@ export default defineConfig(env => ({
     typecheck: {
       include: ['tests/**/*.test-d.ts'],
       enabled: true,
-      tsconfig: "tests/tsconfig.json"
+      tsconfig: 'tests/tsconfig.json',
     },
   },
   resolve: {
