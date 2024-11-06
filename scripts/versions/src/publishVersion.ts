@@ -50,6 +50,11 @@ export async function publishVersion(args: {
     env: { GITHUB_TOKEN: args.gitCliffToken },
   }).then(r => r.stdout.replace(/^v/, ''))
 
+  if (stableVersion === newVersion) {
+    log('🚫 No version bump detected')
+    process.exit(1)
+  }
+
   const newMajorVersion = newVersion.split('.')[0]
 
   if (args.tag) {
