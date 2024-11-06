@@ -26,6 +26,12 @@ export async function publishVersion(args: {
   deployKey?: string
   nightlyDeployKey?: string
 }) {
+  if (!process.env.CI) {
+    throw new Error(
+      'publishVersion must be run in CI, due to provenance requirements',
+    )
+  }
+
   // Determine the last stable version
   const { stdout: stableVersion } = await execa('npm', [
     'view',
@@ -204,7 +210,7 @@ export async function publishVersion(args: {
     stdio: 'inherit',
   })
 
-  const npmPublishArgs = ['publish', '--ignore-scripts']
+  const npmPublishArgs = ['publish', '--provenance', '--ignore-scripts']
 
   // Use radashi@next for pre-release major versions and radashi@beta
   // for pre-release minor/patch versions.
