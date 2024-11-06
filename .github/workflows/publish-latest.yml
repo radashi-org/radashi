@@ -1,0 +1,79 @@
+name: Publish radashi@latest
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm test
+      - if: ${{ matrix.node-version == '22.x' }}
+        name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: '22.x'
+          cache: pnpm
+      - run: pnpm install
+      - name: Lint
+        run: pnpm lint
+      - name: Check Build
+        run: pnpm build
+
+  publish-latest:
+    name: Publish Latest
+    needs: [test, validate]
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: '22.x'
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm build
+
+      - name: Install script dependencies
+        run: |
+          pnpm install -C scripts/versions
+          pnpm install -C scripts/radashi-db
+
+      - name: Publish
+        env:
+          GIT_CLIFF_PAT: ${{ secrets.GIT_CLIFF_PAT }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        run: |
+          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-publish.ts --latest
