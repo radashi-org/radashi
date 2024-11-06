@@ -2,6 +2,7 @@
   "include": ["src/**/*.ts"],
   "compilerOptions": {
     "allowImportingTsExtensions": true,
+    "exactOptionalPropertyTypes": true,
     "moduleResolution": "node",
     "outDir": "./dist/tmp",
     "noEmitOnError": true,
