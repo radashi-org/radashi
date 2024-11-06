@@ -13,12 +13,14 @@ import { trackVersion } from './trackVersion'
 // This is the commit that Radashi's changelog is based on.
 const changelogBaseSha = '2be4acf455ebec86e846854dbab57bd0bfbbceb7'
 
+export const VALID_TAGS = ['beta', 'next'] as const
+
 export async function publishVersion(args: {
   /**
    * Use "beta" for pre-release minor/patch versions and "next" for
    * pre-release major versions.
    */
-  tag?: 'beta' | 'next'
+  tag?: (typeof VALID_TAGS)[number]
   push: boolean
   gitCliffToken?: string
   npmToken?: string
