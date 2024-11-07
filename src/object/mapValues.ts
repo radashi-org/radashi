@@ -12,7 +12,7 @@
  */
 export function mapValues<T extends object, U>(
   obj: T,
-  mapFunc: (value: T[keyof T], key: keyof T) => U,
+  mapFunc: (value: Required<T>[keyof T], key: keyof T) => U,
 ): { [K in keyof T]: U } {
   return (Object.keys(obj) as (keyof T)[]).reduce(
     (acc, key) => {
