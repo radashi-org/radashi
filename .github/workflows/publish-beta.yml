@@ -50,6 +50,8 @@ jobs:
     needs: [test, validate]
     runs-on: ubuntu-latest
     continue-on-error: true
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
         with:
