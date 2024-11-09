@@ -22,6 +22,10 @@ export async function prerelease({
 
     await exec('git', ['checkout', targetBranch])
   }
+  // Otherwise, fetch the main branch for rebasing the next branch.
+  else {
+    await exec('git', ['fetch', 'origin', 'main'])
+  }
 
   // Check if this PR was already merged
   const existingCommit = await get('git', [
@@ -40,6 +44,39 @@ export async function prerelease({
     process.exit(0)
   }
 
+  // Ensure all patches from main are applied to the target branch. If
+  // a merge conflict occurs, a manual rebase is required.
+  await exec('git', ['rebase', '-X', 'ours', 'origin/main'])
+
+  await mergePullRequest({
+    prHeadRef,
+    prRepoUrl,
+    message: `${prTitle} (#${prNumber})`,
+  })
+
+  await installDeployKey(deployKey)
+
+  // The origin must use SSH for the deploy key to work.
+  await execa('git', [
+    'remote',
+    'set-url',
+    'origin',
+    'git@github.com:radashi-org/radashi.git',
+  ])
+
+  // Push the commit to the target branch
+  await exec('git', ['push', 'origin', targetBranch, '--force'])
+}
+
+async function mergePullRequest({
+  prHeadRef,
+  prRepoUrl,
+  message,
+}: {
+  prHeadRef: string
+  prRepoUrl: string
+  message: string
+}) {
   const baseCommit = await get('git', ['merge-base', 'HEAD', `pr/${prHeadRef}`])
 
   // Get the first commit author from the PR branch
@@ -62,26 +99,7 @@ export async function prerelease({
   await exec('git', ['add', '.'])
 
   // Create commit with PR title and number
-  await exec('git', [
-    'commit',
-    '-m',
-    `${prTitle} (#${prNumber})`,
-    '--author',
-    prAuthor,
-  ])
-
-  await installDeployKey(deployKey)
-
-  // The origin must use SSH for the deploy key to work.
-  await execa('git', [
-    'remote',
-    'set-url',
-    'origin',
-    'git@github.com:radashi-org/radashi.git',
-  ])
-
-  // Push the commit to the target branch
-  await exec('git', ['push', 'origin', targetBranch])
+  await exec('git', ['commit', '-m', message, '--author', prAuthor])
 }
 
 async function get(cmd: string, args: readonly string[]) {
