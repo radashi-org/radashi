@@ -51,6 +51,12 @@ function parseArgs() {
   }
 }
 
+/**
+ * This ensures that the environment variables are set and returns the
+ * values as a typed object. To ensure sensitive variables are not
+ * accessible to untrusted code, the environment variables are cleared
+ * after they are read.
+ */
 function verifyEnvVars<T extends Record<string, string | false>>(
   vars: T,
 ): {

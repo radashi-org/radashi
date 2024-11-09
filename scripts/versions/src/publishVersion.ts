@@ -151,6 +151,13 @@ export async function publishVersion(args: {
   if (args.push) {
     if (args.deployKey) {
       await installDeployKey(args.deployKey)
+      // The origin must use SSH for the deploy key to work.
+      await execa('git', [
+        'remote',
+        'set-url',
+        'origin',
+        'git@github.com:radashi-org/radashi.git',
+      ])
     }
     log('Pushing to origin')
     await execa('git', ['push'], { stdio: 'inherit' })
@@ -185,11 +192,11 @@ export async function publishVersion(args: {
         ],
         { reject: false },
       )
-    }
 
-    // Use the nightly deploy key if we're pushing a nightly tag.
-    if (args.tag && args.nightlyDeployKey) {
-      await installDeployKey(args.nightlyDeployKey)
+      // Use the nightly deploy key if we're pushing a nightly tag.
+      if (args.nightlyDeployKey) {
+        await installDeployKey(args.nightlyDeployKey)
+      }
     }
 
     log(`Pushing new tag ${exactTag}`)
