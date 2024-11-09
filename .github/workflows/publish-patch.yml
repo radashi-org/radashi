@@ -1,12 +1,15 @@
-name: Publish radashi@latest
+name: Publish patch
 
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ['Check main']
+    types:
+      - completed
 
 jobs:
-  publish-latest:
-    if: ${{ github.ref == 'refs/heads/main' }}
-    name: Publish Latest
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: Publish
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -35,5 +38,6 @@ jobs:
           RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          NIGHTLY_DEPLOY_KEY: ${{ secrets.NIGHTLY_DEPLOY_KEY }}
         run: |
-          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-publish.ts --latest
+          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-publish.ts --patch

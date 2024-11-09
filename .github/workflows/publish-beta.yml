@@ -2,8 +2,10 @@ name: Publish radashi@beta
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 5 * * *'
+  push:
+    branches:
+      - beta
+      - next
 
 jobs:
   test:
@@ -22,11 +24,6 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm test
-      - if: ${{ matrix.node-version == '22.x' }}
-        name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
 
   validate:
     name: Validate
@@ -79,4 +76,4 @@ jobs:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           NIGHTLY_DEPLOY_KEY: ${{ secrets.NIGHTLY_DEPLOY_KEY }}
         run: |
-          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-publish.ts --tag beta
+          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-publish.ts --tag ${{ github.ref_name }}

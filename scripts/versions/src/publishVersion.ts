@@ -56,40 +56,18 @@ export async function publishVersion(args: {
   }
 
   const [newMajorVersion, newMinorVersion] = newVersion.split('.')
+  const [lastMajorVersion, lastMinorVersion] = stableVersion.split('.')
 
   if (args.patch) {
-    // Get the list of commits that have been added since the last
-    // stable version.
-    const commits = await execa('git', [
-      'log',
-      'v' + stableVersion + '..HEAD',
-      '--pretty=format:%h\t%s',
-    ]).then(r =>
-      r.stdout
-        .split('\n')
-        .map(line => line.split('\t') as [commit: string, subject: string]),
-    )
-
-    // Use the patch branch for patch releases, since we need to
-    // filter out feature commits.
-    await execa('git', ['fetch', 'origin', 'patch'])
-    await execa('git', ['checkout', 'patch'])
-
-    // Apply every commit except feature commits and breaking changes.
-    for (const [commit, subject] of commits) {
-      if (/^(feat|[^ ]+!:)/.test(subject)) {
-        continue
-      }
-      try {
-        await execa('git', ['cherry-pick', commit])
-      } catch (error) {
-        // Log and reset, then continue to the next commit.
-        console.error(error)
-        await execa('git', ['cherry-pick', '--abort'])
-      }
+    if (lastMajorVersion !== newMajorVersion) {
+      log('🚫 Breaking change detected. Patch cannot be published.')
+      process.exit(1)
+    }
+    if (lastMinorVersion !== newMinorVersion) {
+      log('🚫 Feature commit detected. Patch cannot be published.')
+      process.exit(1)
     }
   } else if (args.tag) {
-    const [lastMajorVersion] = stableVersion.split('.')
     if (lastMajorVersion !== newMajorVersion && args.tag === 'beta') {
       log('🚫 Expected a patch or minor increment for "beta" tag')
       process.exit(1)
