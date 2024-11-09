@@ -4,9 +4,8 @@ import glob from 'fast-glob'
 import { green } from 'kleur/colors'
 import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
-import os from 'node:os'
-import path from 'node:path'
 import { sift } from 'radashi/array/sift.js'
+import { installDeployKey } from '../../common/installDeployKey'
 import { dedent } from './dedent'
 import { trackVersion } from './trackVersion'
 
@@ -21,6 +20,7 @@ export async function publishVersion(args: {
    * pre-release major versions.
    */
   tag?: (typeof VALID_TAGS)[number]
+  patch?: boolean
   push: boolean
   gitCliffToken?: string
   npmToken?: string
@@ -55,10 +55,41 @@ export async function publishVersion(args: {
     process.exit(1)
   }
 
-  const newMajorVersion = newVersion.split('.')[0]
+  const [newMajorVersion, newMinorVersion] = newVersion.split('.')
 
-  if (args.tag) {
-    const lastMajorVersion = stableVersion.split('.')[0]
+  if (args.patch) {
+    // Get the list of commits that have been added since the last
+    // stable version.
+    const commits = await execa('git', [
+      'log',
+      'v' + stableVersion + '..HEAD',
+      '--pretty=format:%h\t%s',
+    ]).then(r =>
+      r.stdout
+        .split('\n')
+        .map(line => line.split('\t') as [commit: string, subject: string]),
+    )
+
+    // Use the patch branch for patch releases, since we need to
+    // filter out feature commits.
+    await execa('git', ['fetch', 'origin', 'patch'])
+    await execa('git', ['checkout', 'patch'])
+
+    // Apply every commit except feature commits and breaking changes.
+    for (const [commit, subject] of commits) {
+      if (/^(feat|[^ ]+!:)/.test(subject)) {
+        continue
+      }
+      try {
+        await execa('git', ['cherry-pick', commit])
+      } catch (error) {
+        // Log and reset, then continue to the next commit.
+        console.error(error)
+        await execa('git', ['cherry-pick', '--abort'])
+      }
+    }
+  } else if (args.tag) {
+    const [lastMajorVersion] = stableVersion.split('.')
     if (lastMajorVersion !== newMajorVersion && args.tag === 'beta') {
       log('🚫 Expected a patch or minor increment for "beta" tag')
       process.exit(1)
@@ -358,15 +389,4 @@ async function getPrNumbers(range: string) {
   // cSpell:ignore oneline
   const { stdout: gitLog } = await execa('git', ['log', '--oneline', range])
   return sift(gitLog.split('\n').map(line => line.match(/\(#(\d+)\)$/)?.[1]))
-}
-
-async function installDeployKey(deployKey: string) {
-  const sshDir = path.join(os.homedir(), '.ssh')
-  await fs.mkdir(sshDir, { recursive: true })
-
-  const keyPath = path.join(sshDir, 'deploy_key')
-  await fs.writeFile(keyPath, deployKey, { mode: 0o600 })
-
-  // Set GIT_SSH_COMMAND to use the deploy key
-  process.env.GIT_SSH_COMMAND = `ssh -i ${keyPath} -o StrictHostKeyChecking=no`
 }
