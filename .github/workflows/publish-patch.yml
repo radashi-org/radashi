@@ -2,7 +2,7 @@ name: Publish patch
 
 on:
   workflow_run:
-    workflows: ['Check main']
+    workflows: ['Check main branch']
     types:
       - completed
 
