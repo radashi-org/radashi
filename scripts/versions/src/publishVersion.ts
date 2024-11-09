@@ -116,9 +116,11 @@ export async function publishVersion(args: {
     }
   }
 
+  const changelogFile = `CHANGELOG${args.tag === 'next' ? '-next' : ''}.md`
+
   // Generate Changelog
   log(`Generating changelog from ${changelogBaseSha.slice(0, 7)} to HEAD`)
-  const gitCliffArgs = [`${changelogBaseSha}..HEAD`, '-o', 'CHANGELOG.md']
+  const gitCliffArgs = [`${changelogBaseSha}..HEAD`, '-o', changelogFile]
   if (!args.tag) {
     gitCliffArgs.push('--tag', `v${newVersion}`)
   }
@@ -127,15 +129,15 @@ export async function publishVersion(args: {
   })
 
   // Check if CHANGELOG.md has changed
-  await execa('git', ['status', '--porcelain', 'CHANGELOG.md']).then(status => {
+  await execa('git', ['status', '--porcelain', changelogFile]).then(status => {
     if (!status.stdout.trim()) {
-      log('No changes detected in CHANGELOG.md')
+      log('No changes detected in %s', changelogFile)
       process.exit(1)
     }
   })
 
   // Commit files
-  const committedFiles = ['CHANGELOG.md']
+  const committedFiles = [changelogFile]
   if (!args.tag) {
     // Only commit the changed version in package.json if it's a
     // stable version being published.
