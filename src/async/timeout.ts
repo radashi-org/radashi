@@ -25,6 +25,7 @@ declare const setTimeout: (fn: () => void, ms: number) => unknown
  *  timeout(1000, "Optional message"),
  * ])
  * ```
+ * @version 12.3.0
  */
 
 export function timeout<E extends Error>(
