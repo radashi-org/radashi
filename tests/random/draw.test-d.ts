@@ -2,30 +2,27 @@ import * as _ from 'radashi'
 
 describe('draw', () => {
   test('variable with mutable array', () => {
-    const emptyList: number[] = []
-    const filledList = [1, 2, 3]
+    const array = [1, 2, 3]
 
-    expectTypeOf(_.draw(emptyList)).toEqualTypeOf<number | null>()
-    expectTypeOf(_.draw(filledList)).toEqualTypeOf<number | null>()
+    expectTypeOf(_.draw(array)).toEqualTypeOf<number | null>()
   })
 
   test('variable with empty array', () => {
-    const neverList: never[] = []
-    const emptyList = [] as const
+    const emptyArray = [] as never[]
+    const emptyTuple = [] as const
 
-    expectTypeOf(_.draw(neverList)).toEqualTypeOf<null>()
-    expectTypeOf(_.draw(emptyList)).toEqualTypeOf<null>()
+    expectTypeOf(_.draw(emptyArray)).toEqualTypeOf<null>()
+    expectTypeOf(_.draw(emptyTuple)).toEqualTypeOf<null>()
   })
 
   test('variable with tuple', () => {
-    const filledList = [1, 2, 3] as const
+    const tuple = [1, 2, 3] as const
 
-    expectTypeOf(_.draw(filledList)).toEqualTypeOf<1 | 2 | 3>()
+    expectTypeOf(_.draw(tuple)).toEqualTypeOf<1 | 2 | 3>()
   })
 
   test('inlined array', () => {
     expectTypeOf(_.draw([])).toEqualTypeOf<null>()
-    expectTypeOf(_.draw([1, 2, 3])).toEqualTypeOf<number>()
-    expectTypeOf(_.draw([1, 2, 3] as const)).toEqualTypeOf<1 | 2 | 3>()
+    expectTypeOf(_.draw([1, 2, 3])).toEqualTypeOf<1 | 2 | 3>()
   })
 })
