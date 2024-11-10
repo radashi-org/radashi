@@ -17,3 +17,45 @@ _.isEmpty('') // => true
 _.isEmpty('hello') // => false
 _.isEmpty(['hello']) // => false
 ```
+
+Empty values include:
+
+- `null`
+- `undefined`
+- `0`
+- empty string
+- empty array
+- invalid `Date` time
+- object with `length` property of `0`
+- object with `size` property of `0`
+- object with no enumerable keys
+
+### Type Guards
+
+In some cases, `isEmpty` acts as a [type guard](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards), which helps TypeScript infer more specific types based on the check.
+
+Due to TypeScript limitations, object types cannot be narrowed, except for arrays and functions.
+
+```ts
+import * as _ from 'radashi'
+
+// Example with string
+const value1: string = ''
+if (_.isEmpty(value1)) {
+  // TypeScript infers value1 as ''
+  console.log('Value is an empty string')
+} else {
+  // TypeScript infers value1 as string
+  console.log('Value is a non-empty string')
+}
+
+// Example with array
+const value2: string[] = []
+if (_.isEmpty(value2)) {
+  // TypeScript infers value2 as never[]
+  console.log('Value is an empty array')
+} else {
+  // TypeScript infers value2 as string[]
+  console.log('Value is a non-empty array')
+}
+```
