@@ -20,6 +20,7 @@ export async function prerelease({
   if (targetBranch === 'main') {
     targetBranch = 'beta'
 
+    await exec('git', ['fetch', 'origin', targetBranch])
     await exec('git', ['checkout', targetBranch])
   }
   // Otherwise, fetch the main branch for rebasing the next branch.
