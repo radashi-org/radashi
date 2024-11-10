@@ -31,6 +31,7 @@ export async function prerelease({
   // Check if this PR was already merged
   const existingCommit = await get('git', [
     'log',
+    '2be4acf455ebec86e846854dbab57bd0bfbbceb7..HEAD',
     '--format=%H',
     '-1',
     '--grep',
