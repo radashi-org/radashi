@@ -135,4 +135,4 @@ export * from './typed/isTagged.ts'
 export * from './typed/isWeakMap.ts'
 export * from './typed/isWeakSet.ts'
 
-export * from './types'
+export * from './types.ts'
