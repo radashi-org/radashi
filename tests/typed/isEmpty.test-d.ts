@@ -95,4 +95,26 @@ describe('isEmpty type guard', () => {
       expectTypeOf(value).toEqualTypeOf<Date | null | undefined>()
     }
   })
+
+  test('any', () => {
+    const value = {} as any
+
+    if (_.isEmpty(value)) {
+      expectTypeOf(value).toEqualTypeOf<
+        false | '' | 0 | readonly never[] | never[] | null | undefined
+      >()
+    } else {
+      expectTypeOf(value).toEqualTypeOf<any>()
+    }
+  })
+
+  test('unknown', () => {
+    const value = {} as unknown
+
+    if (_.isEmpty(value)) {
+      expectTypeOf(value).toEqualTypeOf<unknown>()
+    } else {
+      expectTypeOf(value).toEqualTypeOf<unknown>()
+    }
+  })
 })
