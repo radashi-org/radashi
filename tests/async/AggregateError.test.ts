@@ -1,5 +1,9 @@
 import { vi } from 'vitest'
 
+declare const globalThis: {
+  AggregateError?: unknown
+}
+
 const { AggregateError: nativeAggregateError } = globalThis
 globalThis.AggregateError = undefined!
 
