@@ -1,53 +1,40 @@
 import * as _ from 'radashi'
 
-describe('last types', () => {
-  test('return type with literal argument', () => {
-    expectTypeOf(_.last([])).toBeUndefined()
-    expectTypeOf(_.last([1, 2, 3])).toBeNumber()
+describe('last', () => {
+  test('inlined array', () => {
+    expectTypeOf(_.last([])).toEqualTypeOf<undefined>()
+    expectTypeOf(_.last([1, 2, 3])).toEqualTypeOf<3>()
   })
-  test('return type with mutable variable', () => {
-    const neverList: never[] = []
-    const emptyList: number[] = []
-    const filledList = [1, 2, 3]
 
-    expectTypeOf(_.last(neverList)).toEqualTypeOf<undefined>()
-    expectTypeOf(_.last(emptyList)).toEqualTypeOf<number | undefined>()
-    expectTypeOf(_.last(filledList)).toEqualTypeOf<number | undefined>()
+  test('variable with empty array', () => {
+    const emptyArray = [] as never[]
+
+    expectTypeOf(_.last(emptyArray)).toEqualTypeOf<undefined>()
   })
-  test('return type with immutable variable', () => {
-    const neverList: never[] = [] as const
-    const emptyList: number[] = [] as const
-    const filledList = [1, 2, 3] as const
 
-    expectTypeOf(_.last(neverList)).toBeUndefined()
-    // FIXME: Can this be narrowed to `undefined`?
-    expectTypeOf(_.last(emptyList)).toEqualTypeOf<number | undefined>()
-    expectTypeOf(_.last(filledList)).toEqualTypeOf<1 | 2 | 3>()
+  test('variable with mutable array', () => {
+    const array = [1, 2, 3]
+
+    expectTypeOf(_.last(array)).toEqualTypeOf<number | undefined>()
   })
-})
 
-describe('last types with default value', () => {
-  test('return type with literal argument', () => {
-    expectTypeOf(_.last([], false)).toBeBoolean()
-    expectTypeOf(_.last([1, 2, 3], false)).toBeNumber()
+  test('variable with readonly tuple', () => {
+    const emptyTuple = [] as const
+    const tuple = [1, 2, 3] as const
+
+    expectTypeOf(_.last(emptyTuple)).toEqualTypeOf<undefined>()
+    expectTypeOf(_.last(tuple)).toEqualTypeOf<3>()
   })
-  test('return type with mutable variable', () => {
-    const neverList: never[] = []
-    const emptyList: number[] = []
-    const filledList = [1, 2, 3]
 
-    expectTypeOf(_.last(neverList, false)).toEqualTypeOf<boolean>()
-    expectTypeOf(_.last(emptyList, false)).toEqualTypeOf<number | boolean>()
-    expectTypeOf(_.last(filledList, false)).toEqualTypeOf<number | boolean>()
-  })
-  test('return type with immutable variable', () => {
-    const neverList: never[] = [] as const
-    const emptyList: number[] = [] as const
-    const filledList = [1, 2, 3] as const
+  test('with default value', () => {
+    const emptyArray = [] as never[]
+    const emptyTuple = [] as const
+    const array = [1, 2, 3]
+    const tuple = [1, 2, 3] as const
 
-    expectTypeOf(_.last(neverList, false)).toBeBoolean()
-    // FIXME: Can this be narrowed to `boolean`?
-    expectTypeOf(_.last(emptyList, false)).toEqualTypeOf<number | boolean>()
-    expectTypeOf(_.last(filledList, false)).toEqualTypeOf<1 | 2 | 3>()
+    expectTypeOf(_.last(emptyArray, false)).toEqualTypeOf<false>()
+    expectTypeOf(_.last(emptyTuple, false)).toEqualTypeOf<false>()
+    expectTypeOf(_.last(array, false)).toEqualTypeOf<number | false>()
+    expectTypeOf(_.last(tuple, false)).toEqualTypeOf<3>()
   })
 })
