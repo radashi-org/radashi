@@ -46,6 +46,15 @@ export async function prerelease({
     process.exit(0)
   }
 
+  // Set git user (needed by git rebase).
+  await exec('git', ['config', '--global', 'user.name', 'Radashi Bot'])
+  await exec('git', [
+    'config',
+    '--global',
+    'user.email',
+    '175859458+radashi-bot@users.noreply.github.com',
+  ])
+
   // Ensure all patches from main are applied to the target branch. If
   // a merge conflict occurs, a manual rebase is required.
   await exec('git', ['rebase', '-X', 'ours', 'origin/main'])
