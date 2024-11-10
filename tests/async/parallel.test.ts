@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import type { AggregateError } from 'radashi'
 
 describe('parallel', () => {
   test('returns all results from all functions', async () => {
