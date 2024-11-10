@@ -22,7 +22,7 @@ const lint = (scripts: string[]): Command[] => [
   {
     name: 'jsr',
     color: 'green',
-    command: 'dlx deno-bin@1.44.4 lint',
+    command: 'dlx jsr publish --dry-run --allow-dirty',
   },
   {
     name: 'tsc',
