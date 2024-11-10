@@ -4,21 +4,23 @@ import glob from 'fast-glob'
 import { green } from 'kleur/colors'
 import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
-import os from 'node:os'
-import path from 'node:path'
 import { sift } from 'radashi/array/sift.js'
+import { installDeployKey } from '../../common/installDeployKey'
 import { dedent } from './dedent'
 import { trackVersion } from './trackVersion'
 
 // This is the commit that Radashi's changelog is based on.
 const changelogBaseSha = '2be4acf455ebec86e846854dbab57bd0bfbbceb7'
 
+export const VALID_TAGS = ['beta', 'next'] as const
+
 export async function publishVersion(args: {
   /**
    * Use "beta" for pre-release minor/patch versions and "next" for
    * pre-release major versions.
    */
-  tag?: 'beta' | 'next'
+  tag?: (typeof VALID_TAGS)[number]
+  patch?: boolean
   push: boolean
   gitCliffToken?: string
   npmToken?: string
@@ -26,6 +28,12 @@ export async function publishVersion(args: {
   deployKey?: string
   nightlyDeployKey?: string
 }) {
+  if (!process.env.CI) {
+    throw new Error(
+      'publishVersion must be run in CI, due to provenance requirements',
+    )
+  }
+
   // Determine the last stable version
   const { stdout: stableVersion } = await execa('npm', [
     'view',
@@ -42,10 +50,24 @@ export async function publishVersion(args: {
     env: { GITHUB_TOKEN: args.gitCliffToken },
   }).then(r => r.stdout.replace(/^v/, ''))
 
-  const newMajorVersion = newVersion.split('.')[0]
+  if (stableVersion === newVersion) {
+    log('🚫 No version bump detected')
+    process.exit(1)
+  }
 
-  if (args.tag) {
-    const lastMajorVersion = stableVersion.split('.')[0]
+  const [newMajorVersion, newMinorVersion] = newVersion.split('.')
+  const [lastMajorVersion, lastMinorVersion] = stableVersion.split('.')
+
+  if (args.patch) {
+    if (lastMajorVersion !== newMajorVersion) {
+      log('🚫 Breaking change detected. Patch cannot be published.')
+      process.exit(1)
+    }
+    if (lastMinorVersion !== newMinorVersion) {
+      log('🚫 Feature commit detected. Patch cannot be published.')
+      process.exit(1)
+    }
+  } else if (args.tag) {
     if (lastMajorVersion !== newMajorVersion && args.tag === 'beta') {
       log('🚫 Expected a patch or minor increment for "beta" tag')
       process.exit(1)
@@ -103,9 +125,11 @@ export async function publishVersion(args: {
     }
   }
 
+  const changelogFile = `CHANGELOG${args.tag === 'next' ? '-next' : ''}.md`
+
   // Generate Changelog
   log(`Generating changelog from ${changelogBaseSha.slice(0, 7)} to HEAD`)
-  const gitCliffArgs = [`${changelogBaseSha}..HEAD`, '-o', 'CHANGELOG.md']
+  const gitCliffArgs = [`${changelogBaseSha}..HEAD`, '-o', changelogFile]
   if (!args.tag) {
     gitCliffArgs.push('--tag', `v${newVersion}`)
   }
@@ -114,15 +138,15 @@ export async function publishVersion(args: {
   })
 
   // Check if CHANGELOG.md has changed
-  await execa('git', ['status', '--porcelain', 'CHANGELOG.md']).then(status => {
+  await execa('git', ['status', '--porcelain', changelogFile]).then(status => {
     if (!status.stdout.trim()) {
-      log('No changes detected in CHANGELOG.md')
+      log('No changes detected in %s', changelogFile)
       process.exit(1)
     }
   })
 
   // Commit files
-  const committedFiles = ['CHANGELOG.md']
+  const committedFiles = [changelogFile]
   if (!args.tag) {
     // Only commit the changed version in package.json if it's a
     // stable version being published.
@@ -138,6 +162,13 @@ export async function publishVersion(args: {
   if (args.push) {
     if (args.deployKey) {
       await installDeployKey(args.deployKey)
+      // The origin must use SSH for the deploy key to work.
+      await execa('git', [
+        'remote',
+        'set-url',
+        'origin',
+        'git@github.com:radashi-org/radashi.git',
+      ])
     }
     log('Pushing to origin')
     await execa('git', ['push'], { stdio: 'inherit' })
@@ -172,11 +203,11 @@ export async function publishVersion(args: {
         ],
         { reject: false },
       )
-    }
 
-    // Use the nightly deploy key if we're pushing a nightly tag.
-    if (args.tag && args.nightlyDeployKey) {
-      await installDeployKey(args.nightlyDeployKey)
+      // Use the nightly deploy key if we're pushing a nightly tag.
+      if (args.nightlyDeployKey) {
+        await installDeployKey(args.nightlyDeployKey)
+      }
     }
 
     log(`Pushing new tag ${exactTag}`)
@@ -204,7 +235,7 @@ export async function publishVersion(args: {
     stdio: 'inherit',
   })
 
-  const npmPublishArgs = ['publish', '--ignore-scripts']
+  const npmPublishArgs = ['publish', '--provenance', '--ignore-scripts']
 
   // Use radashi@next for pre-release major versions and radashi@beta
   // for pre-release minor/patch versions.
@@ -336,15 +367,4 @@ async function getPrNumbers(range: string) {
   // cSpell:ignore oneline
   const { stdout: gitLog } = await execa('git', ['log', '--oneline', range])
   return sift(gitLog.split('\n').map(line => line.match(/\(#(\d+)\)$/)?.[1]))
-}
-
-async function installDeployKey(deployKey: string) {
-  const sshDir = path.join(os.homedir(), '.ssh')
-  await fs.mkdir(sshDir, { recursive: true })
-
-  const keyPath = path.join(sshDir, 'deploy_key')
-  await fs.writeFile(keyPath, deployKey, { mode: 0o600 })
-
-  // Set GIT_SSH_COMMAND to use the deploy key
-  process.env.GIT_SSH_COMMAND = `ssh -i ${keyPath} -o StrictHostKeyChecking=no`
 }

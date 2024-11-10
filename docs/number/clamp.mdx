@@ -19,10 +19,15 @@ range.
 ```ts
 import * as _ from 'radashi'
 
-_.clamp(5, 1, 10) // returns 5
-_.clamp(0, 1, 10) // returns 1
-_.clamp(15, 1, 10) // returns 10
+_.clamp(5, 1, 10) // 5
+_.clamp(0, 1, 10) // 1
+_.clamp(15, 1, 10) // 10
+```
 
-// Invalid range
-_.clamp(1, 10, 1) // throws
+#### Invalid ranges
+
+If the minimum is greater than the maximum, an error is thrown.
+
+```ts
+_.clamp(1, 10, 1) // throws Error
 ```

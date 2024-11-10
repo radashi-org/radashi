@@ -15,10 +15,21 @@ The `backoff` option is like delay but uses a function to sleep -- makes for eas
 ```ts
 import * as _ from 'radashi'
 
-await _.retry({}, api.users.list)
-await _.retry({ times: 10 }, api.users.list)
-await _.retry({ times: 2, delay: 1000 }, api.users.list)
+const api = {
+  users: {
+    async list() {
+      if (Math.random() < 0.5) {
+        throw new Error('Random error')
+      }
+      return []
+    },
+  },
+}
+
+await _.retry({}, api.users.list) // try 3 times before failing
+await _.retry({ times: 10 }, api.users.list) // try 10 times before failing
+await _.retry({ times: 2, delay: 1000 }, api.users.list) // try 2 times with 1 second delay
 
 // exponential backoff
-await _.retry({ backoff: i => 10 ** i }, api.users.list)
+await _.retry({ backoff: i => 10 ** i }, api.users.list) // try 3 times with 10, 100, 1000 ms delay
 ```

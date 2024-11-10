@@ -2,6 +2,8 @@
  * Removes (shakes out) undefined entries from an object. Optional
  * second argument shakes out values by custom evaluation.
  *
+ * Note that non-enumerable keys are never shaken out.
+ *
  * @see https://radashi.js.org/reference/object/shake
  * @example
  * ```ts
@@ -13,13 +15,23 @@
  */
 export function shake<T extends object>(
   obj: T,
-  filter: (value: T[keyof T]) => boolean = value => value === undefined,
+): {
+  [K in keyof T]: Exclude<T[K], undefined>
+}
+
+export function shake<T extends object>(
+  obj: T,
+  filter: ((value: unknown) => boolean) | undefined,
+): T
+
+export function shake<T extends object>(
+  obj: T,
+  filter: (value: unknown) => boolean = value => value === undefined,
 ): T {
   if (!obj) {
     return {} as T
   }
-  const keys = Object.keys(obj) as (keyof T)[]
-  return keys.reduce((acc, key) => {
+  return (Object.keys(obj) as (keyof T)[]).reduce((acc, key) => {
     if (!filter(obj[key])) {
       acc[key] = obj[key]
     }

@@ -1,26 +1,34 @@
 ---
 title: defer
-description: Run an async function with deferred functions
+description: Defer work until an async function completes
 since: 12.1.0
 ---
 
 ### Usage
 
-The `_.defer` functions lets you run an async function, registering functions as you go
-that should be deferred until the async function completes, and then executed. This is
-really useful in scripts where failure up to or after a specific point will require some
-cleanup. It's a bit like a `finally` block.
+The `defer` function allows you to run an async function while registering cleanup functions that will execute after it completes. This is useful when you need to clean up resources regardless of whether the main function succeeds or fails, similar to a `finally` block.
 
-A hat tip to Swift's `defer` for the inspiration.
+The function passed to `defer` receives a `register` function as its argument. Use this to register cleanup work that should run after the main function finishes.
 
-The function passed to `_.defer` is called with a single `register` function argument that
-can be used to register the work you want to be called when the function completes. If your function throws an error and then a registered cleanup function throws
-and error it is ignored by default. The register
-function supports an optional second `options` argument that lets you configure a rethrow
-strategy so that error in the cleanup function is rethrown.
+By default, if a cleanup function throws an error after the main function has thrown an error, the cleanup error will be ignored. You can customize this behavior by passing `{ rethrow: true }` to the `register` function to have it rethrow cleanup errors instead.
+
+#### Clean up temporary files
 
 ```ts
 import * as _ from 'radashi'
+
+// Placeholder functions
+const createBuildDir = async () => {
+  console.log('Creating build directory...')
+  await _.sleep(100)
+  console.log('Build directory created.')
+  return 'build'
+}
+const build = async () => {
+  console.log('Building project...')
+  await _.sleep(100)
+  console.log('Project built.')
+}
 
 await _.defer(async cleanup => {
   const buildDir = await createBuildDir()
@@ -29,13 +37,44 @@ await _.defer(async cleanup => {
 
   await build()
 })
+```
+
+#### Clean up resources in an API
+
+```ts
+// Placeholder API
+const api = {
+  org: {
+    create: async () => ({ id: 1 }),
+    delete: async () => {
+      console.log('Deleting organization...')
+      await _.sleep(100)
+      console.log('Deleted organization.')
+    },
+  },
+  user: {
+    create: async () => ({ id: 2 }),
+    delete: async () => {
+      console.log('Deleting user...')
+      await _.sleep(100)
+      console.log('Deleted user.')
+    },
+  },
+}
+
+// Placeholder test function
+const executeTest = async () => {
+  console.log('Executing test...')
+  await _.sleep(100)
+  console.log('Test complete.')
+}
 
 await _.defer(async register => {
   const org = await api.org.create()
   register(async () => api.org.delete(org.id), { rethrow: true })
 
   const user = await api.user.create()
-  register(async () => api.users.delete(user.id), { rethrow: true })
+  register(async () => api.user.delete(user.id), { rethrow: true })
 
   await executeTest(org, user)
 })
