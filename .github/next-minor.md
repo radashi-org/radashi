@@ -8,8 +8,4 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Features
 
-#### Return type narrowing for `first` and `last`
-
-Previously, `first` and `last` would return `T | undefined`, making subsequent use of the returned value prone to Typescript warnings. 
-
-With return type narrowing, `first([])` will have return type `undefined`, and `last([1, 2, 3])` will have return type `number`. For mutable arguments, `first` and `last` will still return `T | undefined`, but for immutable arguments (`as const`), return type will be narrowed.     
+####
