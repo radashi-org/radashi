@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.2.2] - 2024-11-10
+### Details
+#### <!-- 08 -->Types
+- Export `PromiseWithResolvers` type by [@aleclarson](https://github.com/aleclarson) in [#301](https://github.com/radashi-org/radashi/pull/301)
+
+- Improve `isEmpty` signature by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#219](https://github.com/radashi-org/radashi/pull/219)
+
+- Narrow return type of `first` and `last` by [@crishoj](https://github.com/crishoj) in [#160](https://github.com/radashi-org/radashi/pull/160)
+
+- Improve `draw` signature for non-empty arrays by [@crishoj](https://github.com/crishoj) in [#153](https://github.com/radashi-org/radashi/pull/153)
+
+
 ## [radashi@12.2.1] - 2024-11-09
 ### Details
 #### <!-- 08 -->Types
@@ -169,13 +181,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New Contributors
 * [@shan-shaji](https://github.com/shan-shaji) made their first contribution in [#272](https://github.com/radashi-org/radashi/pull/272)
-* [@crishoj](https://github.com/crishoj) made their first contribution in [#128](https://github.com/radashi-org/radashi/pull/128)
 * [@nnmrts](https://github.com/nnmrts) made their first contribution in [#126](https://github.com/radashi-org/radashi/pull/126)
 * [@stefaanv](https://github.com/stefaanv) made their first contribution in [#95](https://github.com/radashi-org/radashi/pull/95)
 * [@eumkz](https://github.com/eumkz) made their first contribution in [#76](https://github.com/radashi-org/radashi/pull/76)
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
+
+[radashi@12.2.2]: https://github.com/radashi-org/radashi/compare/v12.2.1..v12.2.2
 
 [radashi@12.2.1]: https://github.com/radashi-org/radashi/compare/v12.2.0..v12.2.1
 
