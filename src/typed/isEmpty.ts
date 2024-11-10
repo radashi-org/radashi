@@ -1,4 +1,4 @@
-import { type Any, isDate, isFunction, isNumber, isSymbol } from 'radashi'
+import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
 
 /**
  * Return true if the given value is empty.
@@ -26,7 +26,6 @@ import { type Any, isDate, isFunction, isNumber, isSymbol } from 'radashi'
  * ```
  * @version 12.1.0
  */
-export function isEmpty(value: Any): boolean
 export function isEmpty<T extends ToEmptyAble>(value: T): value is ToEmpty<T>
 export function isEmpty(value: unknown): boolean
 export function isEmpty(value: unknown): boolean {
