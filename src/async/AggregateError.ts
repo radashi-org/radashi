@@ -1,4 +1,16 @@
-/// <reference lib="es2021.promise" />
+interface AggregateError extends Error {
+  errors: any[]
+}
+
+interface AggregateErrorConstructor {
+  new (errors: Iterable<any>, message?: string): AggregateError
+  (errors: Iterable<any>, message?: string): AggregateError
+  readonly prototype: AggregateError
+}
+
+declare const globalThis: {
+  AggregateError?: AggregateErrorConstructor
+}
 
 /**
  * The `AggregateError` object represents an error when several errors
@@ -13,7 +25,6 @@
  */
 const AggregateErrorOrPolyfill: AggregateErrorConstructor =
   /* @__PURE__ */ (() =>
-    // eslint-disable-next-line compat/compat
     globalThis.AggregateError ??
     (class AggregateError extends Error {
       errors: Error[]
