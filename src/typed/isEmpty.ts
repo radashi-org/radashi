@@ -1,4 +1,4 @@
-import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
+import { type Any, isDate, isFunction, isNumber, isSymbol } from 'radashi'
 
 /**
  * Return true if the given value is empty.
@@ -8,10 +8,8 @@ import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
  * - `null`
  * - `undefined`
  * - `0`
- * - `NaN`
- * - `''`
- * - `[]`
- * - `{}`
+ * - empty string
+ * - empty array
  * - invalid `Date` time
  * - object with `length` property of `0`
  * - object with `size` property of `0`
@@ -28,18 +26,9 @@ import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
  * ```
  * @version 12.1.0
  */
-export function isEmpty(value: boolean): value is false
-export function isEmpty(value: number): value is 0
-export function isEmpty(value: null | undefined | symbol): boolean
-export function isEmpty<T>(value: T[]): value is never[]
-export function isEmpty(value: string): value is ''
-export function isEmpty<T extends Record<any, any>>(
-  value: T,
-): value is { [K in keyof T]: never }
-export function isEmpty<T>(
-  value: T | undefined | null,
-): value is undefined | null
-export function isEmpty(value: any): boolean
+export function isEmpty(value: Any): boolean
+export function isEmpty<T extends ToEmptyAble>(value: T): value is ToEmpty<T>
+export function isEmpty(value: unknown): boolean
 export function isEmpty(value: unknown): boolean {
   if (value === true || value === false) {
     return true
@@ -70,3 +59,32 @@ export function isEmpty(value: unknown): boolean {
   const keys = Object.keys(value).length
   return keys === 0
 }
+
+// biome-ignore lint/complexity/noBannedTypes:
+type NeverEmpty = symbol | Function
+
+/**
+ * A type that can be narrowed by `isEmpty`.
+ */
+export type ToEmptyAble =
+  | NeverEmpty
+  | boolean
+  | number
+  | string
+  | readonly any[]
+  | null
+  | undefined
+
+/**
+ * Narrow a type to an empty value.
+ *
+ * Due to TypeScript limitations, object types cannot be narrowed,
+ * except for arrays and functions.
+ */
+export type ToEmpty<T extends ToEmptyAble> = (
+  T extends any[]
+    ? never[]
+    : Extract<false | 0 | '' | readonly never[] | null | undefined, T>
+) extends infer U
+  ? Extract<U, T>
+  : never

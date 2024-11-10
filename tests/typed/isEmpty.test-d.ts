@@ -1,7 +1,8 @@
+import type { ToEmptyAble } from 'radashi'
 import * as _ from 'radashi'
 
-describe('isEmpty return type', () => {
-  test('value is string', () => {
+describe('isEmpty type guard', () => {
+  test('string', () => {
     const value = {} as string
 
     if (_.isEmpty(value)) {
@@ -11,35 +12,27 @@ describe('isEmpty return type', () => {
     }
   })
 
-  test('value is object', () => {
-    type GerenicObject = {
-      a: string
-      b: number
-    }
-    const value = {} as GerenicObject
-
-    if (_.isEmpty(value)) {
-      expectTypeOf(value).toEqualTypeOf<{
-        a: never
-        b: never
-      }>()
-    } else {
-      expectTypeOf(value).toEqualTypeOf<GerenicObject>()
-    }
-  })
-
-  test('value is array', () => {
+  test('array', () => {
     const value = [] as string[]
 
     if (_.isEmpty(value)) {
       expectTypeOf(value).toEqualTypeOf<never[]>()
-      const result = value[0]
     } else {
       expectTypeOf(value).toEqualTypeOf<string[]>()
     }
   })
 
-  test('value is number', () => {
+  test('readonly array', () => {
+    const value = [] as readonly string[]
+
+    if (_.isEmpty(value)) {
+      expectTypeOf(value).toEqualTypeOf<readonly never[]>()
+    } else {
+      expectTypeOf(value).toEqualTypeOf<readonly string[]>()
+    }
+  })
+
+  test('number', () => {
     const value = {} as number
 
     if (_.isEmpty(value)) {
@@ -49,7 +42,7 @@ describe('isEmpty return type', () => {
     }
   })
 
-  test('value is boolean', () => {
+  test('boolean', () => {
     const value = {} as boolean
 
     if (_.isEmpty(value)) {
@@ -59,43 +52,47 @@ describe('isEmpty return type', () => {
     }
   })
 
-  test('value is null', () => {
-    const value = null
+  test('kitchen sink', () => {
+    const value = {} as ToEmptyAble
 
     if (_.isEmpty(value)) {
-      expectTypeOf(value).toEqualTypeOf<null>()
+      expectTypeOf(value).toEqualTypeOf<
+        0 | '' | false | readonly never[] | null | undefined
+      >()
     } else {
-      expectTypeOf(value).toEqualTypeOf<null>()
+      expectTypeOf(value).toEqualTypeOf<
+        // biome-ignore lint/complexity/noBannedTypes:
+        true | number | string | readonly any[] | symbol | Function
+      >()
     }
   })
 
-  test('value is undefined', () => {
-    const value = undefined
+  /**
+   * Some types are marked as "never empty", which means `isEmpty`
+   * will always return false for them.
+   */
+  test('never empty types', () => {
+    const value = {} as symbol | (() => any) | null | undefined
 
     if (_.isEmpty(value)) {
-      expectTypeOf(value).toEqualTypeOf<undefined>()
+      expectTypeOf(value).toEqualTypeOf<null | undefined>()
     } else {
-      expectTypeOf(value).toEqualTypeOf<undefined>()
+      expectTypeOf(value).toEqualTypeOf<symbol | (() => any)>()
     }
   })
 
-  test('value is something or undefined', () => {
-    const value = {} as string | undefined
+  /**
+   * Object types that are *not* assignable to the `ToEmptyAble` type
+   * will disable the type guard entirely. This is an unavoidable
+   * limitation of TypeScript.
+   */
+  test('incompatible types', () => {
+    const value = {} as Date | null | undefined
 
     if (_.isEmpty(value)) {
-      expectTypeOf(value).toEqualTypeOf<undefined>()
+      expectTypeOf(value).toEqualTypeOf<Date | null | undefined>()
     } else {
-      expectTypeOf(value).toEqualTypeOf<string>()
-    }
-  })
-
-  test('value is something or null', () => {
-    const value = {} as string | null
-
-    if (_.isEmpty(value)) {
-      expectTypeOf(value).toEqualTypeOf<null>()
-    } else {
-      expectTypeOf(value).toEqualTypeOf<string>()
+      expectTypeOf(value).toEqualTypeOf<Date | null | undefined>()
     }
   })
 })
