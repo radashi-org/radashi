@@ -181,14 +181,6 @@ export async function publishVersion(args: {
     args.tag === 'next' ? `v${newMajorVersion}-next` : args.tag
 
   if (args.push) {
-    if (preReleaseTag) {
-      log(`Force-pushing ${preReleaseTag} tag`)
-      await execa('git', ['tag', preReleaseTag, '-f'])
-      await execa('git', ['push', 'origin', preReleaseTag, '-f'], {
-        stdio: 'inherit',
-      })
-    }
-
     // The "nightly" remote is where exact pre-release tags are
     // pushed, so that they don't clutter the main repo.
     const remoteName = args.tag ? 'nightly' : 'origin'
