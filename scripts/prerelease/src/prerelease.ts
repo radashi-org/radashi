@@ -57,7 +57,15 @@ export async function prerelease({
 
   // Ensure all patches from main are applied to the target branch. If
   // a merge conflict occurs, a manual rebase is required.
-  await exec('git', ['rebase', '-X', 'ours', 'origin/main'])
+  const mergeBase = await get('git', ['merge-base', 'main', 'HEAD'])
+  await exec('git', [
+    'rebase',
+    '--strategy-option',
+    'ours',
+    '--onto',
+    'main',
+    mergeBase,
+  ])
 
   await mergePullRequest({
     prHeadRef,
