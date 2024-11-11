@@ -109,7 +109,7 @@ async function mergePullRequest({
   // Get the first commit author from the PR branch
   const prAuthor = await get('git', [
     'log',
-    '--format=%an\t%ae',
+    '--format=%an <%ae>',
     '-1',
     baseCommit + '..' + `pr/${prHeadRef}`,
   ])
