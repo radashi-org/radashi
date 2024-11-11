@@ -11,6 +11,8 @@ BASE_COMMIT=$(git merge-base HEAD "pr/$PR_HEAD_REF")
 # Squash the PR into a single commit
 git checkout "pr/$PR_HEAD_REF"
 git reset --soft "$BASE_COMMIT"
+git config user.name "Radashi Bot"
+git config user.email "175859458+radashi-bot@users.noreply.github.com"
 git commit -m "single commit"
 SQUASH_COMMIT=$(git rev-parse HEAD)
 
