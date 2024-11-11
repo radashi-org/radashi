@@ -91,6 +91,9 @@ async function mergePullRequest({
   prRepoUrl: string
   message: string
 }) {
+  // Fetch the PR, squash it, merge its changes without committing.
+  // The changes are left staged. This also creates a "pr" remote,
+  // which we use in the next steps.
   await exec('bash', ['scripts/checkout-pr.sh'], {
     env: {
       PR_REPO_URL: prRepoUrl,
@@ -113,9 +116,6 @@ async function mergePullRequest({
     '-1',
     baseCommit + '..' + `pr/${prHeadRef}`,
   ])
-
-  // Stage all changes
-  await exec('git', ['add', '.'])
 
   // Create commit with PR title and number
   await exec('git', ['commit', '-m', message, '--author', prAuthor])
