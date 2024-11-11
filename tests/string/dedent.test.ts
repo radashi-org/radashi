@@ -134,4 +134,13 @@ describe('dedent', () => {
       '3',
     )
   })
+  test('line with less than removed indent', () => {
+    const string = _.dedent`
+        a
+       b
+      c
+        d
+    `
+    expect(_.dedent(string)).toBe('a\n       b\n      c\nd')
+  })
 })
