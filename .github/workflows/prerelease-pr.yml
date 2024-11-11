@@ -8,7 +8,6 @@ jobs:
   prerelease:
     if: ${{ contains(github.event.pull_request.labels.*.name, 'prerelease') && github.event.pull_request.state == 'open' && github.event.pull_request.draft == false && github.event.pull_request.mergeable_state == 'clean' }}
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,4 +31,4 @@ jobs:
           PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
           PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          ./scripts/prerelease/node_modules/.bin/tsx ./scripts/prerelease/ci-prerelease.ts
+          ./scripts/prerelease/node_modules/.bin/tsx ./scripts/prerelease/ci-prerelease.ts || true
