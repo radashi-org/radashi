@@ -3,9 +3,8 @@ name: Publish radashi@beta
 on:
   workflow_dispatch:
   push:
-    branches:
-      - beta
-      - next
+    branches: [beta, next]
+    paths: ['src/**']
 
 jobs:
   test:
