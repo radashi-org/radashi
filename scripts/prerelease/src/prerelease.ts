@@ -60,6 +60,7 @@ export async function prerelease({
   await exec('git', ['rebase', '-X', 'ours', 'origin/main'])
 
   await mergePullRequest({
+    targetBranch,
     prHeadRef,
     prRepoUrl,
     message: `${prTitle} (#${prNumber})`,
@@ -80,15 +81,30 @@ export async function prerelease({
 }
 
 async function mergePullRequest({
+  targetBranch,
   prHeadRef,
   prRepoUrl,
   message,
 }: {
+  targetBranch: string
   prHeadRef: string
   prRepoUrl: string
   message: string
 }) {
-  const baseCommit = await get('git', ['merge-base', 'HEAD', `pr/${prHeadRef}`])
+  await exec('bash', ['scripts/checkout-pr.sh'], {
+    env: {
+      PR_REPO_URL: prRepoUrl,
+      PR_HEAD_REF: prHeadRef,
+    },
+  })
+
+  // Get the commit where the PR branch diverged from the target
+  // branch.
+  const baseCommit = await get('git', [
+    'merge-base',
+    targetBranch,
+    `pr/${prHeadRef}`,
+  ])
 
   // Get the first commit author from the PR branch
   const prAuthor = await get('git', [
@@ -97,14 +113,6 @@ async function mergePullRequest({
     '-1',
     baseCommit + '..' + `pr/${prHeadRef}`,
   ])
-
-  // Checkout the PR into the target branch.
-  await exec('bash', ['scripts/checkout-pr.sh'], {
-    env: {
-      PR_REPO_URL: prRepoUrl,
-      PR_HEAD_REF: prHeadRef,
-    },
-  })
 
   // Stage all changes
   await exec('git', ['add', '.'])
