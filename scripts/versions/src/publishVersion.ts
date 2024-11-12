@@ -243,11 +243,8 @@ export async function publishVersion(args: {
       repo: args.tag ? 'radashi-canary' : 'radashi',
       tag_name: newTag,
       body: await generateChangelog({
-        current: args.patch,
-        strip: 'all',
-        base: args.tag
-          ? (await execa('git', ['describe', '--tags', '--abbrev=0'])).stdout
-          : undefined,
+        minimal: true,
+        base: 'v' + stableVersion,
         token: args.gitCliffToken,
       }),
     })

@@ -13,14 +13,9 @@ export async function generateChangelog(
      */
     base?: string
     /**
-     * Only include changes between the tag of the HEAD commit and the
-     * previous tag.
+     * Minimal formatting for single version changelog.
      */
-    current?: boolean
-    /**
-     * Strip sections from the output.
-     */
-    strip?: 'all' | 'header' | 'footer'
+    minimal?: boolean
     /**
      * The new version that will be used in the changelog header. Only
      * necessary if a tag commit hasn't been created.
@@ -47,16 +42,13 @@ export async function generateChangelog(
   if (options.newVersion) {
     gitCliffArgs.push('--tag', `v${options.newVersion}`)
   }
-  if (options.current) {
-    gitCliffArgs.push('--current')
-  }
-  if (options.strip) {
-    gitCliffArgs.push('-s', options.strip)
+  if (options.minimal) {
+    gitCliffArgs.push('-s', 'all')
   }
   const { stdout } = await execa(gitCliffBin, gitCliffArgs, {
     env: {
       GITHUB_TOKEN: options.token,
-      STRIP_TAG: String(options.strip === 'all'),
+      STRIP_TAG: String(options.minimal),
     },
   })
   return stdout
