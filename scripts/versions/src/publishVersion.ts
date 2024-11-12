@@ -296,7 +296,7 @@ export async function publishVersion(args: {
   // Comment on Pull Requests
   if (args.push) {
     for (const prNumber of prNumbers) {
-      const adjective = args.tag ? 'nightly' : 'stable'
+      const adjective = args.tag ? 'canary' : 'stable'
 
       let body = dedent`
         A ${adjective} release \`${newVersion}\` has been published to NPM. :rocket:
