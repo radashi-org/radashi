@@ -5,12 +5,10 @@ import { green } from 'kleur/colors'
 import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
 import { sift } from 'radashi/array/sift.js'
+import { generateChangelog, inferNextVersion } from '../../changelog/changelog'
 import { installDeployKey } from '../../common/installDeployKey'
 import { dedent } from './dedent'
 import { trackVersion } from './trackVersion'
-
-// This is the commit that Radashi's changelog is based on.
-const changelogBaseSha = '2be4acf455ebec86e846854dbab57bd0bfbbceb7'
 
 export const VALID_TAGS = ['beta', 'next'] as const
 
@@ -26,7 +24,7 @@ export async function publishVersion(args: {
   npmToken?: string
   radashiBotToken: string
   deployKey?: string
-  nightlyDeployKey?: string
+  canaryDeployKey?: string
 }) {
   if (!process.env.CI) {
     throw new Error(
@@ -43,12 +41,10 @@ export async function publishVersion(args: {
 
   log(`Last stable version: ${stableVersion}`)
 
-  const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
-
   // Determine the next version
-  let newVersion = await execa(gitCliffBin, ['--bumped-version'], {
-    env: { GITHUB_TOKEN: args.gitCliffToken },
-  }).then(r => r.stdout.replace(/^v/, ''))
+  let newVersion = await inferNextVersion({
+    token: args.gitCliffToken,
+  })
 
   if (stableVersion === newVersion) {
     log('🚫 No version bump detected')
@@ -127,14 +123,11 @@ export async function publishVersion(args: {
 
   const changelogFile = `CHANGELOG${args.tag === 'next' ? '-next' : ''}.md`
 
-  // Generate Changelog
-  log(`Generating changelog from ${changelogBaseSha.slice(0, 7)} to HEAD`)
-  const gitCliffArgs = [`${changelogBaseSha}..HEAD`, '-o', changelogFile]
-  if (!args.tag) {
-    gitCliffArgs.push('--tag', `v${newVersion}`)
-  }
-  await execa(gitCliffBin, gitCliffArgs, {
-    env: { GITHUB_TOKEN: args.gitCliffToken },
+  log('Generating changelog')
+  await generateChangelog({
+    token: args.gitCliffToken,
+    outFile: changelogFile,
+    newVersion,
   })
 
   // Check if CHANGELOG.md has changed
@@ -176,14 +169,12 @@ export async function publishVersion(args: {
     log('Would have pushed to origin, but --no-push was set')
   }
 
-  const exactTag = `v${newVersion}`
-  const preReleaseTag =
-    args.tag === 'next' ? `v${newMajorVersion}-next` : args.tag
+  // The "canary" remote is where exact pre-release tags are pushed,
+  // so that they don't clutter the main repo.
+  const remoteName = args.tag ? 'canary' : 'origin'
+  const newTag = `v${newVersion}`
 
   if (args.push) {
-    // The "nightly" remote is where exact pre-release tags are
-    // pushed, so that they don't clutter the main repo.
-    const remoteName = args.tag ? 'nightly' : 'origin'
     if (args.tag) {
       await execa(
         'git',
@@ -191,21 +182,20 @@ export async function publishVersion(args: {
           'remote',
           'add',
           remoteName,
-          'git@github.com:radashi-org/radashi-nightly.git',
+          'git@github.com:radashi-org/radashi-canary.git',
         ],
         { reject: false },
       )
 
-      // Use the nightly deploy key if we're pushing a nightly tag.
-      if (args.nightlyDeployKey) {
-        await installDeployKey(args.nightlyDeployKey)
+      // Use the canary deploy key if we're pushing a canary tag.
+      if (args.canaryDeployKey) {
+        await installDeployKey(args.canaryDeployKey)
       }
     }
 
-    log(`Pushing new tag ${exactTag}`)
-
-    await execa('git', ['tag', exactTag])
-    await execa('git', ['push', remoteName, exactTag], {
+    log(`Pushing new tag ${newTag}`)
+    await execa('git', ['tag', newTag])
+    await execa('git', ['push', remoteName, newTag], {
       stdio: 'inherit',
     })
   } else {
@@ -246,28 +236,50 @@ export async function publishVersion(args: {
 
   const octokit = new Octokit({ auth: args.radashiBotToken })
 
-  log('Dispatching publish-docs workflow')
-  await octokit.actions.createWorkflowDispatch({
-    owner: 'radashi-org',
-    repo: 'radashi',
-    workflow_id: 'publish-docs.yml',
-    ref: 'refs/tags/' + (preReleaseTag ?? exactTag),
-  })
-
-  log('Updating version in deno.json')
-  const denoJson = {
-    ...JSON.parse(await fs.readFile('deno.json', 'utf8')),
-    version: newVersion,
+  if (args.push && (args.patch || !args.tag)) {
+    log('Creating a release on GitHub')
+    await octokit.rest.repos.createRelease({
+      owner: 'radashi-org',
+      repo: args.tag ? 'radashi-canary' : 'radashi',
+      tag_name: newTag,
+      body: await generateChangelog({
+        current: true,
+        token: args.gitCliffToken,
+      }),
+    })
   }
-  await fs.writeFile('deno.json', JSON.stringify(denoJson, null, 2))
 
-  log('Publishing to JSR.io')
-  await execa('pnpm', ['dlx', 'jsr', 'publish', '--allow-dirty'], {
-    stdio: 'inherit',
-  }).catch(error => {
-    // Don't exit early if JSR publish fails
-    console.error('Failed to publish to JSR:', error)
-  })
+  if (args.push && !args.tag) {
+    log('Dispatching publish-docs workflow')
+    await octokit.actions.createWorkflowDispatch({
+      owner: 'radashi-org',
+      repo: 'radashi',
+      workflow_id: 'publish-docs.yml',
+      ref: 'refs/tags/' + newTag,
+    })
+  } else {
+    log('Would have dispatched publish-docs workflow, but --no-push was set')
+  }
+
+  // Skip JSR dry-run publish, since `pnpm lint` already does that.
+  if (args.push) {
+    log('Updating version in deno.json')
+    const denoJson = {
+      ...JSON.parse(await fs.readFile('deno.json', 'utf8')),
+      version: newVersion,
+    }
+    await fs.writeFile('deno.json', JSON.stringify(denoJson, null, 2))
+
+    log('Publishing to JSR.io')
+    await execa('pnpm', ['dlx', 'jsr', 'publish', '--allow-dirty'], {
+      stdio: 'inherit',
+    }).catch(error => {
+      // Don't exit early if JSR publish fails
+      console.error('Failed to publish to JSR:', error)
+    })
+  } else {
+    log('Would have published to JSR.io, but --no-push was set')
+  }
 
   const prNumbers = await getPrNumbers(`${latestTagSha}..${currentSha}`)
   log(

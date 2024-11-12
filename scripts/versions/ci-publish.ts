@@ -21,13 +21,13 @@ async function parseArgs() {
     npmToken,
     radashiBotToken,
     deployKey,
-    nightlyDeployKey,
+    canaryDeployKey,
   } = verifyEnvVars({
     gitCliffToken: 'GIT_CLIFF_PAT',
     npmToken: 'NPM_TOKEN',
     radashiBotToken: 'RADASHI_BOT_TOKEN',
     deployKey: 'DEPLOY_KEY',
-    nightlyDeployKey: 'NIGHTLY_DEPLOY_KEY',
+    canaryDeployKey: 'NIGHTLY_DEPLOY_KEY',
   })
 
   const { default: mri } = await import('mri')
@@ -51,6 +51,6 @@ async function parseArgs() {
     npmToken,
     radashiBotToken,
     deployKey,
-    nightlyDeployKey,
+    canaryDeployKey,
   }
 }

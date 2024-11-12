@@ -21,13 +21,15 @@ body = """
   https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
 {%- endmacro -%}
 
-{% if version -%}
-    ## [radashi@{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
-{% else -%}
-    ## [radashi@beta]
-{% endif -%}
+{%- if get_env(name="CURRENT_ONLY") != "true" -%}
+    {% if version -%}
+        ## [radashi@{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+    {% else -%}
+        ## [radashi@beta]
+    {% endif -%}
 
-### Details\
+    ### Details\
+{%- endif -%}
 
 {% for group, commits in commits | group_by(attribute="group") %}
     #### {{ group | upper_first }}
