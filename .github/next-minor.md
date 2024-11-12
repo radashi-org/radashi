@@ -8,4 +8,5 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Features
 
-####
+#### Add `AbortSignal` options to retry and parallel 
+https://github.com/radashi-org/radashi/pull/262
