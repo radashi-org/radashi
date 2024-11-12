@@ -236,7 +236,7 @@ export async function publishVersion(args: {
 
   const octokit = new Octokit({ auth: args.radashiBotToken })
 
-  if (args.push && (args.patch || !args.tag)) {
+  if (args.push && (args.patch || args.tag)) {
     log('Creating a release on GitHub')
     await octokit.rest.repos.createRelease({
       owner: 'radashi-org',
