@@ -74,7 +74,7 @@ export async function publishVersion(args: {
     }
 
     const buildDigest = (await computeBuildDigest()).slice(0, 7)
-    newVersion = `${newVersion}-${args.tag}.${buildDigest}`
+    newVersion = `${newVersion}-beta.${buildDigest}`
   }
 
   log(`Determined new version: ${newVersion}`)
