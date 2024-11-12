@@ -21,6 +21,12 @@ describe('all', () => {
     expectTypeOf(result).toEqualTypeOf<[1, 2, 3]>()
   })
 
+  test('readonly array input with nested object', async () => {
+    const result = await all([{ a: 1 }, Promise.resolve({ b: 2 })])
+
+    expectTypeOf(result).toEqualTypeOf<[{ a: number }, { b: number }]>()
+  })
+
   test('readonly object input of promises, promise-like objects, and non-promises', async () => {
     const result = await all({
       a: Promise.resolve(1 as const),

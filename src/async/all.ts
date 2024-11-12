@@ -15,7 +15,11 @@ import { AggregateError, isArray } from 'radashi'
  * ```
  * @version 12.1.0
  */
-export async function all<const T extends readonly unknown[]>(
+export async function all<T extends readonly [unknown, ...unknown[]]>(
+  input: T,
+): Promise<{ -readonly [I in keyof T]: Awaited<T[I]> }>
+
+export async function all<T extends readonly unknown[]>(
   input: T,
 ): Promise<{ -readonly [I in keyof T]: Awaited<T[I]> }>
 
