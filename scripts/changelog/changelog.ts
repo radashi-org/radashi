@@ -8,10 +8,19 @@ const changelogBaseSha = '2be4acf455ebec86e846854dbab57bd0bfbbceb7'
 export async function generateChangelog(
   options: {
     /**
-     * If true, only the current version is included in the changelog,
-     * and the output is minimal.
+     * The base commit to start the changelog from. Defaults to the
+     * first commit after forking Radash.
+     */
+    base?: string
+    /**
+     * Only include changes between the tag of the HEAD commit and the
+     * previous tag.
      */
     current?: boolean
+    /**
+     * Strip sections from the output.
+     */
+    strip?: 'all' | 'header' | 'footer'
     /**
      * The new version that will be used in the changelog header. Only
      * necessary if a tag commit hasn't been created.
@@ -31,7 +40,7 @@ export async function generateChangelog(
     token?: string
   } = {},
 ) {
-  const gitCliffArgs = [`${changelogBaseSha}..HEAD`]
+  const gitCliffArgs = [`${options.base ?? changelogBaseSha}..HEAD`]
   if (options.outFile) {
     gitCliffArgs.push('-o', options.outFile)
   }
@@ -39,12 +48,15 @@ export async function generateChangelog(
     gitCliffArgs.push('--tag', `v${options.newVersion}`)
   }
   if (options.current) {
-    gitCliffArgs.push('--current', '-s', 'all')
+    gitCliffArgs.push('--current')
+  }
+  if (options.strip) {
+    gitCliffArgs.push('-s', options.strip)
   }
   const { stdout } = await execa(gitCliffBin, gitCliffArgs, {
     env: {
       GITHUB_TOKEN: options.token,
-      CURRENT_ONLY: options.current ? 'true' : undefined,
+      STRIP_TAG: options.strip === 'all' ? 'true' : undefined,
     },
   })
   return stdout
