@@ -56,7 +56,7 @@ export async function generateChangelog(
   const { stdout } = await execa(gitCliffBin, gitCliffArgs, {
     env: {
       GITHUB_TOKEN: options.token,
-      STRIP_TAG: options.strip === 'all' ? 'true' : undefined,
+      STRIP_TAG: String(options.strip === 'all'),
     },
   })
   return stdout
