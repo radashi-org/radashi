@@ -3,7 +3,6 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.25.0",
     "@types/node": "^22.1.0",
-    "execa": "^9.3.0",
     "mri": "^1.2.0",
     "octokit": "^4.0.2",
     "radashi": "link:../../src",
