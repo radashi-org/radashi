@@ -1,13 +1,8 @@
 import { AggregateError, isArray } from 'radashi'
 
-type PromiseValues<T extends Promise<any>[]> = {
-  [K in keyof T]: T[K] extends Promise<infer U> ? U : never
-}
-
 /**
- * Functionally similar to `Promise.all` or `Promise.allSettled`. If
- * any errors are thrown, all errors are gathered and thrown in an
- * `AggregateError`.
+ * Wait for all promises to resolve. Errors from rejected promises are
+ * collected into an `AggregateError`.
  *
  * @see https://radashi.js.org/reference/async/all
  * @example
@@ -20,18 +15,22 @@ type PromiseValues<T extends Promise<any>[]> = {
  * ```
  * @version 12.1.0
  */
-export async function all<T extends [Promise<any>, ...Promise<any>[]]>(
-  promises: T,
-): Promise<PromiseValues<T>>
+export async function all<T extends readonly [unknown, ...unknown[]]>(
+  input: T,
+): Promise<{ -readonly [I in keyof T]: Awaited<T[I]> }>
 
-export async function all<T extends Promise<any>[]>(
-  promises: T,
-): Promise<PromiseValues<T>>
+export async function all<T extends readonly unknown[]>(
+  input: T,
+): Promise<{ -readonly [I in keyof T]: Awaited<T[I]> }>
 
 /**
- * Functionally similar to `Promise.all` or `Promise.allSettled`. If
- * any errors are thrown, all errors are gathered and thrown in an
- * `AggregateError`.
+ * Check each property in the given object for a promise value. Wait
+ * for all promises to resolve. Errors from rejected promises are
+ * collected into an `AggregateError`.
+ *
+ * The returned promise will resolve with an object whose keys are
+ * identical to the keys of the input object. The values are the
+ * resolved values of the promises.
  *
  * @see https://radashi.js.org/reference/async/all
  * @example
@@ -43,39 +42,35 @@ export async function all<T extends Promise<any>[]>(
  * })
  * ```
  */
-export async function all<T extends Record<string, Promise<any>>>(
-  promises: T,
-): Promise<{ [K in keyof T]: Awaited<T[K]> }>
+export async function all<T extends Record<string, unknown>>(
+  input: T,
+): Promise<{ -readonly [K in keyof T]: Awaited<T[K]> }>
 
 export async function all(
-  promises: Record<string, Promise<any>> | Promise<any>[],
+  input: Record<string, unknown> | readonly unknown[],
 ): Promise<any> {
-  const entries = isArray(promises)
-    ? promises.map(p => [null, p] as const)
-    : Object.entries(promises)
-
-  const results = await Promise.all(
-    entries.map(([key, value]) =>
-      value
-        .then(result => ({ result, exc: null, key }))
-        .catch(exc => ({ result: null, exc, key })),
-    ),
-  )
-
-  const exceptions = results.filter(r => r.exc)
-  if (exceptions.length > 0) {
-    throw new AggregateError(exceptions.map(e => e.exc))
+  const errors: any[] = []
+  const onError = (err: any) => {
+    errors.push(err)
   }
 
-  if (isArray(promises)) {
-    return results.map(r => r.result)
+  let output: any
+  if (isArray(input)) {
+    output = await Promise.all(
+      input.map(value => Promise.resolve(value).catch(onError)),
+    )
+  } else {
+    output = { ...input }
+    await Promise.all(
+      Object.keys(output).map(async key => {
+        output[key] = await Promise.resolve(output[key]).catch(onError)
+      }),
+    )
   }
 
-  return results.reduce(
-    (acc, item) => {
-      acc[item.key!] = item.result
-      return acc
-    },
-    {} as Record<string, any>,
-  )
+  if (errors.length > 0) {
+    throw new AggregateError(errors)
+  }
+
+  return output
 }
