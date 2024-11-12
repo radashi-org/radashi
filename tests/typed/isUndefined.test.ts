@@ -34,8 +34,4 @@ describe('isUndefined', () => {
     const result = _.isUndefined('abc')
     expect(result).toBeFalsy()
   })
-  test('returns false for string class', () => {
-    const result = _.isUndefined(String('abc'))
-    expect(result).toBeFalsy()
-  })
 })
