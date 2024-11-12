@@ -5,9 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.2.3] - 2024-11-12
+### Details#### <!-- 06 -->Fixed
+- **(all)** Be more lenient, reduce memory usage by [@aleclarson](https://github.com/aleclarson) in [e6accd8](https://github.com/radashi-org/radashi/commit/e6accd870910f8df9487b6f54e1888bc5ae1ba92)
+
 ## [radashi@12.2.2] - 2024-11-10
-### Details
-#### <!-- 08 -->Types
+### Details#### <!-- 08 -->Types
 - Export `PromiseWithResolvers` type by [@aleclarson](https://github.com/aleclarson) in [#301](https://github.com/radashi-org/radashi/pull/301)
 
 - Improve `isEmpty` signature by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#219](https://github.com/radashi-org/radashi/pull/219)
@@ -18,8 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [radashi@12.2.1] - 2024-11-09
-### Details
-#### <!-- 08 -->Types
+### Details#### <!-- 08 -->Types
 - Improve signature of `shake` by [@aleclarson](https://github.com/aleclarson) in [#293](https://github.com/radashi-org/radashi/pull/293)
 
 - `mapValues` index signature handling by [@aleclarson](https://github.com/aleclarson) in [#297](https://github.com/radashi-org/radashi/pull/297)
@@ -30,8 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### New Contributors
 * [@aeharding](https://github.com/aeharding) made their first contribution in [#294](https://github.com/radashi-org/radashi/pull/294)
 ## [radashi@12.2.0] - 2024-11-01
-### Details
-#### <!-- 03 -->Added
+### Details#### <!-- 03 -->Added
 - Add `isIntString` function by [@aleclarson](https://github.com/aleclarson) in [fa500d3](https://github.com/radashi-org/radashi/commit/fa500d329d7e06062e7a42cbf4ff9ad9dcb89191)
 - Add `isPlainObject` type guard by [@aleclarson](https://github.com/aleclarson) in [#16](https://github.com/radashi-org/radashi/pull/16)
 
@@ -81,7 +82,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `isError` function by [@aleclarson](https://github.com/aleclarson) in [#173](https://github.com/radashi-org/radashi/pull/173)
 
-
 #### <!-- 05 -->Changed
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
 
@@ -99,7 +99,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **(mapify)** Provide an index argument to the callbacks by [@aleclarson](https://github.com/aleclarson) in [#100](https://github.com/radashi-org/radashi/pull/100)
 
 - Use native AggregateError if available by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#116](https://github.com/radashi-org/radashi/pull/116)
-
 
 #### <!-- 06 -->Fixed
 - **(retry)** Stop using `range()` by [@aleclarson](https://github.com/aleclarson) in [5d60893](https://github.com/radashi-org/radashi/commit/5d60893471240516a49c6ddf48839165b5961a47)
@@ -130,7 +129,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **(pascal)** Handle camel-cased strings correctly by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#178](https://github.com/radashi-org/radashi/pull/178)
 
-
 #### <!-- 07 -->Performance
 - Avoid excessive array allocation in `fork` by [@localusercamp](https://github.com/localusercamp) in [#33](https://github.com/radashi-org/radashi/pull/33)
 
@@ -149,7 +147,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **(shuffle)** Use the Fisher-Yates algorithm by [@eumkz](https://github.com/eumkz) in [#76](https://github.com/radashi-org/radashi/pull/76)
 
 - **(merge)** Improved handling of large arrays by [@Minhir](https://github.com/Minhir) in [#240](https://github.com/radashi-org/radashi/pull/240)
-
 
 #### <!-- 08 -->Types
 - Let `filterKey` accept `key: keyof any` by [@aleclarson](https://github.com/aleclarson) in [73ac8bb](https://github.com/radashi-org/radashi/commit/73ac8bba9e2a2a39eb3c117cc940cc2b18199834)
@@ -187,6 +184,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
+
+[radashi@12.2.3]: https://github.com/radashi-org/radashi/compare/v12.2.2..v12.2.3
 
 [radashi@12.2.2]: https://github.com/radashi-org/radashi/compare/v12.2.1..v12.2.2
 
