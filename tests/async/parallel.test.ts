@@ -37,4 +37,75 @@ describe('parallel', () => {
     })
     expect(Math.max(...tracking)).toBe(3)
   })
+  test('aborts the operation when the signal is triggered', async () => {
+    const abortController = new AbortController()
+
+    setTimeout(() => abortController.abort(), 150)
+
+    const [error, results] = await _.try(async () => {
+      return _.parallel(
+        {
+          limit: 1,
+          signal: abortController.signal,
+        },
+        _.list(1, 12),
+        async num => {
+          await _.sleep(50)
+          return `hi_${num}`
+        },
+      )
+    })()
+
+    expect(results).toBeUndefined()
+    expect(error).toBeInstanceOf(Error)
+    expect(error?.message).toBe('This operation was aborted')
+  })
+  test('should throw if the abort controller aborted before first iteration has finished execution', async () => {
+    const abortController = new AbortController()
+
+    abortController.abort()
+
+    const [error, results] = await _.try(async () => {
+      return _.parallel(
+        {
+          limit: 1,
+          signal: abortController.signal,
+        },
+        _.list(1, 24),
+        async num => {
+          await _.sleep(50)
+          return `hi_${num}`
+        },
+      )
+    })()
+
+    expect(results).toBeUndefined()
+    expect(error).toBeInstanceOf(Error)
+    expect(error?.message).toBe('This operation was aborted')
+  })
+  test('removes abort event listener after completion', async () => {
+    const mockAbortSignal = {
+      aborted: false,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      throwIfAborted: vi.fn(),
+    }
+
+    await _.parallel(
+      {
+        limit: 2,
+        signal: mockAbortSignal,
+      },
+      _.list(1, 5),
+      async num => {
+        await new Promise(resolve => setTimeout(resolve, 10))
+        return `hi_${num}`
+      },
+    )
+
+    expect(mockAbortSignal.removeEventListener).toHaveBeenCalledWith(
+      'abort',
+      expect.any(Function),
+    )
+  })
 })
