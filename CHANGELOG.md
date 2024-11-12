@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@beta]
+### Details
+#### <!-- 03 -->Added
+- Add `isNullish` function in [112d25f](https://github.com/radashi-org/radashi/commit/112d25f91d6f0a3f02f690a71ba4a400d2d7a738)
+- Add `dedent` function in [c42859b](https://github.com/radashi-org/radashi/commit/c42859bdb770f9e5c8368c1c9dfc9dc827c0cad9)
+- Add `timeout` function in [9b315a9](https://github.com/radashi-org/radashi/commit/9b315a973adc036def2548e529b6ecfcd351182f)
+- Add `isClass` function in [fe11bf5](https://github.com/radashi-org/radashi/commit/fe11bf55cfdde47f11db5adb9684fdaf5150d7b1)
+- Add `AbortSignal` options to `retry` and `parallel` in [0700644](https://github.com/radashi-org/radashi/commit/0700644e3d582a1c04090c816917d27f9a9322dd)
+
+#### <!-- 05 -->Changed
+- **(array)** `cartesianProduct` in [5f43e47](https://github.com/radashi-org/radashi/commit/5f43e470cafaea6700d365642d44e7c354f1f576)
+
 ## [radashi@12.2.2] - 2024-11-10
 ### Details
 #### <!-- 08 -->Types
@@ -187,6 +199,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
+
+[radashi@beta]: https://github.com/radashi-org/radashi/compare/v12.2.2..HEAD
 
 [radashi@12.2.2]: https://github.com/radashi-org/radashi/compare/v12.2.1..v12.2.2
 
