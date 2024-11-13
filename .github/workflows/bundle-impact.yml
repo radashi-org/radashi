@@ -24,9 +24,9 @@ jobs:
           git checkout "pr/$PR_HEAD_REF" -- src
 
           if [ -z "$(git status --porcelain)" ]; then
-            echo '::set-output name=has_changes::false'
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           else
-            echo '::set-output name=has_changes::true'
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Install pnpm

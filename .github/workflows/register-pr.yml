@@ -23,9 +23,9 @@ jobs:
           bash scripts/checkout-pr.sh src docs
 
           if [ -n "$(git status --porcelain src | grep '^A')" ]; then
-            echo '::set-output name=has_new_func::true'
+            echo "has_new_func=true" >> $GITHUB_OUTPUT
           else
-            echo '::set-output name=has_new_func::false'
+            echo "has_new_func=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Wait for other checks to finish
