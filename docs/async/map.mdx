@@ -19,4 +19,14 @@ const api = {
 const users = await _.map(userIds, async userId => {
   return await api.users.find(userId)
 }) // [true, true, false, false]
+
+const users = await _.map(
+  userIds,
+  async userId => {
+    return await api.users.find(userId)
+  },
+  user => {
+    return user === 3
+  },
+) // [true, true]
 ```
