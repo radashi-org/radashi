@@ -4,7 +4,7 @@ import mri from 'mri'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { uid } from 'radashi/random/uid.js'
+import { uid } from '../../src/random/uid.js'
 import { dedent } from './dedent'
 
 /**

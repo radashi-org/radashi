@@ -1,13 +1,20 @@
 import { Octokit } from '@octokit/rest'
-import { weighChangedFunctions } from './src/weigh-changed'
-
-const octokit = new Octokit({
-  auth: process.env.RADASHI_BOT_TOKEN,
-})
+import { weighChangedFunctions } from './weigh-changed'
 
 main()
 
 async function main() {
+  if (process.env.CI) {
+    await weighChangedFunctions().then(console.log)
+  } else {
+    await updateBundleImpact()
+  }
+}
+
+async function updateBundleImpact() {
+  const octokit = new Octokit({
+    auth: process.env.RADASHI_BOT_TOKEN,
+  })
   const { prNumber } = parseArgv(process.argv.slice(2))
 
   console.log('weighing changed functions...')

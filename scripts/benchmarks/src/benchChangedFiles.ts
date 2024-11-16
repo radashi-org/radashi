@@ -3,7 +3,7 @@
  * benchmarks for them.
  */
 import { existsSync } from 'node:fs'
-import { group } from 'radashi/array/group.js'
+import { group } from '../../../src/array/group.js'
 import { getStagedFiles } from './getStagedFiles.js'
 import type { BenchmarkReport } from './reporter.js'
 import { runVitest } from './runner.js'

@@ -4,6 +4,6 @@
   "dependencies": {
     "@types/node": "^22.4.0",
     "fast-glob": "^3.3.2",
-    "tsx": "^4.17.0"
+    "radashi": "link:../../src"
   }
 }

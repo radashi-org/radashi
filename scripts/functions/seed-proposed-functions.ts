@@ -1,5 +1,5 @@
 import { Octokit, type RestEndpointMethodTypes } from '@octokit/rest'
-import { parallel } from 'radashi/async/parallel.js'
+import { parallel } from '../../src/async/parallel.js'
 import { registerPullRequest } from './src/register-pr'
 import { bottleneck } from './src/util/bottleneck'
 

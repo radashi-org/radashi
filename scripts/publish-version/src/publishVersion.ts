@@ -6,7 +6,7 @@ import glob from 'fast-glob'
 import { green } from 'kleur/colors'
 import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
-import { sift } from 'radashi/array/sift.js'
+import { sift } from '../../../src/array/sift.js'
 import { dedent } from './dedent'
 import { trackVersion } from './trackVersion'
 

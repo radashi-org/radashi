@@ -11,7 +11,7 @@ async function main() {
     prHeadRef: 'PR_HEAD_REF',
   })
 
-  const { prerelease } = await import('./src/prerelease')
+  const { prerelease } = await import('./prerelease')
 
   await prerelease(args)
 }

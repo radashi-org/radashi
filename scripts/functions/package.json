@@ -10,7 +10,6 @@
     "markdown-it-front-matter": "^0.2.4",
     "radashi": "link:../../src",
     "radashi-db": "link:../radashi-db",
-    "tsx": "^4.17.0",
     "ultrahtml": "^1.5.3",
     "yaml": "^2.5.0"
   }
