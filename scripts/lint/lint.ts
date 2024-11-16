@@ -1,5 +1,4 @@
 import { execa, type Subprocess } from 'execa'
-import glob from 'fast-glob'
 import kleur from 'kleur'
 import mri from 'mri'
 import { existsSync } from 'node:fs'
@@ -7,6 +6,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { Transform } from 'node:stream'
 import parseArgsStringToArgv from 'string-argv'
+import { glob } from 'tinyglobby'
 
 const lint = (scripts: string[]): Command[] => [
   {

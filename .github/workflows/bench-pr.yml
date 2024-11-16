@@ -53,6 +53,5 @@ jobs:
         if: steps.checkout.outputs.has_changes == 'true'
         env:
           RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
           ./scripts/benchmarks/node_modules/.bin/tsx ./scripts/benchmarks/ci-bench-pr.ts ${{ github.base_ref }} ${{ github.event.number }} ${{ github.event.pull_request.head.repo.html_url }}/blob/${{ github.event.pull_request.head.sha }}

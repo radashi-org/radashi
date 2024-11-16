@@ -1,5 +1,5 @@
 import { execa } from 'execa'
-import { cluster } from '../../../src/array/cluster.js'
+import { cluster } from 'radashi/array/cluster.ts'
 
 export async function getStagedFiles(
   globs: [string, ...string[]],

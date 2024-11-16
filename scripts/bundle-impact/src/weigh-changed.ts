@@ -1,8 +1,8 @@
 import * as esbuild from 'esbuild'
 import { execa } from 'execa'
-import { cluster } from '../../../src/array/cluster.js'
-import { select } from '../../../src/array/select.js'
-import { map } from '../../../src/async/map.js'
+import { cluster } from 'radashi/array/cluster.ts'
+import { select } from 'radashi/array/select.ts'
+import { map } from 'radashi/async/map.ts'
 
 export async function weighChangedFunctions(opts: { verbose?: boolean } = {}) {
   const targetBranch = await getTargetBranch()

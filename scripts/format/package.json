@@ -2,8 +2,8 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@types/node": "^22.4.0",
-    "fast-glob": "^3.3.2",
-    "radashi": "link:../../src"
+    "execa": "^9.5.1",
+    "radashi": "link:../../src",
+    "tinyglobby": "^0.2.10"
   }
 }

@@ -1,4 +1,3 @@
-import { Octokit } from '@octokit/rest'
 import { weighChangedFunctions } from './weigh-changed'
 
 main()
@@ -12,15 +11,21 @@ async function main() {
 }
 
 async function updateBundleImpact() {
-  const octokit = new Octokit({
-    auth: process.env.RADASHI_BOT_TOKEN,
-  })
   const { prNumber } = parseArgv(process.argv.slice(2))
 
   console.log('weighing changed functions...')
 
   let bundleImpact = await weighChangedFunctions({ verbose: true })
-  bundleImpact = bundleImpact ? `## Bundle impact\n\n${bundleImpact}\n\n` : ''
+
+  if (bundleImpact) {
+    bundleImpact = `## Bundle impact\n\n${bundleImpact}\n\n`
+  }
+
+  const { Octokit } = await import('@octokit/rest')
+
+  const octokit = new Octokit({
+    auth: process.env.RADASHI_BOT_TOKEN,
+  })
 
   console.log(`fetching PR #${prNumber} data...`)
 

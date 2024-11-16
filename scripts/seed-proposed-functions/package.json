@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@octokit/rest": "^21.0.2",
+    "@radashi-org/register-pr": "link:../register-pr",
+    "radashi": "link:../../src"
+  }
+}

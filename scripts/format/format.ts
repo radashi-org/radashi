@@ -1,5 +1,5 @@
 import { execa } from 'execa'
-import glob from 'fast-glob'
+import { glob } from 'tinyglobby'
 
 main()
 

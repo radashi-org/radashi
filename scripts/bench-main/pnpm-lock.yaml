@@ -1,0 +1,16 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@radashi-org/benchmarks':
+        specifier: link:../benchmarks
+        version: link:../benchmarks
+      radashi-db:
+        specifier: link:../radashi-db
+        version: link:../radashi-db

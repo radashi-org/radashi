@@ -1,6 +1,8 @@
 // @biome-format
 import { spawn } from 'node:child_process'
 import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 main(process.argv.slice(2))
 
@@ -10,6 +12,9 @@ async function main([command, ...argv]) {
     process.exit(1)
   }
 
+  const __filename = fileURLToPath(import.meta.url)
+  const __dirname = path.dirname(__filename)
+
   async function installDependencies(pkgDir) {
     if (fs.existsSync(path.join(pkgDir, 'node_modules'))) {
       return
@@ -18,6 +23,24 @@ async function main([command, ...argv]) {
     const pkgPath = path.join(pkgDir, 'package.json')
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'))
 
+    if (!pkg.dependencies) {
+      return
+    }
+
+    console.log(`> Installing dependencies for ${path.relative(process.cwd(), pkgDir)}`)
+    
+    const installer = spawn('pnpm', ['install', '--lockfile-dir', __dirname], {
+      cwd: pkgDir,
+      stdio: 'inherit',
+    })
+
+    await new Promise((resolve, reject) => {
+      installer.on('close', resolve)
+      installer.on('error', reject)
+    })
+
+    console.log()
+    
     for (const [name, version] of Object.entries(pkg.dependencies)) {
       if (name === 'radashi') {
         continue
@@ -39,6 +62,10 @@ async function main([command, ...argv]) {
 
   await installDependencies(commandDir)
 
+  if (process.env.INSTALL_ONLY) {
+    return
+  }
+  
   const version = process.versions.node
   const [major, minor] = version.split('.').map(Number)
 

@@ -1,3 +1,4 @@
+import { checkoutPullRequest } from '@radashi-org/checkout-pr'
 import { installDeployKey } from '@radashi-org/common/installDeployKey.ts'
 import { execa, type Options as ExecaOptions } from 'execa'
 
@@ -91,14 +92,10 @@ async function mergePullRequest({
   prRepoUrl: string
   message: string
 }) {
-  // Fetch the PR, squash it, merge its changes without committing.
-  // The changes are left staged. This also creates a "pr" remote,
-  // which we use in the next steps.
-  await exec('bash', ['scripts/checkout-pr.sh'], {
-    env: {
-      PR_REPO_URL: prRepoUrl,
-      PR_HEAD_REF: prHeadRef,
-    },
+  // This creates a "pr" git remote, which we use in the next steps.
+  await checkoutPullRequest({
+    repoUrl: prRepoUrl,
+    headRef: prHeadRef,
   })
 
   // Get the commit where the PR branch diverged from the target
