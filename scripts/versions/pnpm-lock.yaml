@@ -11,6 +11,12 @@ importers:
       '@octokit/rest':
         specifier: ^21.0.2
         version: 21.0.2
+      '@radashi-org/changelog':
+        specifier: link:../changelog
+        version: link:../changelog
+      '@radashi-org/common':
+        specifier: link:../common
+        version: link:../common
       fast-glob:
         specifier: ^3.3.2
         version: 3.3.2

@@ -1,4 +1,4 @@
-import { verifyEnvVars } from '../common/verifyEnvVars'
+import { verifyEnvVars } from '@radashi-org/common/verifyEnvVars.ts'
 
 main()
 

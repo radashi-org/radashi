@@ -3,6 +3,8 @@
   "private": true,
   "dependencies": {
     "@octokit/rest": "^21.0.2",
+    "@radashi-org/changelog": "link:../changelog",
+    "@radashi-org/common": "link:../common",
     "fast-glob": "^3.3.2",
     "git-cliff": "2.4.0",
     "kleur": "^4.1.5",
