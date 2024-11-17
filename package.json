@@ -48,7 +48,7 @@
     "@biomejs/biome": "^1.8.3",
     "@radashi-org/biome-config": "link:scripts/biome-config",
     "@types/node": "^22.7.7",
-    "@vitest/coverage-v8": "2.0.5",
+    "@vitest/coverage-v8": "2.1.5",
     "cspell": "^8.13.3",
     "prettier": "^3.3.2",
     "prettier-plugin-pkg": "^0.18.1",
