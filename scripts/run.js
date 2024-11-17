@@ -18,6 +18,8 @@ async function main([command, ...argv]) {
     process.exit(1)
   }
 
+  // Only a few environment variables are exposed to install/postinstall 
+  // scripts when installing dependencies from NPM.
   const strictEnv = pick(process.env, [
     'PATH',
     'TMPDIR',
