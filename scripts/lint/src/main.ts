@@ -1,7 +1,7 @@
 import { execa, type Subprocess } from 'execa'
 import kleur from 'kleur'
 import mri from 'mri'
-import { existsSync } from 'node:fs'
+import { existsSync, rmSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { Transform } from 'node:stream'
@@ -86,8 +86,8 @@ const lint = (scripts: string[]): Command[] => [
               JSON.stringify(tsconfig, null, 2),
             )
           },
-          async post() {
-            await fs.rm(path.join(dir, 'tsconfig.json'))
+          post() {
+            rmSync(path.join(dir, 'tsconfig.json'))
           },
         }
       }),
