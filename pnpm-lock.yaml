@@ -21,7 +21,7 @@ importers:
         specifier: 2.1.5
         version: 2.1.5(vitest@2.1.5(@types/node@22.7.7))
       cspell:
-        specifier: ^8.13.3
+        specifier: 8.15.4
         version: 8.15.4
       prettier:
         specifier: ^3.3.2
