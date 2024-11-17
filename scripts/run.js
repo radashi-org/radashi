@@ -19,6 +19,13 @@ async function main([command, ...argv]) {
     process.exit(1)
   }
 
+  const strictEnv = pick(process.env, [
+    'PATH',
+    'TMPDIR',
+    'NODE_PATH',
+    'NODE_OPTIONS',
+  ])
+
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = path.dirname(__filename)
 
@@ -34,11 +41,14 @@ async function main([command, ...argv]) {
       return
     }
 
-    console.log(`> Installing dependencies for ${path.relative(process.cwd(), pkgDir)}`)
-    
+    console.log(
+      `> Installing dependencies for ${path.relative(process.cwd(), pkgDir)}`,
+    )
+
     const installer = spawn('pnpm', ['install', '--lockfile-dir', __dirname], {
       cwd: pkgDir,
       stdio: 'inherit',
+      env: strictEnv,
     })
 
     await new Promise((resolve, reject) => {
@@ -47,7 +57,7 @@ async function main([command, ...argv]) {
     })
 
     console.log()
-    
+
     for (const [name, version] of Object.entries(pkg.dependencies)) {
       if (name === 'radashi') {
         continue
@@ -92,4 +102,14 @@ async function main([command, ...argv]) {
   child.on('close', code => {
     process.exit(code)
   })
+}
+
+function pick(object, keys) {
+  const result = {}
+  for (const key of keys) {
+    if (key in object) {
+      result[key] = object[key]
+    }
+  }
+  return result
 }
