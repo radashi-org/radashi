@@ -1,4 +1,4 @@
-import { supabase } from 'radashi-db/supabase.js'
+import { supabase } from 'radashi-db/supabase.ts'
 
 export async function trackVersion(
   version: string,

@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import type { Database } from './supabase.types'
+import type { Database } from './supabase.types.ts'
 
 if (!process.env.SUPABASE_KEY) {
   throw new Error('SUPABASE_KEY is not set')

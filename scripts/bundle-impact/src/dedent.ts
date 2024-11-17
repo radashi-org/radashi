@@ -1,4 +1,4 @@
-import { isArray } from '../../../src/typed/isArray.ts'
+import { isArray } from 'radashi/typed/isArray.ts'
 
 /**
  * Remove indentation from a string. The given string is expected to

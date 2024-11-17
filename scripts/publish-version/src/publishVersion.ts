@@ -7,8 +7,8 @@ import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
 import { sift } from 'radashi/array/sift.ts'
 import { glob } from 'tinyglobby'
-import { dedent } from './dedent'
-import { trackVersion } from './trackVersion'
+import { dedent } from './dedent.ts'
+import { trackVersion } from './trackVersion.ts'
 
 export const VALID_TAGS = ['beta', 'next'] as const
 

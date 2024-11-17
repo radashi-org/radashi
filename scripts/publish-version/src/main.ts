@@ -5,7 +5,7 @@ main()
 async function main() {
   const args = await parseArgs()
 
-  const { publishVersion, VALID_TAGS } = await import('./publishVersion')
+  const { publishVersion, VALID_TAGS } = await import('./publishVersion.ts')
 
   if (args.tag && !VALID_TAGS.includes(args.tag)) {
     console.error(`Error: --tag must be one of [${VALID_TAGS.join(', ')}]`)
@@ -42,7 +42,7 @@ async function parseArgs() {
     process.exit(1)
   }
 
-  type ValidTag = typeof import('./publishVersion').VALID_TAGS[number]
+  type ValidTag = typeof import('./publishVersion.ts').VALID_TAGS[number]
 
   return {
     push: !argv['no-push'],

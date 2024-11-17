@@ -31,7 +31,7 @@ export async function benchChangedFiles(
       .replace(/\.ts$/, '.bench.ts')
 
     if (existsSync(benchFile)) {
-      const { compareToBaseline } = await import('./compareToBaseline.js')
+      const { compareToBaseline } = await import('./compareToBaseline.ts')
 
       const changed = await compareToBaseline(
         targetBranch,
