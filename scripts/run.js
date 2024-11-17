@@ -23,6 +23,7 @@ async function main([command, ...argv]) {
     'TMPDIR',
     'NODE_PATH',
     'NODE_OPTIONS',
+    'PNPM_HOME',
   ])
 
   const __filename = fileURLToPath(import.meta.url)
