@@ -6,7 +6,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { Transform } from 'node:stream'
 import parseArgsStringToArgv from 'string-argv'
-import { glob } from 'tinyglobby'
+import { globSync } from 'tinyglobby'
 
 const lint = (scripts: string[]): Command[] => [
   {
@@ -55,11 +55,17 @@ const lint = (scripts: string[]): Command[] => [
           async pre(prefix) {
             // Ensure script dependencies are installed.
             if (!existsSync(path.join(dir, 'node_modules'))) {
-              const installProc = execa('pnpm', ['install'], {
-                cwd: dir,
-                stdout: 'pipe',
-                stderr: 'inherit',
-              })
+              const installProc = execa(
+                'node',
+                ['scripts/run.js', path.basename(dir)],
+                {
+                  stdout: 'pipe',
+                  stderr: 'inherit',
+                  env: {
+                    INSTALL_ONLY: 'true',
+                  },
+                },
+              )
 
               installProc.stdout
                 .pipe(createPrefixStream(prefix + ' '))
@@ -106,15 +112,14 @@ async function main() {
   const files = baseCommit ? await getChangedFiles(baseCommit) : undefined
 
   let scripts = mightLintScripts(files, ignoreScripts, commandFilters)
-    ? glob
-        .sync(['scripts/*/package.json', '!scripts/biome-config'])
-        .map(p => path.dirname(p))
+    ? globSync('scripts/*/src/main.ts').map(p => path.resolve(p, '../..'))
     : []
 
   if (files) {
-    scripts = scripts.filter(dir =>
-      files.some(file => file.startsWith(dir + '/')),
-    )
+    scripts = scripts.filter(dir => {
+      dir = path.join(dir, '/')
+      return files.some(file => file.startsWith(dir))
+    })
   }
 
   const commands = lint(scripts)
@@ -135,7 +140,8 @@ function mightLintScripts(
     return false
   }
   if (files) {
-    return files.some(file => file.startsWith('scripts/'))
+    const scriptsDir = path.join('scripts', '/')
+    return files.some(file => file.startsWith(scriptsDir))
   }
   return !!process.env.CI || commandFilters.length > 0
 }
@@ -275,7 +281,7 @@ function createPrefixStream(prefix: string): Transform {
 
   return new Transform({
     encoding: 'utf8',
-    transform(chunk: string, encoding, callback) {
+    transform(chunk: string, _encoding, callback) {
       const lines = (incompleteLine + chunk).split('\n')
       incompleteLine = lines.pop() || ''
 

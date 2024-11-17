@@ -1,3 +1,5 @@
+import { inferNextVersion } from '@radashi-org/changelog'
+import { verifyEnvVars } from '@radashi-org/common/verifyEnvVars.ts'
 import { execa } from 'execa'
 import { green } from 'kleur/colors'
 import mri from 'mri'
@@ -22,6 +24,10 @@ async function main() {
     console.error('Version is required')
     process.exit(1)
   }
+
+  const { docsDeployKey } = verifyEnvVars({
+    docsDeployKey: 'DOCS_DEPLOY_KEY?',
+  })
 
   let metaId: string
   if (newVersion.startsWith('refs/tags/')) {
@@ -97,8 +103,8 @@ async function main() {
     }
   }
 
-  if (process.env.DOCS_DEPLOY_KEY) {
-    await installDeployKey(process.env.DOCS_DEPLOY_KEY)
+  if (docsDeployKey) {
+    await installDeployKey(docsDeployKey)
   }
 
   log('Publishing docs for version:', newVersion)
@@ -222,11 +228,7 @@ async function coerceTagToVersion(tag: string) {
     version = tag.slice(1)
     metaId = 'stable_version'
   } else if (tag === 'beta' || tag === 'next') {
-    const gitCliffBin = './scripts/docs/node_modules/.bin/git-cliff'
-
-    version = await execa(gitCliffBin, ['--bumped-version']).then(r =>
-      r.stdout.replace(/^v/, ''),
-    )
+    version = await inferNextVersion()
 
     if (tag === 'next') {
       version += '-alpha'

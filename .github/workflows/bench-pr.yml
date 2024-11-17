@@ -40,18 +40,9 @@ jobs:
         with:
           cache: pnpm
 
-      - name: Install dependencies
-        if: steps.checkout.outputs.has_changes == 'true'
-        run: |
-          # Only install Vitest for the root directory.
-          echo '{"type":"module","dependencies":{"vitest":"2.0.5"}}' > package.json
-          pnpm install --no-frozen-lockfile
-          pnpm install -C scripts/benchmarks
-          pnpm install -C scripts/radashi-db
-
       - name: Run benchmarks
         if: steps.checkout.outputs.has_changes == 'true'
         env:
           RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
         run: |
-          ./scripts/benchmarks/node_modules/.bin/tsx ./scripts/benchmarks/ci-bench-pr.ts ${{ github.base_ref }} ${{ github.event.number }} ${{ github.event.pull_request.head.repo.html_url }}/blob/${{ github.event.pull_request.head.sha }}
+          node scripts/run bench-pr ${{ github.base_ref }} ${{ github.event.number }} ${{ github.event.pull_request.head.repo.html_url }}/blob/${{ github.event.pull_request.head.sha }}

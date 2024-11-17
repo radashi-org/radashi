@@ -47,22 +47,12 @@ jobs:
         with:
           cache: pnpm
 
-      - name: Install Dependencies
-        if: steps.checkout.outputs.has_new_func == 'true'
-        run: |
-          pnpm install -C scripts/functions
-          pnpm install -C scripts/radashi-db
-
       - name: Register PR
         if: steps.checkout.outputs.has_new_func == 'true'
-        uses: actions/github-script@v7
         env:
           ALGOLIA_KEY: ${{ secrets.ALGOLIA_KEY }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const root = '${{ github.workspace }}/scripts/functions'
-            const { tsImport } = await import(root + '/node_modules/tsx/dist/esm/api/index.cjs')
-            const script = await tsImport(root + '/ci-register-pr.ts', root)
-            await script.run(context.payload.pull_request, github.rest)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST: ${{ toJson(github.event.pull_request) }}
+        run: |
+          node scripts/run register-pr

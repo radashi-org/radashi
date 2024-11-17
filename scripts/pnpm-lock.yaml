@@ -71,6 +71,9 @@ importers:
       '@octokit/rest':
         specifier: ^21.0.1
         version: 21.0.2
+      '@radashi-org/common':
+        specifier: link:../common
+        version: link:../common
       esbuild:
         specifier: ^0.23.0
         version: 0.23.1
@@ -181,6 +184,12 @@ importers:
 
   publish-docs:
     dependencies:
+      '@radashi-org/changelog':
+        specifier: link:../changelog
+        version: link:../changelog
+      '@radashi-org/common':
+        specifier: link:../common
+        version: link:../common
       execa:
         specifier: ^9.5.1
         version: 9.5.1
@@ -247,6 +256,9 @@ importers:
       '@octokit/rest':
         specifier: ^21.0.1
         version: 21.0.2
+      '@radashi-org/common':
+        specifier: link:../common
+        version: link:../common
       '@types/markdown-it':
         specifier: ^14.1.2
         version: 14.1.2

@@ -3,7 +3,6 @@
   "private": true,
   "dependencies": {
     "execa": "^9.5.1",
-    "radashi": "link:../../src",
     "tinyglobby": "^0.2.10"
   }
 }

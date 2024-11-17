@@ -1,8 +1,21 @@
-import type { Octokit } from '@octokit/rest'
+import { Octokit } from '@octokit/rest'
+import { verifyEnvVars } from '@radashi-org/common/verifyEnvVars.ts'
 import fs from 'node:fs/promises'
 import { registerPullRequest } from './register-pr.ts'
 
-export async function run(pr: PullRequest, octokit: Octokit) {
+main()
+
+async function main() {
+  const { githubToken, prPayload } = verifyEnvVars({
+    githubToken: 'GITHUB_TOKEN',
+    prPayload: 'PULL_REQUEST',
+  })
+
+  const octokit = new Octokit({
+    auth: githubToken,
+  })
+
+  const pr: PullRequest = JSON.parse(prPayload)
   const owner = pr.head.repo.owner.login
   const repo = pr.head.repo.name
 

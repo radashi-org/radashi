@@ -5,6 +5,8 @@ import { existsSync } from 'node:fs'
 import { supabase } from 'radashi-db/supabase.ts'
 import { glob } from 'tinyglobby'
 
+main()
+
 async function main() {
   const currentSha = await execa('git', ['rev-parse', 'HEAD']).then(
     result => result.stdout,
@@ -52,5 +54,3 @@ async function main() {
     console.error('Error updating last benched SHA:', updateError)
   }
 }
-
-main().catch(console.error)

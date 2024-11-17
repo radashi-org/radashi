@@ -4,12 +4,14 @@
  * accessible to untrusted code, the environment variables are cleared
  * after they are read.
  */
-export function verifyEnvVars<T extends Record<string, string | false>>(
+export function verifyEnvVars<const T extends Record<string, string | false>>(
   vars: T,
 ): {
-  [K in keyof T]: T[K] extends infer Value
-    ? Value extends string
-      ? string
+  [K in keyof T]: T[K] extends infer TEnvName
+    ? TEnvName extends string
+      ? TEnvName extends `${string}?`
+        ? string | undefined
+        : string
       : undefined
     : undefined
 } {
@@ -18,8 +20,16 @@ export function verifyEnvVars<T extends Record<string, string | false>>(
       if (!envName) {
         return acc
       }
+      let optional: boolean | undefined
+      if (envName.endsWith('?')) {
+        optional = true
+        envName = envName.slice(0, -1)
+      }
       const value = process.env[envName]
       if (!value) {
+        if (optional) {
+          return acc
+        }
         console.error(`Error: ${envName} is not set`)
         process.exit(1)
       }

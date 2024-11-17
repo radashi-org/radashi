@@ -31,18 +31,18 @@
     "dist"
   ],
   "scripts": {
-    "add-function": "bash ./scripts/add-function.sh",
+    "add-function": "radashi fn create",
     "bench": "vitest bench",
     "build": "tsup --clean",
-    "bundle-impact": "bash ./scripts/bundle-impact.sh",
+    "bundle-impact": "node scripts/run bundle-impact",
     "dev": "tsup --clean --watch --sourcemap",
-    "format": "bash ./scripts/format.sh",
-    "lint": "bash ./scripts/lint.sh",
-    "move-function": "bash ./scripts/move-function.sh",
+    "format": "node scripts/run format",
+    "lint": "node scripts/run lint",
+    "move-function": "radashi fn move",
     "test": "vitest run --coverage",
-    "test-branch": "bash ./scripts/test-branch.sh",
-    "test-single": "bash ./scripts/test-single.sh",
-    "update-browserslist": "bash ./scripts/update-browserslist.sh"
+    "test-branch": "node scripts/run test-branch",
+    "test-single": "node scripts/run test-single",
+    "update-browserslist": "node scripts/run update-browserslist"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",

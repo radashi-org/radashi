@@ -12,6 +12,13 @@ async function main([command, ...argv]) {
     process.exit(1)
   }
 
+  const commandDir = new URL(`./${command}`, import.meta.url).pathname
+
+  if (!fs.existsSync(commandDir)) {
+    console.error(`Command not found: ${command}`)
+    process.exit(1)
+  }
+
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = path.dirname(__filename)
 
@@ -51,13 +58,6 @@ async function main([command, ...argv]) {
         await installDependencies(linkedDir)
       }
     }
-  }
-
-  const commandDir = new URL(`./${command}`, import.meta.url).pathname
-
-  if (!fs.existsSync(commandDir)) {
-    console.error(`Command not found: ${command}`)
-    process.exit(1)
   }
 
   await installDependencies(commandDir)

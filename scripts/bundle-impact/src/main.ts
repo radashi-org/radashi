@@ -1,30 +1,40 @@
-import { weighChangedFunctions } from './weigh-changed'
+import { weighChangedFunctions } from './weigh-changed.ts'
 
 main()
 
 async function main() {
   if (process.env.CI) {
-    await weighChangedFunctions().then(console.log)
-  } else {
     await updateBundleImpact()
+  } else {
+    await weighChangedFunctions({
+      targetBranch: process.env.TARGET_BRANCH,
+    }).then(console.log)
   }
 }
 
 async function updateBundleImpact() {
   const { prNumber } = parseArgv(process.argv.slice(2))
 
+  const { verifyEnvVars } = await import('@radashi-org/common/verifyEnvVars.ts')
+  const { radashiBotToken, targetBranch } = verifyEnvVars({
+    radashiBotToken: 'RADASHI_BOT_TOKEN',
+    targetBranch: 'TARGET_BRANCH',
+  })
+
   console.log('weighing changed functions...')
 
-  let bundleImpact = await weighChangedFunctions({ verbose: true })
+  let bundleImpact = await weighChangedFunctions({
+    targetBranch,
+    verbose: true,
+  })
 
   if (bundleImpact) {
     bundleImpact = `## Bundle impact\n\n${bundleImpact}\n\n`
   }
 
   const { Octokit } = await import('@octokit/rest')
-
   const octokit = new Octokit({
-    auth: process.env.RADASHI_BOT_TOKEN,
+    auth: radashiBotToken,
   })
 
   console.log(`fetching PR #${prNumber} data...`)
@@ -59,13 +69,6 @@ async function updateBundleImpact() {
 }
 
 function parseArgv(argv: string[]) {
-  if (!process.env.RADASHI_BOT_TOKEN) {
-    throw new Error('RADASHI_BOT_TOKEN is required')
-  }
-  if (!process.env.TARGET_BRANCH) {
-    throw new Error('TARGET_BRANCH is required')
-  }
-
   const [prNumber] = argv
   if (!Number.isInteger(+prNumber)) {
     throw new Error('PR number is required')
