@@ -18,7 +18,7 @@ async function main([command, ...argv]) {
     process.exit(1)
   }
 
-  // Only a few environment variables are exposed to install/postinstall 
+  // Only a few environment variables are exposed to install/postinstall
   // scripts when installing dependencies from NPM.
   const strictEnv = pick(process.env, [
     'PATH',
@@ -103,7 +103,10 @@ async function main([command, ...argv]) {
     }
   } else {
     runner = 'node'
-    runnerArgs = ['--experimental-strip-types']
+    runnerArgs = [
+      '--experimental-strip-types',
+      '--disable-warning=ExperimentalWarning',
+    ]
   }
 
   const commandPath = path.join(commandDir, 'src/main.ts')
