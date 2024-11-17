@@ -3,16 +3,13 @@
     "allowImportingTsExtensions": true,
     "emitDeclarationOnly": true,
     "declaration": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "outDir": "../dist/tmp",
     "target": "esnext",
     "lib": ["es2020"],
     "esModuleInterop": true,
     "module": "esnext",
     "skipLibCheck": true,
-    "strict": true,
-    "paths": {
-      "radashi": ["../src/mod.ts"]
-    }
+    "strict": true
   }
 }

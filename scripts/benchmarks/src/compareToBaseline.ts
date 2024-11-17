@@ -2,8 +2,8 @@ import * as esbuild from 'esbuild'
 import { execa } from 'execa'
 import fs from 'node:fs/promises'
 import { Project, SyntaxKind } from 'ts-morph'
-import { dedent } from './dedent'
-import { normalizeIdentifiers } from './normalizeIdentifiers'
+import { dedent } from './dedent.ts'
+import { normalizeIdentifiers } from './normalizeIdentifiers.ts'
 
 export async function compareToBaseline(
   baseRef: string,

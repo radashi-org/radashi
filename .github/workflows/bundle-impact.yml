@@ -39,15 +39,10 @@ jobs:
         with:
           cache: pnpm
 
-      - name: Install dependencies
-        if: steps.checkout.outputs.has_changes == 'true'
-        run: |
-          pnpm install -C scripts/bundle-impact
-
       - name: Run Bundle Impact
         if: steps.checkout.outputs.has_changes == 'true'
         env:
           RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
           TARGET_BRANCH: ${{ github.base_ref }}
         run: |
-          ./scripts/bundle-impact/node_modules/.bin/tsx ./scripts/bundle-impact/pr-bundle-impact.ts ${{ github.event.number }}
+          node scripts/run bundle-impact ${{ github.event.number }}

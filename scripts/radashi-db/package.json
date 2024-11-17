@@ -3,6 +3,13 @@
   "private": true,
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
-    "algoliasearch": "^4.24.0"
+    "algoliasearch": "^4.24.0",
+    "execa": "^9.5.1"
+  },
+  "exports": {
+    "./*": "./src/*"
+  },
+  "scripts": {
+    "gen-types": "node --experimental-strip-types ./gen-types.ts"
   }
 }

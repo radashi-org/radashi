@@ -1,5 +1,5 @@
 import { execa } from 'execa'
-import type { BenchmarkReport } from './reporter'
+import type { BenchmarkReport } from './reporter.ts'
 
 const tsx = './scripts/benchmarks/node_modules/.bin/tsx'
 const runner = './scripts/benchmarks/vitest-bench.ts'

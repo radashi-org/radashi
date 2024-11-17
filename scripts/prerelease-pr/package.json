@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@octokit/rest": "^21.0.2",
+    "@radashi-org/checkout-pr": "link:../checkout-pr",
+    "@radashi-org/common": "link:../common",
+    "execa": "^9.5.1",
+    "mri": "^1.2.0"
+  }
+}

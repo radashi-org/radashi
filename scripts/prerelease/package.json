@@ -1,9 +1,0 @@
-{
-  "type": "module",
-  "private": true,
-  "dependencies": {
-    "@octokit/rest": "^21.0.2",
-    "mri": "^1.2.0",
-    "tsx": "^4.17.0"
-  }
-}

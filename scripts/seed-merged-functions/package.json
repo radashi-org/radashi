@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@radashi-org/register-pr": "link:../register-pr",
+    "execa": "^9.5.1",
+    "radashi-db": "link:../radashi-db",
+    "tinyglobby": "^0.2.10"
+  }
+}

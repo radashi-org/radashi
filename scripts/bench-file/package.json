@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@radashi-org/benchmarks": "link:../benchmarks",
+    "vitest": "2.1.5"
+  }
+}

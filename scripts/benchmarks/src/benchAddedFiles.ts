@@ -3,9 +3,9 @@
  * benchmarks for them.
  */
 import { existsSync } from 'node:fs'
-import { getStagedFiles } from './getStagedFiles.js'
-import type { BenchmarkReport } from './reporter.js'
-import { runVitest } from './runner.js'
+import { getStagedFiles } from './getStagedFiles.ts'
+import type { BenchmarkReport } from './reporter.ts'
+import { runVitest } from './runner.ts'
 
 /**
  * Given a target branch, run the benchmarks for any source files that have
