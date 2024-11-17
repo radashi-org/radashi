@@ -75,15 +75,30 @@ async function main([command, ...argv]) {
   if (process.env.INSTALL_ONLY) {
     return
   }
-  
+
   const version = process.versions.node
   const [major, minor] = version.split('.').map(Number)
 
   let runner
   let runnerArgs
   if (major < 22 || (major === 22 && minor < 6)) {
-    runner = 'pnpm'
-    runnerArgs = ['dlx', 'tsx@4.19.1']
+    const tsxSpecifier = 'tsx@4.19.1'
+    if (process.env.CI) {
+      console.log(`> pnpm add -g ${tsxSpecifier}`)
+      await new Promise((resolve, reject) => {
+        const installer = spawn('pnpm', ['install', '-g', tsxSpecifier], {
+          stdio: 'inherit',
+          env: strictEnv,
+        })
+        installer.on('close', resolve)
+        installer.on('error', reject)
+      })
+      runner = 'tsx'
+      runnerArgs = []
+    } else {
+      runner = 'pnpm'
+      runnerArgs = ['dlx', tsxSpecifier]
+    }
   } else {
     runner = 'node'
     runnerArgs = ['--experimental-strip-types']
