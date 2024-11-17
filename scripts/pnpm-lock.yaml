@@ -263,13 +263,13 @@ importers:
         specifier: link:../common
         version: link:../common
       '@types/markdown-it':
-        specifier: ^14.1.2
+        specifier: 14.1.2
         version: 14.1.2
       markdown-it:
-        specifier: ^14.1.0
+        specifier: 14.1.0
         version: 14.1.0
       markdown-it-front-matter:
-        specifier: ^0.2.4
+        specifier: 0.2.4
         version: 0.2.4
       radashi:
         specifier: link:../../src
