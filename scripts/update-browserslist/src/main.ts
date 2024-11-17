@@ -46,7 +46,10 @@ async function main() {
   await execa('git', ['add', pkgJsonPath])
   await execa('git', ['commit', '-m', 'chore: update browserslist'], {
     stdio: 'inherit',
-  }).catch(() => process.exit(1))
+  }).catch(() => {
+    console.log('• No changes to commit.')
+    process.exit(1)
+  })
 
   console.log('• Changes committed successfully.')
 }
