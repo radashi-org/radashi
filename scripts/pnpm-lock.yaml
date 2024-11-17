@@ -17,9 +17,15 @@ importers:
 
   bench-main:
     dependencies:
+      '@radashi-org/benchmarks':
+        specifier: link:../benchmarks
+        version: link:../benchmarks
       execa:
         specifier: ^9.5.1
         version: 9.5.1
+      radashi-db:
+        specifier: link:../radashi-db
+        version: link:../radashi-db
 
   bench-pr:
     dependencies:
@@ -106,9 +112,6 @@ importers:
       execa:
         specifier: ^9.5.1
         version: 9.5.1
-      radashi:
-        specifier: link:../../src
-        version: link:../../src
       tinyglobby:
         specifier: ^0.2.10
         version: 0.2.10
@@ -157,9 +160,6 @@ importers:
       mri:
         specifier: ^1.2.0
         version: 1.2.0
-      radashi:
-        specifier: link:../../src
-        version: link:../../src
       string-argv:
         specifier: ^0.3.2
         version: 0.3.2
@@ -172,6 +172,9 @@ importers:
       '@octokit/rest':
         specifier: ^21.0.2
         version: 21.0.2
+      '@radashi-org/checkout-pr':
+        specifier: link:../checkout-pr
+        version: link:../checkout-pr
       '@radashi-org/common':
         specifier: link:../common
         version: link:../common
