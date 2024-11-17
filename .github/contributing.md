@@ -38,6 +38,10 @@ Once you've made your changes on a fork of the Radashi repo, create a pull reque
 
 Once you submit your PR, one of Radashi's maintainers will review it. They might ask questions or request additional information.
 
+## Your PR gets labeled with `prerelease`
+
+If your PR is labeled with `prerelease` by a maintainer, it will be published in either a `beta` or `next` version to NPM. You should be notified by the Radashi Bot when this happens. PRs for bug fixes are never published as prereleases.
+
 ## Your PR gets merged!
 
-Congratulations :tada::tada: Currently, official versions are published manually. But beta versions are published automatically, every day, at 5:00AM UTC (if a PR has been merged). Your PR will be updated with a comment when the next release is published.
+Congratulations :tada::tada: Currently, major and minor versions are published manually. If your PR was a bug fix, it will be immediately published to NPM as a patch version. Otherwise, you can use a `beta` or `next` version if you can't wait for your feature to be released.
