@@ -22,7 +22,7 @@ jobs:
           PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
           PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          bash scripts/checkout-pr.sh src benchmarks
+          node scripts/run checkout-pr src benchmarks
 
           if [ -z "$(git status --porcelain)" ]; then
             echo '::set-output name=has_changes::false'

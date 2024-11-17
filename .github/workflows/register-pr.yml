@@ -20,7 +20,7 @@ jobs:
           PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
           PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          bash scripts/checkout-pr.sh src docs
+          node scripts/run checkout-pr src docs
 
           if [ -n "$(git status --porcelain src | grep '^A')" ]; then
             echo '::set-output name=has_new_func::true'
