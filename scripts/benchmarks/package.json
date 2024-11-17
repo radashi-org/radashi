@@ -16,6 +16,6 @@
     "execa": "^9.5.1",
     "radashi": "link:../../src",
     "ts-morph": "^23.0.0",
-    "vitest": "^2.1.5"
+    "vitest": "2.1.5"
   }
 }
