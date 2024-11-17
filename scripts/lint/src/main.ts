@@ -176,6 +176,10 @@ async function runConcurrently(
   parentPrefix = '',
   procs = new Set<Subprocess>(),
 ) {
+  // Ensure the "MaxListenersExceededWarning" is not logged.
+  process.stdout.setMaxListeners(1000)
+  process.stderr.setMaxListeners(1000)
+
   await Promise.all(
     commands.map(async cmd => {
       if (!cmd) {
