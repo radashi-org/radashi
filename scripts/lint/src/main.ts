@@ -112,7 +112,7 @@ async function main() {
   const files = baseCommit ? await getChangedFiles(baseCommit) : undefined
 
   let scripts = mightLintScripts(files, ignoreScripts, commandFilters)
-    ? globSync('scripts/*/src/main.ts').map(p => path.resolve(p, '../..'))
+    ? globSync('scripts/*/src/main.ts').map(p => path.dirname(path.dirname(p)))
     : []
 
   if (files) {
