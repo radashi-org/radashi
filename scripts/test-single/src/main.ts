@@ -7,10 +7,11 @@ async function main() {
 
   process.env.PATH = `${process.cwd()}/node_modules/.bin:${process.env.PATH}`
 
-  await execa('vitest', [
-    funcName,
-    '--coverage',
-    '--coverage.include',
-    `src/*/${funcName}*`,
-  ])
+  await execa(
+    'vitest',
+    [funcName, '--coverage', '--coverage.include', `src/*/${funcName}*`],
+    {
+      stdio: 'inherit',
+    },
+  )
 }
