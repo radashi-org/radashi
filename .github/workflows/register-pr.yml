@@ -13,6 +13,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
 
       - name: Checkout Pull Request
         id: checkout
@@ -36,10 +42,6 @@ jobs:
           running-workflow-name: 'register-pr'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           allowed-conclusions: success,skipped,failure,timed_out,cancelled
-
-      - name: Install pnpm
-        if: steps.checkout.outputs.has_new_func == 'true'
-        uses: pnpm/action-setup@v4
 
       - name: Install Node.js
         if: steps.checkout.outputs.has_new_func == 'true'
