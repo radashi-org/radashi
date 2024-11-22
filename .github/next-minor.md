@@ -16,6 +16,10 @@ https://github.com/radashi-org/radashi/pull/277
 
 https://github.com/radashi-org/radashi/pull/241
 
+#### isUndefined
+
+https://github.com/radashi-org/radashi/pull/305
+
 ## New Features
 
 #### Add `signal` option to `retry`
