@@ -1,7 +1,7 @@
 // cSpell:ignore backoffs
 
-import * as _ from 'radashi'
 import type { RetryOptions } from 'radashi'
+import * as _ from 'radashi'
 
 const cast = <T = RetryOptions>(value: any): T => value
 
@@ -115,5 +115,24 @@ describe('retry', () => {
     // The performance typically comes in 1
     // or 2 milliseconds after.
     expect(diff).toBeGreaterThanOrEqual(backoffs)
+  })
+  test('aborts the retry operation when signal is aborted', async () => {
+    try {
+      const abortController = new AbortController()
+      let attempt = 0
+      await _.retry({ signal: abortController.signal }, async () => {
+        attempt++
+        if (attempt === 2) {
+          abortController.abort()
+        }
+        throw 'quit again'
+      })
+    } catch (err) {
+      expect(err).toBeInstanceOf(Error)
+      expect((err as Error).message).toBe('This operation was aborted')
+      return
+    }
+
+    expect.fail('error should have been thrown')
   })
 })
