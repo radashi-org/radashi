@@ -33,8 +33,8 @@ async function parseArgs() {
   const { default: mri } = await import('mri')
 
   const argv = mri(process.argv.slice(2), {
-    boolean: ['no-push'],
-    string: ['tag', 'latest'],
+    boolean: ['no-push', 'patch', 'latest'],
+    string: ['tag'],
   })
 
   if (argv.latest && argv.tag) {
@@ -47,6 +47,7 @@ async function parseArgs() {
   return {
     push: !argv['no-push'],
     tag: argv.tag as ValidTag,
+    patch: argv.patch,
     gitCliffToken,
     npmToken,
     radashiBotToken,
