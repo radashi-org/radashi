@@ -27,5 +27,5 @@ await execa(
   },
 ).then(async result => {
   // Write output to file
-  await writeFile(`${scriptDir}/src/supabase.types.ts`, result.stdout)
+  await writeFile(`${scriptDir}/src/supabase-types.ts`, result.stdout)
 })
