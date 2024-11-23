@@ -382,11 +382,11 @@ const benchmarks: Partial<
   template: _ => {
     if (isLodash(_)) {
       const tmp = `
-  Hello my name is <%= name %>. I am a <%= type %>.
-  Not sure why I am <%= reason %>.
+        Hello my name is <%= name %>. I am a <%= type %>.
+        Not sure why I am <%= reason %>.
 
-  Thank You - <%= name %>
-`
+        Thank You - <%= name %>
+      `
       const compiled = _.template(tmp)
       const data = {
         name: 'SpongeBob',
@@ -396,11 +396,11 @@ const benchmarks: Partial<
       compiled(data)
     } else {
       const tmp = `
-  Hello my name is {{name}}. I am a {{type}}.
-  Not sure why I am {{reason}}.
+        Hello my name is {{name}}. I am a {{type}}.
+        Not sure why I am {{reason}}.
 
-  Thank You - {{name}}
-`
+        Thank You - {{name}}
+      `
       const data = {
         name: 'SpongeBob',
         type: 'squarePants',
@@ -447,6 +447,13 @@ const benchmarks: Partial<
         _.snake(input)
       }
     },
+  },
+  shuffle: _ => {
+    if (isLodash(_)) {
+      _.shuffle([1, 2, 3, 4, 5])
+    } else {
+      _.shuffle([1, 2, 3, 4, 5])
+    }
   },
   title: _ => {
     if (isLodash(_)) {
