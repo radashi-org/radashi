@@ -49,6 +49,14 @@ const benchmarks: Partial<
       _.isWeakSet(new Set())
     },
   },
+  isWeakMap: {
+    'with valid input': _ => {
+      _.isWeakMap(new WeakMap())
+    },
+    'with invalid input': _ => {
+      _.isWeakMap(new Map())
+    },
+  },
   unique: {
     'with non-empty array': _ => {
       const list = [1, 1, 2]
