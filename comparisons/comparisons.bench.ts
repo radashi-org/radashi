@@ -379,6 +379,37 @@ const benchmarks: Partial<
       _.isObject(new Data())
     },
   },
+  template: _ => {
+    if (isLodash(_)) {
+      const tmp = `
+  Hello my name is <%= name %>. I am a <%= type %>.
+  Not sure why I am <%= reason %>.
+
+  Thank You - <%= name %>
+`
+      const compiled = _.template(tmp)
+      const data = {
+        name: 'SpongeBob',
+        type: 'squarePants',
+        reason: 'so likeable',
+      }
+      compiled(data)
+    } else {
+      const tmp = `
+  Hello my name is {{name}}. I am a {{type}}.
+  Not sure why I am {{reason}}.
+
+  Thank You - {{name}}
+`
+      const data = {
+        name: 'SpongeBob',
+        type: 'squarePants',
+        reason: 'so likeable',
+      }
+
+      _.template(tmp, data)
+    }
+  },
   trim: {
     'with valid input': _ => {
       _.trim(' hello  ')
