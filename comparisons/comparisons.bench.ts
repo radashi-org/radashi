@@ -76,6 +76,14 @@ const benchmarks: Partial<
       _.isSet(new Map())
     },
   },
+  isRegExp: {
+    'with valid input': _ => {
+      _.isRegExp(/regexp/)
+    },
+    'with invalid input': _ => {
+      _.isRegExp('regexp')
+    },
+  },
   unique: {
     'with non-empty array': _ => {
       const list = [1, 1, 2]
