@@ -68,6 +68,14 @@ const benchmarks: Partial<
       _.isSymbol(Symbol('hello'))
     },
   },
+  isSet: {
+    'with valid input': _ => {
+      _.isSet(new Set())
+    },
+    'with invalid input': _ => {
+      _.isSet(new Map())
+    },
+  },
   unique: {
     'with non-empty array': _ => {
       const list = [1, 1, 2]
