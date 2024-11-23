@@ -448,6 +448,9 @@ const benchmarks: Partial<
       }
     },
   },
+  random: _ => {
+    _.random(0, 100)
+  },
   shuffle: _ => {
     if (isLodash(_)) {
       _.shuffle([1, 2, 3, 4, 5])
