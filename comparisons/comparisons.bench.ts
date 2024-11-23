@@ -379,6 +379,17 @@ const benchmarks: Partial<
       _.isObject(new Data())
     },
   },
+  trim: {
+    'with valid input': _ => {
+      _.trim(' hello  ')
+    },
+    'with a specified character': _ => {
+      _.trim('__hello__', '_')
+    },
+    'with two special characters': _ => {
+      _.trim('_- hello_- ', '_- ')
+    },
+  },
   isEmpty: {
     'with null': _ => {
       _.isEmpty(null)
