@@ -282,6 +282,14 @@ const benchmarks: Partial<
       _.isPlainObject(null)
     },
   },
+  isMap: {
+    'with valid input': _ => {
+      _.isMap(new Map())
+    },
+    'with invalid input': _ => {
+      _.isMap({})
+    },
+  },
   get: {
     'with simple path': _ => {
       if (isLodash(_)) {
