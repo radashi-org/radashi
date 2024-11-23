@@ -31,3 +31,12 @@ const fish = [
 
 _.shuffle(fish)
 ```
+
+You can provide a custom random function to make the shuffle more or less random. The custom random function takes minimum and maximum values and returns a random number between them.
+
+```ts
+const array = [1, 2, 3, 4, 5]
+const customRandom = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min
+_.shuffle(array, customRandom)
+```

@@ -17,7 +17,24 @@ import * as _ from 'radashi'
  * @version 12.1.0
  */
 export function shuffle<T>(
+  /**
+   * The array to shuffle.
+   */
   array: readonly T[],
+  /**
+   * You can provide a custom random function to make the shuffle more or less
+   * random. The custom random function takes minimum and maximum values and
+   * returns a random number between them.
+   *
+   * @default _.random
+   * @example
+   *
+   * ```ts
+   * const array = [1, 2, 3, 4, 5]
+   * const customRandom = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+   * _.shuffle(array, customRandom)
+   * ```
+   */
   random: (min: number, max: number) => number = _.random,
 ): T[] {
   const newArray = array.slice()
