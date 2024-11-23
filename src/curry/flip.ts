@@ -12,6 +12,7 @@
  * flippedSubtract(3, 4)
  * // => 1
  * ```
+ * @version 12.2.0
  */
 export function flip<Args extends any[], Result>(
   fn: (...args: Args) => Result,

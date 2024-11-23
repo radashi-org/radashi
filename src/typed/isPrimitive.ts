@@ -18,6 +18,7 @@
  * isPrimitive(undefined) // => true
  * isPrimitive('0') // => false
  * ```
+ * @version 12.1.0
  */
 export function isPrimitive(value: any): boolean {
   return (

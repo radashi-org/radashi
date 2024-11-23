@@ -13,6 +13,7 @@ import { isTagged } from 'radashi'
  * isRegExp(/abc/) // => true
  * isRegExp('abc') // => false
  * ```
+ * @version 12.2.0
  */
 export function isRegExp(value: unknown): value is RegExp {
   return isTagged(value, '[object RegExp]')

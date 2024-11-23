@@ -16,6 +16,7 @@
  * )
  * // Map(2) { 1 => 'Fred', 2 => 'Annie' }
  * ```
+ * @version 12.2.0
  */
 export function mapify<T, Key, Value = T>(
   array: readonly T[],

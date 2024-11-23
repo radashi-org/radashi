@@ -55,6 +55,7 @@ export interface MemoOptions<TArgs extends any[]> {
  * fib(11) // 89
  * // calls === [10, 11]
  * ```
+ * @version 12.1.0
  */
 export function memo<TArgs extends any[], TResult>(
   func: (...args: TArgs) => TResult,

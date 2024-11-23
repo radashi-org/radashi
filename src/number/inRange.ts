@@ -12,6 +12,7 @@
  * inRange(-1, 10) // => false
  * inRange(10, 10) // => false
  * ```
+ * @version 12.1.0
  */
 export function inRange(number: number, end: number): boolean
 

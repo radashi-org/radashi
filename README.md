@@ -5,14 +5,15 @@
     <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/banner.png" alt="Radashi" width="100%" />
   </p>
   <a href="https://github.com/radashi-org/radashi/blob/main/LICENSE.md"><img src="https://img.shields.io/npm/l/radashi" alt="License" /></a>
-  <a href="https://github.com/radashi-org/radashi/actions/workflows/publish-beta.yml"><img src="https://img.shields.io/github/actions/workflow/status/radashi-org/radashi/publish-beta.yml?logo=github" alt="Build Status" /></a>
+  <a href="https://github.com/radashi-org/radashi/actions/workflows/check-main.yml"><img src="https://img.shields.io/github/actions/workflow/status/radashi-org/radashi/check-main.yml?logo=github" alt="Build Status" /></a>
   <a href="https://app.codecov.io/gh/radashi-org/radashi/tree/main/src"><img src="https://img.shields.io/codecov/c/github/radashi-org/radashi?logo=codecov" alt="Codecov" /></a>
   <a href="https://biomejs.dev/"><img src="https://img.shields.io/badge/code_style-biome.js-blue?logo=biome" alt="Code Style: Biome.js" /></a>
   <a href="https://github.com/radashi-org/radashi/discussions"><img src="https://img.shields.io/github/discussions/radashi-org/radashi?logo=github" alt="GitHub Discussions" /></a>
   <a href="https://app.gitter.im/#/room/#radashi:gitter.im"><img src="https://badges.gitter.im/join_chat.svg" alt="Gitter.im" /></a>
+  <p align="center">
+    <span>English</span> | <a href="./README-pt_br.md">Português</a>
+  </p>
 </div>
-
-&nbsp;
 
 **Ditch the bloat of Lodash. Stop reinventing the wheel.**
 
@@ -35,7 +36,7 @@ _“What makes Radashi so great?”_
 - **performance tracking** (we track perf regressions with continuous benchmarking)
 - **well-documented**
 - **nightly releases** (`radashi@beta`)
-- **changelog** (easily see what's new in each release)
+- **[changelog](https://github.com/radashi-org/radashi/blob/main/CHANGELOG.md)** (easily see what's new in each release)
 
 _If you've been using Radash (our predecessor), you're probably interested in what makes us different. Read [our comparison post](https://radashi.js.org/blog/vs-radash) to learn how we're bringing Radash to the next level while preserving its best features._
 
@@ -59,15 +60,29 @@ yarn add radashi
 npm install radashi
 ```
 
-### Beta version
+### Beta versions
 
-The `radashi@beta` version is a nightly release containing everything in the main branch at the time (5:00AM UTC).
+Beta versions are published regularly with new functions and improvements. They never contain breaking changes (see the [Breaking changes](#breaking-changes) section). The [beta](https://github.com/radashi-org/radashi/tree/beta) branch contains the source code for beta versions.
+
+To get notified of a new beta version, watch the [radashi-canary](https://github.com/radashi-org/radashi-canary) repository. You can find release notes for beta versions [here](https://github.com/radashi-org/radashi-canary/releases).
+
+The latest beta version can be installed with:
 
 ```sh
-pnpm add radashi@beta
+pnpm add radashi@beta -E
 ```
 
-Its changes are documented [here](https://github.com/radashi-org/radashi/blob/main/CHANGELOG.md#radashibeta). If there's no `radashi@beta` section in the changelog, it means no pull requests have been merged since the last stable release.
+The `-E` flag ensures that the `beta` version is installed as an exact version (e.g. `radashi@12.3.0-beta.abc1234`). This is recommended to avoid accidental breakage.
+
+### Breaking changes
+
+Preview releases for the next major version are also announced in the [radashi-canary](https://github.com/radashi-org/radashi-canary/releases) repository. The [next](https://github.com/radashi-org/radashi/tree/next) branch contains the source code for the next major version.
+
+We'd appreciate your help testing the latest `next` version before it's released:
+
+```sh
+pnpm add radashi@next -E
+```
 
 ### JSR.io
 
@@ -101,7 +116,7 @@ deno add @radashi-org/radashi
   </a>
 
 - **Can I help you maintain this?**  
-  Yes! I'll add you as a contributor to the repository. You can review pull requests and even merge them. You can help with closing issues, too. Committing directly to the main branch is a privilege you can earn, as is publishing versions to NPM.
+  Yes! I'll add you as a contributor to the repository. You can review pull requests and help with triage. With time, you may earn the ability to merge approved PRs.
 
   <a href="https://github.com/orgs/radashi-org/discussions/4">
     <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/apply-button.png" alt="Apply to join the Radashi team" width="250px" />
@@ -113,15 +128,23 @@ deno add @radashi-org/radashi
 - **Automatic releases**  
   To ensure contributions are quickly rolled out, we have the following automatic processes:
 
+  - **Patch releases**  
+    Whenever the `main` branch receives a `^fix:` commit, a patch release is immediately published to NPM.
+
   - **Beta releases**  
-    Whenever the `main` branch receives a fix or feature, a beta release is automatically published to NPM at 5:00AM UTC.
-    Installing `radashi@beta` will always fetch the latest beta release. Beta releases are always audited by the Radashi team.
+    Pull requests that add a new feature can be labeled with `prerelease` by a maintainer. This triggers a GitHub workflow that attempts to copy the PR into the `beta` branch. If that succeeds, a beta release is immediately published to NPM.
 
-  - **Preview releases**  
-    When the _owner of a PR_ comments `/publish` (and nothing more), the PR is published to NPM under a version like `1.0.0-pr123.f7a9c3b` (i.e. `<latest version>-pr<PR number>.<commit SHA>`) and a tag like `pr123`. This allows the community to use the changes in the PR without waiting for the PR to be merged.
+    Installing `radashi@beta` will always fetch the latest beta release. Although the name "beta" may suggest unstable code, PRs need tests to be eligible for a prerelease.
 
-    - ⚠️ **Beware:** Preview releases are not audited by the Radashi team. Always look at their
-      changes in the PR to ensure no malicious code was introduced.
+    Beta releases provide quick access to new features without waiting for a regular release cycle. They're also an opportunity for the community to provide feedback before the feature is released to the `main` branch.
+
+  - **"Next" releases**  
+    Pull requests with breaking changes can also be labeled with `prerelease` by a maintainer. In this case, the PR is copied into the `next` branch. If that succeeds, a "next" release is published to NPM.
+
+    Installing `radashi@next` will always fetch the latest "next" release.
+
+- **Release cycle**  
+  Radashi is expected to release a new minor or major version on a monthly basis, but releases are not on a strict schedule. Pre-releases are available for testing and feedback before the final release.
 
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 

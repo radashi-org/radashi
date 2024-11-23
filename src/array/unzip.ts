@@ -10,6 +10,7 @@
  * unzip([['a', 1, true], ['b', 2, false]])
  * // [['a', 'b'], [1, 2], [true, false]]
  * ```
+ * @version 12.2.0
  */
 export function unzip<T>(arrays: readonly (readonly T[])[]): T[][] {
   if (!arrays || !arrays.length) {

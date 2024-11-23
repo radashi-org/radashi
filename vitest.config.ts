@@ -13,8 +13,14 @@ export default defineConfig(env => ({
     coverage: {
       thresholds: { 100: true },
       include: ['src/**'],
+      exclude: ['src/*.ts'],
     },
     setupFiles: env.mode === 'benchmark' ? ['benchmarks/globals.ts'] : [],
+    typecheck: {
+      include: ['tests/**/*.test-d.ts'],
+      enabled: true,
+      tsconfig: 'tests/tsconfig.json',
+    },
   },
   resolve: {
     alias: {

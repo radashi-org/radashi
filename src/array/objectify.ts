@@ -15,6 +15,7 @@
  * )
  * // { 1: 'John', 2: 'Jane' }
  * ```
+ * @version 12.1.0
  */
 export function objectify<T, Key extends string | number | symbol, Value = T>(
   array: readonly T[],

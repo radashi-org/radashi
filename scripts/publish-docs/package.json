@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@radashi-org/changelog": "link:../changelog",
+    "@radashi-org/common": "link:../common",
+    "execa": "^9.5.1",
+    "git-cliff": "2.4.0",
+    "kleur": "^4.1.5",
+    "mri": "^1.2.0",
+    "radashi-db": "link:../radashi-db"
+  }
+}

@@ -9,6 +9,7 @@
  * unique([1, 1, 2, 2]) // => [1, 2]
  * unique([1, 2, 3], (n) => n % 2) // => [1, 2]
  * ```
+ * @version 12.1.0
  */
 export function unique<T, K = T>(
   array: readonly T[],

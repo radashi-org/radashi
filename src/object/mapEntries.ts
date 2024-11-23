@@ -8,6 +8,7 @@
  * mapEntries(a, (key, value) => [value, key])
  * // => { 1: 'a', 2: 'b', 3: 'c' }
  * ```
+ * @version 12.1.0
  */
 export function mapEntries<
   TKey extends string | number | symbol,

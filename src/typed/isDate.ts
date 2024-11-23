@@ -13,6 +13,7 @@ import { isTagged } from 'radashi'
  * isDate(new Date()) // => true
  * isDate('hello') // => false
  * ```
+ * @version 12.1.0
  */
 export function isDate(value: unknown): value is Date {
   return isTagged(value, '[object Date]')

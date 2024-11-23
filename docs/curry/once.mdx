@@ -1,6 +1,7 @@
 ---
 title: once
 description: Create a function that runs at most once
+since: 12.2.0
 ---
 
 ### Usage
@@ -10,7 +11,7 @@ Create a wrapper around a given function such that it executes at most once. Sub
 ```ts
 import * as _ from 'radashi'
 
-const fn = once(() => Math.random())
+const fn = _.once(() => Math.random())
 fn() // 0.5
 fn() // 0.5
 ```

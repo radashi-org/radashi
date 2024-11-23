@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
+    "exactOptionalPropertyTypes": true,
     "allowImportingTsExtensions": true,
     "emitDeclarationOnly": true,
     "declaration": true,
     "moduleResolution": "node",
     "outDir": "../dist/tmp",
     "target": "esnext",
-    "lib": ["es2020"],
+    "lib": ["es2020", "es2021.promise"],
     "esModuleInterop": true,
     "module": "esnext",
     "skipLibCheck": true,

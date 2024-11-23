@@ -1,4 +1,16 @@
-/// <reference lib="es2021.promise" />
+interface AggregateError extends Error {
+  errors: any[]
+}
+
+interface AggregateErrorConstructor {
+  new (errors: Iterable<any>, message?: string): AggregateError
+  (errors: Iterable<any>, message?: string): AggregateError
+  readonly prototype: AggregateError
+}
+
+declare const globalThis: {
+  AggregateError?: AggregateErrorConstructor
+}
 
 /**
  * The `AggregateError` object represents an error when several errors
@@ -9,10 +21,10 @@
  * When it's not globally defined, Radashi provides a polyfill.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError
+ * @version 12.2.0
  */
 const AggregateErrorOrPolyfill: AggregateErrorConstructor =
   /* @__PURE__ */ (() =>
-    // eslint-disable-next-line compat/compat
     globalThis.AggregateError ??
     (class AggregateError extends Error {
       errors: Error[]
@@ -21,7 +33,7 @@ const AggregateErrorOrPolyfill: AggregateErrorConstructor =
         const name = errors.find(e => e.name)?.name ?? ''
         this.name = `AggregateError(${name}...)`
         this.message = `AggregateError with ${errors.length} errors`
-        this.stack = errors.find(e => e.stack)?.stack ?? this.stack
+        this.stack = errors.find(e => e.stack)?.stack ?? this.stack!
         this.errors = errors
       }
     } as unknown as AggregateErrorConstructor))()

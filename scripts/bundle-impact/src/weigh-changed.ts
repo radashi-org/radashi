@@ -1,11 +1,13 @@
 import * as esbuild from 'esbuild'
 import { execa } from 'execa'
-import { cluster } from 'radashi/array/cluster.js'
-import { select } from 'radashi/array/select.js'
-import { map } from 'radashi/async/map.js'
+import { cluster } from 'radashi/array/cluster.ts'
+import { select } from 'radashi/array/select.ts'
+import { map } from 'radashi/async/map.ts'
 
-export async function weighChangedFunctions(opts: { verbose?: boolean } = {}) {
-  const targetBranch = await getTargetBranch()
+export async function weighChangedFunctions(
+  opts: { verbose?: boolean; targetBranch?: string } = {},
+) {
+  const targetBranch = opts.targetBranch ?? (await getTargetBranch())
   if (opts.verbose) {
     console.log('targetBranch == %O', targetBranch)
   }
@@ -80,10 +82,6 @@ export async function weighChangedFunctions(opts: { verbose?: boolean } = {}) {
 }
 
 async function getTargetBranch(): Promise<string> {
-  if (process.env.TARGET_BRANCH) {
-    return process.env.TARGET_BRANCH
-  }
-
   try {
     const { stdout } = await execa('gh', [
       'pr',

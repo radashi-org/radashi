@@ -1,4 +1,4 @@
-interface PromiseWithResolvers<T> {
+export interface PromiseWithResolvers<T> {
   promise: Promise<T>
   resolve: (value: T | PromiseLike<T>) => void
   reject: (reason?: any) => void
@@ -16,6 +16,7 @@ interface PromiseWithResolvers<T> {
  *
  * resolve(42)
  * ```
+ * @version 12.2.0
  */
 export function withResolvers<T>(): PromiseWithResolvers<T> {
   let resolve: any

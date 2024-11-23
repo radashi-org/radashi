@@ -9,6 +9,7 @@ import { type Err, isResult } from 'radashi'
  * isResultErr([new Error(), undefined]) // true
  * isResultErr([undefined, "hello"]) // false
  * ```
+ * @version 12.2.0
  */
 export function isResultErr<TError extends Error = Error>(
   value: unknown,

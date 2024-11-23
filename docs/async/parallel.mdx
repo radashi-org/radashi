@@ -1,13 +1,12 @@
 ---
 title: parallel
-description: Run many async function in parallel
+description: Parallelize async operations while managing load
+since: 12.1.0
 ---
 
 ### Usage
 
-Like `_.map` but built specifically to run the async callback functions
-in parallel. The first argument is a limit of how many functions should
-be allowed to run at once. Returns an array of results.
+The `parallel` function processes an array with an async callback. The first argument controls how many array items are processed at one time. Similar to `Promise.all`, an ordered array of results is returned.
 
 ```ts
 import * as _ from 'radashi'
@@ -21,11 +20,34 @@ const users = await _.parallel(3, userIds, async userId => {
 })
 ```
 
-### Errors
+### Interrupting
 
-When all work is complete parallel will check for errors. If any
-occurred they will all be thrown in a single `AggregateError` that
-has an `errors` property that is all the errors that were thrown.
+Processing can be manually interrupted. Pass an `AbortController.signal` via the `signal` option. When the signal is aborted, no more calls to your callback will be made. Any in-progress calls will continue to completion, unless you manually connect the signal inside your callback. In other words, `parallel` is only responsible for aborting the array loop, not the async operations themselves.
+
+When `parallel` is interrupted by the signal, it throws a `DOMException` (even in Node.js) with the message `This operation was aborted` and name `AbortError`.
+
+```ts
+import * as _ from 'radashi'
+
+const abortController = new AbortController()
+const signal = abortController.signal
+
+// Pass in the signal:
+const pizzas = await _.parallel(
+  { limit: 2, signal },
+  ['pepperoni', 'cheese', 'mushroom'],
+  async topping => {
+    return await bakePizzaInWoodFiredOven(topping) // each pizza takes 10 minutes!
+  },
+)
+
+// Later on, if you need to abort:
+abortController.abort()
+```
+
+### Aggregate Errors
+
+Once the whole array has been processed, `parallel` will check for errors. If any errors occurred during processing, they are combined into a single `AggregateError`. The `AggregateError` has an `errors` array property which contains all the individual errors that were thrown.
 
 ```ts
 import * as _ from 'radashi'
@@ -38,5 +60,5 @@ const [err, users] = await _.tryit(_.parallel)(3, userIds, async userId => {
 
 console.log(err) // => AggregateError
 console.log(err.errors) // => [Error, Error, Error]
-console.log(err.errors[1].message) // => No, I don't want to find user 2
+console.log(err.errors[1].message) // => "No, I don't want to find user 2"
 ```

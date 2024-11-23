@@ -10,6 +10,7 @@
  * isPlainObject({}) // => true
  * isPlainObject(new Map()) // => false
  * ```
+ * @version 12.2.0
  */
 export function isPlainObject(value: any): value is object {
   if (typeof value !== 'object' || value === null) {

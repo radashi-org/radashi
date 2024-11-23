@@ -49,6 +49,7 @@ export interface DebounceOptions {
  * myDebouncedFunc(1) // Nothing happens
  * // Logs "1" about 1 second after the last invocation
  * ```
+ * @version 12.1.0
  */
 export function debounce<TArgs extends any[]>(
   { delay, leading }: DebounceOptions,

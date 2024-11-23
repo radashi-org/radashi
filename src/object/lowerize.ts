@@ -14,6 +14,7 @@ export type LowercaseKeys<T extends Record<string, any>> = {
  * lowerize(a)
  * // => { a: 1, b: 2, c: 3 }
  * ```
+ * @version 12.1.0
  */
 export function lowerize<T extends Record<string, any>>(
   obj: T,

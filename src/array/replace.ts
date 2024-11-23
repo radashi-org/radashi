@@ -8,6 +8,7 @@
  * replace([1, 2, 3], 4, (n) => n === 2)
  * // [1, 4, 3]
  * ```
+ * @version 12.1.0
  */
 export function replace<T>(
   array: readonly T[],

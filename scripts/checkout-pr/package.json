@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "private": true,
+  "main": "./src/checkout-pr.ts",
+  "dependencies": {
+    "@radashi-org/common": "link:../common",
+    "execa": "^9.5.1"
+  }
+}

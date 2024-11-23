@@ -1,6 +1,7 @@
 ---
 title: chain
 description: Create a chain of function to run in order
+since: 12.1.0
 ---
 
 ### Usage
@@ -37,7 +38,7 @@ const gods: Deity[] = [
   { rank: 9, name: 'Loki' },
 ]
 
-const getName = (god: Deity) => item.name
+const getName = (god: Deity) => god.name
 const upperCase = (text: string) => text.toUpperCase() as Uppercase<string>
 
 const getUpperName = _.chain(getName, upperCase)

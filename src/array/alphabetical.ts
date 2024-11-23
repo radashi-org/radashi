@@ -3,6 +3,7 @@
  * value. Allows for a string sorting value.
  *
  * @see https://radashi.js.org/reference/array/alphabetical
+ * @version 12.1.0
  */
 export function alphabetical<T>(
   array: readonly T[],

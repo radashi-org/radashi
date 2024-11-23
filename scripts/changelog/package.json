@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "private": true,
+  "main": "./src/changelog.ts",
+  "dependencies": {
+    "execa": "^9.5.1"
+  }
+}

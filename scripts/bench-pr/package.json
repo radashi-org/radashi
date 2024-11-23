@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@octokit/rest": "^21.0.2",
+    "@radashi-org/benchmarks": "link:../benchmarks",
+    "@radashi-org/common": "link:../common",
+    "execa": "^9.5.1"
+  }
+}

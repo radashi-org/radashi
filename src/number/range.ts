@@ -16,6 +16,7 @@ import { isFunction } from 'radashi'
  * range(0, 3, obj)          // yields obj, obj, obj, obj
  * range(0, 6, i => i, 2)    // yields 0, 2, 4, 6
  * ```
+ * @version 12.1.0
  */
 export function* range<T = number>(
   startOrLength: number,

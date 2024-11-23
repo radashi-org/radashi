@@ -17,16 +17,8 @@ jobs:
           node-version: '22.x'
           cache: pnpm
 
-      - name: Install dependencies
-        run: |
-          # Only install Vitest for the root directory.
-          echo '{"type":"module","dependencies":{"vitest":"2.0.5"}}' > package.json
-          pnpm install --no-frozen-lockfile
-          pnpm install -C scripts/benchmarks
-          pnpm install -C scripts/radashi-db
-
       - name: Run benchmarks
         env:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
-          ./scripts/benchmarks/node_modules/.bin/tsx ./scripts/benchmarks/ci-bench-main.ts
+          node scripts/run bench-main

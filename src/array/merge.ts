@@ -13,6 +13,7 @@
  * )
  * // [{id: 1, name: 'John'}, {id: 2}]
  * ```
+ * @version 12.1.0
  */
 export function merge<T>(
   prev: readonly T[],
@@ -31,9 +32,12 @@ export function merge<T>(
   if (!toKey) {
     return [...prev]
   }
-  const keys = array.map(toKey)
+  const keys = new Map()
+  for (const item of array) {
+    keys.set(toKey(item), item)
+  }
   return prev.map(prevItem => {
-    const index = keys.indexOf(toKey(prevItem))
-    return index > -1 ? array[index] : prevItem
+    const key = toKey(prevItem)
+    return keys.has(key) ? keys.get(key)! : prevItem
   })
 }

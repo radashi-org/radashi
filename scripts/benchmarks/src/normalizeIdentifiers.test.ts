@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { dedent } from './dedent'
-import { normalizeIdentifiers } from './normalizeIdentifiers'
+import { dedent } from './dedent.ts'
+import { normalizeIdentifiers } from './normalizeIdentifiers.ts'
 
 describe('normalizeIdentifiers', () => {
   it('should normalize identifiers in a simple code snippet', () => {

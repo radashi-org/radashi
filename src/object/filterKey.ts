@@ -12,6 +12,7 @@ export type KeyFilterFunction<T extends object = object> = (
 /**
  * Functions can use this type to accept either an array of keys or a
  * filter function.
+ * @version 12.2.0
  */
 export type KeyFilter<
   T extends object = object,

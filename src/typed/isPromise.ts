@@ -10,6 +10,7 @@ import { isFunction } from 'radashi'
  * isPromise({ then() {} }) // => true
  * isPromise(1) // => false
  * ```
+ * @version 12.1.0
  */
 export function isPromise(value: any): value is PromiseLike<unknown> {
   return !!value && isFunction(value.then)

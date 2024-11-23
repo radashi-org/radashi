@@ -22,7 +22,7 @@ describe('isEqual', () => {
     obj: { name: 'object', id: 1, children: [0, 1, 2] },
     arr: [0, 1, 2],
     func() {
-      console.log('function')
+      return true
     },
     loop: null as any,
     person: jake,
@@ -46,6 +46,21 @@ describe('isEqual', () => {
     expect(
       _.isEqual([complex, complex], [{ ...complex }, { ...complex }]),
     ).toBeTruthy()
+    expect(
+      _.isEqual(
+        new Map([
+          [1, 'one'],
+          [2, 'two'],
+          [3, 'three'],
+        ]),
+        new Map([
+          [3, 'three'],
+          [2, 'two'],
+          [1, 'one'],
+        ]),
+      ),
+    ).toBeTruthy()
+    expect(_.isEqual(new Set([1, 2, 3]), new Set([3, 2, 1]))).toBeTruthy()
   })
   test('returns false for non-equal things', () => {
     expect(_.isEqual(0, 1)).toBeFalsy()

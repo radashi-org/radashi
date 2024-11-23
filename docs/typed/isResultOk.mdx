@@ -1,6 +1,7 @@
 ---
 title: isResultOk
 description: Returns true for successful Result tuple
+since: 12.2.0
 ---
 
 ### Usage
@@ -8,9 +9,11 @@ description: Returns true for successful Result tuple
 Check if a value is both a `Result` tuple and an `Ok` result.
 
 ```ts
+import * as _ from 'radashi'
+
 declare const value: unknown
 
-if (isResultOk(value)) {
+if (_.isResultOk(value)) {
   value // <-- now an Ok<unknown> type
   value[1] // <-- This is the resulting value!
 }

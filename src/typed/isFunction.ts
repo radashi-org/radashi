@@ -10,6 +10,7 @@
  * isFunction(async function() {}) // => true
  * isFunction(class {}) // => false
  * ```
+ * @version 12.1.0
  */
 // biome-ignore lint/complexity/noBannedTypes:
 export function isFunction(value: any): value is Function {

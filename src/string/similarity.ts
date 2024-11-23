@@ -22,6 +22,7 @@
  * similarity('abc', 'axc') // 1
  * similarity('kitten', 'sitting') // 3
  * ```
+ * @version 12.2.0
  */
 export function similarity(str1: string, str2: string): number {
   // Early return if strings are identical

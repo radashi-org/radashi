@@ -5,9 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [radashi@beta]
+## [radashi@12.2.3] - 2024-11-12
+### Details
+#### <!-- 06 -->Fixed
+
+- **(all)** Be more lenient, reduce memory usage by [@aleclarson](https://github.com/aleclarson) in [e6accd8](https://github.com/radashi-org/radashi/commit/e6accd870910f8df9487b6f54e1888bc5ae1ba92)
+
+## [radashi@12.2.2] - 2024-11-10
+### Details
+#### <!-- 08 -->Types
+
+- Export `PromiseWithResolvers` type by [@aleclarson](https://github.com/aleclarson) in [#301](https://github.com/radashi-org/radashi/pull/301)
+
+- Improve `isEmpty` signature by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#219](https://github.com/radashi-org/radashi/pull/219)
+
+- Narrow return type of `first` and `last` by [@crishoj](https://github.com/crishoj) in [#160](https://github.com/radashi-org/radashi/pull/160)
+
+- Improve `draw` signature for non-empty arrays by [@crishoj](https://github.com/crishoj) in [#153](https://github.com/radashi-org/radashi/pull/153)
+
+
+## [radashi@12.2.1] - 2024-11-09
+### Details
+#### <!-- 08 -->Types
+
+- Improve signature of `shake` by [@aleclarson](https://github.com/aleclarson) in [#293](https://github.com/radashi-org/radashi/pull/293)
+
+- `mapValues` index signature handling by [@aleclarson](https://github.com/aleclarson) in [#297](https://github.com/radashi-org/radashi/pull/297)
+
+- Let `zipToObject` receive readonly arrays by [@aeharding](https://github.com/aeharding) in [#294](https://github.com/radashi-org/radashi/pull/294)
+
+
+### New Contributors
+* [@aeharding](https://github.com/aeharding) made their first contribution in [#294](https://github.com/radashi-org/radashi/pull/294)
+## [radashi@12.2.0] - 2024-11-01
 ### Details
 #### <!-- 03 -->Added
+
 - Add `isIntString` function by [@aleclarson](https://github.com/aleclarson) in [fa500d3](https://github.com/radashi-org/radashi/commit/fa500d329d7e06062e7a42cbf4ff9ad9dcb89191)
 - Add `isPlainObject` type guard by [@aleclarson](https://github.com/aleclarson) in [#16](https://github.com/radashi-org/radashi/pull/16)
 
@@ -59,6 +92,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 #### <!-- 05 -->Changed
+
 - **(intersects)** Let `identity` callback return any value by [@aleclarson](https://github.com/aleclarson) in [#11](https://github.com/radashi-org/radashi/pull/11)
 
 - **(unique)** Let `toKey` return any kind of value by [@aleclarson](https://github.com/aleclarson) in [#10](https://github.com/radashi-org/radashi/pull/10)
@@ -78,6 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 #### <!-- 06 -->Fixed
+
 - **(retry)** Stop using `range()` by [@aleclarson](https://github.com/aleclarson) in [5d60893](https://github.com/radashi-org/radashi/commit/5d60893471240516a49c6ddf48839165b5961a47)
 - **(assign)** Remove inefficiencies in loop by [@aleclarson](https://github.com/aleclarson) in [#13](https://github.com/radashi-org/radashi/pull/13)
 
@@ -108,6 +143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 #### <!-- 07 -->Performance
+
 - Avoid excessive array allocation in `fork` by [@localusercamp](https://github.com/localusercamp) in [#33](https://github.com/radashi-org/radashi/pull/33)
 
 - Make `template` faster by [@aleclarson](https://github.com/aleclarson) in [#32](https://github.com/radashi-org/radashi/pull/32)
@@ -124,8 +160,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **(shuffle)** Use the Fisher-Yates algorithm by [@eumkz](https://github.com/eumkz) in [#76](https://github.com/radashi-org/radashi/pull/76)
 
+- **(merge)** Improved handling of large arrays by [@Minhir](https://github.com/Minhir) in [#240](https://github.com/radashi-org/radashi/pull/240)
+
 
 #### <!-- 08 -->Types
+
 - Let `filterKey` accept `key: keyof any` by [@aleclarson](https://github.com/aleclarson) in [73ac8bb](https://github.com/radashi-org/radashi/commit/73ac8bba9e2a2a39eb3c117cc940cc2b18199834)
 - Add `TryitResult<T>` type by [@aleclarson](https://github.com/aleclarson) in [f044364](https://github.com/radashi-org/radashi/commit/f0443644bace43ad3092751e0ba4193ead336ef6)
 - Add `MemoOptions<T>` type by [@aleclarson](https://github.com/aleclarson) in [877a1e4](https://github.com/radashi-org/radashi/commit/877a1e4e4d6fba76eea04731e69f7490d3f3191a)
@@ -148,17 +187,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Align `isPromise` return type with its logic by [@aleclarson](https://github.com/aleclarson) in [#175](https://github.com/radashi-org/radashi/pull/175)
 
 - Publicize the `Falsy` type by [@aleclarson](https://github.com/aleclarson) in [736d334](https://github.com/radashi-org/radashi/commit/736d3342f86cf16199d6d50cacd0cec3f51db078)
+- Avoid inferring `memo` return type from `key` option by [@aleclarson](https://github.com/aleclarson) in [#231](https://github.com/radashi-org/radashi/pull/231)
+
+- Allow readonly array in `omit` function by [@shan-shaji](https://github.com/shan-shaji) in [#272](https://github.com/radashi-org/radashi/pull/272)
+
 
 ### New Contributors
-* [@crishoj](https://github.com/crishoj) made their first contribution in [#128](https://github.com/radashi-org/radashi/pull/128)
+* [@shan-shaji](https://github.com/shan-shaji) made their first contribution in [#272](https://github.com/radashi-org/radashi/pull/272)
 * [@nnmrts](https://github.com/nnmrts) made their first contribution in [#126](https://github.com/radashi-org/radashi/pull/126)
 * [@stefaanv](https://github.com/stefaanv) made their first contribution in [#95](https://github.com/radashi-org/radashi/pull/95)
 * [@eumkz](https://github.com/eumkz) made their first contribution in [#76](https://github.com/radashi-org/radashi/pull/76)
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
-* [@shan-shaji](https://github.com/shan-shaji) made their first contribution in [#53](https://github.com/radashi-org/radashi/pull/53)
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
 
-[radashi@beta]: https://github.com/radashi-org/radashi/compare/v12.1.0..HEAD
+[radashi@12.2.3]: https://github.com/radashi-org/radashi/compare/v12.2.2..v12.2.3
+
+[radashi@12.2.2]: https://github.com/radashi-org/radashi/compare/v12.2.1..v12.2.2
+
+[radashi@12.2.1]: https://github.com/radashi-org/radashi/compare/v12.2.0..v12.2.1
+
+[radashi@12.2.0]: https://github.com/radashi-org/radashi/compare/v12.1.0..v12.2.0
 
 <!-- generated by git-cliff -->

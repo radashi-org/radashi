@@ -13,6 +13,7 @@ import { isArray, isMap, isObject, isSet } from 'radashi'
  *
  * Methods may return null to indicate that the default cloning logic
  * should be used.
+ * @version 12.2.0
  */
 export interface CloningStrategy {
   cloneMap: <K, V>(

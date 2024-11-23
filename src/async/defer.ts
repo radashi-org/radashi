@@ -18,6 +18,7 @@ import { tryit } from 'radashi'
  *   return processFile(fileHandle)
  * })
  * ```
+ * @version 12.1.0
  */
 export async function defer<TResponse>(
   func: (

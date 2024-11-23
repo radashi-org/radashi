@@ -1,5 +1,6 @@
 /**
  * The type of a function wrapped with `once`.
+ * @version 12.2.0
  */
 export type OnceFunction<
   Args extends unknown[] = unknown[],

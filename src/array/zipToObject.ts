@@ -16,10 +16,11 @@ import { isArray, isFunction } from 'radashi'
  * zipToObject(['a', 'b'], 1)
  * // { a: 1, b: 1 }
  * ```
+ * @version 12.1.0
  */
 export function zipToObject<K extends string | number | symbol, V>(
-  keys: K[],
-  values: V | ((key: K, idx: number) => V) | V[],
+  keys: readonly K[],
+  values: V | ((key: K, idx: number) => V) | readonly V[],
 ): Record<K, V> {
   if (!keys || !keys.length) {
     return {} as Record<K, V>

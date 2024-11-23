@@ -18,4 +18,17 @@ describe('merge', () => {
     ]
     _.merge(inputA, inputB, x => x.name)
   })
+
+  bench('with long arrays', () => {
+    const inputA = Array.from({ length: 10_000 }, (_, i) => ({
+      name: `a-${i}`,
+      id: i,
+    }))
+    const inputB = Array.from({ length: 10_000 }, (_, i) => ({
+      name: `b-${i}`,
+      id: i,
+    }))
+
+    _.merge(inputA, inputB, x => x.id)
+  })
 })

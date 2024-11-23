@@ -4,20 +4,18 @@
   "scripts": {
     "test": "vitest"
   },
+  "exports": {
+    "./*": "./src/*"
+  },
   "dependencies": {
     "@babel/parser": "^7.25.3",
     "@babel/traverse": "^7.25.3",
     "@babel/types": "^7.25.2",
-    "@octokit/rest": "^21.0.1",
     "@types/babel__traverse": "^7.20.6",
-    "@types/node": "^22.2.0",
     "esbuild": "^0.23.0",
-    "execa": "^9.3.0",
-    "fast-glob": "^3.3.2",
+    "execa": "^9.5.1",
     "radashi": "link:../../src",
-    "radashi-db": "link:../radashi-db",
     "ts-morph": "^23.0.0",
-    "tsx": "^4.17.0",
-    "vitest": "link:../../node_modules/vitest"
+    "vitest": "2.1.5"
   }
 }

@@ -9,6 +9,7 @@
  * invert(a)
  * // => { 1: 'a', 2: 'b', 3: 'c' }
  * ```
+ * @version 12.1.0
  */
 export function invert<
   TKey extends string | number | symbol,

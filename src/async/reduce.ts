@@ -9,6 +9,7 @@
  *   return acc + (await computeOnGPU(item))
  * }, 0)
  * ```
+ * @version 12.1.0
  */
 export async function reduce<T, K>(
   array: readonly T[],

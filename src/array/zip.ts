@@ -11,6 +11,7 @@ import { unzip } from 'radashi'
  * zip(['a', 'b'], [1, 2], [true, false])
  * // [['a', 1, true], ['b', 2, false]]
  * ```
+ * @version 12.1.0
  */
 export function zip<T1, T2, T3, T4, T5>(
   array1: readonly T1[],

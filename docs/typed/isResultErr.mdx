@@ -1,6 +1,7 @@
 ---
 title: isResultErr
 description: Returns true for failed Result tuple
+since: 12.2.0
 ---
 
 ### Usage
@@ -8,9 +9,11 @@ description: Returns true for failed Result tuple
 Check if a value is both a `Result` tuple and an `Err` result.
 
 ```ts
+import * as _ from 'radashi'
+
 declare const value: unknown
 
-if (isResultErr(value)) {
+if (_.isResultErr(value)) {
   value // <-- now an Err<Error> type
   value[0] // <-- This is the error!
 }

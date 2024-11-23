@@ -19,6 +19,7 @@ import { type Any, type CompatibleProperty, isFunction } from 'radashi'
  * getName({ name: 'John' }) // => 'John'
  * getFullName({ firstName: 'John', lastName: 'Doe' }) // => 'John Doe'
  * ```
+ * @version 12.2.0
  */
 export function castMapping<TMapping extends Mapping | null | undefined>(
   mapping: TMapping,

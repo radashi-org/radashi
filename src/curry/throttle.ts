@@ -48,6 +48,7 @@ export type ThrottledFunction<TArgs extends any[]> = {
  * setTimeout(() => sup(), 500) // => no logs
  * setTimeout(() => sup(), 1000) // => logs "sup"
  * ```
+ * @version 12.1.0
  */
 export function throttle<TArgs extends any[]>(
   { interval, trailing }: { interval: number; trailing?: boolean },

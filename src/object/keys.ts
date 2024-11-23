@@ -11,6 +11,7 @@ import { isArray, isPlainObject } from 'radashi'
  * keys({ name: 'ra', children: [{ name: 'hathor' }] })
  * // ['name', 'children.0.name']
  * ```
+ * @version 12.1.0
  */
 export function keys(value: object): string[] {
   if (!value) {

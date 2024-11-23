@@ -7,6 +7,7 @@
  * isInt(0) // => true
  * isInt(0.1) // => false
  * ```
+ * @version 12.1.0
  */
 export const isInt = /* @__PURE__ */ (() => Number.isInteger)() as (
   value: unknown,

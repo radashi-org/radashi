@@ -8,6 +8,7 @@
  * const proxy = proxied(propertyName => propertyName.toUpperCase())
  * proxy.foo // => "FOO"
  * ```
+ * @version 12.1.0
  */
 export function proxied<T, K>(
   handler: (propertyName: T) => K,

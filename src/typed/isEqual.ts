@@ -13,6 +13,7 @@
  * isEqual(0, 0) // => true
  * isEqual(0, 1) // => false
  * ```
+ * @version 12.1.0
  */
 export function isEqual<TType>(x: TType, y: TType): boolean {
   if (Object.is(x, y)) {

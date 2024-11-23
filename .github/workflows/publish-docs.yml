@@ -20,14 +20,9 @@ jobs:
           node-version: '22.x'
           cache: pnpm
 
-      - name: Install dependencies
-        run: |
-          pnpm install -C scripts/docs
-          pnpm install -C scripts/radashi-db
-
       - name: Publish
         env:
           DOCS_DEPLOY_KEY: ${{ secrets.DOCS_DEPLOY_KEY }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
-          ./scripts/docs/node_modules/.bin/tsx ./scripts/docs/ci-publish-docs.ts ${{ github.event.ref }}
+          node scripts/run publish-docs ${{ github.event.ref }}

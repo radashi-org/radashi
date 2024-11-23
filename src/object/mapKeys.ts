@@ -8,6 +8,7 @@
  * mapKeys(a, (key, value) => key + value)
  * // => { a1: 1, b2: 2, c3: 3 }
  * ```
+ * @version 12.1.0
  */
 export function mapKeys<
   TValue,
