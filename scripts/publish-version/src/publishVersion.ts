@@ -12,6 +12,8 @@ import { trackVersion } from './trackVersion.ts'
 
 export const VALID_TAGS = ['beta', 'next'] as const
 
+export const VALID_TAGS = ['beta', 'next'] as const
+
 export async function publishVersion(args: {
   /**
    * Use "beta" for pre-release minor/patch versions and "next" for
@@ -131,12 +133,11 @@ export async function publishVersion(args: {
   })
 
   // Check if CHANGELOG.md has changed
-  await execa('git', ['status', '--porcelain', changelogFile]).then(status => {
+  await execa('git', ['status', '--porcelain', changelogFile]).then(status => 
     if (!status.stdout.trim()) {
       log('No changes detected in %s', changelogFile)
       process.exit(1)
-    }
-  })
+    })
 
   // Commit files
   const committedFiles = [changelogFile]
