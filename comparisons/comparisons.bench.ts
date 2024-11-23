@@ -41,6 +41,14 @@ const benchmarks: Partial<
   capitalize: _ => {
     _.capitalize('hello world')
   },
+  isWeakSet: {
+    'with valid input': _ => {
+      _.isWeakSet(new WeakSet())
+    },
+    'with invalid input': _ => {
+      _.isWeakSet(new Set())
+    },
+  },
   unique: {
     'with non-empty array': _ => {
       const list = [1, 1, 2]
