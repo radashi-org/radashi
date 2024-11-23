@@ -448,6 +448,32 @@ const benchmarks: Partial<
       }
     },
   },
+  omit: {
+    'with empty keys': _ => {
+      const person = {
+        name: 'jay',
+        age: 20,
+        active: true,
+      }
+      if (isLodash(_)) {
+        _.omit(person, [])
+      } else {
+        _.omit(person, [])
+      }
+    },
+    'with specific keys': _ => {
+      const person = {
+        name: 'jay',
+        age: 20,
+        active: true,
+      }
+      if (isLodash(_)) {
+        _.omit(person, ['name'])
+      } else {
+        _.omit(person, ['name'])
+      }
+    },
+  },
   random: _ => {
     _.random(0, 100)
   },
