@@ -57,6 +57,17 @@ const benchmarks: Partial<
       _.isWeakMap(new Map())
     },
   },
+  isSymbol: {
+    'with null': _ => {
+      _.isSymbol(null)
+    },
+    'with empty object': _ => {
+      _.isSymbol({})
+    },
+    'with Symbol instance': _ => {
+      _.isSymbol(Symbol('hello'))
+    },
+  },
   unique: {
     'with non-empty array': _ => {
       const list = [1, 1, 2]
