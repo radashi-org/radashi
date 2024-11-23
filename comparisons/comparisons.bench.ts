@@ -84,6 +84,7 @@ const benchmarks: Partial<
       _.isRegExp('regexp')
     },
   },
+
   unique: {
     'with non-empty array': _ => {
       const list = [1, 1, 2]
@@ -263,6 +264,22 @@ const benchmarks: Partial<
     },
     'with Object.create(null)': _ => {
       _.isPlainObject(Object.create(null))
+    },
+    'with non-plain object (Date)': _ => {
+      _.isPlainObject(new Date())
+    },
+    'with namespace object': _ => {
+      _.isPlainObject(Math)
+    },
+    'with non-plain object (arguments)': _ => {
+      function returnArguments() {
+        // biome-ignore lint/style/noArguments:
+        return arguments
+      }
+      _.isPlainObject(returnArguments())
+    },
+    'with null': _ => {
+      _.isPlainObject(null)
     },
   },
   get: {
