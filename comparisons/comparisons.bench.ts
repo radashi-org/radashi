@@ -448,6 +448,37 @@ const benchmarks: Partial<
       }
     },
   },
+  alphabetical: {
+    'with ascending order': _ => {
+      const list = [{ name: 'Leo' }, { name: 'AJ' }, { name: 'Cynthia' }]
+      if (isLodash(_)) {
+        _.sortBy(list, i => i.name)
+      } else {
+        _.alphabetical(list, i => i.name)
+      }
+    },
+    'with descending order': _ => {
+      const list = [{ name: 'Leo' }, { name: 'AJ' }, { name: 'Cynthia' }]
+      if (isLodash(_)) {
+        _.sortBy(list).reverse()
+      } else {
+        _.alphabetical(list, i => i.name, 'desc')
+      }
+    },
+  },
+  mapKeys: _ => {
+    const prefixWith = (prefix: string) => (str: string, v?: any) =>
+      `${prefix}${str}`
+    const obj = {
+      x: 22,
+      y: 8,
+    }
+    if (isLodash(_)) {
+      _.mapKeys(obj, (_, k) => `x${k}`)
+    } else {
+      _.mapKeys(obj, prefixWith('x'))
+    }
+  },
   omit: {
     'with empty keys': _ => {
       const person = {
