@@ -1,11 +1,11 @@
 {
   "type": "module",
   "private": true,
-  "scripts": {
-    "test": "vitest"
-  },
   "exports": {
     "./*": "./src/*"
+  },
+  "scripts": {
+    "test": "vitest"
   },
   "dependencies": {
     "@babel/parser": "^7.25.3",

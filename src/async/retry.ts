@@ -1,8 +1,8 @@
 import { sleep, tryit } from 'radashi'
 
-type AbortSignal = {  
-  throwIfAborted(): void  
-}  
+type AbortSignal = {
+  throwIfAborted(): void
+}
 
 export type RetryOptions = {
   times?: number
