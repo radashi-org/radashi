@@ -13,7 +13,7 @@ async function main() {
     watch: false,
     pool: 'vmThreads',
     includeTaskLocation: true,
-    config: new URL('../vitest.config.ts', import.meta.url).pathname,
+    config: new URL('../../../vitest.config.ts', import.meta.url).pathname,
     benchmark: {
       reporters: [
         reportToBenchmarkHandler(report => {
