@@ -14,20 +14,19 @@ async function main() {
   const rootDir = new URL('../../../', import.meta.url).pathname
   const scriptDir = new URL('../', import.meta.url).pathname
   const nodeModulesDir = path.join(rootDir, 'node_modules')
+  const vitestDir = path.join(nodeModulesDir, 'vitest')
 
   // If the root node_modules directory doesn't contain vitest, link
   // it to the vitest installed for this script.
-  fs.mkdirSync(nodeModulesDir, { recursive: true })
-  try {
+  if (!fs.existsSync(vitestDir)) {
+    fs.mkdirSync(nodeModulesDir, { recursive: true })
     fs.symlinkSync(
       path.relative(
         nodeModulesDir,
         path.join(scriptDir, 'node_modules/vitest'),
       ),
-      path.join(nodeModulesDir, 'vitest'),
+      vitestDir,
     )
-  } catch (e) {
-    console.warn(e)
   }
 
   const vitest = await createVitest('benchmark', {

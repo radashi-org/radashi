@@ -43,7 +43,7 @@ async function main([command, ...argv]) {
       return
     }
 
-    console.log(
+    console.warn(
       `> Installing dependencies for ${path.relative(process.cwd(), pkgDir)}`,
     )
 
@@ -58,7 +58,7 @@ async function main([command, ...argv]) {
       installer.on('error', reject)
     })
 
-    console.log()
+    console.warn()
 
     for (const [name, version] of Object.entries(pkg.dependencies)) {
       if (name === 'radashi') {
@@ -86,7 +86,7 @@ async function main([command, ...argv]) {
   if (major < 22 || (major === 22 && minor < 6)) {
     const tsxSpecifier = 'tsx@4.19.1'
     if (process.env.CI) {
-      console.log(`> pnpm add -g ${tsxSpecifier}`)
+      console.warn(`> pnpm add -g ${tsxSpecifier}`)
       await new Promise((resolve, reject) => {
         const installer = spawn('pnpm', ['install', '-g', tsxSpecifier], {
           stdio: 'inherit',
