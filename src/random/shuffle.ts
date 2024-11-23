@@ -1,7 +1,9 @@
 import * as _ from 'radashi'
 
 /**
- * Clone an array and shuffle its items randomly.
+ * Create a new array with the items of the given array but in a random order.
+ * The randomization is done using the [Fisher-Yates algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle),
+ * which is mathematically proven to be unbiased (i.e. all permutations are equally likely).
  *
  * @see https://radashi.js.org/reference/random/shuffle
  * @example
