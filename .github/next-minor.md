@@ -8,6 +8,10 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Features
 
+#### isClass
+
+https://github.com/radashi-org/radashi/pull/239
+
 #### Add `signal` option to `retry`
 
 https://github.com/radashi-org/radashi/pull/262
