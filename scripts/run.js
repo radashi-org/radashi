@@ -49,7 +49,7 @@ async function main([command, ...argv]) {
 
     const installer = spawn('pnpm', ['install', '--lockfile-dir', __dirname], {
       cwd: pkgDir,
-      stdio: 'inherit',
+      stdio: ['ignore', process.stderr, 'inherit'],
       env: strictEnv,
     })
 
@@ -89,7 +89,7 @@ async function main([command, ...argv]) {
       console.warn(`> pnpm add -g ${tsxSpecifier}`)
       await new Promise((resolve, reject) => {
         const installer = spawn('pnpm', ['install', '-g', tsxSpecifier], {
-          stdio: 'inherit',
+          stdio: ['ignore', process.stderr, 'inherit'],
           env: strictEnv,
         })
         installer.on('close', resolve)
