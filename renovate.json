@@ -8,7 +8,7 @@
   "packageRules": [
     {
       "groupName": "all dependencies",
-      "matchPackageNames": ["*"],
+      "groupSlug": "all",
       "matchConfidence": "high"
     }
   ],
