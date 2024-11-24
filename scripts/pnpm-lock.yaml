@@ -95,6 +95,9 @@ importers:
       execa:
         specifier: ^9.5.1
         version: 9.5.1
+      git-cliff:
+        specifier: 2.4.0
+        version: 2.4.0
 
   checkout-pr:
     dependencies:
@@ -223,9 +226,6 @@ importers:
       execa:
         specifier: ^9.5.1
         version: 9.5.1
-      git-cliff:
-        specifier: 2.4.0
-        version: 2.4.0
       kleur:
         specifier: ^4.1.5
         version: 4.1.5

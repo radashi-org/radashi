@@ -1,6 +1,7 @@
 import { execa } from 'execa'
 
-const gitCliffBin = './scripts/versions/node_modules/.bin/git-cliff'
+const gitCliffBin = new URL('../node_modules/.bin/git-cliff', import.meta.url)
+  .pathname
 
 // Start from the Radashi's first commit after forking.
 const changelogBaseSha = '2be4acf455ebec86e846854dbab57bd0bfbbceb7'
