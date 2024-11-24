@@ -3,12 +3,13 @@
   "lockFileMaintenance": {
     "enabled": true
   },
+  "minimumReleaseAge": "30 days",
   "dependencyDashboard": true,
   "packageRules": [
     {
       "groupName": "all dependencies",
-      "groupSlug": "all",
-      "matchPackageNames": ["*"]
+      "matchPackageNames": ["*"],
+      "matchConfidence": "high"
     }
   ],
   "vulnerabilityAlerts": {
