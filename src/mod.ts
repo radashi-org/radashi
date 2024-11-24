@@ -109,6 +109,7 @@ export * from './string/trim.ts'
 
 export * from './typed/isArray.ts'
 export * from './typed/isBoolean.ts'
+export * from './typed/isClass.ts'
 export * from './typed/isDate.ts'
 export * from './typed/isEmpty.ts'
 export * from './typed/isEqual.ts'
