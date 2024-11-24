@@ -12,9 +12,13 @@ import * as _ from 'radashi'
 
 class MyClass {}
 
+function OldSchoolClass() {
+  this.foo = 'bar'
+}
+
 _.isClass(MyClass) // => true
 _.isClass(Error) // => false
-_.isClass(function OldClass() {}) // => false
+_.isClass(OldSchoolClass) // => false
 _.isClass('abc') // => false
 _.isClass({}) // => false
 _.isClass(undefined) // => false
@@ -27,7 +31,3 @@ Old school constructors (declared with the `function` keyword) will return `fals
 Built-in class constructors (e.g. `Error`) will also return `false`, because they're created with native code, not the `class` keyword.
 
 :::
-
-### Popular use cases
-
-- Type guard would check for a function that must be called with the `new` operator
