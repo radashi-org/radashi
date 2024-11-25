@@ -9,8 +9,7 @@
     {
       "groupName": "all dependencies",
       "groupSlug": "all",
-      "matchPackageNames": ["*"],
-      "matchConfidence": "high"
+      "matchPackageNames": ["*"]
     }
   ],
   "vulnerabilityAlerts": {
