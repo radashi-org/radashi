@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import type { AggregateError } from 'radashi'
 
 describe('all', () => {
   const promise = {

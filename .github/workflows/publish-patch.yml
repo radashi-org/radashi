@@ -26,11 +26,6 @@ jobs:
       - run: pnpm install
       - run: pnpm build
 
-      - name: Install script dependencies
-        run: |
-          pnpm install -C scripts/versions
-          pnpm install -C scripts/radashi-db
-
       - name: Publish
         env:
           GIT_CLIFF_PAT: ${{ secrets.GIT_CLIFF_PAT }}
@@ -40,4 +35,4 @@ jobs:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           NIGHTLY_DEPLOY_KEY: ${{ secrets.NIGHTLY_DEPLOY_KEY }}
         run: |
-          ./scripts/versions/node_modules/.bin/tsx ./scripts/versions/ci-publish.ts --patch
+          node scripts/run publish-version --patch

@@ -1,16 +1,20 @@
 ---
 title: retry
-description: Run an async function retrying if it fails
+description: Retry an async function when it fails
 since: 12.1.0
 ---
 
 ### Usage
 
-The `_.retry` function allows you to run an async function and automagically retry it if it fails. Given the async func to run, an optional max number of retries (`r`), and an optional milliseconds to delay between retries (`d`), the given async function will be called, retrying `r` many times, and waiting `d` milliseconds between retries.
+The `retry` function runs an async function and retries it if it fails. You can specify how many times to retry, how long to wait between retries, and whether to use exponential backoff.
 
-The `times` option defaults to `3`. The `delay` option (defaults to null) can specify milliseconds to sleep between attempts.
+**Options**
 
-The `backoff` option is like delay but uses a function to sleep -- makes for easy exponential backoff.
+- `times` is the maximum number of times to retry (default: `3`)
+- `delay` is milliseconds to sleep between retries
+- `backoff` is a function called to calculate the delay between retries
+  - It receives the attempt number (starting with `1`) and returns the delay in milliseconds.
+- `signal` allows you to pass an `AbortController.signal` to interrupt the retry operation
 
 ```ts
 import * as _ from 'radashi'
@@ -32,4 +36,28 @@ await _.retry({ times: 2, delay: 1000 }, api.users.list) // try 2 times with 1 s
 
 // exponential backoff
 await _.retry({ backoff: i => 10 ** i }, api.users.list) // try 3 times with 10, 100, 1000 ms delay
+```
+
+### Interrupting
+
+If a `signal` is passed, the retry operation can be interrupted. When the signal is aborted, `retry`'s promise will reject with a `DOMException` (even in Node.js) with the message `This operation was aborted` and name `AbortError`.
+
+```ts
+import * as _ from 'radashi'
+
+const abortController = new AbortController()
+const signal = abortController.signal
+
+const promise = _.retry({ times: 3, delay: 1000, signal }, api.users.list)
+
+// To stop retrying immediately:
+abortController.abort()
+
+try {
+  await promise
+} catch (err) {
+  if (err.message === 'This operation was aborted') {
+    console.log('Retry operation was aborted')
+  }
+}
 ```

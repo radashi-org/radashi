@@ -13,6 +13,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
 
       - name: Checkout Pull Request
         id: checkout
@@ -20,7 +26,7 @@ jobs:
           PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
           PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          bash scripts/checkout-pr.sh src docs
+          node scripts/run checkout-pr src docs
 
           if [ -n "$(git status --porcelain src | grep '^A')" ]; then
             echo '::set-output name=has_new_func::true'
@@ -37,32 +43,18 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           allowed-conclusions: success,skipped,failure,timed_out,cancelled
 
-      - name: Install pnpm
-        if: steps.checkout.outputs.has_new_func == 'true'
-        uses: pnpm/action-setup@v4
-
       - name: Install Node.js
         if: steps.checkout.outputs.has_new_func == 'true'
         uses: actions/setup-node@v4
         with:
           cache: pnpm
 
-      - name: Install Dependencies
-        if: steps.checkout.outputs.has_new_func == 'true'
-        run: |
-          pnpm install -C scripts/functions
-          pnpm install -C scripts/radashi-db
-
       - name: Register PR
         if: steps.checkout.outputs.has_new_func == 'true'
-        uses: actions/github-script@v7
         env:
           ALGOLIA_KEY: ${{ secrets.ALGOLIA_KEY }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const root = '${{ github.workspace }}/scripts/functions'
-            const { tsImport } = await import(root + '/node_modules/tsx/dist/esm/api/index.cjs')
-            const script = await tsImport(root + '/ci-register-pr.ts', root)
-            await script.run(context.payload.pull_request, github.rest)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST: ${{ toJson(github.event.pull_request) }}
+        run: |
+          node scripts/run register-pr

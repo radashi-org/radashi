@@ -3,6 +3,7 @@
   "lockFileMaintenance": {
     "enabled": true
   },
+  "minimumReleaseAge": "30 days",
   "dependencyDashboard": true,
   "packageRules": [
     {

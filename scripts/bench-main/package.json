@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@radashi-org/benchmarks": "link:../benchmarks",
+    "execa": "^9.5.1",
+    "radashi-db": "link:../radashi-db"
+  }
+}

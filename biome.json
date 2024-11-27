@@ -2,6 +2,7 @@
   "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
   "extends": ["@radashi-org/biome-config"],
   "files": {
+    "include": ["scripts/run.js"],
     "ignore": ["**/src/bigint.ts", "**/package.json"]
   }
 }

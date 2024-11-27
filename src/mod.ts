@@ -109,6 +109,7 @@ export * from './string/trim.ts'
 
 export * from './typed/isArray.ts'
 export * from './typed/isBoolean.ts'
+export * from './typed/isClass.ts'
 export * from './typed/isDate.ts'
 export * from './typed/isEmpty.ts'
 export * from './typed/isEqual.ts'
@@ -136,4 +137,4 @@ export * from './typed/isTagged.ts'
 export * from './typed/isWeakMap.ts'
 export * from './typed/isWeakSet.ts'
 
-export * from './types'
+export * from './types.ts'

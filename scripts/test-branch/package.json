@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "execa": "^9.5.1",
+    "meriyah": "^6.0.3",
+    "tinyglobby": "^0.2.10"
+  }
+}
