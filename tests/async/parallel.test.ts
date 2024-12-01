@@ -1,6 +1,29 @@
 import * as _ from 'radashi'
 
 describe('parallel', () => {
+  async function testConcurrency(
+    limit: number,
+    array: readonly unknown[],
+    expected: number[],
+  ) {
+    vi.useFakeTimers()
+
+    let numInProgress = 0
+    const tracking: number[] = []
+
+    const promise = _.parallel(limit, array, async () => {
+      numInProgress++
+      tracking.push(numInProgress)
+      await _.sleep(10)
+      numInProgress--
+    })
+
+    await vi.advanceTimersByTimeAsync(50)
+    await promise
+
+    expect(tracking).toEqual(expected)
+  }
+
   test('returns all results from all functions', async () => {
     const [errors, results] = await _.try(async () => {
       return _.parallel(1, _.list(1, 3), async num => {
@@ -29,15 +52,7 @@ describe('parallel', () => {
   })
 
   test('does not run more than the limit at once', async () => {
-    let numInProgress = 0
-    const tracking: number[] = []
-    await _.parallel(3, _.list(1, 14), async () => {
-      numInProgress++
-      tracking.push(numInProgress)
-      await _.sleep(0)
-      numInProgress--
-    })
-    expect(Math.max(...tracking)).toBe(3)
+    await testConcurrency(3, _.list(1, 6), [1, 2, 3, 3, 3, 3])
   })
 
   test('abort before all iterations are complete', async () => {
@@ -88,8 +103,6 @@ describe('parallel', () => {
   })
 
   test('remove abort listener after completion', async () => {
-    vi.useFakeTimers()
-
     const ctrl = new AbortController()
     const removeEventListener = vi.spyOn(ctrl.signal, 'removeEventListener')
 
@@ -108,5 +121,17 @@ describe('parallel', () => {
       'abort',
       expect.any(Function),
     )
+  })
+
+  test('limit defaults to 1 if negative', async () => {
+    await testConcurrency(-1, _.list(1, 3), [1, 1, 1])
+  })
+
+  test('limit defaults to 1 if zero is passed', async () => {
+    await testConcurrency(0, _.list(1, 3), [1, 1, 1])
+  })
+
+  test('limit defaults to array length if Infinity is passed', async () => {
+    await testConcurrency(Number.POSITIVE_INFINITY, _.list(1, 3), [1, 2, 3])
   })
 })

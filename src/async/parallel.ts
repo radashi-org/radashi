@@ -1,5 +1,6 @@
 import {
   AggregateError,
+  clamp,
   flat,
   fork,
   isNumber,
@@ -22,12 +23,16 @@ type WorkItemResult<K> = {
   error: any
 }
 
-export type ParallelOptions =
-  | {
-      limit: number
-      signal?: AbortSignal
-    }
-  | number
+export type ParallelOptions = {
+  /**
+   * The maximum number of functions to run concurrently. If a
+   * negative number is passed, only one function will run at a time.
+   * If a number bigger than the array `length` is passed, the array
+   * length will be used.
+   */
+  limit: number
+  signal?: AbortSignal
+}
 
 /**
  * Executes many async functions in parallel. Returns the results from
@@ -57,7 +62,7 @@ export type ParallelOptions =
  * @version 12.1.0
  */
 export async function parallel<T, K>(
-  options: ParallelOptions,
+  options: ParallelOptions | number,
   array: readonly T[],
   func: (item: T) => Promise<K>,
 ): Promise<K[]> {
@@ -95,7 +100,9 @@ export async function parallel<T, K>(
   }
 
   const queues = Promise.all(
-    list(1, options.limit).map(() => new Promise(processor)),
+    list(1, clamp(options.limit, 1, array.length)).map(
+      () => new Promise(processor),
+    ),
   )
 
   let signalPromise: Promise<never> | undefined
