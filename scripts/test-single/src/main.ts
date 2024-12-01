@@ -1,4 +1,4 @@
-import { execa } from 'execa'
+import { execa, ExecaError } from 'execa'
 
 main()
 
@@ -13,5 +13,10 @@ async function main() {
     {
       stdio: 'inherit',
     },
-  )
+  ).catch(error => {
+    if (error instanceof ExecaError && error.signal) {
+      return // Ignore SIGINT, SIGTERM, etc.
+    }
+    throw error
+  })
 }
