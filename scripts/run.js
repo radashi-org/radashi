@@ -18,6 +18,8 @@ async function main([command, ...argv]) {
     process.exit(1)
   }
 
+  let forceTSX = false
+
   // Only a few environment variables are exposed to install/postinstall
   // scripts when installing dependencies from NPM.
   const strictEnv = pick(process.env, [
@@ -32,14 +34,20 @@ async function main([command, ...argv]) {
   const __dirname = path.dirname(__filename)
 
   async function installDependencies(pkgDir) {
-    if (fs.existsSync(path.join(pkgDir, 'node_modules'))) {
-      return
-    }
-
     const pkgPath = path.join(pkgDir, 'package.json')
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'))
 
     if (!pkg.dependencies) {
+      return
+    }
+
+    // Since modules in Radashi may import "radashi" (which resolves to the "dist" folder), forcing
+    // the use of TSX helps us avoid resolution errors.
+    if ('radashi' in pkg.dependencies) {
+      forceTSX = true
+    }
+
+    if (fs.existsSync(path.join(pkgDir, 'node_modules'))) {
       return
     }
 
@@ -83,7 +91,7 @@ async function main([command, ...argv]) {
 
   let runner
   let runnerArgs
-  if (major < 22 || (major === 22 && minor < 6)) {
+  if (forceTSX || process.env.CI || major < 22 || (major === 22 && minor < 6)) {
     const tsxSpecifier = 'tsx@4.19.1'
     if (process.env.CI) {
       console.warn(`> pnpm add -g ${tsxSpecifier}`)

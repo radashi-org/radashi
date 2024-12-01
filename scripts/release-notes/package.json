@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.25.0",
     "@octokit/rest": "^21.0.2",
