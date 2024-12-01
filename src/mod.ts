@@ -1,5 +1,6 @@
 export * from './array/alphabetical.ts'
 export * from './array/boil.ts'
+export * from './array/cartesianProduct.ts'
 export * from './array/castArray.ts'
 export * from './array/castArrayIfExists.ts'
 export * from './array/cluster.ts'

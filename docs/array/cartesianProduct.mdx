@@ -1,0 +1,35 @@
+---
+title: cartesianProduct
+description: Perform a Cartesian product of arrays
+---
+
+### Usage
+
+Create an [n-ary Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_product) from the given arrays.
+The inputs are arrays, and the output is an array of arrays representing all
+possible combinations where the first element is from the first array, the second element
+is from the second array, and so on.
+
+```ts
+import * as _ from 'radashi'
+
+const colors = ['red', 'blue']
+const numbers = [1, 2, 3]
+const booleans = [true, false]
+
+_.cartesianProduct(colors, numbers, booleans)
+// => [
+//   ['red', 1, true],
+//   ['red', 1, false],
+//   ['red', 2, true],
+//   ['red', 2, false],
+//   ['red', 3, true],
+//   ['red', 3, false],
+//   ['blue', 1, true],
+//   ['blue', 1, false],
+//   ['blue', 2, true],
+//   ['blue', 2, false],
+//   ['blue', 3, true],
+//   ['blue', 3, false],
+// ]
+```
