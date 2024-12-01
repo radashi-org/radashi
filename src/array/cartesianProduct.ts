@@ -1,3 +1,5 @@
+type ReadonlyArray2D<T> = readonly (readonly T[])[]
+
 /**
  * Create an [n-ary Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_product)
  * from the given arrays.
@@ -22,11 +24,13 @@
  * // ]
  * ```
  */
-export function cartesianProduct<const T extends any[][]>(
+export function cartesianProduct<const T extends ReadonlyArray2D<any>>(
   ...arrays: [...T]
 ): Array<{ [K in keyof T]: T[K][number] }>
 
-export function cartesianProduct<T extends any[][]>(...arrays: T): T[][] {
+export function cartesianProduct<T extends ReadonlyArray2D<any>>(
+  ...arrays: T
+): T[][] {
   let out: T[][] = [[]]
   for (const array of arrays) {
     const result = []

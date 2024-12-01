@@ -20,4 +20,12 @@ describe('cartesianProduct return type', () => {
     expectTypeOf(v2).toEqualTypeOf<1 | 2>()
     expectTypeOf(v3).toEqualTypeOf<boolean>()
   })
+  test('with readonly arrays', () => {
+    const colors = ['red', 'blue'] as const
+    const sizes = [1, 2] as const
+    const result = _.cartesianProduct(colors, sizes)
+    expectTypeOf(result).toEqualTypeOf<
+      [(typeof colors)[number], (typeof sizes)[number]][]
+    >()
+  })
 })
