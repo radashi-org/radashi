@@ -6,8 +6,8 @@ import { green } from 'kleur/colors'
 import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
 import { sift } from 'radashi/array/sift.ts'
+import { dedent } from 'radashi/string/dedent.ts'
 import { glob } from 'tinyglobby'
-import { dedent } from './dedent.ts'
 import { trackVersion } from './trackVersion.ts'
 
 export const VALID_TAGS = ['beta', 'next'] as const
