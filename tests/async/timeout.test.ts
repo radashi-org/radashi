@@ -10,30 +10,25 @@ describe('timeout', () => {
 
     vi.advanceTimersToNextTimerAsync()
 
-    await expect(promise).rejects.toThrow('timeout')
+    await expect(promise).rejects.toThrow(_.TimeoutError)
   })
 
   test('rejects with a custom error message', async () => {
-    const promise = _.timeout(10, 'custom error message')
+    const promise = _.timeout(10, 'too slow')
 
     vi.advanceTimersToNextTimerAsync()
 
-    await expect(promise).rejects.toThrow('custom error message')
+    await expect(promise).rejects.toThrow(new _.TimeoutError('too slow'))
   })
 
   test('rejects with a custom error function', async () => {
-    class CustomError extends Error {
-      constructor() {
-        super('custom error function')
-      }
-    }
+    class CustomError extends Error {}
 
     const promise = _.timeout(10, () => new CustomError())
 
     vi.advanceTimersToNextTimerAsync()
 
     await expect(promise).rejects.toThrow(CustomError)
-    await expect(promise).rejects.toThrow('custom error function')
   })
 
   describe('with Promise.race', () => {
