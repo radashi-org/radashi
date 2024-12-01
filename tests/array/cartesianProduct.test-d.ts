@@ -1,6 +1,6 @@
 import * as _ from 'radashi'
 
-describe('cartesianProduct return type', () => {
+describe('cartesianProduct', () => {
   test('with an empty array', () => {
     const result = _.cartesianProduct([])
     expectTypeOf(result).toEqualTypeOf<[never][]>()
