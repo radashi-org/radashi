@@ -22,7 +22,7 @@
  * // ]
  * ```
  */
-export function cartesianProduct<T extends any[][]>(
+export function cartesianProduct<const T extends any[][]>(
   ...arrays: [...T]
 ): Array<{ [K in keyof T]: T[K][number] }>
 
