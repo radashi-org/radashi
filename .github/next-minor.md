@@ -12,6 +12,10 @@ https://github.com/radashi-org/radashi/pull/239
 
 https://github.com/radashi-org/radashi/pull/277
 
+#### cartesianProduct
+
+https://github.com/radashi-org/radashi/pull/241
+
 ## New Features
 
 #### Add `signal` option to `retry`
