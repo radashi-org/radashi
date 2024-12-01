@@ -1,23 +1,25 @@
 ---
 title: timeout
-description: Asynchronously rejects after a specified amount of time.
+description: Create a promise that rejects after some time
 since: 12.3.0
 ---
 
 ### Usage
 
-The `_.timeout` function creates a promise that will reject after a given number of milliseconds. You can provide a custom error message or a function that returns an error to be thrown upon rejection.
+The `timeout` function creates a promise that rejects after a specified delay, with an optional custom error message or error function.
+
+The default error is a `TimeoutError` with the message "Operation timed out".
 
 ```ts
 import * as _ from 'radashi'
 
-// Rejects after 1 second with the default "timeout" error message
+// Rejects after 1 second with a default TimeoutError
 await _.timeout(1000)
 
-// Rejects after 1 second with a custom error message
+// Rejects after 1 second with a custom TimeoutError message
 await _.timeout(1000, 'Custom timeout message')
 
-// Rejects after 1 second with a custom error object
+// Rejects after 1 second with a custom error type
 await _.timeout(1000, () => new Error('Custom error'))
 ```
 
