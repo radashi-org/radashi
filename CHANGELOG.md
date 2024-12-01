@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.3.0] - 2024-12-01
+### Details
+#### <!-- 00 -->Security
+
+- Pin cspell version by [@aleclarson](https://github.com/aleclarson) in [a33e5a4](https://github.com/radashi-org/radashi/commit/a33e5a47cd30b4db65f0a7f86eb1174baf6f481a)
+
+#### <!-- 03 -->Added
+
+- Add `signal` option to `retry` and `parallel` by [@SaidbekAbdiganiev](https://github.com/SaidbekAbdiganiev) in [#262](https://github.com/radashi-org/radashi/pull/262)
+
+- Add `isClass` function by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#239](https://github.com/radashi-org/radashi/pull/239)
+
+- Add `isNullish` function by [@ilxqx](https://github.com/ilxqx) in [#277](https://github.com/radashi-org/radashi/pull/277)
+
+- Add `cartesianProduct` function by [@yamcodes](https://github.com/yamcodes) in [#241](https://github.com/radashi-org/radashi/pull/241)
+
+- Add `isUndefined` function by [@RobinBobin](https://github.com/RobinBobin) in [#305](https://github.com/radashi-org/radashi/pull/305)
+
+- Add `timeout` function by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#250](https://github.com/radashi-org/radashi/pull/250)
+
+- Add `dedent` function by [@aleclarson](https://github.com/aleclarson) in [#120](https://github.com/radashi-org/radashi/pull/120)
+
+
+#### <!-- 05 -->Changed
+
+- **(parallel)** Clamp the limit between 1 and array length by [@MarlonPassos-git](https://github.com/MarlonPassos-git) in [#238](https://github.com/radashi-org/radashi/pull/238)
+
+
+### New Contributors
+* [@RobinBobin](https://github.com/RobinBobin) made their first contribution in [#305](https://github.com/radashi-org/radashi/pull/305)
+* [@ilxqx](https://github.com/ilxqx) made their first contribution in [#277](https://github.com/radashi-org/radashi/pull/277)
+* [@SaidbekAbdiganiev](https://github.com/SaidbekAbdiganiev) made their first contribution in [#262](https://github.com/radashi-org/radashi/pull/262)
 ## [radashi@12.2.3] - 2024-11-12
 ### Details
 #### <!-- 06 -->Fixed
@@ -200,6 +232,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
+
+[radashi@12.3.0]: https://github.com/radashi-org/radashi/compare/v12.2.3..v12.3.0
 
 [radashi@12.2.3]: https://github.com/radashi-org/radashi/compare/v12.2.2..v12.2.3
 
