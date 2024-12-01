@@ -1,17 +1,27 @@
 import * as _ from 'radashi'
 
 describe('parallel', () => {
-  function makeProgressTracker() {
+  async function testConcurrency(
+    limit: number,
+    array: readonly unknown[],
+    expected: number[],
+  ) {
+    vi.useFakeTimers()
+
     let numInProgress = 0
     const tracking: number[] = []
-    const func = async () => {
+
+    const promise = _.parallel(limit, array, async () => {
       numInProgress++
       tracking.push(numInProgress)
-      await _.sleep(0)
+      await _.sleep(10)
       numInProgress--
-    }
+    })
 
-    return { tracking, func }
+    await vi.advanceTimersByTimeAsync(50)
+    await promise
+
+    expect(tracking).toEqual(expected)
   }
 
   test('returns all results from all functions', async () => {
@@ -42,9 +52,7 @@ describe('parallel', () => {
   })
 
   test('does not run more than the limit at once', async () => {
-    const { tracking, func } = makeProgressTracker()
-    await _.parallel(3, _.list(1, 14), func)
-    expect(Math.max(...tracking)).toBe(3)
+    await testConcurrency(3, _.list(1, 6), [1, 2, 3, 3, 3, 3])
   })
 
   test('abort before all iterations are complete', async () => {
@@ -114,29 +122,6 @@ describe('parallel', () => {
       expect.any(Function),
     )
   })
-
-  async function testConcurrency(
-    limit: number,
-    array: readonly unknown[],
-    expected: number[],
-  ) {
-    vi.useFakeTimers()
-
-    let numInProgress = 0
-    const tracking: number[] = []
-
-    const promise = _.parallel(limit, array, async () => {
-      numInProgress++
-      tracking.push(numInProgress)
-      await _.sleep(10)
-      numInProgress--
-    })
-
-    await vi.advanceTimersByTimeAsync(50)
-    await promise
-
-    expect(tracking).toEqual(expected)
-  }
 
   test('limit defaults to 1 if negative', async () => {
     await testConcurrency(-1, _.list(1, 3), [1, 1, 1])
