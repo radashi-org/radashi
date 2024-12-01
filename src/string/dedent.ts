@@ -34,6 +34,7 @@ import { isArray } from 'radashi'
  * `
  * // => 'Foo 2\nBar 4'
  * ```
+ * @version 12.3.0
  */
 export function dedent(
   template: TemplateStringsArray,
