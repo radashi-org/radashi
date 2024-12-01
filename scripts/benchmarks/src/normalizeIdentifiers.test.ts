@@ -1,5 +1,5 @@
+import { dedent } from 'radashi/string/dedent.ts'
 import { describe, expect, it } from 'vitest'
-import { dedent } from './dedent.ts'
 import { normalizeIdentifiers } from './normalizeIdentifiers.ts'
 
 describe('normalizeIdentifiers', () => {
