@@ -138,8 +138,30 @@ export async function publishVersion(args: {
     }
   })
 
-  // Commit files
+  let releaseNotes: string | undefined
+
   const committedFiles = [changelogFile]
+
+  if (!args.tag && !args.patch) {
+    const releaseNotesFile =
+      newMajorVersion === lastMajorVersion
+        ? '.github/next-minor.md'
+        : '.github/next-major.md'
+
+    releaseNotes = await fs.readFile(releaseNotesFile, 'utf8')
+
+    // Reset the file to its original state.
+    await execa('git', [
+      'checkout',
+      'e5e8292f053337013d1faadddcde67bcec9255a2',
+      '--',
+      releaseNotesFile,
+    ])
+
+    committedFiles.push(releaseNotesFile)
+  }
+
+  // Commit files
   if (!args.tag) {
     // Only commit the changed version in package.json if it's a
     // stable version being published.
@@ -236,17 +258,25 @@ export async function publishVersion(args: {
 
   const octokit = new Octokit({ auth: args.radashiBotToken })
 
-  if (args.push && (args.patch || args.tag)) {
+  if (args.push) {
+    if (args.patch || args.tag) {
+      releaseNotes = await generateChangelog({
+        minimal: true,
+        base: 'v' + stableVersion,
+        token: args.gitCliffToken,
+      })
+    }
+
+    if (!releaseNotes) {
+      throw new Error('No release notes found')
+    }
+
     log('Creating a release on GitHub')
     await octokit.rest.repos.createRelease({
       owner: 'radashi-org',
       repo: args.tag ? 'radashi-canary' : 'radashi',
       tag_name: newTag,
-      body: await generateChangelog({
-        minimal: true,
-        base: 'v' + stableVersion,
-        token: args.gitCliffToken,
-      }),
+      body: releaseNotes,
     })
   }
 
