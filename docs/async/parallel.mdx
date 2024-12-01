@@ -20,7 +20,7 @@ const users = await _.parallel(3, userIds, async userId => {
 })
 ```
 
-If the limit is greater than the array length, it will be clamped to the array length. Similarly, if the limit is less than 1, it will be clamped to 1.
+Since v12.3.0, if the limit is greater than the array length, it will be clamped to the array length. Similarly, if the limit is less than 1, it will be clamped to 1.
 
 ### Interrupting
 
