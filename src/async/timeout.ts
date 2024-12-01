@@ -1,13 +1,14 @@
-import { isString } from 'radashi'
+import { isFunction } from 'radashi'
+import { TimeoutError } from './TimeoutError'
 
 declare const setTimeout: (fn: () => void, ms: number) => unknown
 
 /**
- * Creates a promise that will reject after a specified amount of time.
- * You can provide a custom error message or a function that returns an error.
+ * The `timeout` function creates a promise that rejects after a
+ * specified delay, with an optional custom error message or error
+ * function.
  *
  * @see https://radashi.js.org/reference/async/timeout
- *
  * @example
  * ```ts
  * // Reject after 1000 milliseconds with default message "timeout"
@@ -27,23 +28,22 @@ declare const setTimeout: (fn: () => void, ms: number) => unknown
  * ```
  * @version 12.3.0
  */
-
-export function timeout<E extends Error>(
-  milliseconds: number,
+export function timeout<TError extends Error>(
   /**
-   * The error message to reject with.
-   *
-   * @default "timeout"
+   * The number of milliseconds to wait before rejecting.
    */
-  error: string | (() => E) = 'timeout',
-): Promise<void> {
-  return new Promise((_, rej) =>
-    setTimeout(() => {
-      if (isString(error)) {
-        rej(new Error(error))
-      } else {
-        rej(error())
-      }
-    }, milliseconds),
+  ms: number,
+  /**
+   * An error message or a function that returns an error. By default,
+   * a `TimeoutError` is thrown with the message "Operation timed
+   * out".
+   */
+  error?: string | (() => TError),
+): Promise<never> {
+  return new Promise((_, reject) =>
+    setTimeout(
+      () => reject(isFunction(error) ? error() : new TimeoutError(error)),
+      ms,
+    ),
   )
 }
