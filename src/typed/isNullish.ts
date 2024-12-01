@@ -9,7 +9,7 @@
  * isNullish('') // => false
  * isNullish(0) // => false
  * ```
- * @version 12.2.0
+ * @version 12.3.0
  */
 export function isNullish(value: unknown): value is null | undefined {
   return value === null || value === undefined
