@@ -1,10 +1,15 @@
 /**
- * Create an [n-ary Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_product) from the given arrays.
+ * Create an [n-ary Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_product)
+ * from the given arrays.
  *
  * @see https://radashi.js.org/reference/array/cartesianProduct
  * @example
  * ```ts
- * product([['red', 'blue'], ['big', 'small'], ['fast', 'slow']])
+ * cartesianProduct([
+ *   ['red', 'blue'],
+ *   ['big', 'small'],
+ *   ['fast', 'slow'],
+ * ])
  * // [
  * //   ['red', 'big', 'fast'],
  * //   ['red', 'big', 'slow'],
@@ -20,6 +25,7 @@
 export function cartesianProduct<T extends any[][]>(
   ...arrays: [...T]
 ): Array<{ [K in keyof T]: T[K][number] }>
+
 export function cartesianProduct<T extends any[][]>(...arrays: T): T[][] {
   let out: T[][] = [[]]
   for (const array of arrays) {
