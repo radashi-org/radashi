@@ -37,3 +37,7 @@ https://github.com/radashi-org/radashi/pull/262
 #### Add `signal` option to `parallel`
 
 https://github.com/radashi-org/radashi/pull/262
+
+#### Tolerate out-of-range `parallel` limit
+
+https://github.com/radashi-org/radashi/pull/238
