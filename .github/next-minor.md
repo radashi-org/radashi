@@ -24,6 +24,10 @@ https://github.com/radashi-org/radashi/pull/305
 
 https://github.com/radashi-org/radashi/pull/250
 
+#### dedent
+
+https://github.com/radashi-org/radashi/pull/120
+
 ## New Features
 
 #### Add `signal` option to `retry`
