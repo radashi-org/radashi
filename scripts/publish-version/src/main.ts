@@ -27,7 +27,7 @@ async function parseArgs() {
     npmToken: 'NPM_TOKEN',
     radashiBotToken: 'RADASHI_BOT_TOKEN',
     deployKey: 'DEPLOY_KEY',
-    canaryDeployKey: 'NIGHTLY_DEPLOY_KEY',
+    canaryDeployKey: 'NIGHTLY_DEPLOY_KEY?',
   })
 
   const { default: mri } = await import('mri')
