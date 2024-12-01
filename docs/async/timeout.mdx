@@ -1,0 +1,40 @@
+---
+title: timeout
+description: Create a promise that rejects after some time
+since: 12.3.0
+---
+
+### Usage
+
+The `timeout` function creates a promise that rejects after a specified delay, with an optional custom error message or error function.
+
+The default error is a `TimeoutError` with the message "Operation timed out".
+
+```ts
+import * as _ from 'radashi'
+
+// Rejects after 1 second with a default TimeoutError
+await _.timeout(1000)
+
+// Rejects after 1 second with a custom TimeoutError message
+await _.timeout(1000, 'Custom timeout message')
+
+// Rejects after 1 second with a custom error type
+await _.timeout(1000, () => new Error('Custom error'))
+```
+
+### Example with `Promise.race`
+
+One of the most useful ways to use `_.timeout` with `Promise.race` to set a timeout for an asynchronous operation.
+
+```ts
+import * as _ from 'radashi'
+
+const someAsyncTask = async () => {
+  await _.sleep(10_000)
+  return 'Task completed'
+}
+
+// Race between the async task and a timeout of 1 second
+await Promise.race([someAsyncTask(), _.timeout(1000, 'Task took too long')])
+```

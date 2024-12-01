@@ -39,6 +39,8 @@ export * from './async/parallel.ts'
 export * from './async/reduce.ts'
 export * from './async/retry.ts'
 export * from './async/sleep.ts'
+export * from './async/timeout.ts'
+export * from './async/TimeoutError.ts'
 export * from './async/tryit.ts'
 export * from './async/withResolvers.ts'
 

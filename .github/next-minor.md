@@ -20,6 +20,10 @@ https://github.com/radashi-org/radashi/pull/241
 
 https://github.com/radashi-org/radashi/pull/305
 
+#### timeout
+
+https://github.com/radashi-org/radashi/pull/250
+
 ## New Features
 
 #### Add `signal` option to `retry`
