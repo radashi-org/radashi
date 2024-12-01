@@ -398,8 +398,15 @@ async function computeBuildDigest() {
   return crypto.createHash('sha256').update(fileHashes.join('')).digest('hex')
 }
 
-async function getPrNumbers(range: string) {
+async function getPrNumbers(range: string): Promise<string[]> {
   // cSpell:ignore oneline
   const { stdout: gitLog } = await execa('git', ['log', '--oneline', range])
-  return sift(gitLog.split('\n').map(line => line.match(/\(#(\d+)\)$/)?.[1]))
+
+  const parsed = gitLog
+    .split('\n')
+    .map(
+      line => /^(feat|fix|perf)/.test(line) && line.match(/\(#(\d+)\)$/)?.[1],
+    )
+
+  return sift(parsed)
 }
