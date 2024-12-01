@@ -45,6 +45,10 @@
           "fix": "safe",
           "options": { "syntax": "shorthand" }
         },
+        "useConst": {
+          "fix": "none",
+          "level": "warn"
+        },
         "useTemplate": "off"
       },
       "suspicious": {
