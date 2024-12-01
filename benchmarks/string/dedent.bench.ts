@@ -8,7 +8,7 @@ describe('dedent', () => {
   `
 
   bench('dedent as tagged template literal', () => {
-    const result = _.dedent`
+    _.dedent`
       Hello
       World
       ${[1, 2, 3].join('\n')}
@@ -16,6 +16,6 @@ describe('dedent', () => {
   })
 
   bench('dedent as direct call', () => {
-    const result = _.dedent(input)
+    _.dedent(input)
   })
 })

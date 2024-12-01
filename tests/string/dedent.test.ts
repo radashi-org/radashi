@@ -9,6 +9,7 @@ describe('dedent', () => {
     `
     expect(_.dedent(string)).toBe('Foo\n  Bar\nBaz')
   })
+
   test('inferring the indentation of a string with varying indentation', () => {
     const string = `
         Foo
@@ -24,6 +25,7 @@ describe('dedent', () => {
     `
     expect(_.dedent(string2)).toBe('Foo\nBar\n      Baz')
   })
+
   test('explicit indentation: less than lowest indentation', () => {
     const string = `
       Foo
@@ -32,6 +34,7 @@ describe('dedent', () => {
     `
     expect(_.dedent(string, ' '.repeat(4))).toBe('  Foo\n    Bar\n  Baz')
   })
+
   test('explicit indentation: more than lowest indentation', () => {
     const string = `
       Foo
@@ -45,6 +48,7 @@ describe('dedent', () => {
       string.slice(1, lastLineOffset),
     )
   })
+
   test('tagged template strings', () => {
     const result = _.dedent`
       Foo ${1}
@@ -53,6 +57,7 @@ describe('dedent', () => {
     `
     expect(result).toBe('Foo 1\n  Bar 2\nBaz 3')
   })
+
   test('preserve empty lines', () => {
     const result = _.dedent`
 
@@ -63,6 +68,7 @@ describe('dedent', () => {
     `
     expect(result).toBe('\n\nFoo 1\n\nBar 2')
   })
+
   test('multiline embedded string', () => {
     const embedded = _.dedent`
       Line 1
@@ -89,6 +95,7 @@ describe('dedent', () => {
       'Outer 2',
     )
   })
+
   test('multiline embedded string with indentation', () => {
     const embedded = _.dedent`
       My list:
@@ -102,6 +109,7 @@ describe('dedent', () => {
       '  - Bread',
     )
   })
+
   test('multiline embedded string led by an empty line', () => {
     const embedded = _.dedent`
 
@@ -115,6 +123,7 @@ describe('dedent', () => {
       '3',
     )
   })
+
   test('multiline embedded string: edge case 1', () => {
     let code = _.dedent`
       Hello World\n
@@ -134,6 +143,7 @@ describe('dedent', () => {
       '3',
     )
   })
+
   test('line with less than removed indent', () => {
     const string = _.dedent`
         a
