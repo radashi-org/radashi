@@ -13,6 +13,7 @@ import { isFunction, type Class, type StrictExtract } from 'radashi'
  * isClass('abc') // => false
  * isClass({}) // => false
  * ```
+ * @version 12.3.0
  */
 export function isClass<T>(value: T): value is ExtractClass<T> {
   return (

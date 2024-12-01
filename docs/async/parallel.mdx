@@ -22,7 +22,7 @@ const users = await _.parallel(3, userIds, async userId => {
 
 ### Interrupting
 
-Processing can be manually interrupted. Pass an `AbortController.signal` via the `signal` option. When the signal is aborted, no more calls to your callback will be made. Any in-progress calls will continue to completion, unless you manually connect the signal inside your callback. In other words, `parallel` is only responsible for aborting the array loop, not the async operations themselves.
+Since v12.3.0, processing can be manually interrupted. Pass an `AbortController.signal` via the `signal` option. When the signal is aborted, no more calls to your callback will be made. Any in-progress calls will continue to completion, unless you manually connect the signal inside your callback. In other words, `parallel` is only responsible for aborting the array loop, not the async operations themselves.
 
 When `parallel` is interrupted by the signal, it throws a `DOMException` (even in Node.js) with the message `This operation was aborted` and name `AbortError`.
 

@@ -14,7 +14,7 @@ The `retry` function runs an async function and retries it if it fails. You can 
 - `delay` is milliseconds to sleep between retries
 - `backoff` is a function called to calculate the delay between retries
   - It receives the attempt number (starting with `1`) and returns the delay in milliseconds.
-- `signal` allows you to pass an `AbortController.signal` to interrupt the retry operation
+- `signal` (v12.3.0+) allows you to pass an `AbortController.signal` to interrupt the retry operation
 
 ```ts
 import * as _ from 'radashi'

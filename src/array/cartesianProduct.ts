@@ -23,6 +23,7 @@ type ReadonlyArray2D<T> = readonly (readonly T[])[]
  * //   ['blue', 'small', 'slow']
  * // ]
  * ```
+ * @version 12.3.0
  */
 export function cartesianProduct<const T extends ReadonlyArray2D<any>>(
   ...arrays: [...T]

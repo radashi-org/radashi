@@ -7,6 +7,7 @@
  * isUndefined(undefined) // => true
  * isUndefined(null) // => false
  * ```
+ * @version 12.3.0
  */
 export function isUndefined(value: unknown): value is undefined {
   return typeof value === 'undefined'
