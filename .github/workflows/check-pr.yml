@@ -8,6 +8,7 @@ on:
 jobs:
   validate:
     name: Validate
+    if: github.event.pull_request.user.login != 'renovate[bot]'
     runs-on: ubuntu-latest
     env:
       PR_TITLE: '${{ github.event.pull_request.title }}'
