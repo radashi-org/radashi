@@ -16,6 +16,7 @@
 export async function map<T, K>(
   array: readonly T[],
   asyncMapFunc: (item: T, index: number) => Promise<K>,
+  breakFunc?: (result: Awaited<K>, item: T, index: number) => boolean,
 ): Promise<K[]> {
   if (!array) {
     return []
@@ -23,7 +24,11 @@ export async function map<T, K>(
   const result = []
   let index = 0
   for (const value of array) {
-    const newValue = await asyncMapFunc(value, index++)
+    const newValue = await asyncMapFunc(value, index)
+
+    if (breakFunc && breakFunc(newValue, value, index)) break
+
+    index++
     result.push(newValue)
   }
   return result
