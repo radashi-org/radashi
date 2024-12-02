@@ -12,11 +12,7 @@ main()
 
 async function main() {
   const argv = mri(process.argv.slice(2), {
-    boolean: ['dry-run', 'force'],
-    alias: {
-      'dry-run': ['dryRun', 'n'],
-      force: ['f'],
-    },
+    boolean: ['force'],
   })
 
   let [newVersion] = argv._
@@ -54,52 +50,54 @@ async function main() {
     process.exit(1)
   }
 
-  log('Getting release info')
-  const metaResult = await supabase
-    .from('meta')
-    .select('value')
-    .eq('id', metaId)
-    .limit(1)
-    .single()
+  if (!argv.force) {
+    log('Getting release info')
+    const metaResult = await supabase
+      .from('meta')
+      .select('value')
+      .eq('id', metaId)
+      .limit(1)
+      .single()
 
-  if (metaResult.error) {
-    console.error('Failed to get release info:', metaResult.error)
-    process.exit(1)
-  }
+    if (metaResult.error) {
+      console.error('Failed to get release info:', metaResult.error)
+      process.exit(1)
+    }
 
-  const lastRelease = metaResult.data?.value as {
-    version: string
-    ref: string
-  }
+    const lastRelease = metaResult.data?.value as {
+      version: string
+      ref: string
+    }
 
-  log('Comparing to this release:', lastRelease)
+    log('Comparing to this release:', lastRelease)
 
-  const lastReleaseParts = lastRelease.version.split('.')
-  const lastReleaseMajor = +lastReleaseParts[0]
-  const lastReleaseMinor = +lastReleaseParts[1]
+    const lastReleaseParts = lastRelease.version.split('.')
+    const lastReleaseMajor = +lastReleaseParts[0]
+    const lastReleaseMinor = +lastReleaseParts[1]
 
-  const newReleaseParts = newVersion.split(/[-.]/)
-  const newReleaseMajor = +newReleaseParts[0]
-  const newReleaseMinor = +newReleaseParts[1]
+    const newReleaseParts = newVersion.split(/[-.]/)
+    const newReleaseMajor = +newReleaseParts[0]
+    const newReleaseMinor = +newReleaseParts[1]
 
-  // When the new release has a greater major.minor version, we'll
-  // always continue. Otherwise, check to see if there are any changes
-  // before continuing.
-  if (
-    newReleaseMajor === lastReleaseMajor &&
-    newReleaseMinor === lastReleaseMinor
-  ) {
-    log('Checking for changes in docs')
-    const diffResult = await execa('git', [
-      'diff',
-      `${lastRelease.ref}..HEAD`,
-      '--',
-      'docs',
-    ])
+    // When the new release has a greater major.minor version, we'll
+    // always continue. Otherwise, check to see if there are any changes
+    // before continuing.
+    if (
+      newReleaseMajor === lastReleaseMajor &&
+      newReleaseMinor === lastReleaseMinor
+    ) {
+      log('Checking for changes in docs')
+      const diffResult = await execa('git', [
+        'diff',
+        `${lastRelease.ref}..HEAD`,
+        '--',
+        'docs',
+      ])
 
-    if (!diffResult.stdout.trim()) {
-      log('No changes in docs since last release. Skipping build.')
-      process.exit(0)
+      if (!diffResult.stdout.trim()) {
+        log('No changes in docs since last release. Skipping build.')
+        process.exit(0)
+      }
     }
   }
 

@@ -2,6 +2,12 @@ name: Publish Docs
 
 on:
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force publish docs even if no changes detected'
+        type: boolean
+        required: false
+        default: false
   push:
     tags:
       - '*'
@@ -25,4 +31,4 @@ jobs:
           DOCS_DEPLOY_KEY: ${{ secrets.DOCS_DEPLOY_KEY }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
-          node scripts/run publish-docs ${{ github.event.ref }}
+          node scripts/run publish-docs ${{ github.event.ref }} --force=${{ inputs.force }}

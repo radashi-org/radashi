@@ -287,6 +287,9 @@ export async function publishVersion(args: {
       repo: 'radashi',
       workflow_id: 'publish-docs.yml',
       ref: 'refs/tags/' + newTag,
+      inputs: {
+        force: true,
+      },
     })
   } else {
     log('Would have dispatched publish-docs workflow, but --no-push was set')
