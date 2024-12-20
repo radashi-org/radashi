@@ -143,6 +143,7 @@ export * from './typed/isWeakMap.ts'
 export * from './typed/isWeakSet.ts'
 
 export * from './url/withLeadingSlash.ts'
+export * from './url/withoutLeadingSlash.ts'
 export * from './url/withTrailingSlash.ts'
 
 export * from './types.ts'
