@@ -1,0 +1,22 @@
+---
+title: withLeadingSlash
+description: Adds a leading slash
+---
+
+### Usage
+
+Adds a leading slash `/` to the given URL if it is not already present.
+
+This function is useful for ensuring that URLs are properly formatted
+with a leading slash, which is often required in web development for
+consistency and to avoid issues with relative paths.
+
+```ts
+import { withLeadingSlash } from 'radashi'
+
+withLeadingSlash('') // => '/'
+withLeadingSlash('no/slash') // => '/no/slash'
+withLeadingSlash('/already/has/slash') // => '/already/has/slash'
+withLeadingSlash(undefined) // => undefined
+withLeadingSlash(null) // => null
+```
