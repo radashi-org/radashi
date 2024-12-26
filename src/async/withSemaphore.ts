@@ -1,8 +1,8 @@
 import { once } from "radashi";
 
-type AnyFn<T = unknown> = (permit: Permit) => Promise<T>
+type AnyFn<T = unknown> = (permit: SemaphorePermit) => Promise<T>
 
-export interface Permit {
+export interface SemaphorePermit {
   weight: number;
   /** Currently locked weight, including this permit */
   running: number;
@@ -16,7 +16,7 @@ export interface WithSemaphoreOptions {
 
 export interface Semaphore {
   getRunning(): number;
-  acquire(weight?: number): Promise<Permit>;
+  acquire(weight?: number): Promise<SemaphorePermit>;
   release(weight?: number): void;
 }
 
@@ -84,7 +84,7 @@ export function withSemaphore(optionsOrCapacity: number | WithSemaphoreOptions, 
     }
   }
 
-  function _createPermit(weight: number): Permit {
+  function _createPermit(weight: number): SemaphorePermit {
     let isAcquired = true;
 
     return {
@@ -109,7 +109,7 @@ export function withSemaphore(optionsOrCapacity: number | WithSemaphoreOptions, 
     if (weight < 1) throw new Error(`invalid weight ${weight}: must be positive`);
     if (weight > options.capacity) throw new Error(`invalid weight ${weight}: must be lower than or equal capacity ${options.capacity}`);
 
-    return new Promise<Permit>((resolve, reject) => {
+    return new Promise<SemaphorePermit>((resolve) => {
       queue.push({ resolve, weight });
       _dispatch();
     });
@@ -155,7 +155,7 @@ function useExclusiveFnOptions(optionsOrWeight?: number | ExclusiveOptions): Exc
 
 type QueuedTask = {
   weight: number;
-  resolve: (permit: Permit) => void;
+  resolve: (permit: SemaphorePermit) => void;
 };
 
 
