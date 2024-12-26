@@ -82,6 +82,9 @@ describe('withMutex', () => {
     expect(permit_a.isAcquired).toBe(false)
     expect(permit_b.isAcquired).toBe(true)
     expect(mutex.isLocked()).toBe(true)
+
+    mutex.release()
+    expect(mutex.isLocked()).toBe(false)
   })
 
   test('signatures', () => {
