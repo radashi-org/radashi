@@ -43,6 +43,7 @@ export * from './async/timeout.ts'
 export * from './async/TimeoutError.ts'
 export * from './async/tryit.ts'
 export * from './async/withResolvers.ts'
+export * from './async/withSemaphore.ts'
 
 export * from './curry/callable.ts'
 export * from './curry/chain.ts'
