@@ -1,0 +1,51 @@
+---
+title: withSemaphore
+description: A synchronization primitive for limiting concurrent usage to one
+---
+
+### Usage
+
+Creates a mutex-protected async function that limits concurrent execution to a single use at a time. Additional calls will wait for the mutex to be released before executing.
+
+```ts
+import * as _ from 'radashi'
+
+const exclusiveFn =_.withMutex(async () => {
+  // Do stuff
+})
+
+exclusiveFn() // run immediatly
+exclusiveFn() // wait until mutex is released
+```
+
+#### Using with task based functions
+
+Execution function can be passed as a task parameter and ignored at the mutex creation.
+
+```ts
+import * as _ from 'radashi'
+
+const exclusiveFn =_.withMutex()
+
+exclusiveFn(async (permit) => {
+  // Do stuff
+})
+```
+
+### Manual lock management
+
+The mutex can be manually acquired and released for fine-grained control over locking behavior.
+
+```ts
+import * as _ from 'radashi'
+
+const mutex =_.withMutex()
+
+const permit = await mutex.acquire()
+mutex.isLocked() // true
+
+// Do stuff
+
+permit.release()
+mutex.isLocked() // false
+```
