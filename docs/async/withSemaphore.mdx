@@ -1,14 +1,65 @@
 ---
 title: withSemaphore
-description: desc
+description: A synchronization primitive for limiting concurrent usage
 ---
 
 ### Usage
 
-Does a thing. Returns a value.
+Creates a [semaphore-protected](https://en.wikipedia.org/wiki/Semaphore_(programming)) async function that limits concurrent execution to a specified number of active uses.
+Additional calls will wait for previous executions to complete.
 
 ```ts
 import * as _ from 'radashi'
 
-_.withSemaphore()
+const exclusiveFn =_.withSemaphore(2, async () => {
+  // Do stuff
+})
+
+exclusiveFn() // run immediatly
+exclusiveFn() // run immediatly
+exclusiveFn() // wait until semaphore is released
+```
+
+#### Using with task based functions
+
+Execution function can be passed as a task parameter and ignored at the semaphore creation.
+
+```ts
+import * as _ from 'radashi'
+
+const exclusiveFn =_.withSemaphore({ capacity: 2 })
+
+exclusiveFn(async (permit) => {
+  // Do stuff
+})
+```
+
+#### Weighted tasks
+
+Each task can require a specific weight from a semaphore. In this example two tasks each weighted with 2 from
+a semaphore with a capacity of 2. As a result they are mutually exclusive.
+
+```ts
+import * as _ from 'radashi'
+
+const exclusiveFn =_.withSemaphore({ capacity: 2 })
+
+exclusiveFn({ weight: 2 }, async (permit) => { }) // run immediatly
+exclusiveFn({ weight: 2 }, async (permit) => { }) // wait until semaphore is released
+```
+
+### Manual lock management
+
+The semaphore can be manually acquired and released for fine-grained control over locking behavior.
+
+```ts
+import * as _ from 'radashi'
+
+const semaphore =_.withSemaphore({ capacity: 2 })
+
+const permit = await semaphore.acquire()
+
+// Do stuff
+
+permit.release()
 ```

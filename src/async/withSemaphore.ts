@@ -21,36 +21,36 @@ export interface Semaphore {
 }
 
 /**
- * Does a thing.
+ * Creates a semaphore-protected async function that limits concurrent execution to a specified number of active uses.
  *
  * @see https://radashi.js.org/reference/async/withSemaphore
  * @example
  * ```ts
- * const limitedFn = withSemaphore(1)
+ * const limitedFn = withSemaphore(2)
  * limitedFn(() => ...)
  * ```
  */
 export function withSemaphore(capacity: number): ExclusiveFn;
 
 /**
- * Does a thing.
+ * Creates a semaphore-protected async function that limits concurrent execution to a specified number of active uses.
  *
  * @see https://radashi.js.org/reference/async/withSemaphore
  * @example
  * ```ts
- * const limitedFn = withSemaphore({ capacity: 1 })
+ * const limitedFn = withSemaphore({ capacity: 2 })
  * limitedFn(() => ...)
  * ```
  */
 export function withSemaphore(options: WithSemaphoreOptions): ExclusiveFn;
 
 /**
- * Does a thing.
+ * Creates a semaphore-protected async function that limits concurrent execution to a specified number of active uses.
  *
  * @see https://radashi.js.org/reference/async/withSemaphore
  * @example
  * ```ts
- * const limitedFn = withSemaphore(1, () => ...)
+ * const limitedFn = withSemaphore(2, () => ...)
  * limitedFn()
  * limitedFn(() => ...)
  * ```
@@ -58,12 +58,12 @@ export function withSemaphore(options: WithSemaphoreOptions): ExclusiveFn;
 export function withSemaphore<T>(capacity: number, fn: AnyFn<T>): PrebuiltExclusiveFn<T>;
 
 /**
- * Does a thing.
+ * Creates a semaphore-protected async function that limits concurrent execution to a specified number of active uses.
  *
  * @see https://radashi.js.org/reference/async/withSemaphore
  * @example
  * ```ts
- * const limitedFn = withSemaphore({ capacity: 1 }, () => ...)
+ * const limitedFn = withSemaphore({ capacity: 2 }, () => ...)
  * limitedFn()
  * limitedFn(() => ...)
  * ```
