@@ -10,17 +10,17 @@ describe('withMutex', () => {
   })
 
   test('does blocked while the mutex is locked', async () => {
-    const values: number[][] = [];
+    const values: number[][] = []
     const exclusive = _.withMutex()
-    exclusive(async (permit) => {
+    exclusive(async permit => {
       await _.sleep(50)
       values.push([1, permit.running])
     })
-    exclusive(async (permit) => {
+    exclusive(async permit => {
       await _.sleep(100)
       values.push([2, permit.running])
     })
-    exclusive(async (permit) => {
+    exclusive(async permit => {
       await _.sleep(100)
       values.push([3, permit.running])
     })
@@ -29,10 +29,17 @@ describe('withMutex', () => {
     expect(values).toEqual([[1, 1]])
 
     await vi.advanceTimersByTimeAsync(101)
-    expect(values).toEqual([[1, 1], [2, 1]])
+    expect(values).toEqual([
+      [1, 1],
+      [2, 1],
+    ])
 
     await vi.advanceTimersByTimeAsync(101)
-    expect(values).toEqual([[1, 1], [2, 1], [3, 1]])
+    expect(values).toEqual([
+      [1, 1],
+      [2, 1],
+      [3, 1],
+    ])
   })
 
   test('handler failures does not affect the mutex release', async () => {
@@ -46,12 +53,12 @@ describe('withMutex', () => {
   })
 
   test('does expose manual lock management', async () => {
-    const values: number[][] = [];
+    const values: number[][] = []
     const mutex = _.withMutex()
     const permit = await mutex.acquire()
     expect(permit.isAcquired).toBe(true)
 
-    mutex(async (permit) => {
+    mutex(async permit => {
       values.push([1, permit.running])
     })
 
@@ -89,6 +96,6 @@ describe('withMutex', () => {
 
   test('signatures', () => {
     expect(_.withMutex()).toBeDefined()
-    expect(_.withMutex(async () => { })).toBeDefined()
+    expect(_.withMutex(async () => {})).toBeDefined()
   })
 })

@@ -10,7 +10,7 @@ Creates a mutex-protected async function that limits concurrent execution to a s
 ```ts
 import * as _ from 'radashi'
 
-const exclusiveFn =_.withMutex(async () => {
+const exclusiveFn = _.withMutex(async () => {
   // Do stuff
 })
 
@@ -25,9 +25,9 @@ Execution function can be passed as a task parameter and ignored at the mutex cr
 ```ts
 import * as _ from 'radashi'
 
-const exclusiveFn =_.withMutex()
+const exclusiveFn = _.withMutex()
 
-exclusiveFn(async (permit) => {
+exclusiveFn(async permit => {
   // Do stuff
 })
 ```
@@ -39,7 +39,7 @@ The mutex can be manually acquired and released for fine-grained control over lo
 ```ts
 import * as _ from 'radashi'
 
-const mutex =_.withMutex()
+const mutex = _.withMutex()
 
 const permit = await mutex.acquire()
 mutex.isLocked() // true
