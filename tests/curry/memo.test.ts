@@ -48,6 +48,12 @@ describe('memo', () => {
     func({ id: '1', withAdditionalStuff: true })
     func({ id: '1', withAdditionalStuff: false })
     expect(rawFn).toHaveBeenCalledTimes(1)
+
+    rawFn.mockClear()
+
+    func({ id: '2', withAdditionalStuff: false })
+    func({ id: '2', withAdditionalStuff: true })
+    expect(rawFn).toHaveBeenCalledTimes(2)
   })
 
   test('calls function again when first value expires', async () => {
