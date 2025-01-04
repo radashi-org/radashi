@@ -1,0 +1,22 @@
+---
+title: withoutLeadingSlash
+description: Removes the leading slash
+---
+
+### Usage
+
+Removes the leading slash `/` from the given URL if it is present.
+
+This function is useful for ensuring that URLs are properly formatted
+without a leading slash, which is often required in web development for
+consistency and to avoid issues with relative paths.
+
+```ts
+import { withoutLeadingSlash } from 'radashi'
+
+withoutLeadingSlash('') // => ''
+withoutLeadingSlash('/no/slash') // => 'no/slash'
+withoutLeadingSlash('already/has/slash') // => 'already/has/slash'
+withoutLeadingSlash(undefined) // => undefined
+withoutLeadingSlash(null) // => null
+```
