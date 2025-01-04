@@ -1,0 +1,26 @@
+---
+title: onlyPath
+description: Extract only the path
+---
+
+### Usage
+
+Extract only the path from an URI with optional query and fragments.
+
+For example, all these parameters will return `/path`:
+
+- `/path`
+- `/path?query=thing`
+- `/path#fragment`
+- `/path?query=thing#fragment`
+
+```ts
+import { onlyPath } from 'radashi'
+
+onlyPath('/path') // => '/path'
+onlyPath('/path?query=thing') // => '/path'
+onlyPath('/path#fragment') // => '/path'
+onlyPath('/path?query=thing#fragment') // => '/path'
+onlyPath(undefined) // => undefined
+onlyPath(null) // => null
+```
