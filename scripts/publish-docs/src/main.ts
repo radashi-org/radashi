@@ -107,6 +107,11 @@ async function main() {
 
   log('Publishing docs for version:', newVersion)
 
+  const toGithubCloneURL = (repo: string) =>
+    process.env.CI
+      ? `git@github.com:${repo}.git`
+      : `https://github.com/${repo}.git`
+
   log('Cloning main branch of radashi-org.github.io')
   await execa(
     'git',
@@ -116,23 +121,8 @@ async function main() {
       '1',
       '--branch',
       'main',
-      'git@github.com:radashi-org/radashi-org.github.io.git',
+      toGithubCloneURL('radashi-org/radashi-org.github.io'),
       './www',
-    ],
-    { stdio: 'inherit' },
-  )
-
-  log('Cloning gh-pages branch of radashi-org.github.io')
-  await execa(
-    'git',
-    [
-      'clone',
-      '--depth',
-      '1',
-      '--branch',
-      'gh-pages',
-      'git@github.com:radashi-org/radashi-org.github.io.git',
-      './www/dist',
     ],
     { stdio: 'inherit' },
   )
@@ -199,15 +189,41 @@ async function main() {
   }
 
   log('Pushing to gh-pages branch')
-  await execa('git', ['add', '-A'], { cwd: './www/dist' })
-  await execa('git', ['commit', '-m', `chore: ${newVersion}`], {
-    cwd: './www/dist',
-    stdio: 'inherit',
-  })
-  await execa('git', ['push'], {
-    cwd: './www/dist',
-    stdio: 'inherit',
-  })
+  process.chdir('./www/dist')
+  try {
+    // Commit the build to a temporary branch.
+    await execa('git', ['init'])
+    await execa('git', ['checkout', '-b', 'tmp'])
+    await execa('git', ['add', '-A'])
+    await execa('git', ['commit', '-m', 'tmp'])
+
+    // Fetch and checkout the gh-pages branch.
+    await execa('git', [
+      'remote',
+      'add',
+      'origin',
+      toGithubCloneURL('radashi-org/radashi-org.github.io'),
+    ])
+    await execa('git', ['fetch', 'origin', 'gh-pages'])
+    await execa('git', ['checkout', 'gh-pages'])
+
+    // Remove any files not present in the latest build.
+    await execa('git', ['rm', '-rf', '.'])
+
+    // Copy the build into the gh-pages branch.
+    await execa('git', ['cherry-pick', 'tmp', '-X', 'theirs', '--no-commit'])
+
+    // Publish the build to the gh-pages branch.
+    await execa('git', ['add', '-A'])
+    await execa('git', ['commit', '-m', `chore: ${newVersion}`], {
+      stdio: 'inherit',
+    })
+    await execa('git', ['push'], {
+      stdio: 'inherit',
+    })
+  } finally {
+    process.chdir('../..')
+  }
 }
 
 function log(msg: string, ...args: any[]) {
