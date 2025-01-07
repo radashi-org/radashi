@@ -134,4 +134,11 @@ describe('parallel', () => {
   test('limit defaults to array length if Infinity is passed', async () => {
     await testConcurrency(Number.POSITIVE_INFINITY, _.list(1, 3), [1, 2, 3])
   })
+
+  test('returns empty array for empty input', async () => {
+    const result = await _.parallel(1, [], async () => {
+      throw new Error('Should not be called')
+    })
+    expect(result).toEqual([])
+  })
 })
