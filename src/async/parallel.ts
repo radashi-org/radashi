@@ -66,7 +66,7 @@ export async function parallel<T, K>(
   array: readonly T[],
   func: (item: T) => Promise<K>,
 ): Promise<K[]> {
-  if (array.length === 0) {
+  if (!array.length) {
     return []
   }
 
