@@ -27,4 +27,14 @@ describe('map', () => {
     const result = await _.map(array, mapper)
     expect(result).toEqual(['a0', 'b1', 'c2', 'd3'])
   })
+
+  test('returns result with break', async () => {
+    const array = ['a', 'b', 'c', 'd']
+    const mapper = async (l: string, index: number) => `${l}${index}`
+    const breakFunc = (result: string, item: string, index: number) =>{
+     return item === 'c' && result === `${item}${index}`
+    }
+    const result = await _.map(array, mapper, breakFunc)
+    expect(result).toEqual(['a0', 'b1'])
+  })
 })
