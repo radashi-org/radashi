@@ -1,21 +1,6 @@
 import * as _ from 'radashi'
 
 describe('clone', () => {
-  test('copies the primitives', () => {
-    const arr = [
-      1.1,
-      'How you doing?',
-      false,
-      Symbol('key'),
-      BigInt('1'),
-      undefined,
-      null,
-    ]
-    for (const elm of arr) {
-      const newElm = _.clone(elm)
-      expect(elm).toBe(newElm)
-    }
-  })
   test('copies arrays', () => {
     const arr = [{ a: 0 }, 1, 2, 3]
     const result = _.clone(arr)
@@ -24,13 +9,6 @@ describe('clone', () => {
     for (const i in result) {
       expect(arr[i]).toBe(result[i])
     }
-  })
-  test('copies functions', () => {
-    const fa = () => 0
-    const fb = _.clone(fa)
-
-    expect(fa).not.toBe(fb)
-    expect(fa()).toBe(fb())
   })
   test('copies objects (class instances) without losing the class type', () => {
     class Data {

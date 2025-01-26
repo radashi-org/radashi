@@ -25,7 +25,7 @@ export function replaceOrAppend<T, U>(
   if (newItem === undefined) {
     return [...array]
   }
-  const out = array.slice()
+  const out = array.slice() as (T | Defined<U>)[]
   for (let index = 0; index < array.length; index++) {
     if (match(array[index], index)) {
       out[index] = newItem
