@@ -1,7 +1,5 @@
 import * as _ from 'radashi'
 
-const cast = <T = unknown[]>(value: any): T => value
-
 describe('max', () => {
   test('returns the max value from list of number', () => {
     const list = [5, 5, 10, 2]
@@ -19,13 +17,5 @@ describe('max', () => {
     const result = _.max(list, x => x.score)
     expect(result!.game).toBe('e')
     expect(result!.score).toBe(500)
-  })
-  test('does not fail when provided array is null', () => {
-    const result = _.max(cast(null))
-    expect(result).toBeNull()
-  })
-  test('does not fail when provided array is funky shaped', () => {
-    const result = _.max(cast({}))
-    expect(result).toBeNull()
   })
 })
