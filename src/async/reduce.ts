@@ -32,7 +32,7 @@ export async function reduce<T, K>(
     if (!array.length) {
       throw new TypeError('Reduce of empty array with no initial value')
     }
-    acc = indices.next().value
+    acc = array[indices.next().value]
   }
   for (const index of indices) {
     acc = await reducer(acc!, array[index], index)
