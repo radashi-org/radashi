@@ -1,7 +1,5 @@
 import * as _ from 'radashi'
 
-const cast = <T = any[]>(value: any): T => value
-
 describe('map', () => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
@@ -14,11 +12,6 @@ describe('map', () => {
     }
     const result = await _.map<number, number>(numbers, asyncSquare)
     expect(result).toEqual([1, 4, 9, 16])
-  })
-
-  test('handles null input', async () => {
-    const result = await _.map(cast(null), async () => '')
-    expect(result).toEqual([])
   })
 
   test('passes correct indexes', async () => {

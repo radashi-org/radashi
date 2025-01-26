@@ -34,20 +34,7 @@ export function inRange(number: number, end: number): boolean
  * ```
  */
 export function inRange(number: number, start: number, end: number): boolean
-export function inRange(number: number, start: number, end?: number): boolean {
-  const isTypeSafe =
-    typeof number === 'number' &&
-    typeof start === 'number' &&
-    (typeof end === 'undefined' || typeof end === 'number')
 
-  if (!isTypeSafe) {
-    return false
-  }
-
-  if (typeof end === 'undefined') {
-    end = start
-    start = 0
-  }
-
+export function inRange(number: number, start: number, end = 0): boolean {
   return number >= Math.min(start, end) && number < Math.max(start, end)
 }

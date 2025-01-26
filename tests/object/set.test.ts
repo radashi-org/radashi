@@ -1,14 +1,6 @@
 import * as _ from 'radashi'
 
 describe('set', () => {
-  test('handle bad input', () => {
-    expect(_.set({}, '', {})).toEqual({})
-    expect(_.set({}, null as any, {})).toEqual({})
-    expect(_.set({}, '', null as any)).toEqual({})
-    expect(_.set(null as any, '', {})).toEqual({})
-    expect(_.set(null as any, null as any, null as any)).toEqual({})
-  })
-
   test('set a direct property', () => {
     expect(_.set({ foo: true }, 'foo', false)).toEqual({ foo: false })
     expect(_.set({}, 'foo', 0)).toEqual({ foo: 0 })
@@ -66,5 +58,9 @@ describe('set', () => {
     expect(_.set({}, 'cards.1234value', 2)).toEqual({
       cards: { '1234value': 2 },
     })
+  })
+
+  test('set ignores undefined values', () => {
+    expect(_.set({}, 'foo', undefined)).toEqual({})
   })
 })

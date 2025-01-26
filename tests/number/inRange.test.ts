@@ -1,19 +1,6 @@
 import * as _ from 'radashi'
 
 describe('inRange', () => {
-  test('handles nullish values', () => {
-    expect(_.inRange(0, 1, null as any)).toBe(false)
-    expect(_.inRange(0, null as any, 1)).toBe(false)
-    expect(_.inRange(null as any, 0, 1)).toBe(false)
-    expect(_.inRange(0, undefined as any, 1)).toBe(false)
-    expect(_.inRange(undefined as any, 0, 1)).toBe(false)
-
-    expect(_.inRange(0, 1, undefined as any)).toBe(true)
-  })
-  test('handles bad input', () => {
-    const result = _.inRange(0, 1, {} as any)
-    expect(result).toBe(false)
-  })
   test('computes correctly', () => {
     expect(_.inRange(10, 0, 5)).toBe(false)
     expect(_.inRange(10, 0, 20)).toBe(true)

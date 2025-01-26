@@ -11,10 +11,6 @@
  * @version 12.1.0
  */
 export function pascal(str: string): string {
-  if (!str) {
-    return ''
-  }
-
   const result = str.replace(
     /(?:[^\w\d]|_|\s)+(\w)([A-Z]+)?/g,
     (_, firstCharacter, capitalizedLetters) => {

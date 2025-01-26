@@ -13,9 +13,6 @@
  * @version 12.2.0
  */
 export function unzip<T>(arrays: readonly (readonly T[])[]): T[][] {
-  if (!arrays || !arrays.length) {
-    return []
-  }
   const out = new Array(
     arrays.reduce((max, arr) => Math.max(max, arr.length), 0),
   )

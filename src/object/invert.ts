@@ -15,9 +15,6 @@ export function invert<
   TKey extends string | number | symbol,
   TValue extends string | number | symbol,
 >(obj: Record<TKey, TValue>): Record<TValue, TKey> {
-  if (!obj) {
-    return {} as Record<TValue, TKey>
-  }
   const keys = Object.keys(obj) as TKey[]
   return keys.reduce(
     (acc, key) => {

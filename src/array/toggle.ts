@@ -42,9 +42,6 @@ export function toggle<T>(
     strategy?: 'prepend' | 'append'
   },
 ): T[] {
-  if (!array) {
-    return item !== undefined ? [item] : []
-  }
   if (item === undefined) {
     return [...array]
   }

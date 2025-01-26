@@ -10,8 +10,4 @@ describe('title', () => {
       'Query All Items In Database',
     )
   })
-  test('returns empty string for bad input', () => {
-    expect(_.title(null)).toBe('')
-    expect(_.title(undefined)).toBe('')
-  })
 })

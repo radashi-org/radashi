@@ -1,11 +1,6 @@
 import * as _ from 'radashi'
 
 describe('crush', () => {
-  test('handles bad input', () => {
-    expect(_.crush({})).toEqual({})
-    expect(_.crush(null as any)).toEqual({})
-    expect(_.crush(undefined as any)).toEqual({})
-  })
   test('returns correctly crushed object', () => {
     const now = new Date()
     const ra = {

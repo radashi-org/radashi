@@ -1,7 +1,5 @@
 import * as _ from 'radashi'
 
-const cast = <T = any[]>(value: any): T => value
-
 describe('asyncReduce', () => {
   const numbers = [0, 1, 2, 3, 4]
   const reducer = async (a: number, b: number): Promise<number> => {
@@ -37,10 +35,5 @@ describe('asyncReduce', () => {
     await expect(async () => _.reduce([], reducer)).rejects.toThrowError(
       'Reduce of empty array with no initial value',
     )
-  })
-  test('throws on no init value and a null array input', async () => {
-    await expect(async () =>
-      _.reduce(cast(null), reducer),
-    ).rejects.toThrowError('Reduce of empty array with no initial value')
   })
 })
