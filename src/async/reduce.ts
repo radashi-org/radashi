@@ -25,7 +25,10 @@ export async function reduce<T, K>(
   reducer: (acc: K, item: T, index: number) => Promise<K>,
   initialValue?: K,
 ): Promise<K> {
-  const indices = (array ??= []).keys()
+  if (array === undefined) {
+    array = []
+  }
+  const indices = array.keys()
   let acc = initialValue
   // biome-ignore lint/style/noArguments:
   if (acc === undefined && arguments.length < 3) {
