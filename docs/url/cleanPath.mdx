@@ -1,0 +1,18 @@
+---
+title: cleanPath
+description: Clean a path
+---
+
+### Usage
+
+Clean a path by removing duplicate slashes.
+The protocol part of the URL is not modified.
+
+```ts
+import { cleanPath } from 'radashi'
+
+cleanPath('/path//to///resource') // => '/path/to/resource'
+cleanPath('http://example.com//path//to///resource') // => 'http://example.com/path/to/resource'
+cleanPath(undefined) // => undefined
+cleanPath(null) // => null
+```
