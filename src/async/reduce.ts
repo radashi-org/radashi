@@ -13,17 +13,33 @@
  */
 export async function reduce<T, K>(
   array: readonly T[],
-  asyncReducer: (acc: K, item: T, index: number) => Promise<K>,
-  initValue?: K,
+  reducer: (acc: K, item: T, index: number) => Promise<K>,
+  initialValue: K,
+): Promise<K>
+export async function reduce<T, K>(
+  array: readonly T[],
+  reducer: (acc: K, item: T, index: number) => Promise<K>,
+): Promise<K>
+export async function reduce<T, K>(
+  array: readonly T[],
+  reducer: (acc: K, item: T, index: number) => Promise<K>,
+  initialValue?: K,
 ): Promise<K> {
-  const initProvided = initValue !== undefined
-  if (!initProvided && array?.length < 1) {
-    throw new Error('Cannot reduce empty array with no init value')
+  if (!array) {
+    array = []
   }
-  const iter = initProvided ? array : array.slice(1)
-  let value: any = initProvided ? initValue : array[0]
-  for (const [i, item] of iter.entries()) {
-    value = await asyncReducer(value, item, i)
+  const indices = array.keys()
+  let acc = initialValue
+  // biome-ignore lint/style/noArguments:
+  if (acc === undefined && arguments.length < 3) {
+    if (!array.length) {
+      throw new TypeError('Reduce of empty array with no initial value')
+    }
+    acc = array[0] as any
+    indices.next()
   }
-  return value
+  for (const index of indices) {
+    acc = await reducer(acc!, array[index], index)
+  }
+  return acc!
 }
