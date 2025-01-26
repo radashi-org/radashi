@@ -8,7 +8,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { supabase } from 'radashi-db/supabase.ts'
 
-main()
+main().catch(console.error)
 
 async function main() {
   const argv = mri(process.argv.slice(2), {

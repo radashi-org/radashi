@@ -3,7 +3,7 @@ import { dequal } from 'dequal'
 import { execa } from 'execa'
 import fs from 'node:fs'
 
-main()
+main().catch(console.error)
 
 async function main() {
   // Check for uncommitted changes

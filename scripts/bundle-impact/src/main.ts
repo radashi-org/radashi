@@ -1,6 +1,6 @@
 import { weighChangedFunctions } from './weigh-changed.ts'
 
-main()
+main().catch(console.error)
 
 async function main() {
   if (process.env.CI) {

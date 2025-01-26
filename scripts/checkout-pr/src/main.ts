@@ -1,7 +1,7 @@
 import { verifyEnvVars } from '@radashi-org/common/verifyEnvVars.ts'
 import { checkoutPullRequest } from './checkout-pr.ts'
 
-main()
+main().catch(console.error)
 
 async function main() {
   const { repoUrl, headRef } = verifyEnvVars({

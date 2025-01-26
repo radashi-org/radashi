@@ -4,7 +4,7 @@ import { benchChangedFiles } from '@radashi-org/benchmarks/benchChangedFiles.ts'
 import { verifyEnvVars } from '@radashi-org/common/verifyEnvVars.ts'
 import { execa } from 'execa'
 
-main()
+main().catch(console.error)
 
 async function main() {
   const { radashiBotToken } = verifyEnvVars({

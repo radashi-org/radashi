@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { glob } from 'tinyglobby'
 
-main()
+main().catch(console.error)
 
 async function main() {
   const changedFiles = await getChangedFiles()

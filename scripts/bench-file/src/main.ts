@@ -6,7 +6,7 @@ import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { createVitest } from 'vitest/node'
 
-main()
+main().catch(console.error)
 
 async function main() {
   const reports: BenchmarkReport[] = []

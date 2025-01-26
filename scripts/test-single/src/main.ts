@@ -1,6 +1,6 @@
 import { execa, ExecaError } from 'execa'
 
-main()
+main().catch(console.error)
 
 async function main() {
   const [funcName] = process.argv.slice(2)
