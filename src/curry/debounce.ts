@@ -1,7 +1,9 @@
+import { noop } from 'radashi'
+
 declare const setTimeout: (fn: () => void, ms: number) => unknown
 declare const clearTimeout: (timer: unknown) => void
 
-export type DebounceFunction<TArgs extends any[]> = {
+export interface DebounceFunction<TArgs extends any[] = any> {
   (...args: TArgs): void
   /**
    * When called, future invocations of the debounced function are
@@ -9,14 +11,15 @@ export type DebounceFunction<TArgs extends any[]> = {
    */
   cancel(): void
   /**
-   * Returns `true` if the underlying function is scheduled to be
-   * called once the delay has passed.
-   */
-  isPending(): boolean
-  /**
-   * Invoke the underlying function immediately.
+   * If the debounced function is pending, it will be invoked
+   * immediately and the result will be returned. Otherwise,
+   * `undefined` will be returned.
    */
   flush(...args: TArgs): void
+  /**
+   * The underlying function
+   */
+  readonly callee: (...args: TArgs) => unknown
 }
 
 export interface DebounceOptions {
@@ -32,11 +35,11 @@ export interface DebounceOptions {
 }
 
 /**
- * Returns a new function that will only call your callback after
- * `delay` milliseconds have passed without any invocations.
+ * Returns a new function that will only call the source function
+ * after `delay` milliseconds have passed without any invocations.
  *
- * The debounced function has a few methods, such as `cancel`,
- * `isPending`, and `flush`.
+ * See the documentation (or the `DebounceFunction` type) for details
+ * on the methods and properties available on the returned function.
  *
  * @see https://radashi.js.org/reference/curry/debounce
  * @example
@@ -53,33 +56,33 @@ export interface DebounceOptions {
  */
 export function debounce<TArgs extends any[]>(
   { delay, leading }: DebounceOptions,
-  func: (...args: TArgs) => any,
+  callee: (...args: TArgs) => unknown,
 ): DebounceFunction<TArgs> {
-  let timer: unknown = undefined
-  let active = true
+  let timeout: unknown
 
-  const debounced: DebounceFunction<TArgs> = (...args: TArgs) => {
-    if (active) {
-      clearTimeout(timer)
-      timer = setTimeout(() => {
-        active && func(...args)
-        timer = undefined
-      }, delay)
-      if (leading) {
-        func(...args)
-        leading = false
-      }
+  const debounced = ((...args: TArgs) => {
+    clearTimeout(timeout)
+    if (leading) {
+      leading = false
+      callee(...args)
     } else {
-      func(...args)
+      timeout = setTimeout(
+        (debounced.flush = () => {
+          debounced.flush = noop
+          clearTimeout(timeout)
+          callee(...args)
+        }),
+        delay,
+      )
     }
-  }
-  debounced.isPending = () => {
-    return timer !== undefined
-  }
+  }) as DebounceFunction<TArgs> & { callee: typeof callee }
+
+  debounced.callee = callee
+  debounced.flush = noop
   debounced.cancel = () => {
-    active = false
+    debounced.flush = noop
+    clearTimeout(timeout)
   }
-  debounced.flush = (...args: TArgs) => func(...args)
 
   return debounced
 }

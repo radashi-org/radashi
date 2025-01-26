@@ -1,5 +1,5 @@
-import * as _ from 'radashi'
 import type { DebounceFunction } from 'radashi'
+import * as _ from 'radashi'
 
 describe('debounce', () => {
   let func: DebounceFunction<any>
@@ -20,60 +20,51 @@ describe('debounce', () => {
     vi.clearAllMocks()
   })
 
-  test('only executes once when called rapidly', async () => {
+  test('only executes once when called rapidly', () => {
     runFunc3Times()
     expect(mockFunc).toHaveBeenCalledTimes(0)
     vi.advanceTimersByTime(delay + 10)
     expect(mockFunc).toHaveBeenCalledTimes(1)
   })
-
-  test('does not debounce after cancel is called', () => {
+  test('cancel prevents the debounced function from being called', () => {
     runFunc3Times()
     expect(mockFunc).toHaveBeenCalledTimes(0)
     func.cancel()
-    runFunc3Times()
-    expect(mockFunc).toHaveBeenCalledTimes(3)
-    runFunc3Times()
-    expect(mockFunc).toHaveBeenCalledTimes(6)
-  })
-
-  test('executes the function immediately when the flush method is called', () => {
-    func.flush()
-    expect(mockFunc).toHaveBeenCalledTimes(1)
-  })
-
-  test('continues to debounce after flush is called', async () => {
-    runFunc3Times()
-    expect(mockFunc).toHaveBeenCalledTimes(0)
-    func.flush()
-    expect(mockFunc).toHaveBeenCalledTimes(1)
-    func()
-    expect(mockFunc).toHaveBeenCalledTimes(1)
-    vi.advanceTimersByTime(delay + 10)
-    expect(mockFunc).toHaveBeenCalledTimes(2)
-    func.flush()
-    expect(mockFunc).toHaveBeenCalledTimes(3)
-  })
-
-  test('cancels all pending invocations when the cancel method is called', async () => {
-    const results: boolean[] = []
-    func()
-    results.push(func.isPending())
-    results.push(func.isPending())
-    vi.advanceTimersByTime(delay + 10)
-    results.push(func.isPending())
-    func()
-    results.push(func.isPending())
-    vi.advanceTimersByTime(delay + 10)
-    results.push(func.isPending())
-    assert.deepEqual(results, [true, true, false, true, false])
-  })
-
-  test('returns if there is any pending invocation when the pending method is called', async () => {
-    func()
-    func.cancel()
     vi.advanceTimersByTime(delay + 10)
     expect(mockFunc).toHaveBeenCalledTimes(0)
+
+    // Verify that new calls after cancel are debounced normally
+    runFunc3Times()
+    expect(mockFunc).toHaveBeenCalledTimes(0)
+    vi.advanceTimersByTime(delay + 10)
+    expect(mockFunc).toHaveBeenCalledTimes(1)
+  })
+
+  describe('flush', () => {
+    test('only calls the function if the debounced function was called', () => {
+      runFunc3Times()
+      expect(mockFunc).toHaveBeenCalledTimes(0)
+
+      func.flush()
+      expect(mockFunc).toHaveBeenCalledTimes(1)
+      expect(func.isPending()).toBe(false)
+
+      func.flush()
+      expect(mockFunc).toHaveBeenCalledTimes(1)
+      expect(func.isPending()).toBe(false)
+    })
+    test('debouncing resumes after a flush', () => {
+      runFunc3Times()
+      expect(mockFunc).toHaveBeenCalledTimes(0)
+      func.flush()
+      expect(mockFunc).toHaveBeenCalledTimes(1)
+      expect(func.isPending()).toBe(false)
+
+      runFunc3Times()
+      expect(mockFunc).toHaveBeenCalledTimes(1)
+      vi.advanceTimersByTime(delay + 10)
+      expect(mockFunc).toHaveBeenCalledTimes(2)
+    })
   })
 
   test('executes the function immediately on the first invocation when `leading` is `true`', async () => {
