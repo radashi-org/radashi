@@ -42,23 +42,20 @@ describe('debounce', () => {
 
   describe('flush', () => {
     test('only calls the function if the debounced function was called', () => {
+      expect(func.flush).toBe(_.noop)
+
       runFunc3Times()
       expect(mockFunc).toHaveBeenCalledTimes(0)
 
       func.flush()
       expect(mockFunc).toHaveBeenCalledTimes(1)
-      expect(func.isPending()).toBe(false)
-
-      func.flush()
-      expect(mockFunc).toHaveBeenCalledTimes(1)
-      expect(func.isPending()).toBe(false)
+      expect(func.flush).toBe(_.noop)
     })
     test('debouncing resumes after a flush', () => {
       runFunc3Times()
       expect(mockFunc).toHaveBeenCalledTimes(0)
       func.flush()
       expect(mockFunc).toHaveBeenCalledTimes(1)
-      expect(func.isPending()).toBe(false)
 
       runFunc3Times()
       expect(mockFunc).toHaveBeenCalledTimes(1)
