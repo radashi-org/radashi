@@ -59,4 +59,8 @@ describe('set', () => {
       cards: { '1234value': 2 },
     })
   })
+
+  test('set ignores undefined values', () => {
+    expect(_.set({}, 'foo', undefined)).toEqual({})
+  })
 })
