@@ -18,7 +18,7 @@ export async function reduce<T, K>(
 ): Promise<K>
 export async function reduce<T, K>(
   array: readonly T[],
-  reducer: (acc: K, item: T, index: number) => Promise<K>,
+  reducer: (acc: T | K, item: T, index: number) => Promise<K>,
 ): Promise<K>
 export async function reduce<T, K>(
   array: readonly T[],
