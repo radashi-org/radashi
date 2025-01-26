@@ -37,3 +37,18 @@ The `####` headline should be short and descriptive of the breaking change. In t
   const func = debounce({ delay: 1000 }, mockFunc)
   expect(func.callee).toBe(mockFunc)
   ```
+
+#### Change `isNumber` to return true for `NaN` values
+
+Returning true for NaN values allows `isNumber` to perform “type narrowing” in TypeScript without risking a runtime error. This is because NaN is not a valid type in TypeScript, so it cannot be separated from other numbers.
+
+```ts
+const value: number | string = NaN
+
+if (!isNumber(value)) {
+  // Would previously have caused a runtime error, because `isNumber` returned false for `NaN`
+  value.toUpperCase()
+}
+
+isNumber(NaN) // => true
+```
