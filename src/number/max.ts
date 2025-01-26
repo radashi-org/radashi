@@ -19,7 +19,7 @@ export function max<T>(
   array: readonly T[],
   getter?: (item: T) => number,
 ): T | null {
-  if (!array || (array.length ?? 0) === 0) {
+  if (!array.length) {
     return null
   }
   const get = getter ?? ((v: any) => v)
