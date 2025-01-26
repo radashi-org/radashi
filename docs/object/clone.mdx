@@ -6,7 +6,9 @@ since: 12.1.0
 
 ### Usage
 
-Creates a shallow copy of the given object/value.
+Creates a shallow copy of the given object or array.
+
+Notably, built-in objects like `Map`, `Set`, `Date`, and others are not supported.
 
 ```ts
 import * as _ from 'radashi'
@@ -21,3 +23,9 @@ const gods = [ra]
 _.clone(ra) // => copy of ra
 _.clone(gods) // => copy of gods
 ```
+
+### Differences from spread syntax
+
+The `clone` function is similar to spread syntax (e.g. `{...obj}`), but it also preserves the prototype of the original object. If a `constructor` property exists on the original prototype, it will be called with the `new` keyword to create a new instance, and all properties will then be copied over to it.
+
+Unlike spread syntax, `clone` also supports cloning arrays.
