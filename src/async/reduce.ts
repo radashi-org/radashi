@@ -25,7 +25,7 @@ export async function reduce<T, K>(
   reducer: (acc: K, item: T, index: number) => Promise<K>,
   initialValue?: K,
 ): Promise<K> {
-  if (array === undefined) {
+  if (!array) {
     array = []
   }
   const indices = array.keys()
