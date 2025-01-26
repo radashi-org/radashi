@@ -18,4 +18,8 @@ describe('max', () => {
     expect(result!.game).toBe('e')
     expect(result!.score).toBe(500)
   })
+  test('returns null if array is empty', () => {
+    const result = _.max([])
+    expect(result).toBeNull()
+  })
 })

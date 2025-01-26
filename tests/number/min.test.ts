@@ -18,4 +18,8 @@ describe('min', () => {
     expect(result!.game).toBe('a')
     expect(result!.score).toBe(100)
   })
+  test('returns null if array is empty', () => {
+    const result = _.min([])
+    expect(result).toBeNull()
+  })
 })
