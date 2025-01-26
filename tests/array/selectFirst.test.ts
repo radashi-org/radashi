@@ -1,24 +1,6 @@
 import * as _ from 'radashi'
 
-const cast = <T = any[]>(value: any): T => value
-
 describe('selectFirst', () => {
-  test('does not fail on bad input', () => {
-    expect(
-      _.selectFirst(
-        cast(null),
-        x => x,
-        x => x,
-      ),
-    ).toBeUndefined()
-    expect(
-      _.selectFirst(
-        cast(undefined),
-        x => x,
-        x => x,
-      ),
-    ).toBeUndefined()
-  })
   test('returns mapped result of first value that meets the condition', () => {
     const list = [
       { group: 'a', word: 'hello' },

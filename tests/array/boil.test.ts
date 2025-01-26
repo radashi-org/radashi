@@ -1,7 +1,5 @@
 import * as _ from 'radashi'
 
-const cast = <T = unknown[]>(value: any): T => value
-
 describe('boil', () => {
   test('compares and keeps item based on condition', () => {
     const list = [
@@ -17,14 +15,6 @@ describe('boil', () => {
   })
   test('does not fail when provided array is empty', () => {
     const result = _.boil([], () => true)
-    expect(result).toBeNull()
-  })
-  test('does not fail when provided array is null', () => {
-    const result = _.boil(cast(null), () => true)
-    expect(result).toBeNull()
-  })
-  test('does not fail when provided array is funky shaped', () => {
-    const result = _.boil(cast({}), () => true)
     expect(result).toBeNull()
   })
 })

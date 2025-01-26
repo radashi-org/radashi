@@ -1,7 +1,5 @@
 import * as _ from 'radashi'
 
-const cast = <T = unknown[]>(value: any): T => value
-
 describe('intersects', () => {
   test('returns true if list a & b have items in common', () => {
     const listA = ['a', 'b']
@@ -20,10 +18,6 @@ describe('intersects', () => {
     const listB = [{ value: 12 }]
     const result = _.intersects(listA, listB, x => x.value)
     expect(result).toBeTruthy()
-  })
-  test('returns false without failing if either list is null', () => {
-    expect(_.intersects(cast(null), [])).toBeFalsy()
-    expect(_.intersects([], cast(null))).toBeFalsy()
   })
   test('works with objects without an identity function', () => {
     const obj1 = { id: 1 }

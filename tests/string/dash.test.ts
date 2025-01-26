@@ -9,10 +9,6 @@ describe('dash', () => {
     const result = _.dash('hello')
     expect(result).toBe('hello')
   })
-  test('returns empty string for empty input', () => {
-    const result = _.dash(null as any)
-    expect(result).toBe('')
-  })
   test('must handle strings that are camelCase', () => {
     const result = _.dash('helloWorld')
     expect(result).toBe('hello-world')

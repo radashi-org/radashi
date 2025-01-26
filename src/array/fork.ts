@@ -15,10 +15,8 @@ export function fork<T>(
   condition: (item: T) => boolean,
 ): [T[], T[]] {
   const forked: [T[], T[]] = [[], []]
-  if (array) {
-    for (const item of array) {
-      forked[condition(item) ? 0 : 1].push(item)
-    }
+  for (const item of array) {
+    forked[condition(item) ? 0 : 1].push(item)
   }
   return forked
 }

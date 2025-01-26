@@ -1,7 +1,5 @@
 import * as _ from 'radashi'
 
-const cast = <T = object>(value: any): T => value
-
 describe('assign', () => {
   const initial = {
     name: 'jay',
@@ -25,18 +23,6 @@ describe('assign', () => {
       },
     },
   }
-  test('handles both null input', () => {
-    const result = _.assign(cast(null), cast(null))
-    expect(result).toEqual({})
-  })
-  test('handles null first input', () => {
-    const result = _.assign({ a: 'y' }, cast(null))
-    expect(result).toEqual({ a: 'y' })
-  })
-  test('handles null last input', () => {
-    const result = _.assign(cast(null), { a: 'y' })
-    expect(result).toEqual({ a: 'y' })
-  })
   test('correctly assign a with values from b', () => {
     const result = _.assign(initial, override)
     expect(result).toEqual(override)

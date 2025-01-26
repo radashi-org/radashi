@@ -31,9 +31,6 @@ export function pick<T extends object>(
   obj: T,
   filter: KeyFilter<T, keyof T> | null,
 ) {
-  if (!obj) {
-    return {}
-  }
   let keys: (keyof T)[] = filter as any
   if (isArray(filter)) {
     filter = null

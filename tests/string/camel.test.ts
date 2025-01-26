@@ -9,10 +9,6 @@ describe('camel', () => {
     const result = _.camel('hello')
     expect(result).toBe('hello')
   })
-  test('returns empty string for empty input', () => {
-    const result = _.camel(null as any)
-    expect(result).toBe('')
-  })
   test('a word in camel case should remain in camel case', () => {
     const result = _.camel('helloWorld')
     expect(result).toBe('helloWorld')

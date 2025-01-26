@@ -10,9 +10,6 @@ export function alphabetical<T>(
   getter: (item: T) => string,
   direction: 'asc' | 'desc' = 'asc',
 ): T[] {
-  if (!array) {
-    return []
-  }
   const asc = (a: T, b: T) => `${getter(a)}`.localeCompare(getter(b))
   const dsc = (a: T, b: T) => `${getter(b)}`.localeCompare(getter(a))
   return array.slice().sort(direction === 'desc' ? dsc : asc)
