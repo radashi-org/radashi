@@ -38,4 +38,14 @@ describe('isObject', () => {
     const result = _.isObject([1, 2, 3])
     expect(result).toBeFalsy()
   })
+  test('correctly distinguishes between function and object in a union type', () => {
+    const returnSomething: () => (() => void) | { a: string } = () => ({ a: 'a' })
+    const something = returnSomething()
+
+    if (_.isObject(something)) {
+      expect(something).toEqual({ a: 'a' })
+    } else {
+      expect(typeof something).toBe('function')
+    }
+  })
 })

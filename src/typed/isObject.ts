@@ -24,6 +24,6 @@ import { isTagged } from 'radashi'
  * ```
  * @version 12.1.0
  */
-export function isObject(value: unknown): value is object {
+export function isObject<T>(value: T): value is Exclude<T, Function> & object {
   return isTagged(value, '[object Object]')
 }
