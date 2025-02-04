@@ -33,8 +33,8 @@ importers:
         specifier: ^0.14.0
         version: 0.14.0(prettier@3.3.3)
       radashi-helper:
-        specifier: ^0.1.6
-        version: 0.1.6
+        specifier: ^0.1.9
+        version: 0.1.9
       tsup:
         specifier: ^8.1.0
         version: 8.3.0(postcss@8.4.47)(typescript@5.6.3)(yaml@2.6.0)
@@ -1140,6 +1140,10 @@ packages:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
 
+  kleur@4.1.5:
+    resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
+    engines: {node: '>=6'}
+
   lilconfig@3.1.2:
     resolution: {integrity: sha512-eop+wDAvpItUys0FWkHIKeC9ybYrTGbU41U5K7+bttZZeohvnY7M9dZ5kB21GNWiFT2q1OoPTvncPCgSOVO5ow==}
     engines: {node: '>=14'}
@@ -1314,8 +1318,8 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  radashi-helper@0.1.6:
-    resolution: {integrity: sha512-dnDzyCkJoDThEPkr4iT3C6riKVdnRqvk/iSZ2zzP9HaS8fdNcgURDIX0S4W8E95B5wPtDWhAtwz7rWzgDCRtnw==}
+  radashi-helper@0.1.9:
+    resolution: {integrity: sha512-5OtPqbTx7CMAnAF9ANEPmoZtoM5Pf+UypvkSTrDVdyieKdynvU7aZ8Pz/TpqI27jsf8Tc2V4U4kRVCiZeppQWA==}
     hasBin: true
 
   readdirp@3.6.0:
@@ -2564,6 +2568,8 @@ snapshots:
 
   kleur@3.0.3: {}
 
+  kleur@4.1.5: {}
+
   lilconfig@3.1.2: {}
 
   lines-and-columns@1.2.4: {}
@@ -2694,12 +2700,13 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  radashi-helper@0.1.6:
+  radashi-helper@0.1.9:
     dependencies:
       chokidar: 3.6.0
       debug: 4.3.7
       esbuild: 0.23.1
       fast-glob: 3.3.2
+      kleur: 4.1.5
       prompts: 2.4.2
       tinyspawn: 1.3.3
     transitivePeerDependencies:
