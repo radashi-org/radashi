@@ -8,7 +8,7 @@ since: 12.1.0
 
 Given an object and a list of keys in the object, returns a new object with only the given keys.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const fish = {
@@ -25,8 +25,9 @@ _.pick(fish, ['name', 'source']) // => { name, source }
 
 The `pick` function can also accept a predicate function as the filter argument. This allows for more complex filtering logic beyond simple key inclusion or exclusion.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const source = { a: 1, b: 2, c: 3, d: 4 }
 
@@ -44,9 +45,10 @@ When used with a predicate function, `pick` is potentially unsafe, because of pa
 
 :::
 
-```typescript
+```ts twoslash
 // Example demonstrating potential inaccuracy in `key` and `value` types within `_.pick` callback
 import * as _ from 'radashi'
+// @noErrors
 
 interface User {
   name: string

@@ -8,7 +8,7 @@ since: 12.1.0
 
 Pass in a value and get a boolean telling you if the value is empty.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 _.isEmpty([]) // => true
@@ -36,7 +36,7 @@ In some cases, `isEmpty` acts as a [type guard](https://www.typescriptlang.org/d
 
 Due to TypeScript limitations, object types cannot be narrowed, except for arrays and functions.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 // Example with string

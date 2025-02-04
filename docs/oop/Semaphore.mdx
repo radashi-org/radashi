@@ -8,7 +8,7 @@ since: 12.6.0
 
 A semaphore is a synchronization primitive that allows a limited number of concurrent operations to proceed.
 
-```ts
+```ts twoslash
 import { Semaphore } from 'radashi'
 
 const semaphore = new Semaphore(2)
@@ -20,7 +20,7 @@ permit.release()
 
 When the semaphore's capacity is reached, subsequent calls to `semaphore.acquire()` will block until a permit is released.
 
-```ts
+```ts twoslash
 import { Semaphore } from 'radashi'
 
 const semaphore = new Semaphore(1)
@@ -36,7 +36,7 @@ permit.release() // Releasing the permit allows blockingAcquire to resolve
 
 You can acquire permits with a specific `weight`. The semaphore's capacity is reduced by this weight. If the remaining capacity is less than the requested weight, the acquisition will block.
 
-```ts
+```ts twoslash
 import { Semaphore } from 'radashi'
 
 const semaphore = new Semaphore(4)
@@ -52,7 +52,7 @@ await semaphore.acquire({ weight: 1 })
 
 A permit can only be released once. Subsequent calls to `permit.release()` on the same permit instance will have no effect.
 
-```ts
+```ts twoslash
 import { Semaphore } from 'radashi'
 
 const semaphore = new Semaphore(1)
@@ -64,7 +64,7 @@ permit.release() // Has no effect
 
 The semaphore constructor requires a `maxCapacity` of more than 0. Acquiring a permit requires a `weight` of more than 0 and not exceeding the semaphore's `maxCapacity`. Invalid options will result in errors.
 
-```ts
+```ts twoslash
 import { Semaphore } from 'radashi'
 
 // Invalid constructor
@@ -79,7 +79,7 @@ const semaphore = new Semaphore(2)
 
 You can abort a pending acquisition using an [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) and its signal. If the signal is aborted before the permit is acquired, the acquire promise will reject with an `AbortError`.
 
-```ts
+```ts twoslash
 import { Semaphore } from 'radashi'
 
 const semaphore = new Semaphore(1)
@@ -97,7 +97,7 @@ await expect(acquirePromise).rejects.toThrow('This operation was aborted')
 
 You can reject all pending and future acquisition requests by calling `semaphore.reject()`. All promises returned by pending and future `acquire` calls will reject with the provided error.
 
-```ts
+```ts twoslash
 import { Semaphore } from 'radashi'
 
 const semaphore = new Semaphore(1)

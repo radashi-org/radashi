@@ -13,8 +13,9 @@ The first argument of `castComparator` is called the `mapping`. This can be eith
 - **Function**: If `mapping` is a function, it maps the input values to a comparable value.
 - **Property Name**: If `mapping` is a property name, it maps the input values to a property of the input values with a comparable value.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const users = [
   { id: 1, firstName: 'Alice', lastName: 'Smith' },
@@ -27,7 +28,7 @@ users.sort(compareById)
 // [Alice, Drew, Charlie]
 
 const compareByFullName = _.castComparator(
-  user => `${user.firstName} ${user.lastName}`,
+  (user: typeof users[number]) => `${user.firstName} ${user.lastName}`,
   (a, b) => b.localeCompare(a),
 )
 users.sort(compareByFullName)
@@ -40,7 +41,10 @@ Optionally, you can pass a custom `compare` function that receives the mapped va
 
 A positive number means the “right value” is greater than the “left value”, a negative number means the “left value” is greater than the “right value”, and 0 means both values are equal.
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+// @noErrors
+
 const users = [
   { id: 1, firstName: 'Alice', lastName: 'Smith' },
   { id: 3, firstName: 'Charlie', lastName: 'Brown' },
@@ -48,7 +52,7 @@ const users = [
 ]
 
 const compareByFullName = _.castComparator(
-  user => `${user.firstName} ${user.lastName}`,
+  (user: typeof users[number]) => `${user.firstName} ${user.lastName}`,
   (a, b) => b.localeCompare(a),
 )
 

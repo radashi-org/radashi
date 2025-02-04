@@ -20,8 +20,9 @@ The returned throttled function also includes these methods:
 - `isThrottled(): boolean`: To check if there's currently an active throttle
 - `trigger(...args): void`: To invoke the wrapped function without waiting for the next interval
 
-```typescript
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 // Throttle a scroll event handler
 const handleScroll = () => {

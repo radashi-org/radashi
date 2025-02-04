@@ -8,7 +8,7 @@ since: 12.6.0
 
 Wraps an asynchronous function to ensure that calls with the same key are queued and executed sequentially, while calls with different keys can run in parallel. This is useful for preventing race conditions when operations must not overlap for the same logical group (like user ID or resource ID).
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const updateUser = async (userId: string, data: object) => {
@@ -40,7 +40,7 @@ queuedUpdate('user456', { name: 'Bob' })
 
 ### Advanced Example
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 // Database operations that must be serialized per table
@@ -71,7 +71,7 @@ queuedDbOp('orders', 'update', { id: 1, status: 'shipped' })
 
 Errors from the wrapped function are properly propagated to the caller, and the queue continues processing subsequent calls:
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const riskyOperation = async (id: string, shouldFail: boolean) => {

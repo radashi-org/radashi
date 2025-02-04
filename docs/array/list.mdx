@@ -12,11 +12,11 @@ The interface is identical to `range`.
 
 _A hat tip to Python's `range` functionality_
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 _.list(3) // [0, 1, 2, 3]
-_.list(0, 3) // [0, 1, 2, 3]
+_.list(1, 3) // [1, 2, 3]
 _.list(0, 3, 'y') // [y, y, y, y]
 _.list(0, 3, () => 'y') // [y, y, y, y]
 _.list(0, 3, i => i) // [0, 1, 2, 3]
@@ -31,33 +31,45 @@ _.list(0, 6, i => i, 2) // [0, 2, 4, 6]
 
 When givin a single argument, it's treated as the `size`. Returns a list with values from 0 to `size`.
 
-```ts
-_.list(3) // [0, 1, 2, 3]
+```ts twoslash
+import * as _ from 'radashi'
+
+// ---cut-before---
+const simpleList = _.list(3) // [0, 1, 2, 3]
 ```
 
 ### list(start, end)
 
 When given two arguments, they're treated as the `start` and `end`. Returns a list with values from `start` to `end`
 
-```ts
-_.list(2, 6) // [2, 3, 4, 5, 6]
+```ts twoslash
+import * as _ from 'radashi'
+
+// ---cut-before---
+const rangeList = _.list(2, 6) // [2, 3, 4, 5, 6]
 ```
 
 ### list(start, end, value)
 
 When given a third argument it's treated as the `value` to be used in the list. If the `value` is a function it will be called, with an index argument, to create every value.
 
-```ts
-_.list(2, 4, {}) // [{}, {}, {}]
-_.list(2, 4, null) // [null, null, null]
-_.list(2, 4, i => i) // [2, 3, 4]
+```ts twoslash
+import * as _ from 'radashi'
+
+// ---cut-before---
+const staticObjectList = _.list(2, 4, {}) // [{}, {}, {}]
+const staticValueList = _.list(2, 4, null) // [null, null, null]
+const functionList = _.list(2, 4, i => i) // [2, 3, 4]
 ```
 
 ### list(start, end, value, step)
 
 When given a fourth argument it's treated as the `step` size to skip when generating values from `start` to `end`.
 
-```ts
-_.list(2, 4, i => i, 2) // [2, 4]
-_.list(25, 100, i => i, 25) // [25, 50, 75, 100]
+```ts twoslash
+import * as _ from 'radashi'
+
+// ---cut-before---
+const steppedList = _.list(2, 4, i => i, 2) // [2, 4]
+const biggerSteppedList = _.list(25, 100, i => i, 25) // [25, 50, 75, 100]
 ```

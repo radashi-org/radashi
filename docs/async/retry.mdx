@@ -16,7 +16,7 @@ The `retry` function runs an async function and retries it if it fails. You can 
   - It receives the attempt number (starting with `1`) and returns the delay in milliseconds.
 - `signal` (v12.3.0+) allows you to pass an `AbortController.signal` to interrupt the retry operation
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const api = {
@@ -42,8 +42,22 @@ await _.retry({ backoff: i => 10 ** i }, api.users.list) // try 3 times with 10,
 
 If a `signal` is passed, the retry operation can be interrupted. When the signal is aborted, `retry`'s promise will reject with a `DOMException` (even in Node.js) with the message `This operation was aborted` and name `AbortError`.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
+
+// ---cut-start---
+const api = {
+  users: {
+    async list() {
+      if (Math.random() < 0.5) {
+        throw new Error('Random error')
+      }
+      return []
+    },
+  },
+}
+// ---cut-end---
 
 const abortController = new AbortController()
 const signal = abortController.signal

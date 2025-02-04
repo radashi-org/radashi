@@ -10,7 +10,7 @@ The `assert` function from Radashi is used to assert that a given `condition` is
 
 This utility is particularly useful in TypeScript for its ability to perform type narrowing. It uses the `asserts` keyword in its signature. When `assert(condition)` is called and the condition is true, TypeScript understands that the type of any variables involved in the condition can be narrowed down based on that truthiness.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 function processValue(value: string | null | undefined) {
@@ -40,7 +40,7 @@ The `message` can be a string or an instance of the `Error` class.
 - If an `Error` instance is provided, that specific error object will be thrown directly.
 - If no message is provided for a failing assertion, a default message `"Assertion failed"` is used.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 // Using a custom string message
@@ -63,7 +63,7 @@ A special case exists when the `condition` argument is a literal `false`. In thi
 
 This `never` return type signals to the TypeScript compiler that the code path following this assertion is unreachable. This can be particularly useful in scenarios like exhaustiveness checks within `switch` statements or for indicating impossible states in your type logic.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 type Status = 'success' | 'pending' | 'failed'

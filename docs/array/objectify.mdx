@@ -25,7 +25,7 @@ Returns a new dictionary object where keys and values are derived from the input
 #### Example
 
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const fish = [
@@ -41,10 +41,10 @@ const fish = [
     name: 'Trout',
     weight: 13,
   },
-]
+] as const
 
-_.objectify(fish, f => f.name) // => { Marlin: [marlin object], Bass: [bass object], ... }
-_.objectify(
+const objectifiedByName = _.objectify(fish, f => f.name) // => { Marlin: [marlin object], Bass: [bass object], ... }
+const objectifiedByNameAndWeight = _.objectify(
   fish,
   f => f.name,
   f => f.weight,

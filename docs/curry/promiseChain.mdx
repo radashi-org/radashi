@@ -8,7 +8,7 @@ since: 12.6.0
 
 Creates a function that executes multiple functions in the same order as they are passed in arguments. Each function may be synchronous or asynchronous. The result of each function is passed to the next function. The final result is returned as a `Promise`.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const func1 = vi.fn((a, b) => a + b)

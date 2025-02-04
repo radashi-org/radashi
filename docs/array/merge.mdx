@@ -9,7 +9,7 @@ since: 12.1.0
 Given two arrays of items and an identity function, returns the first
 list with all items from the second list where there was a match.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const gods = [
@@ -30,5 +30,5 @@ const newGods = [
   },
 ]
 
-_.merge(gods, newGods, f => f.name) // => [{name: "Zeus" power: 100}, {name: "Ra", power: 97}]
+const mergedGods = _.merge(gods, newGods, f => f.name) // => [{name: "Zeus" power: 100}, {name: "Ra", power: 97}]
 ```

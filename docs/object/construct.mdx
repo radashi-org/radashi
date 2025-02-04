@@ -8,7 +8,7 @@ since: 12.1.0
 
 The opposite of crush, given an object that was crushed into key paths and values will return the original object reconstructed.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const flat = {
@@ -20,7 +20,7 @@ const flat = {
   'enemies.0.power': 12,
 }
 
-_.construct(flat)
+const reconstructed = _.construct(flat)
 // {
 //   name: 'ra',
 //   power: 100,

@@ -8,7 +8,8 @@ since: 12.1.0
 
 Merges two objects together recursively into a new object applying values from right to left. Recursion only applies to child object properties.
 
-```ts
+```ts twoslash
+// @errors: 2345
 import * as _ from 'radashi'
 
 const ra = {
@@ -16,6 +17,6 @@ const ra = {
   power: 100,
 }
 
-_.assign(ra, { name: 'Loki' })
+const merged = _.assign(ra, { name: 'Loki' })
 // => { name: Loki, power: 100 }
 ```

@@ -8,7 +8,7 @@ since: 12.1.0
 
 Chaining functions will cause them to execute one after another, passing the output from each function as the input to the next, returning the final output at the end of the chain.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const add = (y: number) => (x: number) => x + y
@@ -24,7 +24,7 @@ chained(7) // => 24
 
 ### Example
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 type Deity = {

@@ -7,7 +7,7 @@ description: Converts a PromiseLike to a Promise<Result>
 
 Converts a `PromiseLike` to a `Promise<Result>`.
 
-```ts
+```ts twoslash
 import { toResult, Result } from 'radashi'
 
 const good = async (): Promise<number> => 1
@@ -26,7 +26,7 @@ const badResult = await toResult(bad())
 
 If the given promise throws a non-Error value, it will be rethrown. This ensures the `Result` always contains an `Error` value or undefined.
 
-```ts
+```ts twoslash
 // This won't catch the rejected promise, because it was
 // rejected with a string, not an Error.
 const res = await toResult(Promise.reject('test error'))
@@ -36,7 +36,7 @@ const res = await toResult(Promise.reject('test error'))
 
 This function won't catch synchronous errors. Only rejected promises are converted to an `Err`.
 
-```ts
+```ts twoslash
 function bad() {
   if (Math.random() > 0.5) {
     // ⚠️ This error won't be caught by `toResult`. To fix this, add

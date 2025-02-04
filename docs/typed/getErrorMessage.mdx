@@ -8,7 +8,7 @@ since: 12.8.0
 
 Pass in an unknown error value and get a string that is safe to display or log.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 _.getErrorMessage(new Error('Request failed')) // => 'Request failed'
@@ -20,7 +20,7 @@ _.getErrorMessage(null) // => 'Unknown error.'
 
 Empty strings and `Error` objects with empty messages return the fallback message.
 
-```ts
+```ts twoslash
 _.getErrorMessage(new Error()) // => 'Unknown error.'
 _.getErrorMessage('') // => 'Unknown error.'
 ```

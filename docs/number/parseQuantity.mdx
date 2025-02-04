@@ -9,7 +9,7 @@ since: 12.6.0
 Parse a quantity string like `"2 dollars"` into its numeric value. You must provide a
 unit conversion map, with optional short unit aliases.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const moneyUnits = {
@@ -34,7 +34,7 @@ _.parseQuantity('5$', moneyUnits)
 
 You may use the `QuantityParser` class instead, which is more efficient for repeated parsing.
 
-```ts
+```ts twoslash
 const moneyParser = new _.QuantityParser(moneyUnits)
 ```
 
@@ -45,7 +45,7 @@ you can use the [`parseDuration`](../parseDuration) function instead.
 
 You can subclass `QuantityParser` to create a parser for a specific unit.
 
-```ts
+```ts twoslash
 import { QuantityParser, type QuantityString } from 'radashi'
 
 export type DistanceUnit = keyof typeof DistanceParser.units
@@ -94,7 +94,7 @@ distanceParser.parse('1 meter') // => 1
 
 You may want to create a wrapper function to make it easier to use.
 
-```ts
+```ts twoslash
 import { DistanceParser, type DistanceString } from './DistanceParser'
 
 const parser = new DistanceParser()

@@ -8,7 +8,7 @@ since: 12.5.0
 
 Pass in an array of objects and specify one or more keys to extract. The function returns a new array containing the extracted values (as an array of arrays). The input array is never mutated.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const gods = [
@@ -34,7 +34,7 @@ const allProps = _.pluck(gods)
 
 The `pluck` function can also accept mapping functions in addition to property names.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const gods = [

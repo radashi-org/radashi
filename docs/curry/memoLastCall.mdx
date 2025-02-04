@@ -9,7 +9,7 @@ Creates a memoized version of a function that caches only its most recent call.
 
 When the function is called with the same arguments as the previous call, it returns the cached result instead of recalculating. This is useful for optimizing expensive calculations when only the latest result needs to be cached, making it more memory-efficient than traditional memoization.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const expensiveCalculation = (x: number, y: number): number => {
