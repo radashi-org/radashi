@@ -1,22 +1,22 @@
 ---
 title: trim
-description: Trim values from a string
+description: Remove characters from the ends of a string
 since: 12.1.0
 ---
 
 ### Usage
 
-Trims all prefix and suffix characters from the given string. Like the builtin trim function but accepts alternate (other than space) characters you would like to trim.
+Trim specific characters from the start and end of a given string. Like the built-in `String.prototype.trim` method, but it accepts alternate (other than space) characters you would like to trim.
 
 ```ts
 import * as _ from 'radashi'
 
-_.trim('  hello ') // => hello
+_.trim('  hello ', ' ') // => hello
 _.trim('__hello__', '_') // => hello
 _.trim('/repos/:owner/', '/') // => repos/:owner
 ```
 
-Trim also handles more than one character to trim.
+It also handles more than one character to trim.
 
 ```ts
 _.trim('222__hello__111', '12_') // => hello
