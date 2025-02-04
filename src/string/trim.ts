@@ -13,7 +13,7 @@
  * ```
  * @version 12.1.0
  */
-export function trim(str: string, charsToTrim = ' '): string {
+export function trim(str: string, charsToTrim: string): string {
   const toTrim = charsToTrim.replace(/[\W]{1}/g, '\\$&')
   const regex = new RegExp(`^[${toTrim}]+|[${toTrim}]+$`, 'g')
   return str.replace(regex, '')
