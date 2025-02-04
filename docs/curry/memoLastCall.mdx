@@ -1,0 +1,24 @@
+---
+title: memoLastCall
+description: Creates a memoized version of a function that caches only its most recent call
+---
+
+### Usage
+
+Creates a memoized version of a function that caches only its most recent call. When the function is called with the same arguments as the previous call, it returns the cached result instead of recalculating. This is useful for optimizing expensive calculations when only the latest result needs to be cached, making it more memory-efficient than traditional memoization.
+
+```ts
+import * as _ from 'radashi'
+
+const expensiveCalculation = (x: number, y: number): number => {
+  console.log('Calculating...')
+  return x + y
+}
+
+const memoizedCalc = _.memoLastCall(expensiveCalculation)
+
+console.log(memoizedCalc(2, 3))
+console.log(memoizedCalc(2, 3))
+console.log(memoizedCalc(3, 4))
+console.log(memoizedCalc(2, 3))
+```

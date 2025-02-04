@@ -4,7 +4,7 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Functions
 
-####
+#### Add `memoLastCall` function ([#353](https://github.com/radashi-org/radashi/pull/353))
 
 ## New Features
 
