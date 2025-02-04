@@ -10,7 +10,7 @@ Given an array of items and a desired cluster size (`n`), returns an array
 of arrays. Each child array containing `n` (cluster size) items
 split as evenly as possible.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const gods = [
@@ -26,10 +26,10 @@ const gods = [
   'Athena',
 ]
 
-_.cluster(gods, 3)
+const clustered = _.cluster(gods, 3)
 // => [
-//   [ 'Ra', 'Zeus', 'Loki' ],
-//   [ 'Vishnu', 'Icarus', 'Osiris' ],
+//   ['Ra', 'Zeus', 'Loki'],
+//   ['Vishnu', 'Icarus', 'Osiris'],
 //   ['Thor', 'Apollo', 'Artemis'],
 //   ['Athena']
 // ]

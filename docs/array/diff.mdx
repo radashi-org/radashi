@@ -9,11 +9,11 @@ since: 12.1.0
 Given two arrays, returns an array of all items that exist in the first array
 but do not exist in the second array.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const oldWorldGods = ['ra', 'zeus']
 const newWorldGods = ['vishnu', 'zeus']
 
-_.diff(oldWorldGods, newWorldGods) // => ['ra']
+const diff = _.diff(oldWorldGods, newWorldGods) // => ['ra']
 ```
