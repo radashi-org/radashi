@@ -1,8 +1,8 @@
-This is a guide for implementing a new feature or function in Radashi.
+This is a guide for implementing a new feature or function in Radashi. The steps must be done in order. When a step gives you a command, run it. When committing a change, use single quotes for the commit title, to avoid issues with special characters.
 
 1. First, ask if this is a breaking change. In other words, are you changing the behavior of existing code in a way that will break existing tests or documentation?
 
-2. If this is a new function, you should first run this command:
+2. If this is a new function, run this command:
 
 ```sh
 pnpm radashi fn create {function-name} --group {group-name} --description "{description}"
@@ -32,15 +32,17 @@ pnpm radashi fn create {function-name} --group {group-name} --description "{desc
 5. Run the tests to verify your changes. Use this command:
 
 ```sh
-pnpm test-single {function-name}
+pnpm test-single run {function-name}
 ```
 
 6. Commit your changes as `{scope}: {description}` where `scope` is either "fix" or "feat". Use "feat!" as the scope if a breaking change is involved. If an existing function is being changed or fixed, use "{scope}({function-name}): {description}".
 
-7. Fill out the [PR template](.github/pr-template.md) then run this command:
+7. Fill out the [PR template](.github/pull_request_template.md) and save it to `pr-body.txt`.
+
+8. Create a pull request with this command:
 
 ```sh
-gh pr create --base {base} --title "{title}" --body "{body}"
+gh pr create --base {base} --title '{title}' --body "$(cat pr-body.txt)"
 ```
 
 - The `base` is the branch you're targeting; either `main` or `next` (for breaking changes).
