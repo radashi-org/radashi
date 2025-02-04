@@ -2,3 +2,4 @@ benchmarks/baseline.ts
 node_modules
 coverage
 dist
+pr-body.txt
