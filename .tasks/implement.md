@@ -1,4 +1,13 @@
-This is a guide for implementing a new feature or function in Radashi. The steps must be done in order. When a step gives you a command, run it. When committing a change, use single quotes for the commit title, to avoid issues with special characters.
+This is a guide for implementing a new feature or function in Radashi.
+
+## Ground Rules
+
+- The steps must be done in order.
+- When a step gives you a command, run it.
+- When committing a change, use single quotes for the commit title, to avoid issues with special characters.
+- When editing a newly created file, follow its template. For example, a new function's implementation must have a description comment with 1+ minimal code examples. Tests and benchmarks must use the `_` namespace import to access Radashi functions.
+
+## Steps
 
 1. First, ask if this is a breaking change. In other words, are you changing the behavior of existing code in a way that will break existing tests or documentation?
 
