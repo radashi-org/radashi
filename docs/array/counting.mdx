@@ -11,7 +11,7 @@ how each object should be identified. Returns an object where the keys
 are the id values the callback returned and each value is an integer
 telling how many times that id occurred.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const gods = [
@@ -29,5 +29,5 @@ const gods = [
   },
 ]
 
-_.counting(gods, g => g.culture) // => { egypt: 1, greek: 2 }
+const countingByCulture = _.counting(gods, g => g.culture) // => { egypt: 1, greek: 2 }
 ```

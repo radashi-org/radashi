@@ -10,7 +10,7 @@ The `timeout` function creates a promise that rejects after a specified delay, w
 
 The default error is a `TimeoutError` with the message "Operation timed out".
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 // Rejects after 1 second with a default TimeoutError
@@ -27,7 +27,7 @@ await _.timeout(1000, () => new Error('Custom error'))
 
 One of the most useful ways to use `_.timeout` with `Promise.race` to set a timeout for an asynchronous operation.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const someAsyncTask = async () => {

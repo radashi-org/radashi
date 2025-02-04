@@ -8,11 +8,11 @@ since: 12.1.0
 
 Given an array of items return the first item or a default value if no items exists.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const gods = ['ra', 'loki', 'zeus']
 
-_.first(gods) // => 'ra'
-_.first([], 'vishnu') // => 'vishnu'
+const first = _.first(gods) // => 'ra'
+const firstDefault = _.first([], 'vishnu') // => 'vishnu'
 ```

@@ -8,8 +8,9 @@ since: 12.2.0
 
 Creates a function that always returns the same value, regardless of any arguments passed to it.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const alwaysTrue = _.always(true)
 
@@ -21,7 +22,11 @@ alwaysTrue(1, 2, 3) // true
 
 You can avoid using `always` if the value is a primitive (use `() => true` instead), but it can be useful if you need a function that always returns the same object reference, or if you want to memoize a calculation across multiple calls.
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+// @noErrors
+// ---cut-before---
+
 // Not memoized
 () => someCalculation()
 // Memoized

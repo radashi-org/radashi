@@ -10,7 +10,7 @@ Check if a value is a `Result` tuple.
 
 **Don't know what that is?** Read the [Result](#result) section further down.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 _.isResult([undefined, 42]) // => true
@@ -53,7 +53,9 @@ The names "Ok" and "Err" are inspired by Rust's `std::result` module.
 
 To check for an `Ok` result, do this:
 
-```ts
+```ts twoslash
+import { isResult } from 'radashi'
+// ---cut-before---
 declare const value: unknown
 
 if (isResult(value) && value[0] == null) {
@@ -64,7 +66,10 @@ if (isResult(value) && value[0] == null) {
 
 To check for an `Err` result, do this:
 
-```ts
+```ts twoslash
+import { isResult } from 'radashi'
+// ---cut-before---
+
 declare const value: unknown
 
 if (isResult(value) && value[0] != null) {

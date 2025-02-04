@@ -8,7 +8,7 @@ since: 12.3.0
 
 Remove indentation from every line of a given string. Optionally, provide your own `indent` to control the amount of indentation to remove. If you don't provide an `indent`, the amount of indentation to remove is determined by the first non-empty line of the given string.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 // Explicit indentation
@@ -24,7 +24,15 @@ _.dedent('\n    Hello\n    World!\n\n')
 
 When using `dedent` in a tagged template string, the indentation is always inferred.
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+
+const userName = 'JohnDoe'
+const orderId = 12345
+const productName = 'Widget'
+const quantity = 2
+// ---cut-before---
+
 // Real-world example: Email template
 const emailTemplate = _.dedent`
   Hello, ${userName}!
@@ -56,7 +64,10 @@ const emailTemplate = _.dedent`
 
 When embedding a string with `dedent`, you don't have to worry about the indentation of the embedded string. For example, if you have an array where each item needs its own line, just join it with `join('\n')` and `dedent` will make sure it all works out.
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+// ---cut-before---
+
 const items = ['one', 'two', 'three']
 const list = _.dedent`
   My List:
@@ -71,14 +82,21 @@ There's a common use case of building up a long string of “paragraphs” (for 
 
 Since `dedent` strips the first and last empty line of a given string, your dedented string has no spacing around it by default. You might try to include an empty line at the start of each paragraph to achieve the desired spacing, like the following example.
 
-```ts
-let story = dedent`
+```ts twoslash
+import * as _ from 'radashi'
+
+function isLateAtNight() {
+  return true
+}
+// ---cut-before---
+
+let story = _.dedent`
   There once was a programmer
   who had a lot of trouble.
 `
 
 if (isLateAtNight()) {
-  story += dedent`
+  story += _.dedent`
 
     He was so confused
     that he couldn't even
@@ -101,8 +119,13 @@ Here are 3 possible solutions for this issue. Pick your favorite:
 
 1. Add `\n` to your empty line.
 
-   ```ts
-   story += dedent`
+   ```ts twoslash
+   import * as _ from 'radashi'
+
+   let story = ''
+   // ---cut-before---
+
+   story += _.dedent`
      \n
      He was so confused
      that he couldn't even
@@ -112,9 +135,14 @@ Here are 3 possible solutions for this issue. Pick your favorite:
 
 2. Append the line breaks separately.
 
-   ```ts
+   ```ts twoslash
+   import * as _ from 'radashi'
+
+   let story = ''
+   // ---cut-before---
+
    story += '\n\n'
-   story += dedent`
+   story += _.dedent`
      He was so confused
      that he couldn't even
      tell what was going on.
@@ -123,8 +151,13 @@ Here are 3 possible solutions for this issue. Pick your favorite:
 
 3. Include two empty lines at the start of each paragraph. (An unadvised solution as its intention is not the most clear)
 
-   ```ts
-   story += dedent`
+   ```ts twoslash
+   import * as _ from 'radashi'
+
+   let story = ''
+   
+   // ---cut-before---
+   story += _.dedent`
    
    
      He was so confused

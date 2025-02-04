@@ -12,7 +12,7 @@ The default behavior aims to support the most popular use cases. See “Customiz
 
 By default, non-enumerable properties and computed properties are copied lossless-ly. Note that you can opt out of this behavior if you need better performance (see “Faster cloning” below).
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const obj = { a: 1, b: { c: 2 } }
@@ -35,9 +35,9 @@ Also note that built-in, complex objects like `RegExp` and `Date` are still not 
 
 “Cloning strategies” control how certain object types are handled by `cloneDeep`. You can pass in a custom strategy, which may even be a partial strategy. Any undefined methods in your strategy will inherit the default logic. Your custom methods can return `null` to use the default logic, or they can return the received object to skip cloning.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
-
+// @errors: 2304 2322
 _.cloneDeep(obj, {
   // Clone arrays with default logic if they are not frozen.
   cloneArray: array => (Object.isFrozen(array) ? array : null),
