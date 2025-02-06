@@ -1,0 +1,29 @@
+---
+title: errorFirst
+description: Coerce a promise into a `[error, value]` tuple
+---
+
+## Description
+
+Call an async function and return a promise that resolves to an array of the error and the value.
+
+- If the promise resolves, the result is `[null, value]`.
+- If the promise rejects, the result is `[error, null]`.
+
+## Example
+
+```ts
+import * as _ from 'radashi'
+
+async function getData() {
+  return 'data'
+}
+
+const [error, data] = await _.errorFirst(getData())
+
+if (error) {
+  console.error(error)
+} else {
+  console.log(data) // data
+}
+```
