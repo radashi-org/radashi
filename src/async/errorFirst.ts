@@ -1,9 +1,9 @@
 import { isFunction } from 'radashi'
 
-const left = <Error>(error: Error): [Error, null] => [error, null]
-const right = <T>(value: T): [null, T] => [null, value]
+const reject = (error: Error): [Error, null] => [error, null]
+const fulfill = <T>(result: T): [null, T] => [null, result]
 
-export type ErrorFirst<T, Error = unknown> = [null, T] | [Error, null]
+export type ErrorFirst<TResult> = [null, TResult] | [Error, null]
 
 /**
  * Call an async function and return a promise that resolves to an
@@ -11,6 +11,16 @@ export type ErrorFirst<T, Error = unknown> = [null, T] | [Error, null]
  *
  * - If the promise resolves, the result is `[null, value]`.
  * - If the promise rejects, the result is `[error, null]`.
+ *
+ * @example
+ * ```ts
+ * const [error, data] = await errorFirst(async () => 'data')
+ * if (error) {
+ *   console.error(error)
+ * } else {
+ *   console.log(data)
+ * }
+ * ```
  */
 export function errorFirst<T, Args extends any[]>(
   fn: (...args: Args) => Promise<T>,
@@ -30,5 +40,5 @@ export function errorFirst<T>(
       promise = Promise.reject(error)
     }
   }
-  return promise.then(right, left)
+  return promise.then(fulfill, reject)
 }
