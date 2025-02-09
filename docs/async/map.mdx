@@ -20,3 +20,13 @@ const users = await _.map(userIds, async userId => {
   return await api.users.find(userId)
 }) // [true, true, false, false]
 ```
+
+### Search terms
+
+- Often called `asyncMap`, `mapAsync`, or `promiseMap` in other libraries.
+
+### Popular use cases
+
+- Parallel data fetching: Use `map` to iterate over an array of URLs, fetching data from each asynchronously and collecting the results.
+- Concurrent processing: Utilize `map` to apply a heavy computation asynchronously on an array of items, such as hashing passwords or processing images.
+- Batch processing: Employ `map` to handle bulk updates or inserts in a database where each operation needs to be done asynchronously.
