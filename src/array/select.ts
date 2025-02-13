@@ -31,7 +31,7 @@ export function select<T, U>(
   mapper: (item: T, index: number) => U,
   condition?: ((item: T, index: number) => boolean) | null,
 ): U[] {
-  if (!array) {
+  if (!Array.isArray(array)) {
     return []
   }
   let mapped: U
