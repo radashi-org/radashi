@@ -32,6 +32,7 @@ export * from './array/zipToObject.ts'
 
 export * from './async/AggregateError.ts'
 export * from './async/all.ts'
+export * from './async/asyncPushable.ts'
 export * from './async/defer.ts'
 export * from './async/guard.ts'
 export * from './async/map.ts'
