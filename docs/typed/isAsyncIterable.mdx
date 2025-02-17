@@ -1,0 +1,22 @@
+---
+title: isAsyncIterable
+group: async
+---
+
+# isAsyncIterable
+
+Checks if a value is an async iterable.
+
+## Examples
+
+```ts
+import { isAsyncIterable } from 'radashi'
+
+isAsyncIterable(async function* () {
+  yield 1
+})
+// => true
+
+isAsyncIterable([1, 2, 3])
+// => false
+```
