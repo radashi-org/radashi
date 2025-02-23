@@ -141,5 +141,6 @@ export * from './typed/isTagged.ts'
 export * from './typed/isUndefined.ts'
 export * from './typed/isWeakMap.ts'
 export * from './typed/isWeakSet.ts'
+export * from './typed/isBigInt.ts'
 
 export * from './types.ts'
