@@ -11,11 +11,10 @@ export interface DebounceFunction<TArgs extends any[] = any> {
    */
   cancel(): void
   /**
-   * If the debounced function is pending, it will be invoked
-   * immediately and the result will be returned. Otherwise,
-   * `undefined` will be returned.
+   * If a debounced call is scheduled, this invokes it immediately.
+   * Otherwise, this equals Radashi's `noop` function.
    */
-  flush(...args: TArgs): void
+  flush(): void
   /**
    * The underlying function
    */
