@@ -60,6 +60,7 @@ export * from './function/always.ts'
 export * from './function/castComparator.ts'
 export * from './function/castMapping.ts'
 export * from './function/noop.ts'
+export * from './function/pipe.ts'
 
 export * from './number/clamp.ts'
 export * from './number/inRange.ts'
