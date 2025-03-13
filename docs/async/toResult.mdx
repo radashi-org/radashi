@@ -15,19 +15,11 @@ const bad = async (): Promise<number> => {
   throw new Error('bad')
 }
 
-const res = await toResult(good())
-//    ^? Promise<Result<number>>
+const goodResult = await toResult(good())
+// => [undefined, 1]
 
-if (res[0] === undefined) {
-  console.log(res[1])
-}
-
-const res2 = await toResult(bad())
-//    ^? Promise<Result<number>>
-
-if (res2[0] !== undefined) {
-  console.error(res2[0])
-}
+const badResult = await toResult(bad())
+// => [Error('bad'), undefined]
 ```
 
 ### Throwing non-Error values
