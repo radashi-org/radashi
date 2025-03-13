@@ -1,7 +1,8 @@
 // Whenever Symbol.asyncIterator is missing, use the same symbol that
 // polyfills do (e.g. @azure/core-asynciterator-polyfill).
 const asyncIteratorSymbol: symbol =
-  (Symbol as any).asyncIterator || Symbol.for('Symbol.asyncIterator')
+  /* c8 ignore next */ (Symbol as any).asyncIterator ||
+  Symbol.for('Symbol.asyncIterator')
 
 // @ts-ignore: Assume "lib.es2018.asynciterable" is included.
 type AsyncIterable = globalThis.AsyncIterable<unknown>
