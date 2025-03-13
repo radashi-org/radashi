@@ -1,4 +1,4 @@
-import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
+import { isDate, isNumber } from 'radashi'
 
 /**
  * Return true if the given value is empty.
@@ -8,6 +8,7 @@ import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
  * - `null`
  * - `undefined`
  * - `0`
+ * - any boolean
  * - empty string
  * - empty array
  * - invalid `Date` time
@@ -29,23 +30,11 @@ import { isDate, isFunction, isNumber, isSymbol } from 'radashi'
 export function isEmpty<T extends ToEmptyAble>(value: T): value is ToEmpty<T>
 export function isEmpty(value: unknown): boolean
 export function isEmpty(value: unknown): boolean {
-  if (value === true || value === false) {
-    return true
-  }
-  if (value === null || value === undefined) {
-    return true
-  }
-  if (isNumber(value)) {
-    return value === 0
+  if (typeof value !== 'object' || value === null) {
+    return !value || value === true
   }
   if (isDate(value)) {
     return Number.isNaN(value.getTime())
-  }
-  if (isFunction(value)) {
-    return false
-  }
-  if (isSymbol(value)) {
-    return false
   }
   const length = (value as any).length
   if (isNumber(length)) {
