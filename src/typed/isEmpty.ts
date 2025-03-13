@@ -8,6 +8,7 @@ import { isDate, isNumber } from 'radashi'
  * - `null`
  * - `undefined`
  * - `0`
+ * - `0n` or `BigInt(0)`
  * - any boolean
  * - empty string
  * - empty array
