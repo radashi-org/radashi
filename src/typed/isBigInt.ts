@@ -9,6 +9,7 @@
  * _.isBigInt(12) // => false
  * _.isBigInt('0n') // => false
  * ```
+ * @version 12.4.0
  */
 export function isBigInt(value: unknown): value is bigint {
   return typeof value === 'bigint'

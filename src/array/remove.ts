@@ -19,6 +19,7 @@
  * const result = remove(items, item => item.active);
  * console.log(result); // Output: [{ id: 2, active: false }]
  * ```
+ * @version 12.4.0
  */
 export function remove<T>(
   array: readonly T[],

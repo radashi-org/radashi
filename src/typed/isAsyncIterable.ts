@@ -19,6 +19,7 @@ type AsyncIterable = globalThis.AsyncIterable<unknown>
  * isAsyncIterable([1, 2, 3])
  * // => false
  * ```
+ * @version 12.4.0
  */
 export function isAsyncIterable(value: unknown): value is AsyncIterable {
   return (

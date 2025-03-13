@@ -23,6 +23,7 @@
  * console.log(memoizedCalc(3, 4));  // Outputs: "Calculating..." then 7
  * console.log(memoizedCalc(2, 3));  // Outputs: "Calculating..." then 5 (previous cache was overwritten)
  * ```
+ * @version 12.4.0
  */
 export function memoLastCall<Args extends any[], Result>(
   fn: (...args: Args) => Result,
