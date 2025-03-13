@@ -1,8 +1,14 @@
 /**
- * Creates a memoized version of a function that caches only its most recent call.
- * When the function is called with the same arguments as the previous call, it returns the cached result instead of recalculating.
- * This is useful for optimizing expensive calculations when only the latest result needs to be cached, making it more memory-efficient than traditional memoization.
+ * Creates a memoized version of a function that caches only its most
+ * recent call.
  *
+ * When the function is called with the same arguments as the previous
+ * call, it returns the cached result instead of recalculating. This
+ * is useful for optimizing expensive calculations when only the
+ * latest result needs to be cached, making it more memory-efficient
+ * than traditional memoization.
+ *
+ * @see https://radashi.js.org/reference/curry/memoLastCall
  * @example
  * ```ts
  * const expensiveCalculation = (x: number, y: number): number => {
@@ -17,9 +23,6 @@
  * console.log(memoizedCalc(3, 4));  // Outputs: "Calculating..." then 7
  * console.log(memoizedCalc(2, 3));  // Outputs: "Calculating..." then 5 (previous cache was overwritten)
  * ```
- *
- * @param fn The function to memoize.
- * @returns A memoized version of the function.
  */
 export function memoLastCall<Args extends any[], Result>(
   fn: (...args: Args) => Result,

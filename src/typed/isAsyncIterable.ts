@@ -10,6 +10,7 @@ type AsyncIterable = globalThis.AsyncIterable<unknown>
 /**
  * Checks if a value is an async iterable.
  *
+ * @see https://radashi.js.org/reference/typed/isAsyncIterable
  * @example
  * ```ts
  * isAsyncIterable((async function* () { yield 1 })())
