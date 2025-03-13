@@ -5,7 +5,9 @@ description: Creates a memoized version of a function that caches only its most 
 
 ### Usage
 
-Creates a memoized version of a function that caches only its most recent call. When the function is called with the same arguments as the previous call, it returns the cached result instead of recalculating. This is useful for optimizing expensive calculations when only the latest result needs to be cached, making it more memory-efficient than traditional memoization.
+Creates a memoized version of a function that caches only its most recent call.
+
+When the function is called with the same arguments as the previous call, it returns the cached result instead of recalculating. This is useful for optimizing expensive calculations when only the latest result needs to be cached, making it more memory-efficient than traditional memoization.
 
 ```ts
 import * as _ from 'radashi'
@@ -17,8 +19,14 @@ const expensiveCalculation = (x: number, y: number): number => {
 
 const memoizedCalc = _.memoLastCall(expensiveCalculation)
 
-console.log(memoizedCalc(2, 3))
-console.log(memoizedCalc(2, 3))
-console.log(memoizedCalc(3, 4))
-console.log(memoizedCalc(2, 3))
+memoizedCalc(2, 3) // Logs 'Calculating...'
+memoizedCalc(2, 3) // Returns cached result
+memoizedCalc(3, 4) // Logs 'Calculating...'
+memoizedCalc(2, 3) // Logs 'Calculating...'
 ```
+
+### Premature Optimization
+
+It's bad practice to reach for this function if you haven't profiled your application and confirmed that the calculation you intend to memoize is the bottleneck.
+
+Beyond performance gains, this function may come in handy if your calculation produces an object and you want memoized calls to return the same object reference for equality checks.
