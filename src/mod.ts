@@ -112,6 +112,7 @@ export * from './string/title.ts'
 export * from './string/trim.ts'
 
 export * from './typed/isArray.ts'
+export * from './typed/isBigInt.ts'
 export * from './typed/isBoolean.ts'
 export * from './typed/isClass.ts'
 export * from './typed/isDate.ts'
