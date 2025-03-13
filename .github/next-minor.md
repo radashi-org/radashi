@@ -8,4 +8,6 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Features
 
-####
+#### Add `isAsyncIterable` function
+
+https://github.com/radashi-org/radashi/pull/366
