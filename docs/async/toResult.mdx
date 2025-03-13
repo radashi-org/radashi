@@ -1,0 +1,30 @@
+---
+title: toResult
+---
+
+## toResult
+
+Converts a `PromiseLike` to a `Promise<Result>`.
+
+```ts
+import { toResult, Ok, Err } from '@radashi/radashi'
+
+const good = async (): Promise<number> => 1
+const bad = async (): Promise<number> => {
+  throw new Error('bad')
+}
+
+const res = await toResult(good())
+//    ^? Promise<Ok<number> | Err<Error>>
+
+if (res[0] === undefined) {
+  console.log(res[1])
+}
+
+const res2 = await toResult(bad())
+//    ^? Promise<Ok<number> | Err<Error>>
+
+if (res2[0] !== undefined) {
+  console.error(res2[0])
+}
+```
