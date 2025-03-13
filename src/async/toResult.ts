@@ -27,10 +27,10 @@ export async function toResult<T>(promise: PromiseLike<T>): Promise<Result<T>> {
   try {
     const result = await promise
     return [undefined, result]
-  } catch (err) {
-    if (isError(err)) {
-      return [err, undefined]
+  } catch (error) {
+    if (isError(error)) {
+      return [error, undefined]
     }
-    throw err
+    throw error
   }
 }
