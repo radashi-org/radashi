@@ -4,10 +4,18 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Functions
 
-####
-
-## New Features
-
 #### Add `isAsyncIterable` function
 
 https://github.com/radashi-org/radashi/pull/366
+
+#### Add `isBigInt` function
+
+https://github.com/radashi-org/radashi/pull/369
+
+#### Add `remove` function
+
+https://github.com/radashi-org/radashi/pull/344
+
+## New Features
+
+####
