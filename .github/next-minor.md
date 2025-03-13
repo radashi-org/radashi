@@ -4,7 +4,21 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Functions
 
-#### Add `memoLastCall` function ([#353](https://github.com/radashi-org/radashi/pull/353))
+#### Add `memoLastCall` function
+
+https://github.com/radashi-org/radashi/pull/353
+
+#### Add `isAsyncIterable` function
+
+https://github.com/radashi-org/radashi/pull/366
+
+#### Add `isBigInt` function
+
+https://github.com/radashi-org/radashi/pull/369
+
+#### Add `remove` function
+
+https://github.com/radashi-org/radashi/pull/344
 
 ## New Features
 

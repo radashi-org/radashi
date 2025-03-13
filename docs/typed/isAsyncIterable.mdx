@@ -1,0 +1,24 @@
+---
+title: isAsyncIterable
+description: Determine if a value is an async iterable
+---
+
+### Usage
+
+Returns a boolean if the given value is an object with a `[Symbol.asyncIterator]` method.
+
+```ts
+import { isAsyncIterable } from 'radashi'
+
+isAsyncIterable(
+  (async function* () {
+    yield 1
+  })(),
+)
+// => true
+
+isAsyncIterable([1, 2, 3])
+// => false
+```
+
+If used in an environment where `Symbol.asyncIterator` is not available, the function will use `Symbol.for('Symbol.asyncIterator')` as a fallback.
