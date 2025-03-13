@@ -2,6 +2,7 @@ import * as _ from 'radashi'
 
 describe('isAsyncIterable', () => {
   test('returns true for async iterables', () => {
+    // Async iterables created by an async generator function
     expect(
       _.isAsyncIterable(
         (async function* () {
@@ -10,6 +11,7 @@ describe('isAsyncIterable', () => {
       ),
     ).toBe(true)
 
+    // Objects with a `[Symbol.asyncIterator]` method
     expect(
       _.isAsyncIterable({
         [Symbol.asyncIterator]: () => ({
