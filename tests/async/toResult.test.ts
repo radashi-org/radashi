@@ -15,12 +15,9 @@ test('converts a rejected promise to Err', async () => {
   expect(result[1]).toBeUndefined()
 })
 
-test('converts a rejected promise with a non-error to Err', async () => {
+test('rethrows non-Error rejections', async () => {
   const promise = Promise.reject('test error')
-  const result = await _.toResult(promise)
-  expect(result[0]).toBeInstanceOf(Error)
-  expect(result[0]!.message).toEqual('test error')
-  expect(result[1]).toBeUndefined()
+  await expect(_.toResult(promise)).rejects.toBe('test error')
 })
 
 test('does not catch synchronous errors', () => {
