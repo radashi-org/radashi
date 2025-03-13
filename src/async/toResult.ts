@@ -1,21 +1,25 @@
+import { isError } from 'radashi'
 import type { Result } from '../types'
 
 /**
- * Converts a PromiseLike to a Promise<Result>.
+ * Converts a `PromiseLike` to a `Promise<Result>`.
  *
+ * Note: If the given promise throws a non-Error value, it will be
+ * rethrown.
+ *
+ * @see https://radashi.js.org/reference/async/toResult
  * @example
  * ```ts
- * import { toResult, Ok } from '@radashi/radashi'
+ * import { toResult, Result } from 'radashi'
  *
  * const good = async (): Promise<number> => 1
  * const bad = async (): Promise<number> => { throw new Error('bad') }
  *
- * const res = await toResult(good())
- * //    ^? Promise<Ok<number> | Err<Error>>
+ * const goodResult = await toResult(good())
+ * // => [undefined, 1]
  *
- * if (res[0] === undefined) {
- *   console.log(res[1])
- * }
+ * const badResult = await toResult(bad())
+ * // => [Error('bad'), undefined]
  * ```
  */
 export async function toResult<T>(promise: PromiseLike<T>): Promise<Result<T>> {
@@ -23,6 +27,9 @@ export async function toResult<T>(promise: PromiseLike<T>): Promise<Result<T>> {
     const result = await promise
     return [undefined, result]
   } catch (err) {
-    return [err instanceof Error ? err : new Error(String(err)), undefined]
+    if (isError(err)) {
+      return [err, undefined]
+    }
+    throw err
   }
 }

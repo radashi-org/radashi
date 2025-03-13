@@ -8,7 +8,7 @@ description: Converts a PromiseLike to a Promise<Result>
 Converts a `PromiseLike` to a `Promise<Result>`.
 
 ```ts
-import { toResult, Result } from '@radashi/radashi'
+import { toResult, Result } from 'radashi'
 
 const good = async (): Promise<number> => 1
 const bad = async (): Promise<number> => {
@@ -28,6 +28,16 @@ const res2 = await toResult(bad())
 if (res2[0] !== undefined) {
   console.error(res2[0])
 }
+```
+
+### Throwing non-Error values
+
+If the given promise throws a non-Error value, it will be rethrown. This ensures the `Result` always contains an `Error` value or undefined.
+
+```ts
+// This won't catch the rejected promise, because it was
+// rejected with a string, not an Error.
+const res = await toResult(Promise.reject('test error'))
 ```
 
 ### Synchronous errors
