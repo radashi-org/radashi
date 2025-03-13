@@ -22,4 +22,6 @@ https://github.com/radashi-org/radashi/pull/344
 
 ## New Features
 
-####
+#### Add `toResult` function
+
+https://github.com/radashi-org/radashi/pull/375
