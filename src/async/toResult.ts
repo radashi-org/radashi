@@ -21,6 +21,7 @@ import type { Result } from '../types'
  * const badResult = await toResult(bad())
  * // => [Error('bad'), undefined]
  * ```
+ * @version 12.4.0
  */
 export async function toResult<T>(promise: PromiseLike<T>): Promise<Result<T>> {
   try {
