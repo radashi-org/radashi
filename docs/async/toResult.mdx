@@ -1,13 +1,14 @@
 ---
 title: toResult
+description: Converts a PromiseLike to a Promise<Result>
 ---
 
-## toResult
+### Usage
 
 Converts a `PromiseLike` to a `Promise<Result>`.
 
 ```ts
-import { toResult, Ok, Err } from '@radashi/radashi'
+import { toResult, Result } from '@radashi/radashi'
 
 const good = async (): Promise<number> => 1
 const bad = async (): Promise<number> => {
@@ -15,16 +16,36 @@ const bad = async (): Promise<number> => {
 }
 
 const res = await toResult(good())
-//    ^? Promise<Ok<number> | Err<Error>>
+//    ^? Promise<Result<number>>
 
 if (res[0] === undefined) {
   console.log(res[1])
 }
 
 const res2 = await toResult(bad())
-//    ^? Promise<Ok<number> | Err<Error>>
+//    ^? Promise<Result<number>>
 
 if (res2[0] !== undefined) {
   console.error(res2[0])
 }
+```
+
+### Synchronous errors
+
+This function won't catch synchronous errors. Only rejected promises are converted to an `Err`.
+
+```ts
+function bad() {
+  if (Math.random() > 0.5) {
+    // ⚠️ This error won't be caught by `toResult`. To fix this, add
+    // the `async` keyword to the containing function.
+    throw new Error('bad')
+  }
+  return new Promise((resolve, reject) => {
+    /* ... */
+  })
+}
+
+const res = await toResult(bad())
+//    ^? Promise<Result<number>>
 ```
