@@ -52,3 +52,13 @@ _.selectFirst(
 _.selectFirst([null, undefined, 0, '', false, 'found'], x => x)
 // => 0
 ```
+
+### Search terms
+
+- Often called `findAndMap`, `getFirstMapped`, or `mapSelect` in other libraries.
+
+### Popular use cases
+
+- Efficiently retrieving the first squared value of an array where the original number exceeds a certain threshold.
+- Compactly mapping an array of objects to their properties and short-circuiting based on specific conditions, such as checking for a valid state before accessing the property.
+- Quickly identifying the first valid item in a list of user inputs that meets certain criteria, such as a minimum length or specific format requirements.
