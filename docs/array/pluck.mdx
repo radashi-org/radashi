@@ -1,0 +1,30 @@
+---
+title: pluck
+description: 'Extracts values from an array of objects based on specified keys.'
+---
+
+### Usage
+
+Pass in an array of objects and specify one or more keys to extract. The function returns a new array containing the extracted values.
+
+```ts
+import * as _ from 'radashi'
+
+const gods = [
+  { name: 'Ra', power: 100, domain: 'Sun' },
+  { name: 'Zeus', power: 98, domain: 'Lightning' },
+  { name: 'Loki', power: 72, domain: 'Tricks' },
+]
+
+// Extract single property
+const names = _.pluck(gods, 'name')
+console.log(names) // => ['Ra', 'Zeus', 'Loki']
+
+// Extract multiple properties
+const powerDomains = _.pluck(gods, 'power', 'domain')
+console.log(powerDomains) // => [[100, 'Sun'], [98, 'Lightning'], [72, 'Tricks']]
+
+// Extract all properties
+const allProps = _.pluck(gods)
+console.log(allProps) // => [['Ra', 100, 'Sun'], ['Zeus', 98, 'Lightning'], ['Loki', 72, 'Tricks']]
+```
