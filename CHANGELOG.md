@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.4.0] - 2025-03-16
+### Details
+#### <!-- 03 -->Added
+
+- Add `isBigInt` function by [@shan-shaji](https://github.com/shan-shaji) in [#369](https://github.com/radashi-org/radashi/pull/369)
+
+- Add `remove` function by [@nusohiro](https://github.com/nusohiro) in [#344](https://github.com/radashi-org/radashi/pull/344)
+
+- Add `isAsyncIterable` function by [@aleclarson](https://github.com/aleclarson) in [#366](https://github.com/radashi-org/radashi/pull/366)
+
+- Add `memoLastCall` function by [@aleclarson](https://github.com/aleclarson) in [#353](https://github.com/radashi-org/radashi/pull/353)
+
+- Add `toResult` function by [@aleclarson](https://github.com/aleclarson) in [#375](https://github.com/radashi-org/radashi/pull/375)
+
+
+#### <!-- 08 -->Types
+
+- `reduce` accumulator type when no initial value is given by [@aleclarson](https://github.com/aleclarson) in [7a14bf6](https://github.com/radashi-org/radashi/commit/7a14bf6c069c07b7c4700cb7568acbb0aa699ca8)
+
+### New Contributors
+* [@nusohiro](https://github.com/nusohiro) made their first contribution in [#344](https://github.com/radashi-org/radashi/pull/344)
 ## [radashi@12.3.4] - 2025-01-26
 ### Details
 #### <!-- 06 -->Fixed
@@ -253,13 +274,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ### New Contributors
-* [@shan-shaji](https://github.com/shan-shaji) made their first contribution in [#272](https://github.com/radashi-org/radashi/pull/272)
 * [@nnmrts](https://github.com/nnmrts) made their first contribution in [#126](https://github.com/radashi-org/radashi/pull/126)
 * [@stefaanv](https://github.com/stefaanv) made their first contribution in [#95](https://github.com/radashi-org/radashi/pull/95)
 * [@eumkz](https://github.com/eumkz) made their first contribution in [#76](https://github.com/radashi-org/radashi/pull/76)
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
+
+[radashi@12.4.0]: https://github.com/radashi-org/radashi/compare/v12.3.4..v12.4.0
 
 [radashi@12.3.4]: https://github.com/radashi-org/radashi/compare/v12.3.3..v12.3.4
 
