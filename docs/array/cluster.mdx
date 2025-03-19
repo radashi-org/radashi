@@ -1,16 +1,13 @@
 ---
 title: cluster
-description: Split a list into many lists of the given size
+description: Divides an array into many arrays of the given size
 since: 12.1.0
 ---
 
 ### Usage
 
-**Note:** The `size` parameter is now required.
-
-Given an array of items and a desired cluster size (`n`), returns an array
-of arrays. Each child array containing `n` (cluster size) items
-split as evenly as possible.
+Takes an array and divides it into many arrays of the given size. The last
+array may be smaller than the given size, if not enough items are left.
 
 ```ts
 import * as _ from 'radashi'
