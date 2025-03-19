@@ -1,6 +1,9 @@
 /**
- * Counts the occurrences of each unique value returned by the `identity`
- * function when applied to each item in the array.
+ * Counts the occurrences of each unique value returned by the
+ * `identity` function when applied to each item in the array.
+ *
+ * If no occurrences are found, the key will not be present in the
+ * returned object.
  *
  * @see https://radashi.js.org/reference/array/counting
  * @example
@@ -13,13 +16,13 @@
 export function counting<T, TId extends string | number | symbol>(
   array: readonly T[],
   identity: (item: T) => TId,
-): Record<TId, number> {
+): Partial<Record<TId, number>> {
   return array.reduce(
     (acc, item) => {
       const id = identity(item)
       acc[id] = (acc[id] ?? 0) + 1
       return acc
     },
-    {} as Record<TId, number>,
+    {} as Partial<Record<TId, number>>,
   )
 }
