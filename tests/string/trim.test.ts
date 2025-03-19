@@ -4,7 +4,7 @@ describe('trim', () => {
   test('returns input string correctly trimmed', () => {
     expect(_.trim('\n\n\t\nhello\n\t  \n', '\n\t ')).toBe('hello')
     expect(_.trim('hello', 'x')).toBe('hello')
-    expect(_.trim(' hello  ')).toBe('hello')
+    expect(_.trim(' hello  ', ' ')).toBe('hello')
     expect(_.trim(' __hello__  ', '_')).toBe(' __hello__  ')
     expect(_.trim('__hello__', '_')).toBe('hello')
     expect(_.trim('//repos////', '/')).toBe('repos')
