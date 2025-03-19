@@ -4,6 +4,10 @@ The `####` headline should be short and descriptive of the breaking change. In t
 
 ## Breaking Changes
 
+#### Removed default size from `cluster` function
+
+- The `size` parameter is now required.
+
 #### Reworked `debounce` function
 
 - Continue debouncing (in future calls) after `cancel` is called. Previously, `cancel` would disable debouncing, so future calls would be immediate.
