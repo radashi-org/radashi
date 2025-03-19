@@ -5,7 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [radashi@13.0.0-beta.55909fb] - 2025-03-19
+## [radashi@13.0.0-beta.f4c6a24] - 2025-03-19
+### Details
+#### <!-- 04 -->Removed
+
+- Remove default size from `cluster` in [2b1e15c](https://github.com/radashi-org/radashi/commit/2b1e15cb0de6b375e927e417fd5b22d6fe5e43ec)
+
+#### <!-- 05 -->Changed
+
+- `trim` now requires both arguments in [3fd8a9e](https://github.com/radashi-org/radashi/commit/3fd8a9ef9be850f2e238318fefd5324a8a7b0b85)
+
+#### <!-- 06 -->Fixed
+
+- **(counting)** Wrap return type with Partial in [bc1a25c](https://github.com/radashi-org/radashi/commit/bc1a25c7735e02fc02503faf16001d7a40e1ce92)
+
+## [radashi@12.4.0] - 2025-03-16
+### Details
+#### <!-- 03 -->Added
+
+- Add `isBigInt` function by [@shan-shaji](https://github.com/shan-shaji) in [#369](https://github.com/radashi-org/radashi/pull/369)
+
+- Add `remove` function by [@nusohiro](https://github.com/nusohiro) in [#344](https://github.com/radashi-org/radashi/pull/344)
+
+- Add `isAsyncIterable` function by [@aleclarson](https://github.com/aleclarson) in [#366](https://github.com/radashi-org/radashi/pull/366)
+
+- Add `memoLastCall` function by [@aleclarson](https://github.com/aleclarson) in [#353](https://github.com/radashi-org/radashi/pull/353)
+
+- Add `toResult` function by [@aleclarson](https://github.com/aleclarson) in [#375](https://github.com/radashi-org/radashi/pull/375)
+
+
+#### <!-- 08 -->Types
+
+- `reduce` accumulator type when no initial value is given by [@aleclarson](https://github.com/aleclarson) in [7a14bf6](https://github.com/radashi-org/radashi/commit/7a14bf6c069c07b7c4700cb7568acbb0aa699ca8)
+
+### New Contributors
+* [@nusohiro](https://github.com/nusohiro) made their first contribution in [#344](https://github.com/radashi-org/radashi/pull/344)
+## [radashi@12.3.4] - 2025-01-26
 ### Details
 #### <!-- 05 -->Changed
 
@@ -266,7 +301,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
 
-[radashi@13.0.0-beta.55909fb]: https://github.com/radashi-org/radashi/compare/v12.3.3..v13.0.0-beta.55909fb
+[radashi@13.0.0-beta.f4c6a24]: https://github.com/radashi-org/radashi/compare/v12.4.0..v13.0.0-beta.f4c6a24
+
+[radashi@12.4.0]: https://github.com/radashi-org/radashi/compare/v12.3.4..v12.4.0
+
+[radashi@12.3.4]: https://github.com/radashi-org/radashi/compare/v12.3.3..v12.3.4
 
 [radashi@12.3.3]: https://github.com/radashi-org/radashi/compare/v12.3.2..v12.3.3
 
