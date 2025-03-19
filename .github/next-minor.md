@@ -4,8 +4,10 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Functions
 
-####
+#### Add `withMutex`
 
-## New Features
+https://github.com/radashi-org/radashi/pull/331
 
-####
+#### Add `withSemaphore`
+
+https://github.com/radashi-org/radashi/pull/331
