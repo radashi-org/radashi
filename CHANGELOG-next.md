@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [radashi@13.0.0-beta.ffa4778] - 2025-01-26
+## [radashi@13.0.0-beta.55909fb] - 2025-03-19
 ### Details
 #### <!-- 05 -->Changed
 
@@ -259,7 +259,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ### New Contributors
-* [@shan-shaji](https://github.com/shan-shaji) made their first contribution in [#272](https://github.com/radashi-org/radashi/pull/272)
 * [@nnmrts](https://github.com/nnmrts) made their first contribution in [#126](https://github.com/radashi-org/radashi/pull/126)
 * [@stefaanv](https://github.com/stefaanv) made their first contribution in [#95](https://github.com/radashi-org/radashi/pull/95)
 * [@eumkz](https://github.com/eumkz) made their first contribution in [#76](https://github.com/radashi-org/radashi/pull/76)
@@ -267,7 +266,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
 
-[radashi@13.0.0-beta.ffa4778]: https://github.com/radashi-org/radashi/compare/v12.3.3..v13.0.0-beta.ffa4778
+[radashi@13.0.0-beta.55909fb]: https://github.com/radashi-org/radashi/compare/v12.3.3..v13.0.0-beta.55909fb
 
 [radashi@12.3.3]: https://github.com/radashi-org/radashi/compare/v12.3.2..v12.3.3
 
