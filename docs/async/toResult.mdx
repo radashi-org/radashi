@@ -1,0 +1,53 @@
+---
+title: toResult
+description: Converts a PromiseLike to a Promise<Result>
+---
+
+### Usage
+
+Converts a `PromiseLike` to a `Promise<Result>`.
+
+```ts
+import { toResult, Result } from 'radashi'
+
+const good = async (): Promise<number> => 1
+const bad = async (): Promise<number> => {
+  throw new Error('bad')
+}
+
+const goodResult = await toResult(good())
+// => [undefined, 1]
+
+const badResult = await toResult(bad())
+// => [Error('bad'), undefined]
+```
+
+### Throwing non-Error values
+
+If the given promise throws a non-Error value, it will be rethrown. This ensures the `Result` always contains an `Error` value or undefined.
+
+```ts
+// This won't catch the rejected promise, because it was
+// rejected with a string, not an Error.
+const res = await toResult(Promise.reject('test error'))
+```
+
+### Synchronous errors
+
+This function won't catch synchronous errors. Only rejected promises are converted to an `Err`.
+
+```ts
+function bad() {
+  if (Math.random() > 0.5) {
+    // ⚠️ This error won't be caught by `toResult`. To fix this, add
+    // the `async` keyword to the containing function.
+    throw new Error('bad')
+  }
+  return new Promise((resolve, reject) => {
+    /* ... */
+  })
+}
+
+const res = await toResult(bad())
+//    ^? Promise<Result<number>>
+```

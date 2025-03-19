@@ -3,7 +3,7 @@ import { verifyEnvVars } from '@radashi-org/common/verifyEnvVars.ts'
 import fs from 'node:fs/promises'
 import { registerPullRequest } from './register-pr.ts'
 
-main()
+main().catch(console.error)
 
 async function main() {
   const { githubToken, prPayload } = verifyEnvVars({

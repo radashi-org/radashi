@@ -1,0 +1,24 @@
+---
+title: remove
+description: 'Filter an array by removing elements that satisfy a predicate function'
+---
+
+### Usage
+
+Pass in an array and a predicate function. The function returns a new array excluding elements that satisfy the predicate without mutating the original array.
+
+```ts
+import * as _ from 'radashi'
+
+const numbers = [1, 2, 3, 4, 5]
+const result = _.remove(numbers, value => value % 2 === 0)
+console.log(result) // => [1, 3, 5]
+
+const objects = [
+  { id: 1, active: true },
+  { id: 2, active: false },
+  { id: 3, active: true },
+]
+const result = _.remove(objects, obj => obj.active)
+console.log(result) // => [{ id: 2, active: false }]
+```

@@ -1,7 +1,7 @@
 import { execa } from 'execa'
 import { glob } from 'tinyglobby'
 
-main()
+main().catch(console.error)
 
 async function main() {
   // 1. Remember if the user has uncommitted changes (ignoring untracked files).

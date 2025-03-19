@@ -95,7 +95,7 @@ const lint = (scripts: string[]): Command[] => [
   },
 ]
 
-main()
+main().catch(console.error)
 
 async function main() {
   const argv = mri(process.argv.slice(2), {

@@ -6,7 +6,7 @@ import { execa } from 'execa'
 import { existsSync } from 'node:fs'
 import { supabase } from 'radashi-db/supabase.ts'
 
-main()
+main().catch(console.error)
 
 async function main() {
   // Get the last benched SHA

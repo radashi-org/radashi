@@ -1,16 +1,28 @@
-This is a guide for implementing a new feature or function in Radashi. The steps must be done in order. When a step gives you a command, run it. When committing a change, use single quotes for the commit title, to avoid issues with special characters.
+This is a guide for implementing a new feature or function in Radashi.
+
+## Ground Rules
+
+- The steps must be done in order.
+- When a step gives you a command, run it.
+- When committing a change, use single quotes for the commit title, to avoid issues with special characters.
+- When editing a newly created file, follow its template. For example, a new function's implementation must have a description comment with 1+ minimal code examples.
+- Tests and benchmarks must use the `_` namespace import to access Radashi functions.
+- Tests and benchmarks are using Vitest. Its API is available globally, so no imports from the `vitest` package are needed. Please use the `test()` function instead of `it()`. The test names must not start with "should" and they must describe what is being tested, not the expected outcome.
+
+## Steps
 
 1. First, ask if this is a breaking change. In other words, are you changing the behavior of existing code in a way that will break existing tests or documentation?
 
 2. If this is a new function, run this command:
 
 ```sh
-pnpm radashi fn create {function-name} --group {group-name} --description "{description}"
+pnpm radashi fn create {function-name} --group {group-name} --description "{description}" --no-editor
 ```
 
 - The `function-name` should be a camel-case identifier.
 - The `group-name` should be one of the following:
   - `array` Functions that operate on arrays.
+  - `async` Functions that work with asynchronous code.
   - `curry` Functions that create new functions from existing functions.
   - `function` Misfit functions that don't fit into the other categories.
   - `number` Functions that operate on numbers.
@@ -27,7 +39,7 @@ pnpm radashi fn create {function-name} --group {group-name} --description "{desc
 
 3. If you're making a change/addition to an existing function, you'll be interested in similar files as listed in the previous step, but you'll need to determine the `group-name` first. Then you'll know which files to update.
 
-4. Make the changes you need. For new functions, a benchmark is needed (unless it's an extremely simple implementation or it's asynchronous). For any new functionality, documentation and tests are required. For bug fixes, a test must exist that verifies the fix was effective.
+4. Make the changes you need. For new functions, a benchmark is needed (unless the implementation is extremely simple or is in the `async` or `curry` group). For any new functionality, documentation and tests are required. For bug fixes, a test must exist that verifies the fix was effective.
 
 5. Run the tests to verify your changes. Use this command:
 

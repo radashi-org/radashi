@@ -10,6 +10,7 @@ describe('isEmpty', () => {
     expect(_.isEmpty(undefined)).toBeTruthy()
     expect(_.isEmpty(new Data())).toBeTruthy()
     expect(_.isEmpty(0)).toBeTruthy()
+    expect(_.isEmpty(0n)).toBeTruthy()
     expect(_.isEmpty(true)).toBeTruthy()
     expect(_.isEmpty([])).toBeTruthy()
     expect(_.isEmpty(false)).toBeTruthy()

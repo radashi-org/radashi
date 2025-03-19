@@ -18,25 +18,24 @@ export async function reduce<T, K>(
 ): Promise<K>
 export async function reduce<T, K>(
   array: readonly T[],
-  reducer: (acc: K, item: T, index: number) => Promise<K>,
+  reducer: (acc: T | K, item: T, index: number) => Promise<K>,
 ): Promise<K>
 export async function reduce<T, K>(
   array: readonly T[],
   reducer: (acc: K, item: T, index: number) => Promise<K>,
   initialValue?: K,
 ): Promise<K> {
-  const indices = array.keys()
+  let index = 0
   let acc = initialValue
   // biome-ignore lint/style/noArguments:
   if (acc === undefined && arguments.length < 3) {
     if (!array.length) {
       throw new TypeError('Reduce of empty array with no initial value')
     }
-    acc = array[0] as any
-    indices.next()
+    acc = array[index++] as any
   }
-  for (const index of indices) {
-    acc = await reducer(acc!, array[index], index)
+  while (index < array.length) {
+    acc = await reducer(acc!, array[index], index++)
   }
   return acc!
 }

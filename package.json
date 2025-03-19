@@ -53,10 +53,10 @@
     "prettier": "^3.3.2",
     "prettier-plugin-pkg": "^0.18.1",
     "prettier-plugin-sh": "^0.14.0",
-    "radashi-helper": "^0.1.6",
+    "radashi-helper": "^0.1.11",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
-    "vitest": "2.1.5"
+    "vitest": "2.1.9"
   },
   "sideEffects": false,
   "browserslist": [

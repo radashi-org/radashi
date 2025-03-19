@@ -402,8 +402,11 @@ async function computeBuildDigest() {
 }
 
 async function getPrNumbers(range: string): Promise<string[]> {
-  // cSpell:ignore oneline
-  const { stdout: gitLog } = await execa('git', ['log', '--oneline', range])
+  const { stdout: gitLog } = await execa('git', [
+    'log',
+    '--pretty=format:%s',
+    range,
+  ])
 
   const parsed = gitLog
     .split('\n')

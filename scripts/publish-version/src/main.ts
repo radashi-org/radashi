@@ -1,6 +1,6 @@
 import { verifyEnvVars } from '@radashi-org/common/verifyEnvVars.ts'
 
-main()
+main().catch(console.error)
 
 async function main() {
   const args = await parseArgs()
