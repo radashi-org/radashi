@@ -62,20 +62,23 @@ export type StrictExtract<T, U> = SwitchNever<
 
 /**
  * Resolve a type union of property name literals within type `T`
- * whose property values are assignable to type `CompatibleValue`.
+ * whose property values are assignable to type `TConstraint`. If `T`
+ * is a primitive, it's first transformed into its boxed equivalent
+ * (e.g. `string` becomes `String`, `number` becomes `Number`, and so
+ * on).
  *
  * Use case: “I want to know which properties of `T` are compatible
- * with `CompatibleValue`.”
+ * with `TConstraint`.”
  */
-export type CompatibleProperty<T, CompatibleValue> = [T] extends [Any]
+export type CompatibleProperty<T, TConstraint> = [T] extends [Any]
   ? keyof any
   : T extends null | undefined
     ? never
-    : {
-        [P in keyof BoxedPrimitive<T>]: BoxedPrimitive<T>[P] extends CompatibleValue
-          ? P
-          : never
-      }[keyof BoxedPrimitive<T>]
+    : (T extends object ? T : BoxedPrimitive<T>) extends infer TObject
+      ? {
+          [P in keyof TObject]: TObject[P] extends TConstraint ? P : never
+        }[keyof TObject]
+      : never
 
 /**
  * A value that can be reliably compared with JavaScript comparison
