@@ -13,48 +13,58 @@ describe('pluck', () => {
     { name: 'Loki', power: 72, domain: 'Tricks' },
   ]
 
-  it('extracts a single property', () => {
-    const names = _.pluck(gods, 'name')
-    expect(names).toEqual(['Ra', 'Zeus', 'Loki'])
+  test('single property', () => {
+    expect(_.pluck(gods, ['name'])).toEqual([['Ra'], ['Zeus'], ['Loki']])
   })
 
-  it('extracts multiple properties', () => {
-    const powerDomains = _.pluck(gods, 'power', 'domain')
-    expect(powerDomains).toEqual([
+  test('multiple properties', () => {
+    expect(_.pluck(gods, ['power', 'domain'])).toEqual([
       [100, 'Sun'],
       [98, 'Lightning'],
       [72, 'Tricks'],
     ])
   })
 
-  it('extracts all properties when no keys are specified', () => {
-    const allProps = _.pluck(gods)
-    expect(allProps).toEqual([
+  test('no keys specified', () => {
+    expect(_.pluck(gods)).toEqual([
       ['Ra', 100, 'Sun'],
       ['Zeus', 98, 'Lightning'],
       ['Loki', 72, 'Tricks'],
     ])
   })
 
-  it('returns an empty array for an empty input array', () => {
-    const result = _.pluck([], 'name')
-    expect(result).toEqual([])
+  test('mapping function', () => {
+    expect(
+      _.pluck(gods, [
+        god => `${god.name} is a god of ${god.domain}`,
+        god => god.power,
+      ]),
+    ).toEqual([
+      ['Ra is a god of Sun', 100],
+      ['Zeus is a god of Lightning', 98],
+      ['Loki is a god of Tricks', 72],
+    ])
   })
 
-  it('returns an empty array when extracting from an empty array with no keys', () => {
-    const result = _.pluck([])
-    expect(result).toEqual([])
+  test('empty input array with keys', () => {
+    expect(_.pluck([], ['name'])).toEqual([])
   })
 
-  it('does not mutate the original array', () => {
-    const original = [...gods]
-    _.pluck(gods, 'name')
+  test('empty input array without keys', () => {
+    expect(_.pluck([])).toEqual([])
+  })
+
+  test('input array is not mutated', () => {
+    const original = structuredClone(gods)
+    _.pluck(gods)
+    _.pluck(gods, ['name'])
+
     expect(gods).toEqual(original)
   })
 
-  it('returns a new array even if no elements are extracted', () => {
-    const result = _.pluck(gods, 'nonexistent' as keyof God)
-    expect(result).not.toBe(gods)
-    expect(result).toEqual([undefined, undefined, undefined])
+  test('nonexistent property', () => {
+    expect(_.pluck(gods, ['nonexistent'] as any)).toEqual(
+      gods.map(() => [undefined]),
+    )
   })
 })
