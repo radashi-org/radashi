@@ -1,7 +1,7 @@
-import { execa } from 'execa'
 import { writeFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { execa } from 'execa'
 
 // Get the directory of this script
 const scriptDir = dirname(fileURLToPath(import.meta.url))

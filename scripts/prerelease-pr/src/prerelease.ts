@@ -1,6 +1,6 @@
 import { checkoutPullRequest } from '@radashi-org/checkout-pr'
 import { installDeployKey } from '@radashi-org/common/installDeployKey.ts'
-import { execa, type Options as ExecaOptions } from 'execa'
+import { type Options as ExecaOptions, execa } from 'execa'
 
 export async function prerelease({
   deployKey,

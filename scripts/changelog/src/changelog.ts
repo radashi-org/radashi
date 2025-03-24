@@ -55,11 +55,7 @@ export async function generateChangelog(
   return stdout
 }
 
-export async function inferNextVersion(
-  options: {
-    token?: string
-  } = {},
-) {
+export async function inferNextVersion(options: { token?: string } = {}) {
   const { stdout } = await execa(gitCliffBin, ['--bumped-version'], {
     env: { GITHUB_TOKEN: options.token },
   })

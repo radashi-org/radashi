@@ -1,5 +1,5 @@
-import type { ToEmptyAble } from 'radashi'
 import * as _ from 'radashi'
+import type { ToEmptyAble } from 'radashi'
 
 describe('isEmpty type guard', () => {
   test('string', () => {

@@ -1,9 +1,9 @@
+import { existsSync } from 'node:fs'
 import { compareToBaseline } from '@radashi-org/benchmarks/compareToBaseline.ts'
 import { getStagedFiles } from '@radashi-org/benchmarks/getStagedFiles.ts'
 import type { BenchmarkReport } from '@radashi-org/benchmarks/reporter.ts'
 import { runVitest } from '@radashi-org/benchmarks/runner.ts'
 import { execa } from 'execa'
-import { existsSync } from 'node:fs'
 import { supabase } from 'radashi-db/supabase.ts'
 
 main().catch(console.error)

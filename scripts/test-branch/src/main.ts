@@ -1,7 +1,7 @@
-import { execa } from 'execa'
-import { parseModule } from 'meriyah'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { execa } from 'execa'
+import { parseModule } from 'meriyah'
 import { glob } from 'tinyglobby'
 
 main().catch(console.error)

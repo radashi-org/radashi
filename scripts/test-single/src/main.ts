@@ -1,4 +1,4 @@
-import { execa, ExecaError } from 'execa'
+import { ExecaError, execa } from 'execa'
 
 main().catch(console.error)
 

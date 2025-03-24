@@ -1,9 +1,9 @@
 import {
-  isPlainObject,
   type BoxedPrimitive,
   type BuiltInType,
   type CustomClass,
   type IsExactType,
+  isPlainObject,
   type OptionalKeys,
   type RequiredKeys,
 } from 'radashi'
