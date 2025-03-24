@@ -7,7 +7,10 @@ import { execa } from 'execa'
 export async function checkoutPullRequest({
   repoUrl,
   headRef,
-}: { repoUrl: string; headRef: string }) {
+}: {
+  repoUrl: string
+  headRef: string
+}) {
   async function git(...args: string[]) {
     return execa('git', args, { stdio: 'inherit' })
   }

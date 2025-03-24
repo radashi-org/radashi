@@ -45,7 +45,7 @@
     "update-browserslist": "node scripts/run update-browserslist"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.3",
+    "@biomejs/biome": "2.0.0-beta.1",
     "@radashi-org/biome-config": "link:scripts/biome-config",
     "@types/node": "^22.7.7",
     "@vitest/coverage-v8": "2.1.5",

@@ -1,11 +1,11 @@
+import fs from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 import { inferNextVersion } from '@radashi-org/changelog'
 import { verifyEnvVars } from '@radashi-org/common/verifyEnvVars.ts'
 import { execa } from 'execa'
 import { green } from 'kleur/colors'
 import mri from 'mri'
-import fs from 'node:fs/promises'
-import os from 'node:os'
-import path from 'node:path'
 import { supabase } from 'radashi-db/supabase.ts'
 
 main().catch(console.error)

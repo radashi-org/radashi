@@ -1,7 +1,7 @@
+import { existsSync } from 'node:fs'
 import type { BenchmarkReport } from '@radashi-org/benchmarks/reporter.ts'
 import { runVitest } from '@radashi-org/benchmarks/runner.ts'
 import { execa } from 'execa'
-import { existsSync } from 'node:fs'
 import { supabase } from 'radashi-db/supabase.ts'
 import { glob } from 'tinyglobby'
 

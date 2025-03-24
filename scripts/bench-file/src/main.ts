@@ -1,9 +1,9 @@
+import * as fs from 'node:fs'
+import * as path from 'node:path'
 import {
   type BenchmarkReport,
   reportToBenchmarkHandler,
 } from '@radashi-org/benchmarks/reporter.ts'
-import * as fs from 'node:fs'
-import * as path from 'node:path'
 import { createVitest } from 'vitest/node'
 
 main().catch(console.error)

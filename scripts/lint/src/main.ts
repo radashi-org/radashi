@@ -1,10 +1,10 @@
-import { execa, type Subprocess } from 'execa'
-import kleur from 'kleur'
-import mri from 'mri'
 import { existsSync, rmSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { Transform } from 'node:stream'
+import { execa, type Subprocess } from 'execa'
+import kleur from 'kleur'
+import mri from 'mri'
 import parseArgsStringToArgv from 'string-argv'
 import { globSync } from 'tinyglobby'
 

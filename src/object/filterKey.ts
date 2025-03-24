@@ -62,7 +62,7 @@ export function filterKey(
   filter: KeyFilter | null | undefined,
 ): boolean {
   return (
-    Object.hasOwnProperty.call(obj, key) &&
+    Object.hasOwn(obj, key) &&
     (filter == null ||
       (isArray(filter)
         ? filter.includes(key)
