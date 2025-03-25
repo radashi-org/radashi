@@ -29,8 +29,5 @@ export function* range<T = number>(
   const final = end ?? startOrLength
   for (let i = start; i <= final; i += step) {
     yield mapper(i)
-    if (i + step > final) {
-      break
-    }
   }
 }
