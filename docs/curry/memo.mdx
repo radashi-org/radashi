@@ -63,3 +63,32 @@ const beta = timestamp({ group: 'beta' })
 now === later // => true
 beta === now // => false
 ```
+
+You can optionally use a separate key for reading and writing cached values by providing a `setKey` function.
+This allows for more flexible cache management and sharing of cached values between different function calls.
+
+```ts
+const func = _.memo(
+  (arg: { id: string; withAdditionalStuff: boolean }) => {
+    if (arg.withAdditionalStuff) {
+      // do stuff
+    }
+
+    return arg.id
+  },
+  {
+    key: arg =>
+      arg.withAdditionalStuff
+        ? `${arg.id}_withAdditionalStuff`
+        : [`${arg.id}`, `${arg.id}_withAdditionalStuff`], // we also look for the shared key
+    setKey: arg =>
+      arg.withAdditionalStuff
+        ? [`${arg.id}`, `${arg.id}_withAdditionalStuff`] // we also set the shared key
+        : `${arg.id}`,
+  },
+)
+
+func({ id: '1', withAdditionalStuff: true })
+func({ id: '1', withAdditionalStuff: false })
+// func is executed once
+```
