@@ -28,3 +28,14 @@ const fish = [
 
 const fishBySource = _.group(fish, f => f.source) // => { ocean: [marlin], lake: [bass, trout] }
 ```
+
+### Search terms
+
+- Also known as `groupBy`, `categorize`, or `partition` in other libraries.
+
+### Popular use cases
+
+- Grouping data items based on specific criteria such as even/odd numbers or string lengths using custom group ID functions.
+- Organizing complex data structures (e.g., objects, arrays of objects) by keys based on property values to enhance data retrieval and manipulation.
+- Reducing a large dataset into categorized sections for more efficient data analysis, reporting, or visualization (e.g., grouping users by age, purchases by category).
+- Implementing custom filters to separate and analyze subsets of an array for business logic, such as dividing users based on status (e.g., active, inactive) or product types (e.g., electronics, apparel).
