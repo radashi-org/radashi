@@ -8,7 +8,7 @@ since: 12.1.0
 
 In a composition of functions, each function is given the next function as an argument and must call it to continue executing.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const useZero = (fn: any) => () => fn(0)

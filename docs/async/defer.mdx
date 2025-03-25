@@ -14,8 +14,9 @@ By default, if a cleanup function throws an error after the main function has th
 
 #### Clean up temporary files
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+import fs from 'fs/promises'
 
 // Placeholder functions
 const createBuildDir = async () => {
@@ -41,7 +42,10 @@ await _.defer(async cleanup => {
 
 #### Clean up resources in an API
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+// @noErrors
+
 // Placeholder API
 const api = {
   org: {
