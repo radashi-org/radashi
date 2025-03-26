@@ -41,4 +41,17 @@ describe('mapify', () => {
     )
     expect(result.get('a0')).toBe('hello0')
   })
+  test('index should be the array index', () => {
+    const list = [
+      { id: 'a', word: 'hello' },
+      { id: 'a', word: 'bye' },
+      { id: 'a', word: 'oh' },
+    ]
+    const result = _.mapify(
+      list,
+      x => x.id,
+      (x, i) => x.word + i,
+    )
+    expect(result.get('a')).toBe('oh2')
+  })
 })
