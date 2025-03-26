@@ -25,8 +25,8 @@ export function mapify<T, Key, Value = T>(
     item as unknown as Value,
 ): Map<Key, Value> {
   const map: Map<Key, Value> = new Map()
-  for (const item of array) {
-    map.set(getKey(item, map.size), getValue(item, map.size))
+  for (const [index, item] of array.entries()) {
+    map.set(getKey(item, index), getValue(item, index))
   }
   return map
 }
