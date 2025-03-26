@@ -14,8 +14,8 @@ describe('objectify', () => {
       x => x.id,
       x => x,
     )
-    expect(result.a.word).toBe('hello')
-    expect(result.b.word).toBe('bye')
+    expect(result.a?.word).toBe('hello')
+    expect(result.b?.word).toBe('bye')
   })
   test('does not fail on empty input list', () => {
     const result = _.objectify(
