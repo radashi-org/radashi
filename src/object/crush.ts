@@ -1,4 +1,4 @@
-import { type Intersect, isArray, isObject, type Simplify } from 'radashi'
+import { type Intersect, isArray, isEmpty, isObject, type Simplify } from 'radashi'
 
 /**
  * Flattens a deep object to a single dimension, converting the keys
@@ -18,7 +18,7 @@ export function crush<T extends object>(value: T): Crush<T> {
     value: unknown,
     path: string,
   ) {
-    if (isObject(value) || isArray(value)) {
+    if ((isObject(value) || isArray(value)) && !isEmpty(value)) {
       for (const [prop, propValue] of Object.entries(value)) {
         crushReducer(crushed, propValue, path ? `${path}.${prop}` : prop)
       }
