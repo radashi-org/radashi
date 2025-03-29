@@ -13,7 +13,7 @@ import { type Intersect, isArray, isEmpty, isObject, type Simplify } from 'radas
  * @version 12.1.0
  */
 export function crush<T extends object>(value: T): Crush<T> {
-  if (!value) {
+  if (!value || isEmpty(value)) {
     return {} as Crush<T>
   }
   return (function crushReducer(
