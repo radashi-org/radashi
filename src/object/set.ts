@@ -20,7 +20,7 @@ export function set<T extends object, K>(
   if (!initial) {
     return {} as T
   }
-  if (!path || value === undefined) {
+  if (!path) {
     return initial
   }
 
