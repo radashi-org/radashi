@@ -1,4 +1,10 @@
-import { type Intersect, isArray, isEmpty, isObject, type Simplify } from 'radashi'
+import {
+  type Intersect,
+  isArray,
+  isEmpty,
+  isObject,
+  type Simplify,
+} from 'radashi'
 
 /**
  * Flattens a deep object to a single dimension, converting the keys
@@ -13,6 +19,9 @@ import { type Intersect, isArray, isEmpty, isObject, type Simplify } from 'radas
  * @version 12.1.0
  */
 export function crush<T extends object>(value: T): Crush<T> {
+  if (isEmpty(value)) {
+    return {} as Crush<T>
+  }
   return (function crushReducer(
     crushed: Crush<T>,
     value: unknown,

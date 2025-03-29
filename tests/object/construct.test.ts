@@ -21,6 +21,9 @@ describe('construct', () => {
         },
       ],
       timestamp: now,
+      arr: [],
+      empty: {},
+      und: undefined
     }
     expect(
       _.construct({
@@ -33,6 +36,9 @@ describe('construct', () => {
         'enemies.1.name': 'vishnu',
         'enemies.1.power': 58,
         timestamp: now,
+        arr: [],
+        empty: {},
+        und: undefined
       }),
     ).toEqual(ra)
   })
