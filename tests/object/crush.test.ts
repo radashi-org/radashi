@@ -17,6 +17,9 @@ describe('crush', () => {
         },
       ],
       timestamp: now,
+      arr: [],
+      empty: {},
+      und: undefined
     }
     expect(_.crush(ra)).toEqual({
       name: 'ra',
@@ -26,6 +29,9 @@ describe('crush', () => {
       'enemies.0.name': 'hathor',
       'enemies.0.power': 12,
       timestamp: now,
+      arr: [],
+      empty: {},
+      und: undefined
     })
   })
   test('handles arrays', () => {
