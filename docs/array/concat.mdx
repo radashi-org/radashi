@@ -1,0 +1,21 @@
+---
+title: concat
+description: Flattens and filters nullish values from arguments
+---
+
+### Usage
+
+The `concat` function combines multiple values and arrays into a single array, while:
+
+- Flattening nested arrays one level deep
+- Filtering out `null` and `undefined` values
+- Preserving the type information of the remaining values
+
+Other falsy values (e.g. `0`, `false`, `''`, `NaN`) are preserved.
+
+```ts
+import { concat } from 'radashi'
+
+const result = concat('a', null, ['b', undefined], 'c')
+// => ['a', 'b', 'c']
+```
