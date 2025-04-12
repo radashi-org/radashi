@@ -29,3 +29,7 @@ const gods = [
 _.boil(gods, (a, b) => (a.power > b.power ? a : b))
 // => { name: 'Ra', power: 100 }
 ```
+
+### Why not just use `Array.prototype.reduce`?
+
+The benefit of using `boil` is that your reducer's return value is type-checked to ensure it matches the type of the items in the array. This fits a more specific use case than `Array.prototype.reduce`, where you know you want to reduce an array down to just one of its items. Overall, `boil` is more strict about the values your reducer will receive and return.

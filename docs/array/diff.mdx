@@ -17,3 +17,15 @@ const newWorldGods = ['vishnu', 'zeus']
 
 _.diff(oldWorldGods, newWorldGods) // => ['ra']
 ```
+
+### Search terms
+
+- Often called `difference`, `filterOut`, or `exclude` in other libraries.
+
+### Popular use cases
+
+- Finding unique elements in one array compared to another, such as in data deduplication scenarios.
+- Filtering out items from a list based on attributes, like removing users from a list who have already signed up; useful in email marketing campaigns.
+- Compiling distinct objects from datasets where certain attributes should be excluded, like filtering unique products from two inventories.
+- Comparing two sets of data to identify discrepancies, such as in data validation or synchronization tasks.
+- Implementing a custom logic for comparison by utilizing the identity function, ideal for complex data structures or nested objects.

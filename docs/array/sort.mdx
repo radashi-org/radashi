@@ -31,3 +31,13 @@ const fish = [
 _.sort(fish, f => f.weight) // => [bass, trout, marlin]
 _.sort(fish, f => f.weight, true) // => [marlin, trout, bass]
 ```
+
+### Search terms
+
+- Often called `orderBy`, `sortBy`, or `arraySort` in other libraries.
+
+### Popular use cases
+
+- Sorting an array of objects based on a specific numeric property, such as sorting users by age or products by price.
+- Generating a new sorted version of a dataset without altering the original, preserving immutability for functional programming patterns or state management in frameworks like React.
+- Implementing customizable sorting logic where the user can define sorting criteria through a getter function, allowing flexible use across different types of data structures.

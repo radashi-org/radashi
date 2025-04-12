@@ -15,3 +15,13 @@ const fish = ['salmon', null, false, NaN, 'sockeye', 'bass']
 
 _.sift(fish) // => ['salmon', 'sockeye', 'bass']
 ```
+
+### Search terms
+
+- Often called `compact`, `filterTruthy`, or `removeFalsy` in other libraries.
+
+### Popular use cases
+
+- Use `sift` to clean up data by removing falsy values from arrays, which is particularly useful in data processing tasks or when preparing datasets for further analysis.
+- Implement `sift` in UI components to filter out unwanted values from props, ensuring that only valid and usable data is passed into components.
+- Apply `sift` to sanitize user input arrays by eliminating empty or undefined values before performing operations like rendering or calculations.
