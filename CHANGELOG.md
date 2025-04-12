@@ -5,12 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [radashi@12.5.0-beta.8a7266a] - 2025-03-23
+## [radashi@12.5.0-beta.6d5c035] - 2025-04-12
 ### Details
 #### <!-- 03 -->Added
 
 - Add `pluck` function by [@nusohiro](https://github.com/nusohiro) in [#376](https://github.com/radashi-org/radashi/pull/376)
 
+- Add `concat` function in [d214fdc](https://github.com/radashi-org/radashi/commit/d214fdcedab6f3d49a825a070d93c5c70e080c1d)
+
+#### <!-- 06 -->Fixed
+
+- **(mapify)** Pass the actual array index to callbacks in [867b11e](https://github.com/radashi-org/radashi/commit/867b11e7b05324ee8279b98fe75028883d16339b)
 
 #### <!-- 08 -->Types
 
@@ -290,7 +295,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
 
-[radashi@12.5.0-beta.8a7266a]: https://github.com/radashi-org/radashi/compare/v12.4.0..v12.5.0-beta.8a7266a
+[radashi@12.5.0-beta.6d5c035]: https://github.com/radashi-org/radashi/compare/v12.4.0..v12.5.0-beta.6d5c035
 
 [radashi@12.4.0]: https://github.com/radashi-org/radashi/compare/v12.3.4..v12.4.0
 
