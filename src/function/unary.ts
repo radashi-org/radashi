@@ -7,22 +7,25 @@ import type { AnyFunction } from './types'
  * `unary(targetFunction)` *is equivalent to* `(x) => targetFunction(x)`
  *
  * @example
+ * **Example 1: Fixing the common parseInt issue with map**
  * ```typescript
- * const tripleNums = [111, 222, 333, 444, 555]
- * // ❌ DON'T
- * tripleNums.forEach(console.log)
- * // Print: 111  0  [111, 222, 333, 444]
- * // Print: 222  1  [111, 222, 333, 444]
- * // Print: 333  2  [111, 222, 333, 444]
- * // Print: 444  3  [111, 222, 333, 444]
+ * ['1', '2', '3'].map(parseInt)
+ * // Returns [1, NaN, NaN] because parseInt receives (value, index, array)
  *
- * //✅ DO
- * tripleNums.forEach(unary(console.log))
- * // Print: 111
- * // Print: 222
- * // Print: 333
- * // Print: 444
+ * ['1', '2', '3'].map(unary(parseInt))
+ * // Returns [1, 2, 3] as expected
  * ```
+ *
+ * **Example 2: Working with JSON parsing in data pipelines:**
+ * ```typescript
+ * const jsonStrings = ['{"name":"Alice"}', '{"name":"Bob"}']
+ *
+ * // Without unary, we'd need an arrow function
+ * const objects1 = jsonStrings.map(str => JSON.parse(str))
+ *
+ * // With unary, it's cleaner in point-free style
+ * const objects2 = jsonStrings.map(unary(JSON.parse))
+ *
  */
 export function unary<TFunction extends AnyFunction>(fn: TFunction) {
   return function appliedUnary(
