@@ -1,4 +1,4 @@
-import type { PredicateFn } from './types'
+import type { PredicateAnyFn } from './types'
 
 /**
  * @description `not` is a function which input any function return boolean and negated its output
@@ -21,10 +21,10 @@ import type { PredicateFn } from './types'
 * not(isOdd)(4)) // => true -> equivalent to `isEven(4)`
 * ```
 */
-export function not<TPredicateFn extends PredicateFn>(
-  predicateFn: TPredicateFn,
+export function not<PredicateFn extends PredicateAnyFn>(
+  predicateFn: PredicateFn,
 ) {
-  return function appliedNot(...args: Parameters<TPredicateFn>): boolean {
+  return function appliedNot(...args: Parameters<PredicateFn>): boolean {
     return !predicateFn(...args)
   }
 }

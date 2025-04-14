@@ -1,2 +1,2 @@
 export type AnyFunction = (...args: any[]) => any
-export type PredicateFn = (...args: any[]) => boolean
+export type PredicateAnyFn = (...args: any[]) => boolean
