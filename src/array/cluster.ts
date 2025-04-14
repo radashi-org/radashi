@@ -13,11 +13,11 @@ export function cluster<T, N extends number = 2>(
   array: readonly T[],
   size: N = 2 as N,
 ): UniformTuple<T, N>[] {
-  const clusters: UniformTuple<T, N>[] = []
+  const clusters: T[][] = []
   for (let i = 0; i < array.length; i += size) {
-    clusters.push(array.slice(i, i + size) as UniformTuple<T, N>)
+    clusters.push(array.slice(i, i + size))
   }
-  return clusters
+  return clusters as UniformTuple<T, N>[]
 }
 
 type UniformTuple<T, N extends number> = N extends 1
