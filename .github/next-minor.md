@@ -10,4 +10,6 @@ https://github.com/radashi-org/radashi/pull/388
 
 ## New Features
 
-####
+#### Add `not` and `unary` higher-order functions
+
+https://github.com/radashi-org/radashi/pull/390
