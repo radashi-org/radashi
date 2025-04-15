@@ -10,4 +10,6 @@ https://github.com/radashi-org/radashi/pull/388
 
 ## New Features
 
-####
+#### Improve `cluster` type inference
+
+https://github.com/radashi-org/radashi/pull/389

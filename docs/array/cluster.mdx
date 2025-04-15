@@ -34,3 +34,30 @@ _.cluster(gods, 3)
 //   ['Athena']
 // ]
 ```
+
+### Type Inference
+
+The `cluster` function provides precise type inference for common cluster sizes (1-8):
+
+```ts
+// With explicit size parameter
+const result1 = _.cluster(['a', 'b', 'c'], 1)
+//    ^? [string][]
+
+const result2 = _.cluster(['a', 'b', 'c', 'd'], 2)
+//    ^? [string, string][]
+
+const result3 = _.cluster(['a', 'b', 'c', 'd', 'e', 'f'], 3)
+//    ^? [string, string, string][]
+
+// Using default size parameter (2)
+const defaultSize = _.cluster(['a', 'b', 'c', 'd'])
+//    ^? [string, string][]
+
+// For sizes > 8, falls back to string[][]
+const largeSize = _.cluster(['a', 'b', 'c', 'd'], 10)
+//    ^? string[][]
+
+const veryLargeSize = _.cluster(['a', 'b', 'c', 'd'], 10000)
+//    ^? string[][]
+```

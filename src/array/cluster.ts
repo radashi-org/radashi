@@ -9,10 +9,31 @@
  * ```
  * @version 12.1.0
  */
-export function cluster<T>(array: readonly T[], size = 2): T[][] {
+export function cluster<T, Size extends number = 2>(
+  array: readonly T[],
+  size: Size = 2 as Size,
+): Cluster<T, Size>[] {
   const clusters: T[][] = []
   for (let i = 0; i < array.length; i += size) {
     clusters.push(array.slice(i, i + size))
   }
-  return clusters
+  return clusters as Cluster<T, Size>[]
 }
+
+type Cluster<T, Size extends number> = Size extends 1
+  ? [T]
+  : Size extends 2
+    ? [T, T]
+    : Size extends 3
+      ? [T, T, T]
+      : Size extends 4
+        ? [T, T, T, T]
+        : Size extends 5
+          ? [T, T, T, T, T]
+          : Size extends 6
+            ? [T, T, T, T, T, T]
+            : Size extends 7
+              ? [T, T, T, T, T, T, T]
+              : Size extends 8
+                ? [T, T, T, T, T, T, T, T]
+                : T[]
