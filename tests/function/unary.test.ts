@@ -43,8 +43,8 @@ describe('unary', () => {
   })
 
   test('should work with JSON.parse', () => {
-    const jsonStrings = ['{"name":"Alice"}', '{"name":"Bob"}']
-    const expectedResult = [{ name: 'Alice' }, { name: 'Bob' }]
+    const jsonStrings = ['{"name":"Anderson"}', '{"name":"Morpheus"}']
+    const expectedResult = [{ name: 'Anderson' }, { name: 'Morpheus' }]
 
     const actualResult = jsonStrings.map(_.unary(JSON.parse))
 
