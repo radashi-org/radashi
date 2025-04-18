@@ -14,8 +14,8 @@ importers:
   .:
     dependencies:
       browserslist-generator:
-        specifier: ^2.1.0
-        version: 2.3.0(patch_hash=6bd0133f03d519028318a7ea468773c2fdf9d9c3329390ed545558a76f6a8f11)
+        specifier: ^3.0.0
+        version: 3.0.0(patch_hash=6bd0133f03d519028318a7ea468773c2fdf9d9c3329390ed545558a76f6a8f11)
       dequal:
         specifier: ^2.0.3
         version: 2.0.3
@@ -44,9 +44,9 @@ packages:
   '@types/ua-parser-js@0.7.39':
     resolution: {integrity: sha512-P/oDfpofrdtF5xw433SPALpdSchtJmY7nsJItf8h3KXqOslkbySh8zq4dSWXH2oTjRvJ5PczVEoCZPow6GicLg==}
 
-  browserslist-generator@2.3.0:
-    resolution: {integrity: sha512-NEvS2dNlBKfSL3qDUTM3NkJMfjMAPEjvEGnhMZKql6ZNzJ8asqFpmuTizwOpRQeYA0/VktmOXa+mFPv8nvcIGw==}
-    engines: {node: '>=16.15.1', npm: '>=7.0.0', pnpm: '>=3.2.0', yarn: '>=1.13'}
+  browserslist-generator@3.0.0:
+    resolution: {integrity: sha512-U0V8TYQhexAUoRuNKQ1h+GUB2sFZEoMdKgKkaMSDvMbPosBdJTXkMGNv8tsub/DjnwWMvzMPfTsB/BZEOLwf8g==}
+    engines: {node: '>=18.20.0', npm: '>=7.0.0', pnpm: '>=3.2.0', yarn: '>=1.13'}
 
   browserslist@4.24.4:
     resolution: {integrity: sha512-KDi1Ny1gSePi1vm0q4oxSF8b4DR44GF4BbmS2YdhPLOEqd8pDviZOGH/GsmRwoWJ2+5Lr085X7naowMwKHDG1A==}
@@ -99,9 +99,9 @@ packages:
     resolution: {integrity: sha512-mE00Gnza5EEB3Ds0HfMyllZzbBrmLOX3vfWoj9A9PEnTfratQ/BcaJOuMhnkhjXvb2+FkY3VuHqtAGpTPmglFQ==}
     engines: {node: '>=18'}
 
-  isbot@3.8.0:
-    resolution: {integrity: sha512-vne1mzQUTR+qsMLeCBL9+/tgnDXRyc2pygLGl/WsgA+EZKIiB5Ehu0CiVTHIIk30zhJ24uGz4M5Ppse37aR0Hg==}
-    engines: {node: '>=12'}
+  isbot@5.1.26:
+    resolution: {integrity: sha512-3wqJEYSIm59dYQjEF7zJ7T42aqaqxbCyJQda5rKCudJykuAnISptCHR/GSGpOnw8UrvU+mGueNLRJS5HXnbsXQ==}
+    engines: {node: '>=18'}
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
@@ -194,7 +194,7 @@ snapshots:
 
   '@types/ua-parser-js@0.7.39': {}
 
-  browserslist-generator@2.3.0(patch_hash=6bd0133f03d519028318a7ea468773c2fdf9d9c3329390ed545558a76f6a8f11):
+  browserslist-generator@3.0.0(patch_hash=6bd0133f03d519028318a7ea468773c2fdf9d9c3329390ed545558a76f6a8f11):
     dependencies:
       '@mdn/browser-compat-data': 5.7.6
       '@types/object-path': 0.11.4
@@ -202,7 +202,7 @@ snapshots:
       '@types/ua-parser-js': 0.7.39
       browserslist: 4.24.4
       caniuse-lite: 1.0.30001707
-      isbot: 3.8.0
+      isbot: 5.1.26
       object-path: 0.11.8
       semver: 7.7.1
       ua-parser-js: 1.0.40
@@ -260,7 +260,7 @@ snapshots:
 
   is-unicode-supported@2.1.0: {}
 
-  isbot@3.8.0: {}
+  isbot@5.1.26: {}
 
   isexe@2.0.0: {}
 
