@@ -12,6 +12,9 @@ import {
  * Create a copy of the first object, and then merge the second object
  * into it recursively. Only plain objects are recursively merged.
  *
+ * When overwrite is true, modifies the first object in-place instead
+ * of creating a copy.
+ *
  * @see https://radashi.js.org/reference/object/assign
  * @example
  * ```ts
@@ -20,24 +23,37 @@ import {
  *
  * assign(a, b)
  * // => { a: 1, b: 2, c: 3, p: { a: 4, b: 5 } }
+ *
+ * // Using overwrite:
+ * const x = { a: 0, b: 2, p: { a: 4 } }
+ * const y = { a: 1, c: 3, p: { b: 5 } }
+ *
+ * assign(x, y, true) // x is modified in-place
+ * // x now equals { a: 1, b: 2, c: 3, p: { a: 4, b: 5 } }
  * ```
- * @version 12.1.0
+ * @version 12.3.0
  */
 export function assign<
   TInitial extends Record<keyof any, any>,
   TOverride extends Record<keyof any, any>,
->(initial: TInitial, override: TOverride): Assign<TInitial, TOverride> {
+>(
+  initial: TInitial,
+  override: TOverride,
+  overwrite = false,
+): Assign<TInitial, TOverride> {
   if (!initial || !override) {
     return (initial ?? override ?? {}) as any
   }
   const proto = Object.getPrototypeOf(initial)
-  const merged = proto
-    ? { ...initial }
-    : Object.assign(Object.create(proto), initial)
+  const merged = overwrite
+    ? initial
+    : proto
+      ? { ...initial }
+      : Object.assign(Object.create(proto), initial)
   for (const key of Object.keys(override)) {
     merged[key] =
       isPlainObject(initial[key]) && isPlainObject(override[key])
-        ? assign(initial[key], override[key])
+        ? assign(initial[key], override[key], overwrite)
         : override[key]
   }
   return merged

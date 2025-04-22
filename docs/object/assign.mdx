@@ -1,12 +1,12 @@
 ---
 title: assign
 description: Merges two objects together recursively
-since: 12.1.0
+since: 12.3.0
 ---
 
 ### Usage
 
-Merges two objects together recursively into a new object applying values from right to left. Recursion only applies to child object properties.
+Merges two objects together recursively applying values from right to left. By default creates a new object, but can modify the first object in-place when `overwrite` is true. Recursion only applies to child object properties.
 
 ```ts
 import * as _ from 'radashi'
@@ -16,6 +16,11 @@ const ra = {
   power: 100,
 }
 
+// Create a new object (default behavior)
 _.assign(ra, { name: 'Loki' })
-// => { name: Loki, power: 100 }
+// => { name: 'Loki', power: 100 }
+
+// Modify ra in-place
+_.assign(ra, { power: 200 }, true)
+// => ra is now { name: 'Ra', power: 200 }
 ```

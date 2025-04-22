@@ -62,4 +62,32 @@ describe('assign', () => {
     expect(result).toEqual({ a: { b: 1, c: 2 } })
     expect(Object.getPrototypeOf(result.a)).toBe(null)
   })
+  test('does not modify original object when overwrite is false', () => {
+    const initial = { a: 1, b: { c: 2 } }
+    const override = { a: 9, b: { d: 4 } }
+
+    const result = _.assign(initial, override)
+
+    expect(result).not.toBe(initial)
+    expect(initial.a).toBe(1)
+    expect(result).toEqual({ a: 9, b: { c: 2, d: 4 } })
+  })
+  test('modifies original object in-place when overwrite is true', () => {
+    const initial = { a: 1, b: { c: 2 } }
+    const override = { a: 9, b: { d: 4 } }
+
+    const result = _.assign(initial, override, true)
+
+    expect(result).toBe(initial)
+    expect(initial).toEqual({ a: 9, b: { c: 2, d: 4 } })
+  })
+  test('modifies nested objects in-place when overwrite is true', () => {
+    const initial = { nested: { prop: 1 } }
+    const nestedRef = initial.nested
+
+    _.assign(initial, { nested: { newProp: 2 } }, true)
+
+    expect(initial.nested).toBe(nestedRef)
+    expect(initial.nested).toEqual({ prop: 1, newProp: 2 })
+  })
 })

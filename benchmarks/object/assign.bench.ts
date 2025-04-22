@@ -26,4 +26,30 @@ describe('assign', () => {
     }
     _.assign(initial, override)
   })
+
+  bench('with in-place modification (overwrite: true)', () => {
+    const initial = {
+      name: 'jay',
+      cards: ['ac'],
+      location: {
+        street: '23 main',
+        state: {
+          abbreviation: 'FL',
+          name: 'Florida',
+        },
+      },
+    }
+    const override = {
+      name: 'charles',
+      cards: ['4c'],
+      location: {
+        street: '8114 capo',
+        state: {
+          abbreviation: 'TX',
+          name: 'Texas',
+        },
+      },
+    }
+    _.assign(initial, override, true)
+  })
 })
