@@ -10,6 +10,10 @@ https://github.com/radashi-org/radashi/pull/388
 
 ## New Features
 
+#### Add `overwrite` parameter to `assign` function
+
+https://github.com/radashi-org/radashi/pull/394
+
 #### Improve `cluster` type inference
 
 https://github.com/radashi-org/radashi/pull/389

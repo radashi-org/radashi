@@ -31,7 +31,7 @@ import {
  * assign(x, y, true) // x is modified in-place
  * // x now equals { a: 1, b: 2, c: 3, p: { a: 4, b: 5 } }
  * ```
- * @version 12.3.0
+ * @version 12.1.0
  */
 export function assign<
   TInitial extends Record<keyof any, any>,
