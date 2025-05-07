@@ -23,40 +23,28 @@ function memoize<Func extends AsyncFunc, Key>(
   ttl: number | null,
 ) {
   return function callWithMemo(...args: any): Promise<ResultOf<Func>> {
-    const key = keyFunc ? keyFunc(...args) : (JSON.stringify(args[0]) as Key)
-    const cached = cache.get(key)
-    let timeRef: number | null = null
+    const now = Date.now()
 
-    if (cached !== undefined) {
-      return cached.promise
-    }
-
-    const vacateExpired = () => {
-      if (ttl === null) {
-        return
-      }
-
-      const now = Date.now()
-
+    // Clean expired entries before doing anything,
+    // so we don't return stale values.
+    if (ttl !== null) {
       for (const [key, value] of cache) {
         if (now - value.timestamp > ttl) {
           cache.delete(key)
         }
       }
-
-      timeRef = null
     }
 
-    const scheduleVacate = () => {
-      if (ttl !== null) {
-        timeRef = setTimeout(vacateExpired, ttl)
-      }
+    const key = keyFunc ? keyFunc(...args) : (JSON.stringify(args[0]) as Key)
+    const cached = cache.get(key)
+
+    if (cached !== undefined) {
+      return cached.promise
     }
 
     const promise = func(...args)
 
     cache.set(key, { promise, timestamp: Date.now() })
-    scheduleVacate()
 
     promise.catch(() => {
       cache.delete(key)
