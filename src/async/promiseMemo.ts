@@ -68,7 +68,7 @@ function memoize<Func extends AsyncFunc, Key>(
  *   async (id: number) => {
  *     calls.push(id)
  *
- *     // Simpuate network delay
+ *     // Simuate network delay
  *     await new Promise(resolve => setTimeout(resolve, 100))
  *
  *     return {
