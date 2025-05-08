@@ -77,7 +77,7 @@ jsr add @radashi-org/radashi
 ```
 
 ```sh
-deno add @radashi-org/radashi
+deno add jsr:@radashi-org/radashi
 ```
 
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
