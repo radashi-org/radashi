@@ -10,8 +10,9 @@ Recursively visit each property of an object (or each element of an array) and i
 
 Traversal is performed in a depth-first manner. That means the deepest object will be visited before the last property of the root object.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const root = { a: { b: 2 }, c: [1, 2] }
 
@@ -42,8 +43,9 @@ _.traverse(root, (value, key, parent, context) => {
 
 The `TraverseVisitor` type represents the function passed to `traverse` as its 2nd argument. If you ever need to declare a visitor separate from a `traverse` call, you can do so by declaring a function with this type signature.
 
-```ts
+```ts twoslash
 import { TraverseVisitor } from 'radashi'
+// @noErrors
 
 const visitor: TraverseVisitor = (value, key, parent, context) => {
   // ...
@@ -85,8 +87,9 @@ By default, non-enumerable properties and symbol properties are skipped. You can
 
 This example shows how `Reflect.ownKeys` can be used to include non-enumerable properties and symbol properties. Note that symbol properties are always traversed last when using `Reflect.ownKeys`.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const symbol = Symbol('b')
 const root = { [symbol]: 1 }
@@ -110,8 +113,9 @@ By default, your `visitor` callback will never receive the object passed into `t
 
 When the root object is visited, the `key` will be `null`.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const root = { a: 1 }
 
@@ -133,8 +137,9 @@ _.traverse(
 
 If traversing plain objects and arrays isn't enough, try calling `traverse` from within another `traverse` callback like follows. This takes advantage of the fact that the root object is always traversed.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 // Note how we're using a named visitor function so it can reference itself.
 _.traverse(root, function visitor(value, key, parent, context, options) {
@@ -155,8 +160,9 @@ return _.traverse(root, visitor, null, context)
 
 Using the `TraverseContext::skip` method, you can prevent an object from being traversed. By calling `skip()` with no arguments, the current value won't be traversed.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const root = {
   a: { b: 1 },
@@ -179,8 +185,9 @@ _.traverse(root, (value, key, parent, context) => {
 
 You can pass any object to `skip()` to skip traversal of that object.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const root = {
   a: {
@@ -209,7 +216,10 @@ _.traverse(root, (value, key, parent, context) => {
 
 If your `visitor` callback returns false, `traverse` will exit early and also return false. This is useful if you found what you wanted, so you don't need to traverse the rest of the objects.
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+// @noErrors
+
 let found = null
 _.traverse(root, value => {
   if (isWhatImLookingFor(value)) {
@@ -225,7 +235,10 @@ If your `visitor` callback returns a function, it will be called once `traverse`
 
 Your leave callback can return false to exit traversal early.
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+// @noErrors
+
 _.traverse({ arr: ['a', 'b'] }, (value, key) => {
   if (isArray(value)) {
     console.log('start of array')
