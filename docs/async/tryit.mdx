@@ -36,3 +36,13 @@ const findUser = _.tryit(api.users.find)
 
 const [err, user] = await findUser(userId)
 ```
+
+### Search terms
+
+- Often called `tryCatch`, `to`, or `attempt` in other libraries.
+
+### Popular use cases
+
+- Handling asynchronous operations without explicit try-catch blocks, ensuring promises are safely caught.
+- Simplifying error handling in promise-based code by returning `[Error, result]` tuples, streamlining control flow.
+- Wrapping synchronous and asynchronous functions to provide consistent error-first handling, useful in complex asynchronous functions and APIs.
