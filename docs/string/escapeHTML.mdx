@@ -1,0 +1,21 @@
+---
+title: escapeHTML
+description: Escape HTML characters in a string
+---
+
+### Usage
+
+Replaces all occurrences of the following characters with their corresponding HTML entities:
+
+- `&` with `&amp;`
+- `<` with `&lt;`
+- `>` with `&gt;`
+- `"` with `&quot;`
+- `'` with `&#39;`
+
+```ts
+import * as _ from 'radashi'
+
+_.escapeHTML('<div>Hello, world!</div>')
+// => '&lt;div&gt;Hello, world!&lt;/div&gt;'
+```
