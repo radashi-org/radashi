@@ -150,3 +150,4 @@ export * from './typed/isWeakMap.ts'
 export * from './typed/isWeakSet.ts'
 
 export * from './types.ts'
+export * from './errors.ts'
