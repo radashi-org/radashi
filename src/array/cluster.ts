@@ -1,5 +1,3 @@
-import { IllegalSizeError } from 'radashi'
-
 /**
  * Splits a single list into many lists of the desired size.
  *
@@ -15,19 +13,16 @@ export function cluster<T, Size extends number = 2>(
   array: readonly T[],
   size: Size = 2 as Size,
 ): Cluster<T, Size>[] {
-  if (size <= 0 || Number.isNaN(size)) {
-    throw new IllegalSizeError(`Size must be 1 or more, the size is ${size}`)
-  }
+  const clusters: Cluster<T, Size>[] = []
 
-  if (size === Number.POSITIVE_INFINITY) {
-    throw new IllegalSizeError(`Size must not be Infinity, the size is ${size}`)
+  if (size <= 0) {
+    return clusters
   }
-
-  const clusters: T[][] = []
   for (let i = 0; i < array.length; i += size) {
-    clusters.push(array.slice(i, i + size))
+    clusters.push(array.slice(i, i + size) as Cluster<T, Size>)
   }
-  return clusters as Cluster<T, Size>[]
+
+  return clusters
 }
 
 type Cluster<T, Size extends number> = Size extends 1

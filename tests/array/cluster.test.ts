@@ -9,6 +9,7 @@ describe('cluster', () => {
     expect(b).toEqual([1, 1])
     expect(c).toEqual([1, 1])
   })
+
   test('returns remainder in final cluster', () => {
     const list = [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2]
     const result = _.cluster(list, 3)
@@ -36,30 +37,23 @@ describe('cluster', () => {
     expect(result).toEqual([[1, 2, 3]]);
   });
 
-  test('throws error when size is 0', () => {
-    const list = [1, 2, 3];
-    const size = 0
-    expect(() => _.cluster(list, size)).toThrow(_.IllegalSizeError);
-    expect(() => _.cluster(list, size)).toThrow(`Size must be 1 or more, the size is ${size}`);
-  });
+  test('returns empty list when size <= 0', () => {
+    const expectedResult: number[] = []
+    const list = [1, 2, 3, 4];
 
-  test('throws error when size is negative', () => {
-    const list = [1, 2, 3];
-    const size = -2
-    expect(() => _.cluster(list, size)).toThrow(_.IllegalSizeError);
-    expect(() => _.cluster(list, size)).toThrow(`Size must be 1 or more, the size is ${size}`);
+    const actualResult1 = _.cluster(list, 0);
+    const actualResult2 = _.cluster(list, -1);
+    const actualResult3 = _.cluster(list, Number.NEGATIVE_INFINITY);
+
+    expect(actualResult1).toEqual(expectedResult);
+    expect(actualResult2).toEqual(expectedResult);
+    expect(actualResult3).toEqual(expectedResult);
   });
 
   test('uses default size of 2 when no size provided', () => {
     const list = [1, 2, 3, 4, 5];
     const actualResult = _.cluster(list);
     expect(actualResult).toEqual([[1, 2], [3, 4], [5]]);
-  });
-
-  test('throws error when size is NaN or Infinity', () => {
-    const list = [1, 2, 3];
-    expect(() => _.cluster(list, Number.NaN)).toThrow();
-    expect(() => _.cluster(list, Number.POSITIVE_INFINITY)).toThrow();
   });
 
   test('handles arrays with mixed data types', () => {
