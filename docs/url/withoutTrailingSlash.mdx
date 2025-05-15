@@ -1,0 +1,22 @@
+---
+title: withoutTrailingSlash
+description: Removes the trailing slash
+---
+
+### Usage
+
+Removes the trailing slash `/` from the given URL if it is present.
+
+This function is useful for ensuring that URLs are properly formatted
+without a trailing slash, which is often required in web development for
+consistency and to avoid issues with relative paths.
+
+```ts
+import { withoutTrailingSlash } from 'radashi'
+
+withoutTrailingSlash('') // => ''
+withoutTrailingSlash('no/slash/') // => 'no/slash'
+withoutTrailingSlash('already/has/slash') // => 'already/has/slash'
+withoutTrailingSlash(undefined) // => undefined
+withoutTrailingSlash(null) // => null
+```
