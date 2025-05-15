@@ -1,0 +1,23 @@
+---
+title: isEmptyRecord
+description: Checks if a plain object has 0 own keys
+---
+
+## Description
+
+Returns true if the given object has no properties of its own. Inherited properties are not considered.
+
+## Example
+
+```ts
+import { isEmptyRecord } from 'radashi'
+
+isEmptyRecord({}) // => true
+isEmptyRecord({ a: 1 }) // => false
+```
+
+## Explanation
+
+In JavaScript, objects can inherit properties from their prototypes. This function specifically checks if a plain JavaScript object has any _own_ properties (also known as _own keys_).
+
+It's a more performant way of doing `Object.keys(obj).length === 0`, because no intermediate array is created.
