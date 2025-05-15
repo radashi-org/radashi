@@ -13,16 +13,15 @@ export function cluster<T, Size extends number = 2>(
   array: readonly T[],
   size: Size = 2 as Size,
 ): Cluster<T, Size>[] {
-  const clusters: Cluster<T, Size>[] = []
+  const clusters: T[][] = []
 
-  if (size <= 0) {
-    return clusters
-  }
-  for (let i = 0; i < array.length; i += size) {
-    clusters.push(array.slice(i, i + size) as Cluster<T, Size>)
+  if (size > 0) {
+    for (let i = 0; i < array.length; i += size) {
+      clusters.push(array.slice(i, i + size))
+    }
   }
 
-  return clusters
+  return clusters as Cluster<T, Size>[]
 }
 
 type Cluster<T, Size extends number> = Size extends 1
