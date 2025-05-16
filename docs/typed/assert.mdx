@@ -1,0 +1,34 @@
+---
+title: assert
+description: Asserts a condition and narrows the type of the value
+---
+
+### Usage
+
+Asserts that a condition is true. If the condition is false, an error is
+thrown. This function uses TypeScript's `asserts` keyword to narrow the
+type of the value being asserted.
+
+An optional message can be provided, which will be used as the error message
+if the assertion fails. If the message is an instance of `Error`, that error
+will be thrown directly.
+
+If the `condition` argument is a `false` literal, the function's return type
+is `never`, indicating that the code path following the assertion is
+unreachable.
+
+```ts
+import * as _ from 'radashi'
+
+function processValue(value: string | null) {
+  _.assert(value !== null, 'Value cannot be null')
+  // value is now narrowed to string
+  console.log(value.toUpperCase())
+}
+
+processValue('hello') // logs "HELLO"
+// processValue(null) // throws Error: Value cannot be null
+
+const result = _.assert(false, 'This will always throw')
+// const x = result // x is of type never
+```
