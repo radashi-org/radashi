@@ -20,6 +20,7 @@ export type Concat<T extends readonly any[]> = T[number] extends infer TElement
  * const result = _.concat(1, [2, [3]], null)
  * // => [1, 2, [3]] // Note: only flattens one level
  * ```
+ * @version 12.5.0
  */
 export function concat<T extends readonly [any, any, ...any[]]>(
   ...values: T
