@@ -21,5 +21,5 @@ export function last<
 ): TArray extends readonly [...any[], infer TLast]
   ? TLast
   : TArray[number] | TDefault {
-  return array?.length > 0 ? array[array.length - 1] : defaultValue
+  return array?.length > 0 ? array[array.length - 1] : (defaultValue as any)
 }
