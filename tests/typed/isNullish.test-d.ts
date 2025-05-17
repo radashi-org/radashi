@@ -14,7 +14,8 @@ describe('isNullish return type', () => {
     if (_.isNullish(value)) {
       expectTypeOf(value).toEqualTypeOf<null | undefined>()
     } else {
-      expectTypeOf(value).toEqualTypeOf<unknown>()
+      // biome-ignore lint/complexity/noBannedTypes:
+      expectTypeOf(value).toEqualTypeOf<{}>()
     }
   })
   test('value is never', () => {
