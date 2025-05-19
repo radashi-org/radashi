@@ -93,11 +93,34 @@ describe('set', () => {
     })
   })
 
-  test('prototype pollution', () => {
-    const prototype: any = {}
-    _.set(Object.create(prototype), '__proto__.polluted', true)
+  test('prototype pollution is forbidden', () => {
+    expect(() => _.set({}, '__proto__.polluted', true)).toThrowError(
+      'Unsafe key in path: __proto__',
+    )
+    expect(() => _.set({}, 'prototype.polluted', true)).toThrowError(
+      'Unsafe key in path: prototype',
+    )
 
-    expect(prototype.polluted).toBeUndefined()
-    expect('polluted' in prototype).toBe(false)
+    // Prototype-less objects don't care:
+    let obj = Object.create(null)
+
+    obj = _.set(obj, '__proto__.polluted', true)
+    expect(Object.getPrototypeOf(obj)).toBe(null)
+    expect(obj.__proto__).toEqual({ polluted: true })
+
+    obj = _.set(obj, 'prototype.polluted', true)
+    expect(Object.getPrototypeOf(obj)).toBe(null)
+    expect(obj.prototype).toEqual({ polluted: true })
+  })
+
+  test('constructor pollution is forbidden', () => {
+    expect(() => _.set({}, 'constructor.polluted', true)).toThrowError(
+      'Unsafe key in path: constructor',
+    )
+
+    // Prototype-less objects don't care:
+    let obj = Object.create(null)
+    obj = _.set(obj, 'constructor.polluted', true)
+    expect(obj.constructor).toEqual({ polluted: true })
   })
 })

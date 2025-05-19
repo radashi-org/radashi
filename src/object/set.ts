@@ -1,4 +1,4 @@
-import { clone, isIntString } from 'radashi'
+import { clone, isDangerousKey, isIntString } from 'radashi'
 
 /**
  * Opposite of get, dynamically set a nested value into an object
@@ -27,6 +27,10 @@ export function set<T extends object, K>(
     const key = keys[index]
 
     object ??= isIntString(key) ? [] : {}
+
+    if (isDangerousKey(key, object)) {
+      throw new Error('Unsafe key in path: ' + key)
+    }
 
     if (index < keys.length - 1) {
       value = recurse(object[key], keys, index + 1)
