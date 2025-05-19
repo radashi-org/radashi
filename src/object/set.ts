@@ -23,18 +23,20 @@ export function set<T extends object, K>(
   if (!path || value === undefined) {
     return initial
   }
+  return (function recurse(object: any, keys: string[], index: number) {
+    const key = keys[index]
 
-  const root: any = clone(initial)
-  const keys = path.match(/[^.[\]]+/g)
-  if (keys) {
-    keys.reduce(
-      (object, key, i) =>
-        i < keys.length - 1
-          ? (object[key] ??= isIntString(keys[i + 1]) ? [] : {})
-          : (object[key] = value),
-      root,
-    )
-  }
+    object ??= isIntString(key) ? [] : {}
 
-  return root
+    if (index < keys.length - 1) {
+      value = recurse(object[key], keys, index + 1)
+    }
+
+    if (!Object.is(object[key], value)) {
+      object = clone(object)
+      object[key] = value
+    }
+
+    return object
+  })(initial, path.match(/[^.[\]]+/g)!, 0)
 }
