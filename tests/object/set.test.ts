@@ -67,4 +67,12 @@ describe('set', () => {
       cards: { '1234value': 2 },
     })
   })
+
+  test('prototype pollution', () => {
+    const prototype: any = {}
+    _.set(Object.create(prototype), '__proto__.polluted', true)
+
+    expect(prototype.polluted).toBeUndefined()
+    expect('polluted' in prototype).toBe(false)
+  })
 })
