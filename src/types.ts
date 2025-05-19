@@ -45,13 +45,6 @@ export type SwitchAny<T, U> = [T] extends [Any] ? U : T
 export type SwitchNever<T, U> = [T] extends [never] ? U : T
 
 /**
- * Prevent type inference on type `T`.
- *
- * @see https://github.com/microsoft/TypeScript/issues/14829#issuecomment-504042546
- */
-export type NoInfer<T> = [T][T extends any ? 0 : never]
-
-/**
  * Extract types in `T` that are assignable to `U`. Coerce `any` and
  * `never` types to unknown.
  */
