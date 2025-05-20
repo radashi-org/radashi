@@ -17,9 +17,6 @@ export function set<T extends object, K>(
   path: string,
   value: K,
 ): T {
-  if (value === undefined) {
-    return initial
-  }
   const root: any = clone(initial)
   const keys = path.match(/[^.[\]]+/g)
   keys?.reduce(
