@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.5.1] - 2025-05-23
+### Details
+#### <!-- 06 -->Fixed
+
+- **(set)** Avoid mutating nested objects without first cloning them by [@aleclarson](https://github.com/aleclarson) in [fc3c7c9](https://github.com/radashi-org/radashi/commit/fc3c7c91b6c864febad70528e0c39b2177b89adb)
+- **(set)** Prevent prototype pollution by [@aleclarson](https://github.com/aleclarson) in [8147abc](https://github.com/radashi-org/radashi/commit/8147abc8cfc3cfe9b9a17cd389076a5d97235a66)
+
 ## [radashi@12.5.0] - 2025-05-15
 ### Details
 #### <!-- 03 -->Added
@@ -303,6 +310,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
+
+[radashi@12.5.1]: https://github.com/radashi-org/radashi/compare/v12.5.0..v12.5.1
 
 [radashi@12.5.0]: https://github.com/radashi-org/radashi/compare/v12.4.0..v12.5.0
 
