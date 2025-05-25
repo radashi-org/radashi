@@ -1,0 +1,69 @@
+---
+title: promiseMemo
+description: Memoize an asynchronus function.
+---
+
+### Usage
+
+Wrap an asynchronus function with promiseMemo to get a function back that automagically returns values that have already been calculated.
+
+```ts
+import * as _ from 'radashi'
+
+const calls = []
+
+const getData = _.promiseMemo(async (param) => {
+  calls.push(param)
+
+  return new Promise((resolve) => resolve(param))
+})
+
+const val1 = await getData(1)
+const val2 = await getData(2)
+const val3 = await getData(1)
+
+console.log(calls) // [1, 2]
+```
+
+### Expiration
+
+You can optionally pass a `ttl` (time to live) value in args that will delete the memoized value from cache.
+
+```ts
+import * as _ from 'radashi'
+
+const calls = []
+
+const getData = _.promiseMemo(async (param) => {
+  calls.push(param)
+
+  return new Promise((resolve) => resolve(param))
+}, {
+  ttl: 1000
+})
+
+const val1 = await getData(1)
+const val2 = await getData(2)
+
+await _.sleep(2000)
+
+const val3 = await getData(1)
+
+console.log(calls) // [1, 2, 1]
+```
+
+### Key Function
+
+You can optionally customize how values are stored when memoized.
+
+
+```ts
+const memoized = _.promiseMemo(func, {
+  key: arg => arg.user.id,
+})
+
+const resultA = await memoized({ user: { id: 'Alpha' } })
+const resultA2 = await memoized({ user: { id: 'Alpha' } })
+
+resultA === resultA2 // true
+```
