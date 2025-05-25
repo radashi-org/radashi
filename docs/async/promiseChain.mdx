@@ -1,0 +1,20 @@
+---
+title: promiseChain
+description: Creates a function that executes multiple asynchronous function in same order as they are passed in arguments. Passes previous function result to next fucntion.
+---
+
+### Usage
+
+Chains synchronous and asynchronous functions, executes each function in the same order as passed in the arguments. It also passes the result of pervious function to the newxt function in the execution line. The final output will be the output of last function.
+
+```ts
+import * as _ from 'radashi'
+
+const func1 = vi.fn((a, b) => a + b)
+const func2 = vi.fn(async n => n * 2)
+const func3 = vi.fn(async n => `Your Value is ${n}`)
+
+const chained = await _.promiseChain(func1, func2, func3)
+
+await chained(5, 2) // => "Your Value is 14"
+```
