@@ -23,42 +23,22 @@
  */
 export function queueByKey<TArgs extends any[], TResult>(
   asyncFn: (...args: TArgs) => Promise<TResult>,
-  keyFn: (...args: TArgs) => string | number,
+  keyFn: (...args: TArgs) => string | number
 ): (...args: TArgs) => Promise<TResult> {
   const queues = new Map<string | number, Promise<any>>()
 
   return async (...args: TArgs): Promise<TResult> => {
     const key = keyFn(...args)
+    const next = () => asyncFn(...args)
 
-    // Get the current promise chain for this key, or create a new one
-    const currentQueue = queues.get(key) || Promise.resolve()
+    // Run this function once all previous calls for this key have completed.
+    const queue = (queues.get(key) || Promise.resolve()).then(next, next)
+    queues.set(key, queue)
 
-    // Create a new promise that waits for the current queue to finish
-    const newQueue = currentQueue
-      .then(() => asyncFn(...args))
-      .catch(() => asyncFn(...args)) // Continue queue even if previous call failed
+    // Reduce memory usage by removing the queue if it's done.
+    const cleanup = () => queues.get(key) === queue && queues.delete(key)
+    queue.then(cleanup, cleanup)
 
-    // Update the queue for this key
-    queues.set(key, newQueue)
-
-    // Clean up the queue when this call completes
-    const cleanup = () => {
-      // Only delete if this is still the current queue
-      if (queues.get(key) === newQueue) {
-        queues.delete(key)
-      }
-    }
-
-    // Return the result with cleanup
-    return newQueue.then(
-      result => {
-        cleanup()
-        return result
-      },
-      error => {
-        cleanup()
-        throw error
-      },
-    )
+    return queue
   }
 }
