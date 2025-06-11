@@ -22,8 +22,8 @@
  * ```
  */
 export function queueByKey<TArgs extends any[], TResult>(
-  asyncFn: (...args: TArgs) => Promise<TResult>,
-  keyFn: (...args: TArgs) => string | number
+  asyncFn: (...args: TArgs) => TResult | PromiseLike<TResult>,
+  keyFn: (...args: TArgs) => string | number,
 ): (...args: TArgs) => Promise<TResult> {
   const queues = new Map<string | number, Promise<any>>()
 
