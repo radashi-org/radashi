@@ -4,7 +4,7 @@
   "dependencies": {
     "@octokit/rest": "^21.0.1",
     "@radashi-org/common": "link:../common",
-    "esbuild": "^0.23.0",
+    "esbuild": "^0.25.0",
     "execa": "^9.5.1",
     "radashi": "link:../../src"
   }
