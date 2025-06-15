@@ -13,11 +13,11 @@
  */
 export function group<T, Key extends string | number | symbol>(
   array: readonly T[],
-  getGroupId: (item: T) => Key,
+  getGroupId: (item: T, index: number) => Key,
 ): { [K in Key]?: T[] } {
   return array.reduce(
-    (acc, item) => {
-      const groupId = getGroupId(item)
+    (acc, item, index) => {
+      const groupId = getGroupId(item, index)
       if (!acc[groupId]) {
         acc[groupId] = []
       }
