@@ -40,4 +40,12 @@ describe('group', () => {
       b: [2],
     })
   })
+  test('array index is passed to callback', () => {
+    const list = [1, 2, 3, 4, 5]
+    const groups = _.group(list, (_, index) =>
+      index % 2 === 0 ? 'even' : 'odd',
+    )
+    expect(groups.even).toEqual([1, 3, 5])
+    expect(groups.odd).toEqual([2, 4])
+  })
 })
