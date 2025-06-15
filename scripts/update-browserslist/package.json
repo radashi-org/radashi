@@ -2,7 +2,7 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "browserslist-generator": "^2.1.0",
+    "browserslist-generator": "^3.0.0",
     "dequal": "^2.0.3",
     "execa": "^9.5.1"
   },
