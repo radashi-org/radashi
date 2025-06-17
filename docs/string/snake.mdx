@@ -8,7 +8,7 @@ since: 12.1.0
 
 Given a string returns it in snake case format.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 _.snake('green fish blue fish') // => green_fish_blue_fish
@@ -16,7 +16,9 @@ _.snake('green fish blue fish') // => green_fish_blue_fish
 
 **Warning**: In v11.0.0 a change was made to _fix_ this function so that it correctly splits numbers from neighboring letters (`hello5` becomes `hello_5`). You can opt out of this behavior and continue with the legacy style (`hello5` becomes `hello5`) by passing the `splitOnNumber` options.
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+// ---cut-before---
 _.snake('5green fish 2blue fish') // => 5_green_fish_2_blue_fish
 
 _.snake('5green fish 2blue fish', {
