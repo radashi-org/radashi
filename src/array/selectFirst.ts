@@ -15,6 +15,20 @@
  * ```
  * @version 12.2.0
  */
+
+// overload when user does not provide a condition -> results filters out nullish
+export function selectFirst<T, U>(
+  array: readonly T[],
+  mapper: (item: T, index: number) => U,
+): NonNullable<U> | undefined
+
+// overload when user does provide a condition -> results may include null
+export function selectFirst<T, U>(
+  array: readonly T[],
+  mapper: (item: T, index: number) => U,
+  condition: (item: T, index: number) => boolean
+): U | undefined
+
 export function selectFirst<T, U>(
   array: readonly T[],
   mapper: (item: T, index: number) => U,
