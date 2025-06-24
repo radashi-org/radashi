@@ -1,23 +1,23 @@
 ---
-title: isPromise
+title: isPromiseLike
 description: 'Determine if a value is a Promise or has a `then` method'
 since: 12.1.0
 ---
 
 ### Usage
 
-The `isPromise` function checks if a value is "Promise-like" by determining if it has a `then` method.
+The `isPromiseLike` function checks if a value is "Promise-like" by determining if it has a `then` method.
 
 ```ts
 import * as _ from 'radashi'
 
-_.isPromise({ then: () => {} }) // => true
-_.isPromise(new Promise(() => {})) // => true
-_.isPromise(Promise.resolve(1)) // => true
-_.isPromise(Promise.reject(new Error('nope'))) // => true
+_.isPromiseLike({ then: () => {} }) // => true
+_.isPromiseLike(new Promise(() => {})) // => true
+_.isPromiseLike(Promise.resolve(1)) // => true
+_.isPromiseLike(Promise.reject(new Error('nope'))) // => true
 
-_.isPromise('hello') // => false
-_.isPromise({}) // => false
+_.isPromiseLike('hello') // => false
+_.isPromiseLike({}) // => false
 ```
 
 This approach is useful for identifying objects that conform to the Promise interface without actually being instances of `Promise`. It's particularly helpful in scenarios where:
