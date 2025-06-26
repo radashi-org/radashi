@@ -57,6 +57,7 @@ export * from './curry/memoLastCall.ts'
 export * from './curry/once.ts'
 export * from './curry/partial.ts'
 export * from './curry/partob.ts'
+export * from './curry/promiseChain.ts'
 export * from './curry/proxied.ts'
 export * from './curry/throttle.ts'
 
