@@ -5,30 +5,77 @@ description: Asserts a condition and narrows the type of the value
 
 ### Usage
 
-Asserts that a condition is true. If the condition is false, an error is
-thrown. This function uses TypeScript's `asserts` keyword to narrow the
-type of the value being asserted.
+The `assert` function from Radashi is used to assert that a given `condition` is true. If the `condition` evaluates to `false`, the function throws an error. This is a fundamental building block for ensuring that certain conditions are met at runtime.
 
-An optional message can be provided, which will be used as the error message
-if the assertion fails. If the message is an instance of `Error`, that error
-will be thrown directly.
-
-If the `condition` argument is a `false` literal, the function's return type
-is `never`, indicating that the code path following the assertion is
-unreachable.
+This utility is particularly useful in TypeScript for its ability to perform type narrowing. It uses the `asserts` keyword in its signature. When `assert(condition)` is called and the condition is true, TypeScript understands that the type of any variables involved in the condition can be narrowed down based on that truthiness.
 
 ```ts
 import * as _ from 'radashi'
 
-function processValue(value: string | null) {
-  _.assert(value !== null, 'Value cannot be null')
-  // value is now narrowed to string
+function processValue(value: string | null | undefined) {
+  _.assert(value, 'Value cannot be null, undefined, or empty')
+
+  // After the assertion, 'value' is narrowed to type 'string'
   console.log(value.toUpperCase())
 }
 
 processValue('hello') // logs "HELLO"
-// processValue(null) // throws Error: Value cannot be null
+// _.assert throws on falsy values like:
+// - null
+// - undefined
+// - '' (empty string)
+// - 0
+// - false
+// processValue(null) // throws Error: Value cannot be null, undefined, or empty
+// processValue(undefined) // throws Error: Value cannot be null, undefined, or empty
+// processValue('') // throws Error: Value cannot be null, undefined, or empty
+```
 
-const result = _.assert(false, 'This will always throw')
-// const x = result // x is of type never
+You can provide an optional `message` as the second argument to `assert`. This message will be used as the error message if the assertion fails.
+
+The `message` can be a string or an instance of the `Error` class.
+
+- If a string is provided, a new `Error` object is created with that string as the message.
+- If an `Error` instance is provided, that specific error object will be thrown directly.
+- If no message is provided for a failing assertion, a default message `"Assertion failed"` is used.
+
+```ts
+import * as _ from 'radashi'
+
+// Using a custom string message
+try {
+  _.assert(false, 'This condition failed!')
+} catch (error: any) {
+  console.error(error.message) // logs "This condition failed!"
+}
+
+// Using a custom Error object
+const customError = new Error('A specific error occurred.')
+try {
+  _.assert(false, customError)
+} catch (error) {
+  console.error(error === customError) // logs "true"
+}
+```
+
+A special case exists when the `condition` argument is a literal `false`. In this scenario, the TypeScript signature of `assert(false, ...)` has a return type of `never`.
+
+This `never` return type signals to the TypeScript compiler that the code path following this assertion is unreachable. This can be particularly useful in scenarios like exhaustiveness checks within `switch` statements or for indicating impossible states in your type logic.
+
+```ts
+import * as _ from 'radashi'
+
+type Status = 'success' | 'pending' | 'failed'
+
+function handleStatus(status: Status): number {
+  return status === 'success' ? 1
+       : status === 'pending' ? 2
+       : status === 'failed' ? 3
+       : _.assert(false, `Unknown status: ${status}`)
+}
+
+// The return type of handleStatus is number, but the _.assert(false)
+// branch has a return type of never, which is compatible.
+// This demonstrates using assert(false) as a "throw expression" in
+// contexts where the throw keyword isn't allowed, like ternary expressions.
 ```
