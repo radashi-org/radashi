@@ -119,13 +119,13 @@ describe('Semaphore', () => {
 
   test('invalid options', async () => {
     expect(() => new Semaphore(0)).toThrowErrorMatchingInlineSnapshot(
-      '[Error: maxCapacity must be ≥ 1]',
+      `[Error: maxCapacity must be > 0]`,
     )
 
     const semaphore = new Semaphore(2)
     await expect(
       semaphore.acquire({ weight: 0 }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot('[Error: weight must be ≥ 1]')
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: weight must be > 0]`)
 
     await expect(
       semaphore.acquire({ weight: 5 }),
