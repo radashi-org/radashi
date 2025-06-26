@@ -94,6 +94,8 @@ export * from './object/traverse.ts'
 export * from './object/upperize.ts'
 
 export * from './oop/AggregateError.ts'
+export * from './oop/DurationParser.ts'
+export * from './oop/QuantityParser.ts'
 export * from './oop/Semaphore.ts'
 export * from './oop/TimeoutError.ts'
 

@@ -1,0 +1,110 @@
+---
+name: parseQuantity
+description: Parses a quantity string into its numeric value
+since: 12.6.0
+---
+
+### Usage
+
+Parse a quantity string like `"2 dollars"` into its numeric value. You must provide a
+unit conversion map, with optional short unit aliases.
+
+```ts
+import * as _ from 'radashi'
+
+const moneyUnits = {
+  units: {
+    cent: 1,
+    dollar: 100,
+  },
+  short: {
+    $: 'dollar',
+  },
+} as const
+
+_.parseQuantity('1 cent', moneyUnits)
+// => 1
+
+_.parseQuantity('2 dollars', moneyUnits)
+// => 200
+
+_.parseQuantity('5$', moneyUnits)
+// => 500
+```
+
+You may use the `QuantityParser` class instead, which is more efficient for repeated parsing.
+
+```ts
+const moneyParser = new _.QuantityParser(moneyUnits)
+```
+
+If you specifically need to parse a duration (e.g. "1 hour", "2 seconds") into milliseconds,
+you can use the [`parseDuration`](./parseDuration) function instead.
+
+### Subclassing
+
+You can subclass `QuantityParser` to create a parser for a specific unit.
+
+```ts
+import { QuantityParser, type QuantityString } from 'radashi'
+
+export type DistanceUnit = keyof typeof DistanceParser.units
+export type DistanceShortUnit = keyof typeof DistanceParser.shortUnits
+
+export type DistanceString = QuantityString<DistanceUnit, DistanceShortUnit>
+
+export class DistanceParser extends QuantityParser<DistanceUnit, DistanceShortUnit> {
+  constructor() {
+    super({
+      units: DistanceParser.units,
+      short: DistanceParser.shortUnits,
+    })
+  }
+
+  static units = {
+    kilometer: 1_000,
+    mile: 1_852,
+    yard: 0.9144,
+    foot: 0.3048,
+    meter: 1,
+  } as const
+
+  static shortUnits = {
+    km: 'kilometer',
+    mi: 'mile',
+    yd: 'yard',
+    ft: 'foot',
+    m: 'meter',
+  } as const
+})
+
+// Usage
+const distanceParser = new DistanceParser()
+
+distanceParser.parse('1 kilometer') // => 1_000
+distanceParser.parse('1km') // => 1_000
+distanceParser.parse('1 mile') // => 1_852
+distanceParser.parse('1mi') // => 1_852
+distanceParser.parse('1 yard') // => 0.9144
+distanceParser.parse('1yd') // => 0.9144
+distanceParser.parse('1 foot') // => 0.3048
+distanceParser.parse('1ft') // => 0.3048
+distanceParser.parse('1 meter') // => 1
+```
+
+You may want to create a wrapper function to make it easier to use.
+
+```ts
+import { DistanceParser, type DistanceString } from './DistanceParser'
+
+const parser = new DistanceParser()
+
+export function parseDistance(input: DistanceString): number {
+  return parser.parse(input)
+}
+
+// Usage
+parseDistance('1 kilometer') // => 1_000
+parseDistance('1km') // => 1_000
+parseDistance('1 mile') // => 1_852
+```

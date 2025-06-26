@@ -11,3 +11,11 @@ https://github.com/radashi-org/radashi/pull/407
 #### Semaphore
 
 https://github.com/radashi-org/radashi/pull/415
+
+#### parseDuration
+
+https://github.com/radashi-org/radashi/pull/416
+
+#### parseQuantity
+
+https://github.com/radashi-org/radashi/pull/416
