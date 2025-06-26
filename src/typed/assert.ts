@@ -29,6 +29,7 @@
  * typeof result
  * //     ^? 1 | 2
  * ```
+ * @version 12.6.0
  */
 export function assert(condition: false, error?: string | Error): never
 export function assert(

@@ -1,6 +1,7 @@
 ---
 title: assert
 description: Asserts a condition and narrows the type of the value
+since: 12.6.0
 ---
 
 ### Usage
@@ -68,10 +69,13 @@ import * as _ from 'radashi'
 type Status = 'success' | 'pending' | 'failed'
 
 function handleStatus(status: Status): number {
-  return status === 'success' ? 1
-       : status === 'pending' ? 2
-       : status === 'failed' ? 3
-       : _.assert(false, `Unknown status: ${status}`)
+  return status === 'success'
+    ? 1
+    : status === 'pending'
+      ? 2
+      : status === 'failed'
+        ? 3
+        : _.assert(false, `Unknown status: ${status}`)
 }
 
 // The return type of handleStatus is number, but the _.assert(false)

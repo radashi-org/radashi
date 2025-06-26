@@ -16,6 +16,7 @@ const replacements: Record<string, string> = {
  * escapeHTML('<div>Hello, world!</div>')
  * // => '&lt;div&gt;Hello, world!&lt;/div&gt;'
  * ```
+ * @version 12.6.0
  */
 export function escapeHTML(input: string): string {
   return input.replace(htmlCharacters, char => replacements[char])

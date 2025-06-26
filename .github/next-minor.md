@@ -4,13 +4,13 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Functions
 
-#### queueByKey
+#### assert
 
-https://github.com/radashi-org/radashi/pull/407
+https://github.com/radashi-org/radashi/pull/403
 
-#### Semaphore
+#### escapeHTML
 
-https://github.com/radashi-org/radashi/pull/415
+https://github.com/radashi-org/radashi/pull/401
 
 #### parseDuration
 
@@ -19,3 +19,21 @@ https://github.com/radashi-org/radashi/pull/416
 #### parseQuantity
 
 https://github.com/radashi-org/radashi/pull/416
+
+#### promiseChain
+
+https://github.com/radashi-org/radashi/pull/402
+
+#### queueByKey
+
+https://github.com/radashi-org/radashi/pull/407
+
+#### Semaphore
+
+https://github.com/radashi-org/radashi/pull/415
+
+## New Features
+
+#### Pass array index to `group` callback
+
+https://github.com/radashi-org/radashi/commit/6d66395d3e36194e01d95684b1c7815b093e5c09

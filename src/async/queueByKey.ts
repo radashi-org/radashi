@@ -20,6 +20,7 @@
  * // This runs in parallel with user123's queue
  * queuedUpdate('user456', { name: 'Bob' })
  * ```
+ * @version 12.6.0
  */
 export function queueByKey<TArgs extends any[], TResult>(
   asyncFn: (...args: TArgs) => TResult | PromiseLike<TResult>,

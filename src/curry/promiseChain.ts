@@ -17,7 +17,7 @@ import type { Awaitable } from 'radashi'
  *
  * await chained(2, 3) // "Your Value is 10"
  * ```
- * @version 12.1.0
+ * @version 12.6.0
  */
 export function promiseChain<T1 extends any[], T2, T3>(
   f1: (...args: T1) => Awaitable<T2>,

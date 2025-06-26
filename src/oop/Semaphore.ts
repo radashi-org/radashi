@@ -41,6 +41,7 @@ export type SemaphoreAcquireOptions = {
  * constrained resources.
  *
  * @see https://radashi.js.org/reference/oop/Semaphore
+ * @version 12.6.0
  */
 export class Semaphore {
   protected queue: SemaphorePermit[] = []
