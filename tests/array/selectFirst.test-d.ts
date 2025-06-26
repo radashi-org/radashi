@@ -1,24 +1,27 @@
 import * as _ from 'radashi'
 
-describe('selectFirst type test', () => {
-  test('selectFirst without condition', () => {
-    const result = _.selectFirst(
-      [1,2,3],
-      item => item > 1? item : null,
-    )
-    // filters out null and returns number | undefined
-    expectTypeOf(result).toEqualTypeOf<number | undefined>()
-  })
-
+describe('selectFirst types', () => {
   test('selectFirst with condition', () => {
+    const array = [
+      { id: 1, name: 'John' },
+      { id: 2, name: 'Jane' },
+      { id: 3, name: null },
+    ]
     const result = _.selectFirst(
-        [1,2,3],
-        x => x > 1 ? x : null,
-        x => x > 1
+      array,
+      item => item.name,
+      item => item.name !== null,
     )
-    // Because of condition null is allowed
-    expectTypeOf(result).toEqualTypeOf<number | null | undefined>()
+    // No way for TypeScript to infer that the result can't be null
+    expectTypeOf(result).toEqualTypeOf<string | null | undefined>()
   })
-
-  test
+  test('selectFirst without condition', () => {
+    const array = [
+      { id: 1, name: 'John' },
+      { id: 2, name: 'Jane' },
+      { id: 3, name: null },
+    ]
+    const result = _.selectFirst(array, item => item.name)
+    expectTypeOf(result).toEqualTypeOf<string | undefined>()
+  })
 })
