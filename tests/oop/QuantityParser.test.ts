@@ -43,3 +43,13 @@ describe('QuantityParser', () => {
     )
   })
 })
+
+test('parseQuantity', () => {
+  expect(
+    _.parseQuantity('3 miles', {
+      units: {
+        mile: 1,
+      },
+    }),
+  ).toBe(3)
+})

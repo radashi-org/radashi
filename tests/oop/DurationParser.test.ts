@@ -7,7 +7,7 @@ const hour = 60 * minute
 const day = 24 * hour
 const week = 7 * day
 
-describe('QuantityParser', () => {
+describe('DurationParser', () => {
   test('parse a duration string', () => {
     const parser = new _.DurationParser()
 
@@ -83,4 +83,8 @@ describe('QuantityParser', () => {
       '[Error: Invalid unit: decade, makes sure it is one of: week, day, hour, minute, second, millisecond]',
     )
   })
+})
+
+test('parseDuration', () => {
+  expect(_.parseDuration('3 hours')).toBe(3 * hour)
 })
