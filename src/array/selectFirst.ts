@@ -18,6 +18,17 @@
 export function selectFirst<T, U>(
   array: readonly T[],
   mapper: (item: T, index: number) => U,
+  condition: (item: T, index: number) => boolean,
+): U | undefined
+
+export function selectFirst<T, U>(
+  array: readonly T[],
+  mapper: (item: T, index: number) => U | null | undefined,
+): U | undefined
+
+export function selectFirst<T, U>(
+  array: readonly T[],
+  mapper: (item: T, index: number) => U,
   condition?: (item: T, index: number) => boolean,
 ): U | undefined {
   if (!array) {
