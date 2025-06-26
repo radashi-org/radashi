@@ -13,7 +13,7 @@ import { isString } from 'radashi'
  * ```
  * @version 12.2.0
  */
-export function isIntString(value: any): boolean {
+export function isIntString(value: any): value is `${number}` {
   if (!isString(value)) {
     return false
   }
