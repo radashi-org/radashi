@@ -117,6 +117,7 @@ export * from './string/template.ts'
 export * from './string/title.ts'
 export * from './string/trim.ts'
 
+export * from './typed/assert.ts'
 export * from './typed/isArray.ts'
 export * from './typed/isAsyncIterable.ts'
 export * from './typed/isBigInt.ts'
