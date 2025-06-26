@@ -10,6 +10,7 @@
   <a href="https://biomejs.dev/"><img src="https://img.shields.io/badge/estilo_de_código-biome.js-blue?logo=biome" alt="Estilo de Código: Biome.js" /></a>
   <a href="https://github.com/radashi-org/radashi/discussions"><img src="https://img.shields.io/github/discussions/radashi-org/radashi?logo=github" alt="Discussões no GitHub" /></a>
   <a href="https://app.gitter.im/#/room/#radashi:gitter.im"><img src="https://badges.gitter.im/join_chat.svg" alt="Gitter.im" /></a>
+  <a href="https://jsr.io/@radashi-org/radashi"><img src="https://jsr.io/badges/@radashi-org/radashi" alt="JSR.io" /></a>
   <p align="center">
     <a href="./README.md">English</a> | <span>Português</span>
   </p>
@@ -84,13 +85,13 @@ deno add jsr:@radashi-org/radashi
 
 ## FAQ
 
-- **“Preciso de XYZ, mas o Radashi não tem isso.”**  
+- **“Preciso de XYZ, mas o Radashi não tem isso.”**
   Se você precisar de algo que não está no nosso conjunto atual de funções, nos queremos saber. [Inicie uma discussão](https://github.com/orgs/radashi-org/discussions/new?category=ideas) para que possamos explorar a ideia juntos!
 
-- **O que “comunidade em primeiro lugar” significa exatamente?**  
+- **O que “comunidade em primeiro lugar” significa exatamente?**
   Significa colocar as necessidades da comunidade em primeiro lugar, tendendo a adicionar suporte para casos de uso populares, ao invés de ser estritamente minimalista. Portanto, seu feedback é muito bem-vindo e valorizamos sua perspectiva. Especificamente, queremos que você [contribua com seu ponto de vista](https://github.com/orgs/radashi-org/discussions/categories/rfcs?discussions_q=is%3Aopen+category%3ARFCs) nas discussões em nossa categoria de RFCs.
 
-- **Minhas contribuições são bem-vindas?**  
+- **Minhas contribuições são bem-vindas?**
   Sim! Pull requests são encorajados, mas, por favor, mantenha-os pequenos e focados. Mudanças drásticas são desencorajadas e não serão mescladas (a menos que o motivo tenha sido discutido exaustivamente).
 
   Por favor, revise _“O ethos do Radashi”_ antes de enviar um pull request:
@@ -99,23 +100,23 @@ deno add jsr:@radashi-org/radashi
     <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/ethos-button.png" alt="O ethos do Radashi" width="250px" />
   </a>
 
-- **Posso ajudar a manter isso?**  
+- **Posso ajudar a manter isso?**
   Sim! Vou adicioná-lo como colaborador no repositório. Você pode revisar pull requests e até mesmo mesclá-los. Você também pode ajudar a fechar issues. commitar diretamente na branch principal é um privilégio que você pode conquistar, assim como publicar versões no NPM.
 
   <a href="https://github.com/orgs/radashi-org/discussions/4">
     <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/apply-button.png" alt="Candidate-se para fazer parte da equipe Radashi" width="250px" />
   </a>
 
-- **Compatibilidade retroativa é um objetivo?**  
+- **Compatibilidade retroativa é um objetivo?**
   Sim! Queremos que a transição do `radash` para esta biblioteca seja suave. Se você está vindo do Radash, recomendamos instalar `radashi@^12`. Esta versão continuará recebendo correções mesmo após o lançamento do Radashi v13. Você pode atualizar para a versão mais recente quando estiver pronto.
 
-- **Lançamentos automáticos**  
+- **Lançamentos automáticos**
   Para garantir que as contribuições sejam rapidamente disponibilizadas, temos os seguintes processos automáticos:
 
-  - **Lançamentos Beta**  
+  - **Lançamentos Beta**
     Sempre que a branch `main` recebe uma correção ou funcionalidade, uma versão beta é automaticamente publicada no NPM às 2:00AM BRT. Instalar `radashi@beta` sempre buscará a versão beta mais recente. Lançamentos beta são sempre auditados pela equipe Radashi.
 
-  - **Lançamentos de Preview**  
+  - **Lançamentos de Preview**
     Quando o _dono de um PR_ comenta `/publish` (e nada mais), o PR é publicado no NPM sob uma versão como `1.0.0-pr123.f7a9c3b` (ou seja, `<versão mais recente>-pr<número do PR>.<commit SHA>`) e uma tag como `pr123`. Isso permite que a comunidade use as mudanças no PR sem esperar que ele seja mesclado.
 
     - ⚠️ **Atenção:** Lançamentos de Preview não são auditados pela equipe Radashi. Sempre verifique as mudanças no PR para garantir que nenhum código malicioso foi introduzido.
