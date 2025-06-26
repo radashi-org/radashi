@@ -8,6 +8,6 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 https://github.com/radashi-org/radashi/pull/407
 
-## New Features
+#### Semaphore
 
-####
+https://github.com/radashi-org/radashi/pull/415

@@ -1,0 +1,115 @@
+---
+title: Semaphore
+description: A synchronization primitive for limiting concurrent usage
+---
+
+### Usage
+
+A semaphore is a synchronization primitive that allows a limited number of concurrent operations to proceed.
+
+```ts
+import { Semaphore } from 'radashi'
+
+const semaphore = new Semaphore(2)
+
+const permit = await semaphore.acquire()
+
+permit.release()
+```
+
+When the semaphore's capacity is reached, subsequent calls to `semaphore.acquire()` will block until a permit is released.
+
+```ts
+import { Semaphore } from 'radashi'
+
+const semaphore = new Semaphore(1)
+
+const permit = await semaphore.acquire() // Acquires the only permit
+
+// This next acquire call will block until the first permit is released
+const blockingAcquire = semaphore.acquire()
+
+// ... later ...
+permit.release() // Releasing the permit allows blockingAcquire to resolve
+```
+
+You can acquire permits with a specific `weight`. The semaphore's capacity is reduced by this weight. If the remaining capacity is less than the requested weight, the acquisition will block.
+
+```ts
+import { Semaphore } from 'radashi'
+
+const semaphore = new Semaphore(4)
+
+// Acquire a permit with weight 2
+const permit = await semaphore.acquire({ weight: 2 })
+
+// Capacity is now 2. Acquiring with weight 1 or 2 is possible.
+await semaphore.acquire({ weight: 1 })
+
+// Acquiring with weight 2 would block now as capacity is only 1.
+```
+
+A permit can only be released once. Subsequent calls to `permit.release()` on the same permit instance will have no effect.
+
+```ts
+import { Semaphore } from 'radashi'
+
+const semaphore = new Semaphore(1)
+const permit = await semaphore.acquire()
+
+permit.release() // Releases the permit
+permit.release() // Has no effect
+```
+
+The semaphore constructor requires a `maxCapacity` of more than 0. Acquiring a permit requires a `weight` of more than 0 and not exceeding the semaphore's `maxCapacity`. Invalid options will result in errors.
+
+```ts
+import { Semaphore } from 'radashi'
+
+// Invalid constructor
+// new Semaphore(0) // Throws Error: maxCapacity must be > 0
+
+const semaphore = new Semaphore(2)
+
+// Invalid acquire options
+// await semaphore.acquire({ weight: 0 }) // Throws Error: weight must be > 0
+// await semaphore.acquire({ weight: 3 }) // Throws Error: weight must be ≤ maxCapacity
+```
+
+You can abort a pending acquisition using an [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) and its signal. If the signal is aborted before the permit is acquired, the acquire promise will reject with an `AbortError`.
+
+```ts
+import { Semaphore } from 'radashi'
+
+const semaphore = new Semaphore(1)
+await semaphore.acquire() // Occupy the only permit
+
+const controller = new AbortController()
+const acquirePromise = semaphore.acquire({ signal: controller.signal })
+
+// Abort the acquisition before it can complete
+controller.abort()
+
+// The acquirePromise will now reject
+await expect(acquirePromise).rejects.toThrow('This operation was aborted')
+```
+
+You can reject all pending and future acquisition requests by calling `semaphore.reject()`. All promises returned by pending and future `acquire` calls will reject with the provided error.
+
+```ts
+import { Semaphore } from 'radashi'
+
+const semaphore = new Semaphore(1)
+await semaphore.acquire() // Occupy the only permit
+
+const acquirePromise = semaphore.acquire() // This will block
+
+const rejectionError = new Error('Operation cancelled')
+semaphore.reject(rejectionError)
+
+// The acquirePromise will now reject with the specified error
+await expect(acquirePromise).rejects.toThrow('Operation cancelled')
+
+// Future acquisition requests will also be rejected
+await expect(() => semaphore.acquire()).rejects.toThrow('Operation cancelled')
+```
