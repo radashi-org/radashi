@@ -6,7 +6,7 @@ import type { Awaitable } from 'radashi'
  * synchronous or asynchronous. The result of each function is passed
  * to the next function. The final result is returned as a `Promise`.
  *
- * @see https://radashi.js.org/reference/async/promiseChain
+ * @see https://radashi.js.org/reference/curry/promiseChain
  * @example
  * ```ts
  * const chained = promiseChain(
