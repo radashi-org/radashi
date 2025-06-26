@@ -1,5 +1,7 @@
 import type { BigInt, BigInt64Array, BigUint64Array } from './bigint'
 
+export type Awaitable<T> = T | PromiseLike<T>
+
 /**
  * Represents values that are considered "falsy" in JavaScript. These
  * values cause the condition in an `if` statement or ternary
