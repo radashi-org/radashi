@@ -1,4 +1,5 @@
 export * from './array/alphabetical.ts'
+export * from './array/arrayEquals.ts'
 export * from './array/boil.ts'
 export * from './array/cartesianProduct.ts'
 export * from './array/castArray.ts'
