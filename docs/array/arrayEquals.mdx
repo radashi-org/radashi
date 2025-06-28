@@ -1,0 +1,31 @@
+---
+title: arrayEquals
+description: Checks if two arrays are equal in length and content
+since: 12.7.0
+---
+
+### Usage
+
+Checks if two arrays are equal in length and content using `Object.is` comparison.
+
+```ts
+import * as _ from 'radashi'
+
+_.arrayEquals([1, 2, 3], [1, 2, 3])
+// => true
+
+_.arrayEquals([1, 2, 3], [1, 2, 4])
+// => false
+
+_.arrayEquals([1, 2], [1, 2, 3])
+// => false
+
+_.arrayEquals([], [])
+// => true
+
+_.arrayEquals([NaN], [NaN])
+// => true (Object.is handles NaN)
+
+_.arrayEquals([0], [-0])
+// => false (Object.is handles +0 and -0)
+```
