@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noSparseArray: */
 import * as _ from 'radashi'
 
 describe('arrayEquals', () => {
@@ -41,5 +42,17 @@ describe('arrayEquals', () => {
   test('handles mixed types', () => {
     expect(_.arrayEquals([1, 'a', null], [1, 'a', null])).toBe(true)
     expect(_.arrayEquals([1, 'a', null], [1, 'a', undefined])).toBe(false)
+  })
+
+  test('handles sparse arrays', () => {
+    const a = [1, , 3] // a[1] is a hole (undefined)
+    const b = [1, undefined, 3]
+    const c = [1, , 3] // another sparse array with a hole at index 1
+
+    expect(_.arrayEquals(a, b)).toBe(true) // holes and undefined are treated the same by Object.is
+    expect(_.arrayEquals(a, c)).toBe(true)
+    expect(_.arrayEquals([,], [undefined])).toBe(true)
+    expect(_.arrayEquals([,], [])).toBe(false)
+    expect(_.arrayEquals([1, , 3], [1, 3])).toBe(false)
   })
 })
