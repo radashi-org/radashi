@@ -5,6 +5,7 @@ import { execa } from 'execa'
 import { green } from 'kleur/colors'
 import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
+import { supabase } from 'radashi-db/supabase.ts'
 import { sift } from 'radashi/array/sift.ts'
 import { dedent } from 'radashi/string/dedent.ts'
 import { glob } from 'tinyglobby'
@@ -88,6 +89,19 @@ export async function publishVersion(args: {
     process.exit(1)
   } catch {
     log(`🟢 Version ${newVersion} is available`)
+  }
+
+  // Check if Supabase database is reachable
+  try {
+    const { error } = await supabase.from('meta').select('id').limit(1)
+    if (error) {
+      log('🚫 Supabase database is not reachable:', error)
+      process.exit(1)
+    }
+    log('🟢 Supabase database is reachable')
+  } catch (error) {
+    log('🚫 Error connecting to Supabase:', error)
+    process.exit(1)
   }
 
   // Find all commits after this tag with a PR number in the message.

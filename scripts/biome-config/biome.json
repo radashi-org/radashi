@@ -1,11 +1,20 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "$schema": "https://next.biomejs.dev/schemas/2.0.0-beta/schema.json",
   "files": {
-    "include": ["**/*.ts", "**/*.json"],
-    "ignore": ["**/coverage/**", "**/dist/**", "**/node_modules/**"]
+    "includes": [
+      "**/*.ts",
+      "**/*.json",
+      "!**/coverage/**",
+      "!**/dist/**",
+      "!**/node_modules/**"
+    ]
   },
-  "organizeImports": {
-    "enabled": false
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "formatter": {
     "enabled": true,
@@ -32,10 +41,6 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
-      "complexity": {
-        "noForEach": "off"
-      },
       "style": {
         "noNonNullAssertion": "off",
         "noParameterAssign": "off",
@@ -49,7 +54,28 @@
           "fix": "none",
           "level": "warn"
         },
-        "useTemplate": "off"
+        "useTemplate": "off",
+        "useLiteralEnumMembers": "error",
+        "noCommaOperator": "error",
+        "useNodejsImportProtocol": "error",
+        "useAsConstAssertion": "error",
+        "useNumericLiterals": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "useExponentiationOperator": "error",
+        "useDefaultParameterLast": "error",
+        "noArguments": "error",
+        "useImportType": "error",
+        "useExportType": "error",
+        "noUselessElse": "error",
+        "useShorthandFunctionType": "error"
+      },
+      "complexity": {
+        "noForEach": "off"
       },
       "suspicious": {
         "noAssignInExpressions": "off",

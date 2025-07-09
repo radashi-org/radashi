@@ -21,5 +21,5 @@ export function first<
 ): TArray extends readonly [infer TFirst, ...any[]]
   ? TFirst
   : TArray[number] | TDefault {
-  return array.length > 0 ? array[0] : defaultValue
+  return array.length > 0 ? array[0] : (defaultValue as any)
 }

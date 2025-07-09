@@ -1,6 +1,6 @@
 {
   "name": "@radashi-org/biome-config",
-  "version": "1.0.2",
+  "version": "2.0.0-beta.1",
   "description": "Shared Biome config for Radashi projects",
   "repository": {
     "url": "git+https://github.com/radashi-org/radashi.git"
@@ -27,7 +27,7 @@
     "linter"
   ],
   "peerDependencies": {
-    "@biomejs/biome": "^1.8.3"
+    "@biomejs/biome": ">=2.0.0-beta.1"
   },
   "trustedDependencies": [
     "@biomejs/biome"

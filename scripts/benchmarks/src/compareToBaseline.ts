@@ -1,6 +1,6 @@
+import fs from 'node:fs/promises'
 import * as esbuild from 'esbuild'
 import { execa } from 'execa'
-import fs from 'node:fs/promises'
 import { dedent } from 'radashi/string/dedent.ts'
 import { Project, SyntaxKind } from 'ts-morph'
 import { normalizeIdentifiers } from './normalizeIdentifiers.ts'

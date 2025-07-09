@@ -20,3 +20,22 @@ const ra = {
 _.mapKeys(ra, key => key.toUpperCase()) // => { MODE, POWER }
 _.mapKeys(ra, (key, value) => value) // => { god: 'god', power: 'power' }
 ```
+
+### Type-safe alternatives
+
+If your goal is to uppercase or lowercase the keys of an object, Radashi provides purpose-built functions for that, called `upperize` and `lowerize`. These functions have better type inference than `mapKeys`.
+
+```ts
+import * as _ from 'radashi'
+
+const ra = {
+  mode: 'god',
+  power: 'sun',
+}
+
+const upperized = _.upperize(ra)
+//    ^? { MODE: string, POWER: string }
+
+const lowerized = _.lowerize(upperized)
+//    ^? { mode: string, power: string }
+```

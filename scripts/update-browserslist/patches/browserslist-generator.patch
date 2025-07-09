@@ -1,0 +1,12 @@
+diff --git a/dist/esm/index.js b/dist/esm/index.js
+index 851e5036b68e3f2c55a982c4fc47ff5e4dafe6a0..589284cec18e9b4cd06021df6dfe874d3dd9dc4f 100644
+--- a/dist/esm/index.js
++++ b/dist/esm/index.js
+@@ -1,6 +1,6 @@
+ import Browserslist from 'browserslist';
+ import { feature, features } from 'caniuse-lite';
+-import * as compatData from '@mdn/browser-compat-data' assert { type: 'json' };
++import compatData from '@mdn/browser-compat-data' with { type: 'json' };
+ import objectPath from 'object-path';
+ import { coerce, lt, gt, gte, lte } from 'semver';
+ import { UAParser } from 'ua-parser-js';

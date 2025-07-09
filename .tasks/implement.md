@@ -11,7 +11,7 @@ This is a guide for implementing a new feature or function in Radashi.
 
 ## Steps
 
-1. First, ask if this is a breaking change. In other words, are you changing the behavior of existing code in a way that will break existing tests or documentation?
+1. First, ask yourself if this is a breaking change. In other words, are you changing the behavior of existing code in a way that will break existing tests or documentation? Your answer will inform future steps.
 
 2. If this is a new function, run this command:
 

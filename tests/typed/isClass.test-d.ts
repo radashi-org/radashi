@@ -1,5 +1,5 @@
-import type { Class } from 'radashi'
 import * as _ from 'radashi'
+import type { Class } from 'radashi'
 import { expectTypeOf } from 'vitest'
 
 declare class Person {

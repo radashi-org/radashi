@@ -1,5 +1,4 @@
-import { isFunction } from 'radashi'
-import { TimeoutError } from './TimeoutError'
+import { isFunction, TimeoutError } from 'radashi'
 
 declare const setTimeout: (fn: () => void, ms: number) => unknown
 

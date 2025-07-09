@@ -1,0 +1,95 @@
+---
+title: queueByKey
+description: Queues async function calls by key to ensure sequential execution per key
+since: 12.6.0
+---
+
+### Usage
+
+Wraps an asynchronous function to ensure that calls with the same key are queued and executed sequentially, while calls with different keys can run in parallel. This is useful for preventing race conditions when operations must not overlap for the same logical group (like user ID or resource ID).
+
+```ts
+import * as _ from 'radashi'
+
+const updateUser = async (userId: string, data: object) => {
+  // Simulate API call that shouldn't overlap for the same user
+  const response = await fetch(`/api/users/${userId}`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+  return response.json()
+}
+
+const queuedUpdate = _.queueByKey(updateUser, userId => userId)
+
+// These will run sequentially for user123
+queuedUpdate('user123', { name: 'Alice' })
+queuedUpdate('user123', { age: 30 })
+
+// This runs in parallel with user123's queue
+queuedUpdate('user456', { name: 'Bob' })
+```
+
+### Key Features
+
+- **Sequential per key**: Operations with the same key execute one after another
+- **Parallel across keys**: Operations with different keys run concurrently
+- **Error handling**: Errors are properly propagated and don't break the queue
+- **Memory efficient**: Queues are automatically cleaned up when empty
+- **Type safe**: Full TypeScript support with generic types
+
+### Advanced Example
+
+```ts
+import * as _ from 'radashi'
+
+// Database operations that must be serialized per table
+const dbOperation = async (table: string, operation: string, data: any) => {
+  console.log(`Starting ${operation} on ${table}`)
+  await new Promise(resolve => setTimeout(resolve, 100)) // Simulate work
+  console.log(`Completed ${operation} on ${table}`)
+  return { table, operation, data }
+}
+
+// Queue by table name to prevent concurrent operations on same table
+const queuedDbOp = _.queueByKey(
+  dbOperation,
+  table => table, // Key function extracts table name
+)
+
+// These operations on 'users' table will run sequentially
+queuedDbOp('users', 'insert', { name: 'Alice' })
+queuedDbOp('users', 'update', { id: 1, name: 'Bob' })
+queuedDbOp('users', 'delete', { id: 2 })
+
+// These operations on 'orders' table run in parallel with 'users' operations
+queuedDbOp('orders', 'insert', { userId: 1, total: 100 })
+queuedDbOp('orders', 'update', { id: 1, status: 'shipped' })
+```
+
+### Error Handling
+
+Errors from the wrapped function are properly propagated to the caller, and the queue continues processing subsequent calls:
+
+```ts
+import * as _ from 'radashi'
+
+const riskyOperation = async (id: string, shouldFail: boolean) => {
+  if (shouldFail) {
+    throw new Error(`Operation failed for ${id}`)
+  }
+  return `Success for ${id}`
+}
+
+const queuedRiskyOp = _.queueByKey(riskyOperation, id => id)
+
+try {
+  await queuedRiskyOp('user1', true) // This will throw
+} catch (error) {
+  console.log(error.message) // "Operation failed for user1"
+}
+
+// Queue continues normally
+const result = await queuedRiskyOp('user1', false)
+console.log(result) // "Success for user1"
+```

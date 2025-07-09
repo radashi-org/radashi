@@ -1,4 +1,4 @@
-import { isFunction, type Class, type StrictExtract } from 'radashi'
+import { type Class, isFunction, type StrictExtract } from 'radashi'
 
 /**
  * Checks if the given value is a class. This function verifies

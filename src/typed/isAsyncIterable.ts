@@ -2,7 +2,7 @@
 // polyfills do (e.g. @azure/core-asynciterator-polyfill).
 const asyncIteratorSymbol: symbol =
   /* c8 ignore next */ (Symbol as any).asyncIterator ||
-  Symbol.for('Symbol.asyncIterator')
+  /* @__PURE__ */ Symbol.for('Symbol.asyncIterator')
 
 // @ts-ignore: Assume "lib.es2018.asynciterable" is included.
 type AsyncIterable = globalThis.AsyncIterable<unknown>

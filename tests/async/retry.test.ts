@@ -1,7 +1,7 @@
 // cSpell:ignore backoffs
 
-import type { RetryOptions } from 'radashi'
 import * as _ from 'radashi'
+import type { RetryOptions } from 'radashi'
 
 const cast = <T = RetryOptions>(value: any): T => value
 

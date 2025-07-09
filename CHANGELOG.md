@@ -5,6 +5,70 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.6.0] - 2025-06-26
+### Details
+#### <!-- 03 -->Added
+
+- Add `assert` function by [@aleclarson](https://github.com/aleclarson) in [#403](https://github.com/radashi-org/radashi/pull/403)
+
+- Add `escapeHTML` function by [@aleclarson](https://github.com/aleclarson) in [#401](https://github.com/radashi-org/radashi/pull/401)
+
+- Add `queueByKey` function by [@aleclarson](https://github.com/aleclarson) in [#407](https://github.com/radashi-org/radashi/pull/407)
+
+- Add `Semaphore` class by [@aleclarson](https://github.com/aleclarson) in [#415](https://github.com/radashi-org/radashi/pull/415)
+
+- Add `parseDuration` and `parseQuantity` functions by [@aleclarson](https://github.com/aleclarson) in [#416](https://github.com/radashi-org/radashi/pull/416)
+
+- Add `promiseChain` function by [@iiison](https://github.com/iiison) in [#402](https://github.com/radashi-org/radashi/pull/402)
+
+
+#### <!-- 05 -->Changed
+
+- **(group)** Pass array index to callback by [@aleclarson](https://github.com/aleclarson) in [6d66395](https://github.com/radashi-org/radashi/commit/6d66395d3e36194e01d95684b1c7815b093e5c09)
+
+#### <!-- 06 -->Fixed
+
+- **(selectFirst)** Filter out null from return type when no condition is given by [@Alimedhat000](https://github.com/Alimedhat000) in [#413](https://github.com/radashi-org/radashi/pull/413)
+
+- **(isIntString)** Prevent incorrect type narrowing by [@lislon](https://github.com/lislon) in [#412](https://github.com/radashi-org/radashi/pull/412)
+
+
+### New Contributors
+* [@iiison](https://github.com/iiison) made their first contribution in [#402](https://github.com/radashi-org/radashi/pull/402)
+* [@lislon](https://github.com/lislon) made their first contribution in [#412](https://github.com/radashi-org/radashi/pull/412)
+* [@Alimedhat000](https://github.com/Alimedhat000) made their first contribution in [#413](https://github.com/radashi-org/radashi/pull/413)
+## [radashi@12.5.1] - 2025-05-23
+### Details
+#### <!-- 06 -->Fixed
+
+- **(set)** Avoid mutating nested objects without first cloning them by [@aleclarson](https://github.com/aleclarson) in [fc3c7c9](https://github.com/radashi-org/radashi/commit/fc3c7c91b6c864febad70528e0c39b2177b89adb)
+- **(set)** Prevent prototype pollution by [@aleclarson](https://github.com/aleclarson) in [8147abc](https://github.com/radashi-org/radashi/commit/8147abc8cfc3cfe9b9a17cd389076a5d97235a66)
+
+## [radashi@12.5.0] - 2025-05-15
+### Details
+#### <!-- 03 -->Added
+
+- Add `pluck` function by [@nusohiro](https://github.com/nusohiro) in [#376](https://github.com/radashi-org/radashi/pull/376)
+
+- Add `concat` function by [@aleclarson](https://github.com/aleclarson) in [#388](https://github.com/radashi-org/radashi/pull/388)
+
+
+#### <!-- 05 -->Changed
+
+- **(cluster)** Use tuple types for common size constants by [@fResult](https://github.com/fResult) in [#389](https://github.com/radashi-org/radashi/pull/389)
+
+
+#### <!-- 06 -->Fixed
+
+- **(mapify)** Pass the actual array index to callbacks by [@Yukiniro](https://github.com/Yukiniro) in [#384](https://github.com/radashi-org/radashi/pull/384)
+
+- **(cluster)** Avoid infinite loop when size is `0` by [@fResult](https://github.com/fResult) in [#397](https://github.com/radashi-org/radashi/pull/397)
+
+
+#### <!-- 08 -->Types
+
+- Handle object types in CompatibleProperty by [@aleclarson](https://github.com/aleclarson) in [7f72da3](https://github.com/radashi-org/radashi/commit/7f72da3933854623eef444a15a8289feb2f0583a)
+
 ## [radashi@12.4.0] - 2025-03-16
 ### Details
 #### <!-- 03 -->Added
@@ -24,8 +88,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `reduce` accumulator type when no initial value is given by [@aleclarson](https://github.com/aleclarson) in [7a14bf6](https://github.com/radashi-org/radashi/commit/7a14bf6c069c07b7c4700cb7568acbb0aa699ca8)
 
-### New Contributors
-* [@nusohiro](https://github.com/nusohiro) made their first contribution in [#344](https://github.com/radashi-org/radashi/pull/344)
 ## [radashi@12.3.4] - 2025-01-26
 ### Details
 #### <!-- 06 -->Fixed
@@ -280,6 +342,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * [@cimbraien](https://github.com/cimbraien) made their first contribution in [#58](https://github.com/radashi-org/radashi/pull/58)
 * [@cdreeves](https://github.com/cdreeves) made their first contribution in [#37](https://github.com/radashi-org/radashi/pull/37)
 * [@localusercamp](https://github.com/localusercamp) made their first contribution in [#33](https://github.com/radashi-org/radashi/pull/33)
+
+[radashi@12.6.0]: https://github.com/radashi-org/radashi/compare/v12.5.1..v12.6.0
+
+[radashi@12.5.1]: https://github.com/radashi-org/radashi/compare/v12.5.0..v12.5.1
+
+[radashi@12.5.0]: https://github.com/radashi-org/radashi/compare/v12.4.0..v12.5.0
 
 [radashi@12.4.0]: https://github.com/radashi-org/radashi/compare/v12.3.4..v12.4.0
 

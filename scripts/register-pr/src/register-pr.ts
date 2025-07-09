@@ -1,7 +1,7 @@
 import path from 'node:path'
+import { memo } from 'radashi/curry/memo.ts'
 import { algolia } from 'radashi-db/algolia.ts'
 import { supabase, type TablesInsert } from 'radashi-db/supabase.ts'
-import { memo } from 'radashi/curry/memo.ts'
 import { renderPageMarkdown } from './markdown.ts'
 
 type PrFileStatus =

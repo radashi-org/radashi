@@ -1,6 +1,6 @@
+import fs from 'node:fs/promises'
 import { Octokit } from '@octokit/rest'
 import { verifyEnvVars } from '@radashi-org/common/verifyEnvVars.ts'
-import fs from 'node:fs/promises'
 import { registerPullRequest } from './register-pr.ts'
 
 main().catch(console.error)

@@ -1,5 +1,5 @@
-import type { KeyFilter } from 'radashi'
 import * as _ from 'radashi'
+import type { KeyFilter } from 'radashi'
 
 describe('filterKey', () => {
   test('accepts an array of keys', () => {

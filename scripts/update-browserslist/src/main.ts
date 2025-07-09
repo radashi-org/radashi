@@ -1,7 +1,7 @@
+import fs from 'node:fs'
 import { browsersWithSupportForEcmaVersion } from 'browserslist-generator'
 import { dequal } from 'dequal'
 import { execa } from 'execa'
-import fs from 'node:fs'
 
 main().catch(console.error)
 
