@@ -1,0 +1,74 @@
+---
+title: promiseMemo
+description: Memoize an asynchronous function.
+since: 13.0.0
+---
+
+### Usage
+
+Memoize an asynchronous function, so that it only runs when a promise does not exist for the given arguments. If a promise is rejected, it will be removed from the cache.
+
+```ts
+import * as _ from 'radashi'
+
+const calls = []
+
+const getData = _.promiseMemo(async param => {
+  calls.push(param)
+
+  return new Promise(resolve => resolve(param))
+})
+
+const val1 = await getData(1)
+const val2 = await getData(2)
+const val3 = await getData(1)
+
+console.log(calls) // [1, 2]
+```
+
+### Expiration
+
+The `ttl` option can be used to specify a time-to-live for the memoized value. If you call the memoized function after the TTL has expired, it will run the function again.
+
+Even after the TTL has expired, the cached promise will remain in memory until you call the function again. This is a side effect of using a timestamp, rather than a timeout, to track the expiration.
+
+```ts
+import * as _ from 'radashi'
+
+const calls = []
+
+const getData = _.promiseMemo(
+  async param => {
+    calls.push(param)
+
+    return new Promise(resolve => resolve(param))
+  },
+  {
+    ttl: 1000,
+  },
+)
+
+const val1 = await getData(1)
+const val2 = await getData(2)
+
+await _.sleep(2000)
+
+const val3 = await getData(1)
+
+console.log(calls) // [1, 2, 1]
+```
+
+### Key Function
+
+Use the `key` option to customize how the cache key is generated from the arguments. By default, `JSON.stringify` is used on the whole arguments array.
+
+```ts
+const memoized = _.promiseMemo(func, {
+  key: arg => arg.user.id,
+})
+
+const resultA = await memoized({ user: { id: 'Alpha' } })
+const resultA2 = await memoized({ user: { id: 'Alpha' } })
+
+resultA === resultA2 // true
+```
