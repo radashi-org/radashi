@@ -1,64 +1,11 @@
-declare const setTimeout: (fn: () => void, ms: number) => number
-
-type ArgsOf<Func> = Func extends (...args: infer Arg) => any ? Arg : never
-type ResultOf<Func> = Func extends (...args: any[]) => infer R ? R : never
-type CacheValue<T> = {
-  promise: Promise<T>
-  timestamp: number
-}
-type Cache<K, T> = Map<K, CacheValue<T>>
-type AsyncFunc<TArgs extends any[] = any[], TResult = any> = (
-  ...args: TArgs
-) => Promise<TResult>
-
-export interface Options<Func extends AsyncFunc, Key = unknown> {
-  key?: ((...args: ArgsOf<Func>) => Key) | null
-  ttl?: number | null
-}
-
-function memoize<Func extends AsyncFunc, Key>(
-  cache: Cache<Key, ResultOf<Func>>,
-  func: Func,
-  keyFunc: ((...args: ArgsOf<Func>) => Key) | null,
-  ttl: number | null,
-) {
-  return function callWithMemo(...args: any): Promise<ResultOf<Func>> {
-    const now = Date.now()
-
-    // Clean expired entries before doing anything,
-    // so we don't return stale values.
-    if (ttl !== null) {
-      for (const [key, value] of cache) {
-        if (now - value.timestamp > ttl) {
-          cache.delete(key)
-        }
-      }
-    }
-
-    const key = keyFunc ? keyFunc(...args) : (JSON.stringify(args[0]) as Key)
-    const cached = cache.get(key)
-
-    if (cached !== undefined) {
-      return cached.promise
-    }
-
-    const promise = func(...args)
-
-    cache.set(key, { promise, timestamp: Date.now() })
-
-    promise.catch(() => {
-      cache.delete(key)
-    })
-
-    return promise
-  }
-}
+import type { Memoized, MemoOptions } from 'radashi'
 
 /**
- * Creates an async memoized function. The returned function will only
- * execute the source function when no value has previously been computed.
- * If a ttl value(milliseconds) is given previously computed values will
- * be checked for expiration before being returned.
+ * Creates a memoized function for async operations. This function caches results
+ * to avoid redundant executions of expensive async operations. The source function
+ * only runs when no cached result exists for the given arguments. When a TTL
+ * (time-to-live in milliseconds) is specified, cached results will expire after
+ * the designated time period, triggering a fresh execution on subsequent calls.
  *
  * @see https://radashi.js.org/reference/async/promiseMemo
  * @example
@@ -87,17 +34,39 @@ function memoize<Func extends AsyncFunc, Key>(
  *
  * // calls array
  * console.log(calls) // [1]
- *
  * ```
- * @version@12.1.0
+ * @version 13.0.0
  */
-export function promiseMemo<Func extends AsyncFunc, Key = unknown>(
-  func: Func,
-  options: Options<Func, Key> = {},
-): (...args: ArgsOf<Func>) => Promise<ResultOf<Func>> {
-  const cache: Cache<Key, ResultOf<Func>> = new Map()
-  const ttl: Options<Func, Key>['ttl'] = options.ttl ?? null
-  const keyFunc: Options<Func, Key>['key'] = options.key ?? null
+export function promiseMemo<TFunc extends (...args: any[]) => Promise<any>>(
+  func: TFunc,
+  options: MemoOptions<TFunc> = {},
+): Memoized<TFunc> {
+  const { key: keyFunc, ttl, cache = {} } = options
 
-  return memoize<Func, Key>(cache, func, keyFunc, ttl)
+  return function callWithMemo(...args) {
+    const key = keyFunc ? keyFunc(...args) : JSON.stringify({ args })
+    const existing = cache[key]
+
+    if (existing !== undefined) {
+      if (!existing.exp) {
+        return existing.value
+      }
+      if (existing.exp > new Date().getTime()) {
+        return existing.value
+      }
+    }
+
+    const promise = func(...args) as ReturnType<TFunc>
+
+    cache[key] = {
+      exp: ttl ? new Date().getTime() + ttl : null,
+      value: promise,
+    }
+
+    promise.catch(() => {
+      delete cache[key]
+    })
+
+    return promise
+  }
 }
