@@ -6,8 +6,7 @@ declare const clearTimeout: (timer: unknown) => void
 export interface DebounceFunction<TArgs extends any[] = any> {
   (...args: TArgs): void
   /**
-   * When called, future invocations of the debounced function are
-   * no longer delayed and are instead executed immediately.
+   * Prevent the scheduled call from happening, if any.
    */
   cancel(): void
   /**
