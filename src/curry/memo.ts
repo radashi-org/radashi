@@ -36,7 +36,7 @@ export interface MemoOptions<TFunc extends (...args: any[]) => any> {
  */
 export function memo<TFunc extends (...args: any[]) => any>(
   func: TFunc,
-  options: MemoOptions<TFunc> = {},
+  options: MemoOptions<NoInfer<TFunc>> = {},
 ): Memoized<TFunc> {
   const { key: keyFunc, ttl, cache = {} } = options
 
