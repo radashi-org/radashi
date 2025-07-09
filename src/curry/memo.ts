@@ -1,5 +1,11 @@
+export type MemoCache<T> = Record<string, { exp: number | null; value: T }>
+
+export type Memoized<TFunc extends (...args: any[]) => any> = (
+  ...args: Parameters<TFunc>
+) => ReturnType<TFunc>
+
 export interface MemoOptions<TFunc extends (...args: any[]) => any> {
-  cache?: Record<string, { exp: number | null; value: ReturnType<TFunc> }>
+  cache?: MemoCache<ReturnType<TFunc>>
   key?: (...args: Parameters<TFunc>) => string
   ttl?: number
 }
@@ -53,8 +59,3 @@ export function memo<TFunc extends (...args: any[]) => any>(
     return result
   } as Memoized<TFunc>
 }
-
-export type Memoized<Fn extends (...args: any[]) => any> =
-  ReturnType<Fn> extends infer Result
-    ? (...args: Parameters<Fn>) => Result
-    : never
