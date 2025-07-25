@@ -1,3 +1,11 @@
+export function sort<T extends readonly [...any[]]>(
+  array: T,
+  getter: (item: T[number]) => number,
+  desc?: boolean,
+): T extends readonly [...infer Items]
+  ? { [K in keyof Items]: T[number] }
+  : never
+
 /**
  * Sort an array without modifying it and return the newly sorted
  * value.
