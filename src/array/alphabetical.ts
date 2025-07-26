@@ -12,5 +12,5 @@ export function alphabetical<T>(
 ): T[] {
   const asc = (a: T, b: T) => `${getter(a)}`.localeCompare(getter(b))
   const dsc = (a: T, b: T) => `${getter(b)}`.localeCompare(getter(a))
-  return array.slice().sort(direction === 'desc' ? dsc : asc)
+  return array.toSorted(direction === 'desc' ? dsc : asc)
 }

@@ -7,7 +7,7 @@
     "moduleResolution": "node",
     "outDir": "../dist/tmp",
     "target": "esnext",
-    "lib": ["es2020", "es2021.promise"],
+    "lib": ["es2023"],
     "esModuleInterop": true,
     "module": "esnext",
     "skipLibCheck": true,

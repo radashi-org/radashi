@@ -14,7 +14,7 @@
   "license": "MIT",
   "packageManager": "pnpm@9.15.0",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=20.0.0"
   },
   "main": "dist/radashi.cjs",
   "module": "dist/radashi.js",

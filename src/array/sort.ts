@@ -23,5 +23,5 @@ export function sort<T>(
 ): T[] {
   const asc = (a: T, b: T) => getter(a) - getter(b)
   const dsc = (a: T, b: T) => getter(b) - getter(a)
-  return array.slice().sort(desc === true ? dsc : asc)
+  return array.toSorted(desc === true ? dsc : asc)
 }
