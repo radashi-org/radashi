@@ -1,20 +1,26 @@
 ---
 title: cloneDeep
 description: Create a deep copy of an object or array
+since: 12.2.0
 ---
 
 ### Usage
 
-Deeply clone the given object or array. The only nested objects that get cloned by default are: plain objects, arrays, `Map` instances, and `Set` instances.
+Deeply clone the given object or array. The only nested objects that get cloned by default are: plain objects, non-native class instances, arrays, `Map` instances, and `Set` instances.
 
 The default behavior aims to support the most popular use cases. See “Customized cloning” below if you need more control.
 
-By default, non-enumerable properties and computed properties are copied losslessly. Note that you can opt out of this behavior if you need better performance (see “Faster cloning” below).
+By default, non-enumerable properties and computed properties are copied lossless-ly. Note that you can opt out of this behavior if you need better performance (see “Faster cloning” below).
 
 ```ts
 import * as _ from 'radashi'
 
-_.cloneDeep()
+const obj = { a: 1, b: { c: 2 } }
+const clone = _.cloneDeep(obj)
+// => { a: 1, b: { c: 2 } }
+
+console.log('clone !== obj', clone !== obj)
+console.log('clone.b !== obj.b', clone.b !== obj.b)
 ```
 
 ### Faster cloning

@@ -1,7 +1,5 @@
 import * as _ from 'radashi'
 
-const cast = (value: any) => value as unknown[]
-
 describe('last', () => {
   test('returns last item in list', () => {
     const list = [
@@ -16,9 +14,5 @@ describe('last', () => {
     const list = [] as string[]
     const result = _.last(list, 'yolo')
     expect(result).toBe('yolo')
-  })
-  test('gracefully handles null input list', () => {
-    const result = _.last(cast(null))
-    expect(result).toBeUndefined()
   })
 })

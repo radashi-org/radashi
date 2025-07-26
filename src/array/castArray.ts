@@ -3,7 +3,7 @@
  * array, a shallow copy is returned. Otherwise, a new array
  * containing the value is returned.
  *
- * @see https://radashi-org.github.io/reference/array/castArray
+ * @see https://radashi.js.org/reference/array/castArray
  * @example
  * ```ts
  * castArray(1) // => [1]
@@ -11,6 +11,7 @@
  * castArray(null) // => [null]
  * castArray(undefined) // => [undefined]
  * ```
+ * @version 12.2.0
  */
 export function castArray<T>(value: T): CastArray<T>
 export function castArray(value: unknown): unknown {
@@ -20,7 +21,7 @@ export function castArray(value: unknown): unknown {
 /**
  * The return type of the {@link castArray} function.
  *
- * @see https://radashi-org.github.io/reference/array/castArray
+ * @see https://radashi.js.org/reference/array/castArray
  */
 export type CastArray<T> = [T] extends [never]
   ? never[]

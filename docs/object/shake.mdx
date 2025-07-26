@@ -1,21 +1,40 @@
 ---
 title: shake
 description: Remove unwanted values from an object
+since: 12.1.0
 ---
 
 ### Usage
 
-A bit like `_.sift` but for objects. By default, it will return a new object with all the undefined attributes removed. You can pass a second function argument to remove any attributes by a custom condition.
+Returns a new object without the properties that are `undefined`. Note that non-enumerable keys are never shaken out.
 
 ```ts
 import * as _ from 'radashi'
 
-const ra = {
-  mode: 'god',
-  greek: false,
-  limit: undefined,
-}
+const options = _.shake({
+  mode: 'party',
+  volume: undefined,
+  dancing: false,
+  snacks: null,
+})
+// => { mode: 'party', dancing: false, snacks: null }
+```
 
-_.shake(ra) // => { mode, greek }
-_.shake(ra, a => !a) // => { mode }
+#### Custom Condition
+
+If you pass a function as the second argument, only the properties that return `false` will be included in the result.
+
+```ts
+import * as _ from 'radashi'
+
+const options = _.shake(
+  {
+    mode: 'party',
+    volume: undefined,
+    dancing: false,
+    snacks: null,
+  },
+  value => !value,
+)
+// => { mode: 'party' }
 ```

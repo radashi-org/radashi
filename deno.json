@@ -7,11 +7,5 @@
   },
   "publish": {
     "include": ["src", "LICENSE.md", "README.md"]
-  },
-  "lint": {
-    "include": ["src"],
-    "rules": {
-      "tags": ["jsr"]
-    }
   }
 }

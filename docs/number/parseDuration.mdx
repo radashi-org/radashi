@@ -1,0 +1,62 @@
+---
+title: parseDuration
+description: Parses a duration string into milliseconds
+since: 12.6.0
+---
+
+### Usage
+
+Parse a human-readable duration string (like "1 hour", "2 seconds") into milliseconds.
+
+```ts
+import * as _ from 'radashi'
+
+_.parseDuration('1 second') // => 1_000
+_.parseDuration('1h') // => 3_600_000
+_.parseDuration('1 hour') // => 3_600_000
+_.parseDuration('1.5 hours') // => 5_400_000
+_.parseDuration('-1h') // => -3_600_000
+```
+
+You may use the `DurationParser` class instead, which is more efficient for repeated parsing.
+
+```ts
+import { DurationParser } from 'radashi'
+
+const parser = new DurationParser()
+
+parser.parse('1 hour') // => 3_600_000
+parser.parse('1ms') // => 1
+parser.parse('1.5 hours') // => 5_400_000
+```
+
+The units supported by default are:
+
+- `millisecond` (alias: `ms`)
+- `second` (alias: `s`)
+- `minute` (alias: `m`)
+- `hour` (alias: `h`)
+- `day` (alias: `d`)
+- `week` (alias: `w`)
+
+Years and months are not supported by default, because both vary in length (e.g. leap years, not all months have 30 days). See the next section for how to add custom units.
+
+### Custom units
+
+You may pass additional units to the `parseDuration` function.
+
+```ts
+import * as _ from 'radashi'
+
+const customUnits = {
+  units: {
+    month: 30 * 24 * 60 * 60 * 1000,
+  },
+  short: {
+    mo: 'month',
+  },
+} as const
+
+_.parseDuration('1 month', customUnits)
+// => 2_592_000_000
+```

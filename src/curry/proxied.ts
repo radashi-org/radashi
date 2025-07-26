@@ -2,12 +2,13 @@
  * Creates a Proxy object that will dynamically call the handler
  * argument when attributes are accessed.
  *
- * @see https://radashi-org.github.io/reference/curry/proxied
+ * @see https://radashi.js.org/reference/curry/proxied
  * @example
  * ```ts
  * const proxy = proxied(propertyName => propertyName.toUpperCase())
  * proxy.foo // => "FOO"
  * ```
+ * @version 12.1.0
  */
 export function proxied<T, K>(
   handler: (propertyName: T) => K,

@@ -1,0 +1,61 @@
+name: Register PR In Database
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, reopened, synchronize, closed]
+
+jobs:
+  register-pr:
+    if: github.event.pull_request.user.login != 'renovate[bot]'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+
+      - name: Checkout Pull Request
+        id: checkout
+        env:
+          PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          node scripts/run checkout-pr src docs
+
+          if [ -n "$(git status --porcelain src | grep '^A')" ]; then
+            echo '::set-output name=has_new_func::true'
+          else
+            echo '::set-output name=has_new_func::false'
+          fi
+
+      - name: Wait for other checks to finish
+        if: steps.checkout.outputs.has_new_func == 'true'
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          running-workflow-name: 'register-pr'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          allowed-conclusions: success,skipped,failure,timed_out,cancelled
+
+      - name: Install Node.js
+        if: steps.checkout.outputs.has_new_func == 'true'
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+
+      - name: Register PR
+        if: steps.checkout.outputs.has_new_func == 'true'
+        env:
+          ALGOLIA_KEY: ${{ secrets.ALGOLIA_KEY }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST: ${{ toJson(github.event.pull_request) }}
+        run: |
+          node scripts/run register-pr

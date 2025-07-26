@@ -3,7 +3,7 @@ import { isArray, isPlainObject } from 'radashi'
 /**
  * Get a string list of all key names that exist in an object (deep).
  *
- * @see https://radashi-org.github.io/reference/object/keys
+ * @see https://radashi.js.org/reference/object/keys
  * @example
  * ```ts
  * keys({ name: 'ra' }) // ['name']
@@ -11,11 +11,9 @@ import { isArray, isPlainObject } from 'radashi'
  * keys({ name: 'ra', children: [{ name: 'hathor' }] })
  * // ['name', 'children.0.name']
  * ```
+ * @version 12.1.0
  */
 export function keys(value: object): string[] {
-  if (!value) {
-    return []
-  }
   const keys: string[] = []
   const keyPath: (string | number)[] = []
   const recurse = (value: any) => {

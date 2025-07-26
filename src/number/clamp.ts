@@ -9,13 +9,14 @@
  *   maximum.
  * - Otherwise, it returns the number itself.
  *
- * @see https://radashi-org.github.io/reference/number/clamp
+ * @see https://radashi.js.org/reference/number/clamp
  * @example
  * ```ts
  * clamp(5, 1, 10) // returns 5
  * clamp(0, 1, 10) // returns 1
  * clamp(15, 1, 10) // returns 10
  * ```
+ * @version 12.2.0
  */
 export function clamp(
   n: number,

@@ -1,13 +1,13 @@
 ---
 title: cluster
-description: Split a list into many lists of the given size
+description: Divides an array into many arrays of the given size
+since: 12.1.0
 ---
 
 ### Usage
 
-Given an array of items and a desired cluster size (`n`), returns an array
-of arrays. Each child array containing `n` (cluster size) items
-split as evenly as possible.
+Takes an array and divides it into many arrays of the given size. The last
+array may be smaller than the given size, if not enough items are left.
 
 ```ts
 import * as _ from 'radashi'
@@ -32,4 +32,31 @@ _.cluster(gods, 3)
 //   ['Thor', 'Apollo', 'Artemis'],
 //   ['Athena']
 // ]
+```
+
+### Type Inference
+
+The `cluster` function provides precise type inference for common cluster sizes (1-8):
+
+```ts
+// With explicit size parameter
+const result1 = _.cluster(['a', 'b', 'c'], 1)
+//    ^? [string][]
+
+const result2 = _.cluster(['a', 'b', 'c', 'd'], 2)
+//    ^? [string, string][]
+
+const result3 = _.cluster(['a', 'b', 'c', 'd', 'e', 'f'], 3)
+//    ^? [string, string, string][]
+
+// Using default size parameter (2)
+const defaultSize = _.cluster(['a', 'b', 'c', 'd'])
+//    ^? [string, string][]
+
+// For sizes > 8, falls back to string[][]
+const largeSize = _.cluster(['a', 'b', 'c', 'd'], 10)
+//    ^? string[][]
+
+const veryLargeSize = _.cluster(['a', 'b', 'c', 'd'], 10000)
+//    ^? string[][]
 ```

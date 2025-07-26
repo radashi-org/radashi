@@ -24,7 +24,7 @@ import {
  * negative number means the “left value” is greater than the “right
  * value”, and 0 means both values are equal.
  *
- * @see https://radashi-org.github.io/reference/function/castComparator
+ * @see https://radashi.js.org/reference/function/castComparator
  * @example
  * ```ts
  * const compareUserNames = castComparator(
@@ -41,6 +41,7 @@ import {
  * users.sort(compareUserNames)
  * // => [Doe, Jane, John]
  * ```
+ * @version 12.2.0
  */
 // Support property name:
 //     castComparator('name')
@@ -102,7 +103,7 @@ export function castComparator(
  * A value that describes how a comparator maps the input values to a
  * comparable value.
  *
- * @see https://radashi-org.github.io/reference/function/castComparator
+ * @see https://radashi.js.org/reference/function/castComparator
  */
 export type ComparatorMapping<
   T = any,

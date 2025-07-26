@@ -1,16 +1,12 @@
-const onceSymbol: unique symbol = Symbol()
-
 /**
  * The type of a function wrapped with `once`.
+ * @version 12.2.0
  */
-export interface OnceFunction<
+export type OnceFunction<
   Args extends unknown[] = unknown[],
   Return = unknown,
   This = unknown,
-> {
-  (this: This, ...args: Args): Return
-  [onceSymbol]?: Return | typeof onceSymbol
-}
+> = (this: This, ...args: Args) => Return
 
 /**
  * Create a function that runs at most once, no matter how many times
@@ -20,7 +16,7 @@ export interface OnceFunction<
  * To allow your `once`-wrapped function to be called again, see the
  * `once.reset` function.
  *
- * @see https://radashi-org.github.io/reference/curry/once
+ * @see https://radashi.js.org/reference/curry/once
  * @example
  * ```ts
  * const fn = once(() => Math.random())
@@ -28,7 +24,31 @@ export interface OnceFunction<
  * fn() // 0.5
  * ```
  */
-export const once: {
+export const once: Once = /* @__PURE__ */ (() => {
+  const onceSymbol: unique symbol = Symbol()
+
+  const once: Once = fn => {
+    const onceFn = function (...args: any) {
+      if (onceFn[onceSymbol] === onceSymbol) {
+        onceFn[onceSymbol] = fn.apply(this as any, args)
+      }
+      return onceFn[onceSymbol]
+    } as OnceFunction & {
+      [onceSymbol]?: any
+    }
+
+    onceFn[onceSymbol] = onceSymbol
+    return onceFn as typeof fn
+  }
+
+  once.reset = (fn: OnceFunction & { [onceSymbol]?: any }): void => {
+    fn[onceSymbol] = onceSymbol
+  }
+
+  return once
+})()
+
+type Once = {
   <Args extends unknown[], Return, This = unknown>(
     fn: (this: This, ...args: Args) => Return,
   ): (this: This, ...args: Args) => Return
@@ -47,17 +67,4 @@ export const once: {
    * ```
    */
   reset(fn: OnceFunction): void
-} = fn => {
-  const onceFn = function (...args: any) {
-    if (onceFn[onceSymbol] === onceSymbol) {
-      onceFn[onceSymbol] = fn.apply(this as any, args)
-    }
-    return onceFn[onceSymbol]
-  } as OnceFunction
-  onceFn[onceSymbol] = onceSymbol
-  return onceFn as typeof fn
-}
-
-once.reset = (fn: OnceFunction): void => {
-  fn[onceSymbol] = onceSymbol
 }

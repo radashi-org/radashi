@@ -1,16 +1,29 @@
 ---
 title: isPromise
-description: 'Determine if a value is a Promise'
+description: 'Determine if a value is a Promise or has a `then` method'
+since: 12.1.0
 ---
 
 ### Usage
 
-Pass in a value and get a boolean telling you if the value is a Promise. This function is not _"bullet proof"_ because determining if a value is a Promise in javascript is not _"bullet proof"_. The standard/recommended method is to use `Promise.resolve` to essentially cast any value, promise or not, into an awaited value. However, this may do in a pinch.
+The `isPromise` function checks if a value is "Promise-like" by determining if it has a `then` method.
 
 ```ts
 import * as _ from 'radashi'
 
+_.isPromise({ then: () => {} }) // => true
+_.isPromise(new Promise(() => {})) // => true
+_.isPromise(Promise.resolve(1)) // => true
+_.isPromise(Promise.reject(new Error('nope'))) // => true
+
 _.isPromise('hello') // => false
-_.isPromise(['hello']) // => false
-_.isPromise(new Promise(res => res())) // => true
+_.isPromise({}) // => false
 ```
+
+This approach is useful for identifying objects that conform to the Promise interface without actually being instances of `Promise`. It's particularly helpful in scenarios where:
+
+1. You need to quickly check if a value is thenable without resolving it.
+2. Performance is critical, and you want to avoid the overhead of `Promise.resolve`.
+3. You're working with custom Promise implementations or third-party libraries that use Promise-like objects.
+
+While `Promise.resolve` is generally recommended for handling both Promise and non-Promise values uniformly, `isPromise` can be preferable when you need to make decisions based on whether a value is Promise-like without actually resolving or chaining it. This can be especially useful in type-checking scenarios or when implementing control flow that depends on whether a value is immediately available or needs to be awaited.

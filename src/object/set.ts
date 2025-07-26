@@ -1,42 +1,43 @@
-import { clone, isIntString } from 'radashi'
+import { clone, isDangerousKey, isIntString } from 'radashi'
 
 /**
  * Opposite of get, dynamically set a nested value into an object
  * using a key path. Does not modify the given initial object.
  *
- * @see https://radashi-org.github.io/reference/object/set
+ * @see https://radashi.js.org/reference/object/set
  * @example
  * ```ts
  * set({}, 'name', 'ra') // => { name: 'ra' }
  * set({}, 'cards[0].value', 2) // => { cards: [{ value: 2 }] }
  * ```
+ * @version 12.1.0
  */
 export function set<T extends object, K>(
   initial: T,
   path: string,
   value: K,
 ): T {
-  if (!initial) {
-    return {} as T
-  }
-  if (!path || value === undefined) {
+  if (value === undefined || path.length === 0) {
     return initial
   }
+  return (function recurse(object: any, keys: string[], index: number) {
+    const key = keys[index]
 
-  // NOTE: One day, when structuredClone has more compatability use it
-  // to clone the value
-  // https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
-  const root: any = clone(initial)
-  const keys = path.match(/[^.[\]]+/g)
-  if (keys) {
-    keys.reduce(
-      (object, key, i) =>
-        i < keys.length - 1
-          ? (object[key] ??= isIntString(keys[i + 1]) ? [] : {})
-          : (object[key] = value),
-      root,
-    )
-  }
+    object ??= isIntString(key) ? [] : {}
 
-  return root
+    if (isDangerousKey(key, object)) {
+      throw new Error('Unsafe key in path: ' + key)
+    }
+
+    if (index < keys.length - 1) {
+      value = recurse(object[key], keys, index + 1)
+    }
+
+    if (!Object.is(object[key], value)) {
+      object = clone(object)
+      object[key] = value
+    }
+
+    return object
+  })(initial, path.match(/[^.[\]]+/g)!, 0)
 }

@@ -1,3 +1,5 @@
+// cSpell:ignore partialed
+
 import * as _ from 'radashi'
 
 describe('partial', () => {

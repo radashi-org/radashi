@@ -2,7 +2,7 @@
  * An async map function. Works like the built-in Array.map function
  * but handles an async mapper function.
  *
- * @see https://radashi-org.github.io/reference/async/map
+ * @see https://radashi.js.org/reference/async/map
  * @example
  * ```ts
  * const urls = ['/data1', '/data2', '/data3']
@@ -11,14 +11,12 @@
  *   return response.json()
  * })
  * ```
+ * @version 12.1.0
  */
 export async function map<T, K>(
   array: readonly T[],
-  asyncMapFunc: (item: T, index: number) => Promise<K>,
+  asyncMapFunc: (item: T, index: number) => PromiseLike<K>,
 ): Promise<K[]> {
-  if (!array) {
-    return []
-  }
   const result = []
   let index = 0
   for (const value of array) {

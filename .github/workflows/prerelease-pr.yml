@@ -1,0 +1,31 @@
+name: Prerelease PR
+
+on:
+  pull_request_target:
+    types: [labeled]
+
+jobs:
+  prerelease:
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'prerelease') && github.event.pull_request.state == 'open' && github.event.pull_request.draft == false && github.event.pull_request.mergeable_state == 'clean' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: '22.x'
+          cache: pnpm
+
+      - name: Merge PR into target branch
+        continue-on-error: true
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          node scripts/run prerelease-pr

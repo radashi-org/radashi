@@ -1,6 +1,7 @@
 ---
 title: chain
 description: Create a chain of function to run in order
+since: 12.1.0
 ---
 
 ### Usage
@@ -11,9 +12,9 @@ Chaining functions will cause them to execute one after another, passing the out
 import * as _ from 'radashi'
 
 const add = (y: number) => (x: number) => x + y
-const mult = (y: number) => (x: number) => x * y
+const multiply = (y: number) => (x: number) => x * y
 const addFive = add(5)
-const double = mult(2)
+const double = multiply(2)
 
 const chained = _.chain(addFive, double)
 
@@ -37,7 +38,7 @@ const gods: Deity[] = [
   { rank: 9, name: 'Loki' },
 ]
 
-const getName = (god: Deity) => item.name
+const getName = (god: Deity) => god.name
 const upperCase = (text: string) => text.toUpperCase() as Uppercase<string>
 
 const getUpperName = _.chain(getName, upperCase)

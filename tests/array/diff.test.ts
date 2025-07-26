@@ -1,20 +1,6 @@
 import * as _ from 'radashi'
 
-const cast = <T = unknown[]>(value: any): T => value
-
 describe('diff', () => {
-  test('handles null root', () => {
-    const result = _.diff(cast(null), ['a'])
-    expect(result).toEqual(['a'])
-  })
-  test('handles null other', () => {
-    const result = _.diff(['a'], cast(null))
-    expect(result).toEqual(['a'])
-  })
-  test('handles null inputs', () => {
-    const result = _.diff(cast(null), cast(null))
-    expect(result).toEqual([])
-  })
   test('handles empty array root', () => {
     const result = _.diff([], ['a'])
     expect(result).toEqual([])
@@ -23,7 +9,7 @@ describe('diff', () => {
     const result = _.diff(['a'], [])
     expect(result).toEqual(['a'])
   })
-  test('returns all items from root that dont exist in other', () => {
+  test(`returns all items from root that don't exist in other`, () => {
     const result = _.diff(['a', 'b', 'c'], ['c', 'd', 'e'])
     expect(result).toEqual(['a', 'b'])
   })

@@ -4,7 +4,7 @@ import { isSymbol } from 'radashi'
  * Combines `Number.parseFloat` with NaN handling. By default, a zero
  * (0) is returned in place of NaN.
  *
- * @see https://radashi-org.github.io/reference/number/toFloat
+ * @see https://radashi.js.org/reference/number/toFloat
  * @example
  * ```ts
  * toFloat("1.23") // => 1.23
@@ -12,6 +12,7 @@ import { isSymbol } from 'radashi'
  * toFloat("1.23px", 1) // => 1.23
  * toFloat("foo", 1) // => 1
  * ```
+ * @version 12.1.0
  */
 export function toFloat(value: unknown): number
 

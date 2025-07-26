@@ -4,7 +4,7 @@ import { isFunction } from 'radashi'
  * Creates a generator that will produce an iteration through the
  * range of number as requested.
  *
- * @see https://radashi-org.github.io/reference/array/range
+ * @see https://radashi.js.org/reference/array/range
  * @example
  * ```ts
  * range(3)                  // yields 0, 1, 2, 3
@@ -16,6 +16,7 @@ import { isFunction } from 'radashi'
  * range(0, 3, obj)          // yields obj, obj, obj, obj
  * range(0, 6, i => i, 2)    // yields 0, 2, 4, 6
  * ```
+ * @version 12.1.0
  */
 export function* range<T = number>(
   startOrLength: number,
@@ -28,8 +29,5 @@ export function* range<T = number>(
   const final = end ?? startOrLength
   for (let i = start; i <= final; i += step) {
     yield mapper(i)
-    if (i + step > final) {
-      break
-    }
   }
 }

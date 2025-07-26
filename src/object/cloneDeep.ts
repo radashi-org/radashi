@@ -13,6 +13,7 @@ import { isArray, isMap, isObject, isSet } from 'radashi'
  *
  * Methods may return null to indicate that the default cloning logic
  * should be used.
+ * @version 12.2.0
  */
 export interface CloningStrategy {
   cloneMap: <K, V>(
@@ -42,7 +43,7 @@ export interface CloningStrategy {
   ) => T | null
 }
 
-export const DefaultCloningStrategy = {
+export const DefaultCloningStrategy: CloningStrategy = {
   cloneMap<K, V>(
     input: Map<K, V>,
     track: (newParent: Map<K, V>) => Map<K, V>,
@@ -122,9 +123,9 @@ export const FastCloningStrategy = {
  * Clone the given object and possibly other objects nested inside.
  *
  * By default, the only objects that get cloned are plain objects,
- * class instances, arrays, `Set` instances, and `Map` instances. If
- * an object is not cloned, any objects nested inside are also not
- * cloned.
+ * non-native class instances, arrays, `Set` instances, and `Map`
+ * instances. If an object is not cloned, any objects nested inside
+ * are also not cloned.
  *
  * You may define a custom cloning strategy by passing a partial
  * implementation of the `CloningStrategy` interface to the

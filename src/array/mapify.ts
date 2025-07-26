@@ -1,7 +1,7 @@
 /**
  * Create a new `Map` instance from an array.
  *
- * @see https://radashi-org.github.io/reference/array/mapify
+ * @see https://radashi.js.org/reference/array/mapify
  * @example
  * ```ts
  * const array = [
@@ -16,6 +16,7 @@
  * )
  * // Map(2) { 1 => 'Fred', 2 => 'Annie' }
  * ```
+ * @version 12.2.0
  */
 export function mapify<T, Key, Value = T>(
   array: readonly T[],
@@ -24,8 +25,8 @@ export function mapify<T, Key, Value = T>(
     item as unknown as Value,
 ): Map<Key, Value> {
   const map: Map<Key, Value> = new Map()
-  for (const item of array) {
-    map.set(getKey(item, map.size), getValue(item, map.size))
+  for (const [index, item] of array.entries()) {
+    map.set(getKey(item, index), getValue(item, index))
   }
   return map
 }

@@ -8,7 +8,7 @@ import { isTagged } from 'radashi'
  *
  * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms
  *
- * @see https://radashi-org.github.io/reference/typed/isObject
+ * @see https://radashi.js.org/reference/typed/isObject
  * @example
  * ```ts
  * isObject({}) // true
@@ -22,6 +22,7 @@ import { isTagged } from 'radashi'
  * isObject(new Map()) // false
  * isObject(new Set()) // false
  * ```
+ * @version 12.1.0
  */
 export function isObject(value: unknown): value is object {
   return isTagged(value, '[object Object]')

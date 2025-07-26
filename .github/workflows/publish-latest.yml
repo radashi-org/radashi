@@ -1,0 +1,34 @@
+name: Publish radashi@latest
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish-latest:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Publish Latest
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: '22.x'
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm build
+
+      - name: Publish
+        env:
+          GIT_CLIFF_PAT: ${{ secrets.GIT_CLIFF_PAT }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        run: |
+          node scripts/run publish-version --latest

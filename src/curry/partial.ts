@@ -9,6 +9,7 @@
  * type T = RemoveItemsInFront<[File, number, string], [File, number]>
  * // [string]
  * ```
+ * @version 12.1.0
  */
 type RemoveItemsInFront<
   TItems extends any[],
@@ -19,7 +20,7 @@ type RemoveItemsInFront<
  * Create a partial function by providing some (or all) of the
  * arguments the given function needs.
  *
- * @see https://radashi-org.github.io/reference/curry/partial
+ * @see https://radashi.js.org/reference/curry/partial
  * @example
  * ```ts
  * const add = (a: number, b: number) => a + b

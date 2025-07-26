@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('template', () => {
   bench('with valid input', () => {
@@ -10,8 +9,8 @@ describe('template', () => {
   Thank You - {{name}}
 `
     const data = {
-      name: 'Spongebob',
-      type: 'squarepants',
+      name: 'SpongeBob',
+      type: 'squarePants',
       reason: 'so likeable',
     }
 

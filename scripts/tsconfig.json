@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "moduleResolution": "bundler",
+    "outDir": "../dist/tmp",
+    "target": "esnext",
+    "lib": ["es2020"],
+    "esModuleInterop": true,
+    "module": "esnext",
+    "skipLibCheck": true,
+    "strict": true
+  }
+}

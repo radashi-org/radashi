@@ -7,13 +7,14 @@ import { isTagged } from 'radashi'
  *
  * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms
  *
- * @see https://radashi-org.github.io/reference/typed/isWeakSet
+ * @see https://radashi.js.org/reference/typed/isWeakSet
  * @example
  *
  * ```ts
  * isWeakSet(new WeakSet()) // => true
  * isWeakSet(new Set()) // => false
  * ```
+ * @version 12.2.0
  */
 export function isWeakSet<T extends WeakKey = WeakKey>(
   value: unknown,

@@ -1,0 +1,44 @@
+name: Benchmark Pull Request
+
+on:
+  pull_request_target:
+    branches: [main, next]
+    paths:
+      - 'src/**/*.ts'
+
+jobs:
+  benchmark:
+    name: Run Benchmarks
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+
+      - name: Checkout Pull Request
+        id: checkout
+        env:
+          PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          node scripts/run checkout-pr src benchmarks
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo '::set-output name=has_changes::false'
+          else
+            echo '::set-output name=has_changes::true'
+          fi
+
+      - name: Run benchmarks
+        if: steps.checkout.outputs.has_changes == 'true'
+        env:
+          RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
+        run: |
+          node scripts/run bench-pr ${{ github.base_ref }} ${{ github.event.number }} ${{ github.event.pull_request.head.repo.html_url }}/blob/${{ github.event.pull_request.head.sha }}

@@ -1,0 +1,54 @@
+version: '0.2'
+language: en
+ignorePaths:
+  - '**/package.json'
+  - '**/tsconfig.json'
+  - '**/pnpm-lock.yaml'
+  - '**/dist'
+  - 'vitest.config.ts'
+  - 'coverage'
+  - 'cliff.toml'
+  - 'README-pt_br.md'
+languageSettings:
+  - languageId: markdown
+    ignoreRegExpList:
+      - '/@[\w-]+/' # ignore github handles
+    dictionaries:
+      - typescript # ignore typescript-y words in markdown
+  - languageId: typescript
+    ignoreRegExpList:
+      - "/ from '.+'/" # ignore import targets
+words:
+  - Astro
+  - automagically
+  - backported
+  - browserslist
+  - codecov
+  - curlopt
+  - dedented
+  - deno
+  - dequal
+  - esbuild
+  - execa
+  - exobase
+  - gitter
+  - kleur
+  - lerp
+  - listify
+  - lowerize
+  - mapify
+  - nums
+  - objectize
+  - partob
+  - ponyfill
+  - Português
+  - procs
+  - radash
+  - radashi
+  - smidge
+  - supabase
+  - tryit
+  - upperize
+  - upserting
+  - urlencode
+  - vitest

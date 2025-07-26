@@ -1,9 +1,7 @@
-import { isPrimitive } from 'radashi'
-
 /**
  * Creates a shallow copy of the given object/value.
  *
- * @see https://radashi-org.github.io/reference/object/clone
+ * @see https://radashi.js.org/reference/object/clone
  * @example
  * ```ts
  * const original = { a: 1, b: { c: 3 } }
@@ -14,18 +12,9 @@ import { isPrimitive } from 'radashi'
  * original.b === cloned.b
  * // => true
  * ```
+ * @version 12.1.0
  */
-export function clone<T>(obj: T): T {
-  // Primitive values do not need cloning.
-  if (isPrimitive(obj)) {
-    return obj
-  }
-
-  // Binding a function to an empty object creates a copy function.
-  if (typeof obj === 'function') {
-    return obj.bind({})
-  }
-
+export function clone<T extends object>(obj: T): T {
   const proto = Object.getPrototypeOf(obj)
   const newObj =
     typeof proto?.constructor === 'function'

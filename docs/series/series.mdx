@@ -1,11 +1,12 @@
 ---
 title: series
 description: Create an ordered series object
+since: 12.1.0
 ---
 
 ### Usage
 
-Sometimes you have an enum or union type, possibly a status, that has inherint order and you need to work with values as though they're ordered. The `series` function takes many values and returns an object that let's you do ordered logic on those values.
+The series function allows you to work with ordered values from an enum or union type, such as a status, by returning an object for performing ordered logic.
 
 ```ts
 import * as _ from 'radashi'
@@ -31,9 +32,9 @@ weekdays.next('friday', weekdays.first()) // => 'monday'
 weekdays.spin('monday', 3) // => 'thursday'
 ```
 
-## Complex Data Types
+### Complex Data Types
 
-When working with objects you'll want to provide a second argument to `series`, a function that converts non-primitive values into an identity that can be checked for equality.
+For objects, pass a second argument to `series`: a function that converts non-primitive values into an identity that can be checked for equality.
 
 ```ts
 import * as _ from 'radashi'

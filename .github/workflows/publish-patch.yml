@@ -1,0 +1,38 @@
+name: Publish patch
+
+on:
+  workflow_run:
+    workflows: ['Check main branch']
+    types:
+      - completed
+
+jobs:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: Publish
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: '22.x'
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm build
+
+      - name: Publish
+        env:
+          GIT_CLIFF_PAT: ${{ secrets.GIT_CLIFF_PAT }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          NIGHTLY_DEPLOY_KEY: ${{ secrets.NIGHTLY_DEPLOY_KEY }}
+        run: |
+          node scripts/run publish-version --patch

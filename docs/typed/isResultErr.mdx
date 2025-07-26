@@ -1,0 +1,22 @@
+---
+title: isResultErr
+description: Returns true for failed Result tuple
+since: 12.2.0
+---
+
+### Usage
+
+Check if a value is both a `Result` tuple and an `Err` result.
+
+```ts
+import * as _ from 'radashi'
+
+declare const value: unknown
+
+if (_.isResultErr(value)) {
+  value // <-- now an Err<Error> type
+  value[0] // <-- This is the error!
+}
+```
+
+Also see the related [isResult](/typed/isResult) and [isResultOk](/typed/isResultOk) functions.

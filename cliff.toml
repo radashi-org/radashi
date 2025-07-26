@@ -21,16 +21,22 @@ body = """
   https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
 {%- endmacro -%}
 
-{% if version -%}
-    ## [radashi@{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
-{% else -%}
-    ## [radashi@beta]
+{% if get_env(name="STRIP_TAG") != "true" -%}
+    {% if version -%}
+        ## [radashi@{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+    {% else -%}
+        ## [radashi@beta]
+    {% endif -%}
+
+    ### Details\
 {% endif -%}
 
-### Details\
-
 {% for group, commits in commits | group_by(attribute="group") %}
-    #### {{ group | upper_first }}
+    {% if get_env(name="STRIP_TAG") == "true" -%}
+        ### {{ group | upper_first }}
+    {% else -%}
+        #### {{ group | upper_first }}
+    {% endif -%}
     {%- for commit in commits %}
         - {% if commit.scope %}**({{ commit.scope }})** {% endif %}{{ commit.message | upper_first | trim }}\
             {% if commit.github.username %} by [@{{ commit.github.username }}](https://github.com/{{ commit.github.username }}){%- endif -%}

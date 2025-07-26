@@ -1,0 +1,18 @@
+---
+title: isError
+description: 'Determine if a value is an Error'
+since: 12.2.0
+---
+
+### Usage
+
+This function returns `true` if the input is an instance of the `Error` class or any of its subclasses.
+
+```ts
+import * as _ from 'radashi'
+
+_.isError(new Error()) // => true
+_.isError(new TypeError()) // => true
+_.isError('An error occurred') // => false
+_.isError({ message: 'Error' }) // => false
+```

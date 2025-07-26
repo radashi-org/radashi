@@ -1,14 +1,6 @@
 import * as _ from 'radashi'
 
-const cast = <T = any[]>(value: any): T => value
-
 describe('toggle', () => {
-  test('should handle null input list', () => {
-    let result = _.toggle(cast(null), 'a')
-    expect(result).toEqual(['a'])
-    result = _.toggle(cast(null), undefined)
-    expect(result).toEqual([])
-  })
   test('should skip undefined item', () => {
     const result = _.toggle(['a'], undefined)
     expect(result).toEqual(['a'])
@@ -43,5 +35,14 @@ describe('toggle', () => {
     expect(_.toggle([1, 0, 2], 0)).toEqual([1, 2])
 
     expect(_.toggle([1, 2], null)).toEqual([1, 2, null])
+  })
+  test('should use idx=-1 for item', () => {
+    const toKey = vi.fn(v => v)
+
+    expect(_.toggle(['a', 'b'], 'c', toKey)).toEqual(['a', 'b', 'c'])
+
+    expect(toKey).toBeCalledWith('c', -1)
+    expect(toKey).toBeCalledWith('a', 0)
+    expect(toKey).toBeCalledWith('b', 1)
   })
 })

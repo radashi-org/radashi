@@ -2,31 +2,21 @@
   "include": ["src/**/*.ts"],
   "compilerOptions": {
     "allowImportingTsExtensions": true,
+    "exactOptionalPropertyTypes": true,
     "moduleResolution": "node",
     "outDir": "./dist/tmp",
     "noEmitOnError": true,
     "declaration": true,
     "emitDeclarationOnly": true,
     "isolatedDeclarations": true,
-    "target": "esnext",
-    "lib": ["es2020"],
+    "target": "es2017",
+    "lib": ["es2017"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
     "types": [],
     "paths": {
-      "radashi": [
-        "./src/mod",
-        "./src/array/*",
-        "./src/async/*",
-        "./src/curry/*",
-        "./src/number/*",
-        "./src/object/*",
-        "./src/random/*",
-        "./src/series/*",
-        "./src/string/*",
-        "./src/typed/*"
-      ]
+      "radashi": ["./src/mod.ts"]
     }
   }
 }

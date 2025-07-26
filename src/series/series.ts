@@ -14,7 +14,7 @@ export interface Series<T> {
  * Creates a series object around a list of values that should be
  * treated with order.
  *
- * @see https://radashi-org.github.io/reference/series/series
+ * @see https://radashi.js.org/reference/series/series
  * @example
  * ```ts
  * const numbers = series([1, 2, 3])
@@ -26,6 +26,7 @@ export interface Series<T> {
  * numbers.spin(2, 1) // => 3
  * numbers.spin(2, -1) // => 1
  * ```
+ * @version 12.1.0
  */
 export const series = <T>(
   items: readonly T[],

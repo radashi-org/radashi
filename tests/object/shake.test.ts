@@ -31,8 +31,4 @@ describe('shake', () => {
       r: 'x',
     })
   })
-  test('handles undefined input', () => {
-    const result = _.shake(undefined!)
-    expect(result).toEqual({})
-  })
 })

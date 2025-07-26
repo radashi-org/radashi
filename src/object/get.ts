@@ -2,7 +2,7 @@
  * Dynamically get a nested value from an array or object with a
  * string.
  *
- * @see https://radashi-org.github.io/reference/object/get
+ * @see https://radashi.js.org/reference/object/get
  * @example
  * ```ts
  * const person = {
@@ -13,6 +13,7 @@
  * get(person, 'friends[0].name')
  * // => 'Jane'
  * ```
+ * @version 12.1.0
  */
 export function get<TDefault = unknown>(
   value: any,
@@ -28,11 +29,11 @@ export function get<TDefault = unknown>(
     if (current === undefined) {
       return defaultValue as TDefault
     }
-    const dequoted = key.replace(/['"]/g, '')
-    if (dequoted.trim() === '') {
+    const unquotedKey = key.replace(/['"]/g, '')
+    if (unquotedKey.trim() === '') {
       continue
     }
-    current = current[dequoted]
+    current = current[unquotedKey]
   }
   if (current === undefined) {
     return defaultValue as TDefault

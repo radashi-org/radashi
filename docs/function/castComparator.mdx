@@ -1,6 +1,7 @@
 ---
 title: castComparator
 description: Cast a value into a comparator function
+since: 12.2.0
 ---
 
 ### Usage
@@ -13,7 +14,7 @@ The first argument of `castComparator` is called the `mapping`. This can be eith
 - **Property Name**: If `mapping` is a property name, it maps the input values to a property of the input values with a comparable value.
 
 ```ts
-import * as _ from 'radash'
+import * as _ from 'radashi'
 
 const users = [
   { id: 1, firstName: 'Alice', lastName: 'Smith' },

@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('sum', () => {
   bench('with list of numbers', () => {

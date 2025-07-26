@@ -1,17 +1,18 @@
 {
   "name": "radashi",
-  "version": "12.1.0",
+  "version": "12.2.0",
   "type": "module",
-  "description": "Functional utility library - modern, simple, typed, powerful",
+  "description": "The modern, community-first TypeScript toolkit with all of the fast, readable, and minimal utility functions you need. Type-safe, dependency-free, tree-shakeable, fully tested.",
   "repository": {
     "url": "git+https://github.com/radashi-org/radashi.git"
   },
+  "homepage": "https://radashi.js.org",
   "author": "Alec Larson",
   "contributors": [
     "Ray Epps"
   ],
   "license": "MIT",
-  "packageManager": "pnpm@9.1.3",
+  "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=16.0.0"
   },
@@ -30,38 +31,55 @@
     "dist"
   ],
   "scripts": {
-    "add-function": "bash ./scripts/add-function.sh",
-    "move-function": "bash ./scripts/move-function.sh",
+    "add-function": "radashi fn create",
     "bench": "vitest bench",
     "build": "tsup --clean",
+    "bundle-impact": "node scripts/run bundle-impact",
     "dev": "tsup --clean --watch --sourcemap",
-    "format": "bash ./scripts/format.sh",
-    "lint": "concurrently -c=auto -g --kill-others-on-fail 'npm:lint:*'",
-    "lint:biome": "biome check ./src ./tests ./benchmarks",
-    "lint:jsr": "pnpm -s dlx deno-bin@1.44.4 lint",
-    "lint:tsc": "concurrently -c=auto -g --kill-others-on-fail --names src,tests,benchmarks 'tsc' 'tsc -p tests' 'tsc -p benchmarks'",
-    "prepublishOnly": "tsc && biome check --fix && pnpm -s build",
+    "format": "node scripts/run format",
+    "lint": "node scripts/run lint",
+    "move-function": "radashi fn move",
     "test": "vitest run --coverage",
-    "test-branch": "bash ./scripts/test-branch.sh",
-    "test-single": "bash ./scripts/test-single.sh",
-    "bundle-impact": "bash ./scripts/weigh-changed.sh"
+    "test-branch": "node scripts/run test-branch",
+    "test-single": "node scripts/run test-single",
+    "update-browserslist": "node scripts/run update-browserslist"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.3",
-    "@codspeed/vitest-plugin": "^3.1.0",
-    "@vitest/coverage-v8": "1.6.0",
-    "concurrently": "^8.2.2",
+    "@biomejs/biome": "2.0.0-beta.1",
+    "@radashi-org/biome-config": "link:scripts/biome-config",
+    "@types/node": "^22.7.7",
+    "@vitest/coverage-v8": "2.1.5",
+    "cspell": "8.15.4",
     "prettier": "^3.3.2",
     "prettier-plugin-pkg": "^0.18.1",
     "prettier-plugin-sh": "^0.14.0",
+    "radashi-helper": "^0.1.11",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
-    "vitest": "1.6.0"
+    "vitest": "2.1.9"
   },
   "sideEffects": false,
-  "pnpm": {
-    "patchedDependencies": {
-      "@codspeed/vitest-plugin@3.1.0": "patches/@codspeed__vitest-plugin@3.1.0.patch"
-    }
-  }
+  "browserslist": [
+    "and_chr >= 57",
+    "chrome >= 57",
+    "and_ff >= 52",
+    "android >= 133",
+    "edge >= 15",
+    "samsung >= 7.4",
+    "safari >= 10.1",
+    "ios_saf >= 10.3",
+    "opera >= 44",
+    "firefox >= 52",
+    "unreleased and_chr versions",
+    "unreleased chrome versions",
+    "unreleased and_ff versions",
+    "unreleased android versions",
+    "unreleased edge versions",
+    "unreleased samsung versions",
+    "unreleased safari versions",
+    "unreleased ios_saf versions",
+    "unreleased opera versions",
+    "unreleased firefox versions",
+    "node >= 16"
+  ]
 }

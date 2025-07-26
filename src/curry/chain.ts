@@ -3,7 +3,7 @@
  * functions are called in order. Each function takes the result of
  * the previous function as its first argument.
  *
- * @see https://radashi-org.github.io/reference/curry/chain
+ * @see https://radashi.js.org/reference/curry/chain
  * @example
  * ```ts
  * const myChainedFunc = chain(
@@ -14,6 +14,7 @@
  * myChainedFunc(0)
  * // => 10
  * ```
+ * @version 12.1.0
  */
 export function chain<T1 extends any[], T2, T3>(
   f1: (...arg: T1) => T2,

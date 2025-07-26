@@ -1,6 +1,7 @@
 ---
 title: compose
 description: Create a composition of functions
+since: 12.1.0
 ---
 
 ### Usage
@@ -29,7 +30,7 @@ const composed = _.compose(
 composed() // => 2
 ```
 
-This can be a little jarring if you haven't seen it before. Here's a broken down composition. It's equivelent to the code above.
+This can be a little jarring if you haven't seen it before. Here's a broken down composition. It's equivalent to the code above.
 
 ```ts
 const decomposed = useZero(objectize(increment(increment(_.returnArg('num')))))

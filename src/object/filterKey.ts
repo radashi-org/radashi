@@ -12,6 +12,7 @@ export type KeyFilterFunction<T extends object = object> = (
 /**
  * Functions can use this type to accept either an array of keys or a
  * filter function.
+ * @version 12.2.0
  */
 export type KeyFilter<
   T extends object = object,
@@ -33,7 +34,7 @@ export type FilteredKeys<
  * in a flexible manner. Using it directly in everyday code is not
  * recommended.
  *
- * @see https://radashi-org.github.io/reference/object/filterKey
+ * @see https://radashi.js.org/reference/object/filterKey
  * @example
  * ```ts
  * const a = { a: 1, b: 2, c: 3 }
@@ -61,7 +62,7 @@ export function filterKey(
   filter: KeyFilter | null | undefined,
 ): boolean {
   return (
-    Object.hasOwnProperty.call(obj, key) &&
+    Object.prototype.hasOwnProperty.call(obj, key) &&
     (filter == null ||
       (isArray(filter)
         ? filter.includes(key)

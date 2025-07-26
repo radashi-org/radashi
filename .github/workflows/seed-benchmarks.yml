@@ -1,0 +1,21 @@
+name: Seed Benchmarks
+
+on:
+  workflow_dispatch:
+
+jobs:
+  seed-benchmarks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: pnpm
+
+      - name: Run benchmarks and seed database
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          node scripts/run seed-benchmarks

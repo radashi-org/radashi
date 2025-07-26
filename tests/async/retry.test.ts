@@ -1,3 +1,5 @@
+// cSpell:ignore backoffs
+
 import * as _ from 'radashi'
 import type { RetryOptions } from 'radashi'
 
@@ -33,10 +35,10 @@ describe('retry', () => {
   test('quits on bail', async () => {
     try {
       await _.retry({}, async bail => {
-        bail('iquit')
+        bail('i quit')
       })
     } catch (err) {
-      expect(err).toBe('iquit')
+      expect(err).toBe('i quit')
       return
     }
     expect.fail('error should have been thrown')
@@ -44,10 +46,10 @@ describe('retry', () => {
   test('quits after max retries', async () => {
     try {
       await _.retry({}, async () => {
-        throw 'quitagain'
+        throw 'quit again'
       })
     } catch (err) {
-      expect(err).toBe('quitagain')
+      expect(err).toBe('quit again')
       return
     }
     expect.fail('error should have been thrown')
@@ -55,11 +57,11 @@ describe('retry', () => {
   test('quits after max retries without delay', async () => {
     try {
       const func = async () => {
-        throw 'quitagain'
+        throw 'quit again'
       }
       await _.retry({ times: 3 }, func)
     } catch (err) {
-      expect(err).toBe('quitagain')
+      expect(err).toBe('quit again')
       return
     }
     expect.fail('error should have been thrown')
@@ -67,13 +69,13 @@ describe('retry', () => {
   test('quits after max retries with delay', async () => {
     try {
       const func = async () => {
-        throw 'quitagain'
+        throw 'quit again'
       }
       const promise = _.retry({ delay: 1000, times: 2 }, func)
       vi.advanceTimersByTimeAsync(1000)
       await promise
     } catch (err) {
-      expect(err).toBe('quitagain')
+      expect(err).toBe('quit again')
       return
     }
     expect.fail('error should have been thrown')
@@ -113,5 +115,24 @@ describe('retry', () => {
     // The performance typically comes in 1
     // or 2 milliseconds after.
     expect(diff).toBeGreaterThanOrEqual(backoffs)
+  })
+  test('aborts the retry operation when signal is aborted', async () => {
+    try {
+      const abortController = new AbortController()
+      let attempt = 0
+      await _.retry({ signal: abortController.signal }, async () => {
+        attempt++
+        if (attempt === 2) {
+          abortController.abort()
+        }
+        throw 'quit again'
+      })
+    } catch (err) {
+      expect(err).toBeInstanceOf(Error)
+      expect((err as Error).message).toBe('This operation was aborted')
+      return
+    }
+
+    expect.fail('error should have been thrown')
   })
 })

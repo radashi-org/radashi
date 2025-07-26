@@ -1,66 +1,86 @@
+import { noop } from 'radashi'
+
 declare const setTimeout: (fn: () => void, ms: number) => unknown
 declare const clearTimeout: (timer: unknown) => void
 
-export type DebounceFunction<TArgs extends any[]> = {
+export interface DebounceFunction<TArgs extends any[] = any> {
   (...args: TArgs): void
   /**
-   * Cancels the debounced function
+   * Prevent the scheduled call from happening, if any.
    */
   cancel(): void
   /**
-   * Checks if there is any invocation debounced
+   * If a debounced call is scheduled, this invokes it immediately.
+   * Otherwise, this equals Radashi's `noop` function.
    */
-  isPending(): boolean
+  flush(): void
   /**
-   * Runs the debounced function immediately
+   * The underlying function
    */
-  flush(...args: TArgs): void
+  readonly callee: (...args: TArgs) => unknown
+}
+
+export interface DebounceOptions {
+  delay: number
+  /**
+   * When true, your callback is invoked immediately the very first
+   * time the debounced function is called. After that, the debounced
+   * function works as if `leading` was `false`.
+   *
+   * @default false
+   */
+  leading?: boolean
 }
 
 /**
- * Given a delay and a function returns a new function that will only
- * call the source function after delay milliseconds have passed
- * without any invocations.
+ * Returns a new function that will only call the source function
+ * after `delay` milliseconds have passed without any invocations.
  *
- * The debounce function comes with a `cancel` method to cancel
- * delayed `func` invocations and a `flush` method to invoke them
- * immediately.
+ * See the documentation (or the `DebounceFunction` type) for details
+ * on the methods and properties available on the returned function.
  *
- * @see https://radashi-org.github.io/reference/curry/debounce
+ * @see https://radashi.js.org/reference/curry/debounce
  * @example
  * ```ts
- * const myDebouncedFunc = debounce({ delay: 1000 }, (x) => console.log(x))
+ * const myDebouncedFunc = debounce({ delay: 1000 }, (x) => {
+ *   console.log(x)
+ * })
  *
- * myDebouncedFunc(0)
- * myDebouncedFunc(1)
- * // Logs 1, but not 0
+ * myDebouncedFunc(0) // Nothing happens
+ * myDebouncedFunc(1) // Nothing happens
+ * // Logs "1" about 1 second after the last invocation
  * ```
+ * @version 12.1.0
  */
 export function debounce<TArgs extends any[]>(
-  { delay }: { delay: number },
-  func: (...args: TArgs) => any,
+  { delay, leading }: DebounceOptions,
+  callee: (...args: TArgs) => unknown,
 ): DebounceFunction<TArgs> {
-  let timer: unknown = undefined
-  let active = true
+  let timeout: unknown
 
-  const debounced: DebounceFunction<TArgs> = (...args: TArgs) => {
-    if (active) {
-      clearTimeout(timer)
-      timer = setTimeout(() => {
-        active && func(...args)
-        timer = undefined
-      }, delay)
+  const debounced = ((...args: TArgs) => {
+    clearTimeout(timeout)
+    if (leading) {
+      leading = false
+      callee(...args)
     } else {
-      func(...args)
+      timeout = setTimeout(
+        (debounced.flush = () => {
+          debounced.flush = noop
+          clearTimeout(timeout)
+          callee(...args)
+        }),
+        delay,
+      )
     }
-  }
-  debounced.isPending = () => {
-    return timer !== undefined
-  }
+  }) as DebounceFunction<TArgs> & { callee: typeof callee }
+
+  debounced.callee = callee
+  debounced.flush = noop
   debounced.cancel = () => {
-    active = false
+    debounced.flush = noop
+    clearTimeout(timeout)
   }
-  debounced.flush = (...args: TArgs) => func(...args)
 
   return debounced
 }

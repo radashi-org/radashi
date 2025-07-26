@@ -1,7 +1,5 @@
 import * as _ from 'radashi'
 
-const cast = <T = unknown[]>(value: any): T => value
-
 describe('min', () => {
   test('returns the min value from list of number', () => {
     const list = [5, 5, 10, 2]
@@ -20,12 +18,8 @@ describe('min', () => {
     expect(result!.game).toBe('a')
     expect(result!.score).toBe(100)
   })
-  test('does not fail when provided array is null', () => {
-    const result = _.min(cast(null))
-    expect(result).toBeNull()
-  })
-  test('does not fail when provided array is funky shaped', () => {
-    const result = _.min(cast({}))
+  test('returns null if array is empty', () => {
+    const result = _.min([])
     expect(result).toBeNull()
   })
 })

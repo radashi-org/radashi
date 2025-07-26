@@ -2,7 +2,7 @@
  * Like partial but for unary functions that accept a single object
  * argument
  *
- * @see https://radashi-org.github.io/reference/curry/partob
+ * @see https://radashi.js.org/reference/curry/partob
  * @example
  * ```ts
  * const add = (
@@ -17,10 +17,11 @@
  * addPartial({ b: 2 }) // 3
  * addPartial({ b: 1, c: 5 }) // 7
  * ```
+ * @version 12.1.0
  */
 export function partob<T, K, PartialArgs extends Partial<T>>(
   fn: (args: T) => K,
-  argobj: PartialArgs,
-): (restobj: Omit<T, keyof PartialArgs>) => K {
-  return restobj => fn({ ...argobj, ...restobj } as T)
+  argObj: PartialArgs,
+): (restObj: Omit<T, keyof PartialArgs>) => K {
+  return restObj => fn({ ...argObj, ...restObj } as T)
 }

@@ -1,5 +1,4 @@
 import * as _ from 'radashi'
-import { bench } from 'vitest'
 
 describe('assign', () => {
   bench('with valid input', () => {
@@ -9,7 +8,7 @@ describe('assign', () => {
       location: {
         street: '23 main',
         state: {
-          abbrv: 'FL',
+          abbreviation: 'FL',
           name: 'Florida',
         },
       },
@@ -20,7 +19,7 @@ describe('assign', () => {
       location: {
         street: '8114 capo',
         state: {
-          abbrv: 'TX',
+          abbreviation: 'TX',
           name: 'Texas',
         },
       },

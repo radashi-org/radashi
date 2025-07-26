@@ -4,12 +4,13 @@
 /**
  * Return true if the given value is a plain object.
  *
- * @see https://radashi-org.github.io/reference/typed/isPlainObject
+ * @see https://radashi.js.org/reference/typed/isPlainObject
  * @example
  * ```ts
  * isPlainObject({}) // => true
  * isPlainObject(new Map()) // => false
  * ```
+ * @version 12.2.0
  */
 export function isPlainObject(value: any): value is object {
   if (typeof value !== 'object' || value === null) {

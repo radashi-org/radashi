@@ -1,6 +1,7 @@
 ---
 title: memo
 description: Memoize a function
+since: 12.1.0
 ---
 
 ### Usage
@@ -18,7 +19,7 @@ const later = timestamp()
 now === later // => true
 ```
 
-## Expiration
+### Expiration
 
 You can optionally pass a `ttl` (time to live) that will expire memoized results. In versions prior to version 10, `ttl` had a value of 300 milliseconds if not specified.
 
@@ -40,7 +41,7 @@ now === later // => true
 now === muchLater // => false
 ```
 
-## Key Function
+### Key Function
 
 You can optionally customize how values are stored when memoized.
 

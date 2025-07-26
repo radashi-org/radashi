@@ -1,7 +1,5 @@
 import * as _ from 'radashi'
 
-const cast = (value: any) => value as string[]
-
 describe('alphabetical', () => {
   test('uses getter', () => {
     const list = [{ name: 'Leo' }, { name: 'AJ' }, { name: 'Cynthia' }]
@@ -16,9 +14,5 @@ describe('alphabetical', () => {
     expect(result[0].name).toBe('Leo')
     expect(result[1].name).toBe('Cynthia')
     expect(result[2].name).toBe('AJ')
-  })
-  test('gracefully handles null input list', () => {
-    const result = _.alphabetical(cast(null), x => x)
-    expect(result).toEqual([])
   })
 })

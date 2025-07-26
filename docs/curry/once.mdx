@@ -1,6 +1,7 @@
 ---
 title: once
 description: Create a function that runs at most once
+since: 12.2.0
 ---
 
 ### Usage
@@ -10,12 +11,12 @@ Create a wrapper around a given function such that it executes at most once. Sub
 ```ts
 import * as _ from 'radashi'
 
-const fn = once(() => Math.random())
+const fn = _.once(() => Math.random())
 fn() // 0.5
 fn() // 0.5
 ```
 
-## Resetting the function
+### Resetting the function
 
 The `once.reset` function clears the stored result of a function that was previously wrapped with `once`. This allows the function to be executed again as if it were never called before, enabling dynamic reuse of the function with fresh computations.
 

@@ -1,0 +1,34 @@
+name: Publish Docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force publish docs even if no changes detected'
+        type: boolean
+        required: false
+        default: false
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: '22.x'
+          cache: pnpm
+
+      - name: Publish
+        env:
+          DOCS_DEPLOY_KEY: ${{ secrets.DOCS_DEPLOY_KEY }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          node scripts/run publish-docs ${{ github.event.ref }} --force=${{ inputs.force }}

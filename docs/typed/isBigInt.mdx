@@ -1,0 +1,17 @@
+---
+title: isBigInt
+description: 'Determine if a value is a BigInt'
+---
+
+### Usage
+
+Pass in a value and get a boolean telling you if the value is a bigint, using the `typeof` operator.
+
+```ts
+import * as _ from 'radashi'
+
+_.isBigInt(0n) // => true
+_.isBigInt(BigInt(0)) // => true
+_.isBigInt(12) // => false
+_.isBigInt('0n') // => false
+```

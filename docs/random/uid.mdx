@@ -1,6 +1,7 @@
 ---
 title: uid
 description: Generate a unique identifier
+since: 12.1.0
 ---
 
 ### Usage
@@ -11,7 +12,7 @@ Generates a unique string with optional special characters.
 import * as _ from 'radashi'
 
 _.uid(7) // => UaOKdlW
-_.uid(20, '*') // => dyJdbC*NsEgcnGjTHS
+_.uid(12, '*') // => egFn*THGelM8
 ```
 
 Note, this function is optimized for simplicity and usability -- not performance or security. If you need to create universally unique or cryptographically random strings use a package specifically for that purpose.

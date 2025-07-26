@@ -7,13 +7,14 @@ export type LowercaseKeys<T extends Record<string, any>> = {
 /**
  * Convert all keys in an object to lower case.
  *
- * @see https://radashi-org.github.io/reference/object/lowerize
+ * @see https://radashi.js.org/reference/object/lowerize
  * @example
  * ```ts
  * const a = { A: 1, B: 2, C: 3 }
  * lowerize(a)
  * // => { a: 1, b: 2, c: 3 }
  * ```
+ * @version 12.1.0
  */
 export function lowerize<T extends Record<string, any>>(
   obj: T,

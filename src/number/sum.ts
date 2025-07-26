@@ -1,8 +1,10 @@
 /**
- * Sum all numbers in an array. Optionally provide a function to
- * convert objects in the array to number values.
+ * Add up numbers related to an array in 1 of 2 ways:
+ * 1. Sum all numbers in an array of numbers
+ * 2. Sum all numbers returned by a callback function that maps
+ *    each item in an array to a number.
  *
- * @see https://radashi-org.github.io/reference/array/sum
+ * @see https://radashi.js.org/reference/array/sum
  * @example
  * ```ts
  * sum([1, 2, 3])
@@ -14,14 +16,15 @@
  *   {value: 3}
  * ], (item) => item.value)
  * // => 6
+ *
+ * sum([true, false, true], (item) => item ? 1 : 0)
+ * // => 2
  * ```
+ * @version 12.1.0
  */
-export function sum<T extends number>(array: readonly T[]): number
-export function sum<T extends object>(
-  array: readonly T[],
-  fn: (item: T) => number,
-): number
-export function sum<T extends object | number>(
+export function sum(array: readonly number[]): number
+export function sum<T>(array: readonly T[], fn: (item: T) => number): number
+export function sum<T>(
   array: readonly any[],
   fn?: (item: T) => number,
 ): number {

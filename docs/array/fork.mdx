@@ -1,6 +1,7 @@
 ---
 title: fork
 description: Split an array into two arrays by a condition
+since: 12.1.0
 ---
 
 ### Usage
@@ -29,5 +30,5 @@ const gods = [
   },
 ]
 
-const [finalGods, lesserGods] = _.fork(gods, f => f.power > 90) // [[ra, vishnu, zues], [loki]]
+const [finalGods, lesserGods] = _.fork(gods, f => f.power > 90) // [[ra, vishnu, zeus], [loki]]
 ```

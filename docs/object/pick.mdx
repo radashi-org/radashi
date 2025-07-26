@@ -1,6 +1,7 @@
 ---
 title: pick
 description: Pick only the desired properties from an object
+since: 12.1.0
 ---
 
 ### Usage
@@ -45,7 +46,7 @@ When used with a predicate function, `pick` is potentially unsafe, because of pa
 
 ```typescript
 // Example demonstrating potential inaccuracy in `key` and `value` types within `_.pick` callback
-import _ from 'lodash'
+import * as _ from 'radashi'
 
 interface User {
   name: string

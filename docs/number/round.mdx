@@ -1,6 +1,7 @@
 ---
 title: round
 description: Rounds a number to a specified precision.
+since: 12.2.0
 ---
 
 ### Usage
@@ -14,12 +15,12 @@ _.round(123.456) // => 123
 _.round(1234.56, -2) // => 1200
 ```
 
-## Precision
+### Precision
 
 The `precision` argument is limited to be within the range of -323 to +292.
 Without this limit, precision values outside this range can result in NaN.
 
-## Rounding Method
+### Rounding Method
 
 You may provide a custom rounding method. The default is `Math.round`.
 

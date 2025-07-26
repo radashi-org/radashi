@@ -1,4 +1,4 @@
-import { isPromise } from 'radashi'
+import { isPromise, type Result, type ResultPromise } from 'radashi'
 
 /**
  * The result of a `tryit` function.
@@ -10,37 +10,45 @@ import { isPromise } from 'radashi'
  * If the function returns a non-promise, the result is an error-first
  * callback-_like_ array response as `[Error, result]`.
  *
- * @see https://radashi-org.github.io/reference/async/tryit
+ * @see https://radashi.js.org/reference/async/tryit
  * @example
  * ```ts
  * const [err, result] = await tryit(async () => {
  *   return await fetch('https://example.com')
  * })
  * ```
+ * @version 12.1.0
  */
-export type TryitResult<Return> = Return extends Promise<any>
-  ? Promise<[Error, undefined] | [undefined, Awaited<Return>]>
-  : [Error, undefined] | [undefined, Return]
+export type TryitResult<
+  TReturn,
+  TError extends Error = Error,
+> = TReturn extends PromiseLike<infer TResult>
+  ? ResultPromise<TResult, TError>
+  : Result<TReturn, TError>
 
 /**
  * A helper to try an async function without forking the control flow.
  * Returns an error-first callback-_like_ array response as `[Error,
  * result]`
  */
-export function tryit<Args extends any[], Return>(
-  func: (...args: Args) => Return,
-): (...args: Args) => TryitResult<Return> {
-  return (...args) => {
+export function tryit<
+  TArgs extends any[],
+  TReturn,
+  TError extends Error = Error,
+>(
+  func: (...args: TArgs) => TReturn,
+): (...args: TArgs) => TryitResult<TReturn, TError> {
+  return (...args): any => {
     try {
       const result = func(...args)
-      if (isPromise(result)) {
-        return result
-          .then(value => [undefined, value])
-          .catch(err => [err, undefined]) as TryitResult<Return>
-      }
-      return [undefined, result] as TryitResult<Return>
+      return isPromise(result)
+        ? result.then(
+            value => [undefined, value],
+            err => [err, undefined],
+          )
+        : [undefined, result]
     } catch (err) {
-      return [err, undefined] as TryitResult<Return>
+      return [err, undefined]
     }
   }
 }

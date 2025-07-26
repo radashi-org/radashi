@@ -9,7 +9,7 @@ import { type FilteredKeys, filterKey, isArray, type KeyFilter } from 'radashi'
  * has listed, the `value` and `key` parameter types of your callback
  * will be inaccurate.
  *
- * @see https://radashi-org.github.io/reference/object/pick
+ * @see https://radashi.js.org/reference/object/pick
  * @example
  * ```ts
  * const a = { a: 1, b: 2, c: 3 }
@@ -20,6 +20,7 @@ import { type FilteredKeys, filterKey, isArray, type KeyFilter } from 'radashi'
  * pick(a, (value, key) => value > 1)
  * // => { b: 2, c: 3 }
  * ```
+ * @version 12.1.0
  */
 export function pick<T extends object, F extends KeyFilter<T, keyof T>>(
   obj: T,
@@ -30,9 +31,6 @@ export function pick<T extends object>(
   obj: T,
   filter: KeyFilter<T, keyof T> | null,
 ) {
-  if (!obj) {
-    return {}
-  }
   let keys: (keyof T)[] = filter as any
   if (isArray(filter)) {
     filter = null

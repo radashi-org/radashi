@@ -5,12 +5,13 @@ import { unzip } from 'radashi'
  * the first elements of the given arrays, the second of which
  * contains the second elements of the given arrays, and so on.
  *
- * @see https://radashi-org.github.io/reference/array/zip
+ * @see https://radashi.js.org/reference/array/zip
  * @example
  * ```ts
  * zip(['a', 'b'], [1, 2], [true, false])
  * // [['a', 1, true], ['b', 2, false]]
  * ```
+ * @version 12.1.0
  */
 export function zip<T1, T2, T3, T4, T5>(
   array1: readonly T1[],

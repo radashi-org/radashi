@@ -1,0 +1,38 @@
+<task>
+  Fill out the release notes with simple descriptions, examples, and links, as seen in the example below. Use the provided diff to best understand the new functions and features.
+</task>
+
+<example type="markdown">
+
+### Add `isClass` function [→ PR #239](https://github.com/radashi-org/radashi/pull/239)
+
+The `isClass` function determines if a value was declared using ES6 `class` syntax, distinguishing modern class declarations from traditional constructor functions or other types.
+
+- Only returns `true` for values created with the `class` keyword
+- Old-style constructor functions will return `false`
+- Built-in native class constructors (like `Error`) return `false`
+- Works with type narrowing for TypeScript
+
+```typescript
+import * as _ from 'radashi'
+
+class MyClass {
+  x = 1
+}
+
+function OldConstructor() {
+  this.x = 1
+}
+
+// Examples
+_.isClass(MyClass) // true
+_.isClass(OldConstructor) // false
+_.isClass('string') // false
+_.isClass(Error) // false
+```
+
+Thanks to [Marlon Passos](https://github.com/MarlonPassos-git) and [Alec Larson](https://github.com/aleclarson) for their work on this feature!
+
+🔗 [Docs](https://radashi.js.org/reference/typed/isClass) / [Source](https://github.com/radashi-org/radashi/blob/main/src/typed/isClass.ts) / [Tests](https://github.com/radashi-org/radashi/blob/main/tests/typed/isClass.test.ts)
+
+</example>

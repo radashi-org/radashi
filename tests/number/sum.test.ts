@@ -17,4 +17,19 @@ describe('sum', () => {
     const result = _.sum(cast(null))
     expect(result).toBe(0)
   })
+  test('gracefully handles boolean input list', () => {
+    const list = [true, false, true, false, true]
+    const result = _.sum(list, x => (x ? 1 : 0))
+    expect(result).toBe(3)
+  })
+
+  test('gracefully handles matrix input', () => {
+    const list = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+    ]
+    const result = _.sum(list, x => _.sum(x))
+    expect(result).toBe(45)
+  })
 })

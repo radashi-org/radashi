@@ -3,7 +3,7 @@ import { range } from 'radashi'
 /**
  * Creates a list of given start, end, value, and step parameters.
  *
- * @see https://radashi-org.github.io/reference/array/list
+ * @see https://radashi.js.org/reference/array/list
  * @example
  * ```ts
  * list(3)                  // 0, 1, 2, 3
@@ -15,6 +15,7 @@ import { range } from 'radashi'
  * list(0, 3, obj)          // obj, obj, obj, obj
  * list(0, 6, i => i, 2)    // 0, 2, 4, 6
  * ```
+ * @version 12.1.0
  */
 export function list<T = number>(
   startOrLength: number,

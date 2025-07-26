@@ -1,18 +1,22 @@
 ---
 title: map
 description: Map an array with an async function
+since: 12.1.0
 ---
 
 ### Usage
 
-A map that handles callback functions that return a promise.
+The `map` function is like `Array.prototype.map`, but it works with async functions. Only one item is processed at a time.
 
 ```ts
-import * as _ from 'radashi'
-
 const userIds = [1, 2, 3, 4]
+const api = {
+  users: {
+    find: async (id: number) => id < 3,
+  },
+}
 
 const users = await _.map(userIds, async userId => {
   return await api.users.find(userId)
-})
+}) // [true, true, false, false]
 ```
