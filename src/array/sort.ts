@@ -12,16 +12,16 @@
  * ]
  *
  * sort(fish, f => f.weight) // => [Bass, Trout, Marlin]
- * sort(fish, f => f.weight, true) // => [Marlin, Trout, Bass]
+ * sort(fish, f => f.weight, "desc") // => [Marlin, Trout, Bass]
  * ```
  * @version 12.1.0
  */
 export function sort<T>(
   array: readonly T[],
   getter: (item: T) => number,
-  desc = false,
+  direction: 'asc' | 'desc' = 'asc',
 ): T[] {
   const asc = (a: T, b: T) => getter(a) - getter(b)
   const dsc = (a: T, b: T) => getter(b) - getter(a)
-  return array.slice().sort(desc === true ? dsc : asc)
+  return array.slice().sort(direction === 'desc' ? dsc : asc)
 }

@@ -10,7 +10,7 @@ describe('sort', () => {
   })
   test('uses descending order', () => {
     const list = [{ index: 2 }, { index: 0 }, { index: 1 }]
-    const result = _.sort(list, i => i.index, true)
+    const result = _.sort(list, i => i.index, 'desc')
     expect(result[0].index).toBe(2)
     expect(result[1].index).toBe(1)
     expect(result[2].index).toBe(0)
