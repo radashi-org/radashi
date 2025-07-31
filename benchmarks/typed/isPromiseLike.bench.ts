@@ -1,19 +1,19 @@
 import * as _ from 'radashi'
 import { bench, describe } from 'vitest'
 
-describe('isPromise', () => {
+describe('isPromiseLike', () => {
   bench('with Promise', () => {
-    _.isPromise(new Promise(res => res(0)))
+    _.isPromiseLike(new Promise(res => res(0)))
   })
 
   bench('with Promise-like', () => {
-    _.isPromise({
+    _.isPromiseLike({
       // biome-ignore lint/suspicious/noThenProperty:
       then: () => {},
     })
   })
 
   bench('with non-Promise', () => {
-    _.isPromise(22)
+    _.isPromiseLike(22)
   })
 })
