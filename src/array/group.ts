@@ -16,10 +16,10 @@ export function group<T, Key extends string | number | symbol>(
   array: readonly T[],
   getGroupId: (item: T, index: number) => Key,
 ): { [K in Key]?: T[] } {
-  const groups = {} as Record<Key, T[]>
+  const groups = Object.create(null) as Record<Key, T[]>
   array.forEach((item, index) => {
     const groupId = getGroupId(item, index)
-    if (!Object.prototype.hasOwnProperty.call(groups, groupId)) {
+    if (!groups[groupId]) {
       groups[groupId] = []
     }
     groups[groupId].push(item)
