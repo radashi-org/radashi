@@ -1,11 +1,3 @@
-export function sort<T extends readonly [...any[]]>(
-  array: T,
-  getter: (item: T[number]) => number,
-  desc?: boolean,
-): T extends readonly [...infer Items]
-  ? { [K in keyof Items]: T[number] }
-  : never
-
 /**
  * Sort an array without modifying it and return the newly sorted
  * value.
@@ -24,15 +16,24 @@ export function sort<T extends readonly [...any[]]>(
  * ```
  * @version 12.1.0
  */
-export function sort<T>(
-  array: readonly T[],
+export function sort<const T extends readonly any[]>(
+  array: T,
   getter: (item: T) => number,
   desc = false,
-): T[] {
+): SortArray<T> {
   if (!array) {
-    return []
+    return [] as SortArray<T>
   }
   const asc = (a: T, b: T) => getter(a) - getter(b)
   const dsc = (a: T, b: T) => getter(b) - getter(a)
-  return array.slice().sort(desc === true ? dsc : asc)
+  return array.slice().sort(desc === true ? dsc : asc) as SortArray<T>
 }
+
+/**
+ * The return type of the `sort` function. Tuple types are preserved.
+ */
+export type SortArray<T extends readonly any[]> = T extends readonly [
+  ...infer TElement,
+]
+  ? { [K in keyof TElement]: T[number] }
+  : []
