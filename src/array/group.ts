@@ -19,7 +19,7 @@ export function group<T, Key extends string | number | symbol>(
   const groups = {} as Record<Key, T[]>
   array.forEach((item, index) => {
     const groupId = getGroupId(item, index)
-    if (!Array.isArray(groups[groupId])) {
+    if (!Object.prototype.hasOwnProperty.call(groups, groupId)) {
       groups[groupId] = []
     }
     groups[groupId].push(item)
