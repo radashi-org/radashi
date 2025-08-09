@@ -24,6 +24,6 @@ export function group<T, Key extends string | number | symbol>(
       acc[groupId].push(item)
       return acc
     },
-    {} as Record<Key, T[]>,
+    Object.create(null) as Record<Key, T[]>,
   )
 }
