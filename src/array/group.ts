@@ -1,13 +1,14 @@
 /**
- * Sorts an `array` of items into groups. The return value is a map
- * where the keys are the group IDs the given `getGroupId` function
- * produced and the value is an array of each item in that group.
+ * Categorizes elements from an `array` into distinct groups. The
+ * function returns an object where each key is a category identifier
+ * determined by the `getGroupId` function, and each value is an array
+ * containing all elements that belong to that category.
  *
  * @see https://radashi.js.org/reference/array/group
  * @example
  * ```ts
  * group([1, 2, 3, 4], (n) => n % 2 === 0 ? 'even' : 'odd')
- * // { even: [2], odd: [1, 3, 4] }
+ * // { even: [2, 4], odd: [1, 3] }
  * ```
  * @version 12.1.0
  */
@@ -15,15 +16,13 @@ export function group<T, Key extends string | number | symbol>(
   array: readonly T[],
   getGroupId: (item: T, index: number) => Key,
 ): { [K in Key]?: T[] } {
-  return array.reduce(
-    (acc, item, index) => {
-      const groupId = getGroupId(item, index)
-      if (!acc[groupId]) {
-        acc[groupId] = []
-      }
-      acc[groupId].push(item)
-      return acc
-    },
-    {} as Record<Key, T[]>,
-  )
+  const groups = Object.create(null) as Record<Key, T[]>
+  array.forEach((item, index) => {
+    const groupId = getGroupId(item, index)
+    if (!groups[groupId]) {
+      groups[groupId] = []
+    }
+    groups[groupId].push(item)
+  })
+  return groups
 }
