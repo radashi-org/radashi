@@ -1,4 +1,4 @@
-import { capitalize } from 'radashi'
+import {capitalize} from 'radashi'
 
 /**
  * Formats the given string in dash case fashion.
@@ -9,6 +9,9 @@ import { capitalize } from 'radashi'
  * dash('hello world') // => 'hello-world'
  * dash('one two_THREE') // => 'one-two-three'
  * dash('helloWord') // => 'hello-word'
+ * dash('123hello') // => '123-hello'
+ * dash('hello123world') // => 'hello-123-world'
+ * dash('hello123') // => 'hello-123'
  * ```
  * @version 12.1.0
  */
@@ -16,7 +19,8 @@ export function dash(str: string): string {
   const parts =
     str
       ?.replace(/([A-Z])+/g, capitalize)
-      ?.split(/(?=[A-Z])|[\.\-\s_]/)
+      ?.split(/(?=[A-Z])|(\d+)|[\.\-\s_]/)
+      .filter(Boolean)
       .map(x => x.toLowerCase()) ?? []
   if (parts.length === 0) {
     return ''
