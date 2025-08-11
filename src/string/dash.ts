@@ -29,6 +29,6 @@ export function dash(str: string): string {
     return parts[0]
   }
   return parts.reduce((acc, part) => {
-    return `${acc}-${part.toLowerCase()}`
+    return `${acc}-${part}`
   })
 }
