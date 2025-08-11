@@ -48,4 +48,12 @@ describe('group', () => {
     expect(groups.even).toEqual([1, 3, 5])
     expect(groups.odd).toEqual([2, 4])
   })
+  test('allows use of keys present on Object.prototype', () => {
+    const list = Object.getOwnPropertyNames(Object.prototype)
+    const groups = _.group(list, key => key)
+    expect(groups.constructor).toEqual(['constructor'])
+    expect(groups.hasOwnProperty).toEqual(['hasOwnProperty'])
+    expect(groups.__proto__).toEqual(['__proto__'])
+    expect(groups.toString).toEqual(['toString'])
+  })
 })
