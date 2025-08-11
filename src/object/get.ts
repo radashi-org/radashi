@@ -23,7 +23,7 @@ export function get<TDefault = unknown>(
   const segments = path.split(/[\.\[\]]/g)
   let current: any = value
   for (const key of segments) {
-    if (current === undefined || current === null) {
+    if (current == null) {
       return defaultValue as TDefault
     }
     const unquotedKey = key.replace(/['"]/g, '')
@@ -32,7 +32,7 @@ export function get<TDefault = unknown>(
     }
     current = current[unquotedKey]
   }
-  if (current === undefined || current === null) {
+  if (current == null) {
     return defaultValue as TDefault
   }
   return current
