@@ -108,6 +108,7 @@ export * from './oop/Semaphore.ts'
 export * from './oop/TimeoutError.ts'
 
 export * from './random/draw.ts'
+export * from './random/jitter.ts'
 export * from './random/random.ts'
 export * from './random/shuffle.ts'
 export * from './random/uid.ts'
