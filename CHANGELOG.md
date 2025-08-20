@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.6.2] - 2025-08-20
+### Details
+#### <!-- 06 -->Fixed
+
+- **(range)** Ensure `end` parameter works when 0 in [9c8ffa0](https://github.com/radashi-org/radashi/commit/9c8ffa041088f1096740d1de744cd3f24ed76f1c)
+
 ## [radashi@12.6.1] - 2025-08-09
 ### Details
 #### <!-- 06 -->Fixed
@@ -239,6 +245,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@12.6.2]: https://github.com/radashi-org/radashi/compare/v12.6.1..v12.6.2
 
 [radashi@12.6.1]: https://github.com/radashi-org/radashi/compare/v12.6.0..v12.6.1
 
