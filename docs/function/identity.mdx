@@ -1,0 +1,17 @@
+---
+title: identity
+description: Returns the value passed to it
+since: 12.2.0
+---
+
+### Usage
+
+This is useful when you need to pass a function somewhere that simply returns the value it receives, without any modification.
+
+```ts
+import * as _ from 'radashi'
+
+_.identity() // => undefined
+_.identity(1) // => 1
+_.identity('a') // => 'a'
+```
