@@ -8,7 +8,7 @@ since: 12.1.0
 
 Given an array of items -- and optionally, a function to determine their identity -- return a new array without any duplicates.
 
-The function does not preserve the original order of items.
+The function preserves the original order of items, keeping the first occurence and omitting duplicates.
 
 ```ts
 import * as _ from 'radashi'
@@ -26,8 +26,8 @@ const fish = [
   },
   {
     name: 'Salmon',
-    weight: 22,
-    source: 'river',
+    weight: 23,
+    source: 'stream',
   },
 ]
 
