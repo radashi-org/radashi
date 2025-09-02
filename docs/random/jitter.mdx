@@ -1,0 +1,23 @@
+---
+title: jitter
+description: Get a randomized delay from the input delay and jitter factor.
+---
+
+## Usage
+
+The function takes two parameters: `delay` (base delay in milliseconds) and an optional `factor` (jitter factor, default `0.2`), meaning the final delay varies by `±20%`.
+
+The jitter factor can be adjusted as needed; a value between `0.1` and `0.5` is generally recommended. Setting it too big (for example, greater than `1`) may cause unintended or unexpected behavior.
+
+```ts
+import * as _ from 'radashi'
+
+_.jitter(1000) // => value in [800, 1200] (default factor 0.2)
+_.jitter(1000, 0.5) // => value in [500, 1500]
+_.jitter(1000, 0) // => 1000
+
+_.jitter(-50) // => 0
+_.jitter(1000, Number.NaN) // factor treated as 0 => ~1000
+```
+
+This function uses `return Math.max(0, delay + jitter)` to ensure that when in some extreme cases like: `delay` value given is very small, but `factor` given is big and the `random` is `-1`, the result would not be negative, which in turns prevents the unexpected behavior by returning `0` when this happens.
