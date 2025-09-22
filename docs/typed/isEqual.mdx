@@ -18,3 +18,10 @@ _.isEqual({ hello: 'world' }, { hello: 'world' }) // => true
 _.isEqual('hello', 'world') // => false
 _.isEqual(22, 'abc') // => false
 ```
+
+To determine equality, `Object.is()` is used first. If it returns
+false, we do the following special checks:
+
+- `Date` and `Date` with the same time
+- `RegExp` and `RegExp` with the same pattern/flags
+- object with the same keys and values (recursive)
