@@ -1,27 +1,69 @@
 ---
 title: isEqual
-description: Determine if two values are equal
+description: Determine if two values are deeply equal
 since: 12.1.0
 ---
 
 ### Usage
 
-Given two values, returns true if they are equal.
+Returns `true` when two values are deeply equal. It starts with `Object.is()` and then performs additional comparisons for arrays, dates, regular expressions, and finally objects of any other type.
 
 ```ts
 import * as _ from 'radashi'
 
-_.isEqual(null, null) // => true
-_.isEqual([], []) // => true
-_.isEqual({ hello: 'world' }, { hello: 'world' }) // => true
+const left = {
+  id: 1,
+  createdAt: new Date('2024-01-01T00:00:00.000Z'),
+  tags: ['radashi', 'typed'],
+  [Symbol.for('role')]: 'admin',
+}
 
-_.isEqual('hello', 'world') // => false
-_.isEqual(22, 'abc') // => false
+const right = {
+  tags: ['radashi', 'typed'],
+  createdAt: new Date('2024-01-01T00:00:00.000Z'),
+  id: 1,
+  [Symbol.for('role')]: 'admin',
+}
+
+_.isEqual(left, right) // => true
+
+_.isEqual({ id: 1 }, { id: 2 }) // => false
+_.isEqual([1, 2, 3], [1, 2, 4]) // => false
+_.isEqual(/hello/gi, /hello/g) // => false
 ```
 
-To determine equality, `Object.is()` is used first. If it returns
-false, we do the following special checks:
+Arrays are compared by length and element order, objects are compared recursively (including symbol keys), dates compare their timestamps, and regular expressions compare both pattern and flags. Instances must share the same prototype, and objects from other [realms](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms) are unequal by default.
 
-- `Date` and `Date` with the same time
-- `RegExp` and `RegExp` with the same pattern/flags
-- object with the same keys and values (recursive)
+### Custom comparison
+
+Pass a `customCompare` function to handle types beyond the built-in cases. The function receives both values and may return:
+
+- `true` or `false` to override the result.
+- `null`/`undefined` to fall back to the default behavior.
+
+The custom function is only called once arrays, plain objects, dates, and regular expressions have been ruled out. This makes it ideal for handling `Map`, `Set`, and domain-specific classes.
+
+```ts
+const compareCollections = (left: unknown, right: unknown) => {
+  if (left instanceof Map) {
+    return _.isMapEqual(left, right as Map<any, any>)
+  }
+  if (left instanceof Set) {
+    return _.isSetEqual(left, right as Set<any>)
+  }
+  return null
+}
+
+const a = new Map([[1, ['a', 'b']]])
+const b = new Map([[1, ['a', 'b']]])
+
+_.isEqual(a, b, compareCollections) // => true
+```
+
+### Caveats
+
+- Sparse arrays are not supported.
+- Cyclical structures are not supported.
+- Differences in prototypes (including values from different realms) make objects unequal unless handled by a custom comparer.
+
+For dedicated helpers, see [`isMapEqual`](./isMapEqual) and [`isSetEqual`](./isSetEqual).
