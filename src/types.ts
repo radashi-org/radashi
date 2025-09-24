@@ -167,7 +167,7 @@ export type Err<TError> = { ok: false; value: undefined; error: TError }
 export type Result<TResult, TError> = Ok<TResult> | Err<TError>
 
 /**
- * A promise that resolves to a result tuple.
+ * A promise that resolves to a Result object.
  *
  * @example
  * ```ts
