@@ -1,32 +1,36 @@
-import { isArray, isError, type Result } from 'radashi'
+import type { Result } from 'radashi'
 
 /**
- * Returns true if the value is a `Result` tuple.
+ * Returns true if the value is a `Result` object.
  *
  * @see https://radashi.js.org/reference/typed/isResult
  * @example
  * ```ts
- * isResult([undefined, 42]) => true
- * isResult([new Error(), undefined]) => true
+ * isResult({ok: true, value: 42, error: undefined}) => true
+ * isResult({ok: false, value: undefined, error: new Error()}) => true
  *
- * // Tuple must be of length 2.
- * isResult([new Error()]) => false
- * isResult([undefined, true, undefined]) => false
+ * // Object must have all fields
+ * isResult({ok: true, value: 42}) => false
+ * isResult({ok: false, error: new Error()}) => false
  *
- * // Non-tuple values are false.
+ * // Non-object values are false.
  * isResult([]) => false
- * isResult({}) => false
+ * isResult("") => false
  * isResult(null) => false
  *
- * // Result tuples cannot have both a value and an error.
- * isResult([new Error(), true]) => false
+ * // Results cannot have both a value and an error.
+ * isResult({ok: true, value: 42, error: new Error()}) => false
  * ```
  * @version 12.2.0
  */
-export function isResult(value: unknown): value is Result<unknown> {
+export function isResult(value: unknown): value is Result<unknown, unknown> {
   return (
-    isArray(value) &&
-    value.length === 2 &&
-    (isError(value[0]) ? value[1] : value[0]) === undefined
+    typeof value === 'object' &&
+    value !== null &&
+    'ok' in value &&
+    'value' in value &&
+    'error' in value &&
+    ((value.ok === true && value.error === undefined) ||
+      (value.ok === false && value.value === undefined))
   )
 }
