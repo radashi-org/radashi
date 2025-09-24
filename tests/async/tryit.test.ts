@@ -8,38 +8,38 @@ describe('tryit', () => {
     const fn = _.try(async () => {
       throw new Error('not good enough')
     })
-    const [err, result] = await fn()
-    expect(result).toBeUndefined()
-    expect(err).not.toBeNull()
-    expect(err!.message).toBe('not good enough')
+    const result = await fn()
+    expect(result.ok).toBe(false)
+    expect(result.ok).not.toBeNull()
+    expect(result.error.message).toBe('not good enough')
   })
   test('returns result when no error is thrown', async () => {
-    const [err, result] = await _.try(async () => {
+    const result = await _.try(async () => {
       return 'hello'
     })()
-    expect(err).toBeUndefined()
-    expect(result).not.toBeNull()
-    expect(result).toBe('hello')
+    expect(result.ok).toBe(true)
+    expect(result.value).not.toBeNull()
+    expect(result.value).toBe('hello')
   })
   test('handles non-async function results', async () => {
-    const [err, result] = _.try(() => {
+    const result = _.try(() => {
       return 'hello'
     })()
-    expect(err).toBeUndefined()
-    expect(result).not.toBeNull()
-    expect(result).toBe('hello')
+    expect(result.ok).toBe(true)
+    expect(result.value).not.toBeNull()
+    expect(result.value).toBe('hello')
   })
   test('handles non-async function errors', async () => {
-    const [err, result] = _.try(() => {
+    const result = _.try(() => {
       // biome-ignore lint/correctness/noConstantCondition:
       if (1 < 0) {
         return ''
       }
       throw new Error('unknown')
     })()
-    expect(result).toBeUndefined()
-    expect(err).not.toBeNull()
-    expect(err!.message).toBe('unknown')
+    expect(result.ok).toBe(false)
+    expect(result.error).not.toBeNull()
+    expect(result.error!.message).toBe('unknown')
   })
   test('alias exists', () => {
     expect(_.tryit).not.toBeNull()

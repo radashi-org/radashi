@@ -25,18 +25,18 @@ describe('parallel', () => {
   }
 
   test('returns all results from all functions', async () => {
-    const [errors, results] = await _.try(async () => {
+    const results = await _.try(async () => {
       return _.parallel(1, _.list(1, 3), async num => {
         await _.sleep(0)
         return `hi_${num}`
       })
     })()
-    expect(errors).toBeUndefined()
-    expect(results).toEqual(['hi_1', 'hi_2', 'hi_3'])
+    expect(results.ok).toBe(true)
+    expect(results.value).toEqual(['hi_1', 'hi_2', 'hi_3'])
   })
 
   test('throws errors as array of all errors', async () => {
-    const [error, results] = await _.try(async () => {
+    const results = await _.try(async () => {
       return _.parallel(1, _.list(1, 3), async num => {
         await _.sleep(0)
         if (num === 2) {
@@ -45,8 +45,8 @@ describe('parallel', () => {
         return `hi_${num}`
       })
     })()
-    const err = error as AggregateError
-    expect(results).toBeUndefined()
+    const err = results.error as AggregateError
+    expect(results.ok).toBe(false)
     expect(err.errors.length).toBe(1)
     expect(err.errors[0].message).toBe('number is 2')
   })
