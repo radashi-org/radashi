@@ -18,4 +18,11 @@ describe('mergeOptions', () => {
     const m = _.mergeOptions(undefined, b)
     expectTypeOf(m).toMatchObjectType<{ y: string; z: boolean }>()
   })
+
+  it('B undefined ⇒ result = A widened', () => {
+    const a: A = { x: 42 }
+    const m = _.mergeOptions(a, undefined)
+
+    expectTypeOf(m).toMatchObjectType<{ x: number; y?: string }>()
+  })
 })
