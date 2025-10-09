@@ -31,4 +31,14 @@ describe('mergeOptions', () => {
 
     expectTypeOf(m).toBeUndefined()
   })
+
+  it('preserve optional when A has optional key', () => {
+    type A2 = { p?: string } | undefined
+    const m1 = _.mergeOptions<A2, Record<any, any>>({ p: 'ok' }, {})
+    const m2 = _.mergeOptions<A2, Record<any, any>>(undefined, {})
+
+    // @ts-expect-error
+    expectTypeOf(m1).toMatchObjectType<{ p: string }>()
+    expectTypeOf(m2).toMatchObjectType<Record<any, any>>()
+  })
 })
