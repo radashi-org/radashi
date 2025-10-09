@@ -25,4 +25,10 @@ describe('mergeOptions', () => {
 
     expectTypeOf(m).toMatchObjectType<{ x: number; y?: string }>()
   })
+
+  it('both undefined ⇒ result = undefined', () => {
+    const m = _.mergeOptions(undefined, undefined)
+
+    expectTypeOf(m).toBeUndefined()
+  })
 })
