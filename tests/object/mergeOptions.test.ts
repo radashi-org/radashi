@@ -25,7 +25,7 @@ describe('mergeOptions', () => {
     const c: C = { z: true }
 
     const m = _.mergeOptions(a, c)
-    expect(m).toEqual({ x: 1, y: undefined, z: true })
+    expect(m).toEqual({ x: 1, y: 'ok', z: true })
   })
 
   it('A undefined ⇒ result = B widened', () => {
