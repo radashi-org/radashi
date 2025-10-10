@@ -1,14 +1,15 @@
 /**
- * Merges two option objects into a new object.\
- * If both arguments are defined, properties
- * from the second object (`b`) will override those
- * from the first one (`a`) when keys overlap.\
- * If either argument is `undefined`, the other is returned.\
- * If both are `undefined`, the result is `undefined`.
+ * Merges two option objects into a new object.
+ * - If both arguments are defined, properties
+ *   from the second object (`b`) will override those
+ *   from the first one (`a`) when keys overlap
+ * - If either argument is `undefined`, the other is returned
+ * - If both are `undefined`, the result is `undefined`
  *
  * @param a - The first options object, or `undefined`.
  * @param b - The second options object, or `undefined`.
  * @returns A new object containing merged properties, or `undefined` if both are `undefined`.
+ * @since v12.7.0
  *
  * @see https://radashi.js.org/reference/objects/mergeOptions
  *
@@ -35,8 +36,6 @@
  * mergeOptions(undefined, undefined)
  * // => undefined
  * ```
- *
- * @since v12.7.0
  */
 export function mergeOptions<
   A extends object | undefined,
