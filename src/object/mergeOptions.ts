@@ -1,18 +1,6 @@
 type NonNull<T> = {} & T
 
-type Expand<T> = T extends object
-  ? {
-      [K in keyof T]: T[K] extends string
-        ? string
-        : T[K] extends number
-          ? number
-          : T[K]
-    }
-  : T extends string
-    ? string
-    : T extends number
-      ? number
-      : T
+type Expand<T> = T extends object ? { [K in keyof T]: Expand<T[K]> } : T
 
 type UndefinedToPartial<T> = T extends object
   ? undefined extends T
