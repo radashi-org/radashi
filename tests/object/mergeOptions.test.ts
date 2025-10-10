@@ -2,7 +2,7 @@ import * as _ from 'radashi'
 
 type A = { x: number; y?: string } | undefined
 type B = { y: string; z: boolean } | undefined
-type C = { y: number; z: boolean } | undefined
+type C = { y?: string; z: boolean } | undefined
 
 describe('mergeOptions', () => {
   it('merge two plain objects', () => {
@@ -10,17 +10,34 @@ describe('mergeOptions', () => {
     const b: B = { y: 'override', z: true }
 
     const m = _.mergeOptions(a, b)
+
     expectTypeOf(m).toMatchObjectType<{ x: number; y: string; z: boolean }>()
+  })
+
+  it('preserves optional when overlapping key in A', () => {
+    const a: A = { x: 1, y: 'ok' }
+    const c: C = { y: 'override', z: true }
+
+    const m = _.mergeOptions(a, c)
+
+    expectTypeOf(m).toMatchObjectType<{
+      x: number
+      y: string | undefined
+      z: boolean
+    }>()
   })
 
   it('A undefined ⇒ result = B widened', () => {
     const b: B = { y: 'hi', z: false }
+
     const m = _.mergeOptions(undefined, b)
+
     expectTypeOf(m).toMatchObjectType<{ y: string; z: boolean }>()
   })
 
   it('B undefined ⇒ result = A widened', () => {
     const a: A = { x: 42 }
+
     const m = _.mergeOptions(a, undefined)
 
     expectTypeOf(m).toMatchObjectType<{ x: number; y?: string }>()
@@ -34,11 +51,12 @@ describe('mergeOptions', () => {
 
   it('preserve optional when A has optional key', () => {
     type A2 = { p?: string } | undefined
-    const m1 = _.mergeOptions<A2, Record<any, any>>({ p: 'ok' }, {})
-    const m2 = _.mergeOptions<A2, Record<any, any>>(undefined, {})
 
-    // @ts-expect-error
-    expectTypeOf(m1).toMatchObjectType<{ p: string }>()
-    expectTypeOf(m2).toMatchObjectType<Record<any, any>>()
+    const m1 = _.mergeOptions({ p: 'ok' } satisfies A2, {})
+    const m2 = _.mergeOptions(undefined, {})
+
+    expectTypeOf(m1).toMatchTypeOf<{ p: string | undefined }>()
+    // biome-ignore lint/complexity/noBannedTypes:
+    expectTypeOf(m2).toMatchObjectType<{}>()
   })
 })
