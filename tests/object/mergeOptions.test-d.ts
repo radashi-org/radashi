@@ -23,7 +23,7 @@ describe('mergeOptions', () => {
 
   it('preserves optional when overlapping key in A', () => {
     const a: A = { x: 1, y: 'ok' }
-    const c: C = { y: 'override', z: true }
+    const c: C = { z: true }
 
     const m = _.mergeOptions(a, c)
 
