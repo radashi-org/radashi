@@ -36,7 +36,7 @@
  * // => undefined
  * ```
  *
- * @since v12.6.3
+ * @since v12.7.0
  */
 export function mergeOptions<
   A extends object | undefined,
@@ -58,7 +58,7 @@ export function mergeOptions(
 /**
  * Computes the merged type of two option objects, handling `undefined` and partials.
  *
- * @since 12.6.3
+ * @since v12.7.0
  */
 export type MergeOptions<
   A extends object | undefined,
