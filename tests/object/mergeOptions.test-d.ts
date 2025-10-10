@@ -4,6 +4,13 @@ type A = { x: number; y?: string } | undefined
 type B = { y: string; z: boolean } | undefined
 type C = { y?: string; z: boolean } | undefined
 
+class Character {
+  constructor(
+    public name: string,
+    public age: number,
+  ) {}
+}
+
 describe('mergeOptions', () => {
   it('merge two plain objects', () => {
     const a: A = { x: 1, y: 'ok' }
@@ -58,5 +65,17 @@ describe('mergeOptions', () => {
     expectTypeOf(m1).toMatchTypeOf<{ p: string | undefined }>()
     // biome-ignore lint/complexity/noBannedTypes:
     expectTypeOf(m2).toMatchObjectType<{}>()
+  })
+
+  it('merges class instance and plain object', () => {
+    const anderson = new Character('Thomas Anderson', 49)
+    const neo = { name: 'Neo', alias: 'The One' }
+
+    const merged = _.mergeOptions(anderson, neo)
+    expectTypeOf(merged).toMatchObjectType<{
+      name: string
+      alias: string
+      age: number
+    }>()
   })
 })
