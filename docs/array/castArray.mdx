@@ -8,10 +8,13 @@ since: 12.2.0
 
 The `castArray` function ensures that the input value is always returned as an array. If the input is already an array, it returns a shallow copy of the array. If the input is not an array, it wraps the input in a new array.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
-_.castArray(1) // => [1]
-_.castArray([1, 2, 3]) // => [1, 2, 3]
-_.castArray('hello') // => ['hello']
+const numberToArray = _.castArray(1) // => [1]
+const arrayToArray = _.castArray([1, 2, 3]) // => [1, 2, 3]
+const stringToArray = _.castArray('hello') // => ['hello']
+
+const nullToArray = _.castArray(null) // => [null]
+const undefinedToArray = _.castArray(undefined) // => [undefined]
 ```
