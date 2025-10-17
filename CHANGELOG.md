@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.7.0] - 2025-10-17
+### Details
+#### <!-- 03 -->Added
+
+- Add `identity` function in [38e2f37](https://github.com/radashi-org/radashi/commit/38e2f37e411eefaf383d9c363ed1a481d69dbf38)
+- Add `isArrayEqual` function in [095f2b0](https://github.com/radashi-org/radashi/commit/095f2b049fb29836c0b912630e4465cb56936deb)
+- Add `isMapEqual` and `isSetEqual` functions in [0fa566a](https://github.com/radashi-org/radashi/commit/0fa566a133eb2dd85faa9116e3f18c930be4243f)
+- Add `getOrInsert` and `getOrInsertComputed` in [4675076](https://github.com/radashi-org/radashi/commit/46750764d17ab545f9d5ed72e4ba5f4a0253070a)
+- **(objectify)** Add `index` parameter to getKey and getValue functions in [1506472](https://github.com/radashi-org/radashi/commit/150647245b473b789a1c6f4b11e57d34f2ff5514)
+- Add absoluteJitter and proportionalJitter in [ebea7d7](https://github.com/radashi-org/radashi/commit/ebea7d73a3b3ae7da6a3db82374600317fd25b08)
+
+#### <!-- 05 -->Changed
+
+- Preserve tuple type in `min`/`max` even with a `getter` in [c72a1c4](https://github.com/radashi-org/radashi/commit/c72a1c4b090cc985a2dd7baa44548693dc7e8e36)
+- Use `identity` as default getter for `sort` in [df55a6e](https://github.com/radashi-org/radashi/commit/df55a6efacb129bf6bcbee00ff84f0886a604c23)
+
 ## [radashi@12.6.2] - 2025-08-20
 ### Details
 #### <!-- 06 -->Fixed
@@ -245,6 +261,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@12.7.0]: https://github.com/radashi-org/radashi/compare/v12.6.2..v12.7.0
 
 [radashi@12.6.2]: https://github.com/radashi-org/radashi/compare/v12.6.1..v12.6.2
 
