@@ -1,5 +1,5 @@
 ---
-title: arrayEquals
+title: isArrayEqual
 description: Checks if two arrays are equal in length and content
 since: 12.7.0
 ---
@@ -11,21 +11,21 @@ Checks if two arrays are equal in length and content using `Object.is` compariso
 ```ts
 import * as _ from 'radashi'
 
-_.arrayEquals([1, 2, 3], [1, 2, 3])
+_.isArrayEqual([1, 2, 3], [1, 2, 3])
 // => true
 
-_.arrayEquals([1, 2, 3], [1, 2, 4])
+_.isArrayEqual([1, 2, 3], [1, 2, 4])
 // => false
 
-_.arrayEquals([1, 2], [1, 2, 3])
+_.isArrayEqual([1, 2], [1, 2, 3])
 // => false
 
-_.arrayEquals([], [])
+_.isArrayEqual([], [])
 // => true
 
-_.arrayEquals([NaN], [NaN])
+_.isArrayEqual([NaN], [NaN])
 // => true (Object.is handles NaN)
 
-_.arrayEquals([0], [-0])
+_.isArrayEqual([0], [-0])
 // => false (Object.is handles +0 and -0)
 ```
