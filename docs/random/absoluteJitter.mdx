@@ -1,0 +1,16 @@
+---
+title: absoluteJitter
+description: Returns a number randomly jittered by an absolute offset
+since: 12.7.0
+---
+
+### Usage
+
+Add absolute noise to a base value by applying a random offset up to a maximum distance.
+
+```ts
+import * as _ from 'radashi'
+
+const base = 50
+_.absoluteJitter(base, 5) // => a number between 45 and 55
+```
