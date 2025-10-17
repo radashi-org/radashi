@@ -12,6 +12,10 @@
 export function max(array: readonly [number, ...number[]]): number
 export function max(array: readonly number[]): number | null
 export function max<T>(
+  array: readonly [T, ...T[]],
+  getter: (item: T) => number,
+): T
+export function max<T>(
   array: readonly T[],
   getter: (item: T) => number,
 ): T | null
