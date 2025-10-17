@@ -1,6 +1,7 @@
 /**
  * A function that returns the value passed to it.
  *
+ * @see https://radashi.js.org/reference/function/identity
  * @example
  * ```ts
  * identity() // => undefined
