@@ -8,6 +8,10 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 https://github.com/radashi/radashi/pull/444
 
+#### add isArrayEqual function
+
+https://github.com/radashi-org/radashi/pull/417
+
 ## New Features
 
 ####
