@@ -7,6 +7,7 @@
  * identity(1) // => 1
  * identity("a") // => "a"
  * ```
+ * @version 12.7.0
  */
 export function identity(): undefined
 export function identity<T>(value: T): T
