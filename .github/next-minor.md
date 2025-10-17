@@ -4,13 +4,17 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Functions
 
-#### Add `getOrInsert` and `getOrInsertComputed`
+#### Add `getOrInsert` and `getOrInsertComputed` functions
 
 https://github.com/radashi/radashi/pull/444
 
-#### add isArrayEqual function
+#### Add `isArrayEqual` function
 
 https://github.com/radashi-org/radashi/pull/417
+
+#### Add `absoluteJitter` and `proportionalJitter` functions
+
+https://github.com/radashi-org/radashi/pull/446
 
 ## New Features
 
