@@ -4,7 +4,9 @@ The `####` headline should be short and descriptive of the new functionality. In
 
 ## New Functions
 
-####
+#### add isArrayEqual function
+
+https://github.com/radashi-org/radashi/pull/417
 
 ## New Features
 
