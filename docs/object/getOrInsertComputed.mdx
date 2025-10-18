@@ -1,0 +1,35 @@
+---
+title: getOrInsertComputed
+description: Returns a map entry or stores a computed value when missing
+since: 12.7.0
+---
+
+### Usage
+
+Computes and stores a value only when the key has no entry yet.
+
+```ts
+import * as _ from 'radashi'
+
+const counts = new Map<string, number>()
+
+_.getOrInsertComputed(counts, 'clicks', () => 1) // => 1
+_.getOrInsertComputed(counts, 'clicks', () => 5) // => 1
+```
+
+This function is most useful when the computed value is expensive to compute, e.g. a complex object or a non-trivial math calculation.
+
+You can use a `WeakMap` instead, if you'd like to associate the computed value with an object reference.
+
+```ts
+import * as _ from 'radashi'
+
+const values = new WeakMap<object, { count: number }>()
+const key = {}
+_.getOrInsertComputed(values, key, () => ({ count: 1 })) // => { count: 1 }
+_.getOrInsertComputed(values, key, () => ({ count: 2 })) // => { count: 1 }
+```
+
+### Related Work
+
+Inspired by [TC39's Upsert proposal](https://github.com/tc39/proposal-upsert).

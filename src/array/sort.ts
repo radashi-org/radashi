@@ -1,3 +1,5 @@
+import { identity } from 'radashi'
+
 /**
  * Sort an array without modifying it and return the newly sorted
  * value.
@@ -18,7 +20,7 @@
  */
 export function sort<const T extends readonly any[]>(
   array: T,
-  getter: (item: T) => number,
+  getter: (item: T[number]) => number = identity,
   desc = false,
 ): SortArray<T> {
   if (!array) {

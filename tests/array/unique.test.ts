@@ -9,9 +9,9 @@ describe('unique', () => {
   test('uses key fn to correctly remove duplicate items', () => {
     const list = [
       { id: 'a', word: 'hello' },
-      { id: 'a', word: 'hello' },
+      { id: 'a', word: 'goodbye' },
       { id: 'b', word: 'oh' },
-      { id: 'b', word: 'oh' },
+      { id: 'b', word: 'no' },
       { id: 'c', word: 'yolo' },
     ]
     const result = _.unique(list, x => x.id)

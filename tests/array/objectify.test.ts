@@ -11,11 +11,11 @@ describe('objectify', () => {
   test('returns correct map of values', () => {
     const result = _.objectify(
       list,
-      x => x.id,
-      x => x,
+      (x, i) => `${x.id}_${i}`,
+      (x, i) => `${x.word}-${i}`,
     )
-    expect(result.a.word).toBe('hello')
-    expect(result.b.word).toBe('bye')
+    expect(result.a_0).toBe('hello-0')
+    expect(result.b_1).toBe('bye-1')
   })
   test('does not fail on empty input list', () => {
     const result = _.objectify(

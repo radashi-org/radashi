@@ -1,0 +1,36 @@
+---
+title: isMapEqual
+description: Compare two maps for deep equality
+since: 12.7.0
+---
+
+### Usage
+
+Returns true when two `Map` instances contain the same keys and each value is
+deeply equal.
+
+```ts
+import * as _ from 'radashi'
+
+const left = new Map([
+  ['id', 1],
+  ['tags', ['radashi', 'bench']],
+])
+
+const right = new Map([
+  ['tags', ['radashi', 'bench']],
+  ['id', 1],
+])
+
+_.isMapEqual(left, right) // => true
+
+const different = new Map([
+  ['id', 1],
+  ['tags', ['radashi']],
+])
+
+_.isMapEqual(left, different) // => false
+```
+
+Values are compared with [`isEqual`](./isEqual), so nested objects, arrays, and
+dates are handled recursively.
