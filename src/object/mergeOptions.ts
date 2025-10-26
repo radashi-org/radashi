@@ -15,24 +15,19 @@
  *
  * @example
  * ```ts
+ * // Merging two objects with overlapping keys
  * mergeOptions({ a: 1, b: 2 }, { b: 3, c: 4 })
  * // => { a: 1, b: 3, c: 4 }
- * ```
  *
- * @example
- * ```ts
+ * // First argument undefined
  * mergeOptions(undefined, { a: 1 })
  * // => { a: 1 }
- * ```
  *
- * @example
- * ```ts
+ * // Second argument undefined
  * mergeOptions({ a: 1 }, undefined)
  * // => { a: 1 }
- * ```
  *
- * @example
- * ```ts
+ * // Both arguments undefined
  * mergeOptions(undefined, undefined)
  * // => undefined
  * ```
