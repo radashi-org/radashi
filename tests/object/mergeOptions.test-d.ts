@@ -18,7 +18,7 @@ describe('mergeOptions', () => {
 
     const m = _.mergeOptions(a, b)
 
-    expectTypeOf(m).toMatchObjectType<{ x: number; y: string; z: boolean }>()
+    expectTypeOf(m).toEqualTypeOf<{ x: number; y: string; z: boolean }>()
   })
 
   it('preserves optional when overlapping key in A', () => {
@@ -27,7 +27,7 @@ describe('mergeOptions', () => {
 
     const m = _.mergeOptions(a, c)
 
-    expectTypeOf(m).toMatchObjectType<{
+    expectTypeOf(m).toEqualTypeOf<{
       x: number
       y: string | undefined
       z: boolean
@@ -39,7 +39,7 @@ describe('mergeOptions', () => {
 
     const m = _.mergeOptions(undefined, b)
 
-    expectTypeOf(m).toMatchObjectType<{ y: string; z: boolean }>()
+    expectTypeOf(m).toEqualTypeOf<{ y: string; z: boolean }>()
   })
 
   it('B undefined ⇒ result = A widened', () => {
@@ -47,7 +47,7 @@ describe('mergeOptions', () => {
 
     const m = _.mergeOptions(a, undefined)
 
-    expectTypeOf(m).toMatchObjectType<{ x: number; y?: string }>()
+    expectTypeOf(m).toEqualTypeOf<{ x: number; y?: string }>()
   })
 
   it('both undefined ⇒ result = undefined', () => {
@@ -64,7 +64,7 @@ describe('mergeOptions', () => {
 
     expectTypeOf(m1).toMatchTypeOf<{ p: string | undefined }>()
     // biome-ignore lint/complexity/noBannedTypes:
-    expectTypeOf(m2).toMatchObjectType<{}>()
+    expectTypeOf(m2).toEqualTypeOf<{}>()
   })
 
   it('merges class instance and plain object', () => {
@@ -72,10 +72,17 @@ describe('mergeOptions', () => {
     const neo = { name: 'Neo', alias: 'The One' }
 
     const merged = _.mergeOptions(anderson, neo)
-    expectTypeOf(merged).toMatchObjectType<{
+    expectTypeOf(merged).toEqualTypeOf<{
       name: string
       alias: string
       age: number
     }>()
+  })
+
+  it('merges overlapping optional property with required property', () => {
+    type B2 = { b?: string } | undefined
+    const merged = _.mergeOptions({ b: 9 }, {} as B2)
+
+    expectTypeOf(merged).toEqualTypeOf<{ b: number | string }>()
   })
 })
