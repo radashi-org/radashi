@@ -66,14 +66,19 @@ export type MergeOptions<
       : Expand<MergeObjects<UndefinedToPartial<NonNullable<A>>, NonNullable<B>>>
 
 type Expand<T> = T extends object ? { [K in keyof T]: Expand<T[K]> } : T
-type UndefinedToPartial<T extends object | undefined> = undefined extends T
-  ? Partial<T>
-  : T
 
-type MergeObjects<A extends object, B extends object> = {
-  [K in keyof A | keyof B]: K extends keyof B
-    ? B[K]
-    : K extends keyof A
-      ? A[K]
-      : never
+type UndefinedToPartial<T extends object | undefined> = T extends undefined
+  ? undefined
+  : undefined extends T
+    ? Partial<NonNullable<T>>
+    : T
+
+type MergeObjects<A, B> = {
+  [K in keyof A | keyof B]:
+    K extends keyof B
+      ? (undefined extends B[K]
+          ? (Exclude<B[K], undefined> | (K extends keyof A ? A[K] : never))
+          : B[K]
+        )
+      : (K extends keyof A ? A[K] : never)
 }

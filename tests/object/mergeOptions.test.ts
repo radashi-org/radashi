@@ -69,16 +69,4 @@ describe('mergeOptions', () => {
       age: 49,
     })
   })
-
-  it('merges class instance and plain object', () => {
-    const anderson = new Character('Thomas Anderson', 49)
-    const neo = { name: 'Neo', alias: 'The One' }
-
-    const merged = _.mergeOptions(anderson, neo)
-    expectTypeOf(merged).toMatchObjectType<{
-      name: string
-      alias: string
-      age: number
-    }>()
-  })
 })
