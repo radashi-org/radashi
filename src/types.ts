@@ -127,37 +127,33 @@ export type Intersect<U> = (U extends any ? (k: U) => void : never) extends (
 export type Simplify<T> = {} & { [P in keyof T]: T[P] }
 
 /**
- * A result tuple where the error is `undefined`.
+ * A result where the error is `undefined`.
  *
  * @example
  * ```ts
  * type GoodResult = Ok<string>
- * //   ^? [undefined, string]
+ * //   ^? { ok: true, value: string, error: undefined }
  * ```
  */
-export type Ok<TResult> = [err: undefined, result: TResult]
+export type Ok<TResult> = { ok: true; value: TResult; error: undefined }
 
 /**
- * A result tuple where an error is included.
+ * A result where an value is undefined.
  *
- * Note that `TError` is non-nullable, which means that
- * `Err<undefined>` and `Err<null>` are not valid.
  *
  * @example
  * ```ts
  * type BadResult = Err
- * //   ^? [Error, undefined]
+ * //   ^? { ok: false, value: undefined, error: Error }
  *
  * type BadResult2 = Err<TypeError | MyCoolCustomError>
- * //   ^? [TypeError | MyCoolCustomError, undefined]
+ * //   ^? { ok: false, value: undefined, error: TypeError | MyCoolCustomError }
  * ```
  */
-export type Err<TError extends Error = Error> = [err: TError, result: undefined]
+export type Err<TError> = { ok: false; value: undefined; error: TError }
 
 /**
- * A result tuple.
- *
- * First index is the error, second index is the result.
+ * A result object.
  *
  * @example
  * ```ts
@@ -168,12 +164,10 @@ export type Err<TError extends Error = Error> = [err: TError, result: undefined]
  * //   ^? Ok<string> | Err<TypeError>
  * ```
  */
-export type Result<TResult, TError extends Error = Error> =
-  | Ok<TResult>
-  | Err<TError>
+export type Result<TResult, TError> = Ok<TResult> | Err<TError>
 
 /**
- * A promise that resolves to a result tuple.
+ * A promise that resolves to a Result object.
  *
  * @example
  * ```ts
