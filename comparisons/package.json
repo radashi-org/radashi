@@ -1,0 +1,18 @@
+{
+  "name": "comparisons",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "marlon passos",
+  "license": "ISC",
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.9",
+    "lodash": "4.17.21",
+    "radashi": "link:../../src"
+  }
+}
