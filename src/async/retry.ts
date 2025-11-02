@@ -1,4 +1,4 @@
-import { sleep, tryit } from 'radashi'
+import { type Result, sleep, tryit } from 'radashi'
 
 type AbortSignal = {
   throwIfAborted(): void
@@ -37,18 +37,18 @@ export async function retry<TResponse>(
 
   let i = 0
   while (true) {
-    const [err, result] = (await tryit(func)((err: any) => {
+    const result = (await tryit(func)((err: any) => {
       throw { _exited: err }
-    })) as [any, TResponse]
+    })) as Result<TResponse, { _exited: any }>
     signal?.throwIfAborted()
-    if (!err) {
-      return result
+    if (result.ok) {
+      return result.value
     }
-    if (err._exited) {
-      throw err._exited
+    if (result.error._exited) {
+      throw result.error._exited
     }
     if (++i >= times) {
-      throw err
+      throw result.error
     }
     if (delay) {
       await sleep(delay)
