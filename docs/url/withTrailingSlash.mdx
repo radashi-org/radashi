@@ -1,0 +1,22 @@
+---
+title: withTrailingSlash
+description: Adds a trailing slash
+---
+
+### Usage
+
+Adds a trailing slash `/` to the given URL if it is not already present.
+
+This function is useful for ensuring that URLs are properly formatted
+with a trailing slash, which is often required in web development for
+consistency and to avoid issues with relative paths.
+
+```ts
+import { withTrailingSlash } from 'radashi'
+
+withTrailingSlash('') // => '/'
+withTrailingSlash('no/slash') // => 'no/slash/'
+withTrailingSlash('already/has/slash/') // => 'already/has/slash/'
+withTrailingSlash(undefined) // => undefined
+withTrailingSlash(null) // => null
+```
