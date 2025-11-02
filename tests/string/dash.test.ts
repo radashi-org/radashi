@@ -21,6 +21,18 @@ describe('dash', () => {
     const result = _.dash('hello-world')
     expect(result).toBe('hello-world')
   })
+  test('must handle strings starting with numbers', () => {
+    const result = _.dash('123hello')
+    expect(result).toBe('123-hello')
+  })
+  test('must handle numbers between letters', () => {
+  const result = _.dash('hello123world')
+  expect(result).toBe('hello-123-world')
+  })
+  test('must handle strings ending with numbers', () => {
+    const result = _.dash('hello123')
+    expect(result).toBe('hello-123')
+  })
   test('returns non alphanumerics with -', () => {
     const result = _.dash('Exobase Starter_flash AND-go')
     expect(result).toBe('exobase-starter-flash-and-go')
