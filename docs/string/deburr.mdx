@@ -1,0 +1,16 @@
+---
+title: deburr
+description: Removes diacritical marks from a string
+since: 12.8.0
+---
+
+### Usage
+
+Convert accented Latin letters and ligatures to their plain text equivalents.
+
+```ts
+import * as _ from 'radashi'
+
+_.deburr('Crème Brûlée') // => Creme Brulee
+_.deburr('Ærøskøbing') // => Aeroskobing
+```
