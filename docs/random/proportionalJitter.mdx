@@ -1,0 +1,18 @@
+---
+title: proportionalJitter
+description: Returns a number randomly jittered by a proportion of a base value
+since: 12.7.0
+---
+
+### Usage
+
+Add proportional noise to a base value by scaling a random offset with a given factor.
+
+```ts
+import * as _ from 'radashi'
+
+const base = 100
+_.proportionalJitter(base, 0.1) // => a number between 90 and 110
+```
+
+Basically, the example above is saying "add 10% noise to the base value", in either direction (plus or minus).

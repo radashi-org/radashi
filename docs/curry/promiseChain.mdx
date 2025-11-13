@@ -15,7 +15,7 @@ const func1 = vi.fn((a, b) => a + b)
 const func2 = vi.fn(async n => n * 2)
 const func3 = vi.fn(async n => `Your Value is ${n}`)
 
-const chained = await _.promiseChain(func1, func2, func3)
+const chained = _.promiseChain(func1, func2, func3)
 
 await chained(5, 2) // => "Your Value is 14"
 ```

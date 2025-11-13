@@ -1,0 +1,22 @@
+---
+title: getOrInsert
+description: Returns a map entry or stores the provided value when missing
+since: 12.7.0
+---
+
+### Usage
+
+Retrieves the current value for the key or inserts the provided value when the key does not exist.
+
+```ts
+import * as _ from 'radashi'
+
+const counts = new Map<string, number>()
+
+_.getOrInsert(counts, 'clicks', 1) // => 1
+_.getOrInsert(counts, 'clicks', 5) // => 1
+```
+
+### Related Work
+
+Inspired by [TC39's Upsert proposal](https://github.com/tc39/proposal-upsert).

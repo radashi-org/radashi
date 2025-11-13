@@ -14,6 +14,7 @@ describe('range', () => {
     expect(toList(_.range(0, 4))).toEqual([0, 1, 2, 3, 4])
     expect(toList(_.range(3))).toEqual([0, 1, 2, 3])
     expect(toList(_.range(0, 3))).toEqual([0, 1, 2, 3])
+    expect(toList(_.range(-3, 0))).toEqual([-3, -2, -1, 0])
     expect(toList(_.range(0, 3, 'y'))).toEqual(['y', 'y', 'y', 'y'])
     expect(toList(_.range(0, 3, () => 'y'))).toEqual(['y', 'y', 'y', 'y'])
     expect(toList(_.range(0, 3, i => i))).toEqual([0, 1, 2, 3])

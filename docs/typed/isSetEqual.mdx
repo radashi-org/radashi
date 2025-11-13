@@ -1,0 +1,26 @@
+---
+title: isSetEqual
+description: Compare two sets for shallow equality
+since: 12.7.0
+---
+
+### Usage
+
+Returns true when two `Set` instances contain the same values (compared by
+reference).
+
+```ts
+import * as _ from 'radashi'
+
+const left = new Set(['a', 'b', 'c'])
+const right = new Set(['c', 'b', 'a'])
+
+_.isSetEqual(left, right) // => true
+
+const object = { id: 1 }
+
+_.isSetEqual(new Set([object]), new Set([{ id: 1 }])) // => false
+```
+
+Entries are matched using `Set#has`, so two values are considered equal only if
+they are the same reference.

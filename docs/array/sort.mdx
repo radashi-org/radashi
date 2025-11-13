@@ -1,12 +1,12 @@
 ---
 title: sort
-description: Sort a list of objects by a numerical property
+description: Sort a list of items by a numerical property or value
 since: 12.1.0
 ---
 
 ### Usage
 
-Given an array of objects, return a new array sorted by the numerical property specified in the get function. A third, and optional, argument allows you to sort in descending order instead of the default ascending order.
+Given an array, return a new array sorted either by the numerical property specified in the get function or the numerical value of its items if no get function is passed. A third, and optional, argument allows you to sort in descending order instead of the default ascending order.
 
 This function only supports numerical sorting. For alphabetic sorting, see the [alphabetical](./alphabetical) function.
 
@@ -30,4 +30,9 @@ const fish = [
 
 _.sort(fish, f => f.weight) // => [bass, trout, marlin]
 _.sort(fish, f => f.weight, true) // => [marlin, trout, bass]
+
+const numbers = [2, 0, 1]
+
+_.sort(numbers) // => [0, 1, 2]
+_.sort(numbers, _.identity, true) // => [2, 1, 0]
 ```
