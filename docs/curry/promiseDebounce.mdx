@@ -1,0 +1,66 @@
+---
+title: promiseDebounce
+description: Debounce a function while returning a promise that resolves with the last invocation
+since: 13.0.0
+---
+
+### Usage
+
+`promiseDebounce` works like [`debounce`](./debounce) but each invocation returns a promise that settles with the result of the final call in the debounce window. Every time you call the debounced function, you get a promise that resolves only if that call is the one that eventually runs.
+
+```ts
+import * as _ from 'radashi'
+
+const saveDraft = _.promiseDebounce({ delay: 1000 }, async payload => {
+  const response = await fetch('/api/drafts', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+  return response.json()
+})
+
+// These rapid calls collapse into a single request.
+const first = saveDraft({ content: 'Radashi' })
+const second = saveDraft({ content: 'Radashi, but better' })
+
+// `first` stays pending forever because that invocation never runs.
+await second // resolves with the API response
+```
+
+The returned function exposes the same helpers as `debounce`:
+
+- `cancel()` prevents the scheduled call from running.
+- `flush()` runs the pending call immediately and returns its promise (or `undefined` when idle).
+- `isDebounced()` tells you if a call is waiting to run.
+- `callee` holds a reference to the original function.
+
+### Leading calls
+
+Pass `leading: true` to run the first call immediately while continuing to debounce the rest. Only the first call resolves right away; later promises resolve once their invocation survives the debounce delay.
+
+```ts
+const fetchSuggestions = _.promiseDebounce(
+  { delay: 250, leading: true },
+  async term => {
+    const response = await fetch(`/api/suggest?q=${term}`)
+    return response.json()
+  },
+)
+
+const result = await fetchSuggestions('radashi') // executes immediately
+const next = fetchSuggestions('radashi toolkit') // waits 250ms
+```
+
+### Flushing immediately
+
+Use `flush()` to force the pending invocation to run and get the promise for that call.
+
+```ts
+const debounced = _.promiseDebounce({ delay: 500 }, async value => value.toUpperCase())
+
+debounced('one')
+const latest = debounced('two')
+
+const promise = debounced.flush() // same promise as `latest`
+await promise // => 'TWO'
+```
