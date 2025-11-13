@@ -29,10 +29,10 @@ const fish = [
 ]
 
 _.sort(fish, f => f.weight) // => [bass, trout, marlin]
-_.sort(fish, f => f.weight, true) // => [marlin, trout, bass]
+_.sort(fish, f => f.weight, 'desc') // => [marlin, trout, bass]
 
 const numbers = [2, 0, 1]
 
 _.sort(numbers) // => [0, 1, 2]
-_.sort(numbers, _.identity, true) // => [2, 1, 0]
+_.sort(numbers, _.identity, 'desc') // => [2, 1, 0]
 ```
