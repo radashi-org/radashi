@@ -71,4 +71,20 @@ describe('debounce', () => {
     vi.advanceTimersByTime(delay + 10)
     expect(mockFunc).toHaveBeenCalledTimes(2)
   })
+
+  test('isDebounced reports whether a call is pending', () => {
+    expect(func.isDebounced()).toBe(false)
+
+    func()
+    expect(func.isDebounced()).toBe(true)
+
+    func.cancel()
+    expect(func.isDebounced()).toBe(false)
+
+    func()
+    expect(func.isDebounced()).toBe(true)
+
+    vi.advanceTimersByTime(delay + 10)
+    expect(func.isDebounced()).toBe(false)
+  })
 })

@@ -3,22 +3,28 @@ import { noop } from 'radashi'
 declare const setTimeout: (fn: () => void, ms: number) => unknown
 declare const clearTimeout: (timer: unknown) => void
 
-export interface DebounceFunction<TArgs extends any[] = any> {
-  (...args: TArgs): void
+export interface DebounceFunction<TArgs extends any[] = any, TReturn = void> {
+  (...args: TArgs): TReturn
   /**
    * Prevent the scheduled call from happening, if any.
    */
   cancel(): void
   /**
    * If a debounced call is scheduled, this invokes it immediately.
-   * Otherwise, this equals Radashi's `noop` function.
    */
   flush(): void
+  /**
+   * Returns true if a debounced call is scheduled.
+   */
+  isDebounced(): boolean
   /**
    * The underlying function
    */
   readonly callee: (...args: TArgs) => unknown
 }
+
+export type Debounced<TCallee extends (...args: any[]) => any> =
+  DebounceFunction<Parameters<TCallee>> & { callee: TCallee }
 
 export interface DebounceOptions {
   delay: number
@@ -52,34 +58,37 @@ export interface DebounceOptions {
  * ```
  * @version 12.1.0
  */
-export function debounce<TArgs extends any[]>(
+export function debounce<TCallee extends (...args: any[]) => any>(
   { delay, leading }: DebounceOptions,
-  callee: (...args: TArgs) => unknown,
-): DebounceFunction<TArgs> {
+  callee: TCallee,
+): Debounced<TCallee> {
+  type TArgs = Parameters<TCallee>
+
   let timeout: unknown
 
   const debounced = ((...args: TArgs) => {
-    clearTimeout(timeout)
     if (leading) {
       leading = false
       callee(...args)
     } else {
+      clearTimeout(timeout)
       timeout = setTimeout(
         (debounced.flush = () => {
-          debounced.flush = noop
-          clearTimeout(timeout)
+          debounced.cancel()
           callee(...args)
         }),
         delay,
       )
     }
-  }) as DebounceFunction<TArgs> & { callee: typeof callee }
+  }) as Debounced<TCallee>
 
   debounced.callee = callee
+  debounced.isDebounced = () => timeout !== undefined
   debounced.flush = noop
   debounced.cancel = () => {
     debounced.flush = noop
     clearTimeout(timeout)
+    timeout = undefined
   }
 
   return debounced
