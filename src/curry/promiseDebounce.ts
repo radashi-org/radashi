@@ -1,41 +1,31 @@
+import { type DebounceFunction, type DebounceOptions, noop } from 'radashi'
+
 declare const setTimeout: (fn: () => void, ms: number) => unknown
 declare const clearTimeout: (timer: unknown) => void
 
-export type PromiseDebounceFunction<
+export interface PromiseDebounceFunction<
   TArgs extends any[] = any,
   TReturn = any,
-> = {
-  (...args: TArgs): Promise<Awaited<TReturn>>
+> extends DebounceFunction<TArgs, Promise<TReturn>> {
   /**
-   * Cancels the debounced function
+   * If a debounced call is scheduled, this invokes it immediately and
+   * returns its promise. Otherwise, it returns `undefined`.
    */
-  cancel(): void
-  /**
-   * Checks if there is any invocation debounced
-   */
-  isPending(): boolean
-  /**
-   * If the debounced function is pending, it will be invoked
-   * immediately and the result will be returned. Otherwise,
-   * `undefined` will be returned.
-   */
-  flush(...args: TArgs): TReturn | undefined
-  /**
-   * The underlying function
-   */
-  readonly handler: (...args: TArgs) => TReturn
+  flush(): Promise<TReturn> | undefined
 }
+
+export type PromiseDebounced<TCallee extends (...args: any[]) => any> =
+  PromiseDebounceFunction<Parameters<TCallee>, Awaited<ReturnType<TCallee>>> & {
+    callee: TCallee
+  }
 
 /**
  * Same as `debounce`, but a promise is returned that resolves with
  * the result if that call was the last one.
  *
- * - The `cancel` method cancels the debounced function.
- * - The `flush` method calls the underlying function immediately if
- *   it was debounced, otherwise it does nothing.
- * - The `isPending` method checks if the debounced function is
- *   pending.
- * - The `toImmediate` method returns the underlying function.
+ * See the documentation (or the `PromiseDebounceFunction` type) for
+ * details on the methods and properties available on the returned
+ * function.
  *
  * @see https://radashi-org.github.io/reference/curry/promiseDebounce
  * @example
@@ -47,46 +37,43 @@ export type PromiseDebounceFunction<
  * // Logs "2"
  * ```
  */
-export function promiseDebounce<TArgs extends any[], TReturn>(
-  { delay }: { delay: number },
-  handler: (...args: TArgs) => TReturn,
-): PromiseDebounceFunction<TArgs, TReturn> {
-  let timeout: unknown | undefined
-  let resolver: ((value: TReturn | PromiseLike<TReturn>) => void) | undefined
+export function promiseDebounce<TCallee extends (...args: any[]) => any>(
+  { delay, leading }: DebounceOptions,
+  callee: TCallee,
+): PromiseDebounced<TCallee> {
+  type TArgs = Parameters<TCallee>
+  type TReturn = Awaited<ReturnType<TCallee>>
+
+  let timeout: unknown
 
   const debounced = ((...args: TArgs) => {
-    return new Promise<TReturn>(resolve => {
-      resolver = resolve
-
-      clearTimeout(timeout)
-      timeout = setTimeout(() => {
-        timeout = undefined
-        resolve(handler(...args))
-      }, delay)
+    const promise = new Promise<TReturn>(resolve => {
+      if (leading) {
+        leading = false
+        resolve(callee(...args))
+      } else {
+        clearTimeout(timeout)
+        timeout = setTimeout(
+          (debounced.flush = () => {
+            debounced.cancel()
+            resolve((async () => callee(...args))())
+            return promise
+          }),
+          delay,
+        )
+      }
     })
-  }) as PromiseDebounceFunction<TArgs, TReturn> & { handler: typeof handler }
+    return promise
+  }) as PromiseDebounced<TCallee>
 
+  debounced.callee = callee
+  debounced.isDebounced = () => timeout !== undefined
+  debounced.flush = noop
   debounced.cancel = () => {
+    debounced.flush = noop
     clearTimeout(timeout)
     timeout = undefined
-    // The promise's resolver won't be called. JavaScript GC will
-    // clean up every reference to the promise.
-    resolver = undefined
   }
-
-  debounced.flush = (...args) => {
-    if (timeout !== undefined) {
-      clearTimeout(timeout)
-      timeout = undefined
-      const oldResolver = resolver
-      const result = handler(...args)
-      oldResolver?.(result)
-      return result
-    }
-  }
-
-  debounced.isPending = () => timeout !== undefined
-  debounced.handler = handler
 
   return debounced
 }
