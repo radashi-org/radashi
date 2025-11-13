@@ -4,7 +4,7 @@ export default defineConfig({
   entry: { radashi: 'src/mod.ts' },
   format: ['cjs', 'esm'],
   dts: true,
-  target: 'node18',
+  target: 'node16',
   pure: ['Symbol'],
   treeshake: {
     preset: 'smallest',
