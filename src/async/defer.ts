@@ -40,15 +40,15 @@ export async function defer<TResponse>(
       fn,
       rethrow: options?.rethrow ?? false,
     })
-  const [err, response] = await tryit(func)(register)
+  const result = await tryit(func)(register)
   for (const { fn, rethrow } of callbacks) {
-    const [rethrown] = await tryit(fn)(err)
-    if (rethrown && rethrow) {
-      throw rethrown
+    const rethrownResult = await tryit(fn)(result.error)
+    if (!rethrownResult.ok && rethrow) {
+      throw rethrownResult.error
     }
   }
-  if (err) {
-    throw err
+  if (!result.ok) {
+    throw result.error
   }
-  return response
+  return result.value
 }
