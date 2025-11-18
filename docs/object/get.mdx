@@ -8,6 +8,9 @@ since: 12.1.0
 
 Given any value and a select function to get the desired attribute, returns the desired value or a default value if the desired value couldn't be found.
 
+> **Note:** Since v12.1.0, `get` will return the `defaultValue` if the resolved value is `undefined` **or** `null`.  
+> Falsy values like `0`, `''`, or `false` are preserved and will not be replaced by the default.
+
 ```ts
 import * as _ from 'radashi'
 
@@ -26,4 +29,12 @@ const fish = {
 _.get(fish, 'sizes[0].range[1]') // 18
 _.get(fish, 'sizes.0.range.1') // 18
 _.get(fish, 'foo', 'default') // 'default'
-```
+
+// null and undefined both trigger default:
+_.get({ name: null }, 'name', 'Unknown') // 'Unknown'
+_.get({}, 'name', 'Unknown')             // 'Unknown'
+
+// falsy but non-nullish values remain unchanged:
+_.get({ age: 0 }, 'age', 99)              // 0
+_.get({ text: '' }, 'text', 'N/A')        // ''
+_.get({ active: false }, 'active', true)  // false

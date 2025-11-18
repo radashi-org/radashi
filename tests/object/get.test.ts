@@ -42,4 +42,21 @@ describe('get', () => {
     expect(_.get(jay, 'friends[0][name]')).toBe('carl')
     expect(_.get(jay, 'friends[0].friends[0].friends[0].age', 22)).toBe(22)
   })
+
+  test('returns default when final resolved value is null', () => {
+    const obj = { a: { b: null } }
+    expect(_.get(obj, 'a.b', 123)).toBe(123)
+  })
+
+  test('does not replace falsy non-nullish values with default', () => {
+    const obj = { a: 0, b: '', c: false }
+    expect(_.get(obj, 'a', 123)).toBe(0)
+    expect(_.get(obj, 'b', 'abc')).toBe('')
+    expect(_.get(obj, 'c', true)).toBe(false)
+  })
+
+  test('null nested property returns default', () => {
+    const obj = { x: { y: null } }
+    expect(_.get(obj, 'x.y', 'DEF')).toBe('DEF')
+  })
 })
