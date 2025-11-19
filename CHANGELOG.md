@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.7.1] - 2025-11-19
+### Details
+#### <!-- 06 -->Fixed
+
+- Ensure DurationParser static properties can be tree-shaked in [b9d7529](https://github.com/radashi-org/radashi/commit/b9d7529ba9ed9f8c4fdf6192b1ae21cc67251e72)
+
 ## [radashi@12.7.0] - 2025-10-17
 ### Details
 #### <!-- 03 -->Added
@@ -261,6 +267,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@12.7.1]: https://github.com/radashi-org/radashi/compare/v12.7.0..v12.7.1
 
 [radashi@12.7.0]: https://github.com/radashi-org/radashi/compare/v12.6.2..v12.7.0
 
