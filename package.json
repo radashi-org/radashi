@@ -42,6 +42,7 @@
     "test": "vitest run --coverage",
     "test-branch": "node scripts/run test-branch",
     "test-single": "node scripts/run test-single",
+    "tree-shake-check": "node scripts/run tree-shake",
     "update-browserslist": "node scripts/run update-browserslist"
   },
   "devDependencies": {
