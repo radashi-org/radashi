@@ -2,8 +2,8 @@ import * as esbuild from 'esbuild'
 import { fileURLToPath } from 'node:url'
 
 const packageDir = fileURLToPath(new URL('..', import.meta.url))
-const radashiModPath = fileURLToPath(
-  new URL('../../../src/mod.ts', import.meta.url),
+const radashiDistPath = fileURLToPath(
+  new URL('../../../dist/radashi.js', import.meta.url),
 )
 const RADASHI_ENTRY_SOURCE = `import * as _ from 'radashi'
 console.log(_.noop)`
@@ -13,7 +13,7 @@ const radashiAliasPlugin: esbuild.Plugin = {
   name: 'radashi-entry',
   setup(build) {
     build.onResolve({ filter: /^radashi$/ }, () => ({
-      path: radashiModPath,
+      path: radashiDistPath,
     }))
   },
 }
