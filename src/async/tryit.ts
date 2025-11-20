@@ -1,4 +1,4 @@
-import { isPromise, type Result, type ResultPromise } from 'radashi'
+import { isPromiseLike, type Result, type ResultPromise } from 'radashi'
 
 /**
  * The result of a `tryit` function.
@@ -41,7 +41,7 @@ export function tryit<
   return (...args): any => {
     try {
       const result = func(...args)
-      return isPromise(result)
+      return isPromiseLike(result)
         ? result.then(
             value => [undefined, value],
             err => [err, undefined],
