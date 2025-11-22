@@ -32,7 +32,7 @@
   ],
   "scripts": {
     "add-function": "radashi fn create",
-    "bench": "vitest bench",
+    "bench": "bash ./scripts/run-bench.sh",
     "build": "tsup --clean",
     "bundle-impact": "node scripts/run bundle-impact",
     "dev": "tsup --clean --watch --sourcemap",
@@ -50,6 +50,7 @@
     "@radashi-org/biome-config": "link:scripts/biome-config",
     "@types/node": "^22.7.7",
     "@vitest/coverage-v8": "2.1.5",
+    "comparisons": "link:comparisons",
     "cspell": "8.15.4",
     "prettier": "^3.3.2",
     "prettier-plugin-pkg": "^0.18.1",
