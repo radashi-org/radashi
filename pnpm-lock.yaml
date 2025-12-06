@@ -20,6 +20,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: 2.1.5
         version: 2.1.5(vitest@2.1.9(@types/node@22.15.18))
+      comparisons:
+        specifier: link:comparisons
+        version: link:comparisons
       cspell:
         specifier: 8.15.4
         version: 8.15.4
