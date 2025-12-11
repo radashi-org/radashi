@@ -1,0 +1,22 @@
+---
+title: ok
+description: Create an Ok result
+since: 12.2.0
+---
+
+### Usage
+
+Create an `Ok` instance of `Result` containing the provided value.
+Note, this is included to be more ergonomic and explicit than constructing the object manually, but comes with a small amount of overhead due to the function call.
+If you want to avoid that overhead, you can create the object manually: `{ ok: true, value, error: undefined }`.
+
+**Don't know what that is?** Read the [Result](/typed/isResult#result) section in the [isResult](/typed/isResult) documentation.
+
+```ts
+import * as _ from 'radashi'
+
+const okResult = _.ok(42)
+const result: Result<string, Error> = _.ok('Hello, world!')
+```
+
+Also see the related [err](/typed/err) function.
