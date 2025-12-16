@@ -17,9 +17,13 @@ alwaysTrue() // true
 alwaysTrue(1, 2, 3) // true
 ```
 
-### Use cases
+### Search terms
 
-You can avoid using `always` if the value is a primitive (use `() => true` instead), but it can be useful if you need a function that always returns the same object reference, or if you want to memoize a calculation across multiple calls.
+- Often called `alwaysReturn`, or `fixedValue`.
+
+### Popular use cases
+
+- You can avoid using `always` if the value is a primitive (use `() => true` instead), but it can be useful if you need a function that always returns the same object reference, or if you want to memoize a calculation across multiple calls.
 
 ```ts
 // Not memoized
@@ -32,3 +36,5 @@ _.always(someCalculation())
 // Same object
 _.always({ a: 1, b: 2 })
 ```
+
+- Defining placeholder functions in place of complex logic during development or for mock implementations in unit testing.
