@@ -26,4 +26,9 @@ describe('sort', () => {
     expect(result[1]).toBe(1)
     expect(result[2]).toBe(2)
   })
+  test('sort is stable', () => {
+    const list = [2, 0, 1, 3]
+    const result = _.sort(list, () => 0)
+    expect(result).toEqual(list)
+  });
 })
