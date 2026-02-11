@@ -8,12 +8,12 @@ since: 12.1.0
 
 Given an array that contains many arrays, return a new array where all items from the children are present at the top level.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const gods = [['ra', 'loki'], ['zeus']]
 
-_.flat(gods) // => [ra, loki, zeus]
+const flat = _.flat(gods) // => [ra, loki, zeus]
 ```
 
 Note, `_.flat` is not recursive and will not flatten children of children of children ... of children. It will only flatten `T[][]` an array of arrays.

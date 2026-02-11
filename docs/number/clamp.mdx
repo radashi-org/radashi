@@ -16,18 +16,21 @@ range.
   maximum.
 - Otherwise, it returns the number itself.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
-_.clamp(5, 1, 10) // 5
-_.clamp(0, 1, 10) // 1
-_.clamp(15, 1, 10) // 10
+const inRange = _.clamp(5, 1, 10) // 5
+const smaller = _.clamp(0, 1, 10) // 1
+const bigger = _.clamp(15, 1, 10) // 10
 ```
 
 #### Invalid ranges
 
 If the minimum is greater than the maximum, an error is thrown.
 
-```ts
-_.clamp(1, 10, 1) // throws Error
+```ts twoslash
+import * as _ from 'radashi'
+// ---cut-before---
+
+const clamped = _.clamp(1, 10, 1) // throws Error
 ```
