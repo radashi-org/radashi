@@ -11,9 +11,6 @@ importers:
       esbuild:
         specifier: ^0.23.0
         version: 0.23.1
-      radashi:
-        specifier: link:../../src
-        version: link:../../src
 
 packages:
 
