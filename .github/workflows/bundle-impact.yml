@@ -11,7 +11,7 @@ jobs:
     if: github.event.pull_request.user.login != 'renovate[bot]' && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Checkout Pull Request
         id: checkout
@@ -35,7 +35,7 @@ jobs:
 
       - name: Install Node.js
         if: steps.checkout.outputs.has_changes == 'true'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           cache: pnpm
 
