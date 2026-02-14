@@ -13,13 +13,13 @@ jobs:
     env:
       PR_TITLE: '${{ github.event.pull_request.title }}'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: '22.x'
+          node-version: '24.x'
           cache: pnpm
       - run: pnpm install
       - run: pnpm install @commitlint/config-conventional@19.x
