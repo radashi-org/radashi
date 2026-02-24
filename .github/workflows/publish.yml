@@ -47,7 +47,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           registry-url: "https://registry.npmjs.org"
-          node-version: "22.x"
+          node-version: "24.x"
           cache: pnpm
       - run: pnpm install
       - name: Lint
@@ -78,7 +78,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           registry-url: "https://registry.npmjs.org"
-          node-version: "22.x"
+          node-version: "24.x"
           cache: pnpm
       - run: pnpm install
       - run: pnpm build
