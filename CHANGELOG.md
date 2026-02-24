@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.7.2] - 2026-02-24
+### Details
+#### <!-- 06 -->Fixed
+
+- Chain type signatures after 3 arguments in [17aef87](https://github.com/radashi-org/radashi/commit/17aef87d12e989953c14fef3ebdceb22ef89b9f9)
+
 ## [radashi@12.7.1] - 2025-11-19
 ### Details
 #### <!-- 06 -->Fixed
@@ -267,6 +273,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@12.7.2]: https://github.com/radashi-org/radashi/compare/v12.7.1..v12.7.2
 
 [radashi@12.7.1]: https://github.com/radashi-org/radashi/compare/v12.7.0..v12.7.1
 
