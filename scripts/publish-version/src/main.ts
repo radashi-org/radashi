@@ -41,6 +41,10 @@ async function parseArgs() {
     console.error('Error: --latest and --tag cannot be specified together')
     process.exit(1)
   }
+  if (!argv.latest && !argv.patch && !argv.tag) {
+    console.error('Error: --latest, --patch, or --tag must be specified')
+    process.exit(1)
+  }
 
   type ValidTag = typeof import('./publishVersion.ts').VALID_TAGS[number]
 
