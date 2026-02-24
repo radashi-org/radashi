@@ -22,7 +22,6 @@ export async function publishVersion(args: {
   patch?: boolean
   push: boolean
   gitCliffToken?: string
-  npmToken?: string
   radashiBotToken: string
   deployKey?: string
   canaryDeployKey?: string
@@ -280,7 +279,6 @@ export async function publishVersion(args: {
 
   log('Publishing to NPM' + (args.push ? '' : ' (dry run)'))
   await execa('npm', npmPublishArgs, {
-    env: { NODE_AUTH_TOKEN: args.npmToken },
     stdio: 'inherit',
   })
 

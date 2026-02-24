@@ -18,13 +18,11 @@ async function main() {
 async function parseArgs() {
   const {
     gitCliffToken,
-    npmToken,
     radashiBotToken,
     deployKey,
     canaryDeployKey,
   } = verifyEnvVars({
     gitCliffToken: 'GIT_CLIFF_PAT',
-    npmToken: 'NPM_TOKEN',
     radashiBotToken: 'RADASHI_BOT_TOKEN',
     deployKey: 'DEPLOY_KEY',
     canaryDeployKey: 'NIGHTLY_DEPLOY_KEY?',
@@ -53,7 +51,6 @@ async function parseArgs() {
     tag: argv.tag as ValidTag,
     patch: argv.patch,
     gitCliffToken,
-    npmToken,
     radashiBotToken,
     deployKey,
     canaryDeployKey,
