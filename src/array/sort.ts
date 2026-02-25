@@ -18,15 +18,24 @@ import { identity } from 'radashi'
  * ```
  * @version 12.1.0
  */
-export function sort<T>(
-  array: readonly T[],
-  getter: (item: T) => number = identity,
+export function sort<const T extends readonly any[]>(
+  array: T,
+  getter: (item: T[number]) => number = identity,
   desc = false,
-): T[] {
+): SortArray<T> {
   if (!array) {
-    return []
+    return [] as SortArray<T>
   }
   const asc = (a: T, b: T) => getter(a) - getter(b)
   const dsc = (a: T, b: T) => getter(b) - getter(a)
-  return array.slice().sort(desc === true ? dsc : asc)
+  return array.slice().sort(desc === true ? dsc : asc) as SortArray<T>
 }
+
+/**
+ * The return type of the `sort` function. Tuple types are preserved.
+ */
+export type SortArray<T extends readonly any[]> = T extends readonly [
+  ...infer TElement,
+]
+  ? { [K in keyof TElement]: T[number] }
+  : []
