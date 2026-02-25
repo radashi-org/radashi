@@ -4,15 +4,15 @@ import { expect, test } from 'vitest'
 test('converts a resolved promise to Ok', async () => {
   const promise = Promise.resolve(1)
   const result = await _.toResult(promise)
-  expect(result).toEqual([undefined, 1])
+  expect(result).toEqual({ ok: true, value: 1, error: undefined })
 })
 
 test('converts a rejected promise to Err', async () => {
   const promise = Promise.reject(new Error('test error'))
   const result = await _.toResult(promise)
-  expect(result[0]).toBeInstanceOf(Error)
-  expect(result[0]!.message).toEqual('test error')
-  expect(result[1]).toBeUndefined()
+  expect(result.error).toBeInstanceOf(Error)
+  expect(result.error!.message).toEqual('test error')
+  expect(result.value).toBeUndefined()
 })
 
 test('rethrows non-Error rejections', async () => {

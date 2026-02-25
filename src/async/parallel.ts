@@ -93,10 +93,10 @@ export async function parallel<T, K>(
       if (!next) {
         break
       }
-      const [error, result] = await tryit(func)(next.item)
+      const result = await tryit(func)(next.item)
       results.push({
-        error,
-        result: result as K,
+        error: result.error,
+        result: result.value as K,
         index: next.index,
       })
     }

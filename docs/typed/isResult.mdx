@@ -1,76 +1,89 @@
 ---
 title: isResult
-description: Check if a value is a Result tuple
+description: Check if a value is a Result
 since: 12.2.0
 ---
 
 ### Usage
 
-Check if a value is a `Result` tuple.
+Check if a value is a `Result` object.
 
 **Don't know what that is?** Read the [Result](#result) section further down.
 
 ```ts
 import * as _ from 'radashi'
 
-_.isResult([undefined, 42]) // => true
-_.isResult([new Error(), undefined]) // => true
+_.isResult({ ok: true, value: 42, error: undefined }) // => true
+_.isResult(_.ok(42)) // => true
+_.isResult({ ok: false, value: undefined, error: new Error() }) // => true
+_.isResult(_.err(new Error())) // => true
 
-// Tuple must be of length 2.
-_.isResult([new Error()]) // => false
-_.isResult([undefined, true, undefined]) // => false
+// Both the `value` and `error` support any type, including `undefined`.
+_.isResult({ ok: true, value: undefined, error: undefined }) // => true
+_.isResult({ ok: false, value: undefined, error: undefined }) // => true
 
-// Non-tuple values are false.
+// But when `ok` is true, `error` must be undefined, and when `ok` is false, `value` must be undefined.
+_.isResult({ ok: true, value: 42, error: new Error() }) // => false
+_.isResult({ ok: false, value: 42, error: new Error() }) // => false
+
+// Objects must contain all keys.
+_.isResult({ ok: true, value: 42 }) // => false
+_.isResult({ ok: false, error: new Error() }) // => false
+
+// Non-object values are false.
 _.isResult([]) // => false
-_.isResult({}) // => false
+_.isResult('') // => false
 _.isResult(null) // => false
 
-// Result tuples cannot have both a value and an error.
-_.isResult([new Error(), true]) // => false
+// Results cannot have both a value and an error.
+_.isResult({ ok: false, value: 42, error: new Error() }) // => false
 ```
 
-Also see the related [isResultOk](/typed/isResultOk) and [isResultErr](/typed/isResultErr) functions.
+Also see the related [ok](/typed/ok) and [err](/typed/err) functions.
 
 ## Types In-Depth
 
 ### Result
 
-“Results” are tuples of 2 elements (an **error** and a **result value**).
+“Results” are monomorphic objects of 3 elements: an **ok** flag, an **error** and a **result value**.
+This is faster than "tuple" implementations and polymorphic objects (e.g. `type PolyResult<TOk, TErr> = { ok: true, value: TOk } | { ok: false, error: TErr}`) due to JavaScript runtime optimizations and overhead from arrays.
+It is also more ergonomic and "safe" to use than tuples as `result[0]` and `result[1]` don't convey meaning and can be easily mixed up with arrays without the compiler catching it.
 
-- The first element is always the **error**, or `undefined` if the operation was successful.
-- The second element is always the **result value**, unless an error occurred.
-- These tuples are represented by the `Result<TResult, TError>` type.
-- A default error type of `Error` is used when no error type is explicitly defined (e.g. `Result<string>`).
+- The **ok** flag is a boolean indicating if the operation was successful.
+- The **value** is the result of the operation, if successful.
+- The **error** is the error that occurred, if any.
+- These objects are represented by the `Result<TOk, TErr>` type.
+- Both the `TOk` and `TErr` types can be any valid TypeScript type, including `undefined`.
 
 ### Ok and Err
 
-There are 2 types of result: `Ok<TResult>` and `Err<TError>`.
+There are 2 types of result: `Ok<TOk>` and `Err<TErr>`.
 
-- The `Ok` type represents a successful operation. It's a tuple of `[undefined, TResult]`.
-- The `Err` type represents a failed operation. It's a tuple of `[TError, undefined]`.
+- The `Ok<TOk>` type represents a successful operation. It's an object of `{ ok: true, value: TOk, error: undefined }`.
+- The `Err<TErr>` type represents a failed operation. It's an object of `{ ok: false, value: undefined, error: TErr }`.
 
 The names "Ok" and "Err" are inspired by Rust's `std::result` module.
 
 To check for an `Ok` result, do this:
 
 ```ts
-declare const value: unknown
+declare const result: Result<number, string>
 
-if (isResult(value) && value[0] == null) {
-  value // <-- now an Ok<unknown> type
-  value[1] // <-- This is the resulting value!
+if (result.ok) {
+  result // <-- now an Ok<number> type
+  result.value // <-- This is the resulting value!
 }
 ```
 
 To check for an `Err` result, do this:
 
 ```ts
-declare const value: unknown
+declare const result: Result<number, string>
 
-if (isResult(value) && value[0] != null) {
-  value // <-- now an Err<Error> type
-  value[0] // <-- This is the error!
+if (!result.ok) {
+  result // <-- now an Err<string> type
+  result.error // <-- This is the error!
 }
 ```
 
-You can also use the `isResultOk` and `isResultErr` functions to check for `Ok` and `Err` results respectively.
+See the related [ok](/typed/ok) and [err](/typed/err) functions to create `Ok` and `Err` results (though with a small amount of overhead due to the function call).

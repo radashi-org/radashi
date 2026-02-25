@@ -23,13 +23,15 @@ import type { Result } from '../types'
  * ```
  * @version 12.4.0
  */
-export async function toResult<T>(promise: PromiseLike<T>): Promise<Result<T>> {
+export async function toResult<TOk, TErr extends Error = Error>(
+  promise: PromiseLike<TOk>,
+): Promise<Result<TOk, TErr>> {
   try {
     const result = await promise
-    return [undefined, result]
+    return { ok: true, value: result, error: undefined }
   } catch (error) {
     if (isError(error)) {
-      return [error, undefined]
+      return { ok: false, value: undefined, error: error as TErr }
     }
     throw error
   }

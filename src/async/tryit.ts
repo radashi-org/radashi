@@ -42,13 +42,13 @@ export function tryit<
     try {
       const result = func(...args)
       return isPromise(result)
-        ? result.then(
-            value => [undefined, value],
-            err => [err, undefined],
-          )
-        : [undefined, result]
+        ? (result.then(
+            value => ({ ok: true, value, error: undefined }),
+            err => ({ ok: false, value: undefined, error: err as TError }),
+          ) as ResultPromise<TReturn, TError>)
+        : { ok: true, value: result, error: undefined }
     } catch (err) {
-      return [err, undefined]
+      return { ok: false, value: undefined, error: err as TError }
     }
   }
 }
