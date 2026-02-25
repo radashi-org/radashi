@@ -91,3 +91,14 @@ setTimeout(() => {
   myDebouncedFunc.isPending() // => false
 }, 100)
 ```
+
+### Search terms
+
+- Often called `debounce`, `debouncedFunc`, or `throttleDebounce`
+
+### Popular use cases
+
+- Delaying execution of expensive operations, such as API requests or calculations, until a user has stopped interacting with the interface.
+- Controlling the frequency of function execution, particularly for user inputs like typing, scrolling, or resizing events.
+- Reducing the number of times a heavy computation or UI update is triggered in response to frequent actions.
+- Ensuring that a function is called after a pause in actions, with methods to cancel, check status, or force execution.
