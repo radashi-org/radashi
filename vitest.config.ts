@@ -8,7 +8,7 @@ export default defineConfig(env => ({
     globals: true,
     include: ['tests/**/*.test.ts'],
     benchmark: {
-      include: ['benchmarks/**/*.bench.ts'],
+      include: ['(benchmarks|comparisons)/**/*.bench.ts'],
     },
     coverage: {
       thresholds: { 100: true },
@@ -20,6 +20,14 @@ export default defineConfig(env => ({
       include: ['tests/**/*.test-d.ts'],
       enabled: true,
       tsconfig: 'tests/tsconfig.json',
+    },
+    pool: env.mode === 'benchmark' ? 'threads' : 'forks',
+    // temporarily testing to improve performance
+    poolOptions: {
+      threads: {
+        isolate: false,
+        execArgv: ['cpu-prof-dir', 'disabled-threads-profiling'],
+      },
     },
   },
   resolve: {
