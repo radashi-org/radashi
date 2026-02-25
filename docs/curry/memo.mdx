@@ -8,7 +8,7 @@ since: 12.1.0
 
 Wrap a function with memo to get a function back that automagically returns values that have already been calculated.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const timestamp = _.memo(() => Date.now())
@@ -23,7 +23,7 @@ now === later // => true
 
 You can optionally pass a `ttl` (time to live) that will expire memoized results. In versions prior to version 10, `ttl` had a value of 300 milliseconds if not specified.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const timestamp = _.memo(() => Date.now(), {
@@ -45,7 +45,9 @@ now === muchLater // => false
 
 You can optionally customize how values are stored when memoized.
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+// ---cut-before---
 const timestamp = _.memo(
   ({ group }: { group: string }) => {
     const ts = Date.now()

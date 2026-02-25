@@ -8,7 +8,7 @@ since: 12.1.0
 
 Flattens a deep object to a single dimension. The deep keys will be converted to a dot notation in the new object.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const ra = {
@@ -26,7 +26,7 @@ const ra = {
   ],
 }
 
-_.crush(ra)
+const crushed = _.crush(ra)
 // {
 //   name: 'ra',
 //   power: 100,

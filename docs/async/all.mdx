@@ -12,8 +12,9 @@ errors are gathered and thrown in an AggregateError.
 
 Passing an array as an argument will return the resolved promise values as an array in the same order.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const [user] = await _.all([
   api.users.create(...),
@@ -26,8 +27,9 @@ const [user] = await _.all([
 
 Passing an object as an argument will return an object with the same keys and the values as the resolved promise values.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const { user } = await _.all({
   user: api.users.create(...),

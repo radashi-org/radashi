@@ -8,7 +8,7 @@ since: 12.1.0
 
 Trims all prefix and suffix characters from the given string. Like the builtin trim function but accepts alternate (other than space) characters you would like to trim.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 _.trim('  hello ') // => hello
@@ -18,6 +18,8 @@ _.trim('/repos/:owner/', '/') // => repos/:owner
 
 Trim also handles more than one character to trim.
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+// ---cut-before---
 _.trim('222__hello__111', '12_') // => hello
 ```

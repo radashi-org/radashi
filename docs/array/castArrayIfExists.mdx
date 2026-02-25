@@ -8,12 +8,13 @@ since: 12.2.0
 
 The `castArrayIfExists` function ensures that a non-nullish input value is always returned as an array. If the input is already an array, it returns a shallow copy of the array. If the input is not an array, it wraps the input in a new array. Nullish values (null or undefined) are passed through as is.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
-_.castArrayIfExists(1) // => [1]
-_.castArrayIfExists([1, 2, 3]) // => [1, 2, 3]
-_.castArrayIfExists('hello') // => ['hello']
-_.castArrayIfExists(null) // => null
-_.castArrayIfExists(undefined) // => undefined
+const numberToArray = _.castArrayIfExists(1) // => [1]
+const arrayToArray = _.castArrayIfExists([1, 2, 3]) // => [1, 2, 3]
+const stringToArray = _.castArrayIfExists('hello') // => ['hello']
+
+const nullToArray = _.castArrayIfExists(null) // => null
+const undefinedToArray = _.castArrayIfExists(undefined) // => undefined
 ```
