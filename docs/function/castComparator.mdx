@@ -55,3 +55,12 @@ const compareByFullName = _.castComparator(
 users.sort(compareByFullName)
 // [Alice, Charlie, Drew]
 ```
+
+### Search terms
+
+- Often called `makeComparator`, `createComparator`, or `compareBy`.
+
+### Popular use cases
+
+- Dynamically creating comparison functions based on object properties or mapping functions, streamlining sorting operations for arrays of complex objects.
+- Simplifying array sorting logic by allowing custom compare functions for properties such as names, dates, or other comparable values, making code more modular and reusable.
