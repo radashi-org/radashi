@@ -57,3 +57,13 @@ const weekdays = _.series<Weekday>(
 weekdays.next({ day: 'wednesday' }) // => { day: 'thursday' }
 weekdays.previous({ day: 'tuesday' }) // => { day: 'monday' }
 ```
+
+### Search terms
+
+- Often called `createSeries`, `orderedList`, or `sequenceManager`.
+
+### Popular use cases
+
+- Managing ordered data sequences like lists of dates, numbers, or names, allowing for seamless navigation between values in the sequence.
+- Efficiently finding the next or previous value in a list based on the current item, making it ideal for scenarios like calendar date navigation or pagination.
+- Handling circular sequences with the `spin` function to dynamically jump forward or backward across items, perfect for rotating selections or cyclic data processing.
