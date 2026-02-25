@@ -1,16 +1,22 @@
-import type { NoInfer } from 'radashi'
+import { type NoInfer, isArray, selectFirst, sift } from 'radashi'
 
+type KeyOrKeys = string | (string | undefined)[]
 type Cache<T> = Record<string, { exp: number | null; value: T }>
 
 function memoize<TArgs extends any[], TResult>(
   cache: Cache<TResult>,
   func: (...args: TArgs) => TResult,
-  keyFunc: ((...args: TArgs) => string) | null,
+  getKeyFunc: ((...args: TArgs) => KeyOrKeys) | null,
+  setKeyFunc: ((...args: TArgs) => KeyOrKeys) | null,
   ttl: number | null,
 ) {
   return function callWithMemo(...args: any): TResult {
-    const key = keyFunc ? keyFunc(...args) : JSON.stringify({ args })
-    const existing = cache[key]
+    const keyOrKeys = getKeyFunc
+      ? getKeyFunc(...args)
+      : JSON.stringify({ args })
+    const keys = isArray(keyOrKeys) ? sift(keyOrKeys) : [keyOrKeys]
+
+    const existing = selectFirst(keys, key => cache[key])
     if (existing !== undefined) {
       if (!existing.exp) {
         return existing.value
@@ -20,16 +26,22 @@ function memoize<TArgs extends any[], TResult>(
       }
     }
     const result = func(...args)
-    cache[key] = {
-      exp: ttl ? new Date().getTime() + ttl : null,
-      value: result,
+
+    const setKeyOrKeys = setKeyFunc ? setKeyFunc(...args) : keys
+    const setKeys = isArray(setKeyOrKeys) ? sift(setKeyOrKeys) : [setKeyOrKeys]
+    for (const key of setKeys) {
+      cache[key] = {
+        exp: ttl ? new Date().getTime() + ttl : null,
+        value: result,
+      }
     }
     return result
   }
 }
 
 export interface MemoOptions<TArgs extends any[]> {
-  key?: (...args: TArgs) => string
+  key?: (...args: TArgs) => KeyOrKeys
+  setKey?: (...args: TArgs) => KeyOrKeys
   ttl?: number
 }
 
@@ -61,5 +73,11 @@ export function memo<TArgs extends any[], TResult>(
   func: (...args: TArgs) => TResult,
   options: MemoOptions<NoInfer<TArgs>> = {},
 ): (...args: TArgs) => TResult {
-  return memoize({}, func, options.key ?? null, options.ttl ?? null)
+  return memoize(
+    {},
+    func,
+    options.key ?? null,
+    options.setKey ?? null,
+    options.ttl ?? null,
+  )
 }
