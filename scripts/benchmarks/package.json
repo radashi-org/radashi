@@ -15,7 +15,7 @@
     "esbuild": "^0.23.0",
     "execa": "^9.5.1",
     "radashi": "link:../../src",
-    "ts-morph": "^23.0.0",
-    "vitest": "2.1.9"
+    "ts-morph": "^27.0.0",
+    "vitest": "4.0.18"
   }
 }

@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           cache: pnpm
 
@@ -37,7 +37,7 @@ jobs:
 
       - name: Wait for other checks to finish
         if: steps.checkout.outputs.has_new_func == 'true'
-        uses: lewagon/wait-on-check-action@v1.3.4
+        uses: lewagon/wait-on-check-action@v1.5.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           running-workflow-name: 'register-pr'
@@ -46,7 +46,7 @@ jobs:
 
       - name: Install Node.js
         if: steps.checkout.outputs.has_new_func == 'true'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           cache: pnpm
 
