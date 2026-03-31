@@ -43,7 +43,11 @@
     "test-branch": "node scripts/run test-branch",
     "test-single": "node scripts/run test-single",
     "tree-shake-check": "node scripts/run tree-shake",
-    "update-browserslist": "node scripts/run update-browserslist"
+    "update-browserslist": "node scripts/run update-browserslist",
+    "docs:coverage": "oxdoc coverage ./src --threshold 0",
+    "docs:generate": "oxdoc generate ./src --format html --output ./docs-output",
+    "docs:json": "oxdoc generate ./src --format json --output ./docs-output",
+    "docs:llms": "oxdoc generate ./src --format llms-txt --output ./docs-output"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.0-beta.1",
@@ -57,7 +61,8 @@
     "radashi-helper": "^0.1.11",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
-    "vitest": "2.1.9"
+    "vitest": "2.1.9",
+    "@jiji-hoon96/oxdoc": "^0.1.0"
   },
   "sideEffects": false,
   "browserslist": [

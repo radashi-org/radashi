@@ -1,0 +1,13 @@
+{
+  "sourceRoot": "./src",
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.test.*", "**/*.spec.*", "**/*.bench.*", "**/node_modules/**", "**/dist/**"],
+  "coverage": {
+    "threshold": 0,
+    "exportedOnly": true
+  },
+  "output": {
+    "format": "html",
+    "dir": "./docs-output"
+  }
+}
