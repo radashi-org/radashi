@@ -1,0 +1,26 @@
+---
+title: getErrorMessage
+description: 'Get a readable message from an unknown error value'
+since: 12.8.0
+---
+
+### Usage
+
+Pass in an unknown error value and get a string that is safe to display or log.
+
+```ts
+import * as _ from 'radashi'
+
+_.getErrorMessage(new Error('Request failed')) // => 'Request failed'
+_.getErrorMessage('Request failed') // => 'Request failed'
+_.getErrorMessage(null) // => 'Unknown error.'
+```
+
+### Empty messages
+
+Empty strings and `Error` objects with empty messages return the fallback message.
+
+```ts
+_.getErrorMessage(new Error()) // => 'Unknown error.'
+_.getErrorMessage('') // => 'Unknown error.'
+```
