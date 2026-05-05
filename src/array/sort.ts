@@ -26,16 +26,26 @@ export function sort<const T extends readonly any[]>(
   if (!array) {
     return [] as SortArray<T>
   }
-  const asc = (a: T, b: T) => getter(a) - getter(b)
-  const dsc = (a: T, b: T) => getter(b) - getter(a)
-  return array.slice().sort(desc === true ? dsc : asc) as SortArray<T>
+  const direction = desc ? -1 : 1
+  return array
+    .slice()
+    .sort((a, b) => (getter(a) - getter(b)) * direction) as SortArray<T>
 }
 
 /**
  * The return type of the `sort` function. Tuple types are preserved.
  */
-export type SortArray<T extends readonly any[]> = T extends readonly [
-  ...infer TElement,
+export type SortArray<T extends readonly any[]> = T extends readonly []
+  ? []
+  : T extends readonly [any, ...infer TRest]
+    ? [T[number], ...SortArrayRest<T[number], TRest>]
+    : T[number][]
+
+type SortArrayRest<TElement, T extends readonly any[]> = T extends readonly [
+  any,
+  ...infer TRest,
 ]
-  ? { [K in keyof TElement]: T[number] }
-  : []
+  ? [TElement, ...SortArrayRest<TElement, TRest>]
+  : T extends readonly []
+    ? []
+    : TElement[]
