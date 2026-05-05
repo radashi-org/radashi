@@ -22,8 +22,12 @@ describe('alphabetical', () => {
     expect(result).toEqual([])
   })
   test('sort is stable', () => {
-    const list = [{ id: 3, name: 'Leo' }, { id: 1, name: 'Leo' }, { id: 2, name: 'Leo' }]
+    const list = [
+      { id: 3, name: 'Leo' },
+      { id: 1, name: 'Leo' },
+      { id: 2, name: 'Leo' },
+    ]
     const result = _.alphabetical(list, i => i.name)
     expect(result).toEqual(list)
-  });
+  })
 })

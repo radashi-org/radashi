@@ -30,5 +30,5 @@ describe('sort', () => {
     const list = [2, 0, 1, 3]
     const result = _.sort(list, () => 0)
     expect(result).toEqual(list)
-  });
+  })
 })
