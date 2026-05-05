@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "outDir": "../dist/tmp",
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["es2020"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "types": ["vitest/globals", "./node_modules/@types/"],
+    "paths": {
+      "radashi": ["../src/mod.ts"]
+    }
+  }
+}
