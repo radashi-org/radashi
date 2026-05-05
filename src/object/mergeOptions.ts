@@ -1,3 +1,5 @@
+import type { OptionalKeys, RequiredKeys } from 'radashi'
+
 /**
  * Merges two option objects into a new object.
  * - If both arguments are defined, properties
@@ -8,10 +10,10 @@
  *
  * @param a - The first options object, or `undefined`.
  * @param b - The second options object, or `undefined`.
- * @returns A new object containing merged properties, or `undefined` if both are `undefined`.
- * @since v12.7.0
+ * @returns A merged object when both arguments are defined, otherwise the defined argument, or `undefined` if both are `undefined`.
+ * @version 12.9.0
  *
- * @see https://radashi.js.org/reference/objects/mergeOptions
+ * @see https://radashi.js.org/reference/object/mergeOptions
  *
  * @example
  * ```ts
@@ -36,6 +38,7 @@ export function mergeOptions<
   A extends object | undefined,
   B extends object | undefined,
 >(a: A, b: B): MergeOptions<A, B>
+
 export function mergeOptions(
   a: object | undefined,
   b: object | undefined,
@@ -52,33 +55,55 @@ export function mergeOptions(
 /**
  * Computes the merged type of two option objects, handling `undefined` and partials.
  *
- * @since v12.7.0
+ * @version 12.9.0
  */
 export type MergeOptions<
   A extends object | undefined,
   B extends object | undefined,
-> = [A, B] extends [undefined, undefined]
-  ? undefined
-  : [A] extends [undefined]
-    ? Expand<NonNullable<B>>
-    : [B] extends [undefined]
-      ? Expand<NonNullable<A>>
-      : Expand<MergeObjects<UndefinedToPartial<NonNullable<A>>, NonNullable<B>>>
+> =
+  | (undefined extends A ? B : never)
+  | (undefined extends B ? NonNullable<A> : never)
+  | MergePresent<NonNullable<A>, NonNullable<B>>
 
 type Expand<T> = T extends object ? { [K in keyof T]: Expand<T[K]> } : T
 
-type UndefinedToPartial<T extends object | undefined> = T extends undefined
-  ? undefined
-  : undefined extends T
-    ? Partial<NonNullable<T>>
-    : T
+type MergePresent<A, B> = [A, B] extends [never, never]
+  ? never
+  : A extends object
+    ? B extends object
+      ? Expand<MergeObjects<A, B>>
+      : never
+    : never
 
-type MergeObjects<A, B> = {
-  [K in keyof A | keyof B]:
-    K extends keyof B
-      ? (undefined extends B[K]
-          ? (Exclude<B[K], undefined> | (K extends keyof A ? A[K] : never))
-          : B[K]
-        )
-      : (K extends keyof A ? A[K] : never)
+type MergeObjects<A extends object, B extends object> = {
+  [K in MergeRequiredKeys<A, B>]: MergeValue<A, B, K>
+} & {
+  [K in MergeOptionalKeys<A, B>]?: MergeValue<A, B, K>
 }
+
+type MergeRequiredKeys<A extends object, B extends object> =
+  | RequiredKeys<B>
+  | Exclude<RequiredKeys<A>, keyof B>
+  | (RequiredKeys<A> & OptionalKeys<B>)
+
+type MergeOptionalKeys<A extends object, B extends object> =
+  | Exclude<OptionalKeys<A>, keyof B>
+  | Exclude<OptionalKeys<B>, RequiredKeys<A>>
+
+type MergeValue<
+  A extends object,
+  B extends object,
+  K extends keyof A | keyof B,
+> = K extends keyof B
+  ? K extends OptionalKeys<B>
+    ? K extends keyof A
+      ? PropValue<A, K> | PropValue<B, K>
+      : PropValue<B, K>
+    : B[K]
+  : K extends keyof A
+    ? PropValue<A, K>
+    : never
+
+type PropValue<T extends object, K extends keyof T> = K extends OptionalKeys<T>
+  ? Required<Pick<T, K>>[K]
+  : T[K]

@@ -1,7 +1,7 @@
 ---
 title: mergeOptions
 description: Merge two optional objects with type-safe undefined handling
-since: 12.7.0
+since: 12.9.0
 ---
 
 ### Usage
@@ -64,10 +64,14 @@ const bad2 = Object.assign({}, config, override)
 //    ^? { x: number; y?: string } & { y: string; z: boolean }
 // Still produces a complex intersection type
 
-// ✅ mergeOptions handles everything correctly, produces cleaner type
+// ✅ mergeOptions models every runtime branch
 const good = _.mergeOptions(config, override)
-//    ^? { x: number; y: string; z: boolean }
-// No runtime error if `config` is undefined! 😉
+//    ^?
+//    | undefined
+//    | { x: number; y?: string }
+//    | { y: string; z: boolean }
+//    | { x: number; y: string; z: boolean }
+// No runtime error if `config` is undefined.
 ```
 
 The type of `good` clearly shows all possible runtime states, making it easier to understand and work with.
@@ -84,14 +88,14 @@ type UserConfig = { theme?: 'light' | 'dark'; lang?: string } | undefined
 type AppDefaults = { theme: 'light'; lang: 'en' }
 
 function getConfig(
-  userPrefs: UserConfig,
+  userPreferences: UserConfig,
   defaults: AppDefaults
 ): MergeOptions<AppDefaults, UserConfig> {
-  return _.mergeOptions(defaults, userPrefs)
-  // Type is correctly inferred without any assertions
+  return _.mergeOptions(defaults, userPreferences)
+  // The return type covers both defaults-only and merged config branches.
 }
 
-// All cases handled safely:
+// Runtime results:
 getConfig(undefined, { theme: 'light', lang: 'en' })
 // => { theme: 'light', lang: 'en' }
 

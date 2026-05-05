@@ -1,8 +1,8 @@
 import * as _ from 'radashi'
 
-type A = { x: number; y?: string } | undefined
-type B = { y: string; z: boolean } | undefined
-type C = { y?: string; z: boolean } | undefined
+type A = { x: number; y?: string }
+type B = { y: string; z: boolean }
+type C = { y?: string; z: boolean }
 
 class Character {
   constructor(
@@ -48,9 +48,9 @@ describe('mergeOptions', () => {
   })
 
   it('preserve optional when A has optional key', () => {
-    type A2 = { p?: string } | undefined
+    type A2 = { p?: string }
 
-    const m1 = _.mergeOptions({ p: 'ok' } satisfies A2, {})
+    const m1 = _.mergeOptions({ p: 'ok' } as A2, {})
     const m2 = _.mergeOptions(undefined, {})
 
     expect(m1).toEqual({ p: 'ok' })

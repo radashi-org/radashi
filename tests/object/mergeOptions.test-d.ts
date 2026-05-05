@@ -1,8 +1,11 @@
 import * as _ from 'radashi'
 
-type A = { x: number; y?: string } | undefined
-type B = { y: string; z: boolean } | undefined
-type C = { y?: string; z: boolean } | undefined
+type A = { x: number; y?: string }
+type B = { y: string; z: boolean }
+type C = { y?: string; z: boolean }
+
+declare const maybeA: A | undefined
+declare const maybeB: B | undefined
 
 class Character {
   constructor(
@@ -29,7 +32,7 @@ describe('mergeOptions', () => {
 
     expectTypeOf(m).toEqualTypeOf<{
       x: number
-      y: string | undefined
+      y?: string
       z: boolean
     }>()
   })
@@ -57,12 +60,12 @@ describe('mergeOptions', () => {
   })
 
   it('preserve optional when A has optional key', () => {
-    type A2 = { p?: string } | undefined
+    type A2 = { p?: string }
 
-    const m1 = _.mergeOptions({ p: 'ok' } satisfies A2, {})
+    const m1 = _.mergeOptions({ p: 'ok' } as A2, {})
     const m2 = _.mergeOptions(undefined, {})
 
-    expectTypeOf(m1).toMatchTypeOf<{ p: string | undefined }>()
+    expectTypeOf(m1).toEqualTypeOf<{ p?: string }>()
     // biome-ignore lint/complexity/noBannedTypes:
     expectTypeOf(m2).toEqualTypeOf<{}>()
   })
@@ -80,9 +83,32 @@ describe('mergeOptions', () => {
   })
 
   it('merges overlapping optional property with required property', () => {
-    type B2 = { b?: string } | undefined
+    type B2 = { b?: string }
     const merged = _.mergeOptions({ b: 9 }, {} as B2)
 
     expectTypeOf(merged).toEqualTypeOf<{ b: number | string }>()
+  })
+
+  it('preserves runtime branches when both inputs may be undefined', () => {
+    const merged = _.mergeOptions(maybeA, maybeB)
+
+    expectTypeOf(merged).toEqualTypeOf<
+      | undefined
+      | { x: number; y?: string }
+      | { y: string; z: boolean }
+      | { x: number; y: string; z: boolean }
+    >()
+  })
+
+  it('preserves undefined in required override values', () => {
+    const merged = _.mergeOptions({ b: 9 }, {} as { b: string | undefined })
+
+    expectTypeOf(merged).toEqualTypeOf<{ b: string | undefined }>()
+  })
+
+  it('preserves optional properties when both sides are optional', () => {
+    const merged = _.mergeOptions({} as { a?: number }, {} as { a?: string })
+
+    expectTypeOf(merged).toEqualTypeOf<{ a?: number | string }>()
   })
 })
