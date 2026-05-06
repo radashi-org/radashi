@@ -6,15 +6,74 @@ since: 12.1.0
 
 ### Usage
 
-Pass in a value and get a boolean telling you if the value is an instance of `Object` (or a subclass of `Object`).
+Pass in a value and get a boolean telling you if the value is a plain object, a custom class instance, or an object with a null prototype.
+
+This function returns `false` for arrays, functions, and built-in object types like `Date`, `RegExp`, `Map`, and `Set`.
 
 ```ts twoslash
 import * as _ from 'radashi'
 
-_.isObject('hello') // => false
-_.isObject(['hello']) // => false
+class Data {}
+
+_.isObject({}) // => true
+_.isObject(Object.create(null)) // => true
+_.isObject(new Data()) // => true
+
+_.isObject([]) // => false
+_.isObject(new Date()) // => false
+_.isObject(() => {}) // => false
 _.isObject(null) // => false
-_.isObject({ say: 'hello' }) // => true
 ```
 
-**Beware:** This function returns `false` for objects created with `Object.create(null)`. If you want to check if a value is a plain object, use `_.isPlainObject` instead.
+### TypeScript narrowing
+
+:::caution
+
+Use `_.isObject` as a type guard only when the value is known to be either a plain object or a non-object value. Its type predicate is `value is object`, and TypeScript's `object` type also includes arrays, functions, dates, maps, sets, and other object-like values. TypeScript has no built-in "plain object" type that `_.isObject` can narrow to.
+
+:::
+
+This is a good fit for accepting either an options object or a primitive shorthand.
+
+```ts twoslash
+import * as _ from 'radashi'
+
+type Options = { foo?: string }
+
+declare let value: Options | string | undefined
+
+const options: Options = _.isObject(value)
+  ? value
+  : value === undefined
+    ? {}
+    : { foo: value }
+```
+
+If a union can contain arrays, functions, or special objects, narrow those cases directly instead of starting with `_.isObject`.
+
+```ts twoslash
+import * as _ from 'radashi'
+
+type Options = { foo?: string }
+
+declare const value: Options | (() => Options) | Options[]
+
+if (_.isObject(value)) {
+  value
+  // ^? const value: Options | (() => Options) | Options[]
+} else {
+  value
+  // ^? const value: never
+}
+
+if (_.isArray(value)) {
+  value
+  // ^? const value: Options[]
+} else if (_.isFunction(value)) {
+  value
+  // ^? const value: () => Options
+} else {
+  value
+  // ^? const value: Options
+}
+```
