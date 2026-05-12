@@ -13,3 +13,12 @@ import * as _ from 'radashi'
 
 _.dash('green fish blue fish') // => green-fish-blue-fish
 ```
+
+`dash` splits on common word separators and camel case boundaries, but it does
+not split adjacent letters and numbers.
+
+```ts twoslash
+import * as _ from 'radashi'
+// ---cut-before---
+_.dash('helloWorld12Bye') // => hello-world12-bye
+```

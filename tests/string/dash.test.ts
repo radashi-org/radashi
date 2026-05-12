@@ -17,6 +17,10 @@ describe('dash', () => {
     const result = _.dash('helloWorld')
     expect(result).toBe('hello-world')
   })
+  test('does not split letters and numbers', () => {
+    const result = _.dash('helloWorld12Bye')
+    expect(result).toBe('hello-world12-bye')
+  })
   test('must handle strings that are dash', () => {
     const result = _.dash('hello-world')
     expect(result).toBe('hello-world')
