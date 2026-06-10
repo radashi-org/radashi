@@ -1,0 +1,16 @@
+---
+title: castRecord
+description: Casts a value to a record
+---
+
+### Usage
+
+Pass in a value and get it back as a `Record<PropertyKey, unknown>` when it is an object accepted by `isObject`. Otherwise, an empty object is returned.
+
+```ts twoslash
+import * as _ from 'radashi'
+
+_.castRecord({ name: 'Radashi' }) // => { name: 'Radashi' }
+_.castRecord(null) // => {}
+_.castRecord([]) // => {}
+```
