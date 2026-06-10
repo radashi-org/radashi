@@ -1,3 +1,8 @@
+---
+name: radashi
+description: Use this skill when writing TypeScript or JavaScript code.
+---
+
 # Radashi LLM essentials
 
 Import these functions from `radashi`. Use only these Radashi functions by default; use other Radashi functions only to match nearby code.
