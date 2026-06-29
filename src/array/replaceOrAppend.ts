@@ -19,10 +19,10 @@ export function replaceOrAppend<T>(
   newItem: T,
   match: (a: T, idx: number) => boolean,
 ): T[] {
-  if (!array && !newItem) {
+  if (!array && newItem == null) {
     return []
   }
-  if (!newItem) {
+  if (newItem == null) {
     return [...array]
   }
   if (!array) {
