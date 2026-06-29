@@ -42,10 +42,11 @@ describe("waterfall", () => {
   test("propages errors immediately", async () => {
     const errMsg: string = "middle_failed";
     try {
-      const fn1 = (n: number) => n + 1;
-      const errorFn = (n: number) => { throw new Error(errMsg) };
+      const fn1 = async (n: number) => n + 1;
+      const errorFn = async (n: number) => { throw new Error(errMsg) };
+      const initialVal: number = 8;
 
-      await _.waterfall([fn1, errorFn, fn1], 8);
+      await _.waterfall([fn1, errorFn, fn1], initialVal);
       expect.fail("should have thrown");
     } catch(err) {
       expect((err as Error).message).toBe(errMsg)
