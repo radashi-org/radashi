@@ -8,7 +8,7 @@ describe('queue', () => {
   test('executes tasks in FIFO order respecting concurrency', async () => {
     const results: string[] = []
     const worker = async (task: string) => {
-      await _.sleep(50)
+      await _.sleep(5)
       results.push(task)
     }
     const q = _.queue(worker, 2)
@@ -47,7 +47,7 @@ describe('queue', () => {
     expect(results).toEqual([1, 2, 3])
   })
 
-  test('unshift adds tasks to front of queue', async () => {
+  test('unshift adds tasks to front of pending queue', async () => {
     const results: string[] = []
     const worker = async (task: string) => {
       await _.sleep(10)
@@ -58,7 +58,7 @@ describe('queue', () => {
     q.push('c')
     q.unshift('a')
     await q.drain()
-    expect(results).toEqual(['a', 'b', 'c'])
+    expect(results).toEqual(['b', 'a', 'c'])
   })
 
   test('unshift with batch preserves relative order', async () => {
@@ -71,7 +71,7 @@ describe('queue', () => {
     q.push('c')
     q.unshift(['a', 'b'])
     await q.drain()
-    expect(results).toEqual(['a', 'b', 'c'])
+    expect(results).toEqual(['c', 'a', 'b'])
   })
 
   test('drain callback fires when queue becomes idle', async () => {

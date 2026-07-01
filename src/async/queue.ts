@@ -64,6 +64,7 @@ export function queue<T, TResult>(
   const checkDrain = () => {
     if(running === 0 && tasks.length === 0) {
       drainListener?.();
+      drainPromise.resolve();
       drainPromise = withResolvers<void>();
     }
   }
@@ -91,7 +92,7 @@ export function queue<T, TResult>(
     const items = Array.isArray(input) ? input : [input];
     if(items.length === 0) return;
 
-    for(let i = items.length - 1; i > 0; i--) {
+    for(let i = items.length - 1; i >= 0; i--) {
       tasks.unshift({ task: items[i], ...(callback ? { callback } : {}) });
     }
     schedule();
