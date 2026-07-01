@@ -165,4 +165,28 @@ describe('queue', () => {
     await q.drain()
     expect(results).toEqual(['ok1', 'ok2'])
   })
+
+  test('push with empty array does nothing', () => {
+    const worker = vi.fn()
+    const q = _.queue(worker, 2)
+    q.push([])
+    expect(worker).not.toHaveBeenCalled()
+  })
+
+  test('unshift with empty array does nothing', () => {
+    const worker = vi.fn()
+    const q = _.queue(worker, 2)
+    q.unshift([])
+    expect(worker).not.toHaveBeenCalled()
+  })
+
+  test('unshift with callback', async () => {
+    const cb = vi.fn()
+    const worker = async (task: string) => task.toUpperCase()
+    const q = _.queue(worker, 2)
+    q.push('b')
+    q.unshift('a', cb)
+    await q.drain()
+    expect(cb).toHaveBeenCalledWith(undefined, 'A')
+  })
 })
