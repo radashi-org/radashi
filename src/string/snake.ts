@@ -34,5 +34,5 @@ export function snake(
   })
   return options?.splitOnNumber === false
     ? result
-    : result.replace(/([A-Za-z]{1}[0-9]{1})/, val => `${val[0]!}_${val[1]!}`)
+    : result.replace(/([A-Za-z]{1}[0-9]{1})/g, val => `${val[0]!}_${val[1]!}`)
 }
