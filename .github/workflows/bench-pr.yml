@@ -20,6 +20,9 @@ jobs:
           ref: ${{ github.event.pull_request.base.sha }}
           fetch-depth: 0
           persist-credentials: false
+      - name: Create base branch reference
+        run: |
+          git branch ${{ github.base_ref }} HEAD
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Install Node.js
