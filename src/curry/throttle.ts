@@ -30,6 +30,11 @@ export type ThrottledFunction<TArgs extends any[]> = {
    * ```
    */
   trigger(...args: TArgs): void
+  /**
+   * Resets the throttle, allowing the next invocation to happen
+   * immediately.
+   */
+  reset(): void
 }
 
 /**
@@ -66,8 +71,8 @@ export function throttle<TArgs extends any[]>(
     }
   }
 
-  const isThrottled = () => Date.now() - lastCalled < interval
-  throttled.isThrottled = isThrottled
+  const isThrottled = (throttled.isThrottled = () =>
+    Date.now() - lastCalled < interval)
 
   const trigger = (throttled.trigger = (...args: TArgs) => {
     func(...args)
@@ -83,6 +88,12 @@ export function throttle<TArgs extends any[]>(
       )
     }
   })
+
+  throttled.reset = () => {
+    clearTimeout(timer)
+    lastCalled = 0
+    trailingArgs = undefined
+  }
 
   return throttled
 }
