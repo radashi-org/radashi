@@ -1,0 +1,31 @@
+---
+title: tap
+description: 'Execute a function with a given value and return the original value'
+---
+
+### Usage
+
+Pass in a value and a function. The function is executed with the given value, allowing for side effects or mutations. The original value is returned.
+
+```ts
+import * as _ from 'radashi'
+
+const obj = { count: 0 }
+_.tap(obj, value => {
+  value.count += 1 // Mutating the object
+})
+console.log(obj) // => { count: 1 }
+
+const arr = [1, 2, 3]
+_.tap(arr, value => {
+  value.push(4) // Mutating the array
+})
+console.log(arr) // => [1, 2, 3, 4]
+
+// Non-mutating operations do not alter the original value
+const num = 10
+_.tap(num, value => {
+  console.log(value * 2) // => 20  Side effect, but num remains unchanged
+})
+console.log(num) // => 10
+```
