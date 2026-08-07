@@ -32,3 +32,13 @@ const users = await _.reduce(
   {},
 ) // { 1: { name: 'person 1' }, 2: { name: 'person 2' }, 3: { name: 'person 3' }, 4: { name: 'person 4' } }
 ```
+
+### Search terms
+
+- Often called `asyncReduce`, `asyncFold`, or `reduceAsync` in other libraries.
+
+### Popular use cases
+
+- Aggregating results from an array of promises where each promise's result is dependent on the previous result.
+- Performing complex, sequential data transformations on large datasets within a controlled asynchronous context.
+- Sequentially processing a list of tasks where each task needs the result of the previously resolved task, especially in data pipelines or batch processing scenarios.
