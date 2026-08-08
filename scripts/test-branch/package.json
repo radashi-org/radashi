@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "execa": "^9.5.1",
-    "meriyah": "^6.0.3",
+    "meriyah": "^7.0.0",
     "tinyglobby": "^0.2.10"
   }
 }
