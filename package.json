@@ -57,7 +57,7 @@
     "radashi-helper": "^0.1.11",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
-    "vitest": "2.1.9"
+    "vitest": "3.2.6"
   },
   "sideEffects": false,
   "browserslist": [
