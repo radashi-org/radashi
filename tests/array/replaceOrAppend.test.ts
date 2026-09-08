@@ -44,4 +44,11 @@ describe('replaceOrAppend', () => {
     const result = _.replaceOrAppend(letters, 'XX', x => x === 'x')
     expect(result).toEqual(lettersXX)
   })
+  test('replaces a falsy new item instead of treating it as missing', () => {
+    expect(_.replaceOrAppend([1, 2, 3], 0, n => n === 2)).toEqual([1, 0, 3])
+    expect(_.replaceOrAppend([true], false, x => x === true)).toEqual([false])
+  })
+  test('appends a falsy new item when nothing matches', () => {
+    expect(_.replaceOrAppend([1, 2, 3], 0, n => n > 100)).toEqual([1, 2, 3, 0])
+  })
 })
