@@ -1,0 +1,18 @@
+---
+title: unawaited
+description: Attaches console.error to a given promise
+---
+
+### Usage
+
+Pass a promise to `unawaited` to ensure that any rejection is logged to the console instead of resulting in an unhandled promise rejection.
+
+```ts
+import * as _ from 'radashi'
+
+async function someAsyncFunction() {
+  throw new Error('Something went wrong')
+}
+
+_.unawaited(someAsyncFunction())
+```
