@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.9.3] - 2026-09-14
+### Details
+#### <!-- 06 -->Fixed
+
+- **(diff)** Use a Set so identities cannot hit Object.prototype in [8b825ae](https://github.com/radashi-org/radashi/commit/8b825aea350b97c83cf33ee3ad28575c24ea7aef)
+- **(counting)** Build the tally on a null-prototype object in [8eb247c](https://github.com/radashi-org/radashi/commit/8eb247cbfd9b95a9814d90046d6eb0cd203919df)
+
 ## [radashi@12.9.2] - 2026-09-08
 ### Details
 #### <!-- 06 -->Fixed
@@ -302,6 +309,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@12.9.3]: https://github.com/radashi-org/radashi/compare/v12.9.2..v12.9.3
 
 [radashi@12.9.2]: https://github.com/radashi-org/radashi/compare/v12.9.1..v12.9.2
 
