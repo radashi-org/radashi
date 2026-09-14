@@ -28,12 +28,9 @@ export function diff<T>(
   if (!other?.length) {
     return [...root]
   }
-  const bKeys = other.reduce(
-    (acc, item) => {
-      acc[identity(item)] = true
-      return acc
-    },
-    {} as Record<string | number | symbol, boolean>,
-  )
-  return root.filter(a => !bKeys[identity(a)])
+  const bKeys = new Set<string | number | symbol>()
+  for (const item of other) {
+    bKeys.add(identity(item))
+  }
+  return root.filter(a => !bKeys.has(identity(a)))
 }
