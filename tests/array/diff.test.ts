@@ -27,6 +27,10 @@ describe('diff', () => {
     const result = _.diff(['a', 'b', 'c'], ['c', 'd', 'e'])
     expect(result).toEqual(['a', 'b'])
   })
+  test('keeps items whose identity matches an Object.prototype key', () => {
+    const result = _.diff(['toString', 'constructor', 'a'], ['b'])
+    expect(result).toEqual(['toString', 'constructor', 'a'])
+  })
   test('uses identity function', () => {
     const identity = ({ letter }: { letter: string }) => letter
     const letter = (l: string) => ({ letter: l })
