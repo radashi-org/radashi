@@ -16,7 +16,7 @@
  */
 export function replaceOrAppend<T>(
   array: readonly T[],
-  newItem: T,
+  newItem: T | null | undefined,
   match: (a: T, idx: number) => boolean,
 ): T[] {
   if (!array && newItem == null) {
