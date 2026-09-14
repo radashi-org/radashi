@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.9.4] - 2026-09-14
+### Details
+#### <!-- 06 -->Fixed
+
+- **(replaceOrAppend)** Treat only null/undefined as a missing new item in [4f50de1](https://github.com/radashi-org/radashi/commit/4f50de1daf471e8837803e43c0e13dbfc234c883)
+- **(replaceOrAppend)** Allow nullish value even if array type doesn't in [4e485ce](https://github.com/radashi-org/radashi/commit/4e485ce885b34cbebd199ef5b9a6a20d92c06aaa)
+
 ## [radashi@12.9.3] - 2026-09-14
 ### Details
 #### <!-- 06 -->Fixed
@@ -309,6 +316,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@12.9.4]: https://github.com/radashi-org/radashi/compare/v12.9.3..v12.9.4
 
 [radashi@12.9.3]: https://github.com/radashi-org/radashi/compare/v12.9.2..v12.9.3
 
