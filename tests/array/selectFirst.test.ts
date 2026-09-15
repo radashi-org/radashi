@@ -57,4 +57,10 @@ describe('selectFirst', () => {
     const result = _.selectFirst(list, el => el.a)
     expect(result).toEqual(1)
   })
+  test('maps a matched undefined element', () => {
+    const list = [undefined, 1]
+    const mapper = (x: number | undefined) => (x === undefined ? 'none' : x)
+    expect(_.selectFirst(list, mapper, () => true)).toEqual('none')
+    expect(_.selectFirst(list, mapper)).toEqual('none')
+  })
 })
