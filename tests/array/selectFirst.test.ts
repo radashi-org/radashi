@@ -63,4 +63,25 @@ describe('selectFirst', () => {
     expect(_.selectFirst(list, mapper, () => true)).toEqual('none')
     expect(_.selectFirst(list, mapper)).toEqual('none')
   })
+  test('maps a matched undefined element past the first index', () => {
+    const list = [0, undefined, 2]
+    const result = _.selectFirst(
+      list,
+      x => (x === undefined ? 'none' : x),
+      (_x, idx) => idx === 1,
+    )
+    expect(result).toEqual('none')
+  })
+  test('maps the same value that matched the condition', () => {
+    const values = [1]
+    const result = _.selectFirst(
+      values,
+      value => value * 10,
+      () => {
+        values[0] = 2
+        return true
+      },
+    )
+    expect(result).toEqual(10)
+  })
 })
