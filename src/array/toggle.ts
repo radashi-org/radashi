@@ -59,9 +59,9 @@ export function toggle<T>(
     matcher = (x: T) => x === item
   }
 
-  const existing = array.find(matcher)
+  const existingIndex = array.findIndex(matcher)
 
-  if (existing !== undefined) {
+  if (existingIndex !== -1) {
     return array.filter((x, idx) => !matcher(x, idx))
   }
 
