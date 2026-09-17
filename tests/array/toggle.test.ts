@@ -55,6 +55,17 @@ describe('toggle', () => {
       [{ id: 'a' }],
     )
   })
+  test('should remove a matching undefined after a non-matching item', () => {
+    const rows: ({ id: string | undefined } | undefined)[] = [
+      { id: 'a' },
+      undefined,
+      { id: 'b' },
+    ]
+
+    expect(_.toggle(rows, { id: undefined }, row => row?.id ?? 'none')).toEqual(
+      [{ id: 'a' }, { id: 'b' }],
+    )
+  })
   test('should use idx=-1 for item', () => {
     const toKey = vi.fn(v => v)
 
