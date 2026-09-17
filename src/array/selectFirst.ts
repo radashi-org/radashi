@@ -34,10 +34,10 @@ export function selectFirst<T, U>(
   if (!array) {
     return undefined
   }
-  let foundIndex = -1
-  const found = array.find((item, index) => {
-    foundIndex = index
+  let foundItem!: T
+  const foundIndex = array.findIndex((item, index) => {
+    foundItem = item
     return condition ? condition(item, index) : mapper(item, index) != null
   })
-  return found === undefined ? undefined : mapper(found, foundIndex)
+  return foundIndex === -1 ? undefined : mapper(foundItem, foundIndex)
 }
