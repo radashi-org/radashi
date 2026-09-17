@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.9.5] - 2026-09-17
+### Details
+#### <!-- 06 -->Fixed
+
+- **(selectFirst)** Map a matched undefined element in [4dd501b](https://github.com/radashi-org/radashi/commit/4dd501b2f45852b2d5f8185dfe1d74e406d8cffb)
+- **(toggle)** Remove a matching undefined element instead of appending in [a4dce55](https://github.com/radashi-org/radashi/commit/a4dce5504a4d7acd7d8cceab3640ae28f1170404)
+
 ## [radashi@12.9.4] - 2026-09-14
 ### Details
 #### <!-- 06 -->Fixed
@@ -316,6 +323,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@12.9.5]: https://github.com/radashi-org/radashi/compare/v12.9.4..v12.9.5
 
 [radashi@12.9.4]: https://github.com/radashi-org/radashi/compare/v12.9.3..v12.9.4
 
