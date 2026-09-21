@@ -61,5 +61,10 @@ export function memo<TArgs extends any[], TResult>(
   func: (...args: TArgs) => TResult,
   options: MemoOptions<NoInfer<TArgs>> = {},
 ): (...args: TArgs) => TResult {
-  return memoize({}, func, options.key ?? null, options.ttl ?? null)
+  return memoize(
+    Object.create(null),
+    func,
+    options.key ?? null,
+    options.ttl ?? null,
+  )
 }
