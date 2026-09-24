@@ -1,48 +1,77 @@
 /**
- * Return true if the given values are equal.
+ * Return true if the given values are deeply equal.
  *
  * To determine equality, `Object.is()` is used first. If it returns
  * false, we do the following special checks:
  * - `Date` and `Date` with the same time
  * - `RegExp` and `RegExp` with the same pattern/flags
- * - object with the same keys and values (recursive)
+ * - arrays with the same length and elements (recursive)
+ * - objects with the same keys and values (recursive)
+ *
+ * You may pass a custom compare function to handle specific cases.
+ * Your compare function is called before the final object comparison,
+ * after all other checks. It can return `null` to default to the
+ * built-in behavior.
+ *
+ * See the documentation for caveats.
  *
  * @see https://radashi.js.org/reference/typed/isEqual
- * @example
- * ```ts
- * isEqual(0, 0) // => true
- * isEqual(0, 1) // => false
- * ```
  * @version 12.1.0
  */
-export function isEqual<TType>(x: TType, y: TType): boolean {
+export function isEqual<T>(
+  x: T,
+  y: T,
+  customCompare?: (x: any, y: any) => boolean | null | undefined,
+): boolean
+export function isEqual(
+  x: any,
+  y: any,
+  customCompare?: (x: any, y: any) => boolean | null | undefined,
+): boolean {
   if (Object.is(x, y)) {
     return true
   }
-  if (x instanceof Date && y instanceof Date) {
-    return x.getTime() === y.getTime()
-  }
-  if (x instanceof RegExp && y instanceof RegExp) {
-    return x.toString() === y.toString()
-  }
   if (
+    !x ||
+    !y ||
     typeof x !== 'object' ||
-    x === null ||
     typeof y !== 'object' ||
-    y === null
+    Object.getPrototypeOf(x) !== Object.getPrototypeOf(y)
   ) {
     return false
   }
-  const keysX = Reflect.ownKeys(x as unknown as object) as (keyof typeof x)[]
-  const keysY = Reflect.ownKeys(y as unknown as object)
-  if (keysX.length !== keysY.length) {
+  switch (x.constructor) {
+    case Object:
+      break
+    // Fast path for arrays
+    case Array:
+      return (
+        x.length === y.length &&
+        (x as any[]).every((item, index) => {
+          return isEqual(item, y[index])
+        })
+      )
+    case Date:
+      return x.getTime() === y.getTime()
+    case RegExp:
+      return x.toString() === y.toString()
+    default: {
+      const result = customCompare?.(x, y)
+      if (result != null) {
+        return result
+      }
+    }
+  }
+  const kx = Reflect.ownKeys(x)
+  const ky = Reflect.ownKeys(y)
+  if (kx.length !== ky.length) {
     return false
   }
-  for (let i = 0; i < keysX.length; i++) {
-    if (!Reflect.has(y as unknown as object, keysX[i])) {
-      return false
-    }
-    if (!isEqual(x[keysX[i]], y[keysX[i]])) {
+  for (const key of kx as (keyof typeof x)[]) {
+    if (
+      !Object.prototype.hasOwnProperty.call(y, key) ||
+      !isEqual(x[key], y[key])
+    ) {
       return false
     }
   }
