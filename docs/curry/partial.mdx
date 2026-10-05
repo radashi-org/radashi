@@ -17,3 +17,14 @@ const addFive = _.partial(add, 5)
 
 addFive(2) // => 7
 ```
+
+### Search terms
+
+- Often called `partial`, `partialApply`, or `preFillArgs`
+
+### Popular use cases
+
+- Pre-filling some arguments of a function, creating a new function with fewer parameters for easier reuse.
+- Simplifying complex operations by partially applying constant values, reducing the need for repetitive code.
+- Adapting functions with multiple parameters for use in situations where fewer arguments are passed over time.
+- Streamlining callback creation in scenarios where only a subset of the original function's arguments is known upfront.
