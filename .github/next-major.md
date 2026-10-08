@@ -4,4 +4,8 @@ The `####` headline should be short and descriptive of the breaking change. In t
 
 ## Breaking Changes
 
+#### Align the AggregateError polyfill with the native constructor
+
+[PR #487](https://github.com/radashi-org/radashi/pull/487)
+
 ####
