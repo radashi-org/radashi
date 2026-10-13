@@ -46,6 +46,7 @@ export * from './async/sleep.ts'
 export * from './async/timeout.ts'
 export * from './async/toResult.ts'
 export * from './async/tryit.ts'
+export * from './async/unawaited.ts'
 export * from './async/withResolvers.ts'
 
 export * from './curry/callable.ts'
