@@ -6,7 +6,6 @@ import {
   isNumber,
   list,
   sort,
-  tryit,
 } from 'radashi'
 
 type AbortSignal = {
@@ -20,7 +19,7 @@ type AbortSignal = {
 type WorkItemResult<K> = {
   index: number
   result: K
-  error: any
+  error?: any
 }
 
 export type ParallelOptions = {
@@ -93,12 +92,11 @@ export async function parallel<T, K>(
       if (!next) {
         break
       }
-      const [error, result] = await tryit(func)(next.item)
-      results.push({
-        error,
-        result: result as K,
-        index: next.index,
-      })
+      try {
+        results.push({ result: await func(next.item), index: next.index })
+      } catch (error) {
+        results.push({ error, result: undefined as K, index: next.index })
+      }
     }
     return resolve(results)
   }
@@ -125,7 +123,7 @@ export async function parallel<T, K>(
 
   const [errors, results] = fork(
     sort(flat(itemResults), r => r.index),
-    x => !!x.error,
+    x => 'error' in x,
   )
   if (errors.length > 0) {
     throw new AggregateError(errors.map(error => error.error))
