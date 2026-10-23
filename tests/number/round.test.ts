@@ -45,6 +45,21 @@ describe('round', () => {
     expect(_.round(Number.NaN)).toBeNaN()
   })
 
+  test.each([1, -1, 292, -323])(
+    'preserves non-finite values with precision %i',
+    precision => {
+      for (const strategy of [Math.round, Math.ceil, Math.floor]) {
+        expect(_.round(Number.POSITIVE_INFINITY, precision, strategy)).toBe(
+          Number.POSITIVE_INFINITY,
+        )
+        expect(_.round(Number.NEGATIVE_INFINITY, precision, strategy)).toBe(
+          Number.NEGATIVE_INFINITY,
+        )
+        expect(_.round(Number.NaN, precision, strategy)).toBeNaN()
+      }
+    },
+  )
+
   test('handles extremely large numbers', () => {
     expect(_.round(1e50)).toBe(1e50)
     expect(_.round(1.23456789e50, 5)).toBe(1.23456789e50)
