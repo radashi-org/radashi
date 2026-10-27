@@ -56,3 +56,7 @@ if (!isNumber(value)) {
 
 isNumber(NaN) // => true
 ```
+
+#### Align the AggregateError polyfill with the native constructor
+
+[PR #487](https://github.com/radashi-org/radashi/pull/487)
