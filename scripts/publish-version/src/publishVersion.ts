@@ -171,9 +171,11 @@ export async function publishVersion(args: {
     ignoreTags: args.tag === 'next' ? '^(beta|alpha|rc)$' : undefined,
   })
 
-  // Check if CHANGELOG.md has changed
+  // Check if CHANGELOG.md has changed. An explicit --version skips
+  // this, since the changelog may legitimately be unchanged (e.g.
+  // re-publishing a version that was deleted from the registry).
   await execa('git', ['status', '--porcelain', changelogFile]).then(status => {
-    if (!status.stdout.trim()) {
+    if (!status.stdout.trim() && !args.version) {
       log('No changes detected in %s', changelogFile)
       process.exit(1)
     }
