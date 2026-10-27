@@ -8,7 +8,7 @@ since: 12.1.0
 
 The series function allows you to work with ordered values from an enum or union type, such as a status, by returning an object for performing ordered logic.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 type Weekday = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday'
@@ -21,22 +21,22 @@ const weekdays = _.series<Weekday>([
   'friday',
 ])
 
-weekdays.min('tuesday', 'thursday') // => 'tuesday'
-weekdays.max('wednesday', 'monday') // => 'wednesday'
-weekdays.next('wednesday') // => 'thursday'
-weekdays.previous('tuesday') // => 'monday'
-weekdays.first() // => 'monday'
-weekdays.last() // => 'friday'
-weekdays.next('friday') // => null
-weekdays.next('friday', weekdays.first()) // => 'monday'
-weekdays.spin('monday', 3) // => 'thursday'
+const a = weekdays.min('tuesday', 'thursday') // => 'tuesday'
+const b = weekdays.max('wednesday', 'monday') // => 'wednesday'
+const c = weekdays.next('wednesday') // => 'thursday'
+const d = weekdays.previous('tuesday') // => 'monday'
+const e = weekdays.first() // => 'monday'
+const f = weekdays.last() // => 'friday'
+const g = weekdays.next('friday') // => null
+const h = weekdays.next('friday', weekdays.first()) // => 'monday'
+const i = weekdays.spin('monday', 3) // => 'thursday'
 ```
 
 ### Complex Data Types
 
 For objects, pass a second argument to `series`: a function that converts non-primitive values into an identity that can be checked for equality.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 type Weekday = {
@@ -54,6 +54,6 @@ const weekdays = _.series<Weekday>(
   w => w.day,
 )
 
-weekdays.next({ day: 'wednesday' }) // => { day: 'thursday' }
-weekdays.previous({ day: 'tuesday' }) // => { day: 'monday' }
+const a = weekdays.next({ day: 'wednesday' }) // => { day: 'thursday' }
+const b = weekdays.previous({ day: 'tuesday' }) // => { day: 'monday' }
 ```

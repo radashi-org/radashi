@@ -38,7 +38,7 @@ export function memo<TFunc extends (...args: any[]) => any>(
   func: TFunc,
   options: MemoOptions<NoInfer<TFunc>> = {},
 ): Memoized<TFunc> {
-  const { key: keyFunc, ttl, cache = {} } = options
+  const { key: keyFunc, ttl, cache = Object.create(null) } = options
 
   return function callWithMemo(...args) {
     const key = keyFunc ? keyFunc(...args) : JSON.stringify({ args })

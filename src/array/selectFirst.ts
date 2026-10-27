@@ -31,10 +31,10 @@ export function selectFirst<T, U>(
   mapper: (item: T, index: number) => U,
   condition?: (item: T, index: number) => boolean,
 ): U | undefined {
-  let foundIndex = -1
-  const found = array.find((item, index) => {
-    foundIndex = index
+  let foundItem!: T
+  const foundIndex = array.findIndex((item, index) => {
+    foundItem = item
     return condition ? condition(item, index) : mapper(item, index) != null
   })
-  return found === undefined ? undefined : mapper(found, foundIndex)
+  return foundIndex === -1 ? undefined : mapper(foundItem, foundIndex)
 }

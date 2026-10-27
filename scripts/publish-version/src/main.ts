@@ -16,19 +16,13 @@ async function main() {
 }
 
 async function parseArgs() {
-  const {
-    gitCliffToken,
-    npmToken,
-    radashiBotToken,
-    deployKey,
-    canaryDeployKey,
-  } = verifyEnvVars({
-    gitCliffToken: 'GIT_CLIFF_PAT',
-    npmToken: 'NPM_TOKEN',
-    radashiBotToken: 'RADASHI_BOT_TOKEN',
-    deployKey: 'DEPLOY_KEY',
-    canaryDeployKey: 'NIGHTLY_DEPLOY_KEY?',
-  })
+  const { gitCliffToken, radashiBotToken, deployKey, canaryDeployKey } =
+    verifyEnvVars({
+      gitCliffToken: 'GIT_CLIFF_PAT',
+      radashiBotToken: 'RADASHI_BOT_TOKEN',
+      deployKey: 'DEPLOY_KEY',
+      canaryDeployKey: 'NIGHTLY_DEPLOY_KEY?',
+    })
 
   const { default: mri } = await import('mri')
 
@@ -41,6 +35,10 @@ async function parseArgs() {
     console.error('Error: --latest and --tag cannot be specified together')
     process.exit(1)
   }
+  if (!argv.latest && !argv.patch && !argv.tag) {
+    console.error('Error: --latest, --patch, or --tag must be specified')
+    process.exit(1)
+  }
 
   type ValidTag = typeof import('./publishVersion.ts').VALID_TAGS[number]
 
@@ -49,7 +47,6 @@ async function parseArgs() {
     tag: argv.tag as ValidTag,
     patch: argv.patch,
     gitCliffToken,
-    npmToken,
     radashiBotToken,
     deployKey,
     canaryDeployKey,

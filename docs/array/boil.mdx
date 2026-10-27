@@ -8,7 +8,7 @@ since: 12.1.0
 
 Given an array of items return the final item that wins the comparison condition. Useful for more complicated min/max.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const gods = [
@@ -26,6 +26,6 @@ const gods = [
   },
 ]
 
-_.boil(gods, (a, b) => (a.power > b.power ? a : b))
+const boilByPower = _.boil(gods, (a, b) => (a.power > b.power ? a : b))
 // => { name: 'Ra', power: 100 }
 ```

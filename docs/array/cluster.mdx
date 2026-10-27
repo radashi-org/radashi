@@ -9,7 +9,7 @@ since: 12.1.0
 Takes an array and divides it into many arrays of the given size. The last
 array may be smaller than the given size, if not enough items are left.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const gods = [
@@ -25,10 +25,10 @@ const gods = [
   'Athena',
 ]
 
-_.cluster(gods, 3)
+const clustered = _.cluster(gods, 3)
 // => [
-//   [ 'Ra', 'Zeus', 'Loki' ],
-//   [ 'Vishnu', 'Icarus', 'Osiris' ],
+//   ['Ra', 'Zeus', 'Loki'],
+//   ['Vishnu', 'Icarus', 'Osiris'],
 //   ['Thor', 'Apollo', 'Artemis'],
 //   ['Athena']
 // ]

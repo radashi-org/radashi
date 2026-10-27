@@ -1,10 +1,13 @@
 name: Benchmark Pull Request
 
 on:
-  pull_request_target:
+  pull_request:
     branches: [main, next]
     paths:
       - 'src/**/*.ts'
+
+permissions:
+  contents: read
 
 jobs:
   benchmark:
@@ -14,13 +17,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.base.sha }}
           fetch-depth: 0
+          persist-credentials: false
+      - name: Create base branch reference
+        run: |
+          git branch ${{ github.base_ref }} HEAD
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Install Node.js
         uses: actions/setup-node@v4
-        with:
-          cache: pnpm
 
       - name: Checkout Pull Request
         id: checkout
@@ -31,14 +37,28 @@ jobs:
           node scripts/run checkout-pr src benchmarks
 
           if [ -z "$(git status --porcelain)" ]; then
-            echo '::set-output name=has_changes::false'
+            echo 'has_changes=false' >> "$GITHUB_OUTPUT"
           else
-            echo '::set-output name=has_changes::true'
+            echo 'has_changes=true' >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run benchmarks
         if: steps.checkout.outputs.has_changes == 'true'
         env:
-          RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
+          BENCHMARK_COMMENT_PATH: benchmark-results/comment.md
         run: |
           node scripts/run bench-pr ${{ github.base_ref }} ${{ github.event.number }} ${{ github.event.pull_request.head.repo.html_url }}/blob/${{ github.event.pull_request.head.sha }}
+
+      - name: Write empty benchmark results
+        if: steps.checkout.outputs.has_changes != 'true'
+        run: |
+          mkdir -p benchmark-results
+          : > benchmark-results/comment.md
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: benchmark-results/comment.md
+          if-no-files-found: error
+          retention-days: 1

@@ -36,6 +36,12 @@ Below is a list of all the scripts in this directory, categorized by purpose. If
   pnpm test-single <function-name>
   ```
 
+- `tree-shake-check` 🏎  
+  Bundle a virtual entry that imports Radashi, touches `_.noop`, and asserts the minified output stays at the expected byte count so that we detect any regressions in namespace import tree-shaking.
+  ```
+  pnpm tree-shake-check
+  ```
+
 - `bench-file` 🔧  
   Used by the `bench-main` and `bench-pr` workflows to run benchmarks for a single file. This is a workaround for out-of-memory issues with Vitest.
 

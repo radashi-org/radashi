@@ -9,10 +9,10 @@ since: 12.6.0
 Parse a quantity string like `"2 dollars"` into its numeric value. You must provide a
 unit conversion map, with optional short unit aliases.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
-const moneyUnits = {
+const moneyUnits: _.QuantityParser.Options<'cent' | 'dollar', '$'> = {
   units: {
     cent: 1,
     dollar: 100,
@@ -34,7 +34,19 @@ _.parseQuantity('5$', moneyUnits)
 
 You may use the `QuantityParser` class instead, which is more efficient for repeated parsing.
 
-```ts
+```ts twoslash
+import * as _ from 'radashi'
+
+const moneyUnits: _.QuantityParser.Options<'cent' | 'dollar', '$'> = {
+  units: {
+    cent: 1,
+    dollar: 100,
+  },
+  short: {
+    $: 'dollar',
+  },
+}
+// ---cut-before---
 const moneyParser = new _.QuantityParser(moneyUnits)
 ```
 
@@ -45,7 +57,7 @@ you can use the [`parseDuration`](../parseDuration) function instead.
 
 You can subclass `QuantityParser` to create a parser for a specific unit.
 
-```ts
+```ts twoslash
 import { QuantityParser, type QuantityString } from 'radashi'
 
 export type DistanceUnit = keyof typeof DistanceParser.units
@@ -53,7 +65,10 @@ export type DistanceShortUnit = keyof typeof DistanceParser.shortUnits
 
 export type DistanceString = QuantityString<DistanceUnit, DistanceShortUnit>
 
-export class DistanceParser extends QuantityParser<DistanceUnit, DistanceShortUnit> {
+export class DistanceParser extends QuantityParser<
+  DistanceUnit,
+  DistanceShortUnit
+> {
   constructor() {
     super({
       units: DistanceParser.units,
@@ -76,7 +91,7 @@ export class DistanceParser extends QuantityParser<DistanceUnit, DistanceShortUn
     ft: 'foot',
     m: 'meter',
   } as const
-})
+}
 
 // Usage
 const distanceParser = new DistanceParser()
@@ -94,8 +109,38 @@ distanceParser.parse('1 meter') // => 1
 
 You may want to create a wrapper function to make it easier to use.
 
-```ts
-import { DistanceParser, type DistanceString } from './DistanceParser'
+```ts twoslash
+import { QuantityParser, type QuantityString } from 'radashi'
+
+type DistanceUnit = keyof typeof DistanceParser.units
+type DistanceShortUnit = keyof typeof DistanceParser.shortUnits
+type DistanceString = QuantityString<DistanceUnit, DistanceShortUnit>
+
+class DistanceParser extends QuantityParser<DistanceUnit, DistanceShortUnit> {
+  constructor() {
+    super({
+      units: DistanceParser.units,
+      short: DistanceParser.shortUnits,
+    })
+  }
+
+  static units = {
+    kilometer: 1_000,
+    mile: 1_852,
+    yard: 0.9144,
+    foot: 0.3048,
+    meter: 1,
+  } as const
+
+  static shortUnits = {
+    km: 'kilometer',
+    mi: 'mile',
+    yd: 'yard',
+    ft: 'foot',
+    m: 'meter',
+  } as const
+}
+// ---cut-before---
 
 const parser = new DistanceParser()
 

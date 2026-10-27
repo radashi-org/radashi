@@ -1,6 +1,6 @@
 {
   "name": "radashi",
-  "version": "12.2.0",
+  "version": "12.9.8",
   "type": "module",
   "description": "The modern, community-first TypeScript toolkit with all of the fast, readable, and minimal utility functions you need. Type-safe, dependency-free, tree-shakeable, fully tested.",
   "repository": {
@@ -12,7 +12,7 @@
     "Ray Epps"
   ],
   "license": "MIT",
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@10.29.3",
   "engines": {
     "node": ">=16.0.0"
   },
@@ -42,6 +42,7 @@
     "test": "vitest run --coverage",
     "test-branch": "node scripts/run test-branch",
     "test-single": "node scripts/run test-single",
+    "tree-shake-check": "node scripts/run tree-shake",
     "update-browserslist": "node scripts/run update-browserslist"
   },
   "devDependencies": {

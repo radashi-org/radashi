@@ -1,13 +1,13 @@
+import crypto from 'node:crypto'
+import fs from 'node:fs/promises'
 import { Octokit } from '@octokit/rest'
 import { generateChangelog, inferNextVersion } from '@radashi-org/changelog'
 import { installDeployKey } from '@radashi-org/common/installDeployKey.ts'
 import { execa } from 'execa'
 import { green } from 'kleur/colors'
-import crypto from 'node:crypto'
-import fs from 'node:fs/promises'
-import { supabase } from 'radashi-db/supabase.ts'
 import { sift } from 'radashi/array/sift.ts'
 import { dedent } from 'radashi/string/dedent.ts'
+import { supabase } from 'radashi-db/supabase.ts'
 import { glob } from 'tinyglobby'
 import { trackVersion } from './trackVersion.ts'
 
@@ -22,7 +22,6 @@ export async function publishVersion(args: {
   patch?: boolean
   push: boolean
   gitCliffToken?: string
-  npmToken?: string
   radashiBotToken: string
   deployKey?: string
   canaryDeployKey?: string
@@ -47,14 +46,17 @@ export async function publishVersion(args: {
     token: args.gitCliffToken,
   })
 
-  if (stableVersion === newVersion) {
+  if (!newVersion || stableVersion === newVersion) {
     log('🚫 No version bump detected')
     process.exit(1)
   }
 
-  const [newMajorVersion, newMinorVersion] = newVersion.split('.')
-  const [lastMajorVersion, lastMinorVersion] = stableVersion.split('.')
+  const [newMajorVersion, newMinorVersion, newPatchVersion] =
+    newVersion.split('.')
+  const [lastMajorVersion, lastMinorVersion, lastPatchVersion] =
+    stableVersion.split('.')
 
+  // If --patch is set, check that the version is a patch increment.
   if (args.patch) {
     if (lastMajorVersion !== newMajorVersion) {
       log('🚫 Breaking change detected. Patch cannot be published.')
@@ -64,7 +66,10 @@ export async function publishVersion(args: {
       log('🚫 Feature commit detected. Patch cannot be published.')
       process.exit(1)
     }
-  } else if (args.tag) {
+  }
+  // If --tag is set to "beta", check that the version is a patch or minor increment.
+  // If --tag is set to "next", check that the version is a major increment.
+  else if (args.tag) {
     if (lastMajorVersion !== newMajorVersion && args.tag === 'beta') {
       log('🚫 Expected a patch or minor increment for "beta" tag')
       process.exit(1)
@@ -76,6 +81,14 @@ export async function publishVersion(args: {
 
     const buildDigest = (await computeBuildDigest()).slice(0, 7)
     newVersion = `${newVersion}-beta.${buildDigest}`
+  }
+  // Otherwise, set args.patch=true if the version is a patch increment.
+  else if (
+    lastMajorVersion === newMajorVersion &&
+    lastMinorVersion === newMinorVersion &&
+    lastPatchVersion !== newPatchVersion
+  ) {
+    args.patch = true
   }
 
   log(`Determined new version: ${newVersion}`)
@@ -175,6 +188,11 @@ export async function publishVersion(args: {
     committedFiles.push(releaseNotesFile)
   }
 
+  log('Setting package.json version')
+  await execa('npm', ['version', newVersion, '--no-git-tag-version'], {
+    stdio: 'inherit',
+  })
+
   // Commit files
   if (!args.tag) {
     // Only commit the changed version in package.json if it's a
@@ -248,11 +266,6 @@ export async function publishVersion(args: {
     log('Would have tracked version in database, but --no-push was set')
   }
 
-  log('Setting package.json version')
-  await execa('npm', ['version', newVersion, '--no-git-tag-version'], {
-    stdio: 'inherit',
-  })
-
   const npmPublishArgs = ['publish', '--provenance', '--ignore-scripts']
 
   // Use radashi@next for pre-release major versions and radashi@beta
@@ -266,7 +279,6 @@ export async function publishVersion(args: {
 
   log('Publishing to NPM' + (args.push ? '' : ' (dry run)'))
   await execa('npm', npmPublishArgs, {
-    env: { NODE_AUTH_TOKEN: args.npmToken },
     stdio: 'inherit',
   })
 

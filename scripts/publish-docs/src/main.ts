@@ -242,7 +242,11 @@ async function coerceTagToVersion(tag: string) {
     version = tag.slice(1)
     metaId = 'stable_version'
   } else if (tag === 'beta' || tag === 'next') {
-    version = await inferNextVersion()
+    const nextVersion = await inferNextVersion()
+    if (!nextVersion) {
+      throw new Error('No version bump detected')
+    }
+    version = nextVersion
 
     if (tag === 'next') {
       version += '-alpha'

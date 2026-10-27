@@ -19,6 +19,24 @@ export type DurationString<
   TShortUnit extends string = never,
 > = QuantityString<DurationUnit | TUnit, DurationShortUnit | TShortUnit>
 
+const DURATION_UNITS = {
+  week: 604_800_000,
+  day: 86_400_000,
+  hour: 3_600_000,
+  minute: 60_000,
+  second: 1_000,
+  millisecond: 1,
+} as const
+
+const DURATION_SHORT_UNITS = {
+  w: 'week',
+  d: 'day',
+  h: 'hour',
+  m: 'minute',
+  s: 'second',
+  ms: 'millisecond',
+} as const
+
 /**
  * Parses a duration string into its numeric value.
  *
@@ -49,23 +67,13 @@ export class DurationParser<
     >)
   }
 
-  static units = {
-    week: 604_800_000,
-    day: 86_400_000,
-    hour: 3_600_000,
-    minute: 60_000,
-    second: 1_000,
-    millisecond: 1,
-  } as const
+  static get units(): typeof DURATION_UNITS {
+    return DURATION_UNITS
+  }
 
-  static shortUnits = {
-    w: 'week',
-    d: 'day',
-    h: 'hour',
-    m: 'minute',
-    s: 'second',
-    ms: 'millisecond',
-  } as const
+  static get shortUnits(): typeof DURATION_SHORT_UNITS {
+    return DURATION_SHORT_UNITS
+  }
 }
 
 export declare namespace DurationParser {

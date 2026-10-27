@@ -8,7 +8,7 @@ since: 12.7.0
 
 Computes and stores a value only when the key has no entry yet.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const counts = new Map<string, number>()
@@ -21,7 +21,7 @@ This function is most useful when the computed value is expensive to compute, e.
 
 You can use a `WeakMap` instead, if you'd like to associate the computed value with an object reference.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const values = new WeakMap<object, { count: number }>()

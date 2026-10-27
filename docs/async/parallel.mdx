@@ -8,10 +8,19 @@ since: 12.1.0
 
 The `parallel` function processes an array with an async callback. The first argument controls how many array items are processed at one time. Similar to `Promise.all`, an ordered array of results is returned.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const userIds = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+// ---cut-start---
+const api = {
+  users: {
+    find: async (id: number) => id < 3 ? { id, name: 'Alice' } : throw new Error('Not found'),
+  },
+}
+
+// ---cut-end---
 
 // Will run the find user async function 3 at a time
 // starting another request when one of the 3 is freed
@@ -28,8 +37,9 @@ Since v12.3.0, processing can be manually interrupted. Pass an `AbortController.
 
 When `parallel` is interrupted by the signal, it throws a `DOMException` (even in Node.js) with the message `This operation was aborted` and name `AbortError`.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
+// @noErrors
 
 const abortController = new AbortController()
 const signal = abortController.signal
@@ -51,7 +61,8 @@ abortController.abort()
 
 Once the whole array has been processed, `parallel` will check for errors. If any errors occurred during processing, they are combined into a single `AggregateError`. The `AggregateError` has an `errors` array property which contains all the individual errors that were thrown.
 
-```ts
+```ts twoslash
+// @noErrors
 import * as _ from 'radashi'
 
 const userIds = [1, 2, 3]

@@ -29,7 +29,7 @@ export function round(
   precision?: number,
   toInteger: (value: number) => number = Math.round,
 ): number {
-  if (precision) {
+  if (precision && Number.isFinite(value)) {
     // Limit the precision to avoid NaN results.
     const p =
       precision > 0 ? Math.min(precision, 292) : Math.max(precision, -323)

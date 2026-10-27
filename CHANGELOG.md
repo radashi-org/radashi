@@ -5,6 +5,87 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.9.8] - 2026-10-27
+### Details
+#### <!-- 06 -->Fixed
+
+- **(assign)** Skip dangerous keys to prevent prototype pollution in [4e7a3fd](https://github.com/radashi-org/radashi/commit/4e7a3fd3acfbcc7ff80a1f09e6ede847a5ca7bc4)
+
+## [radashi@12.9.7] - 2026-10-26
+### Details
+#### <!-- 06 -->Fixed
+
+- **(round)** Preserve infinity with nonzero precision in [77acb8d](https://github.com/radashi-org/radashi/commit/77acb8d3ad0f0cc90f0e432cc59b0cc7178b1e95)
+- **(parallel)** Stop treating falsy rejections as success in [8db9c4e](https://github.com/radashi-org/radashi/commit/8db9c4e8d3c17dbb3807f0b6cf561b83a63f60d2)
+
+## [radashi@12.9.6] - 2026-09-21
+### Details
+#### <!-- 06 -->Fixed
+
+- **(memo)** Stop inherited Object.prototype keys from being treated as cache hits in [a50ac04](https://github.com/radashi-org/radashi/commit/a50ac04d9b4020c0244d6b0cde9ce2e680477df9)
+
+## [radashi@12.9.5] - 2026-09-17
+### Details
+#### <!-- 06 -->Fixed
+
+- **(selectFirst)** Map a matched undefined element in [4dd501b](https://github.com/radashi-org/radashi/commit/4dd501b2f45852b2d5f8185dfe1d74e406d8cffb)
+- **(toggle)** Remove a matching undefined element instead of appending in [a4dce55](https://github.com/radashi-org/radashi/commit/a4dce5504a4d7acd7d8cceab3640ae28f1170404)
+
+## [radashi@12.9.4] - 2026-09-14
+### Details
+#### <!-- 06 -->Fixed
+
+- **(replaceOrAppend)** Treat only null/undefined as a missing new item in [4f50de1](https://github.com/radashi-org/radashi/commit/4f50de1daf471e8837803e43c0e13dbfc234c883)
+- **(replaceOrAppend)** Allow nullish value even if array type doesn't in [4e485ce](https://github.com/radashi-org/radashi/commit/4e485ce885b34cbebd199ef5b9a6a20d92c06aaa)
+
+## [radashi@12.9.3] - 2026-09-14
+### Details
+#### <!-- 06 -->Fixed
+
+- **(diff)** Use a Set so identities cannot hit Object.prototype in [8b825ae](https://github.com/radashi-org/radashi/commit/8b825aea350b97c83cf33ee3ad28575c24ea7aef)
+- **(counting)** Build the tally on a null-prototype object in [8eb247c](https://github.com/radashi-org/radashi/commit/8eb247cbfd9b95a9814d90046d6eb0cd203919df)
+
+## [radashi@12.9.2] - 2026-09-08
+### Details
+#### <!-- 06 -->Fixed
+
+- **(snake)** Split every letter-number boundary, not just the first in [7cbe750](https://github.com/radashi-org/radashi/commit/7cbe75077c678ea73e39b691b2649278dee1f68c)
+
+## [radashi@12.9.0] - 2026-05-05
+### Details
+#### <!-- 03 -->Added
+
+- Add `mergeOptions` function in [d6c3548](https://github.com/radashi-org/radashi/commit/d6c3548faeee618ae6f3b89641229c31c80f495f)
+
+#### <!-- 05 -->Changed
+
+- Improve `sort` return type when sorting a tuple in [a29fe96](https://github.com/radashi-org/radashi/commit/a29fe965535b106ab1cff02cff227e445cabf87e)
+
+## [radashi@12.8.1] - 2026-05-05
+### Details
+#### <!-- 06 -->Fixed
+
+- Mark dedent as side-effect free in [7ada48f](https://github.com/radashi-org/radashi/commit/7ada48f5a35fceb1584068d8879566c9b81e5902)
+
+## [radashi@12.8.0] - 2026-05-05
+### Details
+#### <!-- 03 -->Added
+
+- Add `deburr` function in [c689529](https://github.com/radashi-org/radashi/commit/c689529438a45d07ce2a3e5973d549503c1807a3)
+- Add `getErrorMessage` function in [9fce57d](https://github.com/radashi-org/radashi/commit/9fce57dbe9f462004a4757e516e6f4f4c0868706)
+
+## [radashi@12.7.2] - 2026-02-24
+### Details
+#### <!-- 06 -->Fixed
+
+- Chain type signatures after 3 arguments in [17aef87](https://github.com/radashi-org/radashi/commit/17aef87d12e989953c14fef3ebdceb22ef89b9f9)
+
+## [radashi@12.7.1] - 2025-11-19
+### Details
+#### <!-- 06 -->Fixed
+
+- Ensure DurationParser static properties can be tree-shaked in [b9d7529](https://github.com/radashi-org/radashi/commit/b9d7529ba9ed9f8c4fdf6192b1ae21cc67251e72)
+
 ## [radashi@12.7.0] - 2025-10-17
 ### Details
 #### <!-- 03 -->Added
@@ -261,6 +342,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@12.9.8]: https://github.com/radashi-org/radashi/compare/v12.9.7..v12.9.8
+
+[radashi@12.9.7]: https://github.com/radashi-org/radashi/compare/v12.9.6..v12.9.7
+
+[radashi@12.9.6]: https://github.com/radashi-org/radashi/compare/v12.9.5..v12.9.6
+
+[radashi@12.9.5]: https://github.com/radashi-org/radashi/compare/v12.9.4..v12.9.5
+
+[radashi@12.9.4]: https://github.com/radashi-org/radashi/compare/v12.9.3..v12.9.4
+
+[radashi@12.9.3]: https://github.com/radashi-org/radashi/compare/v12.9.2..v12.9.3
+
+[radashi@12.9.2]: https://github.com/radashi-org/radashi/compare/v12.9.1..v12.9.2
+
+[radashi@12.9.0]: https://github.com/radashi-org/radashi/compare/v12.8.1..v12.9.0
+
+[radashi@12.8.1]: https://github.com/radashi-org/radashi/compare/v12.8.0..v12.8.1
+
+[radashi@12.8.0]: https://github.com/radashi-org/radashi/compare/v12.7.2..v12.8.0
+
+[radashi@12.7.2]: https://github.com/radashi-org/radashi/compare/v12.7.1..v12.7.2
+
+[radashi@12.7.1]: https://github.com/radashi-org/radashi/compare/v12.7.0..v12.7.1
 
 [radashi@12.7.0]: https://github.com/radashi-org/radashi/compare/v12.6.2..v12.7.0
 

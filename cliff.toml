@@ -94,6 +94,7 @@ commit_preprocessors = [
 ]
 # regex for parsing and grouping commits
 commit_parsers = [
+  { message = '^[a-z]+\(ci\)!?:', skip = true },
   { body = ".*security", group = "<!-- 00 -->Security" },
   { body = ".*BREAKING CHANGE:", group = "<!-- 01 -->Breaking changes" },
   { body = "^.*!:", group = "<!-- 01 -->Breaking changes" },

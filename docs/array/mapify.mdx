@@ -24,7 +24,7 @@ Returns a new `Map` object where keys and values are derived from the input arra
 
 #### Example
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const fish = [
@@ -40,10 +40,10 @@ const fish = [
     name: 'Trout',
     weight: 13,
   },
-]
+] as const
 
-_.mapify(fish, f => f.name) // => Map(3) {'Marlin' => { name: 'Marlin', weight: 105 }, 'Bass' => { name: 'Bass', weight: 8 }, 'Trout' => { name: 'Trout', weight: 13 }}
-_.mapify(
+const mappedByName = _.mapify(fish, f => f.name) // => Map(3) {'Marlin' => { name: 'Marlin', weight: 105 }, 'Bass' => { name: 'Bass', weight: 8 }, 'Trout' => { name: 'Trout', weight: 13 }}
+const mappedByNameAndWeight = _.mapify(
   fish,
   f => f.name,
   f => f.weight,

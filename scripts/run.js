@@ -28,6 +28,8 @@ async function main([command, ...argv]) {
     'NODE_PATH',
     'NODE_OPTIONS',
     'PNPM_HOME',
+    'HOME',
+    'USER',
   ])
 
   const __filename = fileURLToPath(import.meta.url)
@@ -61,10 +63,14 @@ async function main([command, ...argv]) {
       env: strictEnv,
     })
 
-    await new Promise((resolve, reject) => {
+    const code = await new Promise((resolve, reject) => {
       installer.on('close', resolve)
       installer.on('error', reject)
     })
+
+    if (code !== 0) {
+      process.exit(code ?? 1)
+    }
 
     console.warn()
 

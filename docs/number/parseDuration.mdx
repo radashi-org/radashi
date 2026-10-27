@@ -8,7 +8,7 @@ since: 12.6.0
 
 Parse a human-readable duration string (like "1 hour", "2 seconds") into milliseconds.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 _.parseDuration('1 second') // => 1_000
@@ -20,7 +20,7 @@ _.parseDuration('-1h') // => -3_600_000
 
 You may use the `DurationParser` class instead, which is more efficient for repeated parsing.
 
-```ts
+```ts twoslash
 import { DurationParser } from 'radashi'
 
 const parser = new DurationParser()
@@ -45,7 +45,7 @@ Years and months are not supported by default, because both vary in length (e.g.
 
 You may pass additional units to the `parseDuration` function.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const customUnits = {

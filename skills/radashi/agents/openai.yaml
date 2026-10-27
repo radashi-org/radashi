@@ -1,0 +1,4 @@
+interface:
+  display_name: "Radashi"
+  short_description: "Concise Radashi utility choices"
+  default_prompt: "Use $radashi to choose concise, low-ambiguity Radashi utilities for this TypeScript code."

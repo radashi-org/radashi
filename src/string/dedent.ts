@@ -43,6 +43,7 @@ export function dedent(
 
 export function dedent(text: string, indent?: string | null): string
 
+/* @__NO_SIDE_EFFECTS__ */
 export function dedent(
   text: string | TemplateStringsArray,
   ...values: unknown[]

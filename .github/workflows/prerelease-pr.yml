@@ -17,7 +17,6 @@ jobs:
         with:
           registry-url: 'https://registry.npmjs.org'
           node-version: '22.x'
-          cache: pnpm
 
       - name: Merge PR into target branch
         continue-on-error: true

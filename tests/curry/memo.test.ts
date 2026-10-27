@@ -43,4 +43,21 @@ describe('memo', () => {
     const resultB = func()
     expect(resultA).toBe(resultB)
   })
+  test.each(['constructor', 'toString', 'hasOwnProperty', '__proto__'])(
+    'calls function once for the Object.prototype key "%s"',
+    key => {
+      const fn = vi.fn((key: string) => `value:${key}`)
+      const func = _.memo(fn, { key: key => key })
+      expect(func(key)).toBe(`value:${key}`)
+      expect(func(key)).toBe(`value:${key}`)
+      expect(fn).toHaveBeenCalledTimes(1)
+    },
+  )
+  test('caches an undefined result', () => {
+    const fn = vi.fn(() => undefined)
+    const func = _.memo(fn)
+    func()
+    func()
+    expect(fn).toHaveBeenCalledTimes(1)
+  })
 })

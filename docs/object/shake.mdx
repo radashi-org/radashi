@@ -8,7 +8,7 @@ since: 12.1.0
 
 Returns a new object without the properties that are `undefined`. Note that non-enumerable keys are never shaken out.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const options = _.shake({
@@ -24,7 +24,7 @@ const options = _.shake({
 
 If you pass a function as the second argument, only the properties that return `false` will be included in the result.
 
-```ts
+```ts twoslash
 import * as _ from 'radashi'
 
 const options = _.shake(

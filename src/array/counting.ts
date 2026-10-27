@@ -23,6 +23,6 @@ export function counting<T, TId extends string | number | symbol>(
       acc[id] = (acc[id] ?? 0) + 1
       return acc
     },
-    {} as Partial<Record<TId, number>>,
+    Object.create(null) as Partial<Record<TId, number>>,
   )
 }

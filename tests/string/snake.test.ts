@@ -17,6 +17,10 @@ describe('snake', () => {
     const result = _.snake('hello-world12_19-bye')
     expect(result).toBe('hello_world_12_19_bye')
   })
+  test('splits every letter-number boundary, not just the first', () => {
+    const result = _.snake('a1 b2 c3')
+    expect(result).toBe('a_1_b_2_c_3')
+  })
   test('does not split numbers when flag is set to false', () => {
     const result = _.snake('hello-world12_19-bye', {
       splitOnNumber: false,

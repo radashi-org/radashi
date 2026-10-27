@@ -55,6 +55,28 @@ describe('parallel', () => {
     await testConcurrency(3, _.list(1, 6), [1, 2, 3, 3, 3, 3])
   })
 
+  test.each([0, false, '', null, undefined])(
+    'aggregates falsy rejection %s',
+    async error => {
+      const callback = vi.fn(async (item: number) => {
+        if (item === 2) {
+          throw error
+        }
+        return item
+      })
+      await expect(_.parallel(1, [1, 2, 3], callback)).rejects.toMatchObject({
+        errors: [error],
+      })
+      expect(callback).toHaveBeenCalledTimes(3)
+    },
+  )
+
+  test('keeps fulfilled undefined values', async () => {
+    await expect(_.parallel(1, [1], async () => undefined)).resolves.toEqual([
+      undefined,
+    ])
+  })
+
   test('abort before all iterations are complete', async () => {
     vi.useFakeTimers()
 
