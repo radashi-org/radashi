@@ -61,16 +61,16 @@
   },
   "sideEffects": false,
   "browserslist": [
-    "and_chr >= 57",
-    "chrome >= 57",
-    "and_ff >= 52",
-    "android >= 133",
-    "edge >= 15",
-    "samsung >= 7.4",
-    "safari >= 10.1",
-    "ios_saf >= 10.3",
-    "opera >= 44",
-    "firefox >= 52",
+    "and_chr >= 92",
+    "chrome >= 92",
+    "and_ff >= 90",
+    "android >= 147",
+    "edge >= 92",
+    "samsung >= 16.0",
+    "safari >= 16.0",
+    "ios_saf >= 16.0",
+    "opera >= 78",
+    "firefox >= 90",
     "unreleased and_chr versions",
     "unreleased chrome versions",
     "unreleased and_ff versions",
@@ -81,6 +81,6 @@
     "unreleased ios_saf versions",
     "unreleased opera versions",
     "unreleased firefox versions",
-    "node >= 16"
+    "node >= 18"
   ]
 }
