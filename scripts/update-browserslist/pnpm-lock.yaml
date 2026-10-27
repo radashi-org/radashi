@@ -4,13 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  browserslist-generator:
+    hash: 6bd0133f03d519028318a7ea468773c2fdf9d9c3329390ed545558a76f6a8f11
+    path: patches/browserslist-generator.patch
+
 importers:
 
   .:
     dependencies:
       browserslist-generator:
         specifier: ^2.1.0
-        version: 2.3.0
+        version: 2.3.0(patch_hash=6bd0133f03d519028318a7ea468773c2fdf9d9c3329390ed545558a76f6a8f11)
       dequal:
         specifier: ^2.0.3
         version: 2.0.3
@@ -196,7 +201,7 @@ snapshots:
 
   baseline-browser-mapping@2.10.24: {}
 
-  browserslist-generator@2.3.0:
+  browserslist-generator@2.3.0(patch_hash=6bd0133f03d519028318a7ea468773c2fdf9d9c3329390ed545558a76f6a8f11):
     dependencies:
       '@mdn/browser-compat-data': 5.7.6
       '@types/object-path': 0.11.4
