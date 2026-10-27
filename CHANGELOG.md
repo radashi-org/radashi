@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@13.0.0] - 2026-10-27
+### Details
+#### <!-- 05 -->Changed
+
+- Allow lossless `crush` ⇄ `construct` use in [3af2c87](https://github.com/radashi-org/radashi/commit/3af2c875045045823bf929884d92be510a79342f)
+- Drop support for Node 16 in [b6de1a4](https://github.com/radashi-org/radashi/commit/b6de1a4ee593b42e33f123e0a89451741d8cd435)
+
+#### <!-- 06 -->Fixed
+
+- Align AggregateError polyfill with native behavior in [b16b1a1](https://github.com/radashi-org/radashi/commit/b16b1a155af46e283602318def6dcfebd3775e7b)
+
 ## [radashi@12.9.8] - 2026-10-27
 ### Details
 #### <!-- 06 -->Fixed
@@ -82,6 +93,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [radashi@12.7.1] - 2025-11-19
 ### Details
+#### <!-- 03 -->Added
+
+- Add `promiseDebounce` function in [9e3b634](https://github.com/radashi-org/radashi/commit/9e3b63425f44066fb1162dec7066cccb60e76708)
+
+#### <!-- 05 -->Changed
+
+- Change `sort`'s direction argument to a string in [4e240e3](https://github.com/radashi-org/radashi/commit/4e240e3f068f773fdb4244f9fbed7802129bb92b)
+- Transpile to Node18 syntax in [7002960](https://github.com/radashi-org/radashi/commit/70029601df1b0693589183205ca41880da0ee577)
+
 #### <!-- 06 -->Fixed
 
 - Ensure DurationParser static properties can be tree-shaked in [b9d7529](https://github.com/radashi-org/radashi/commit/b9d7529ba9ed9f8c4fdf6192b1ae21cc67251e72)
@@ -110,6 +130,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [radashi@12.6.1] - 2025-08-09
 ### Details
+#### <!-- 03 -->Added
+
+- **(memo)** Add `cache` option in [b7b132e](https://github.com/radashi-org/radashi/commit/b7b132e59188882b9c6bfac6d3f7fac2928a23dc)
+- Add `promiseMemo` function in [97b46c2](https://github.com/radashi-org/radashi/commit/97b46c283a58e783e3e53094215a193f882690ba)
+
 #### <!-- 06 -->Fixed
 
 - **(group)** Use `Object.create(null)` for the returned object in [5db8c37](https://github.com/radashi-org/radashi/commit/5db8c37f8e58379b63817144edcd422dbea5d989)
@@ -148,12 +173,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `pluck` function in [8d5c06c](https://github.com/radashi-org/radashi/commit/8d5c06c36056dc589d3ca7cfd13512cc54c46115)
 - Add `concat` function in [8f54e73](https://github.com/radashi-org/radashi/commit/8f54e73e7a18cd5da897de0b69dd357125dbb213)
 
+#### <!-- 04 -->Removed
+
+- Remove default size from `cluster` in [2b1e15c](https://github.com/radashi-org/radashi/commit/2b1e15cb0de6b375e927e417fd5b22d6fe5e43ec)
+
 #### <!-- 05 -->Changed
 
+- `trim` now requires both arguments in [3fd8a9e](https://github.com/radashi-org/radashi/commit/3fd8a9ef9be850f2e238318fefd5324a8a7b0b85)
 - **(cluster)** Use tuple types for common size constants in [ca2abdd](https://github.com/radashi-org/radashi/commit/ca2abdd6fd996cf397501f8123be8de40c24c11e)
 
 #### <!-- 06 -->Fixed
 
+- **(counting)** Wrap return type with Partial in [bc1a25c](https://github.com/radashi-org/radashi/commit/bc1a25c7735e02fc02503faf16001d7a40e1ce92)
+- **(objectify)** Wrap return type with Partial in [b3d56a7](https://github.com/radashi-org/radashi/commit/b3d56a76c5a85450307ee0dab351eb6ce8d2d7fa)
 - **(mapify)** Pass the actual array index to callbacks in [a83a72d](https://github.com/radashi-org/radashi/commit/a83a72d30f134ff0eb9489da68dc24f569771bf2)
 - **(cluster)** Avoid infinite loop when size is `0` in [214ce5d](https://github.com/radashi-org/radashi/commit/214ce5dccb3638b6b6770b1ffde5485735321c2b)
 
@@ -177,9 +209,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [radashi@12.3.4] - 2025-01-26
 ### Details
+#### <!-- 05 -->Changed
+
+- Rework `debounce` function in [c39b751](https://github.com/radashi-org/radashi/commit/c39b751fbe9c4f97443f183571a870fb73993f14)
+
 #### <!-- 06 -->Fixed
 
 - **(reduce)** Align with native reduce behavior + perf improvements in [1bc47b7](https://github.com/radashi-org/radashi/commit/1bc47b74dc1b21178c7ee61a6d7a0762196bf746)
+- **(isNumber)** Return true for NaN values in [42db8ae](https://github.com/radashi-org/radashi/commit/42db8aec99dc523f27e940a29f53031c07848831)
+- Remove handling of types not present in type signatures in [be86c34](https://github.com/radashi-org/radashi/commit/be86c34e63de09e3d83a99b0895275f0a0a84c2f)
 
 ## [radashi@12.3.3] - 2025-01-11
 ### Details
@@ -342,6 +380,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@13.0.0]: https://github.com/radashi-org/radashi/compare/v12.9.8..v13.0.0
 
 [radashi@12.9.8]: https://github.com/radashi-org/radashi/compare/v12.9.7..v12.9.8
 
