@@ -117,6 +117,17 @@ export async function publishVersion(args: {
     process.exit(1)
   }
 
+  if (args.tag) {
+    // Pre-release tags are pushed to the radashi-canary repo, which is
+    // not cloned by the publish workflow. Fetch them so git-describe
+    // and git-cliff can see prior pre-release versions.
+    await execa('git', [
+      'fetch',
+      'https://github.com/radashi-org/radashi-canary',
+      '+refs/tags/*:refs/tags/*',
+    ])
+  }
+
   // Find all commits after this tag with a PR number in the message.
   const latestTag = args.tag
     ? await execa('git', ['describe', '--tags', '--abbrev=0']).then(
