@@ -74,3 +74,35 @@ isNumber(NaN) // => true
 - `set` no longer ignores `undefined` values, so `construct` can restore `undefined` properties.
 
 [PR #387](https://github.com/radashi-org/radashi/pull/387)
+
+#### Removed tolerance for `null` and `undefined` inputs
+
+- Functions that don't accept `null`/`undefined` in their type signatures no longer defensively handle them at runtime and may throw instead of returning a default value.
+- `clone` now only accepts plain objects and arrays — primitives, functions, and built-ins like `Map`, `Set`, and `Date` are no longer valid inputs.
+
+[PR #70](https://github.com/radashi-org/radashi/pull/70)
+
+#### `trim` requires both arguments
+
+- `trim(str, charsToTrim)` no longer defaults `charsToTrim` to `' '`.
+
+[PR #351](https://github.com/radashi-org/radashi/pull/351)
+
+#### `sort` takes a direction string
+
+- The third parameter is now `direction: 'asc' | 'desc'` instead of `desc: boolean`. For example, `sort(list, g, true)` becomes `sort(list, g, 'desc')`.
+
+[Commit 4e240e3](https://github.com/radashi-org/radashi/commit/4e240e3f068f773fdb4244f9fbed7802129bb92b)
+
+#### `counting` and `objectify` return `Partial<Record<…>>`
+
+- Their return types were wrapped with `Partial`, since keys that never occur are absent from the result.
+
+[PR #377](https://github.com/radashi-org/radashi/pull/377) / [PR #385](https://github.com/radashi-org/radashi/pull/385)
+
+#### `memo` options and types reworked
+
+- `MemoOptions` is now generic over the function type rather than its args tuple.
+- Added `cache` option and exported `Memoized`/`MemoCache` types.
+
+[PR #124](https://github.com/radashi-org/radashi/pull/124)

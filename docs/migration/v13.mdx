@@ -1,0 +1,103 @@
+---
+title: v13
+description: Migrate from Radashi v12 to v13
+since: 13.0.0
+---
+
+This guide covers every breaking change in Radashi v13 and how to update your code. If you find a call site that isn't covered here, the [changelog](/changelog) has the full list of changes.
+
+## Requirements
+
+- **Node 18 or higher** — the `engines` field requires it, and the published code is now transpiled to ES2022 syntax (was ES2017).
+- For browsers, the `browserslist` targets moved accordingly (e.g. Chrome ≥ 92, Safari ≥ 16, Firefox ≥ 90).
+
+## Signature changes
+
+### `sort` takes a direction string
+
+The third parameter changed from `desc: boolean` to `direction: 'asc' | 'desc'`.
+
+```diff
+- sort(list, x => x.price, true)
++ sort(list, x => x.price, 'desc')
+```
+
+### `cluster` requires `size`
+
+```diff
+- cluster(list)      // used a default size
++ cluster(list, 2)
+```
+
+### `trim` requires both arguments
+
+```diff
+- trim(str)
++ trim(str, ' ')
+```
+
+### `debounce` was reworked
+
+The debounced function's API changed:
+
+- `isPending()` is now `isDebounced()`.
+- `flush()` takes no arguments and does nothing when no call is pending (previously it invoked the callback immediately, even with no pending call).
+- `cancel()` now only cancels the pending call — it no longer disables debouncing, so future calls are debounced as usual (the old behavior made them run immediately).
+- The new `callee` property references the underlying function.
+
+```diff
+- debounced.isPending()
++ debounced.isDebounced()
+
+- debounced.flush(...args)
++ debounced.flush() // no-op when nothing is pending
+```
+
+## Null and undefined inputs
+
+Functions whose signatures don't accept `null`/`undefined` no longer defensively handle them at runtime — they now throw (e.g. `undefined is not an object`) instead of silently returning a default value. Affected functions:
+
+- **array**: `alphabetical`, `boil`, `counting`, `diff`, `first`, `fork`, `intersects`, `last`, `merge`, `replace`, `replaceOrAppend`, `select`, `selectFirst`, `sort`, `toggle`, `unzip`, `zipToObject`
+- **async**: `map`, `reduce`
+- **number**: `inRange`, `max`, `min`
+- **object**: `assign`, `construct`, `crush`, `invert`, `keys`, `listify`, `mapEntries`, `omit`, `pick`, `set`, `shake`
+- **string**: `camel`, `capitalize`, `dash`, `pascal`, `snake`, `title`, `trim`
+
+```diff
+- diff(maybeNull, [1, 2]) // silently returned a copy
++ maybeNull ? diff(maybeNull, [1, 2]) : []
+```
+
+## Behavior changes
+
+### `clone` is stricter
+
+`clone` now only accepts plain objects and arrays. Primitives, functions, and built-ins like `Map`, `Set`, and `Date` are no longer valid inputs (return them directly or clone manually).
+
+### `isNumber` returns `true` for `NaN`
+
+This makes `isNumber` safe to use for TypeScript narrowing — previously, a `NaN` value would slip through `!isNumber(x)` checks and then fail at runtime.
+
+### `crush` ⇄ `construct` is now lossless
+
+`crush` preserves empty objects and arrays as leaf values instead of dropping them, so `construct` restores them exactly. As a consequence, `set` no longer ignores `undefined` values — `set(obj, 'a', undefined)` now assigns `a: undefined` instead of being a no-op.
+
+```ts
+const flat = crush({ a: {}, b: [] })
+// v12: {}
+// v13: { a: {}, b: [] }
+```
+
+### `AggregateError` polyfill matches the native constructor
+
+For environments without a global `AggregateError`, the polyfill now accepts `(errors, message, options)` including `options.cause`, and copies the `errors` iterable like the native constructor.
+
+## Type-level changes
+
+- `counting` and `objectify` return `Partial<Record<K, V>>` — assigning their result to a plain `Record` type will now error. Accessed values may need a `| undefined` check (e.g. with `noUncheckedIndexedAccess`).
+- `MemoOptions` is now generic over the function type (`MemoOptions<typeof fn>`) instead of its args tuple (`MemoOptions<[string, number]>`). `memo` also gained a `cache` option and exports the `Memoized`/`MemoCache` types.
+- `sort` preserves tuple types in its return type via `SortArray<T>`.
+
+## New in v13
+
+Not breaking, but worth knowing: `promiseDebounce`, `promiseMemo`, and `memo`'s `cache` option were added.
