@@ -60,3 +60,10 @@ isNumber(NaN) // => true
 #### Align the AggregateError polyfill with the native constructor
 
 [PR #487](https://github.com/radashi-org/radashi/pull/487)
+
+#### Allow lossless `crush` ⇄ `construct` use
+
+- `crush` now preserves empty objects and arrays as leaf values instead of dropping them.
+- `set` no longer ignores `undefined` values, so `construct` can restore `undefined` properties.
+
+[PR #387](https://github.com/radashi-org/radashi/pull/387)

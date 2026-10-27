@@ -17,7 +17,7 @@ export function set<T extends object, K>(
   path: string,
   value: K,
 ): T {
-  if (value === undefined || path.length === 0) {
+  if (path.length === 0) {
     return initial
   }
   return (function recurse(object: any, keys: string[], index: number) {

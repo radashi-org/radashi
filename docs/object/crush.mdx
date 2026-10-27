@@ -36,3 +36,14 @@ const crushed = _.crush(ra)
 //   'enemies.0.power': 12
 // }
 ```
+
+### Empty objects and arrays
+
+Empty objects and arrays are preserved as leaf values, so `construct` can restore them losslessly.
+
+```ts twoslash
+import * as _ from 'radashi'
+
+const crushed = _.crush({ a: {}, b: [], c: { d: {} } })
+// { a: {}, b: [], 'c.d': {} }
+```
