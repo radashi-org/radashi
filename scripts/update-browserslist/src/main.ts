@@ -17,8 +17,8 @@ async function main() {
     process.exit(1)
   }
 
-  const targets = browsersWithSupportForEcmaVersion('es2017')
-  targets.push('node >= 16')
+  const targets = browsersWithSupportForEcmaVersion('es2022')
+  targets.push('node >= 18')
 
   console.log('• Browserslist generated:', targets)
 

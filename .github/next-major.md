@@ -61,6 +61,13 @@ isNumber(NaN) // => true
 
 [PR #487](https://github.com/radashi-org/radashi/pull/487)
 
+#### Drop support for Node 16
+
+- The `engines` field now requires Node 18 or higher.
+- The published package is transpiled to ES2022 syntax (was ES2017).
+
+[Issue #406](https://github.com/radashi-org/radashi/issues/406)
+
 #### Allow lossless `crush` ⇄ `construct` use
 
 - `crush` now preserves empty objects and arrays as leaf values instead of dropping them.
