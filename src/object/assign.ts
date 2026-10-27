@@ -3,6 +3,7 @@ import {
   type BuiltInType,
   type CustomClass,
   type IsExactType,
+  isDangerousKey,
   isPlainObject,
   type OptionalKeys,
   type RequiredKeys,
@@ -35,6 +36,9 @@ export function assign<
     ? { ...initial }
     : Object.assign(Object.create(proto), initial)
   for (const key of Object.keys(override)) {
+    if (isDangerousKey(key, merged)) {
+      continue
+    }
     merged[key] =
       isPlainObject(initial[key]) && isPlainObject(override[key])
         ? assign(initial[key], override[key])
