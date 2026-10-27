@@ -19,6 +19,11 @@ describe('set', () => {
     expect(output.d).toBe(input.d)
   })
 
+  test('return the initial object for an empty path', () => {
+    const input = { a: 1 }
+    expect(_.set(input, '', 2)).toBe(input)
+  })
+
   test('return the initial object if nothing changes', () => {
     const input = { a: { b: 1 } }
     const output = _.set(input, 'a.b', 1)

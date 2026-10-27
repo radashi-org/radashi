@@ -34,6 +34,10 @@ describe('crush', () => {
       und: undefined,
     })
   })
+  test('returns empty object for empty input', () => {
+    expect(_.crush({})).toEqual({})
+    expect(_.crush([])).toEqual({})
+  })
   test('handles arrays', () => {
     const obj = ['value', 123.4, true]
     expect(_.crush(obj)).toEqual({
