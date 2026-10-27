@@ -28,7 +28,7 @@ async function parseArgs() {
 
   const argv = mri(process.argv.slice(2), {
     boolean: ['no-push', 'patch', 'latest'],
-    string: ['tag'],
+    string: ['tag', 'version'],
   })
 
   if (argv.latest && argv.tag) {
@@ -46,6 +46,7 @@ async function parseArgs() {
     push: !argv['no-push'],
     tag: argv.tag as ValidTag,
     patch: argv.patch,
+    version: argv.version as string | undefined,
     gitCliffToken,
     radashiBotToken,
     deployKey,

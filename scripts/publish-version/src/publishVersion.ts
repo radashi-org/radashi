@@ -42,9 +42,11 @@ export async function publishVersion(args: {
   log(`Last stable version: ${stableVersion}`)
 
   // Determine the next version
-  let newVersion = await inferNextVersion({
-    token: args.gitCliffToken,
-  })
+  let newVersion =
+    args.version ??
+    (await inferNextVersion({
+      token: args.gitCliffToken,
+    }))
 
   if (!newVersion || stableVersion === newVersion) {
     log('🚫 No version bump detected')

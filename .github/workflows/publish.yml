@@ -5,6 +5,11 @@ on:
     branches: [beta, next]
     paths: ["src/**"]
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Explicit version to publish (overrides inferred version)"
+        required: false
+        type: string
   workflow_run:
     workflows: ["Check main branch"]
     types:
@@ -95,7 +100,7 @@ jobs:
           elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             case "${{ github.ref_name }}" in
               main)
-                node scripts/run publish-version --latest
+                node scripts/run publish-version --latest ${{ github.event.inputs.version && format('--version {0}', github.event.inputs.version) }}
                 ;;
               beta|next)
                 node scripts/run publish-version --tag ${{ github.ref_name }}
