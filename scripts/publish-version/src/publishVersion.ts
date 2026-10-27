@@ -166,6 +166,7 @@ export async function publishVersion(args: {
     token: args.gitCliffToken,
     outFile: changelogFile,
     newVersion,
+    ignoreTags: args.tag === 'next' ? '^(beta|alpha|rc)$' : undefined,
   })
 
   // Check if CHANGELOG.md has changed
@@ -301,6 +302,7 @@ export async function publishVersion(args: {
         minimal: true,
         base: 'v' + stableVersion,
         token: args.gitCliffToken,
+        ignoreTags: args.tag === 'next' ? '^(beta|alpha|rc)$' : undefined,
       })
     }
 

@@ -30,6 +30,12 @@ export async function generateChangelog(
      */
     outFile?: string
     /**
+     * Overrides the `ignore_tags` regex from cliff.toml. Use
+     * `"^(beta|alpha|rc)$"` to include pre-release versions while
+     * still ignoring channel tags.
+     */
+    ignoreTags?: string
+    /**
      * The GitHub token to use for fetching the commit history. If
      * undefined, the `$GITHUB_TOKEN` environment variable is used.
      */
@@ -45,6 +51,9 @@ export async function generateChangelog(
   }
   if (options.minimal) {
     gitCliffArgs.push('-s', 'all')
+  }
+  if (options.ignoreTags) {
+    gitCliffArgs.push('--ignore-tags', options.ignoreTags)
   }
   const { stdout } = await execa(gitCliffBin, gitCliffArgs, {
     env: {
