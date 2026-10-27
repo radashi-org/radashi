@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@12.9.8] - 2026-10-27
+### Details
+#### <!-- 06 -->Fixed
+
+- **(assign)** Skip dangerous keys to prevent prototype pollution in [4e7a3fd](https://github.com/radashi-org/radashi/commit/4e7a3fd3acfbcc7ff80a1f09e6ede847a5ca7bc4)
+
 ## [radashi@12.9.7] - 2026-10-26
 ### Details
 #### <!-- 06 -->Fixed
@@ -336,6 +342,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@12.9.8]: https://github.com/radashi-org/radashi/compare/v12.9.7..v12.9.8
 
 [radashi@12.9.7]: https://github.com/radashi-org/radashi/compare/v12.9.6..v12.9.7
 
