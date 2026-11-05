@@ -89,3 +89,15 @@ describe('promiseMemo', () => {
     expect(func).toHaveBeenCalledTimes(2)
   })
 })
+
+test.each(['constructor', 'toString', 'hasOwnProperty', '__proto__'])(
+  'memoizes promises whose custom key is %s',
+  async key => {
+    const source = vi.fn(async (value: string) => value)
+    const memoized = _.promiseMemo(source, { key: value => value })
+    const first = memoized(key)
+    await expect(first).resolves.toBe(key)
+    expect(memoized(key)).toBe(first)
+    expect(source).toHaveBeenCalledTimes(1)
+  },
+)
