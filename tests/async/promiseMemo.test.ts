@@ -89,3 +89,28 @@ describe('promiseMemo', () => {
     expect(func).toHaveBeenCalledTimes(2)
   })
 })
+
+test('an expired rejection does not evict the replacement promise', async () => {
+  vi.useFakeTimers()
+  try {
+    const first = _.withResolvers<string>()
+    const second = Promise.resolve('fresh')
+    const source = vi
+      .fn()
+      .mockReturnValueOnce(first.promise)
+      .mockReturnValue(second)
+    const memoized = _.promiseMemo(source, { ttl: 100 })
+
+    const stale = memoized()
+    vi.advanceTimersByTime(101)
+    expect(memoized()).toBe(second)
+
+    first.reject(new Error('expired request failed'))
+    await expect(stale).rejects.toThrow('expired request failed')
+
+    expect(memoized()).toBe(second)
+    expect(source).toHaveBeenCalledTimes(2)
+  } finally {
+    vi.useRealTimers()
+  }
+})
