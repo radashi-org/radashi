@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@13.0.2] - 2026-11-06
+### Details
+#### <!-- 06 -->Fixed
+
+- **(promiseMemo)** Retain replacement cache entries after stale rejection in [96d2b37](https://github.com/radashi-org/radashi/commit/96d2b37ae9d6975652844abd46e60071b3d94165)
+- **(Semaphore)** Drain queued requests while capacity remains in [d51f36a](https://github.com/radashi-org/radashi/commit/d51f36a05fa27a50db0d82b40aeb786c70fc1292)
+- **(promiseMemo)** Support prototype-named custom cache keys in [63b68db](https://github.com/radashi-org/radashi/commit/63b68dbfd8254117092466fc839e10bc96ef37d6)
+- **(Semaphore)** Honor already aborted acquisition signals in [0a47918](https://github.com/radashi-org/radashi/commit/0a47918d1760f07444170ab10ad83cee221f4d61)
+
 ## [radashi@13.0.0] - 2026-10-27
 ### Details
 #### <!-- 05 -->Changed
@@ -380,6 +389,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@13.0.2]: https://github.com/radashi-org/radashi/compare/v13.0.1..v13.0.2
 
 [radashi@13.0.0]: https://github.com/radashi-org/radashi/compare/v12.9.8..v13.0.0
 
