@@ -169,3 +169,40 @@ describe('Semaphore', () => {
     await expect(() => semaphore.acquire()).rejects.toThrow(rejectionError)
   })
 })
+
+test('releases all queued requests that fit the returned capacity', async () => {
+  const semaphore = new Semaphore(4)
+  const held = await semaphore.acquire({ weight: 4 })
+  const acquired: SemaphorePermit[] = []
+  const requests = [1, 2, 1].map(weight =>
+    semaphore.acquire({ weight }).then(permit => acquired.push(permit)),
+  )
+  held.release()
+  await new Promise(resolve => setTimeout(resolve, 0))
+  expect(acquired.map(permit => permit.weight)).toEqual([1, 2, 1])
+  expect(semaphore.capacity).toBe(0)
+  expect(semaphore.queueLength).toBe(0)
+  await Promise.all(requests)
+  acquired.forEach(permit => permit.release())
+  expect(semaphore.capacity).toBe(4)
+})
+
+test('stops draining when the next queued request does not fit', async () => {
+  const semaphore = new Semaphore(4)
+  const first = await semaphore.acquire({ weight: 3 })
+  const second = await semaphore.acquire()
+  const acquired: SemaphorePermit[] = []
+  const requests = [1, 3].map(weight =>
+    semaphore.acquire({ weight }).then(permit => acquired.push(permit)),
+  )
+  first.release()
+  await new Promise(resolve => setTimeout(resolve, 0))
+  expect(acquired.map(permit => permit.weight)).toEqual([1])
+  expect(semaphore.capacity).toBe(2)
+  expect(semaphore.queueLength).toBe(1)
+  second.release()
+  await Promise.all(requests)
+  expect(acquired.map(permit => permit.weight)).toEqual([1, 3])
+  acquired.forEach(permit => permit.release())
+  expect(semaphore.capacity).toBe(4)
+})
