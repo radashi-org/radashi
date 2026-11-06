@@ -1,6 +1,7 @@
 import { noop, type PromiseWithResolvers, withResolvers } from 'radashi'
 
 interface AbortSignal {
+  aborted?: boolean
   reason?: unknown
   addEventListener(type: 'abort', listener: () => void): void
   removeEventListener(type: 'abort', listener: () => void): void
@@ -87,9 +88,12 @@ export class Semaphore {
     if (weight > this.maxCapacity) {
       throw new Error('weight must be ≤ maxCapacity')
     }
+    if (signal?.aborted) {
+      throw signal.reason
+    }
     const request = withResolvers<void>()
     const permit = new SemaphorePermit(this, request, weight)
-    if (signal) {
+    if (signal && this.capacity < weight) {
       const abort = () => {
         const index = this.queue.indexOf(permit)
         if (index >= 0) {

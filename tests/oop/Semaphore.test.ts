@@ -169,3 +169,62 @@ describe('Semaphore', () => {
     await expect(() => semaphore.acquire()).rejects.toThrow(rejectionError)
   })
 })
+
+test('rejects an already aborted signal without consuming capacity', async () => {
+  const semaphore = new Semaphore(2)
+  const controller = new AbortController()
+  const reason = new Error('cancelled')
+  controller.abort(reason)
+  await expect(semaphore.acquire({ signal: controller.signal })).rejects.toBe(
+    reason,
+  )
+  expect(semaphore.capacity).toBe(2)
+  expect(semaphore.queueLength).toBe(0)
+})
+
+test('does not queue an already aborted acquisition when capacity is exhausted', async () => {
+  const semaphore = new Semaphore(1)
+  const held = await semaphore.acquire()
+  const controller = new AbortController()
+  controller.abort('cancelled')
+  const rejected = vi.fn()
+  const fulfilled = vi.fn()
+  const pending = semaphore
+    .acquire({ signal: controller.signal })
+    .then(fulfilled, rejected)
+  try {
+    await new Promise(resolve => setTimeout(resolve, 0))
+    expect(rejected).toHaveBeenCalledWith('cancelled')
+    expect(fulfilled).not.toHaveBeenCalled()
+    expect(semaphore.queueLength).toBe(0)
+  } finally {
+    held.release()
+    await pending
+  }
+})
+
+test('does not retain an abort listener for an immediately acquired permit', async () => {
+  const semaphore = new Semaphore(1)
+  const controller = new AbortController()
+  const add = vi.spyOn(controller.signal, 'addEventListener')
+  const permit = await semaphore.acquire({ signal: controller.signal })
+  expect(add).not.toHaveBeenCalled()
+  controller.abort()
+  expect(semaphore.capacity).toBe(0)
+  permit.release()
+  expect(semaphore.capacity).toBe(1)
+})
+
+test('removes the abort listener after a queued acquisition succeeds', async () => {
+  const semaphore = new Semaphore(1)
+  const held = await semaphore.acquire()
+  const controller = new AbortController()
+  const remove = vi.spyOn(controller.signal, 'removeEventListener')
+  const pending = semaphore.acquire({ signal: controller.signal })
+  held.release()
+  const permit = await pending
+  expect(remove).toHaveBeenCalledOnce()
+  controller.abort()
+  expect(semaphore.capacity).toBe(0)
+  permit.release()
+})
