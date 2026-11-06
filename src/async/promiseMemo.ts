@@ -58,13 +58,15 @@ export function promiseMemo<TFunc extends (...args: any[]) => Promise<any>>(
 
     const promise = func(...args) as ReturnType<TFunc>
 
-    cache[key] = {
+    const entry = (cache[key] = {
       exp: ttl ? new Date().getTime() + ttl : null,
       value: promise,
-    }
+    })
 
     promise.catch(() => {
-      delete cache[key]
+      if (cache[key] === entry) {
+        delete cache[key]
+      }
     })
 
     return promise
