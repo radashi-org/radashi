@@ -135,14 +135,15 @@ export class Semaphore {
     // @ts-expect-error: Allow mutation
     this.capacity += permit.weight
 
-    // Fulfill the oldest pending acquisition request (if any)
-    const nextPermit = this.queue[0]
-    if (nextPermit && this.capacity >= nextPermit.weight) {
+    // Fulfill queued requests while the available capacity allows it.
+    let nextPermit = this.queue[0]
+    while (nextPermit && this.capacity >= nextPermit.weight) {
       // Update the capacity immediately to avoid race conditions.
       // @ts-expect-error: Allow mutation
       this.capacity -= nextPermit.weight
       this.queue.shift()
       nextPermit.request.resolve()
+      nextPermit = this.queue[0]
     }
   }
 }
