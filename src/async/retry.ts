@@ -37,6 +37,7 @@ export async function retry<TResponse>(
 
   let i = 0
   while (true) {
+    signal?.throwIfAborted()
     const [err, result] = (await tryit(func)((err: any) => {
       throw { _exited: err }
     })) as [any, TResponse]

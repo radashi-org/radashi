@@ -147,4 +147,33 @@ describe('retry', () => {
       expect(attempts).toBe(1)
     },
   )
+
+  test('does not start an attempt with an already aborted signal', async () => {
+    const controller = new AbortController()
+    const reason = new Error('cancelled')
+    controller.abort(reason)
+    const operation = vi.fn(async () => 'unexpected')
+    await expect(
+      _.retry({ signal: controller.signal }, operation),
+    ).rejects.toBe(reason)
+    expect(operation).not.toHaveBeenCalled()
+  })
+
+  test('does not start another attempt after cancellation during the delay', async () => {
+    const controller = new AbortController()
+    const reason = new Error('cancelled during delay')
+    const operation = vi.fn(async () => {
+      throw new Error('retry me')
+    })
+    const pending = _.retry(
+      { signal: controller.signal, delay: 100, times: 3 },
+      operation,
+    )
+    const rejected = expect(pending).rejects.toBe(reason)
+    await vi.advanceTimersByTimeAsync(0)
+    controller.abort(reason)
+    await vi.advanceTimersByTimeAsync(100)
+    await rejected
+    expect(operation).toHaveBeenCalledTimes(1)
+  })
 })
