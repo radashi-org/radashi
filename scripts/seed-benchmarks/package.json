@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@radashi-org/benchmarks": "link:../benchmarks",
-    "execa": "^9.5.1",
+    "execa": "^10.0.0",
     "radashi-db": "link:../radashi-db",
     "tinyglobby": "^0.2.10"
   }
