@@ -135,6 +135,19 @@ describe('retry', () => {
 
     expect.fail('error should have been thrown')
   })
+  test.each([undefined, null, false, 0, ''])(
+    'stops immediately when exiting with %s',
+    async reason => {
+      let attempts = 0
+      const pending = _.retry({ times: 3 }, async exit => {
+        attempts++
+        exit(reason)
+      })
+      await expect(pending).rejects.toBe(reason)
+      expect(attempts).toBe(1)
+    },
+  )
+
   test('does not start an attempt with an already aborted signal', async () => {
     const controller = new AbortController()
     const reason = new Error('cancelled')

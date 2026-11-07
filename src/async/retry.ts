@@ -45,7 +45,7 @@ export async function retry<TResponse>(
     if (!err) {
       return result
     }
-    if (err._exited) {
+    if (Object.prototype.hasOwnProperty.call(err, '_exited')) {
       throw err._exited
     }
     if (++i >= times) {
