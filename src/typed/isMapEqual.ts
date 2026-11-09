@@ -12,7 +12,11 @@ export function isMapEqual(x: Map<any, any>, y: Map<any, any>): boolean {
     return false
   }
   for (const [key, value] of x) {
-    if (!isEqual(value, y.get(key))) {
+    const otherValue = y.get(key)
+    if (
+      !isEqual(value, otherValue) ||
+      (otherValue === undefined && !y.has(key))
+    ) {
       return false
     }
   }
