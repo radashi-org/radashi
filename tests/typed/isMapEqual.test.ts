@@ -33,6 +33,15 @@ describe('isMapEqual', () => {
     ).toBe(false)
   })
 
+  test('distinguishes a missing key from a key mapped to undefined', () => {
+    expect(
+      _.isMapEqual(new Map([['a', undefined]]), new Map([['b', undefined]])),
+    ).toBe(false)
+    expect(
+      _.isMapEqual(new Map([['a', undefined]]), new Map([['a', undefined]])),
+    ).toBe(true)
+  })
+
   test('returns false for maps with different sizes', () => {
     expect(
       _.isMapEqual(
