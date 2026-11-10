@@ -1,3 +1,4 @@
+import { runInNewContext } from 'node:vm'
 import * as _ from 'radashi'
 
 describe('template', () => {
@@ -33,5 +34,33 @@ describe('template', () => {
 
     const result = _.template(tmp, data, /<(.+?)>/g)
     expect(result).toBe(`Hello ${data.name}.`)
+  })
+
+  test('supports a custom expression without the global flag', () => {
+    const result = runInNewContext(
+      'template("Hello <name>, <name>", { name: "Ray" }, /<(.+?)>/)',
+      { template: _.template },
+      { timeout: 1000 },
+    )
+
+    expect(result).toBe('Hello Ray, <name>')
+  })
+
+  test('advances after zero-width matches', () => {
+    const result = runInNewContext(
+      'template("name", { name: "Ray " }, /(?=(name))/g)',
+      { template: _.template },
+      { timeout: 1000 },
+    )
+
+    expect(result).toBe('Ray name')
+  })
+
+  test('keeps replacement values literal', () => {
+    expect(_.template('<name>', { name: '$&' }, /<(.+?)>/g)).toBe('$&')
+  })
+
+  test('preserves the lookup for an expression without a capture group', () => {
+    expect(_.template('name', { undefined: 'Ray' }, /name/g)).toBe('Ray')
   })
 })
