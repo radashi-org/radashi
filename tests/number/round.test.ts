@@ -34,6 +34,13 @@ describe('round', () => {
     expect(_.round(0.000000001)).toBe(0)
   })
 
+  test('preserves the sign of zero at nonzero precision', () => {
+    expect(_.round(-0, 2)).toBe(-0)
+    expect(_.round(-0.04, 1)).toBe(-0)
+    expect(_.round(-0.04, 1, Math.ceil)).toBe(-0)
+    expect(_.round(0.04, 1)).toBe(0)
+  })
+
   test('rounds very small numbers close to zero', () => {
     expect(_.round(0.0000000001, 10)).toBe(0.0000000001)
     expect(_.round(0.00000000005, 10)).toBe(1e-10)

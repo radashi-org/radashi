@@ -36,9 +36,13 @@ export function round(
 
     // By using exponential notation, we can avoid floating-point
     // precision issues. The "q" is quantity, "e" is exponent.
-    let [q, e] = `${value}e`.split('e')
-    ;[q, e] = `${toInteger(+`${q}e${+e + p}`)}e`.split('e')
-    return +`${q}e${+e - p}`
+    const [q, e] = `${value}e`.split('e')
+    const rounded = toInteger(value === 0 ? value : +`${q}e${+e + p}`)
+    if (rounded === 0) {
+      return p === precision ? rounded : 0
+    }
+    const [roundedQ, roundedE] = `${rounded}e`.split('e')
+    return +`${roundedQ}e${+roundedE - p}`
   }
 
   return toInteger(value)
