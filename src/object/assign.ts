@@ -5,7 +5,6 @@ import {
   type IsExactType,
   isDangerousKey,
   isPlainObject,
-  type OptionalKeys,
   type RequiredKeys,
 } from 'radashi'
 
@@ -60,39 +59,31 @@ export type Assign<
     ? SimplifyMutable<
         Omit<TInitial, keyof TOverride> &
           Omit<TOverride, keyof TInitial> &
-          (Pick<
-            TInitial,
-            keyof TInitial & keyof TOverride
-          > extends infer TConflictInitial
-            ? Pick<
-                TOverride,
-                keyof TInitial & keyof TOverride
-              > extends infer TConflictOverride
-              ? {
-                  [K in RequiredKeys<TConflictOverride>]: AssignDeep<
-                    TConflictInitial[K & keyof TConflictInitial],
-                    TConflictOverride[K]
-                  >
-                } & {
-                  [K in RequiredKeys<TConflictInitial> &
-                    OptionalKeys<TConflictOverride>]: AssignDeep<
-                    TConflictInitial[K],
-                    TConflictOverride[K],
-                    true
-                  >
-                } & {
-                  [K in OptionalKeys<TConflictInitial> &
-                    OptionalKeys<TConflictOverride>]?: AssignDeep<
-                    TConflictInitial[K],
-                    TConflictOverride[K],
-                    true
-                  >
-                }
-              : unknown
-            : unknown)
+          AssignShared<TInitial, TOverride>
       >
     : never
   : never
+
+type AssignShared<
+  TInitial extends object,
+  TOverride extends object,
+  Shared extends keyof TInitial & keyof TOverride = keyof TInitial &
+    keyof TOverride,
+  RequiredInitial = RequiredKeys<Pick<TInitial, Shared>>,
+  RequiredOverride = RequiredKeys<Pick<TOverride, Shared>>,
+> = {
+  [K in Shared & (RequiredInitial | RequiredOverride)]: AssignDeep<
+    TInitial[K],
+    TOverride[K],
+    K extends RequiredOverride ? false : true
+  >
+} & {
+  [K in Exclude<Shared, RequiredInitial | RequiredOverride>]?: AssignDeep<
+    TInitial[K],
+    TOverride[K],
+    true
+  >
+}
 
 /**
  * Mimic the `Simplify` type and also remove `readonly` modifiers.
