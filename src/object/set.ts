@@ -1,4 +1,4 @@
-import { clone, isDangerousKey, isIntString } from 'radashi'
+import { clone, isDangerousKey, isIntString, isPrimitive } from 'radashi'
 
 /**
  * Opposite of get, dynamically set a nested value into an object
@@ -34,7 +34,11 @@ export function set<T extends object, K>(
     }
 
     if (!Object.is(object[key], value)) {
-      object = clone(object)
+      object = isPrimitive(object)
+        ? isIntString(key)
+          ? []
+          : {}
+        : clone(object)
       object[key] = value
     }
 
