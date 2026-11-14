@@ -6,12 +6,16 @@ since: 12.1.0
 
 ### Usage
 
-Pass in a value and get a boolean telling you if the value is a float.
+Returns `true` for non-integer numbers, including `Infinity` and `-Infinity`.
+Returns `false` for integers, `NaN`, and non-number values.
 
 ```ts twoslash
 import * as _ from 'radashi'
 
 _.isFloat(12.233) // => true
+_.isFloat(Infinity) // => true
+_.isFloat(-Infinity) // => true
 _.isFloat(12) // => false
+_.isFloat(NaN) // => false
 _.isFloat('hello') // => false
 ```
