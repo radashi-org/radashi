@@ -21,5 +21,5 @@ export function pascal(str: string): string {
     },
   )
 
-  return result[0].toUpperCase() + result.substring(1)
+  return result.charAt(0).toUpperCase() + result.substring(1)
 }
