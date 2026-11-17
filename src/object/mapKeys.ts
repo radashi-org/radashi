@@ -1,5 +1,6 @@
 /**
- * Map over all the keys of an object to return a new object.
+ * Map over the own enumerable string and symbol keys of an object
+ * to return a new object.
  *
  * @see https://radashi.js.org/reference/object/mapKeys
  * @example
