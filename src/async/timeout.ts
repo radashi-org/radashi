@@ -39,10 +39,13 @@ export function timeout<TError extends Error>(
    */
   error?: string | (() => TError),
 ): Promise<never> {
-  return new Promise((_, reject) =>
-    setTimeout(
-      () => reject(isFunction(error) ? error() : new TimeoutError(error)),
-      ms,
-    ),
-  )
+  return new Promise((_, reject) => {
+    setTimeout(() => {
+      try {
+        reject(isFunction(error) ? error() : new TimeoutError(error))
+      } catch (cause) {
+        reject(cause)
+      }
+    }, ms)
+  })
 }
