@@ -1,5 +1,6 @@
 /**
- * Map over all the keys of an object to return a new object.
+ * Map over the own enumerable string and symbol keys of an object
+ * to return a new object.
  *
  * @see https://radashi.js.org/reference/object/mapKeys
  * @example
@@ -18,7 +19,9 @@ export function mapKeys<
   obj: Record<TKey, TValue>,
   mapFunc: (key: TKey, value: TValue) => TNewKey,
 ): Record<TNewKey, TValue> {
-  const keys = Object.keys(obj) as TKey[]
+  const keys = Reflect.ownKeys(obj).filter(key =>
+    Object.prototype.propertyIsEnumerable.call(obj, key),
+  ) as TKey[]
   return keys.reduce(
     (acc, key) => {
       acc[mapFunc(key as TKey, obj[key])] = obj[key]
