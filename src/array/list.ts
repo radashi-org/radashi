@@ -2,6 +2,7 @@ import { range } from 'radashi'
 
 /**
  * Creates a list of given start, end, value, and step parameters.
+ * For nonempty ranges, zero and negative steps throw a RangeError.
  *
  * @see https://radashi.js.org/reference/array/list
  * @example
