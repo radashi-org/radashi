@@ -80,6 +80,16 @@ jsr add @radashi-org/radashi
 deno add jsr:@radashi-org/radashi
 ```
 
+### Habilidades de agente (Agent skills)
+
+O Radashi inclui uma habilidade de agente para assistentes de código de IA em `skills/radashi/SKILL.md`.
+
+Gerenciadores de pacotes que suportam habilidades de agentes fornecidas por dependências (como o [pnpm](https://pnpm.io/agent-skills) v12.11+) podem descobrir e vincular a habilidade nos diretórios de agentes do seu projeto após aprovação:
+
+```sh
+pnpm approve
+```
+
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
 ## FAQ
@@ -111,13 +121,11 @@ deno add jsr:@radashi-org/radashi
 
 - **Lançamentos automáticos**
   Para garantir que as contribuições sejam rapidamente disponibilizadas, temos os seguintes processos automáticos:
-
   - **Lançamentos Beta**
     Sempre que a branch `main` recebe uma correção ou funcionalidade, uma versão beta é automaticamente publicada no NPM às 2:00AM BRT. Instalar `radashi@beta` sempre buscará a versão beta mais recente. Lançamentos beta são sempre auditados pela equipe Radashi.
 
   - **Lançamentos de Preview**
     Quando o _dono de um PR_ comenta `/publish` (e nada mais), o PR é publicado no NPM sob uma versão como `1.0.0-pr123.f7a9c3b` (ou seja, `<versão mais recente>-pr<número do PR>.<commit SHA>`) e uma tag como `pr123`. Isso permite que a comunidade use as mudanças no PR sem esperar que ele seja mesclado.
-
     - ⚠️ **Atenção:** Lançamentos de Preview não são auditados pela equipe Radashi. Sempre verifique as mudanças no PR para garantir que nenhum código malicioso foi introduzido.
 
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
