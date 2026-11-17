@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@13.1.0] - 2026-11-17
+### Details
+#### <!-- 05 -->Changed
+
+- Include skills folder in published package in [6d79d3d](https://github.com/radashi-org/radashi/commit/6d79d3d78280394dfb25644b166130eec5785de6)
+
+#### <!-- 06 -->Fixed
+
+- **(reduce)** Skip empty slots in sparse arrays in [df50f11](https://github.com/radashi-org/radashi/commit/df50f11c0e2a920935640fdf5008bfa00dbae535)
+- **(mapKeys)** Include enumerable symbol keys in [31b3c9d](https://github.com/radashi-org/radashi/commit/31b3c9d776e1fdf6a15bc365ee022197fdd50cd7)
+- **(isMapEqual)** Distinguish missing keys from undefined values in [c9eba71](https://github.com/radashi-org/radashi/commit/c9eba71eda9be1c7b1276be607d78ae0dadc38d4)
+- **(timeout)** Reject when the custom error function throws in [5fb586d](https://github.com/radashi-org/radashi/commit/5fb586dbb4897add04053504af3e27478d7da49b)
+- **(range)** Throw RangeError for nonpositive steps in nonempty ranges in [3e74910](https://github.com/radashi-org/radashi/commit/3e74910ff61a98572b4c1c0f6dc6c98ae77b3a66)
+- **(template)** Avoid stalling on custom regular expressions in [b42d575](https://github.com/radashi-org/radashi/commit/b42d575d76d8f807af636c6b01c73cbe330fac87)
+- **(assign)** Avoid excessive instantiation when merging option unions in [254cf54](https://github.com/radashi-org/radashi/commit/254cf54c74c5bd7e6be6490467e4f92852033fdf)
+- **(parseQuantity)** Accept zero and fractional plural units in [4bec95f](https://github.com/radashi-org/radashi/commit/4bec95fb80c91e0f78ef5181fd3d6a7749ccf646)
+- **(pascal)** Handle empty strings in [da84f8e](https://github.com/radashi-org/radashi/commit/da84f8e1b7e8e45154424ce875cf469381cc9615)
+- **(set)** Replace primitive intermediates for nested paths in [bf11e94](https://github.com/radashi-org/radashi/commit/bf11e945fea461baeacff06da55688fddccac70c)
+- **(camel)** Keep the first word lowercase after separators in [5e9dd4a](https://github.com/radashi-org/radashi/commit/5e9dd4a563f1a48f901deff5940fb9ef2a0a7692)
+- **(bundle-impact)** Exclude preserved comments from sizes in [4354a22](https://github.com/radashi-org/radashi/commit/4354a2243a04d2969df777fd1a1310731032e92f)
+
+#### <!-- 07 -->Performance
+
+- **(similarity)** Keep one row of the distance table in a typed array in [5295ea8](https://github.com/radashi-org/radashi/commit/5295ea8faed3c3669cd8d0832b020110f3e7984e)
+
 ## [radashi@13.0.4] - 2026-11-07
 ### Details
 #### <!-- 06 -->Fixed
@@ -401,6 +426,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@13.1.0]: https://github.com/radashi-org/radashi/compare/v13.0.4..v13.1.0
 
 [radashi@13.0.4]: https://github.com/radashi-org/radashi/compare/v13.0.3..v13.0.4
 
