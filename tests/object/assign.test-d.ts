@@ -13,7 +13,48 @@ declare module 'radashi' {
   }
 }
 
+type EitherKey<Key extends string, Alias extends string, Value = boolean> =
+  | ({ [P in Key]?: Value } & { [P in Alias]?: never })
+  | ({ [P in Key]?: never } & { [P in Alias]?: Value })
+
+// Models the option aliases in Fastify Helmet without a test dependency.
+type HelmetOptions = { global?: boolean } & EitherKey<
+  'strictTransportSecurity',
+  'hsts',
+  boolean | { maxAge?: number }
+> &
+  EitherKey<'xContentTypeOptions', 'noSniff'> &
+  EitherKey<
+    'xDnsPrefetchControl',
+    'dnsPrefetchControl',
+    boolean | { allow?: boolean }
+  > &
+  EitherKey<'xDownloadOptions', 'ieNoOpen'> &
+  EitherKey<
+    'xFrameOptions',
+    'frameguard',
+    boolean | { action?: 'deny' | 'sameorigin' }
+  > &
+  EitherKey<
+    'xPermittedCrossDomainPolicies',
+    'permittedCrossDomainPolicies',
+    boolean | { permittedPolicies?: 'none' | 'all' }
+  > &
+  EitherKey<'xPoweredBy', 'hidePoweredBy'> &
+  EitherKey<'xXssProtection', 'xssFilter'>
+
 describe('assign', () => {
+  test('merges options with multiple pairs of alternative property names', () => {
+    const defaults = {} as HelmetOptions
+    const overrides = {} as HelmetOptions
+    const options = assign(defaults, overrides)
+
+    expectTypeOf(options.global).toEqualTypeOf<boolean | undefined>()
+    expectTypeOf(options.hsts).toEqualTypeOf<
+      boolean | { maxAge?: number } | undefined
+    >()
+  })
+
   test('assign property with native object', () => {
     const initial = {} as { a: RegExp }
     const override = {} as { a: Date }
