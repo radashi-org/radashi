@@ -45,7 +45,7 @@ export class QuantityParser<
     unit = this.short?.[unit as ShortUnit] || (unit as Unit)
 
     const count = Number.parseFloat(match[1])
-    if (Math.abs(count) > 1 && unit.endsWith('s')) {
+    if (!this.units[unit] && unit.endsWith('s')) {
       unit = unit.substring(0, unit.length - 1) as Unit
     }
 

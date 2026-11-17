@@ -23,6 +23,27 @@ describe('QuantityParser', () => {
     expect(parser.parse('2n')).toBe(10)
   })
 
+  test('parse plural units for zero and fractional quantities', () => {
+    const parser = new _.QuantityParser({ units: { kilogram: 1000 } })
+
+    expect(parser.parse('0 kilograms')).toBe(0)
+    expect(parser.parse('0.5 kilograms')).toBe(500)
+    expect(parser.parse('-0.5 kilograms')).toBe(-500)
+  })
+
+  test('preserve configured unit names ending in s', () => {
+    const parser = new _.QuantityParser({
+      units: { celsius: 1 },
+      short: { C: 'celsius' },
+    })
+
+    expect(parser.parse('1 celsius')).toBe(1)
+    // The string type only permits the singular unit with a count of 1.
+    expect(parser.parse('2 celsius' as any)).toBe(2)
+    expect(parser.parse('0.5C')).toBe(0.5)
+    expect(parser.parse('2C')).toBe(2)
+  })
+
   test('bad input', () => {
     const parser = new _.QuantityParser({
       units: {
