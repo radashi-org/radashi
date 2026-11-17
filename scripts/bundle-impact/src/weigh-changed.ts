@@ -138,6 +138,7 @@ async function getPreviousSizes(
           format: 'esm',
           bundle: true,
           minify: true,
+          legalComments: 'none',
           write: false,
         })
         const output = result.outputFiles[0].contents
@@ -160,6 +161,7 @@ async function getFileSize(file: string, status: string): Promise<number> {
     format: 'esm',
     bundle: true,
     minify: true,
+    legalComments: 'none',
     write: false,
   })
   const output = result.outputFiles[0].contents
