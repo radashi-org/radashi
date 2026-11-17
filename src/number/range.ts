@@ -2,9 +2,11 @@ import { isFunction } from 'radashi'
 
 /**
  * Creates a generator that will produce an iteration through the
- * range of number as requested.
+ * range of numbers as requested. For nonempty ranges, the step must
+ * be greater than zero. Zero and negative steps throw a RangeError
+ * when iteration begins.
  *
- * @see https://radashi.js.org/reference/array/range
+ * @see https://radashi.js.org/reference/number/range
  * @example
  * ```ts
  * range(3)                  // yields 0, 1, 2, 3
@@ -27,6 +29,9 @@ export function* range<T = number>(
   const mapper = isFunction(valueOrMapper) ? valueOrMapper : () => valueOrMapper
   const start = end !== undefined ? startOrLength : 0
   const final = end ?? startOrLength
+  if (start <= final && step <= 0) {
+    throw new RangeError('Range step must be greater than zero')
+  }
   for (let i = start; i <= final; i += step) {
     yield mapper(i)
   }

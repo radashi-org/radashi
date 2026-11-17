@@ -73,3 +73,19 @@ import * as _ from 'radashi'
 const steppedList = _.list(2, 4, i => i, 2) // [2, 4]
 const biggerSteppedList = _.list(25, 100, i => i, 25) // [25, 50, 75, 100]
 ```
+
+### Step validation
+
+For a nonempty list (`start <= end`), zero and negative steps cause a
+`RangeError` during the `list` call. Use a positive step to advance toward the
+inclusive end value.
+
+When `start > end`, the result is an empty array, including when the step is
+negative. Negative steps do not create descending lists.
+
+```ts twoslash
+import * as _ from 'radashi'
+
+_.list(0, 4, undefined, 0) // throws RangeError
+_.list(4, 0, undefined, -1) // => []
+```

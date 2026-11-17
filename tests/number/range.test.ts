@@ -10,6 +10,15 @@ describe('range', () => {
     return items
   }
 
+  test('rejects steps that cannot progress toward the end', () => {
+    expect(() => _.range(0, 4, undefined, 0).next()).toThrow(RangeError)
+    expect(() => _.range(0, 4, undefined, -1).next()).toThrow(RangeError)
+  })
+
+  test('keeps reversed bounds empty', () => {
+    expect(toList(_.range(4, 0, undefined, -1))).toEqual([])
+  })
+
   test('yields expected values', () => {
     expect(toList(_.range(0, 4))).toEqual([0, 1, 2, 3, 4])
     expect(toList(_.range(3))).toEqual([0, 1, 2, 3])
