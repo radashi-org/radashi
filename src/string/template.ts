@@ -18,12 +18,9 @@ export function template(
   data: Record<string, any>,
   regex: RegExp = /\{\{(.+?)\}\}/g,
 ): string {
-  let result = ''
-  let from = 0
-  let match: RegExpExecArray | null
-  while ((match = regex.exec(str))) {
-    result += str.slice(from, match.index) + data[match[1]]
-    from = regex.lastIndex
-  }
-  return result + str.slice(from)
+  return str.replace(regex, (_match, ...args) => {
+    // Without captures, only the offset and input follow the matched text.
+    const key = args.length > 2 ? args[0] : undefined
+    return data[key]
+  })
 }
