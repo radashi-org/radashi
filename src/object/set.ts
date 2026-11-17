@@ -3,6 +3,8 @@ import { clone, isDangerousKey, isIntString } from 'radashi'
 /**
  * Opposite of get, dynamically set a nested value into an object
  * using a key path. Does not modify the given initial object.
+ * Primitive intermediates are replaced with objects or arrays when
+ * a property needs to change.
  *
  * @see https://radashi.js.org/reference/object/set
  * @example
