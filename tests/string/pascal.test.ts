@@ -9,6 +9,9 @@ describe('pascal', () => {
     const result = _.pascal('hello')
     expect(result).toBe('Hello')
   })
+  test('returns empty string for empty input', () => {
+    expect(_.pascal('')).toBe('')
+  })
   test('converts camelCase to PascalCase', () => {
     const result = _.pascal('fooBar')
     expect(result).toBe('FooBar')
