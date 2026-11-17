@@ -19,6 +19,6 @@ export function camel(str: string): string {
     .map(x => x.toLowerCase())
 
   return parts.reduce((acc, part) => {
-    return `${acc}${part.charAt(0).toUpperCase()}${part.slice(1)}`
+    return acc ? `${acc}${part.charAt(0).toUpperCase()}${part.slice(1)}` : part
   })
 }
