@@ -9,6 +9,9 @@ since: 12.1.0
 Given an object and a `toKey` callback function, returns a new object with all the keys
 mapped through the `toKey` function. The callback is given both the key and value for each entry.
 
+Only own enumerable properties are visited, including string and symbol keys.
+Inherited and non-enumerable properties are ignored.
+
 ```ts twoslash
 import * as _ from 'radashi'
 
@@ -19,6 +22,17 @@ const ra = {
 
 _.mapKeys(ra, key => key.toUpperCase()) // => { MODE, POWER }
 _.mapKeys(ra, (key, value) => value) // => { god: 'god', power: 'power' }
+```
+
+Symbol keys can also be mapped to new symbols:
+
+```ts twoslash
+import * as _ from 'radashi'
+
+const input = Symbol('input')
+const output = Symbol('output')
+
+_.mapKeys({ [input]: 22 }, () => output) // => { [output]: 22 }
 ```
 
 ### Type-safe alternatives
