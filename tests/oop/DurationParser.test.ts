@@ -88,3 +88,9 @@ describe('DurationParser', () => {
 test('parseDuration', () => {
   expect(_.parseDuration('3 hours')).toBe(3 * hour)
 })
+
+test('parseDuration with zero and fractional plural units', () => {
+  expect(_.parseDuration('0 seconds')).toBe(0)
+  expect(_.parseDuration('0.5 seconds')).toBe(500)
+  expect(_.parseDuration('-0.5 seconds')).toBe(-500)
+})
