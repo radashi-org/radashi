@@ -3,9 +3,10 @@ import { isFunction } from 'radashi'
 /**
  * Creates a generator that will produce an iteration through the
  * range of numbers as requested. For nonempty ranges, the step must
- * be greater than zero.
+ * be greater than zero. Zero and negative steps throw a RangeError
+ * when iteration begins.
  *
- * @see https://radashi.js.org/reference/array/range
+ * @see https://radashi.js.org/reference/number/range
  * @example
  * ```ts
  * range(3)                  // yields 0, 1, 2, 3
