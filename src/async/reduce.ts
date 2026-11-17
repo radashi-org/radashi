@@ -25,17 +25,23 @@ export async function reduce<T, K>(
   reducer: (acc: K, item: T, index: number) => Promise<K>,
   initialValue?: K,
 ): Promise<K> {
+  const length = array.length
   let index = 0
   let acc = initialValue
   // biome-ignore lint/style/noArguments:
   if (acc === undefined && arguments.length < 3) {
-    if (!array.length) {
+    while (index < length && !(index in array)) {
+      index++
+    }
+    if (index === length) {
       throw new TypeError('Reduce of empty array with no initial value')
     }
     acc = array[index++] as any
   }
-  while (index < array.length) {
-    acc = await reducer(acc!, array[index], index++)
+  for (; index < length; index++) {
+    if (index in array) {
+      acc = await reducer(acc!, array[index], index)
+    }
   }
   return acc!
 }

@@ -31,6 +31,56 @@ describe('asyncReduce', () => {
     const result = await _.reduce(numbers, reducer)
     expect(result).toBe(10)
   })
+  test('skips holes and uses the first present element as the accumulator', async () => {
+    const sparse = Array<number>(5)
+    sparse[1] = 4
+    sparse[3] = 6
+    const indexes: number[] = []
+    const result = await _.reduce<number, number>(
+      sparse,
+      async (acc, item, index) => {
+        indexes.push(index)
+        return acc + item
+      },
+    )
+    expect(result).toBe(10)
+    expect(indexes).toEqual([3])
+  })
+
+  test('skips holes when the initial value is explicitly undefined', async () => {
+    const sparse = Array<number | undefined>(4)
+    sparse[2] = undefined
+    const indexes: number[] = []
+    await _.reduce<number | undefined, number | undefined>(
+      sparse,
+      async (_acc, item, index) => {
+        indexes.push(index)
+        return item
+      },
+      undefined,
+    )
+    expect(indexes).toEqual([2])
+  })
+
+  test('ignores elements appended by the reducer', async () => {
+    const values = [1, 2]
+    const result = await _.reduce(
+      values,
+      async (acc, value, index) => {
+        if (index === 0) {
+          values.push(3)
+        }
+        return acc + value
+      },
+      0,
+    )
+    expect(result).toBe(3)
+  })
+
+  test('rejects an all-hole array without an initial value', async () => {
+    await expect(_.reduce(Array<number>(3), reducer)).rejects.toThrow(TypeError)
+  })
+
   test('throws on no init value and an empty array', async () => {
     await expect(async () => _.reduce([], reducer)).rejects.toThrowError(
       'Reduce of empty array with no initial value',
