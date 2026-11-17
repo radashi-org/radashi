@@ -4,6 +4,4 @@ The `####` headline should be short and descriptive of the breaking change. In t
 
 ## Breaking Changes
 
-#### Reject zero and negative steps in nonempty ranges
-
-[PR #501](https://github.com/radashi-org/radashi/pull/501)
+####
