@@ -6,6 +6,7 @@
  * The `precision` argument is limited to be within the range of -323
  * to +292. Without this limit, precision values outside this range
  * can result in NaN.
+ * With nonzero precision, negative zero may be returned as positive zero.
  *
  * @see https://radashi.js.org/reference/number/round
  * @example
