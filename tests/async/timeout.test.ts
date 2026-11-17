@@ -31,6 +31,17 @@ describe('timeout', () => {
     await expect(promise).rejects.toThrow(CustomError)
   })
 
+  test('rejects with an exception from the custom error function', async () => {
+    const error = new Error('error factory failed')
+    const promise = _.timeout(10, () => {
+      throw error
+    })
+
+    vi.advanceTimersByTime(10)
+
+    await expect(promise).rejects.toBe(error)
+  })
+
   describe('with Promise.race', () => {
     test('resolves correctly when sleep finishes before timeout', async () => {
       const promise = Promise.race([_.sleep(10), _.timeout(100)])
