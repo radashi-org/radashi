@@ -96,6 +96,16 @@ jsr add @radashi-org/radashi
 deno add jsr:@radashi-org/radashi
 ```
 
+### Agent skills
+
+Radashi includes an agent skill for AI coding assistants in `skills/radashi/SKILL.md`.
+
+Package managers supporting dependency-provided agent skills (such as [pnpm](https://pnpm.io/agent-skills) v12.11+) can discover and link the skill into your project's agent directories upon approval:
+
+```sh
+pnpm approve
+```
+
 <img src="https://github.com/radashi-org/radashi/raw/main/.github/img/rule.png" width="100%" />
 
 ## FAQ
@@ -127,7 +137,6 @@ deno add jsr:@radashi-org/radashi
 
 - **Automatic releases**
   To ensure contributions are quickly rolled out, we have the following automatic processes:
-
   - **Patch releases**
     Whenever the `main` branch receives a `^fix:` commit, a patch release is immediately published to NPM.
 
