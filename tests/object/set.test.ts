@@ -31,9 +31,44 @@ describe('set', () => {
     expect(output.a).toBe(input.a)
   })
 
+  test('retain a primitive intermediate if nothing changes', () => {
+    const input = { a: 'str' }
+    expect(_.set(input, 'a.b', undefined)).toBe(input)
+    expect(_.set(input, 'a.length', 3)).toBe(input)
+  })
+
+  test.each(['str', 5, true, Symbol('value'), 5n])(
+    'replace a primitive intermediate (%s) with an object',
+    value => {
+      const input = { a: value }
+      const output = _.set(input, 'a.b', 1)
+      expect(output).toStrictEqual({ a: { b: 1 } })
+      expect(input).toStrictEqual({ a: value })
+    },
+  )
+
+  test('replace a primitive array item with an object', () => {
+    const input = { b: [1, true] }
+    const output = _.set(input, 'b[1].a', 17)
+    expect(output).toStrictEqual({ b: [1, { a: 17 }] })
+    expect(JSON.stringify(output)).toBe('{"b":[1,{"a":17}]}')
+    expect(input).toStrictEqual({ b: [1, true] })
+    expect(output.b).not.toBe(input.b)
+  })
+
+  test('replace a primitive intermediate with an array for a numeric key', () => {
+    const input = { a: 5 }
+    const output = _.set(input, 'a[0].b', 1)
+    expect(output).toStrictEqual({ a: [{ b: 1 }] })
+    expect(input).toStrictEqual({ a: 5 })
+  })
+
   test('set a direct property', () => {
     expect(_.set({ foo: true }, 'foo', false)).toEqual({ foo: false })
     expect(_.set({}, 'foo', 0)).toEqual({ foo: 0 })
+    expect(_.set({ foo: 1 }, 'foo', undefined)).toStrictEqual({
+      foo: undefined,
+    })
   })
 
   test('set a deep property with object notation', () => {
@@ -124,4 +159,13 @@ describe('set', () => {
     obj = _.set(obj, 'constructor.polluted', true)
     expect(obj.constructor).toEqual({ polluted: true })
   })
+
+  test.each(['__proto__', 'prototype', 'constructor'])(
+    'reject an unsafe key (%s) on a primitive intermediate',
+    key => {
+      expect(() => _.set({ a: 5 }, `a.${key}.polluted`, true)).toThrowError(
+        `Unsafe key in path: ${key}`,
+      )
+    },
+  )
 })

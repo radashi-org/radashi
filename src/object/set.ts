@@ -3,6 +3,8 @@ import { clone, isDangerousKey, isIntString } from 'radashi'
 /**
  * Opposite of get, dynamically set a nested value into an object
  * using a key path. Does not modify the given initial object.
+ * Primitive intermediates are replaced with objects or arrays when
+ * a property needs to change.
  *
  * @see https://radashi.js.org/reference/object/set
  * @example
@@ -34,7 +36,12 @@ export function set<T extends object, K>(
     }
 
     if (!Object.is(object[key], value)) {
-      object = clone(object)
+      object =
+        typeof object !== 'object' && typeof object !== 'function'
+          ? isIntString(key)
+            ? []
+            : {}
+          : clone(object)
       object[key] = value
     }
 

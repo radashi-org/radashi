@@ -17,3 +17,23 @@ _.set({}, 'name', 'ra')
 _.set({}, 'cards[0].value', 2)
 // => { cards: [{ value: 2 }] }
 ```
+
+### Primitive intermediates
+
+When a path needs to write through an existing primitive value, that value is
+replaced with a plain object, or an array when the next path key is an integer.
+The original input is preserved.
+
+```ts twoslash
+import * as _ from 'radashi'
+
+_.set({ a: 5 }, 'a.b', 1)
+// => { a: { b: 1 } }
+
+_.set({ a: 5 }, 'a[0]', 1)
+// => { a: [1] }
+```
+
+An existing primitive can remain unchanged when the requested value already
+matches. For example, setting `a.length` to `3` on `{ a: 'str' }` returns the
+original object.
