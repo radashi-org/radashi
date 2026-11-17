@@ -28,7 +28,8 @@
   },
   "types": "dist/radashi.d.cts",
   "files": [
-    "dist"
+    "dist",
+    "skills"
   ],
   "scripts": {
     "add-function": "radashi fn create",
