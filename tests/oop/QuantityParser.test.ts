@@ -38,7 +38,10 @@ describe('QuantityParser', () => {
     })
 
     expect(parser.parse('1 celsius')).toBe(1)
+    // The string type only permits the singular unit with a count of 1.
+    expect(parser.parse('2 celsius' as any)).toBe(2)
     expect(parser.parse('0.5C')).toBe(0.5)
+    expect(parser.parse('2C')).toBe(2)
   })
 
   test('bad input', () => {
