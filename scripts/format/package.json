@@ -2,7 +2,7 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "execa": "^9.5.1",
+    "execa": "^10.0.0",
     "tinyglobby": "^0.2.10"
   }
 }
