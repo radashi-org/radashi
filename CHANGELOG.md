@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [radashi@13.1.1] - 2026-11-22
+### Details
+#### <!-- 07 -->Performance
+
+- **(title)** Avoid creating 3 intermediate arrays in [4f9e4e0](https://github.com/radashi-org/radashi/commit/4f9e4e035e2b66911fc82a3b7549255dc32b3f7f)
+
 ## [radashi@13.1.0] - 2026-11-17
 ### Details
 #### <!-- 05 -->Changed
@@ -426,6 +432,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid inferring `memo` return type from `key` option in [7b4656e](https://github.com/radashi-org/radashi/commit/7b4656ef5ccc4ad6a06ab598407a92557594fcd6)
 - Allow readonly array in `omit` function in [a88fa1b](https://github.com/radashi-org/radashi/commit/a88fa1b0d2014b991830753400b9d1705ca0cd29)
 
+
+[radashi@13.1.1]: https://github.com/radashi-org/radashi/compare/v13.1.0..v13.1.1
 
 [radashi@13.1.0]: https://github.com/radashi-org/radashi/compare/v13.0.4..v13.1.0
 
