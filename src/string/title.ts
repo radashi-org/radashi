@@ -14,10 +14,13 @@ import { capitalize } from 'radashi'
  * @version 12.1.0
  */
 export function title(str: string): string {
-  return str
-    .split(/(?=[A-Z])|[\.\-\s_]/)
-    .map(s => s.trim())
-    .filter(s => !!s)
-    .map(s => capitalize(s.toLowerCase()))
-    .join(' ')
+  const parts = str.split(/(?=[A-Z])|[\.\-\s_]/)
+  let result = ''
+  for (const part of parts) {
+    const word = part.trim()
+    if (word) {
+      result += (result ? ' ' : '') + capitalize(word)
+    }
+  }
+  return result
 }
