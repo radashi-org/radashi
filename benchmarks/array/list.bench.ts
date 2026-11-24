@@ -21,4 +21,8 @@ describe('list', () => {
     const obj = { name: 'radashi' }
     _.list(0, 3, obj)
   })
+
+  bench('with 1000 items', () => {
+    _.list(0, 999)
+  })
 })

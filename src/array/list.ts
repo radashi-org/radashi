@@ -1,4 +1,4 @@
-import { range } from 'radashi'
+import { isFunction } from 'radashi'
 
 /**
  * Creates a list of given start, end, value, and step parameters.
@@ -21,8 +21,18 @@ import { range } from 'radashi'
 export function list<T = number>(
   startOrLength: number,
   end?: number,
-  valueOrMapper?: T | ((i: number) => T),
-  step?: number,
+  valueOrMapper: T | ((i: number) => T) = i => i as T,
+  step = 1,
 ): T[] {
-  return Array.from(range(startOrLength, end, valueOrMapper, step))
+  const mapper = isFunction(valueOrMapper) ? valueOrMapper : () => valueOrMapper
+  const start = end !== undefined ? startOrLength : 0
+  const final = end ?? startOrLength
+  if (start <= final && step <= 0) {
+    throw new RangeError('Range step must be greater than zero')
+  }
+  const result: T[] = []
+  for (let i = start; i <= final; i += step) {
+    result.push(mapper(i))
+  }
+  return result
 }
