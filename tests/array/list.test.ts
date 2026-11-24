@@ -12,6 +12,7 @@ describe('list', () => {
     expect(_.list(0, 3, i => `y${i}`)).toEqual(['y0', 'y1', 'y2', 'y3'])
     expect(_.list(0, 3, obj)).toEqual([obj, obj, obj, obj])
     expect(_.list(0, 6, i => i, 2)).toEqual([0, 2, 4, 6])
+    expect(_.list(-3, 0)).toEqual([-3, -2, -1, 0])
   })
   test('omits end if step does not land on it', () => {
     const result = _.list(0, 5, i => i, 2)
@@ -20,5 +21,11 @@ describe('list', () => {
   test('returns start only if step larger than end', () => {
     const result = _.list(0, 5, i => i, 20)
     expect(result).toEqual([0])
+  })
+  test('rejects steps that cannot progress toward the end', () => {
+    expect(() => _.list(0, 4, i => i, 0)).toThrow(RangeError)
+    expect(() => _.list(0, 4, i => i, -1)).toThrow(RangeError)
+    expect(() => _.list(0, 4, undefined, 0)).toThrow(RangeError)
+    expect(_.list(4, 0, i => i, -1)).toEqual([])
   })
 })
