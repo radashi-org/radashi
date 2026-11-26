@@ -20,3 +20,13 @@ _.noop() // => undefined
 
 - **Shouldn't I just use `?.` operator?**  
   Where possible, yes you should. The `noop` is best for cases where you're not in control of the code that calls it and a function is required.
+
+### Search terms
+
+- Often called `getUndefined`, `doNothing`, or `emptyCallback`.
+
+### Popular use cases
+
+- Providing a placeholder function where a callback is required but no action is needed, such as in optional event handlers or asynchronous operations.
+- Preventing potential errors by using it as a default argument for functions expecting callbacks, ensuring graceful handling of undefined or null callbacks.
+- Serving as a no-op for testing scenarios, mock functions, or as a temporary placeholder during development.
