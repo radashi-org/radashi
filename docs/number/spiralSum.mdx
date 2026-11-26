@@ -1,0 +1,39 @@
+---
+title: spiralSum
+description: Calculates the sum of numbers in a spiral pattern
+---
+
+### Usage
+
+The `spiralSum` function calculates the sum of numbers in a unique spiral pattern up to a specified number of terms.
+
+```ts
+import { spiralSum } from 'radashi'
+
+spiralSum(5) // => 25
+```
+
+### How It Works
+
+The spiral pattern is formed by summing consecutive odd numbers:
+
+1. First term: 1
+2. Second term: 1 + 3 = 4
+3. Third term: 1 + 3 + 5 = 9
+4. Fourth term: 1 + 3 + 5 + 7 = 16
+5. Fifth term: 1 + 3 + 5 + 7 + 9 = 25
+
+And so on...
+
+### Edge Cases
+
+- If `n` is 0 or negative, the function returns 0.
+
+```ts
+spiralSum(0) // => 0
+spiralSum(-1) // => 0
+```
+
+## Notes
+
+This function is primarily used for testing and demonstration purposes. It provides a simple way to generate an interesting numerical sequence based on a spiral pattern of odd numbers.
