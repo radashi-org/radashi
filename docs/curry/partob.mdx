@@ -17,3 +17,14 @@ const addFive = _.partob(add, { a: 5 })
 
 addFive({ b: 2 }) // => 7
 ```
+
+### Search terms
+
+- Often called `partialObject`, `partob`, or `partialProps`
+
+### Popular use cases
+
+- Partially applying default properties or options to a function that accepts a single object argument, reducing code repetition.
+- Creating specialized versions of object-based functions by pre-filling certain properties while allowing others to be supplied later.
+- Simplifying configuration-heavy functions by breaking them down into smaller steps, where each step completes the object with additional fields.
+- Reducing verbosity when working with functions that rely heavily on object destructuring by providing default values upfront.

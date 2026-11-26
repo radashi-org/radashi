@@ -37,3 +37,14 @@ const decomposed = useZero(objectize(increment(increment(_.returnArg('num')))))
 
 decomposed() // => 2
 ```
+
+### Search terms
+
+- Often called `composeFunctions`, `chain`, or `pipeline`
+
+### Popular use cases
+
+- Combining multiple transformation functions into a single function to process data sequentially.
+- Creating middleware stacks where each function modifies data and passes it to the next one.
+- Building reusable and composable utility functions by composing different operations in a modular way.
+- Simplifying complex logic by breaking it into smaller, maintainable pieces that are composed together.
