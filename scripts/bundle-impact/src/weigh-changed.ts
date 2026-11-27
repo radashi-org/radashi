@@ -3,38 +3,29 @@ import { execa } from 'execa'
 import { cluster } from 'radashi/array/cluster.ts'
 import { select } from 'radashi/array/select.ts'
 import { map } from 'radashi/async/map.ts'
+import { gitSource, readSourceTree } from './git-source.ts'
 
 export async function weighChangedFunctions(
-  opts: { verbose?: boolean; targetBranch?: string } = {},
+  opts: {
+    targetBranch?: string
+    commits?: { base: string; head: string }
+  } = {},
 ) {
-  const targetBranch = opts.targetBranch ?? (await getTargetBranch())
-  if (opts.verbose) {
-    console.log('targetBranch == %O', targetBranch)
-  }
+  const markdown = opts.commits !== undefined
+  const sizes = opts.commits
+    ? await measureCommits(opts.commits)
+    : await measureWorkingTree(opts.targetBranch ?? (await getTargetBranch()))
 
-  const changedFiles = await getChangedFiles(targetBranch)
-  if (opts.verbose) {
-    console.log('changedFiles == %O', changedFiles)
-  }
-
-  const prevSizes = await getPreviousSizes(changedFiles, targetBranch)
-  if (opts.verbose) {
-    console.log('prevSizes == %O', prevSizes)
-  }
-
-  const existingFilesAffected = prevSizes.some(size => size !== 0)
+  const existingFilesAffected = sizes.some(file => file.prevBytes !== 0)
 
   let body = ''
 
   const appendLine = (line: string) => (body += line + '\n')
 
-  await map(changedFiles, async ({ status, name }, i) => {
-    const prevBytes = prevSizes[i]
-
-    const bytes = await getFileSize(name, status)
+  for (const { status, name, prevBytes, bytes } of sizes) {
     const diff = bytes - prevBytes
     if (diff === 0) {
-      return
+      continue
     }
 
     const diffStr = (diff > 0 ? '+' : '') + diff
@@ -45,8 +36,12 @@ export async function weighChangedFunctions(
       ratioStr = ` (${ratio >= 0 ? '+' : ''}${ratio}%)`
     }
 
-    if (process.env.CI) {
-      const columns = [status, `\`${name}\``, bytes]
+    if (markdown) {
+      const pathText = name.replace(
+        /[&<>|`\r\n]/g,
+        ch => `&#${ch.charCodeAt(0)};`,
+      )
+      const columns = [status, `<code>${pathText}</code>`, bytes]
       if (existingFilesAffected) {
         columns.push(diffStr + ratioStr)
       }
@@ -58,9 +53,9 @@ export async function weighChangedFunctions(
         appendLine(`${name}: ${bytes} bytes`)
       }
     }
-  })
+  }
 
-  if (process.env.CI && body.length > 0) {
+  if (markdown && body.length > 0) {
     const columns = ['Status', 'File', 'Size [^1337]']
     if (existingFilesAffected) {
       columns.push('Difference')
@@ -81,6 +76,42 @@ export async function weighChangedFunctions(
   return body
 }
 
+async function measureCommits({ base, head }: { base: string; head: string }) {
+  const [before, after] = await Promise.all([
+    readSourceTree(base),
+    readSourceTree(head),
+  ])
+  const buildBefore = gitSource(before)
+  const buildAfter = gitSource(after)
+  const files = [...new Set([...before.keys(), ...after.keys()])].sort()
+  const sizes = []
+  for (const name of files) {
+    const oldOid = before.get(name)
+    const newOid = after.get(name)
+    if (oldOid === newOid || !/^src\/[^/]+\/[\s\S]+\.ts$/.test(name)) {
+      continue
+    }
+    sizes.push({
+      name,
+      status: !oldOid ? 'A' : !newOid ? 'D' : 'M',
+      prevBytes: oldOid ? await getFileSize(name, [buildBefore]) : 0,
+      bytes: newOid ? await getFileSize(name, [buildAfter]) : 0,
+    })
+  }
+  return sizes
+}
+
+async function measureWorkingTree(targetBranch: string) {
+  const files = await getChangedFiles(targetBranch)
+  const previousSizes = await getPreviousSizes(files, targetBranch)
+  return map(files, async ({ status, name }, i) => ({
+    status,
+    name,
+    prevBytes: previousSizes[i],
+    bytes: status === 'D' ? 0 : await getFileSize(name),
+  }))
+}
+
 async function getTargetBranch(): Promise<string> {
   try {
     const { stdout } = await execa('gh', [
@@ -98,13 +129,11 @@ async function getTargetBranch(): Promise<string> {
 }
 
 async function getChangedFiles(targetBranch: string) {
-  // When run by CI, the PR changes have been checked out and will be
-  // staged. When run via the `pnpm bundle-impact` command, we need to
-  // diff the current branch against the target branch.
   const { stdout } = await execa('git', [
     'diff',
     '--name-status',
-    ...(process.env.CI ? ['--staged'] : [`origin/${targetBranch}`, 'HEAD']),
+    `origin/${targetBranch}`,
+    'HEAD',
     '--',
     'src/**/*.ts',
   ])
@@ -123,39 +152,27 @@ async function getPreviousSizes(
 ): Promise<number[]> {
   const prevSizes: number[] = []
 
-  if (
-    process.env.CI ||
-    (await execa('git', ['status', '-s'])).stdout.trim() === ''
-  ) {
-    await execa('git', process.env.CI ? ['stash'] : ['checkout', targetBranch])
+  if ((await execa('git', ['status', '-s'])).stdout.trim() === '') {
+    await execa('git', ['checkout', targetBranch])
 
     for (const { status, name } of changedFiles) {
       if (status === 'A') {
         prevSizes.push(0)
       } else {
-        const result = await esbuild.build({
-          entryPoints: [name],
-          format: 'esm',
-          bundle: true,
-          minify: true,
-          legalComments: 'none',
-          write: false,
-        })
-        const output = result.outputFiles[0].contents
-        prevSizes.push(output.length)
+        prevSizes.push(await getFileSize(name))
       }
     }
 
-    await execa('git', process.env.CI ? ['stash', 'pop'] : ['checkout', '-'])
+    await execa('git', ['checkout', '-'])
   }
 
   return prevSizes
 }
 
-async function getFileSize(file: string, status: string): Promise<number> {
-  if (status === 'D') {
-    return 0
-  }
+async function getFileSize(
+  file: string,
+  plugins?: esbuild.Plugin[],
+): Promise<number> {
   const result = await esbuild.build({
     entryPoints: [file],
     format: 'esm',
@@ -163,6 +180,7 @@ async function getFileSize(file: string, status: string): Promise<number> {
     minify: true,
     legalComments: 'none',
     write: false,
+    ...(plugins && { plugins, logLevel: 'silent', tsconfigRaw: '{}' }),
   })
   const output = result.outputFiles[0].contents
   return output.length

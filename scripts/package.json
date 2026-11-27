@@ -1,4 +1,7 @@
 {
   "type": "module",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "tsx": "4.19.1"
+  }
 }

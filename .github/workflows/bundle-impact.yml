@@ -5,42 +5,57 @@ on:
     branches: [main, next]
     types: [opened, synchronize]
 
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: bundle-impact-${{ github.event.number }}
+  cancel-in-progress: true
+
 jobs:
   bundle-impact:
     name: Calculate Bundle Impact
     if: github.event.pull_request.user.login != 'renovate[bot]' && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
 
-      - name: Checkout Pull Request
-        id: checkout
+      - name: Fetch PR objects without checking them out
+        id: fetch
         env:
-          PR_REPO_URL: ${{ github.event.pull_request.head.repo.clone_url }}
-          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_NUMBER: ${{ github.event.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          git remote add pr $PR_REPO_URL
-          git fetch pr "$PR_HEAD_REF"
-          git checkout "pr/$PR_HEAD_REF" -- src
-
-          if [ -z "$(git status --porcelain)" ]; then
-            echo '::set-output name=has_changes::false'
-          else
-            echo '::set-output name=has_changes::true'
+          git fetch --no-tags --no-recurse-submodules --depth=1 origin "refs/pull/$PR_NUMBER/head"
+          if [ "$(git rev-parse FETCH_HEAD)" = "$PR_HEAD_SHA" ]; then
+            echo "matches_event=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Install pnpm
-        if: steps.checkout.outputs.has_changes == 'true'
-        uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+        if: steps.fetch.outputs.matches_event == 'true'
 
-      - name: Install Node.js
-        if: steps.checkout.outputs.has_changes == 'true'
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        if: steps.fetch.outputs.matches_event == 'true'
+        with:
+          node-version: 24
 
-      - name: Run Bundle Impact
-        if: steps.checkout.outputs.has_changes == 'true'
-        env:
-          RADASHI_BOT_TOKEN: ${{ secrets.RADASHI_BOT_TOKEN }}
-          TARGET_BRANCH: ${{ github.base_ref }}
+      - name: Install locked dependencies
+        if: steps.fetch.outputs.matches_event == 'true'
         run: |
-          node scripts/run bundle-impact ${{ github.event.number }}
+          pnpm --dir scripts install --frozen-lockfile
+          pnpm --dir scripts/bundle-impact install --lockfile-dir "$GITHUB_WORKSPACE/scripts" --frozen-lockfile
+
+      - name: Measure bundle impact
+        if: steps.fetch.outputs.matches_event == 'true'
+        run: scripts/node_modules/.bin/tsx scripts/bundle-impact/src/main.ts measure "$RUNNER_TEMP/bundle-impact.md"
+
+      - name: Update PR description
+        if: steps.fetch.outputs.matches_event == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: scripts/node_modules/.bin/tsx scripts/bundle-impact/src/main.ts publish "$RUNNER_TEMP/bundle-impact.md"

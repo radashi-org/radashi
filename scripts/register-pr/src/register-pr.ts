@@ -3,6 +3,7 @@ import { memo } from 'radashi/curry/memo.ts'
 import { algolia } from 'radashi-db/algolia.ts'
 import { supabase, type TablesInsert } from 'radashi-db/supabase.ts'
 import { renderPageMarkdown } from './markdown.ts'
+import { getNewFunctions } from './new-functions.ts'
 
 type PrFileStatus =
   | 'added'
@@ -73,13 +74,7 @@ export const registerPullRequest = async (
   const getCommit = memo(context.getCommit)
 
   try {
-    const newFunctions = context.files.filter(
-      file =>
-        file.status === 'added' &&
-        file.filename.startsWith('src/') &&
-        file.filename.endsWith('.ts') &&
-        !file.filename.endsWith('.test.ts'),
-    )
+    const newFunctions = getNewFunctions(context.files)
 
     if (newFunctions.length === 0) {
       console.log('No new functions added in this PR.')
